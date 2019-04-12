@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html class="nojs html css_verticalspacer" xmlns:th="http://www.thymeleaf.org" lang="ru-RU">
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <meta name="generator" content="2018.0.0.379"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>jds_III</title>
+    <link rel="stylesheet" type="text/css" href="../ststic/css/logo.css" th:href="@{/css/logo.css}" />
+</head>
+
+<body>
+<div align="center">
+    <div class="logo">
+        <h1>Door Seller III</h1>
+    </div><!--/wrap-->
+
+    <div class="container">
+        <c:url value="/j_spring_security_check" var="loginUrl" />
+        <form action="${loginUrl}" method="post">
+            <h2 class="form-signin-heading">Log in to your account</h2>
+            <input type="text" class="form-control" name="j_username" placeholder="Email address">
+            <input type="password" class="form-control" name="j_password" placeholder="Password">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">sign in</button>
+        </form>
+    </div>
+
+    <div class="basement">
+        <h5> "© 2019 sibsteel"</h5>
+    </div><!--/wrap-->
+</div>
+</body>
+
+</html>
