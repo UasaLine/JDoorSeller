@@ -5,29 +5,27 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
     <meta name="generator" content="2018.0.0.379"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>jds_III</title>
-    <link rel="stylesheet" type="text/css" href="../ststic/css/logo.css" th:href="@{/css/logo.css}" />
+    <title>door seller</title>
+    <link rel="stylesheet" type="text/css" href="../ststic/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
 </head>
 
 <body>
-<div align="center">
-    <div class="logo">
-        <h1>Door Seller III</h1>
-    </div><!--/wrap-->
 
-    <div class="container">
-        <c:url value="/j_spring_security_check" var="loginUrl" />
-        <form action="${loginUrl}" method="post">
-            <h2 class="form-signin-heading">Log in to your account</h2>
-            <input type="text" class="form-control" name="j_username" placeholder="Email address">
-            <input type="password" class="form-control" name="j_password" placeholder="Password">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">sign in</button>
-        </form>
-    </div>
 
-    <div class="basement">
-        <h5> "© 2019 sibsteel"</h5>
-    </div><!--/wrap-->
+
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<div class="container" style="width: 200px">
+    <form th:action="@{/login}" method="post">
+        <h2 class="form-signin-heading">Log in </h2>
+        <div><label> User Name : <input type="text" name="username" class="form-control" placeholder="Email address"/> </label></div>
+        <div><label> Password: <input type="password" name="password" class="form-control" placeholder="Password"/> </label></div>
+        <div><input type="submit" value="Sign In" class="btn btn-lg btn-primary btn-block"/></div>
+    </form>
 </div>
 </body>
 

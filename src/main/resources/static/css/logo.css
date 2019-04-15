@@ -1,11 +1,60 @@
-
-
-html, body {
-  height: 100%;
+body{
+	//background:#DCDCDC;
 }
 
-body {
-  background: linear-gradient(#9370DB, #483D8B);
-  margin: 0;
+
+.contaner{
+	
 }
 
+.top_head{
+	background-color:#4682B4;
+	padding: 3px 3px 3px 3px;	
+	width:100%;
+	max-width:1300px;
+	margin:0 auto;
+	
+}
+
+
+.header_logo{
+	padding: 10px 10px 10px 30px;
+	display:inline-block;
+}
+.header_home{
+	padding: 10px 10px 10px 50px;
+	display:inline-block;
+}
+
+.logo_text{
+	font-size:30px;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	color:#E0FFFF;
+	text-decoration: none;
+}
+.logo_home{
+	font-size:20px;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	color:#E0FFFF;
+	text-decoration: none;
+}
+
+.lending_text{	
+	padding: 3px 3px 3px 3px;
+	width:100%;
+	max-width:1300px;
+	margin:0 auto;
+	
+}
+.lending_text2{	
+	padding: 3px 3px 3px 3px;
+	width:100%;
+	max-width:1300px;
+	margin:0 auto;
+	background:#DCDCDC;
+}
+.lending_text1{	
+	font-size:200px;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	color:#4682B4;	
+}
