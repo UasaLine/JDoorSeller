@@ -41,6 +41,11 @@
             <groupId>javax.servlet</groupId>           <!-- for jsp jstl tags-->
             <artifactId>jstl</artifactId>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <properties>

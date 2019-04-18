@@ -1,4 +1,4 @@
-package hello;
+package jds3;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -11,7 +11,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("home2");
         registry.addViewController("/").setViewName("home2");
-        registry.addViewController("/hello").setViewName("hello2");
+        registry.addViewController("/jds3").setViewName("hello2");
         registry.addViewController("/login").setViewName("login2");
     }
 
