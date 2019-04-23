@@ -8,7 +8,7 @@ import java.util.List;
 public class DoorClass {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -19,14 +19,14 @@ public class DoorClass {
     private String description;
 
     @Column(name = "fireproof", nullable = false)
-    private boolean fireproof;
+    private int fireproof;
 
     @Column(name = "hot", nullable = false)
-    private boolean hot;
+    private int hot;
 
-    private List<Limitation> limitationList;
+    //private List<Limitation> limitationList;
 
-    private List<DoorType> doorTypeList;
+    //private List<DoorType> doorTypeList;
 
 
     public DoorClass() {
@@ -58,18 +58,35 @@ public class DoorClass {
     }
 
     public boolean isFireproof() {
-        return fireproof;
+
+        if (this.fireproof == 1)
+            return true;
+        else
+            return false;
+
     }
 
     public void setFireproof(boolean fireproof) {
-        this.fireproof = fireproof;
+
+        if (fireproof)
+            this.fireproof = 1;
+        else
+            this.fireproof = 0;
     }
 
     public boolean isHot() {
-        return hot;
+        if (this.hot == 1)
+            return true;
+        else
+            return false;
+
     }
 
     public void setHot(boolean hot) {
-        this.hot = hot;
+
+        if (hot)
+            this.hot = 1;
+        else
+            this.hot = 0;
     }
 }
