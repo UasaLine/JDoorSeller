@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<h1>test page</h1>
+<input type="button" value="POST XML" name="a" OnClick="a();">
+<script type='text/javascript'>
+    function a() {
+        //сформируем xml
+        var xmlData = '<?xml version="1.0" encoding="UTF-8"?>';
+        xmlData += '<jobs>';
+        xmlData += '<job id="1">';
+        xmlData += '<type>print</type>';
+        xmlData += '<user>user1</user>';
+        xmlData += '<device>device1</device>';
+        xmlData += '<amount>10</amount>';
+        xmlData += '</job>';
+        xmlData += '<job id="2">';
+        xmlData += '<type>scan</type>';
+        xmlData += '<user>user1</user>';
+        xmlData += '<device>device1</device>';
+        xmlData += '<amount>12</amount>';
+        xmlData += '</job>';
+        xmlData += '<job id="3">';
+        xmlData += '<type>fax</type>';
+        xmlData += '<user>user2</user>';
+        xmlData += '<device>device1</device>';
+        xmlData += '<amount>5</amount>';
+        xmlData += '</job>';
+        xmlData += '</jobs>';
+        //отправим xml
+        $.ajax({
+            type: "POST",                 //метод запроса, можно POST можно GET (если опустить, то по умолчанию GET)
+            url: "http://localhost:8080/",            //серверный скрипт принимающий запрос
+            data: {request: xmlData}, //можно передать переменную с xml в одном из параметре запроса
+            dataType: 'json',
+            success: function (data) {
+                alert('success: ' + data.user1);
+            },
+            error: function (data) {
+                alert('error:' + data);
+            }
+        });
+    }
+</script>
+
+<div>
+    <form method="get" action="/statistics" target="_self" id="searchForm"/>
+    <input type="text" name="user" placeholder="write the user here..">
+    <input type="text" name="type" placeholder="write the type here.."/>
+    <input type="text" name="device" placeholder="write the device here.."/>
+    <input type="datetime-local" name="timeFrom" placeholder="write the timeFrom here.."/>
+    <input type="datetime-local" name="timeTo" placeholder="write the timeTo here.."/>
+    <input type='submit' value='get statistics'/>
+    </form>
+</div>
+
+</body>
+</html>
