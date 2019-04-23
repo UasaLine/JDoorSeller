@@ -4,6 +4,7 @@ import jds3.entity.DoorClass;
 import jds3.entity.LimitationDoor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,8 +30,8 @@ public class DoorClassDAO {
 
         DoorClass doorClass = new DoorClass();
         doorClass.setName("DPD");
-        doorClass.setHot(false);
-        doorClass.setFireproof(false);
+        doorClass.setHot(0);
+        doorClass.setFireproof(0);
         doorClass.setDescription("пример");
         session.saveOrUpdate(doorClass);
 
@@ -51,11 +52,19 @@ public class DoorClassDAO {
 
     }
 
-    public DoorClass getDoorClass() {
+    public List<DoorClass> getDoorClass() {
 
         Session session = sessionFactory.openSession();
-        DoorClass doorClass = (DoorClass) session.load(DoorClass.class, 4);
-        return doorClass;
+
+        String sql = "select * from door_class";
+        Query query = session.createSQLQuery(sql).addEntity(DoorClass.class);
+
+        List<DoorClass> list = query.list();
+
+        //List<DoorClass> list = session.createCriteria(DoorClass.class).list();
+
+
+        return list;
 
     }
 }

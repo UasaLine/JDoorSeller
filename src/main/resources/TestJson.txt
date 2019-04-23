@@ -1,0 +1,7 @@
+{"id":500, "name":"DSN_pro", "description":"индивидуальная", "fireproof":0,"hot":0}
+
+
+
+
+
+

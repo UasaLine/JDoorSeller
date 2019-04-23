@@ -58,38 +58,6 @@ public class DoorClass {
         this.description = description;
     }
 
-    public boolean isFireproof() {
-
-        if (this.fireproof == 1)
-            return true;
-        else
-            return false;
-
-    }
-
-    public void setFireproof(boolean fireproof) {
-
-        if (fireproof)
-            this.fireproof = 1;
-        else
-            this.fireproof = 0;
-    }
-
-    public boolean isHot() {
-        if (this.hot == 1)
-            return true;
-        else
-            return false;
-
-    }
-
-    public void setHot(boolean hot) {
-
-        if (hot)
-            this.hot = 1;
-        else
-            this.hot = 0;
-    }
 
     public List<LimitationDoor> getLimitationList() {
         return limitationList;
