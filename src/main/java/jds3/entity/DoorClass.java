@@ -24,7 +24,8 @@ public class DoorClass {
     @Column(name = "hot", nullable = false)
     private int hot;
 
-    //private List<Limitation> limitationList;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass", cascade = CascadeType.ALL)
+    private List<LimitationDoor> limitationList;
 
     //private List<DoorType> doorTypeList;
 
@@ -88,5 +89,29 @@ public class DoorClass {
             this.hot = 1;
         else
             this.hot = 0;
+    }
+
+    public List<LimitationDoor> getLimitationList() {
+        return limitationList;
+    }
+
+    public void setLimitationList(List<LimitationDoor> limitationList) {
+        this.limitationList = limitationList;
+    }
+
+    public int getFireproof() {
+        return fireproof;
+    }
+
+    public void setFireproof(int fireproof) {
+        this.fireproof = fireproof;
+    }
+
+    public int getHot() {
+        return hot;
+    }
+
+    public void setHot(int hot) {
+        this.hot = hot;
     }
 }
