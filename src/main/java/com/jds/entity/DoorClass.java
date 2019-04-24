@@ -1,4 +1,4 @@
-package jds3.entity;
+package com.jds.entity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,11 +27,9 @@ public class DoorClass {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass", cascade = CascadeType.ALL)
     private List<LimitationDoor> limitationList;
 
-    //private List<DoorType> doorTypeList;
-
 
     public DoorClass() {
-
+        //empty constructor
     }
 
     public int getId() {

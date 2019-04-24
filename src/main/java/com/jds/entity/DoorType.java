@@ -1,4 +1,4 @@
-package jds3.entity;
+package com.jds.entity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -51,7 +51,7 @@ public class DoorType {
     }
 
     public DoorType() {
-
+        //empty constructor
     }
 
     public int getId() {

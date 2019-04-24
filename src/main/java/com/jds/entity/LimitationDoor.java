@@ -1,4 +1,4 @@
-package jds3.entity;
+package com.jds.entity;
 
 import javax.persistence.*;
 

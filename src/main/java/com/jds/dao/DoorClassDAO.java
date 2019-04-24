@@ -1,7 +1,7 @@
-package jds3.dao;
+package com.jds.dao;
 
-import jds3.entity.DoorClass;
-import jds3.entity.LimitationDoor;
+import com.jds.entity.DoorClass;
+import com.jds.entity.LimitationDoor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

@@ -1,4 +1,4 @@
-package jds3;
+package com.jds;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
