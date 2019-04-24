@@ -34,10 +34,10 @@ public class MainController {
 
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateDoorClass(@RequestParam("request") String dataJson) {
+    public String updateDoorClass(@RequestParam("request") String data,@RequestBody DoorClass dataJson) {
 
-
-        StringReader reader = new StringReader(dataJson);
+/*
+        StringReader reader = new StringReader(data);
         ObjectMapper mapper = new ObjectMapper();
 
         DoorClass doorClass;
@@ -46,7 +46,7 @@ public class MainController {
         } catch (IOException e) {
             System.out.println("ERROR: JSON DOWN!!!");
         }
-
+*/
 
         return "jr";
     }
