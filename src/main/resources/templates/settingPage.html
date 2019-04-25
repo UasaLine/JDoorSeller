@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JDS setting</title>
+    <link rel="stylesheet" type="text/css" href="css/logo.css" />
+</head>
+<body>
+<div class="top_head">
+    <div class="header_logo" >
+        <a href="https://doorseller.herokuapp.com" class="logo_text">door seller</a>
+    </div>
+    <div class="header_home" >
+        <a href="#" class="logo_home">новая дверь</a>
+    </div>
+    <div class="header_home" >
+        <a href="#" class="logo_home">заказы</a>
+    </div>
+    <div class="header_home" >
+        <a href="#" class="logo_home">настройки</a>
+    </div>
+    <div class="header_home" >
+        <span class="logo_home" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span>
+    </div>
+    <div class="header_home" >
+        <form th:action="@{/logout}" method="post">
+            <input class="logo_home" type="submit" value="Sign Out"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

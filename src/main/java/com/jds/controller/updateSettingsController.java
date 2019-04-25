@@ -23,7 +23,8 @@ public class UpdateSettingsController {
 
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateDoorClass(@RequestParam(required = false) String kay,@RequestParam(required = false) String dataJson) throws Exception {
+    public String updateDoorClass(@RequestParam(required = false) String kay,
+                                  @RequestParam(required = false) String dataJson) throws Exception {
 
 
         StringReader reader = new StringReader(dataJson);
@@ -46,9 +47,14 @@ public class UpdateSettingsController {
 
     @PostMapping(value = "/update/doortype", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateDoorType(@RequestParam("request") String data,@RequestBody DoorType dataJson) {
+    public String updateDoorType(@RequestParam(required = false) String kay,
+                                 @RequestParam(required = false) String dataJson) throws Exception {
 
-        mainDAO.saveOrUpdateDoorType(dataJson);
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        DoorType doorType = mapper.readValue(reader, DoorType.class);
+        mainDAO.saveOrUpdateDoorType(doorType);
 
         return "jr";
     }
