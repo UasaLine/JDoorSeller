@@ -48,6 +48,11 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdateDoorType(DoorType doorType) {
 
+        int id = getDooTypeId(doorType.getName());//check exists
+        if (id>0){
+            doorType.setId(id);
+        }
+
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(doorType);
 
@@ -75,6 +80,23 @@ public class MainDAO {
 
         if(doorClassList.size()>0){
             return doorClassList.get(0).getId();
+        }
+        return 0;
+
+    }
+    public int getDooTypeId(String name){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_type where name like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (DoorType.class)
+                .setParameter ("log", name);
+        List<DoorType> doorTypeList = query.list();
+
+        if(doorTypeList.size()>0){
+            return doorTypeList.get(0).getId();
         }
         return 0;
 
