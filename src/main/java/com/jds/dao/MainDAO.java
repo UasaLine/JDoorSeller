@@ -117,4 +117,19 @@ public class MainDAO {
         return list;
 
     }
+
+    public List<DoorType> getDoorType() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from door_type";
+        Query query = session.createSQLQuery(sql).addEntity(DoorType.class);
+
+        List<DoorType> list = query.list();
+
+
+        return list;
+
+    }
+
 }
