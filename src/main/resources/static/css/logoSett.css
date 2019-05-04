@@ -1,0 +1,139 @@
+body{
+	
+}
+
+
+.contaner{
+	
+}
+
+.top_head{
+	background-color:#245882;
+	padding: 3px 3px 3px 3px;	
+	width:100%;
+	max-width:1300px;
+	margin:0 auto;
+	
+}
+
+
+.header_logo{
+	padding: 10px 10px 10px 30px;
+	display:inline-block;
+}
+.header_home{
+	padding: 10px 10px 10px 50px;
+	display:inline-block;
+}
+
+.logo_text{
+	font-size:30px;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	color:#B0C4DE;
+	text-decoration: none;
+}
+.logo_home{
+	font-size:20px;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	color:#B0C4DE;
+	text-decoration: none;
+}
+
+.lending_text{	
+	padding: 3px 3px 3px 3px;
+	width:100%;
+	max-width:1300px;
+	margin:0 auto;
+	
+}
+.lending_text2{	
+	padding: 3px 3px 3px 3px;
+	width:100%;
+	max-width:1300px;
+	margin:0 auto;
+	background:#DCDCDC;
+}
+.lending_text1{	
+	font-size:200px;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	color:#B0C4DE;	
+}
+.conten_body{
+	max-width:1301px;
+	margin:0 auto;
+}	
+.ac-container{
+
+	background-color:#ededed;
+	max-width:300px;
+	width:200px;
+	height:600px;
+	position: relative;
+	top: 10px;
+	display:inline-block;
+	
+}
+h2 {
+ color: #000000;
+ font-size: 30px;
+ font-weight: 800;
+ padding: 45px 0 15px;
+ cursor:pointer;
+}
+.accordion {
+ //border: 2px solid #ddd;
+ border-top: none;
+ margin: 10px 0;
+ float: left;
+// width: 470px;
+ position: relative;
+ background-color: #ededed;
+}
+.accordion a {
+ display: block;
+ text-decoration: none;
+}
+.accordion h2, .accordion a{
+	background-color: #ededed;
+	//background-image: url(gradient.jpg);
+	//background-image: -moz-linear-gradient(bottom, #f1f1f1, #fff);
+	//background-image: -ms-linear-gradient(bottom, #f1f1f1, #fff);
+	//background-image: -o-linear-gradient(bottom, #f1f1f1, #fff);
+	//background-image: -webkit-linear-gradient(bottom, #f1f1f1, #fff);
+	//background-image: linear-gradient(bottom, #f1f1f1, #fff);
+	//border-top: 1px solid #ddd;
+	color: #000000;
+	font-weight: 800;
+	font: 14px/30px 'Verdana', sans-serif;
+	height: 30px; 
+	margin: 0; 
+	padding: 0;
+	text-indent: 10px;
+}
+p {
+ background-color: #ededed;
+ color: #555;
+ font: 12px/18px 'Verdana', sans-serif;
+ padding: 3px 20px;
+}
+ 
+a[href^="#accordion"] + *{display: none;}
+#accordion-css3 :target{display: block;}
+
+.data-Table{
+	top: 10px;
+	left:10px;
+	height:600px;
+	display:inline-block;
+	position: relative;
+	margin-top:10px;
+}
+.Table{
+
+}
+th{
+	padding: 10px 10px 10px 30px;
+}
+td{
+	padding: 10px 10px 10px 30px;
+}
