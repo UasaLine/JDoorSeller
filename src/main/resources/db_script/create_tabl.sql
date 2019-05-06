@@ -56,3 +56,15 @@ create table Size_Door_Parts
   `quantity` VARCHAR(100) NOT NULL
 );
 
+
+DROP TABLE IF EXISTS Metal;
+create table Metal
+(
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_manufacturer_program` VARCHAR(12) NOT NULL,
+  `name`  VARCHAR(100) NOT NULL,
+  `name_displayed` VARCHAR(100),
+  `index_heft` INT(11),
+  `is_used` VARCHAR(100) NOT NULL
+);
+
