@@ -12,19 +12,19 @@ public class Metal {
     private int id;
 
     @Column(name = "id_manufacturer_program", nullable = false)
-    private String id_manufacturer_program;
+    private String idManufacturerProgram;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "name_displayed", nullable = false)
-    private String name_displayed;
+    private String nameDisplayed;
 
     @Column(name = "index_heft")
-    private int index_heft;
+    private int indexHeft;
 
     @Column(name = "is_used")
-    private int is_used;
+    private int isUsed;
 
     public Metal() {
         //empty constructor
@@ -38,12 +38,12 @@ public class Metal {
         this.id = id;
     }
 
-    public String getId_manufacturer_program() {
-        return id_manufacturer_program;
+    public String getIdManufacturerProgram() {
+        return idManufacturerProgram;
     }
 
-    public void setId_manufacturer_program(String id_manufacturer_program) {
-        this.id_manufacturer_program = id_manufacturer_program;
+    public void setIdManufacturerProgram(String idManufacturerProgram) {
+        this.idManufacturerProgram = idManufacturerProgram;
     }
 
     public String getName() {
@@ -54,27 +54,27 @@ public class Metal {
         this.name = name;
     }
 
-    public String getName_displayed() {
-        return name_displayed;
+    public String getNameDisplayed() {
+        return nameDisplayed;
     }
 
-    public void setName_displayed(String name_displayed) {
-        this.name_displayed = name_displayed;
+    public void setNameDisplayed(String nameDisplayed) {
+        this.nameDisplayed = nameDisplayed;
     }
 
-    public int getIndex_heft() {
-        return index_heft;
+    public int getIndexHeft() {
+        return indexHeft;
     }
 
-    public void setIndex_heft(int index_heft) {
-        this.index_heft = index_heft;
+    public void setIndexHeft(int indexHeft) {
+        this.indexHeft = indexHeft;
     }
 
-    public int getIs_used() {
-        return is_used;
+    public int getIsUsed() {
+        return isUsed;
     }
 
-    public void setIs_used(int is_used) {
-        this.is_used = is_used;
+    public void setIsUsed(int isUsed) {
+        this.isUsed = isUsed;
     }
 }
