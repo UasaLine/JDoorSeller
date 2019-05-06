@@ -68,3 +68,24 @@ create table Metal
   `is_used` VARCHAR(100) NOT NULL
 );
 
+DROP TABLE IF EXISTS Door_Furniture;
+create table Door_Furniture
+(
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `idManufacturerProgram` VARCHAR(12) NOT NULL,
+  `name`  VARCHAR(100) NOT NULL,
+  `quantity` INT(11),
+  `itCylinderLock` INT(11),
+  `isTwoSectionLock` INT(11),
+  `comment` VARCHAR(100),
+  `longKey` INT(11),
+  `bugelHandle` INT(11),
+  `аrmorLock` INT(11),
+  `picturePathFirst` VARCHAR(100),
+  `picturePathSecond` VARCHAR(100),
+  `sketchPathFirst` VARCHAR(100),
+  `sketchPathSecond` VARCHAR(100),
+  `forWarmDoors` INT(11),
+  `numberOfDoorLeaves` INT(11)
+);
+
