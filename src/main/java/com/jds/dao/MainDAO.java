@@ -4,6 +4,7 @@ import com.jds.entity.DoorClass;
 import com.jds.entity.DoorType;
 import com.jds.entity.LimitationDoor;
 import com.jds.entity.SizeOfDoorParts;
+import com.jds.model.FireproofDoor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -132,4 +134,11 @@ public class MainDAO {
 
     }
 
+    public List<FireproofDoor> getlistDoor(){
+
+        List<FireproofDoor> list = new ArrayList<>();
+        list.add(new FireproofDoor());
+
+        return list;
+    }
 }

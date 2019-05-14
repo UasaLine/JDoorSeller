@@ -1,4 +1,4 @@
-package com.jds.model;
+package com.jds.model.modelEnum;
 
 public enum TypeOfFurniture {
     TOP_LOCK,

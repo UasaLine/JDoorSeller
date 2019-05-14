@@ -18,8 +18,8 @@ public class DoorFurniture {
     @Column(name = "typeOfFurniture")
     private String typeOfFurniture;
 
-    @Column(name = "doorType")
-    private DoorType doorType;
+    //@Column(name = "doorType")
+    //private DoorType doorType;
 
     @Column(name = "quantity")
     private int quantity;

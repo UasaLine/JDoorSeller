@@ -13,7 +13,7 @@
 				<a th:href="@{/}" class="logo_text">door seller</a>
 			</div>
 			<div class="header_home" >
-				<a href="#" class="logo_home">новая дверь</a>
+				<a th:href="@{/calculation}" class="logo_home">новая дверь</a>
 			</div>
 			<div class="header_home" >
 				<a href="#" class="logo_home">заказы</a>
@@ -57,10 +57,8 @@
 					<tr>
 						<th>id</th>
 						<th>name</th>
-
 						<th>doorLeaf</th>
 						<th>nameForPrint</th>
-
 						<th>daysToRelease</th>
 						<th>markUp</th>
 						<th>markUpGlassPackage</th>
@@ -70,7 +68,6 @@
 						<td th:utext="${accountInfo.name}">..</td>
 						<td th:utext="${accountInfo.doorLeaf}">..</td>
 						<td th:utext="${accountInfo.nameForPrint}">..</td>
-
 						<td th:utext="${accountInfo.daysToRelease}">..</td>
 						<td th:utext="${accountInfo.markUp}">..</td>
 						<td th:utext="${accountInfo.markUpGlassPackage}">..</td>
