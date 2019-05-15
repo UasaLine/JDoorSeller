@@ -269,3 +269,72 @@ td{
 
 }
 
+.images_div{
+    display:block;
+
+}
+
+.images_div#checkbox{
+    display:block;
+    background-color:#DCDCDC;
+}
+
+.images_div:hover{
+    display:block;
+    background-color:#DCDCDC;
+}
+
+.images_door_class{
+    padding: 5px 3px 0px 50px;
+    cursor:pointer;
+    display:block-lile;
+}
+
+.description_images_door_class{
+    display:block-lile;
+    vertical-align: top;
+}
+
+
+#ghost_lement{
+    display:none;
+}
+
+.vertical_menu_checkbox{
+
+    text-align-last:justify;
+    display:block;
+    text-decoration: none;
+    color:#000000;
+    border-bottom: solid 1px #A9A9A9;
+
+
+}
+
+.right_cell_checkbox{
+    vertical-align: top;
+    display:inline-block;
+    margin-top:3px;
+
+}
+
+.left_cell_checkbox{
+    vertical-align: top;
+    display:inline-block;
+    padding: 10px 10px;
+}
+
+#input_size{
+    border-color:white;
+    border-width:0;
+    font-size:50px;
+    text-align: right;
+}
+
+.input_div{
+    text-align-last:justify;
+    display:block;
+    text-decoration: none;
+    color:#000000;
+}
+
