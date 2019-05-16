@@ -279,9 +279,8 @@ td{
     border: 2px dashed #696969;
 }
 
-.images_div:hover{
-    display:block;
-    background-color:#DCDCDC;
+.images_door_class:hover{
+    border: 2px dashed #696969;
 }
 
 .images_door_class{
