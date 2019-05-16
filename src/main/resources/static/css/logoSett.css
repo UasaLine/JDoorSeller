@@ -51,6 +51,10 @@ body{
 
 }
 
+
+
+
+
 .lending_text{
     padding: 3px 3px 3px 3px;
     width:100%;
@@ -191,6 +195,7 @@ td{
     height:800px;
     width:30%;
 //background-color: #ededed;
+    vertical-align: top;
 
 }
 
@@ -206,16 +211,28 @@ td{
     padding-left:5px;
     padding-top: 5px;
     padding-bottom:10px;
-
     text-decoration: none;
     color:#000000;
     border-bottom: solid 1px #A9A9A9;
-
     margin:5px;
 
+}
+.vertical_menu_button:hover{
 
+
+    text-align-last:justify;
+    display:block;
+    padding-left:5px;
+    padding-top: 5px;
+    padding-bottom:10px;
+    text-decoration: none;
+    color:#000000;
+    background-color:#DCDCDC;
+    border-bottom: solid 1px #A9A9A9;
+    margin:5px;
 
 }
+
 .vertical_menu_button_left{
     text-decoration: none;
     color:#000000;
@@ -286,14 +303,13 @@ td{
 .images_door_class{
     padding: 5px 3px 0px 5px;
     cursor:pointer;
-    display:block-lile;
+    //display:block-lile;
 }
 
 .description_images_door_class{
-    display:block-lile;
+    //display:block-lile;
     vertical-align: top;
 }
-
 
 #ghost_lement{
     display:none;
