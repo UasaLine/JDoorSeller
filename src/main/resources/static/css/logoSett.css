@@ -132,6 +132,28 @@ p {
 a[href^="#accordion"] + *{display: none;}
 #accordion-css3 :target{display: block;}
 
+
+/* ----------------------------------------- */
+/* basement */
+/* ----------------------------------------- */
+
+.basement{
+    background-color:#245882;
+//padding: 3px 3px 3px 50px;
+    width:100%;
+    max-width:1300px;
+    margin:0 auto;
+    position: relative;
+    height:70px;
+}
+.basement_text{
+
+    padding: 12px 50px 0px 50px;
+    display:inline-block;
+
+}
+
+
 /* ------------------------------------------------ */
 /* Table */
 /* ------------------------------------------------ */
