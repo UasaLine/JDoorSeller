@@ -51,9 +51,6 @@ body{
 
 }
 
-
-
-
 .lending_text{
     padding: 3px 3px 3px 3px;
     width:100%;
@@ -269,14 +266,17 @@ td{
 
 }
 
+/* -----------------------------------------*/
+/* daughter_container3 */
+/* -----------------------------------------*/
+
 .images_div{
     display:block;
 
 }
 
-.images_div#checkbox{
-    display:block;
-    background-color:#DCDCDC;
+.images_door_class#checkbox{
+    border: 2px dashed #696969;
 }
 
 .images_div:hover{
@@ -285,7 +285,7 @@ td{
 }
 
 .images_door_class{
-    padding: 5px 3px 0px 50px;
+    padding: 5px 3px 0px 5px;
     cursor:pointer;
     display:block-lile;
 }
@@ -324,7 +324,7 @@ td{
     padding: 10px 10px;
 }
 
-#input_size{
+.input_size{
     border-color:white;
     border-width:0;
     font-size:50px;
