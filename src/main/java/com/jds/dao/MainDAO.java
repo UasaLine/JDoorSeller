@@ -1,9 +1,6 @@
 package com.jds.dao;
 
-import com.jds.entity.DoorClass;
-import com.jds.entity.DoorType;
-import com.jds.entity.LimitationDoor;
-import com.jds.entity.SizeOfDoorParts;
+import com.jds.entity.*;
 import com.jds.model.FireproofDoor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +23,6 @@ public class MainDAO {
     public MainDAO() {
     }
 
-
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdateDoorClass(DoorClass doorClass) {
 
@@ -40,10 +36,15 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void saveOrUpdateLimitationDoor(LimitationDoor limitationDoor) {
+    public void saveMetal(Metal metal) {
+
+        int id = getMetalId(metal.getIdManufacturerProgram());//check exists
+        if (id>0){
+            metal.setId(id);
+        }
 
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(limitationDoor);
+        session.saveOrUpdate(metal);
 
     }
 
@@ -57,6 +58,28 @@ public class MainDAO {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(doorType);
+
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveDoorFurniture(DoorFurniture doorFurniture) {
+
+        int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram());//check exists
+        if (id>0){
+            doorFurniture.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(doorFurniture);
+
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveOrUpdateLimitationDoor(LimitationDoor limitationDoor) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(limitationDoor);
 
     }
 
@@ -103,6 +126,41 @@ public class MainDAO {
         return 0;
 
     }
+    public int getMetalId(String id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from metal where id_manufacturer_program like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (Metal.class)
+                .setParameter ("log", id);
+        List<Metal> metalList = query.list();
+
+        if(metalList.size()>0){
+            return metalList.get(0).getId();
+        }
+        return 0;
+
+    }
+    public int getDoorFurnitureId(String id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_furniture where id_manufacturer_program like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (DoorFurniture.class)
+                .setParameter ("log", id);
+        List<DoorFurniture> doorFurnitureList = query.list();
+
+        if(doorFurnitureList.size()>0){
+            return doorFurnitureList.get(0).getId();
+        }
+        return 0;
+
+    }
+
 
     public List<DoorClass> getDoorClass() {
 

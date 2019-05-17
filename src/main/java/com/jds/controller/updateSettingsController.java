@@ -3,10 +3,7 @@ package com.jds.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jds.dao.MainDAO;
-import com.jds.entity.DoorClass;
-import com.jds.entity.DoorType;
-import com.jds.entity.LimitationDoor;
-import com.jds.entity.SizeOfDoorParts;
+import com.jds.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -68,5 +65,32 @@ public class UpdateSettingsController {
         return "jr";
     }
 
+
+    @PostMapping(value = "/update/metal", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateMetal(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
+
+
+            StringReader reader = new StringReader(dataJson);
+            ObjectMapper mapper = new ObjectMapper();
+
+            Metal metal = mapper.readValue(reader, Metal.class);
+            mainDAO.saveMetal(metal);
+
+        return "jr";
+    }
+    @PostMapping(value = "/update/Furniture", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateFurniture(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
+
+
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        DoorFurniture doorFurniture = mapper.readValue(reader, DoorFurniture.class);
+        mainDAO.saveDoorFurniture(doorFurniture);
+
+        return "jr";
+    }
 
 }
