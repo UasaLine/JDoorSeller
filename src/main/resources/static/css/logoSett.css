@@ -11,6 +11,7 @@ body{
 /* ------------------------------------------------ */
 
 .top_head{
+
     background-color:#245882;
 //padding: 3px 3px 3px 50px;
     width:100%;
@@ -27,6 +28,7 @@ body{
     vertical-align: top;
 
 }
+
 .header_home{
     padding: 12px 50px 0px 50px;
     display:inline-block;
@@ -42,6 +44,7 @@ body{
     color:#B0C4DE;
     text-decoration: none;
 }
+
 .logo_home{
     font-size:18px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
@@ -50,25 +53,23 @@ body{
 
 }
 
-.lending_text{
-    padding: 3px 3px 3px 3px;
+.lending_div{
+
+    padding: 3px 0px 0px 0px;
     width:100%;
     max-width:1300px;
     margin:0 auto;
 
 }
-.lending_text2{
-    padding: 3px 3px 3px 3px;
-    width:100%;
-    max-width:1300px;
-    margin:0 auto;
-    background:#DCDCDC;
-}
-.lending_text1{
-    font-size:200px;
+
+.lending_text{
+    padding: 20px 20px 20px 20px;
+    position:absolute;
+    font-size:110px;
+    color:#F0FFF0;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color:#B0C4DE;
 }
+
 .conten_body{
     max-width:1301px;
     margin:0 auto;
@@ -152,7 +153,6 @@ a[href^="#accordion"] + *{display: none;}
     display:inline-block;
 
 }
-
 
 /* ------------------------------------------------ */
 /* Table */

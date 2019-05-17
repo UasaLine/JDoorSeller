@@ -10,7 +10,7 @@
 	
 		<div class="top_head">
 			<div class="header_logo" >
-				<a href="https://doorseller.herokuapp.com" class="logo_text">door seller</a>
+				<a th:href="@{/}" class="logo_text">door seller</a>
 			</div>
 			<div class="header_home" >
 				<a th:href="@{/calculation}" class="logo_home">новая дверь</a>
@@ -22,12 +22,10 @@
 				<a th:href="@{/setting}" class="logo_home">настройки</a>
 			</div>
 			<div class="header_home" >
-				<span class="logo_home" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span>
+				<span class="logo_home" th:inline="text">Hello BOSS</span>
 			</div>
 			<div class="header_home" >
-				<form th:action="@{/logout}" method="post">
-					<input class="logo_home" type="submit" value="Sign Out"/>
-				</form>
+				<a href="#" class="logo_home">sing in</a>
 			</div>
 		</div>
 
