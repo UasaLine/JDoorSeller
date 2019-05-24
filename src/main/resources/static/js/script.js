@@ -1,11 +1,12 @@
 jQuery('document').ready(function(){
 
     var currentItem  = "";
+    var doorLeaf = 1;
 
 
     $('.vertical_menu_button').on('click',function(){
 
-        setInut();
+
 
         currentItem = $(this).attr('id');
 
@@ -20,19 +21,37 @@ jQuery('document').ready(function(){
         else
             $('.select_metal').attr('id','ghost_lement');
 
-        if (currentItem == "widthDoor")
+        if (currentItem == "widthDoor")	{
             $('.select_widthDoor').attr('id','is_alive_lement');
-        else
+            if (doorLeaf == 1){
+                $('[DoorLeaf="1"]').attr('id','is_alive_lement');
+                $('[DoorLeaf="2"]').attr('id','ghost_lement');
+            }
+            else{
+                $('[DoorLeaf="1"]').attr('id','ghost_lement');
+                $('[DoorLeaf="2"]').attr('id','is_alive_lement');
+            }
+        }
+        else{
             $('.select_widthDoor').attr('id','ghost_lement');
+        }
 
+        if (currentItem == "heightDoor"){
+            $('.select_heightDoor').attr('id','is_alive_lement');
+        }
+        else{
+            $('.select_heightDoor').attr('id','ghost_lement');
+        }
 
     });
 
 
     $('.images_door_class').on('click',function(){
 
+
         set($(this).attr('data'));
         pickOut(this);
+        doorLeaf = $(this).attr('data-LeafDoorLeaf');
 
     });
 
@@ -61,6 +80,11 @@ jQuery('document').ready(function(){
 
     });
 
+
+    $('.input_size').mouseleave(function(){
+        set($(this).val());
+    });
+
     //--------------------------------------
     //seter
     //--------------------------------------
@@ -84,18 +108,7 @@ jQuery('document').ready(function(){
     }
 
 
-    function setInut(){
 
-        if(currentItem=="widthDoor"){
-            var val = $('#inputWidthDoor').val();
-            if(val != 0){
-                set(val);
-            }
-            else{
-                set('');
-            }
-        }
-    }
 
 
 });

@@ -4,297 +4,315 @@
 <head>
     <title>door seller</title>
     <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
-	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-	
-		<div class="top_head">
-			<div class="header_logo" >
-				<a th:href="@{/}" class="logo_text">door seller</a>
-			</div>
-			<div class="header_home" >
-				<a th:href="@{/calculation}" class="logo_home">новая дверь</a>
-			</div>
-			<div class="header_home" >
-				<a href="#" class="logo_home">заказы</a>
-			</div>
-			<div class="header_home" >
-				<a th:href="@{/setting}" class="logo_home">настройки</a>
-			</div>			
-		</div>
 
-        <div class="container_main">
-            <div class="daughter_container1">
+<div class="top_head">
+    <div class="header_logo" >
+        <a href="#" class="logo_text">door seller</a>
+    </div>
+    <div class="header_home" >
+        <a href="#" class="logo_home">новая дверь</a>
+    </div>
+    <div class="header_home" >
+        <a href="#" class="logo_home">заказы</a>
+    </div>
+    <div class="header_home" >
+        <a href="@{/}" class="logo_home">настройки</a>
+    </div>
+</div>
+
+<div class="container_main">
+    <div class="daughter_container1">
+    </div>
+
+    <div class="daughter_container2">
+        <div class="vertical_menu">
+            <div  class="vertical_menu_button" id="doorclass">
+                <div class="left_cell">
+                    <a class="vertical_menu_button_left" id="doorclass" href="#"> КЛАСС ДВЕРИ</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht" id="doorclass" href="#"><strong></strong></a>
+                </div>
             </div>
-
-            <div class="daughter_container2">
-                <div class="vertical_menu">
-                    <div  class="vertical_menu_button" id="doorclass">
-                        <div class="left_cell">
-                            <a class="vertical_menu_button_left" id="doorclass" href="#"> КЛАСС ДВЕРИ</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht" id="doorclass" href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" id="metal">
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> МЕТАЛЛ</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht" id="metal" href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" id="widthDoor" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ШИРИНА ПО КОРОБУ</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht" id="widthDoor"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ВЫСОТА ПО КОРОБУ</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ГЛУБИНА КОРОБА</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ТОЛЩИНА ПОЛОТНА</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ОТКРЫВАНИЕ</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-
-                    <a  class="vertical_menu_space" href="#">  </a>
-
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ЦВЕТ ДВЕРИ</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ВНУТРЕНЯЯ МДФ НАКЛАДКА</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> НАРУЖНЯЯ МДФ НАКЛАДКА</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-
-                    <a  class="vertical_menu_space"  href="#">  </a>
-
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ВЕРХНИЙ ЗАМОК</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> НИЖНИЙ ЗАМОК</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> РУЧКА</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_button" >
-                        <div class="left_cell">
-                            <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
-                        </div>
-                        <div align="right" class="right_cell">
-                            <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                        </div>
-                    </div>
-
-
+            <div  class="vertical_menu_button" id="metal">
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> МЕТАЛЛ</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht" id="metal" href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" id="widthDoor" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ШИРИНА ПО КОРОБУ</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht" id="widthDoor"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" id="heightDoor" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ВЫСОТА ПО КОРОБУ</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht" id="heightDoor" href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ГЛУБИНА КОРОБА</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ТОЛЩИНА ПОЛОТНА</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ОТКРЫВАНИЕ</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
                 </div>
             </div>
 
-            <div class="daughter_container3">
+            <a  class="vertical_menu_space" href="#">  </a>
 
-                <div class="select_door_class" id="ghost_lement">
-                    <div class="images_div" >
-                        <img class="images_door_class" data="ТЕРМО(терморазрыв)" src="images/class/000000002.jpg">
-                        <img class="images_door_class" data="ТЕРМО(терморазрыв) [2-x]" src="images/class/000000002_2.jpg">
-                        <div class="description_images_door_class"> Термосберегающая дверь . Для эксплуатации в условиях От -45°С до +40ºС. </div>
-                    </div>
-                    <div class="images_div">
-                        <img class="images_door_class" data="ДПД(противопожарная)" src="images/class/000000003.jpg">
-                        <img class="images_door_class" data="ДПД(противопожарная)[2-x]" src="images/class/000000003_2.jpg">
-                        <div class="description_images_door_class"> Противопожарные двери, EI 60, способны блокировать возгорание. </div>
-                    </div>
-                    <div class="images_div">
-                        <img class="images_door_class" data="ДСН(индивидуальная)" src="images/class/000000004.jpg">
-                        <img class="images_door_class" data="ДСН(индивидуальная) [2-x]" src="images/class/000000004_2.jpg">
-                        <div class="description_images_door_class"> Стальная дверь без терморазрыва. </div>
-                    </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ЦВЕТ ДВЕРИ</a>
                 </div>
-
-                <div class="select_metal" id="ghost_lement">
-
-                    <div  class="vertical_menu_checkbox" id="metal">
-                        <div class="left_cell_checkbox">
-                            <a  class="vertical_menu_button_left" href="#"> 0.6mm</a>
-                        </div>
-                        <div align="right" class="right_cell_checkbox">
-                            <div id="toggles">
-                                <input type="checkbox" name="checkbox0" id="checkbox0" data="0.6mm" class="ios-toggle" />
-                                <label for="checkbox0" class="checkbox-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_checkbox" id="metal">
-                        <div class="left_cell_checkbox">
-                            <a  class="vertical_menu_button_left" href="#"> 1mm</a>
-                        </div>
-                        <div align="right" class="right_cell_checkbox">
-                            <div id="toggles">
-                                <input type="checkbox" name="checkbox1" id="checkbox1" data="1mm" class="ios-toggle" />
-                                <label for="checkbox1" class="checkbox-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_checkbox" id="metal">
-                        <div class="left_cell_checkbox">
-                            <a  class="vertical_menu_button_left" href="#"> 1.5mm</a>
-                        </div>
-                        <div align="right" class="right_cell_checkbox">
-                            <div id="toggles">
-                                <input type="checkbox" name="checkbox2" id="checkbox2" data="1.5mm" class="ios-toggle" />
-                                <label for="checkbox2" class="checkbox-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_checkbox" id="metal">
-                        <div class="left_cell_checkbox">
-                            <a  class="vertical_menu_button_left" href="#"> 1.8mm</a>
-                        </div>
-                        <div align="right" class="right_cell_checkbox">
-                            <div id="toggles">
-                                <input type="checkbox" name="checkbox4" id="checkbox4" data="1.8mm" class="ios-toggle" />
-                                <label for="checkbox4" class="checkbox-label"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="vertical_menu_checkbox" id="metal">
-                        <div class="left_cell_checkbox">
-                            <a  class="vertical_menu_button_left" href="#"> 2.0mm</a>
-                        </div>
-                        <div align="right" class="right_cell_checkbox">
-                            <div id="toggles">
-                                <input type="checkbox" name="checkbox5" id="checkbox5" data="2.0mm" class="ios-toggle" />
-                                <label for="checkbox5" class="checkbox-label"></label>
-                            </div>
-                        </div>
-                    </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
                 </div>
-
-                <div class="select_widthDoor" id="ghost_lement">
-                    <div class="input_div" >
-                        <div class="left_cell_checkbox">
-                            <span>Ширина (L):</span>
-                        </div>
-                        <div align="right" class="right_cell_checkbox">
-                            <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
-                        </div>
-                    </div>
-                    <div class="images_div" >
-                        <img class="images_widthDoor"  src="images/annotate note/Width1.jpg">
-                        <div class="description_images_door_class"> Ширина двери по коробу в милиметрах. </div>
-                    </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ВНУТРЕНЯЯ МДФ НАКЛАДКА</a>
                 </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> НАРУЖНЯЯ МДФ НАКЛАДКА</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+
+            <a  class="vertical_menu_space"  href="#">  </a>
+
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ВЕРХНИЙ ЗАМОК</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> НИЖНИЙ ЗАМОК</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> РУЧКА</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
 
 
+        </div>
+    </div>
 
+    <div class="daughter_container3">
 
+        <!--door_class-->
+        <div class="select_door_class" id="ghost_lement">
+            <div class="images_div" >
+                <img class="images_door_class" data="ТЕРМО(терморазрыв)" data-LeafDoorLeaf="1" src="images/class/000000002.jpg">
+                <img class="images_door_class" data="ТЕРМО(терморазрыв) [2-x]" data-LeafDoorLeaf="2" src="images/class/000000002_2.jpg">
+                <div class="description_images_door_class"> Термосберегающая дверь . Для эксплуатации в условиях От -45°С до +40ºС. </div>
+            </div>
+            <div class="images_div">
+                <img class="images_door_class" data="ДПД(противопожарная)" data-LeafDoorLeaf="1" src="images/class/000000003.jpg">
+                <img class="images_door_class" data="ДПД(противопожарная)[2-x]" data-LeafDoorLeaf="2" src="images/class/000000003_2.jpg">
+                <div class="description_images_door_class"> Противопожарные двери, EI 60, способны блокировать возгорание. </div>
+            </div>
+            <div class="images_div">
+                <img class="images_door_class" data="ДСН(индивидуальная)" data-LeafDoorLeaf="1" src="images/class/000000004.jpg">
+                <img class="images_door_class" data="ДСН(индивидуальная) [2-x]" data-LeafDoorLeaf="2" src="images/class/000000004_2.jpg">
+                <div class="description_images_door_class"> Стальная дверь без терморазрыва. </div>
             </div>
         </div>
 
-        <div class="main_tabl">
-			<table class="tg">
-				<tr>
-					<th>id</th>
-					<th>doorClass</th>
-					<th>widthDoor</th>
-					<th>heightDoor</th>
-					<th>metal</th>
-					<th>deepnessDoor</th>
-					<th>thicknessDoorLeaf</th>
-					<th>sideDoorOpen</th>
-				</tr>
-				<tr th:each="door : ${doors}">
-					<td th:utext="${door.id}">..</td>
-					<td th:utext="${door.doorClass}">..</td>
-					<td th:utext="${door.widthDoor}">..</td>
-					<td th:utext="${door.heightDoor}">..</td>
-					<td th:utext="${door.metal}">..</td>
-					<td th:utext="${door.deepnessDoor}">..</td>
-					<td th:utext="${door.thicknessDoorLeaf}">..</td>
-					<td th:utext="${door.sideDoorOpen}">..</td>
-				</tr>
-			</table>
-		</div>
+        <!--metal-->
+        <div class="select_metal" id="ghost_lement">
 
+            <div  class="vertical_menu_checkbox" id="metal">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 0.6mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox0" id="checkbox0" data="0.6mm" class="ios-toggle" />
+                        <label for="checkbox0" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="metal">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 1mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" data="1mm" class="ios-toggle" />
+                        <label for="checkbox1" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="metal">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 1.5mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox2" id="checkbox2" data="1.5mm" class="ios-toggle" />
+                        <label for="checkbox2" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="metal">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 1.8mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox4" id="checkbox4" data="1.8mm" class="ios-toggle" />
+                        <label for="checkbox4" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="metal">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 2.0mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox5" id="checkbox5" data="2.0mm" class="ios-toggle" />
+                        <label for="checkbox5" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--widthDoor-->
+        <div class="select_widthDoor"  id="ghost_lement" >
+
+            <div class="input_div"  >
+                <div class="left_cell_checkbox">
+                    <span>Ширина (L):</span>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                </div>
+            </div>
+            <!--DoorLeaf="1"-->
+            <div class="images_div" DoorLeaf="1" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Width1.jpg">
+                <div class="description_images_door_class"> Ширина двери по коробу в милиметрах. </div>
+            </div>
+            <!--DoorLeaf="2"-->
+            <div class="images_div" DoorLeaf="2" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Width2.jpg">
+                <div class="description_images_door_class"> Ширина двери по коробу в милиметрах. </div>
+            </div>
+
+            <div class="input_div" DoorLeaf="2" id="ghost_lement" >
+                <div class="left_cell_checkbox">
+                    <span>Ширина активной створки(I):</span>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                </div>
+            </div>
+            <div class="images_div" DoorLeaf="2" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Width of main sash.jpg">
+                <div class="description_images_door_class"> Ширина активной створки в милиметрах. </div>
+            </div>
+        </div>
+
+        <!--heightDoor-->
+        <div class="select_heightDoor"  id="ghost_lement" >
+
+            <div class="input_div"  >
+                <div class="left_cell_checkbox">
+                    <span>Высота (H):</span>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                </div>
+            </div>
+            <!--DoorLeaf="1"-->
+            <div class="images_div" DoorLeaf="1" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Height1.jpg">
+                <div class="description_images_door_class"> Высота двери по коробу в милиметрах. </div>
+            </div>
+            <!--DoorLeaf="2"-->
+            <div class="images_div" DoorLeaf="2" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Height2.jpg">
+                <div class="description_images_door_class"> Высота двери по коробу в милиметрах. </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
 
 </body>
 </html>
