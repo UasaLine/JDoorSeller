@@ -9,19 +9,22 @@ jQuery('document').ready(function(){
     $('.vertical_menu_button').on('click',function(){
 
 
-
         currentItem = $(this).attr('id');
 
 
-        if (currentItem == "doorclass")
+        if (currentItem == "doorclass"){
             $('.select_door_class').attr('id','is_alive_lement');
-        else
+        }
+        else{
             $('.select_door_class').attr('id','ghost_lement');
+        }
 
-        if (currentItem == "metal")
+        if (currentItem == "metal"){
             $('.select_metal').attr('id','is_alive_lement');
-        else
+        }
+        else{
             $('.select_metal').attr('id','ghost_lement');
+        }
 
         if (currentItem == "widthDoor")	{
             $('.select_widthDoor').attr('id','is_alive_lement');
@@ -65,7 +68,31 @@ jQuery('document').ready(function(){
         }
 
         if(currentItem == "deepnessDoor"){
+            $('.select_deepnessDoor').attr('id','is_alive_lement');
+        }
+        else{
+            $('.select_deepnessDoor').attr('id','ghost_lement');
+        }
 
+        if (currentItem == "thicknessDoorLeaf"){
+            $('.select_thicknessDoorLeaf').attr('id','is_alive_lement');
+        }
+        else {
+            $('.select_thicknessDoorLeaf').attr('id','ghost_lement');
+        }
+
+        if(currentItem == "sideDoorOpen"){
+            $('.select_sideDoorOpen').attr('id','is_alive_lement');
+        }
+        else{
+            $('.select_sideDoorOpen').attr('id','ghost_lement');
+        }
+
+        if(currentItem == "additionalDoorSettings"){
+            $('.select_additionalDoorSettings').attr('id','is_alive_lement');
+        }
+        else{
+            $('.select_additionalDoorSettings').attr('id','ghost_lement');
         }
 
     });
@@ -84,24 +111,7 @@ jQuery('document').ready(function(){
     $('.ios-toggle').on('click',function(){
 
         if (currentItem=="metal"){
-            if ($(this).is(':checked')){
-
-                var elems = $('.ios-toggle[Item="metal"]');
-                var elemsTotal = elems.length;
-
-                for(var i=0; i<elemsTotal; ++i){
-                    if ($(this).attr('id')==$(elems[i]).attr('id')){
-
-                    }
-                    else{
-                        $(elems[i]).prop('checked', false);
-                    }
-                }
-                set($(this).attr('data'));
-            }
-            else{
-                set('');
-            }
+            oneEnableAllDisable ("metal",this);
         }
         else if(currentItem=="heightDoor"){
             if ($(this).is(':checked')){
@@ -114,7 +124,28 @@ jQuery('document').ready(function(){
                 $('[fanlight="1"]').attr('id','ghost_lement');
             }
         }
-
+        else if(currentItem=="deepnessDoor"){
+            if ($(this).is(':checked')){
+                oneEnableAllDisable ("deepnessDoor",this);
+            }
+        }
+        else if(currentItem=="thicknessDoorLeaf"){
+            if ($(this).is(':checked')){
+                oneEnableAllDisable ("thicknessDoorLeaf",this);
+            }
+        }
+        else if(currentItem=="sideDoorOpen"){
+            if ($(this).is(':checked')){
+                oneEnableAllDisable ("sideDoorOpen",this);
+            }
+        }
+        else if(currentItem=="additionalDoorSettings"){
+            if($(this).attr("item")=="doorstep"){
+                if (!$(this).is(':checked')){
+                    $('[Item="stainlessSteelDoorstep"]').prop('checked', false);
+                }
+            }
+        }
 
     });
 
@@ -146,7 +177,21 @@ jQuery('document').ready(function(){
 
     }
 
+    function oneEnableAllDisable (Item,thisItem){
 
+        var elems = $('.ios-toggle[Item="'+Item+'"]');
+        var elemsTotal = elems.length;
+
+        for(var i=0; i<elemsTotal; ++i){
+            if ($(thisItem).attr('id')==$(elems[i]).attr('id')){
+
+            }
+            else{
+                $(elems[i]).prop('checked', false);
+            }
+        }
+        set($(thisItem).attr('data'));
+    }
 
 
 

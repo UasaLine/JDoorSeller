@@ -18,6 +18,11 @@ public class FireproofDoor implements Door{
     private int thicknessDoorLeaf;
     private String sideDoorOpen;
     private int innerDoorOpen;
+    private int doorstep;
+    private int stainlessSteelDoorstep;
+    private int topDoorTrim;
+    private int leftDoorTrim;
+    private int rightDoorTrim;
 
 
     public FireproofDoor() {
