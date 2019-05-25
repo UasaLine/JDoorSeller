@@ -1,7 +1,9 @@
 jQuery('document').ready(function(){
 
     var currentItem  = "";
+
     var doorLeaf = 1;
+    var fanlight = 0;
 
 
     $('.vertical_menu_button').on('click',function(){
@@ -38,9 +40,32 @@ jQuery('document').ready(function(){
 
         if (currentItem == "heightDoor"){
             $('.select_heightDoor').attr('id','is_alive_lement');
+
+            if (doorLeaf == 1){
+                $('[DoorLeaf="1"]').attr('id','is_alive_lement');
+                $('[DoorLeaf="2"]').attr('id','ghost_lement');
+            }
+            else{
+                $('[DoorLeaf="1"]').attr('id','ghost_lement');
+                $('[DoorLeaf="2"]').attr('id','is_alive_lement');
+            }
+
+            if(fanlight==1){
+                $('[fanlight="1"]').attr('id','is_alive_lement');
+                $('[doorLeaf="'+doorLeaf+'"][fanlight="1"]').attr('id','ghost_lement');
+            }
+            else{
+                $('[fanlight="1"]').attr('id','ghost_lement');
+            }
+
         }
         else{
             $('.select_heightDoor').attr('id','ghost_lement');
+
+        }
+
+        if(currentItem == "deepnessDoor"){
+
         }
 
     });
@@ -58,27 +83,41 @@ jQuery('document').ready(function(){
 
     $('.ios-toggle').on('click',function(){
 
-        if ($(this).is(':checked')){
+        if (currentItem=="metal"){
+            if ($(this).is(':checked')){
 
-            var elems = $('.ios-toggle');
-            var elemsTotal = elems.length;
+                var elems = $('.ios-toggle[Item="metal"]');
+                var elemsTotal = elems.length;
 
-            for(var i=0; i<elemsTotal; ++i){
-                if ($(this).attr('id')==$(elems[i]).attr('id')){
+                for(var i=0; i<elemsTotal; ++i){
+                    if ($(this).attr('id')==$(elems[i]).attr('id')){
 
+                    }
+                    else{
+                        $(elems[i]).prop('checked', false);
+                    }
                 }
-                else{
-                    $(elems[i]).prop('checked', false);
-                }
+                set($(this).attr('data'));
             }
-            set($(this).attr('data'));
+            else{
+                set('');
+            }
         }
-        else{
-            set('');
+        else if(currentItem=="heightDoor"){
+            if ($(this).is(':checked')){
+                fanlight = 1;
+                $('[fanlight="1"]').attr('id','is_alive_lement');
+                $('[doorLeaf="'+doorLeaf+'"][fanlight="1"]').attr('id','ghost_lement');
+            }
+            else{
+                fanlight = 0;
+                $('[fanlight="1"]').attr('id','ghost_lement');
+            }
         }
 
 
     });
+
 
 
     $('.input_size').mouseleave(function(){

@@ -63,7 +63,7 @@
                     <a class="vertical_menu_button_rigtht" id="heightDoor" href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="deepnessDoor">
                 <div class="left_cell">
                     <a  class="vertical_menu_button_left" href="#"> ГЛУБИНА КОРОБА</a>
                 </div>
@@ -192,7 +192,7 @@
         </div>
 
         <!--metal-->
-        <div class="select_metal" id="ghost_lement">
+        <div class="select_metal"         id="ghost_lement">
 
             <div  class="vertical_menu_checkbox" id="metal">
                 <div class="left_cell_checkbox">
@@ -200,7 +200,7 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox0" id="checkbox0" data="0.6mm" class="ios-toggle" />
+                        <input type="checkbox" name="checkbox0" id="checkbox0" Item="metal" data="0.6mm" class="ios-toggle" />
                         <label for="checkbox0" class="checkbox-label"></label>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox1" id="checkbox1" data="1mm" class="ios-toggle" />
+                        <input type="checkbox" name="checkbox1" id="checkbox1" Item="metal" data="1mm" class="ios-toggle" />
                         <label for="checkbox1" class="checkbox-label"></label>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox2" id="checkbox2" data="1.5mm" class="ios-toggle" />
+                        <input type="checkbox" name="checkbox2" id="checkbox2" Item="metal" data="1.5mm" class="ios-toggle" />
                         <label for="checkbox2" class="checkbox-label"></label>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox4" id="checkbox4" data="1.8mm" class="ios-toggle" />
+                        <input type="checkbox" name="checkbox4" id="checkbox4" Item="metal" data="1.8mm" class="ios-toggle" />
                         <label for="checkbox4" class="checkbox-label"></label>
                     </div>
                 </div>
@@ -244,7 +244,7 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox5" id="checkbox5" data="2.0mm" class="ios-toggle" />
+                        <input type="checkbox" name="checkbox5" id="checkbox5" Item="metal" data="2.0mm" class="ios-toggle" />
                         <label for="checkbox5" class="checkbox-label"></label>
                     </div>
                 </div>
@@ -252,7 +252,7 @@
         </div>
 
         <!--widthDoor-->
-        <div class="select_widthDoor"  id="ghost_lement" >
+        <div class="select_widthDoor"     id="ghost_lement" >
 
             <div class="input_div"  >
                 <div class="left_cell_checkbox">
@@ -288,7 +288,7 @@
         </div>
 
         <!--heightDoor-->
-        <div class="select_heightDoor"  id="ghost_lement" >
+        <div class="select_heightDoor"    id="ghost_lement" >
 
             <div class="input_div"  >
                 <div class="left_cell_checkbox">
@@ -308,8 +308,44 @@
                 <img class="images_widthDoor"  src="images/annotate note/Height2.jpg">
                 <div class="description_images_door_class"> Высота двери по коробу в милиметрах. </div>
             </div>
+
+
+            <div  class="vertical_menu_checkbox" id="metal">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Фрамуга</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox6" id="checkbox6" data="0.6mm" class="ios-toggle" />
+                        <label for="checkbox6" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input_div" fanlight="1"  id="ghost_lement">
+                <div class="left_cell_checkbox">
+                    <span>Высота фрамуги (k):</span>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                </div>
+            </div>
+            <!--DoorLeaf="1"-->
+            <div class="images_div" DoorLeaf="2" fanlight="1" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Transom height1.jpg">
+                <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах. </div>
+            </div>
+            <!--DoorLeaf="2"-->
+            <div class="images_div" DoorLeaf="1" fanlight="1" id="ghost_lement" >
+                <img class="images_widthDoor"  src="images/annotate note/Transom height2.jpg">
+                <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах. </div>
+            </div>
         </div>
 
+        <!--deepnessDoor-->
+        <div class="select_deepnessDoor"  id="ghost_lement" >
+
+        </div>
 
     </div>
 </div>
