@@ -145,6 +145,48 @@ jQuery('document').ready(function(){
                     $('[Item="stainlessSteelDoorstep"]').prop('checked', false);
                 }
             }
+            else if($(this).attr("item")=="doorTrim"){
+                if ($(this).is(':checked')){
+                    $('[Item="topDoorTrim"]').prop('checked', true);
+                    $('[Item="leftDoorTrim"]').prop('checked', true);
+                    $('[Item="rightDoorTrim"]').prop('checked', true);
+                }
+                else{
+                    $('[Item="topDoorTrim"]').prop('checked', false);
+                    $('[Item="leftDoorTrim"]').prop('checked', false);
+                    $('[Item="rightDoorTrim"]').prop('checked', false);
+                }
+            }
+            else if($(this).attr("item")=="topDoorTrim"){
+                if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
+                    $('[Item="doorTrim"]').prop('checked', true);
+                }
+                else{
+                    if((!$('[Item="leftDoorTrim"]').is(':checked'))&(!$('[Item="rightDoorTrim"]').is(':checked'))){
+                        $('[Item="doorTrim"]').prop('checked', false);
+                    }
+                }
+            }
+            else if($(this).attr("item")=="leftDoorTrim"){
+                if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
+                    $('[Item="doorTrim"]').prop('checked', true);
+                }
+                else{
+                    if((!$('[Item="topDoorTrim"]').is(':checked'))&(!$('[Item="rightDoorTrim"]').is(':checked'))){
+                        $('[Item="doorTrim"]').prop('checked', false);
+                    }
+                }
+            }
+            else if($(this).attr("item")=="rightDoorTrim"){
+                if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
+                    $('[Item="doorTrim"]').prop('checked', true);
+                }
+                else{
+                    if((!$('[Item="leftDoorTrim"]').is(':checked'))&(!$('[Item="topDoorTrim"]').is(':checked'))){
+                        $('[Item="doorTrim"]').prop('checked', false);
+                    }
+                }
+            }
         }
 
     });
