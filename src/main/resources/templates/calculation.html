@@ -68,23 +68,23 @@
                     <a  class="vertical_menu_button_left" href="#"> ГЛУБИНА КОРОБА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="deepnessDoor"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="thicknessDoorLeaf" >
                 <div class="left_cell">
                     <a  class="vertical_menu_button_left" href="#"> ТОЛЩИНА ПОЛОТНА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="thicknessDoorLeaf" href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="sideDoorOpen" >
                 <div class="left_cell">
                     <a  class="vertical_menu_button_left" href="#"> ОТКРЫВАНИЕ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="sideDoorOpen"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" >
@@ -344,7 +344,91 @@
 
         <!--deepnessDoor-->
         <div class="select_deepnessDoor"  id="ghost_lement" >
+            <div  class="vertical_menu_checkbox" id="deepnessDoor">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 97 mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox7" id="checkbox7" Item="deepnessDoor" data="97 mm" class="ios-toggle" />
+                        <label for="checkbox7" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="deepnessDoor">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 102 mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox8" id="checkbox8" Item="deepnessDoor" data="102 mm" class="ios-toggle" />
+                        <label for="checkbox8" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!--thicknessDoorLeaf-->
+        <div class="select_thicknessDoorLeaf"  id="ghost_lement" >
+            <div  class="vertical_menu_checkbox" id="thicknessDoorLeaf">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 60 mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox9" id="checkbox9" Item="thicknessDoorLeaf" data="60 mm" class="ios-toggle" />
+                        <label for="checkbox9" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="thicknessDoorLeaf">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> 75 mm</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox10" id="checkbox10" Item="thicknessDoorLeaf" data="75 mm" class="ios-toggle" />
+                        <label for="checkbox10" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--sideDoorOpen-->
+        <div class="select_sideDoorOpen"  id="ghost_lement" >
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Левое</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox11" id="checkbox11" Item="sideDoorOpen" data="L" class="ios-toggle" />
+                        <label for="checkbox11" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Праавое</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox12" id="checkbox12" Item="sideDoorOpen" data="R" class="ios-toggle" />
+                        <label for="checkbox12" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Внутреннее открывание</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox13" id="checkbox13" Item="inner" data="inner" class="ios-toggle" />
+                        <label for="checkbox13" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

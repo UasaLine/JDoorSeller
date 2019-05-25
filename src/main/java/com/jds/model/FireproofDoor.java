@@ -17,6 +17,7 @@ public class FireproofDoor implements Door{
     private int deepnessDoor;
     private int thicknessDoorLeaf;
     private String sideDoorOpen;
+    private int innerDoorOpen;
 
 
     public FireproofDoor() {
