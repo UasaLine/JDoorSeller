@@ -98,12 +98,12 @@
 
             <a  class="vertical_menu_space" href="#">  </a>
 
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="doorColor">
                 <div class="left_cell">
                     <a  class="vertical_menu_button_left" href="#"> ЦВЕТ ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="doorColor"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" >
@@ -433,6 +433,7 @@
 
         <!--select_additionalDoorSettings-->
         <div class="select_additionalDoorSettings"  id="ghost_lement" >
+
             <div  class="vertical_menu_checkbox" >
                 <div class="left_cell_checkbox">
                     <a  class="vertical_menu_button_left" href="#"> <Strong>Порог</Strong></a>
@@ -500,9 +501,231 @@
                     </div>
                 </div>
             </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> <Strong>Доп.петля (основная створка)</Strong></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox20" id="checkbox20" Item="additionallyHingeMain" data="" class="ios-toggle" />
+                        <label for="checkbox20" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Доп.петля (НЕ основная створка)</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox21" id="checkbox21" Item="additionallyHingeNotMain" data="" class="ios-toggle" />
+                        <label for="checkbox21" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> <Strong>Первый притвор тонкий уплотнитель </Strong></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox22" id="checkbox22" Item="firstSealingLine" data="1" class="ios-toggle" />
+                        <label for="checkbox22" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Первый притвор треугольный уплотнитель </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox23" id="checkbox23" Item="firstSealingLine" data="2" class="ios-toggle" />
+                        <label for="checkbox23" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Первый притвор магнитный уплотнитель </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox24" id="checkbox24" Item="firstSealingLine" data="3" class="ios-toggle" />
+                        <label for="checkbox24" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> <Strong>Второй притвор тонкий уплотнитель </Strong></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox25" id="checkbox25" Item="secondSealingLine" data="1" class="ios-toggle" />
+                        <label for="checkbox25" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Второй притвор треугольный уплотнитель </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox26" id="checkbox26" Item="secondSealingLine" data="2" class="ios-toggle" />
+                        <label for="checkbox26" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Второй притвор магнитный уплотнитель </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox27" id="checkbox27" Item="secondSealingLine" data="3" class="ios-toggle" />
+                        <label for="checkbox27" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> <Strong>Третий притвор тонкий уплотнитель </Strong></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox28" id="checkbox28" Item="thirdSealingLine" data="1" class="ios-toggle" />
+                        <label for="checkbox28" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Третий притвор треугольный уплотнитель </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox29" id="checkbox29" Item="thirdSealingLine" data="2" class="ios-toggle" />
+                        <label for="checkbox29" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Третий притвор магнитный уплотнитель </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox30" id="checkbox30" Item="thirdSealingLine" data="3" class="ios-toggle" />
+                        <label for="checkbox30" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> <Strong>Менеральная плита</Strong> </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox31" id="checkbox31" Item="filler" data="1" class="ios-toggle" />
+                        <label for="checkbox31" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" href="#"> Пенополистерол </a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkbox32" id="checkbox32" Item="filler" data="2" class="ios-toggle" />
+                        <label for="checkbox32" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!--doorColor-->
+        <div class="select_doorColor"  id="ghost_lement" >
+
+            <div class="div_images_Color" data="1004">
+                <img class="images_Color"  src="images/Door/AColor1/1004.jpg"><br>
+                <span>1004</span>
+            </div>
+            <div class="div_images_Color" data="1013">
+                <img class="images_Color"  src="images/Door/AColor1/1013.jpg"><br>
+                <span>1013</span>
+            </div>
+            <div class="div_images_Color" data="1014">
+                <img class="images_Color"  src="images/Door/AColor1/1014.jpg"><br>
+                <span>1014</span>
+            </div>
+            <div class="div_images_Color" data="1015">
+                <img class="images_Color"  src="images/Door/AColor1/1015.jpg"><br>
+                <span>1015</span>
+            </div>
+
+
+            <div class="div_images_Color" data="1021">
+                <img class="images_Color"  src="images/Door/AColor1/1021.jpg"><br>
+                <span>1021</span>
+            </div>
+            <div class="div_images_Color" data="1028">
+                <img class="images_Color"  src="images/Door/AColor1/1028.jpg"><br>
+                <span>1028</span>
+            </div>
+            <div class="div_images_Color" data="1034">
+                <img class="images_Color"  src="images/Door/AColor1/1034.jpg"><br>
+                <span>1034</span>
+            </div>
+            <div class="div_images_Color" data="2004">
+                <img class="images_Color"  src="images/Door/AColor1/2004.jpg"><br>
+                <span>2004</span>
+            </div>
+
+
+            <div class="div_images_Color" data="2005" >
+                <img class="images_Color"  src="images/Door/AColor1/2005.jpg"><br>
+                <span>2005</span>
+            </div>
+            <div class="div_images_Color" data="3003">
+                <img class="images_Color"  src="images/Door/AColor1/3003.jpg"><br>
+                <span>3003</span>
+            </div>
+            <div class="div_images_Color" data="3012">
+                <img class="images_Color"  src="images/Door/AColor1/3012.jpg"><br>
+                <span>3012</span>
+            </div>
+            <div class="div_images_Color" data="3020">
+                <img class="images_Color"  src="images/Door/AColor1/3020.jpg"><br>
+                <span>3020</span>
+            </div>
+
+
+            <div class="div_images_Color" data="4003" >
+                <img class="images_Color"  src="images/Door/AColor1/4003.jpg"><br>
+                <span>4003</span>
+            </div>
+            <div class="div_images_Color" data="5002" >
+                <img class="images_Color"  src="images/Door/AColor1/5002.jpg"><br>
+                <span>5002</span>
+            </div>
+            <div class="div_images_Color" data="5005" >
+                <img class="images_Color"  src="images/Door/AColor1/5005.jpg"><br>
+                <span>5005</span>
+            </div>
+            <div class="div_images_Color" data="5007" >
+                <img class="images_Color"  src="images/Door/AColor1/5007.jpg"><br>
+                <span>5007</span>
+            </div>
+
+        </div>
+
     </div>
 </div>
+
+
 
 </body>
 </html>
