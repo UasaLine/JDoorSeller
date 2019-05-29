@@ -18,4 +18,36 @@ public class DoorColors {
 
     @Column(name = "picturePathFirst")
     private String picturePath;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIdManufacturerProgram() {
+        return idManufacturerProgram;
+    }
+
+    public void setIdManufacturerProgram(String idManufacturerProgram) {
+        this.idManufacturerProgram = idManufacturerProgram;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
 }

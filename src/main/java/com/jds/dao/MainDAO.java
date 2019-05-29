@@ -61,7 +61,6 @@ public class MainDAO {
 
     }
 
-
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveDoorFurniture(DoorFurniture doorFurniture) {
 
@@ -91,6 +90,18 @@ public class MainDAO {
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveDoorColors(DoorColors doorColors) {
+
+        int id = getDoorColorsId(doorColors.getIdManufacturerProgram());//check exists
+        if (id>0){
+            doorColors.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(doorColors);
+
+    }
 
     public int getDoorClassId(String name){
 
@@ -160,7 +171,23 @@ public class MainDAO {
         return 0;
 
     }
+    public int getDoorColorsId(String id){
 
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from Door_Colors where idManufacturerProgram like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (Metal.class)
+                .setParameter ("log", id);
+        List<DoorColors> doorColorsList = query.list();
+
+        if(doorColorsList.size()>0){
+            return doorColorsList.get(0).getId();
+        }
+        return 0;
+
+    }
 
     public List<DoorClass> getDoorClass() {
 
