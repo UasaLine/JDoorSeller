@@ -89,3 +89,11 @@ create table Door_Furniture
   `numberOfDoorLeaves` INT(11)
 );
 
+DROP TABLE IF EXISTS Door_Colors;
+create table Door_Colors
+(
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `idManufacturerProgram` VARCHAR(12) NOT NULL,
+  `name`  VARCHAR(100) NOT NULL,
+  `picturePathFirst` VARCHAR(100)
+);
