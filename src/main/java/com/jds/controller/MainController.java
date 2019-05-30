@@ -49,7 +49,7 @@ public class MainController {
     public String getDoorType(@RequestParam(required = false) String kay,
                                @RequestParam(required = false) String dataJson, Model model) throws Exception {
 
-        List<DoorType> list = mainDAO.getDoorType();
+        List<DoorType> list = Service.getDoorType();
         model.addAttribute("accountInfos", list);
         return "settingPage_doortype";
     }
