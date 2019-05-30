@@ -24,9 +24,12 @@ public class FireproofDoor implements Door{
     private int leftDoorTrim;
     private int rightDoorTrim;
 
-
     public FireproofDoor() {
 
+    }
+
+    public FireproofDoor(int id) {
+        this.id = id;
     }
 
     public int getId() {

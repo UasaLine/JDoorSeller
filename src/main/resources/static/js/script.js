@@ -6,6 +6,20 @@ jQuery('document').ready(function(){
     var doorLeaf = 1;
     var fanlight = 0;
 
+    var dataJson = "";
+
+    $.ajax({
+        url: 'data',
+        data: {request: dataJson},
+        dataType: 'json',
+        success: function (data) {
+            alert('success: ' + data.id);
+        },
+        error: function (data) {
+            alert('error:' + data);
+        }
+    });
+
 
     $('.vertical_menu_button').on('click',function(){
 
