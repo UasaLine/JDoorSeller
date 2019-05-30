@@ -79,6 +79,7 @@ public class UpdateSettingsController {
 
         return "jr";
     }
+
     @PostMapping(value = "/update/Furniture", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String updateFurniture(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
@@ -89,6 +90,20 @@ public class UpdateSettingsController {
 
         DoorFurniture doorFurniture = mapper.readValue(reader, DoorFurniture.class);
         mainDAO.saveDoorFurniture(doorFurniture);
+
+        return "jr";
+    }
+
+    @PostMapping(value = "/update/doorcolors", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateDoorColors(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
+
+
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        DoorColors doorColors = mapper.readValue(reader, DoorColors.class);
+        mainDAO.saveDoorColors(doorColors);
 
         return "jr";
     }

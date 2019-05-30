@@ -1,6 +1,7 @@
 jQuery('document').ready(function(){
 
     var currentItem  = "";
+    var currentItemForDisplay = "";
 
     var doorLeaf = 1;
     var fanlight = 0;
@@ -10,7 +11,9 @@ jQuery('document').ready(function(){
 
 
         currentItem = $(this).attr('id');
+        currentItemForDisplay = $(this).html();
 
+        addNavigation();
 
         if (currentItem == "doorclass"){
             $('.select_door_class').attr('id','is_alive_lement');
@@ -95,6 +98,13 @@ jQuery('document').ready(function(){
             $('.select_additionalDoorSettings').attr('id','ghost_lement');
         }
 
+        if (currentItem == "doorColor"){
+            $('.select_doorColor').attr('id','is_alive_lement');
+        }
+        else{
+            $('.select_doorColor').attr('id','ghost_lement');
+        }
+
     });
 
 
@@ -107,6 +117,14 @@ jQuery('document').ready(function(){
 
     });
 
+    $('.div_images_Color').on('click',function(){
+
+
+        set($(this).attr('data'));
+        pickOut(this);
+
+
+    });
 
     $('.ios-toggle').on('click',function(){
 
@@ -143,6 +161,11 @@ jQuery('document').ready(function(){
             if($(this).attr("item")=="doorstep"){
                 if (!$(this).is(':checked')){
                     $('[Item="stainlessSteelDoorstep"]').prop('checked', false);
+                }
+            }
+            else if($(this).attr("item")=="stainlessSteelDoorstep"){
+                if ($(this).is(':checked')&!($('[Item="doorstep"]').is(':checked'))){
+                    $('[Item="doorstep"]').prop('checked', true);
                 }
             }
             else if($(this).attr("item")=="doorTrim"){
@@ -187,6 +210,18 @@ jQuery('document').ready(function(){
                     }
                 }
             }
+            else if($(this).attr("item")=="firstSealingLine"){
+                oneEnableAllDisable ("firstSealingLine",this);
+            }
+            else if($(this).attr("item")=="secondSealingLine"){
+                oneEnableAllDisable ("secondSealingLine",this);
+            }
+            else if($(this).attr("item")=="thirdSealingLine"){
+                oneEnableAllDisable ("thirdSealingLine",this);
+            }
+            else if($(this).attr("item")=="filler"){
+                oneEnableAllDisable ("filler",this);
+            }
         }
 
     });
@@ -203,7 +238,9 @@ jQuery('document').ready(function(){
 
     function pickOut(item){
 
-        var elems = $('.images_door_class');
+        var attr = $(item).attr('class');
+
+        var elems = $('.'+attr);
         var elemsTotal = elems.length;
         for(var i=0; i<elemsTotal; ++i){
             $(elems[i]).attr('id', 'no')
@@ -211,7 +248,6 @@ jQuery('document').ready(function(){
 
         $(item).attr('id','checkbox');
     }
-
 
     function set(Value){
 
@@ -235,6 +271,10 @@ jQuery('document').ready(function(){
         set($(thisItem).attr('data'));
     }
 
-
+    function addNavigation (){
+        $('.navigation_panel').remove();
+        $('<a>').attr('class','navigation_panel').attr('href','#').html(currentItemForDisplay).appendTo('.navigation_panel_div');
+        $('<span>').attr('class','navigation_panel').html('->').appendTo('.navigation_panel_div');
+    };
 
 });
