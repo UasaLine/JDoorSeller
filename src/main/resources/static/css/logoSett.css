@@ -164,7 +164,7 @@ a[href^="#accordion"] + *{display: none;}
     height:600px;
     display:inline-block;
     position: relative;
-    //margin-top:10px;
+//margin-top:10px;
 }
 .Table{
 
@@ -339,13 +339,18 @@ td{
 .images_door_class{
     padding: 5px 5px 5px 5px;
     cursor:pointer;
-    //display:block-lile;
+//display:block-lile;
 }
 
 .description_images_door_class{
-   //display:block-lile;
+//display:block-lile;
     vertical-align: top;
 }
+
+[show="ghost_lement"]{
+    display:none;
+}
+
 
 
 .vertical_menu_checkbox{
@@ -430,4 +435,14 @@ td{
 .to_calculate_span{
     padding:6px 10px 10px 10px;
     position: absolute;
+}
+.nameDoor{
+    height:35px;
+    width:35%;
+    color:#000000;
+    background-color:#ededed;
+    border-radius: 5px;
+    position: absolute;
+    left:5px;
+    top:49px;
 }

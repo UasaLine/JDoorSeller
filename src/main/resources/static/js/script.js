@@ -108,7 +108,7 @@ jQuery('document').ready(function(){
             $('.select_additionalDoorSettings').attr('show','is_alive_lement');
         }
         else{
-            $('.select_additionalDoorSettings').attr('id','ghost_lement');
+            $('.select_additionalDoorSettings').attr('show','ghost_lement');
         }
 
         if (currentItem == "doorColor"){
@@ -238,7 +238,6 @@ jQuery('document').ready(function(){
     $('.to_calculate').on('click',function(){
 
         var strJSON = JSON.stringify(door);
-        alert(strJSON);
 
         $.ajax({
             type: 'POST',
