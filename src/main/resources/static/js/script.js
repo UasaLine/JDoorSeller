@@ -24,8 +24,10 @@ jQuery('document').ready(function(){
     });
 
     $('.vertical_menu_button').on('click',function(){
-            currentItem = $(this).attr('id');
-            currentItemForDisplay = $(this).html();
+
+        currentItem = $(this).attr('id');
+        currentItemForDisplay = $(this).html();
+
         addNavigation();
 
         if (currentItem == "doorClass"){

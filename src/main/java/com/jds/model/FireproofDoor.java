@@ -10,6 +10,7 @@ import java.util.List;
 public class FireproofDoor implements Door{
 
     private int id;
+    private String name;
     private String doorClass;
     private int widthDoor;
     private int heightDoor;
@@ -39,7 +40,13 @@ public class FireproofDoor implements Door{
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getInnerDoorOpen() {
         return innerDoorOpen;
