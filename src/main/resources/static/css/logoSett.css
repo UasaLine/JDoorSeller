@@ -347,11 +347,6 @@ td{
     vertical-align: top;
 }
 
-#ghost_lement{
-    display:none;
-}
-
-
 
 .vertical_menu_checkbox{
 
@@ -409,4 +404,30 @@ td{
 }
 .div_images_Color#checkbox{
     color:#FFFFFF;
+}
+
+.to_calculate{
+    height:35px;
+    width:150px;
+    color:#000000;
+    background-color:#DCDCDC;
+    border-radius: 5px;
+    position: absolute;
+    left:5px;
+    top:9px;
+}
+.to_calculate:hover{
+    height:35px;
+    width:150px;
+    color:#FFFFFF;
+    background-color:#696969;
+    border-radius: 5px;
+    position: absolute;
+    left:5px;
+    top:9px;
+    cursor:pointer;
+}
+.to_calculate_span{
+    padding:6px 10px 10px 10px;
+    position: absolute;
 }

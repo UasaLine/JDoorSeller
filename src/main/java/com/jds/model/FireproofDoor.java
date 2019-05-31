@@ -23,6 +23,13 @@ public class FireproofDoor implements Door{
     private int topDoorTrim;
     private int leftDoorTrim;
     private int rightDoorTrim;
+    private int price;
+
+
+    public static FireproofDoor createNewDoorOrGetById(String id){
+
+        return new FireproofDoor(Integer.parseInt(id));
+    }
 
     public FireproofDoor() {
 
@@ -31,6 +38,65 @@ public class FireproofDoor implements Door{
     public FireproofDoor(int id) {
         this.id = id;
     }
+
+
+
+    public int getInnerDoorOpen() {
+        return innerDoorOpen;
+    }
+
+    public void setInnerDoorOpen(int innerDoorOpen) {
+        this.innerDoorOpen = innerDoorOpen;
+    }
+
+    public int getDoorstep() {
+        return doorstep;
+    }
+
+    public void setDoorstep(int doorstep) {
+        this.doorstep = doorstep;
+    }
+
+    public int getStainlessSteelDoorstep() {
+        return stainlessSteelDoorstep;
+    }
+
+    public void setStainlessSteelDoorstep(int stainlessSteelDoorstep) {
+        this.stainlessSteelDoorstep = stainlessSteelDoorstep;
+    }
+
+    public int getTopDoorTrim() {
+        return topDoorTrim;
+    }
+
+    public void setTopDoorTrim(int topDoorTrim) {
+        this.topDoorTrim = topDoorTrim;
+    }
+
+    public int getLeftDoorTrim() {
+        return leftDoorTrim;
+    }
+
+    public void setLeftDoorTrim(int leftDoorTrim) {
+        this.leftDoorTrim = leftDoorTrim;
+    }
+
+    public int getRightDoorTrim() {
+        return rightDoorTrim;
+    }
+
+    public void setRightDoorTrim(int rightDoorTrim) {
+        this.rightDoorTrim = rightDoorTrim;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
 
     public int getId() {
         return id;

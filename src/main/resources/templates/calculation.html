@@ -28,17 +28,22 @@
 <div class="container_main">
 
     <div class="daughter_container1">
-
+        <div class="to_calculate">
+            <span class="to_calculate_span">Рассчитать дверь</span>
+        </div>
+        <div class="nameDoor">
+            <span class="nameDoor_span"></span>
+        </div>
     </div>
 
     <div class="daughter_container2">
         <div class="vertical_menu">
-            <div  class="vertical_menu_button" id="doorclass">
+            <div  class="vertical_menu_button" id="doorClass">
                 <div class="left_cell">
-                    <a class="vertical_menu_button_left" id="doorclass" href="#"> КЛАСС ДВЕРИ</a>
+                    <a class="vertical_menu_button_left" href="#"> КЛАСС ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="doorclass" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="doorClassShow" href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="metal">
@@ -46,7 +51,7 @@
                     <a  class="vertical_menu_button_left" href="#"> МЕТАЛЛ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="metal" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="metalShow" href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="widthDoor" >
@@ -54,7 +59,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ШИРИНА ПО КОРОБУ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="widthDoor"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="widthDoorShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="heightDoor" >
@@ -62,7 +67,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ВЫСОТА ПО КОРОБУ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="heightDoor" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="heightDoorShow" href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="deepnessDoor">
@@ -70,7 +75,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ГЛУБИНА КОРОБА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="deepnessDoor"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="deepnessDoorShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="thicknessDoorLeaf" >
@@ -78,7 +83,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ТОЛЩИНА ПОЛОТНА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="thicknessDoorLeaf" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="thicknessDoorLeafShow" href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="sideDoorOpen" >
@@ -86,7 +91,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ОТКРЫВАНИЕ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="sideDoorOpen"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="sideDoorOpenShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button"  id="additionalDoorSettings">
@@ -94,7 +99,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="additionalDoorSettings" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="additionalDoorSettingsShow" href="#"><strong></strong></a>
                 </div>
             </div>
 
@@ -105,7 +110,7 @@
                     <a  class="vertical_menu_button_left" href="#"> ЦВЕТ ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="doorColor"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="doorColorShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" >
@@ -179,7 +184,7 @@
         </div>
 
         <!--door_class-->
-        <div class="select_door_class" id="ghost_lement">
+        <div class="select_door_class" show="ghost_lement">
             <div class="images_div" >
                 <img class="images_door_class" data="ТЕРМО(терморазрыв)" data-LeafDoorLeaf="1" src="images/class/000000002.jpg">
                 <img class="images_door_class" data="ТЕРМО(терморазрыв) [2-x]" data-LeafDoorLeaf="2" src="images/class/000000002_2.jpg">
@@ -198,7 +203,7 @@
         </div>
 
         <!--metal-->
-        <div class="select_metal"         id="ghost_lement">
+        <div class="select_metal" show="ghost_lement">
 
             <div  class="vertical_menu_checkbox" id="metal">
                 <div class="left_cell_checkbox">
@@ -258,7 +263,7 @@
         </div>
 
         <!--widthDoor-->
-        <div class="select_widthDoor"     id="ghost_lement" >
+        <div class="select_widthDoor"     show="ghost_lement" >
 
             <div class="input_div"  >
                 <div class="left_cell_checkbox">
@@ -269,17 +274,17 @@
                 </div>
             </div>
             <!--DoorLeaf="1"-->
-            <div class="images_div" DoorLeaf="1" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="1" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Width1.jpg">
                 <div class="description_images_door_class"> Ширина двери по коробу в милиметрах. </div>
             </div>
             <!--DoorLeaf="2"-->
-            <div class="images_div" DoorLeaf="2" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="2" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Width2.jpg">
                 <div class="description_images_door_class"> Ширина двери по коробу в милиметрах. </div>
             </div>
 
-            <div class="input_div" DoorLeaf="2" id="ghost_lement" >
+            <div class="input_div" DoorLeaf="2" show="ghost_lement" >
                 <div class="left_cell_checkbox">
                     <span>Ширина активной створки(I):</span>
                 </div>
@@ -287,14 +292,14 @@
                     <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
                 </div>
             </div>
-            <div class="images_div" DoorLeaf="2" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="2" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Width of main sash.jpg">
                 <div class="description_images_door_class"> Ширина активной створки в милиметрах. </div>
             </div>
         </div>
 
         <!--heightDoor-->
-        <div class="select_heightDoor"    id="ghost_lement" >
+        <div class="select_heightDoor"    show="ghost_lement" >
 
             <div class="input_div"  >
                 <div class="left_cell_checkbox">
@@ -305,12 +310,12 @@
                 </div>
             </div>
             <!--DoorLeaf="1"-->
-            <div class="images_div" DoorLeaf="1" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="1" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Height1.jpg">
                 <div class="description_images_door_class"> Высота двери по коробу в милиметрах. </div>
             </div>
             <!--DoorLeaf="2"-->
-            <div class="images_div" DoorLeaf="2" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="2" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Height2.jpg">
                 <div class="description_images_door_class"> Высота двери по коробу в милиметрах. </div>
             </div>
@@ -328,7 +333,7 @@
                 </div>
             </div>
 
-            <div class="input_div" fanlight="1"  id="ghost_lement">
+            <div class="input_div" fanlight="1"  show="ghost_lement">
                 <div class="left_cell_checkbox">
                     <span>Высота фрамуги (k):</span>
                 </div>
@@ -337,19 +342,19 @@
                 </div>
             </div>
             <!--DoorLeaf="1"-->
-            <div class="images_div" DoorLeaf="2" fanlight="1" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="2" fanlight="1" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Transom height1.jpg">
                 <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах. </div>
             </div>
             <!--DoorLeaf="2"-->
-            <div class="images_div" DoorLeaf="1" fanlight="1" id="ghost_lement" >
+            <div class="images_div" DoorLeaf="1" fanlight="1" show="ghost_lement" >
                 <img class="images_widthDoor"  src="images/annotate note/Transom height2.jpg">
                 <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах. </div>
             </div>
         </div>
 
         <!--deepnessDoor-->
-        <div class="select_deepnessDoor"  id="ghost_lement" >
+        <div class="select_deepnessDoor"  show="ghost_lement" >
             <div  class="vertical_menu_checkbox" id="deepnessDoor">
                 <div class="left_cell_checkbox">
                     <a  class="vertical_menu_button_left" href="#"> 97 mm</a>
@@ -375,8 +380,8 @@
         </div>
 
         <!--thicknessDoorLeaf-->
-        <div class="select_thicknessDoorLeaf"  id="ghost_lement" >
-            <div  class="vertical_menu_checkbox" id="thicknessDoorLeaf">
+        <div class="select_thicknessDoorLeaf"  show="ghost_lement" >
+            <div  class="vertical_menu_checkbox" show="thicknessDoorLeaf">
                 <div class="left_cell_checkbox">
                     <a  class="vertical_menu_button_left" href="#"> 60 mm</a>
                 </div>
@@ -401,7 +406,7 @@
         </div>
 
         <!--sideDoorOpen-->
-        <div class="select_sideDoorOpen"  id="ghost_lement" >
+        <div class="select_sideDoorOpen"  show="ghost_lement" >
             <div  class="vertical_menu_checkbox" >
                 <div class="left_cell_checkbox">
                     <a  class="vertical_menu_button_left" href="#"> Левое</a>
@@ -438,7 +443,7 @@
         </div>
 
         <!--select_additionalDoorSettings-->
-        <div class="select_additionalDoorSettings"  id="ghost_lement" >
+        <div class="select_additionalDoorSettings"  show="ghost_lement" >
 
             <div  class="vertical_menu_checkbox" >
                 <div class="left_cell_checkbox">
@@ -653,7 +658,7 @@
         </div>
 
         <!--doorColor-->
-        <div class="select_doorColor"  id="ghost_lement" >
+        <div class="select_doorColor"  show="ghost_lement" >
 
             <div class="div_images_Color" data="1004">
                 <img class="images_Color"  src="images/Door/AColor1/1004.jpg"><br>

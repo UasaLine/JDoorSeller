@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -69,10 +67,21 @@ public class MainController {
     @GetMapping(value = "/data",produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Door data(@RequestParam(required = false) String kay,
-                     @RequestParam(required = false) String dataJson, Model model) throws Exception {
+                     @RequestParam(required = false) String dataJson,
+                     Model model,
+                     @RequestParam(required = false) String id) throws Exception {
 
-        FireproofDoor door = new FireproofDoor(100199);
+        return FireproofDoor.createNewDoorOrGetById(id);
+    }
 
+    @PostMapping(value = "/data", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Door calculateTheDoor(@RequestParam(required = false) String kay,
+                     @RequestParam(required = false) String dataJson,
+                     Model model,
+                     @RequestBody FireproofDoor door) throws Exception {
+
+        door.setPrice(21000);
         return door;
     }
 }
