@@ -81,7 +81,7 @@ body{
     width:200px;
     height:600px;
     position: relative;
-    top: 10px;
+    top: 5px;
     display:inline-block;
 
 
@@ -159,16 +159,14 @@ a[href^="#accordion"] + *{display: none;}
 /* ------------------------------------------------ */
 
 .data-Table{
-    top: 10px;
+    top: 5px;
     left:10px;
     height:600px;
     display:inline-block;
     position: relative;
 //margin-top:10px;
 }
-.Table{
 
-}
 th{
     padding: 10px 10px 10px 30px;
 }

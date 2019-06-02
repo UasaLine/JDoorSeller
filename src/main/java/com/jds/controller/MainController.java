@@ -82,6 +82,7 @@ public class MainController {
                      @RequestBody FireproofDoor door) throws Exception {
 
         door.setPrice(21000);
+        door.setName("Дверь металлическая "+door.getWidthDoor()+" X "+door.getHeightDoor());
         return door;
     }
 }

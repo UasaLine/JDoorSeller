@@ -14,7 +14,7 @@ jQuery('document').ready(function(){
         data: {id: dataJson},
         dataType: 'json',
         success: function (data) {
-            alert('success: ' + data.id);
+            //alert('success: ' + data.id);
             door = data;
 
         },
@@ -249,6 +249,7 @@ jQuery('document').ready(function(){
             dataType: 'json',
             success: function (data) {
                 alert('price is: ' + data.price);
+                $('.nameDoor_span').html(data.name);
             },
             error: function (data) {
                 alert('error:' + data);
