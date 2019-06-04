@@ -3,6 +3,7 @@ package com.jds.controller;
 import com.jds.dao.MainDAO;
 import com.jds.entity.DoorClass;
 import com.jds.entity.DoorType;
+import com.jds.entity.Metal;
 import com.jds.model.Door;
 import com.jds.model.FireproofDoor;
 import com.jds.service.MaineService;
@@ -33,7 +34,7 @@ public class MainController {
 
         List<DoorClass> list = Service.getDoorClass();
         model.addAttribute("accountInfos", list);
-        return "settingPage_doorclass";
+        return "settingPage_doorclass.html";
     }
     @GetMapping(value = "/doorclass")
     public String getDoorClass(@RequestParam(required = false) String kay,
@@ -50,6 +51,15 @@ public class MainController {
         List<DoorType> list = Service.getDoorType();
         model.addAttribute("accountInfos", list);
         return "settingPage_doortype";
+    }
+
+    @GetMapping(value = "/metal")
+    public String getMetal(@RequestParam(required = false) String kay,
+                              @RequestParam(required = false) String dataJson, Model model) throws Exception {
+
+        List<Metal> list = Service.getMetals();
+        model.addAttribute("accountInfos", list);
+        return "settingPage_metal";
     }
 
 

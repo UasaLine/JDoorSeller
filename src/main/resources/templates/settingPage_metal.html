@@ -50,21 +50,19 @@
 				<table class="Table">
 					<tr>
 						<th>id</th>
+						<th>idManufacturerProgram</th>
 						<th>name</th>
-						<th>doorLeaf</th>
-						<th>nameForPrint</th>
-						<th>daysToRelease</th>
-						<th>markUp</th>
-						<th>markUpGlassPackage</th>
+						<th>nameDisplayed</th>
+						<th>indexHeft</th>
+						<th>isUsed</th>
 					</tr>
 					<tr th:each="accountInfo : ${accountInfos}">
 						<td th:utext="${accountInfo.id}">..</td>
+						<td th:utext="${accountInfo.idManufacturerProgram}">..</td>
 						<td th:utext="${accountInfo.name}">..</td>
-						<td th:utext="${accountInfo.doorLeaf}">..</td>
-						<td th:utext="${accountInfo.nameForPrint}">..</td>
-						<td th:utext="${accountInfo.daysToRelease}">..</td>
-						<td th:utext="${accountInfo.markUp}">..</td>
-						<td th:utext="${accountInfo.markUpGlassPackage}">..</td>
+						<td th:utext="${accountInfo.nameDisplayed}">..</td>
+						<td th:utext="${accountInfo.indexHeft}">..</td>
+						<td th:utext="${accountInfo.isUsed}">..</td>
 					</tr>
 
 				</table>

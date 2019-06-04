@@ -3,6 +3,7 @@ package com.jds.service;
 import com.jds.dao.MainDAO;
 import com.jds.entity.DoorClass;
 import com.jds.entity.DoorType;
+import com.jds.entity.Metal;
 import com.jds.model.FireproofDoor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class MaineService {
 
     public List<DoorType> getDoorType(){
         return DAO.getDoorType();
+    }
+
+    public List<Metal> getMetals(){
+        return DAO.getMetals();
     }
 }
