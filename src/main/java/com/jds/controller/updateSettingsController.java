@@ -58,9 +58,14 @@ public class UpdateSettingsController {
 
     @PostMapping(value = "/update/sizeofdoorparts", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateSizeOfDoorParts(@RequestParam("request") String data,@RequestBody SizeOfDoorParts dataJson) {
+    public String updateSizeOfDoorParts(@RequestParam(required = false) String kay,
+                                        @RequestParam(required = false) String dataJson) throws Exception {
 
-        mainDAO.saveOrUpdateSizeOfDoorParts(dataJson);
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        SizeOfDoorParts sizeOfDoorParts = mapper.readValue(reader, SizeOfDoorParts.class);
+        mainDAO.saveOrUpdateSizeOfDoorParts(sizeOfDoorParts);
 
         return "jr";
     }
@@ -68,7 +73,8 @@ public class UpdateSettingsController {
 
     @PostMapping(value = "/update/metal", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateMetal(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
+    public String updateMetal(@RequestParam(required = false) String kay,
+                              @RequestParam(required = false) String dataJson) throws Exception {
 
 
             StringReader reader = new StringReader(dataJson);

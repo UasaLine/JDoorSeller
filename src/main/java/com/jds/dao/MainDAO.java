@@ -85,6 +85,11 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdateSizeOfDoorParts(SizeOfDoorParts sizeOfDoorParts) {
 
+        int id = getSizeOfDoorPartsId(sizeOfDoorParts.getName());//check exists
+        if (id>0){
+            sizeOfDoorParts.setId(id);
+        }
+
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(sizeOfDoorParts);
 
@@ -188,6 +193,24 @@ public class MainDAO {
         return 0;
 
     }
+    public int getSizeOfDoorPartsId(String name){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from size_door_parts where name like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (SizeOfDoorParts.class)
+                .setParameter ("name", name);
+        List<SizeOfDoorParts> sizeOfDoorPartsList = query.list();
+
+        if(sizeOfDoorPartsList.size()>0){
+            return sizeOfDoorPartsList.get(0).getId();
+        }
+        return 0;
+
+    }
+
 
     public List<DoorClass> getDoorClass() {
 
@@ -225,5 +248,18 @@ public class MainDAO {
         list.add(new FireproofDoor());
 
         return list;
+    }
+
+    public List<Metal> getMetals() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from metal";
+        Query query = session.createSQLQuery(sql).addEntity(Metal.class);
+
+        List<Metal> list = query.list();
+
+        return list;
+
     }
 }
