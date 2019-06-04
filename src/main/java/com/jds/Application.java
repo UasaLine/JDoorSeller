@@ -63,7 +63,7 @@ public class Application {
 
         // Fix Postgres JPA Error:
         // Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
-        // properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
+        properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
