@@ -51,9 +51,9 @@ public class UpdateSettingsController {
         ObjectMapper mapper = new ObjectMapper();
 
         DoorType doorType = mapper.readValue(reader, DoorType.class);
-        mainDAO.saveOrUpdateDoorType(doorType);
+        int id = mainDAO.saveOrUpdateDoorType(doorType);
 
-        return "jr";
+        return String.valueOf(id);
     }
 
     @PostMapping(value = "/update/sizeofdoorparts", produces = MediaType.APPLICATION_JSON_VALUE)
