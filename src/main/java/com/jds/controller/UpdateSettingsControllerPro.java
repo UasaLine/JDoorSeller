@@ -13,7 +13,7 @@ import java.io.StringReader;
 
 
 @Controller
-public class UpdateSettingsController {
+public class UpdateSettingsControllerPro {
 
     @Autowired
     MainDAO mainDAO;
