@@ -14,6 +14,8 @@ public class FireproofDoor implements Door{
     private String doorClass;
     private int widthDoor;
     private int heightDoor;
+    private int аctivDoorLeafWidth;
+    private int doorFanlightheight;
     private String metal;
     private int deepnessDoor;
     private int thicknessDoorLeaf;

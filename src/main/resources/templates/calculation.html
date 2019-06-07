@@ -265,12 +265,12 @@
         <!--widthDoor-->
         <div class="select_widthDoor"     show="ghost_lement" >
 
-            <div class="input_div"  >
+            <div class="input_div" id="widthDoorDiv"  >
                 <div class="left_cell_checkbox">
                     <span>Ширина (L):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                    <input class="input_size" id="inputWidthDoor" type="text" value="" size="4" placeholder="0">
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -284,12 +284,12 @@
                 <div class="description_images_door_class"> Ширина двери по коробу в милиметрах. </div>
             </div>
 
-            <div class="input_div" DoorLeaf="2" show="ghost_lement" >
+            <div class="input_div" id="ActivDoorLeafWidthDiv" DoorLeaf="2" show="ghost_lement" >
                 <div class="left_cell_checkbox">
                     <span>Ширина активной створки(I):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                    <input class="input_size" id="inputActivDoorLeafWidth" type="text" value="" size="4" placeholder="0">
                 </div>
             </div>
             <div class="images_div" DoorLeaf="2" show="ghost_lement" >
@@ -301,12 +301,12 @@
         <!--heightDoor-->
         <div class="select_heightDoor"    show="ghost_lement" >
 
-            <div class="input_div"  >
+            <div class="input_div" id="heightDoorDiv" >
                 <div class="left_cell_checkbox">
                     <span>Высота (H):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                    <input class="input_size" id="inputHeightDoor" type="text" value="" size="4" placeholder="0">
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -333,12 +333,12 @@
                 </div>
             </div>
 
-            <div class="input_div" fanlight="1"  show="ghost_lement">
+            <div class="input_div" id = "fanlightHeightDiv"fanlight="1"  show="ghost_lement">
                 <div class="left_cell_checkbox">
                     <span>Высота фрамуги (k):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputWidthDoor" type="text" value="0" size="4">
+                    <input class="input_size" id="inputHeightFanlight" type="text" value="" size="4" placeholder="0">
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -435,7 +435,7 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox13" id="checkbox13" Item="inner" data="inner" class="ios-toggle" />
+                        <input type="checkbox" name="checkbox13" id="checkbox13" Item="innerDoorOpen" data="1" class="ios-toggle" />
                         <label for="checkbox13" class="checkbox-label"></label>
                     </div>
                 </div>

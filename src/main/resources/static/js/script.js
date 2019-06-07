@@ -9,19 +9,34 @@ jQuery('document').ready(function(){
     var dataJson = "0";
     var door;
 
-    $.ajax({
-        url: 'data',
-        data: {id: dataJson},
-        dataType: 'json',
-        success: function (data) {
-            //alert('success: ' + data.id);
-            door = data;
+    //getInstans door
 
-        },
-        error: function (data) {
-            alert('error:' + data);
-        }
-    });
+    var mode = "no";//"loc";
+
+    if (mode == "loc"){
+        door = new Object();
+    }
+    else{
+        $.ajax({
+            url: 'data',
+            data: {id: dataJson},
+            dataType: 'json',
+            success: function (data) {
+                //alert('success: ' + data.id);
+                door = data;
+            },
+            error: function (data) {
+                alert('error:' + data);
+            }
+        });
+    }
+
+    displayОbject(door);
+
+
+    //--------------------------------------
+    //select
+    //--------------------------------------
 
     $('.vertical_menu_button').on('click',function(){
 
@@ -122,14 +137,12 @@ jQuery('document').ready(function(){
 
     });
 
-    //--------------------------------------
-    //select
-    //--------------------------------------
+
 
     $('.images_door_class').on('click',function(){
-            set($(this).attr('data'));
-            pickOut(this);
-            doorLeaf = $(this).attr('data-LeafDoorLeaf');
+        set($(this).attr('data'));
+        pickOut(this);
+        doorLeaf = $(this).attr('data-LeafDoorLeaf');
     });
 
     $('.div_images_Color').on('click',function(){
@@ -141,6 +154,7 @@ jQuery('document').ready(function(){
 
         if (currentItem=="metal"){
             oneEnableAllDisable ("metal",this);
+            setDoorField($(this).attr('Item'),$(this).attr('data'));
         }
         else if(currentItem=="heightDoor"){
             if ($(this).is(':checked')){
@@ -156,17 +170,24 @@ jQuery('document').ready(function(){
         else if(currentItem=="deepnessDoor"){
             if ($(this).is(':checked')){
                 oneEnableAllDisable ("deepnessDoor",this);
+                setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
         }
         else if(currentItem=="thicknessDoorLeaf"){
             if ($(this).is(':checked')){
                 oneEnableAllDisable ("thicknessDoorLeaf",this);
+                setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
         }
         else if(currentItem=="sideDoorOpen"){
             if ($(this).is(':checked')){
                 oneEnableAllDisable ("sideDoorOpen",this);
+                setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
+            else{
+                setDoorField($(this).attr('Item'),"");
+            }
+
         }
         else if(currentItem=="additionalDoorSettings"){
             if($(this).attr("item")=="doorstep"){
@@ -235,6 +256,8 @@ jQuery('document').ready(function(){
             }
         }
 
+        representationField($(this).attr('data'));
+
     });
 
     $('.to_calculate').on('click',function(){
@@ -257,13 +280,78 @@ jQuery('document').ready(function(){
         });
     });
 
-    $('.input_size').mouseleave(function(){
-        set($(this).val());
+    $('.input_div').mouseleave(function(){
+
+        var itamId = $(this).attr('id');
+
+        if (itamId == "widthDoorDiv"){
+            setDoorField("widthDoor",$('#inputWidthDoor').val());
+        }
+        else if(itamId == "ActivDoorLeafWidthDiv"){
+            setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
+        }
+        else if(itamId == "heightDoorDiv"){
+            setDoorField("heightDoor",$('#inputHeightDoor').val());
+        }
+        else if(itamId == "fanlightHeightDiv"){
+            setDoorField("doorFanlightheight",$('#inputHeightFanlight').val());
+        }
+
+        representationField();
+
     });
 
     //--------------------------------------
     //setter
     //--------------------------------------
+
+    function displayОbject(doorObject){
+        for (var key in doorObject) {
+            alert( "Ключ: " + key + " значение: " + doorObject[key] );
+        }
+    }
+
+    function setDoorField(fieldName,value){
+        door[fieldName] = value;
+    }
+
+    function representationField(value){
+
+        var showValue="";
+
+        //widthDoor
+        if (currentItem == "widthDoor"){
+            if(door.activDoorLeafWidth && door.activDoorLeafWidth!=0){
+                showValue = ""+door.widthDoor+" ["+door.activDoorLeafWidth+"]";
+            }
+            else if(door.widthDoor && door.widthDoor!=0){
+                showValue = ""+door.widthDoor;
+            }
+        }
+        //heightDoor
+        else if (currentItem == "heightDoor"){
+            if(door.doorFanlightheight && door.doorFanlightheight!=0){
+                showValue = ""+door.heightDoor+" ["+door.doorFanlightheight+"]";
+            }
+            else if(door.heightDoor && door.heightDoor!=0){
+                showValue = ""+door.heightDoor;
+            }
+        }
+        //sideDoorOpen
+        else if (currentItem == "sideDoorOpen"){
+            if(door.innerDoorOpen && door.innerDoorOpen!=0){
+                showValue = ""+door.sideDoorOpen+" [внутренняя]";
+            }
+            else if(door.sideDoorOpen && door.sideDoorOpen!=0){
+                showValue = ""+door.sideDoorOpen;
+            }
+        }
+        else{
+            showValue = value;
+        }
+
+        set(showValue);
+    }
 
     function pickOut(item){
 
@@ -280,7 +368,6 @@ jQuery('document').ready(function(){
 
     function set(Value){
         $('.vertical_menu_button_rigtht#'+currentItem+'Show strong').html(Value);
-        door[currentItem]=Value;
     }
 
     function oneEnableAllDisable (Item,thisItem){
@@ -296,7 +383,6 @@ jQuery('document').ready(function(){
                 $(elems[i]).prop('checked', false);
             }
         }
-        set($(thisItem).attr('data'));
     }
 
     function addNavigation (){
