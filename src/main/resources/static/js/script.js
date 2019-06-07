@@ -32,7 +32,6 @@ jQuery('document').ready(function(){
         });
     }
 
-
     //--------------------------------------
     //select
     //--------------------------------------
@@ -291,7 +290,7 @@ jQuery('document').ready(function(){
             setDoorField("heightDoor",$('#inputHeightDoor').val());
         }
         else if(itamId == "fanlightHeightDiv"){
-            setDoorField("doorFanlightheight",$('#inputHeightFanlight').val());
+            setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
         }
 
         representationField();
