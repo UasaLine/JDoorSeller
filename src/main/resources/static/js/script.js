@@ -11,9 +11,9 @@ jQuery('document').ready(function(){
 
     //getInstans door
 
-    var mode = "no";//"loc";
+    var mode = "loc";
 
-    if (mode == "loc"){
+    if (mode == "no"){
         door = new Object();
     }
     else{
@@ -24,14 +24,13 @@ jQuery('document').ready(function(){
             success: function (data) {
                 //alert('success: ' + data.id);
                 door = data;
+                displayОbject(door);
             },
             error: function (data) {
                 alert('error:' + data);
             }
         });
     }
-
-    displayОbject(door);
 
 
     //--------------------------------------
@@ -136,8 +135,6 @@ jQuery('document').ready(function(){
         }
 
     });
-
-
 
     $('.images_door_class').on('click',function(){
         set($(this).attr('data'));
@@ -305,9 +302,10 @@ jQuery('document').ready(function(){
     //setter
     //--------------------------------------
 
-    function displayОbject(doorObject){
-        for (var key in doorObject) {
-            alert( "Ключ: " + key + " значение: " + doorObject[key] );
+    function displayОbject(){
+        for (var key in door) {
+            currentItem = key;
+            representationField(door[key]);
         }
     }
 
