@@ -136,13 +136,16 @@ jQuery('document').ready(function(){
     });
 
     $('.images_door_class').on('click',function(){
-        set($(this).attr('data'));
-        pickOut(this);
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
+        setDoorField($(this).attr('Item'),$(this).attr('data'));
+        representationField($(this).attr('data'));
+        pickOut(this);
+
     });
 
     $('.div_images_Color').on('click',function(){
-        set($(this).attr('data'));
+        setDoorField($(this).attr('Item'),$(this).attr('data'));
+        representationField($(this).attr('data'));
         pickOut(this);
     });
 
@@ -177,7 +180,7 @@ jQuery('document').ready(function(){
         }
         else if(currentItem=="sideDoorOpen"){
             if ($(this).is(':checked')){
-                oneEnableAllDisable ("sideDoorOpen",this);
+                oneEnableAllDisable ($(this).attr('Item'),this);
                 setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
             else{
@@ -301,12 +304,6 @@ jQuery('document').ready(function(){
     //setter
     //--------------------------------------
 
-    function displayОbject(){
-        for (var key in door) {
-            currentItem = key;
-            representationField(door[key]);
-        }
-    }
 
     function setDoorField(fieldName,value){
         door[fieldName] = value;
@@ -348,6 +345,7 @@ jQuery('document').ready(function(){
         }
 
         set(showValue);
+        drawObject();
     }
 
     function pickOut(item){
@@ -387,5 +385,67 @@ jQuery('document').ready(function(){
         $('<a>').attr('class','navigation_panel').attr('href','#').html(currentItemForDisplay).appendTo('.navigation_panel_div');
         $('<span>').attr('class','navigation_panel').html('->').appendTo('.navigation_panel_div');
     };
+
+    //--------------------------------------
+    //periodic installation
+    //--------------------------------------
+
+    function displayОbject(){
+        for (var key in door) {
+            currentItem = key;
+            representationField(door[key]);
+        }
+    }
+
+    function drawObject(){
+
+        var color = door.doorColor;
+        var width = (door.widthDoor*2)/10;
+        var height = (door.heightDoor*2)/10;
+
+        if(doorLeaf == 1){
+            var sideOpeningL = "InSlit";
+            var sideOpeningR = "OutSlit";
+        }
+        else{
+            if(!!door.sideDoorOpen ){
+                if(door.sideDoorOpen == "LEFT" ){
+                    var sideOpeningL = "InSlit_D_L";
+                    var sideOpeningR = "OutSlit_D_L";
+                }
+                else{
+                    var sideOpeningL = "InSlit_D_R";
+                    var sideOpeningR = "OutSlit_D_R";
+                }
+            }
+            else{
+                var sideOpeningL = "InSlit_D_L";
+                var sideOpeningR = "OutSlit_D_L";
+            }
+        }
+
+        //delete
+        $('.picture_doorL').remove();
+        $('.picture_doorR').remove();
+
+
+        //draw door L
+        $('<div>').attr('class','picture_doorL').appendTo('.daughter_container1');
+        if	(!!color && !!width && !!height){
+            $('<img>').attr('class','color_door').attr('src','images/Door/AColor1/'+color+'.jpg').attr('style','width:'+width+'px; height:'+height+'px;').appendTo('.picture_doorL');
+            $('<img>').attr('class','opening_side_images').attr('src','images/Door/'+sideOpeningL+'.png').attr('style','width:'+width+'px; height:'+height+'px;').appendTo('.picture_doorL');
+        }
+
+        //draw door R
+        $('<div>').attr('class','picture_doorR').appendTo('.daughter_container1');
+        if	(!!color && !!width  && !!height){
+            $('<img>').attr('class','color_door').attr('src','images/Door/AColor1/'+color+'.jpg').attr('style','width:'+width+'px; height:'+height+'px;').appendTo('.picture_doorR');
+            $('<img>').attr('class','opening_side_images').attr('src','images/Door/'+sideOpeningR+'.png').attr('style','width:'+width+'px; height:'+height+'px;').appendTo('.picture_doorR');
+            //draw size
+            $('<span>').attr('class','sizeDoorSpan').attr('style','width:20px; height:'+height+'px; ').html(door.heightDoor).appendTo('.picture_doorR');
+            $('<span>').attr('class','sizeDoorSpanBottom').attr('style','width:'+width+'px; height:20px;left:0px;top:'+height+'px;').html(door.widthDoor).appendTo('.picture_doorR');
+        }
+
+    }
 
 });
