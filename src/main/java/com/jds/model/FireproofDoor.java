@@ -12,6 +12,7 @@ public class FireproofDoor implements Door{
     private int id;
     private String name;
     private String doorClass;
+    private String doorType;
     private int widthDoor;
     private int heightDoor;
     private int аctivDoorLeafWidth;
@@ -27,6 +28,8 @@ public class FireproofDoor implements Door{
     private int leftDoorTrim;
     private int rightDoorTrim;
     private int price;
+    private String doorColor;
+
 
 
     public static FireproofDoor createNewDoorOrGetById(String id){

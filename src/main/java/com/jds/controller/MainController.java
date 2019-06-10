@@ -91,6 +91,7 @@ public class MainController {
                      Model model,
                      @RequestBody FireproofDoor door) throws Exception {
 
+        Service.getBillets(door);
         door.setPrice(21000);
         door.setName("Дверь металлическая "+door.getWidthDoor()+" X "+door.getHeightDoor());
         return door;

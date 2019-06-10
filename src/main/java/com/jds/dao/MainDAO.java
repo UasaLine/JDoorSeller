@@ -213,7 +213,18 @@ public class MainDAO {
 
     }
 
+    public List<SizeOfDoorParts> getSizeOfDoorPartsList(int doortypeId){
 
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from size_door_parts where doortype_id = :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (SizeOfDoorParts.class)
+                .setParameter ("log", doortypeId);
+        return query.list();
+
+    }
     public List<DoorClass> getDoorClass() {
 
         Session session = sessionFactory.openSession();
