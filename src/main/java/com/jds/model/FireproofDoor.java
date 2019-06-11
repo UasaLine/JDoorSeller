@@ -29,12 +29,62 @@ public class FireproofDoor implements Door{
     private int rightDoorTrim;
     private int price;
     private String doorColor;
+    private int glassWidth;
+    private int glassHeight;
 
 
 
     public static FireproofDoor createNewDoorOrGetById(String id){
 
         return new FireproofDoor(Integer.parseInt(id));
+    }
+
+    public int getGlassWidth() {
+        return glassWidth;
+    }
+
+    public void setGlassWidth(int glassWidth) {
+        this.glassWidth = glassWidth;
+    }
+
+    public int getGlassHeight() {
+        return glassHeight;
+    }
+
+    public void setGlassHeight(int glassHeight) {
+        this.glassHeight = glassHeight;
+    }
+
+    public String getDoorType() {
+        return doorType;
+    }
+
+    public void setDoorType(String doorType) {
+        this.doorType = doorType;
+    }
+
+    public int getАctivDoorLeafWidth() {
+        return аctivDoorLeafWidth;
+    }
+
+    public void setАctivDoorLeafWidth(int аctivDoorLeafWidth) {
+        this.аctivDoorLeafWidth = аctivDoorLeafWidth;
+    }
+
+    public int getDoorFanlightheight() {
+        return doorFanlightheight;
+    }
+
+    public void setDoorFanlightheight(int doorFanlightheight) {
+        this.doorFanlightheight = doorFanlightheight;
+    }
+
+    public String getDoorColor() {
+        return doorColor;
+    }
+
+    public void setDoorColor(String doorColor) {
+        this.doorColor = doorColor;
     }
 
     public FireproofDoor() {

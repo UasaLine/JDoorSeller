@@ -40,14 +40,9 @@ public class MaineService {
 
     public void getBillets(FireproofDoor fireproofDoor){
 
-        List<SizeOfDoorParts> sizeOfDoorPartsList = DAO.getSizeOfDoorPartsList(2);
-        List<DoorPart> partList = new ArrayList<DoorPart>();
-
-        for(SizeOfDoorParts parts:sizeOfDoorPartsList) {
+        List<DoorPart> partList = DoorPart.getDoopPartsList(DAO.getSizeOfDoorPartsList(2),fireproofDoor);
 
 
-
-        }
     }
 
 
