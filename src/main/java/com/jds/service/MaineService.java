@@ -38,13 +38,23 @@ public class MaineService {
         return DAO.getMetals();
     }
 
-    public void getBillets(FireproofDoor fireproofDoor){
+    public List<DoorPart> getDoorPart(FireproofDoor fireproofDoor){
 
-        List<DoorPart> partList = DoorPart.getDoopPartsList(DAO.getSizeOfDoorPartsList(2),fireproofDoor);
-
+        return DoorPart.getDoopPartsList(DAO.getSizeOfDoorPartsList(2),fireproofDoor);
 
     }
 
+    public void calculateTheDoor(FireproofDoor door){
+        int metalPrice = calculateMetalDoor(door);
+
+
+    }
+    public int calculateMetalDoor(FireproofDoor door){
+
+        List<DoorPart> partList = getDoorPart(door);
+
+        return 0;
+    }
 
 
 }

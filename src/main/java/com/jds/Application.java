@@ -1,5 +1,8 @@
 package com.jds;
 
+import com.jds.model.DoorPart;
+import com.jds.model.cutting.Sheet;
+import com.jds.model.cutting.SheetCutting;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,6 +19,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @EnableAutoConfiguration(exclude = { //
@@ -31,7 +36,9 @@ public class Application {
     private Environment env;
 
     public static void main(String[] args) throws Throwable {
+
         SpringApplication.run(Application.class, args);
+
     }
 
     @Bean(name = "dataSource")
@@ -85,4 +92,29 @@ public class Application {
 
         return transactionManager;
     }
+
+    //only for test delete please
+    public static void testDelete(){
+        List<DoorPart> doorPartList = new ArrayList<>();
+        doorPartList.add(new DoorPart("1",1249,200,1));
+        doorPartList.add(new DoorPart("1",600,150,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+        doorPartList.add(new DoorPart("1",400,300,1));
+
+        Sheet sheet = new Sheet(2500,1250);
+
+        SheetCutting sheetCutting = new SheetCutting(doorPartList,sheet);
+        sheetCutting.CompleteCutting();
+    }
+
 }

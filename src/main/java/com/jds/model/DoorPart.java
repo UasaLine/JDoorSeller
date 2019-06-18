@@ -1,5 +1,6 @@
 package com.jds.model;
 
+import com.jds.entity.Metal;
 import com.jds.entity.SizeOfDoorParts;
 import com.udojava.evalex.Expression;
 
@@ -13,6 +14,40 @@ public class DoorPart {
     int width;
     int height;
     int quantity;
+    boolean posted;
+    boolean inverted;
+    int index;
+    Metal metal;
+    int space;
+    int positioningTop;
+    int positioningLeft;
+
+    public DoorPart() {
+    }
+
+    public static DoorPart getInstansInverted(DoorPart doorPart){
+        DoorPart newDoorPart = new DoorPart();
+        newDoorPart.setName(doorPart.getName());
+        newDoorPart.setWidth(doorPart.getHeight());
+        newDoorPart.setHeight(doorPart.getWidth());
+        newDoorPart.setIndex(doorPart.getIndex());
+        newDoorPart.setInverted(true);
+        newDoorPart.setQuantity(doorPart.getQuantity());
+        newDoorPart.setSpace(doorPart.getSpace());
+        newDoorPart.setMetal(doorPart.getMetal());
+        newDoorPart.setPosted(false);
+        return newDoorPart;
+    }
+
+    public DoorPart(String name, int width, int height, int quantity) {
+        this.name = name;
+        this.width = width;
+        this.height = height;
+        this.quantity = quantity;
+        this.space = (width*height)/1000000;
+        this.inverted =false;
+        this.posted = false;
+    }
 
     public static List<DoorPart> getDoopPartsList(List<SizeOfDoorParts> list, FireproofDoor Door){
 
@@ -119,5 +154,65 @@ public class DoorPart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isPosted() {
+        return posted;
+    }
+
+    public void setPosted(boolean posted) {
+        this.posted = posted;
+    }
+
+    public boolean isInverted() {
+        return inverted;
+    }
+
+    public void setInverted(boolean inverted) {
+        this.inverted = inverted;
+    }
+
+    public int isIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public Metal getMetal() {
+        return metal;
+    }
+
+    public void setMetal(Metal metal) {
+        this.metal = metal;
+    }
+
+    public int getSpace() {
+        return space;
+    }
+
+    public void setSpace(int space) {
+        this.space = space;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public int getPositioningTop() {
+        return positioningTop;
+    }
+
+    public void setPositioningTop(int positioningTop) {
+        this.positioningTop = positioningTop;
+    }
+
+    public int getPositioningLeft() {
+        return positioningLeft;
+    }
+
+    public void setPositioningLeft(int positioningLeft) {
+        this.positioningLeft = positioningLeft;
     }
 }
