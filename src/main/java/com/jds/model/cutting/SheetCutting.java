@@ -226,4 +226,28 @@ public class SheetCutting {
             }
         }
     }
+
+    public List<DoorPart> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<DoorPart> parts) {
+        this.parts = parts;
+    }
+
+    public List<Sheet> getSheets() {
+        return sheets;
+    }
+
+    public void setSheets(List<Sheet> sheets) {
+        this.sheets = sheets;
+    }
+
+    public int getNumberOfSheets() {
+        return numberOfSheets;
+    }
+
+    public void setNumberOfSheets(int numberOfSheets) {
+        this.numberOfSheets = numberOfSheets;
+    }
 }

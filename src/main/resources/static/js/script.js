@@ -271,12 +271,19 @@ jQuery('document').ready(function(){
             dataType: 'json',
             success: function (data) {
                 alert('price is: ' + data.price);
+                door = data;
                 $('.nameDoor_span').html(data.name);
+                $('.getСut').attr('show','is_alive_lement');
             },
             error: function (data) {
                 alert('error:' + data);
             }
         });
+    });
+
+    $('.getСut').on('click',function(){
+                alert('width is: ' + door.sheets);
+                drawCutting(door.sheets);
     });
 
     $('.input_div').mouseleave(function(){
@@ -448,4 +455,21 @@ jQuery('document').ready(function(){
 
     }
 
+    function drawCutting(Sheet){
+        var k =0.186;
+        for(var i=0; i<Sheet.length; ++i){
+
+            //delete
+            //$('.picture_doorL').remove();
+            //$('.picture_doorR').remove();
+            $('.Sheet').remove();
+
+            $('<div>').attr('class','Sheet').attr('style','width:'+Sheet[i].width*k+'px; height:'+Sheet[i].height*k+'px;').appendTo('.daughter_container1');
+
+            var doorParts = Sheet[i].containsParts;
+            for(var j=0; j<doorParts.length; ++j){
+                $('<div>').attr('class','doorPart').attr('style','width:'+doorParts[j].height*k+'px; height:'+doorParts[j].width*k+'px;top:'+doorParts[j].positioningTop*k+'px;left:'+doorParts[j].positioningLeft*k+'px;').appendTo('.Sheet');
+            }
+        }
+    }
 });

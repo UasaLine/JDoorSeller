@@ -1,11 +1,15 @@
 package com.jds.controller;
 
+import com.jds.Application;
 import com.jds.dao.MainDAO;
 import com.jds.entity.DoorClass;
 import com.jds.entity.DoorType;
 import com.jds.entity.Metal;
+import com.jds.entity.SizeOfDoorParts;
 import com.jds.model.Door;
+import com.jds.model.DoorPart;
 import com.jds.model.FireproofDoor;
+import com.jds.model.cutting.Sheet;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,6 +26,9 @@ public class MainController {
 
     @Autowired
     private MaineService Service;
+
+    @Autowired //test
+    MainDAO mainDAO; //test
 
     @GetMapping(value = "/")
     public String updateDoorClass(@RequestParam(required = false) String kay,
@@ -47,6 +56,7 @@ public class MainController {
     @GetMapping(value = "/doortype")
     public String getDoorType(@RequestParam(required = false) String kay,
                                @RequestParam(required = false) String dataJson, Model model) throws Exception {
+
 
         List<DoorType> list = Service.getDoorType();
         model.addAttribute("accountInfos", list);
@@ -91,9 +101,18 @@ public class MainController {
                      Model model,
                      @RequestBody FireproofDoor door) throws Exception {
 
-        Service.getDoorPart(door);
-        door.setPrice(21000);
-        door.setName("Дверь металлическая "+door.getWidthDoor()+" X "+door.getHeightDoor());
+        Service.calculateTheDoor(door);
         return door;
+    }
+    @PostMapping(value = "/cutting", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Sheet> cuttingTheDoor(@RequestParam(required = false) String kay,
+                                       @RequestParam(required = false) String dataJson,
+                                       Model model,
+                                       @RequestBody FireproofDoor door) throws Exception {
+
+        List<Sheet> sheets = Application.testDelete();
+        //return sheets.get(0).getContainsParts();
+        return sheets;
     }
 }

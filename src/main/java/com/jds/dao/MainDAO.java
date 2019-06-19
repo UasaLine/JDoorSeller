@@ -86,6 +86,8 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdateSizeOfDoorParts(SizeOfDoorParts sizeOfDoorParts) {
 
+        sizeOfDoorParts.decodeAfterJson();
+
         int id = getSizeOfDoorPartsId(sizeOfDoorParts.getName());//check exists
         if (id>0){
             sizeOfDoorParts.setId(id);

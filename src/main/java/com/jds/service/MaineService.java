@@ -7,6 +7,8 @@ import com.jds.entity.Metal;
 import com.jds.entity.SizeOfDoorParts;
 import com.jds.model.DoorPart;
 import com.jds.model.FireproofDoor;
+import com.jds.model.cutting.Sheet;
+import com.jds.model.cutting.SheetCutting;
 import com.udojava.evalex.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,13 +48,17 @@ public class MaineService {
 
     public void calculateTheDoor(FireproofDoor door){
         int metalPrice = calculateMetalDoor(door);
-
+        door.setPrice(20000);
 
     }
     public int calculateMetalDoor(FireproofDoor door){
 
         List<DoorPart> partList = getDoorPart(door);
+        Sheet sheet = new Sheet(2500,1250);
 
+        SheetCutting sheetCutting = new SheetCutting(partList,sheet);
+        sheetCutting.CompleteCutting();
+        door.setSheets(sheetCutting.getSheets());
         return 0;
     }
 

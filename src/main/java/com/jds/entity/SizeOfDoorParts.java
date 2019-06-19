@@ -85,4 +85,16 @@ public class SizeOfDoorParts {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+
+    public void decodeAfterJson(){
+        this.condition = this.condition.replace("//","*");
+        this.condition = this.condition.replace("/","+");
+
+        this.height = this.height.replace("//","*");
+        this.height = this.height.replace("/","+");
+
+        this.width = this.width.replace("//","*");
+        this.width = this.width.replace("/","+");
+    }
+
 }

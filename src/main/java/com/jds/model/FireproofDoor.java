@@ -2,6 +2,7 @@ package com.jds.model;
 
 import com.jds.entity.DoorClass;
 import com.jds.entity.Metal;
+import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.SideDoorOpen;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class FireproofDoor implements Door{
     private String doorColor;
     private int glassWidth;
     private int glassHeight;
+    private List<Sheet> sheets;
 
 
 
@@ -222,6 +224,14 @@ public class FireproofDoor implements Door{
 
     public void setSideDoorOpen(String sideDoorOpen) {
         this.sideDoorOpen = sideDoorOpen;
+    }
+
+    public List<Sheet> getSheets() {
+        return sheets;
+    }
+
+    public void setSheets(List<Sheet> sheets) {
+        this.sheets = sheets;
     }
 }
 

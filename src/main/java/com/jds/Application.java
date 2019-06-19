@@ -94,7 +94,7 @@ public class Application {
     }
 
     //only for test delete please
-    public static void testDelete(){
+    public static List<Sheet> testDelete(){
         List<DoorPart> doorPartList = new ArrayList<>();
         doorPartList.add(new DoorPart("1",1249,200,1));
         doorPartList.add(new DoorPart("1",600,150,1));
@@ -115,6 +115,7 @@ public class Application {
 
         SheetCutting sheetCutting = new SheetCutting(doorPartList,sheet);
         sheetCutting.CompleteCutting();
+        return sheetCutting.getSheets();
     }
 
 }
