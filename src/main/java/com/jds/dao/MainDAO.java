@@ -227,6 +227,7 @@ public class MainDAO {
         return query.list();
 
     }
+
     public List<DoorClass> getDoorClass() {
 
         Session session = sessionFactory.openSession();

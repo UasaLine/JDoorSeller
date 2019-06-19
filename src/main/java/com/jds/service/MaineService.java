@@ -42,7 +42,7 @@ public class MaineService {
 
     public List<DoorPart> getDoorPart(FireproofDoor fireproofDoor){
 
-        return DoorPart.getDoopPartsList(DAO.getSizeOfDoorPartsList(2),fireproofDoor);
+        return DoorPart.getDoopPartsList(DAO.getSizeOfDoorPartsList(1),fireproofDoor);
 
     }
 
