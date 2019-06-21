@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.activation.DataSource;
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class MainDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+
 
     public MainDAO() {
     }
@@ -237,9 +238,6 @@ public class MainDAO {
         Query query = session.createSQLQuery(sql).addEntity(DoorClass.class);
 
         List<DoorClass> list = query.list();
-
-        //List<DoorClass> list = session.createCriteria(DoorClass.class).list();
-
 
         return list;
 

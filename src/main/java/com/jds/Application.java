@@ -36,8 +36,6 @@ public class Application {
 
     }
 
-
-
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
@@ -66,13 +64,6 @@ public class Application {
         return sf;
     }
 
-    @Autowired
-    @Bean(name = "transactionManager")
-    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-
-        return transactionManager;
-    }
 
     //only for test delete please
     public static List<Sheet> testDelete(){
