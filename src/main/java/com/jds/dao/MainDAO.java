@@ -125,6 +125,8 @@ public class MainDAO {
                 .setParameter ("log", name);
         List<DoorClass> doorClassList = query.list();
 
+        session.close();
+
         if(doorClassList.size()>0){
             return doorClassList.get(0).getId();
         }
@@ -141,6 +143,8 @@ public class MainDAO {
                 .addEntity (DoorType.class)
                 .setParameter ("log", name);
         List<DoorType> doorTypeList = query.list();
+
+        session.close();
 
         if(doorTypeList.size()>0){
             return doorTypeList.get(0).getId();
@@ -159,6 +163,8 @@ public class MainDAO {
                 .setParameter ("log", id);
         List<Metal> metalList = query.list();
 
+        session.close();
+
         if(metalList.size()>0){
             return metalList.get(0).getId();
         }
@@ -175,6 +181,8 @@ public class MainDAO {
                 .addEntity (DoorFurniture.class)
                 .setParameter ("log", id);
         List<DoorFurniture> doorFurnitureList = query.list();
+
+        session.close();
 
         if(doorFurnitureList.size()>0){
             return doorFurnitureList.get(0).getId();
@@ -193,6 +201,8 @@ public class MainDAO {
                 .setParameter ("log", id);
         List<DoorColors> doorColorsList = query.list();
 
+        session.close();
+
         if(doorColorsList.size()>0){
             return doorColorsList.get(0).getId();
         }
@@ -210,6 +220,8 @@ public class MainDAO {
                 .setParameter ("log", name);
         List<SizeOfDoorParts> sizeOfDoorPartsList = query.list();
 
+        session.close();
+
         if(sizeOfDoorPartsList.size()>0){
             return sizeOfDoorPartsList.get(0).getId();
         }
@@ -226,7 +238,12 @@ public class MainDAO {
         Query query = session.createSQLQuery (sql)
                 .addEntity (SizeOfDoorParts.class)
                 .setParameter ("log", doortypeId);
-        return query.list();
+
+        List<SizeOfDoorParts> list = query.list();
+
+        session.close();
+
+        return list;
 
     }
 
@@ -238,6 +255,8 @@ public class MainDAO {
         Query query = session.createSQLQuery(sql).addEntity(DoorClass.class);
 
         List<DoorClass> list = query.list();
+
+        session.close();
 
         return list;
 
@@ -252,6 +271,7 @@ public class MainDAO {
 
         List<DoorType> list = query.list();
 
+        session.close();
 
         return list;
 
@@ -273,6 +293,8 @@ public class MainDAO {
         Query query = session.createSQLQuery(sql).addEntity(Metal.class);
 
         List<Metal> list = query.list();
+
+        session.close();
 
         return list;
 
