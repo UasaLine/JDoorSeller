@@ -1,6 +1,7 @@
 package com.jds.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Door")
@@ -8,7 +9,7 @@ public class DoorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "door_id", nullable = false)
     private int id;
 
     @Column(name = "name", length = 128, nullable = false)
@@ -61,6 +62,9 @@ public class DoorEntity {
 
     @Column(name = "price")
     private int price;
+
+    @ManyToMany(mappedBy = "doors",fetch = FetchType.EAGER)
+    List<DoorsОrder> Оrders;
 
     public int getId() {
         return id;
@@ -204,5 +208,13 @@ public class DoorEntity {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public List<DoorsОrder> getОrders() {
+        return Оrders;
+    }
+
+    public void setОrders(List<DoorsОrder> оrders) {
+        Оrders = оrders;
     }
 }

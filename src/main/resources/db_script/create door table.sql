@@ -1,6 +1,7 @@
-CREATE TABLE Door
+DROP TABLE door;
+CREATE TABLE door
 (
-  Id SERIAL PRIMARY KEY,
+  door_id SERIAL PRIMARY KEY,
   name CHARACTER VARYING(100),
   doorClass CHARACTER VARYING(100),
   widthDoor int,
