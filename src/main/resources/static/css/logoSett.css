@@ -403,7 +403,7 @@ td{
 
 .to_calculate{
     height:35px;
-    width:150px;
+    width:95px;
     color:#000000;
     background-color:#DCDCDC;
     border-radius: 5px;
@@ -411,22 +411,28 @@ td{
     left:5px;
     top:9px;
     z-index:12;
+    padding:10px 0px 0px 10px;
 }
 .to_calculate:hover{
     height:35px;
-    width:150px;
+    width:37%;
     color:#FFFFFF;
-    background-color:#696969;
+    background-color:#245882;
     border-radius: 5px;
     position: absolute;
+    padding:10px 0px 0px 10px;
     left:5px;
     top:9px;
     cursor:pointer;
     z-index:12;
 }
+
 .to_calculate_span{
-    padding:6px 10px 10px 10px;
-    position: absolute;
+    padding:5px 10px 0px 0px;
+}
+.to_calculate_span:hover{
+    padding:5px 10px 0px 0px;
+    color:#1E90FF;
 }
 .getСut{
     height:35px;
@@ -509,7 +515,6 @@ td{
     vertical-align: top;
     position: absolute;
 }
-
 .Sheet{
     display:inline-block;
     position:relative;

@@ -13,7 +13,7 @@ jQuery('document').ready(function(){
 
     var mode = "loc";
 
-    if (mode == "no"){
+    if (mode == "loc"){
         door = new Object();
     }
     else{
@@ -259,7 +259,7 @@ jQuery('document').ready(function(){
 
     });
 
-    $('.to_calculate').on('click',function(){
+    $('#buttonCalculate').on('click',function(){
 
         var strJSON = JSON.stringify(door);
 
@@ -271,9 +271,7 @@ jQuery('document').ready(function(){
             dataType: 'json',
             success: function (data) {
                 alert('price is: ' + data.price);
-                door = data;
                 $('.nameDoor_span').html(data.name);
-                $('.getСut').attr('show','is_alive_lement');
             },
             error: function (data) {
                 alert('error:' + data);
@@ -281,30 +279,59 @@ jQuery('document').ready(function(){
         });
     });
 
-    $('.getСut').on('click',function(){
-                alert('width is: ' + door.sheets);
-                drawCutting(door.sheets);
+    $('#buttonGetCutteig').on('click',function(){
+
+        var strJSON = JSON.stringify(door);
+
+        $.ajax({
+            type: 'POST',
+            url: 'cutting',
+            contentType: "application/json",
+            data: strJSON,
+            dataType: 'json',
+            success: function (data) {
+                alert('width is: ' + data.length);
+                drawCutting(data);
+            },
+            error: function (data) {
+                alert('error:' + data);
+            }
+        });
     });
 
-    $('.input_div').mouseleave(function(){
 
-        var itamId = $(this).attr('id');
+    $('.to_calculate').hover(
+        function(){
+            $('#buttonSaveDoor').attr('show','is_alive_lement');
+            $('#buttonGetCutteig').attr('show','is_alive_lement');
+        },
+        function(){
+            $('#buttonSaveDoor').attr('show','ghost_lement');
+            $('#buttonGetCutteig').attr('show','ghost_lement');
+        });
 
-        if (itamId == "widthDoorDiv"){
-            setDoorField("widthDoor",$('#inputWidthDoor').val());
-        }
-        else if(itamId == "ActivDoorLeafWidthDiv"){
-            setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
-        }
-        else if(itamId == "heightDoorDiv"){
-            setDoorField("heightDoor",$('#inputHeightDoor').val());
-        }
-        else if(itamId == "fanlightHeightDiv"){
-            setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
-        }
+    $('.input_div').keydown(function(eventObject){
 
-        representationField();
+        if (eventObject.which=='13'){
 
+            var itamId = $(this).attr('id');
+
+            if (itamId == "widthDoorDiv"){
+                setDoorField("widthDoor",$('#inputWidthDoor').val());
+            }
+            else if(itamId == "ActivDoorLeafWidthDiv"){
+                setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
+            }
+            else if(itamId == "heightDoorDiv"){
+                setDoorField("heightDoor",$('#inputHeightDoor').val());
+            }
+            else if(itamId == "fanlightHeightDiv"){
+                setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
+            }
+
+            representationField();
+
+        }
     });
 
     //--------------------------------------
@@ -460,15 +487,14 @@ jQuery('document').ready(function(){
         for(var i=0; i<Sheet.length; ++i){
 
             //delete
-            //$('.picture_doorL').remove();
-            //$('.picture_doorR').remove();
-            $('.Sheet').remove();
+            $('.picture_doorL').remove();
+            $('.picture_doorR').remove();
 
-            $('<div>').attr('class','Sheet').attr('style','width:'+Sheet[i].width*k+'px; height:'+Sheet[i].height*k+'px;').appendTo('.daughter_container1');
+            $('<div>').attr('class','Sheet').attr('style','width:'+Sheet[i].width/k+'px; height:'+Sheet[i].height/k+'px;').appendTo('.daughter_container1');
 
             var doorParts = Sheet[i].containsParts;
             for(var j=0; j<doorParts.length; ++j){
-                $('<div>').attr('class','doorPart').attr('style','width:'+doorParts[j].height*k+'px; height:'+doorParts[j].width*k+'px;top:'+doorParts[j].positioningTop*k+'px;left:'+doorParts[j].positioningLeft*k+'px;').appendTo('.Sheet');
+                $('<div>').attr('class','doorPart').attr('style','width:'+doorParts[j].width/k+'px; height:'+doorParts[j].height/k+'px;top:'+doorParts[j].positioningTop/k+'px;left:'+doorParts[j].positioningLeft/k+'px;').appendTo('.Sheet');
             }
         }
     }
