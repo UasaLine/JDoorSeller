@@ -107,12 +107,23 @@ public class MainController {
     @PostMapping(value = "/cutting", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Sheet> cuttingTheDoor(@RequestParam(required = false) String kay,
-                                       @RequestParam(required = false) String dataJson,
-                                       Model model,
-                                       @RequestBody FireproofDoor door) throws Exception {
+                                      @RequestParam(required = false) String dataJson,
+                                      Model model,
+                                      @RequestBody FireproofDoor door) throws Exception {
 
         List<Sheet> sheets = Application.testDelete();
         //return sheets.get(0).getContainsParts();
         return sheets;
+    }
+
+    @PostMapping(value = "/saveDoor", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public FireproofDoor saveDoor(@RequestParam(required = false) String kay,
+                                      @RequestParam(required = false) String dataJson,
+                                      Model model,
+                                      @RequestBody FireproofDoor door) throws Exception {
+
+
+        return Service.saveDoor(door);
     }
 }

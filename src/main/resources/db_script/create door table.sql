@@ -1,4 +1,4 @@
-DROP TABLE door;
+DROP TABLE door CASCADE;
 CREATE TABLE door
 (
   door_id SERIAL PRIMARY KEY,
@@ -18,5 +18,6 @@ CREATE TABLE door
   topDoorTrim int,
   leftDoorTrim int,
   rightDoorTrim int,
-  price int
+  price int,
+  doorColor CHARACTER VARYING(100)
 );

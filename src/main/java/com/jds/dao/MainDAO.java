@@ -114,6 +114,23 @@ public class MainDAO {
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public FireproofDoor saveDoor(FireproofDoor door){
+
+        Session session = sessionFactory.getCurrentSession();
+        DoorEntity doorEntity = new DoorEntity();
+
+        doorEntity.setId(door.getId());
+        doorEntity.setWidthDoor(door.getWidthDoor());
+        doorEntity.setHeightDoor(door.getHeightDoor());
+        doorEntity.setPrice(door.getPrice());
+        session.saveOrUpdate(doorEntity);
+
+        door.setId(doorEntity.getId());
+
+        return door;
+    }
+
     public int getDoorClassId(String name){
 
         Session session = sessionFactory.openSession();
@@ -299,4 +316,5 @@ public class MainDAO {
         return list;
 
     }
+
 }

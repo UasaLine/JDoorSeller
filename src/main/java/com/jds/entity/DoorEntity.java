@@ -31,7 +31,7 @@ public class DoorEntity {
     private int doorFanlightHeight;
 
     @Column(name = "metal")
-    private String metal;
+    private int metal;
 
     @Column(name = "deepnessDoor")
     private int deepnessDoor;
@@ -65,6 +65,9 @@ public class DoorEntity {
 
     @ManyToMany(mappedBy = "doors",fetch = FetchType.EAGER)
     List<DoorsОrder> Оrders;
+
+    @Column(name = "doorColor")
+    private String doorColor;
 
     public int getId() {
         return id;
@@ -122,11 +125,11 @@ public class DoorEntity {
         this.doorFanlightHeight = doorFanlightheight;
     }
 
-    public String getMetal() {
+    public int getMetal() {
         return metal;
     }
 
-    public void setMetal(String metal) {
+    public void setMetal(int metal) {
         this.metal = metal;
     }
 

@@ -299,6 +299,24 @@ jQuery('document').ready(function(){
         });
     });
 
+    $('#buttonSaveDoor').on('click',function(){
+
+        var strJSON = JSON.stringify(door);
+
+        $.ajax({
+            type: 'POST',
+            url: 'saveDoor',
+            contentType: "application/json",
+            data: strJSON,
+            dataType: 'json',
+            success: function (data) {
+                alert('price is: ' + data.id);
+            },
+            error: function (data) {
+                alert('error:' + data);
+            }
+        });
+    });
 
     $('.to_calculate').hover(
         function(){

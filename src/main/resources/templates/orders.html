@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>door seller</title>
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+
+<div class="top_head">
+    <div class="header_logo" >
+        <a th:href="@{/}" class="logo_text">door seller</a>
+    </div>
+    <div class="header_home" >
+        <a th:href="@{/calculation}" class="logo_home">новая дверь</a>
+    </div>
+    <div class="header_home" >
+        <a href="#" class="logo_home">заказы</a>
+    </div>
+    <div class="header_home" >
+        <a th:href="@{/setting}" class="logo_home">настройки</a>
+    </div>
+</div>
+
+<div class="container_main_order">
+
+    <div class="div_order_management">
+        <span class="button_cap_menu">+ новый заказ</span>
+    </div>
+
+    <div class="data-Table">
+        <table class="Table">
+            <tr >
+                <th>id</th>
+                <th>company</th>
+                <th>partner</th>
+                <th>data</th>
+                <th>releasDate</th>
+                <th>productionStart</th>
+                <th>seller</th>
+                <th>comment</th>
+                <th>totalAmount</th>
+                <th>totalTax</th>
+            </tr>
+
+            <tr th:each="accountInfo : ${accountInfos}">
+                <td th:utext="${accountInfo.id}">..</td>
+                <td th:utext="${accountInfo.company}">..</td>
+                <td th:utext="${accountInfo.partner}">..</td>
+                <td th:utext="${accountInfo.data}">..</td>
+                <td th:utext="${accountInfo.productionStart}">..</td>
+                <td th:utext="${accountInfo.releasDate}">..</td>
+                <td th:utext="${accountInfo.seller}">..</td>
+                <td th:utext="${accountInfo.comment}">..</td>
+                <td th:utext="${accountInfo.totalAmount}">..</td>
+                <td th:utext="${accountInfo.totalTax}">..</td>
+            </tr>
+
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

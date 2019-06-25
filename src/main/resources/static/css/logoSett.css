@@ -204,6 +204,16 @@ td{
     text-decoration: none;
     color:#000000;
 }
+.container_main_order{
+    padding: 5px 3px 0px 0px;
+    max-width:1297px;
+    margin:0 auto;
+    position: relative;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    text-decoration: none;
+    color:#000000;
+    background-color:#DCDCDC;
+}
 
 .daughter_container1{
     display:inline-block;
@@ -527,5 +537,22 @@ td{
     background-color:#245882;
     position:absolute;
     display:inline-block;
-    border: 1px solid #B0E0E6;
+    border: 1px solid #808080;
+}
+
+/*
+//orders
+*/
+.div_order_management{
+    height:20px;
+    width:120px;
+    margin-left:11px;
+    background-color:#A9A9A9;
+}
+.button_cap_menu:hover{
+    color:#FFFFE0;
+    cursor:pointer;
+}
+th{
+    background-color:#D3D3D3;
 }

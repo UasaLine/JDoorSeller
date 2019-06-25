@@ -64,5 +64,8 @@ public class MaineService {
         return 0;
     }
 
+    public FireproofDoor saveDoor(FireproofDoor door){
+        return DAO.saveDoor(door);
+    }
 
 }
