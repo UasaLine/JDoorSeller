@@ -19,8 +19,9 @@ public class DoorEntity implements Door {
     @Column(name = "name", length = 128, nullable = false)
     private String name;
 
-    @Column(name = "doorClass")
-    private String doorClass;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "doorClass")
+    private DoorClass doorClass;
 
     @Column(name = "widthDoor")
     private int widthDoor;
@@ -103,11 +104,11 @@ public class DoorEntity implements Door {
         this.name = name;
     }
 
-    public String getDoorClass() {
+    public DoorClass getDoorClass() {
         return doorClass;
     }
 
-    public void setDoorClass(String doorClass) {
+    public void setDoorClass(DoorClass doorClass) {
         this.doorClass = doorClass;
     }
 

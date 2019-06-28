@@ -53,6 +53,17 @@ public class DoorsОrder {
     @Column(name = "totalTax")
     int totalTax;
 
+    public int deleteDoor(int id){
+
+        for (int i=0; i<doors.size(); i++){
+            if (doors.get(i).getId()==id){
+                doors.remove(i);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     public int getId() {
         return order_id;
     }

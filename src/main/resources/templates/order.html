@@ -30,6 +30,9 @@
 		<div class="div_order_management">
 			<span class="button_cap_menu" id="saveOrder">сохранить</span>
 		</div>
+		<div class="div_order_management">
+			<span class="button_cap_menu" id="deleteOrder">удалить</span>
+		</div>
 	</div>
 
     <div class="order_header">	
@@ -44,7 +47,7 @@
 			<p><b>комменткрий:</b></p>
 		</div>
 		<div class="order_headerR">
-		    <span   id="order_id" th:text="${id}"></span></br>
+		    <span   id="order_id" th:text="${orederId}"></span></br>
 			<input  id="company" type="text" value="" placeholder="организация"></br>
 			<input  id="partner" type="text" value="" placeholder="контрагент"></br>
 			<input  id="data" type="date"  placeholder="дата заказа"></br>

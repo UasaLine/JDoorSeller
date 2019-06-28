@@ -3,7 +3,7 @@ CREATE TABLE door
 (
   door_id SERIAL PRIMARY KEY,
   name CHARACTER VARYING(100),
-  doorClass CHARACTER VARYING(100),
+  doorClass int,
   widthDoor int,
   heightDoor int,
   аctivDoorLeafWidth int,

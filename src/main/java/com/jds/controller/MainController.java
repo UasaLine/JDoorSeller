@@ -22,10 +22,8 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private MaineService Service;
+    private MaineService service;
 
-    @Autowired //test
-    MainDAO mainDAO; //test
 
     @GetMapping(value = "/")
     public String updateDoorClass(@RequestParam(required = false) String kay,
@@ -38,7 +36,7 @@ public class MainController {
     public String setting(@RequestParam(required = false) String kay,
                                   @RequestParam(required = false) String dataJson, Model model) throws Exception {
 
-        List<DoorClass> list = Service.getDoorClass();
+        List<DoorClass> list = service.getDoorClass();
         model.addAttribute("accountInfos", list);
         return "settingPage_doorclass.html";
     }
@@ -46,7 +44,7 @@ public class MainController {
     public String getDoorClass(@RequestParam(required = false) String kay,
                                @RequestParam(required = false) String dataJson, Model model) throws Exception {
 
-        List<DoorClass> list = Service.getDoorClass();
+        List<DoorClass> list = service.getDoorClass();
         model.addAttribute("accountInfos", list);
         return "settingPage_doorclass";
     }
@@ -55,7 +53,7 @@ public class MainController {
                                @RequestParam(required = false) String dataJson, Model model) throws Exception {
 
 
-        List<DoorType> list = Service.getDoorType();
+        List<DoorType> list = service.getDoorType();
         model.addAttribute("accountInfos", list);
         return "settingPage_doortype";
     }
@@ -64,7 +62,7 @@ public class MainController {
     public String getMetal(@RequestParam(required = false) String kay,
                               @RequestParam(required = false) String dataJson, Model model) throws Exception {
 
-        List<Metal> list = Service.getMetals();
+        List<Metal> list = service.getMetals();
         model.addAttribute("accountInfos", list);
         return "settingPage_metal";
     }
@@ -79,6 +77,7 @@ public class MainController {
 
 
         model.addAttribute("orderId", orderId);
+        model.addAttribute("id", id);
         return "calculation";
     }
 
@@ -90,7 +89,7 @@ public class MainController {
                      @RequestParam(required = false) String id,
                      @RequestParam(required = false) String orderId) throws Exception {
 
-        return Service.getDoor(id,orderId);
+        return service.getDoor(id,orderId);
     }
 
     @PostMapping(value = "/data", produces= MediaType.APPLICATION_JSON_VALUE)
@@ -100,7 +99,7 @@ public class MainController {
                      Model model,
                      @RequestBody DoorEntity door) throws Exception {
 
-        Service.calculateTheDoor(door);
+        service.calculateTheDoor(door);
         return door;
     }
     @PostMapping(value = "/cutting", produces= MediaType.APPLICATION_JSON_VALUE)
@@ -123,7 +122,7 @@ public class MainController {
                                       @RequestBody DoorEntity door) throws Exception {
 
 
-        return Service.saveDoor(door);
+        return service.saveDoor(door);
     }
 
     @GetMapping(value = "/getOrder", produces= MediaType.APPLICATION_JSON_VALUE)
@@ -134,7 +133,7 @@ public class MainController {
                                   @RequestParam(required = false) String orderId) throws Exception {
 
 
-        return Service.getOrder(orderId);
+        return service.getOrder(orderId);
     }
 
     @PostMapping(value = "/saveOrder", produces= MediaType.APPLICATION_JSON_VALUE)
@@ -145,24 +144,41 @@ public class MainController {
                                   @RequestBody DoorsОrder Оrder) throws Exception {
 
 
-        return Service.saveOrder(Оrder);
+        return service.saveOrder(Оrder);
     }
 
     @GetMapping(value = "/order")
     public String getOrder(@RequestParam(required = false) String kay,
                            @RequestParam(required = false) String dataJson, Model model,
-                           @RequestParam(required = false) String id) throws Exception {
+                           @RequestParam(required = false) String orderId) throws Exception {
 
-        model.addAttribute("id", (id==null)? 0:id);
+        model.addAttribute("orederId", (orderId==null)? 0:orderId);
         return "order";
     }
+
+    @DeleteMapping(value = "/door", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public DoorsОrder deleteOrder(@RequestParam(required = false) String kay,
+                           @RequestParam(required = false) String dataJson, Model model,
+                           @RequestParam(required = false) String orderId,
+                           @RequestParam(required = false) String id ) throws Exception {
+
+
+        return service.deleteDoorFromOrder(id,orderId);
+    }
+
     @GetMapping(value = "/orders")
-    public String getOrders(@RequestParam(required = false) String kay,
-                           @RequestParam(required = false) String dataJson, Model model) throws Exception {
-
-
-        List<DoorsОrder> list = Service.getOrders();
+    public String getOrders(Model model) throws Exception {
+        List<DoorsОrder> list = service.getOrders();
         model.addAttribute("accountInfos", list);
         return "orders";
+    }
+
+    @DeleteMapping(value = "/order", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public DoorsОrder deleteOrder( Model model,
+                                  @RequestParam(required = false) String orderId) throws Exception {
+
+        return service.deleteOrder(orderId);
     }
 }

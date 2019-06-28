@@ -9,7 +9,8 @@ jQuery('document').ready(function(){
     var dataJson = "0";
     var door;
 
-    var orderId = $('#orderId').text()
+    var id = $('#id').text();
+    var orderId = $('#orderId').text();
     //getInstans door
 
     var mode = "loc";
@@ -20,7 +21,7 @@ jQuery('document').ready(function(){
     else{
         $.ajax({
             url: 'data',
-            data: {id: dataJson,orderId: orderId},
+            data: {id: id,orderId: orderId},
             dataType: 'json',
             success: function (data) {
                 //alert('success: ' + data.id);
@@ -322,12 +323,10 @@ jQuery('document').ready(function(){
 
     $('.to_calculate').hover(
         function(){
-            $('#buttonSaveDoor').attr('show','is_alive_lement');
-            $('#buttonGetCutteig').attr('show','is_alive_lement');
+
         },
         function(){
-            $('#buttonSaveDoor').attr('show','ghost_lement');
-            $('#buttonGetCutteig').attr('show','ghost_lement');
+
         });
 
     $('.input_div').keydown(function(eventObject){

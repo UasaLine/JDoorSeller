@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
     <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/calculationScript.js"></script>
 </head>
 <body>
 
@@ -15,13 +15,13 @@
         <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
     <div class="header_home" >
-        <a th:href="@{/calculation}" class="logo_home">новая дверь</a>
+        <span class="head_button" id="buttonCalculate">рассчитать</span>
     </div>
     <div class="header_home" >
-        <a th:href="@{/orders}" class="logo_home">заказы</a>
+        <span class="head_button" id="buttonSaveDoor" show="ghost_lement">сохранить</span>
     </div>
     <div class="header_home" >
-        <a th:href="@{/setting}" class="logo_home">настройки</a>
+        <span class="head_button" id="buttonGetCutteig" show="ghost_lement">раскрой</span>
     </div>
 </div>
 
@@ -29,14 +29,13 @@
 
     <div class="daughter_container1">
         <div class="to_calculate">
-            <span class="to_calculate_span" id="buttonCalculate">рассчитать</span>
-            <span class="to_calculate_span" id="buttonSaveDoor" show="ghost_lement">сохранить</span>
-            <span class="to_calculate_span" id="buttonGetCutteig" show="ghost_lement">раскрой</span>
+
         </div>
         <div class="nameDoor">
             <span class="nameDoor_span"></span>
         </div>
         <span id = "orderId" th:text="${orderId}"></span>
+        <span id = "id" th:text="${id}"></span>
         <!--
         <div class="picture_doorL"  >
             <img class="color_door"  src="images/Door/AColor1/1013.jpg" style="width:200px; height:400px;">

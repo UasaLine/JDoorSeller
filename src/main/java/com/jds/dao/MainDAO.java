@@ -136,6 +136,14 @@ public class MainDAO {
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteOrder (DoorsОrder order){
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(order);
+
+    }
+
     public int getDoorClassId(String name){
 
         Session session = sessionFactory.openSession();
@@ -277,7 +285,7 @@ public class MainDAO {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from orders where order_id = :log";
+        sql = "select * from door where door_id = :log";
         Query query = session.createSQLQuery (sql)
                 .addEntity (DoorEntity.class)
                 .setParameter ("log", id);
@@ -291,6 +299,7 @@ public class MainDAO {
         }
         return  door;
     }
+
     public List<SizeOfDoorParts> getSizeOfDoorPartsList(int doortypeId){
 
         Session session = sessionFactory.openSession();

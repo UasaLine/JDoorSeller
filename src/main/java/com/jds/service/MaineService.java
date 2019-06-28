@@ -7,48 +7,43 @@ import com.jds.model.DoorPart;
 import com.jds.model.FireproofDoor;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
-import com.udojava.evalex.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MaineService {
 
     @Autowired
-    private MainDAO DAO;
+    private MainDAO dAO;
 
 
 
     public List<DoorClass> getDoorClass(){
-        return  DAO.getDoorClass();
+        return  dAO.getDoorClass();
     }
 
     public List<FireproofDoor> getlistDoor(){
-        return DAO.getlistDoor();
+        return dAO.getlistDoor();
     }
 
     public List<DoorType> getDoorType(){
-        return DAO.getDoorType();
+        return dAO.getDoorType();
     }
 
     public List<Metal> getMetals(){
-        return DAO.getMetals();
+        return dAO.getMetals();
     }
 
     public List<DoorPart> getDoorPart(DoorEntity fireproofDoor){
 
-        return DoorPart.getDoopPartsList(DAO.getSizeOfDoorPartsList(1),fireproofDoor);
+        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(1),fireproofDoor);
 
     }
 
     public void calculateTheDoor(DoorEntity door){
-        int metalPrice = calculateMetalDoor(door);
-        door.setPrice(20000);
+
+        door.setPrice(calculateMetalDoor(door));
 
     }
     public int calculateMetalDoor(DoorEntity door){
@@ -63,15 +58,15 @@ public class MaineService {
     }
 
     public DoorEntity saveDoor(DoorEntity door){
-        return DAO.saveDoor(door);
+        return dAO.saveDoor(door);
     }
 
    public DoorsОrder saveOrder (DoorsОrder order){
-        return DAO.saveOrder(order);
+        return dAO.saveOrder(order);
    }
 
    public List<DoorsОrder> getOrders(){
-       return DAO.getOrders();
+       return dAO.getOrders();
    }
 
    public DoorsОrder getOrder(String id){
@@ -81,16 +76,14 @@ public class MaineService {
            return new DoorsОrder();
         }
 
-        return DAO.getOrder(intId);
+        return dAO.getOrder(intId);
    }
 
    public DoorEntity getDoor(String id,String orderId){
 
         DoorEntity door = null;
-        if (id!=null){
-            if (!id.isEmpty() && !id.equals("0")){
-                door = DAO.getDoor(Integer.parseInt(id));
-            }
+        if (id!=null && !id.isEmpty() && !id.equals("0")){
+                door = dAO.getDoor(Integer.parseInt(id));
         }
         if (door == null) {
             door = new DoorEntity();
@@ -98,18 +91,35 @@ public class MaineService {
 
 
 
-       if (orderId!=null){
-           if (!orderId.isEmpty() && !orderId.equals("0")){
+        if (orderId!=null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId()==0)){
 
-                   DoorsОrder order = DAO.getOrder(Integer.parseInt(orderId));
+                   DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
                    order.addDoor(door);
-                   DAO.saveOrder(order);
-
-                   //door.addOrder(order);
-               }
+                   dAO.saveOrder(order);
         }
 
         return door;
 
    }
+
+    public DoorsОrder deleteDoorFromOrder(String id, String orderId){
+
+        if (orderId!=null && !orderId.isEmpty() && !orderId.equals("0") && id!=null && !id.isEmpty() && !id.equals("0")) {
+            DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
+            int mess = order.deleteDoor(Integer.parseInt(id));
+            if (mess == 1){
+                dAO.saveOrder(order);
+                return order;
+            }
+
+        }
+
+        return null;
+    }
+
+    public DoorsОrder deleteOrder(String orderId){
+        DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
+        dAO.deleteOrder(order);
+        return order;
+    }
 }
