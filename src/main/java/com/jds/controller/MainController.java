@@ -2,10 +2,7 @@ package com.jds.controller;
 
 import com.jds.Application;
 import com.jds.dao.MainDAO;
-import com.jds.entity.DoorClass;
-import com.jds.entity.DoorType;
-import com.jds.entity.Metal;
-import com.jds.entity.SizeOfDoorParts;
+import com.jds.entity.*;
 import com.jds.model.Door;
 import com.jds.model.DoorPart;
 import com.jds.model.FireproofDoor;
@@ -75,23 +72,25 @@ public class MainController {
 
     @GetMapping(value = "/calculation")
     public String calculation(@RequestParam(required = false) String kay,
-                              @RequestParam(required = false) String dataJson, Model model) throws Exception {
+                              @RequestParam(required = false) String dataJson, Model model,
+                              @RequestParam(required = false) String orderId,
+                              @RequestParam(required = false) String id) throws Exception {
 
 
-        List<FireproofDoor> list = Service.getlistDoor();
-        model.addAttribute("doors", list);
 
+        model.addAttribute("orderId", orderId);
         return "calculation";
     }
 
     @GetMapping(value = "/data",produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Door data(@RequestParam(required = false) String kay,
+    public DoorEntity data(@RequestParam(required = false) String kay,
                      @RequestParam(required = false) String dataJson,
                      Model model,
-                     @RequestParam(required = false) String id) throws Exception {
+                     @RequestParam(required = false) String id,
+                     @RequestParam(required = false) String orderId) throws Exception {
 
-        return FireproofDoor.createNewDoorOrGetById(id);
+        return Service.getDoor(id,orderId);
     }
 
     @PostMapping(value = "/data", produces= MediaType.APPLICATION_JSON_VALUE)
@@ -99,7 +98,7 @@ public class MainController {
     public Door calculateTheDoor(@RequestParam(required = false) String kay,
                      @RequestParam(required = false) String dataJson,
                      Model model,
-                     @RequestBody FireproofDoor door) throws Exception {
+                     @RequestBody DoorEntity door) throws Exception {
 
         Service.calculateTheDoor(door);
         return door;
@@ -109,7 +108,7 @@ public class MainController {
     public List<Sheet> cuttingTheDoor(@RequestParam(required = false) String kay,
                                       @RequestParam(required = false) String dataJson,
                                       Model model,
-                                      @RequestBody FireproofDoor door) throws Exception {
+                                      @RequestBody DoorEntity door) throws Exception {
 
         List<Sheet> sheets = Application.testDelete();
         //return sheets.get(0).getContainsParts();
@@ -118,12 +117,52 @@ public class MainController {
 
     @PostMapping(value = "/saveDoor", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public FireproofDoor saveDoor(@RequestParam(required = false) String kay,
+    public DoorEntity saveDoor(@RequestParam(required = false) String kay,
                                       @RequestParam(required = false) String dataJson,
                                       Model model,
-                                      @RequestBody FireproofDoor door) throws Exception {
+                                      @RequestBody DoorEntity door) throws Exception {
 
 
         return Service.saveDoor(door);
+    }
+
+    @GetMapping(value = "/getOrder", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public DoorsОrder saveOrder(@RequestParam(required = false) String kay,
+                                  @RequestParam(required = false) String dataJson,
+                                  Model model,
+                                  @RequestParam(required = false) String orderId) throws Exception {
+
+
+        return Service.getOrder(orderId);
+    }
+
+    @PostMapping(value = "/saveOrder", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public DoorsОrder saveOrder(@RequestParam(required = false) String kay,
+                                  @RequestParam(required = false) String dataJson,
+                                  Model model,
+                                  @RequestBody DoorsОrder Оrder) throws Exception {
+
+
+        return Service.saveOrder(Оrder);
+    }
+
+    @GetMapping(value = "/order")
+    public String getOrder(@RequestParam(required = false) String kay,
+                           @RequestParam(required = false) String dataJson, Model model,
+                           @RequestParam(required = false) String id) throws Exception {
+
+        model.addAttribute("id", (id==null)? 0:id);
+        return "order";
+    }
+    @GetMapping(value = "/orders")
+    public String getOrders(@RequestParam(required = false) String kay,
+                           @RequestParam(required = false) String dataJson, Model model) throws Exception {
+
+
+        List<DoorsОrder> list = Service.getOrders();
+        model.addAttribute("accountInfos", list);
+        return "orders";
     }
 }

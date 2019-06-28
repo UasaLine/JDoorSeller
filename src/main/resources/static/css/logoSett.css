@@ -108,13 +108,6 @@ h2 {
 }
 .accordion h2, .accordion a{
     background-color: #ededed;
-//background-image: url(gradient.jpg);
-//background-image: -moz-linear-gradient(bottom, #f1f1f1, #fff);
-//background-image: -ms-linear-gradient(bottom, #f1f1f1, #fff);
-//background-image: -o-linear-gradient(bottom, #f1f1f1, #fff);
-//background-image: -webkit-linear-gradient(bottom, #f1f1f1, #fff);
-//background-image: linear-gradient(bottom, #f1f1f1, #fff);
-//border-top: 1px solid #ddd;
     color: #000000;
     font-weight: 800;
     font: 14px/30px 'Verdana', sans-serif;
@@ -124,10 +117,12 @@ h2 {
     text-indent: 10px;
 }
 p {
-    background-color: #ededed;
+
     color: #555;
-    font: 12px/18px 'Verdana', sans-serif;
-    padding: 3px 20px;
+    padding: 10px,0px,0px,0px;
+    margin:0px;
+    margin-left:10px;
+    margin-bottom:3px;
 }
 
 a[href^="#accordion"] + *{display: none;}
@@ -162,7 +157,7 @@ a[href^="#accordion"] + *{display: none;}
     top: 5px;
     left:10px;
     height:600px;
-    display:inline-block;
+    display:block;
     position: relative;
 //margin-top:10px;
 }
@@ -543,16 +538,37 @@ td{
 /*
 //orders
 */
+.button_menu{
+    background-color:#C0C0C0;
+}
 .div_order_management{
     height:20px;
-    width:120px;
+//width:120px;
     margin-left:11px;
-    background-color:#A9A9A9;
+    background-color:#C0C0C0;
+    display:inline-block;
+}
+.button_cap_menu{
+    text-decoration: none;
 }
 .button_cap_menu:hover{
     color:#FFFFE0;
     cursor:pointer;
+    text-decoration: none;
 }
 th{
     background-color:#D3D3D3;
+}
+tr:hover{
+    background-color:#D3D3D3;
+}
+.order_header{
+    margin-top:10px;
+    margin-bottom:15px;
+}
+.order_headerL{
+    display:inline-block;
+}
+.order_headerR{
+    display:inline-block;
 }

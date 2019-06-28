@@ -13,7 +13,7 @@ public class DoorsОrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    int id;
+    int order_id;
 
     @Column(name = "company")
     String company;
@@ -22,15 +22,22 @@ public class DoorsОrder {
     String partner;
 
     @Column(name = "data")
+    @Temporal(TemporalType.DATE)
     Date data;
 
     @Column(name = "releasDate")
+    @Temporal(TemporalType.DATE)
     Date releasDate;
 
     @Column(name = "productionStart")
     int productionStart;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "dorors_orders",
+            joinColumns = { @JoinColumn(name = "order_id") },
+            inverseJoinColumns = { @JoinColumn(name = "door_id") }
+    )
     List<DoorEntity> doors;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
@@ -47,11 +54,11 @@ public class DoorsОrder {
     int totalTax;
 
     public int getId() {
-        return id;
+        return order_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int order_id) {
+        this.order_id = order_id;
     }
 
     public String getCompany() {
@@ -132,5 +139,17 @@ public class DoorsОrder {
 
     public void setTotalTax(int totalTax) {
         this.totalTax = totalTax;
+    }
+
+    public void addDoor(DoorEntity door){
+        this.doors.add(door);
+    }
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 }

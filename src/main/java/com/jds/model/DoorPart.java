@@ -1,5 +1,6 @@
 package com.jds.model;
 
+import com.jds.entity.DoorEntity;
 import com.jds.entity.Metal;
 import com.jds.entity.SizeOfDoorParts;
 import com.udojava.evalex.Expression;
@@ -49,7 +50,7 @@ public class DoorPart {
         this.posted = false;
     }
 
-    public static List<DoorPart> getDoopPartsList(List<SizeOfDoorParts> list, FireproofDoor Door){
+    public static List<DoorPart> getDoopPartsList(List<SizeOfDoorParts> list, DoorEntity Door){
 
         List<DoorPart> partList = new ArrayList<>();
 
@@ -81,7 +82,7 @@ public class DoorPart {
         return partList;
     }
 
-    public static String parsePatternForCalculation(String condition,FireproofDoor door,Boolean provision){
+    public static String parsePatternForCalculation(String condition,DoorEntity door,Boolean provision){
 
         //H - widthDoor
         condition = condition.replace("H",String.valueOf(door.getHeightDoor()));

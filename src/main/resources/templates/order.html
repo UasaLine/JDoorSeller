@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>door seller</title>    
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/orderScript.js"></script>
+</head>
+<body>
+
+<div class="top_head">
+    <div class="header_logo" >
+        <a th:href="@{/}" class="logo_text">door seller</a>
+    </div>
+    <div class="header_home" >
+        <a th:href="@{/calculation}" class="logo_home">новая дверь</a>
+    </div>
+    <div class="header_home" >
+        <a th:href="@{/orders}" class="logo_home">заказы</a>
+    </div>
+    <div class="header_home" >
+        <a th:href="@{/setting}" class="logo_home">настройки</a>
+    </div>
+</div>
+
+<div class="container_main_order">
+
+	<div class="button_menu">
+		<div class="div_order_management">
+			<span class="button_cap_menu" id="saveOrder">сохранить</span>
+		</div>
+	</div>
+
+    <div class="order_header">	
+		<div class="order_headerL">
+		    <p><b>№:</b></p>
+		    <p><b>организация:</b></p>
+			<p><b>контрагент:</b></p>
+			<p><b>дата заказа:</b></p>
+			<p><b>дата готовности:</b></p>
+			<p><b>в работе:</b></p>
+			<p><b>ответственный:</b></p>
+			<p><b>комменткрий:</b></p>
+		</div>
+		<div class="order_headerR">
+		    <span   id="order_id" th:text="${id}"></span></br>
+			<input  id="company" type="text" value="" placeholder="организация"></br>
+			<input  id="partner" type="text" value="" placeholder="контрагент"></br>
+			<input  id="data" type="date"  placeholder="дата заказа"></br>
+			<input  id="releasDate" type="date"  placeholder="дата готовности"></br>
+			<input  id="productionStart" type="checkbox" value="" placeholder="в работе"></br>
+			<input  id="seller" type="text" value="" placeholder="ответственный"></br>
+			<input  id="comment" type="text" value="" placeholder="комменткрий">
+		</div>			
+	</div>
+
+	<div class="button_menu">
+		<div class="div_order_management">
+			<span class="button_cap_menu" id ="addDoor">+ новая дверь</span>
+		</div>
+		<div class="div_order_management">
+			<span class="button_cap_menu" id ="toChange">изменить</span>
+		</div>
+		<div class="div_order_management">
+			<span class="button_cap_menu" id ="delete">удалить</span>
+		</div>
+	</div>
+	
+    <div class="data-Table">
+		<table class="Table">
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>doorClass</th>
+				<th>metal</th>
+				<th>price</th>
+			</tr>
+			<tr th:each="accountInfo : ${accountInfos}">
+				<td th:utext="${accountInfo.id}">..</td>
+				<td th:utext="${accountInfo.name}">..</td>
+				<td th:utext="${accountInfo.doorClass}">..</td>
+				<td th:utext="${accountInfo.metal}">..</td>
+				<td th:utext="${accountInfo.price}">..</td>
+			</tr>
+
+		</table>
+</div>
+
+</body>
+</html>

@@ -9,17 +9,18 @@ jQuery('document').ready(function(){
     var dataJson = "0";
     var door;
 
+    var orderId = $('#orderId').text()
     //getInstans door
 
     var mode = "loc";
 
-    if (mode == "loc"){
+    if (mode == "no"){
         door = new Object();
     }
     else{
         $.ajax({
             url: 'data',
-            data: {id: dataJson},
+            data: {id: dataJson,orderId: orderId},
             dataType: 'json',
             success: function (data) {
                 //alert('success: ' + data.id);
@@ -311,6 +312,7 @@ jQuery('document').ready(function(){
             dataType: 'json',
             success: function (data) {
                 alert('price is: ' + data.id);
+                toOrder();
             },
             error: function (data) {
                 alert('error:' + data);
@@ -516,4 +518,8 @@ jQuery('document').ready(function(){
             }
         }
     }
+
+    function toOrder(){
+        location.href="order?orderId="+orderId;
+    };
 });

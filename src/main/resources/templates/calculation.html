@@ -18,7 +18,7 @@
         <a th:href="@{/calculation}" class="logo_home">новая дверь</a>
     </div>
     <div class="header_home" >
-        <a href="#" class="logo_home">заказы</a>
+        <a th:href="@{/orders}" class="logo_home">заказы</a>
     </div>
     <div class="header_home" >
         <a th:href="@{/setting}" class="logo_home">настройки</a>
@@ -36,7 +36,7 @@
         <div class="nameDoor">
             <span class="nameDoor_span"></span>
         </div>
-
+        <span id = "orderId" th:text="${orderId}"></span>
         <!--
         <div class="picture_doorL"  >
             <img class="color_door"  src="images/Door/AColor1/1013.jpg" style="width:200px; height:400px;">

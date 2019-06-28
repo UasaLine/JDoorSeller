@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -115,20 +118,22 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public FireproofDoor saveDoor(FireproofDoor door){
+    public DoorEntity saveDoor(DoorEntity door){
 
         Session session = sessionFactory.getCurrentSession();
-        DoorEntity doorEntity = new DoorEntity();
 
-        doorEntity.setId(door.getId());
-        doorEntity.setWidthDoor(door.getWidthDoor());
-        doorEntity.setHeightDoor(door.getHeightDoor());
-        doorEntity.setPrice(door.getPrice());
-        session.saveOrUpdate(doorEntity);
-
-        door.setId(doorEntity.getId());
+        session.saveOrUpdate(door);
 
         return door;
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public DoorsОrder saveOrder (DoorsОrder Оrder){
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(Оrder);
+
+        return Оrder;
+
     }
 
     public int getDoorClassId(String name){
@@ -246,6 +251,46 @@ public class MainDAO {
 
     }
 
+    public DoorsОrder getOrder(int id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from orders where order_id = :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (DoorsОrder.class)
+                .setParameter ("log", id);
+        List<DoorsОrder> doorColorsList = query.list();
+
+        session.close();
+
+        DoorsОrder оrder = null;
+        if(doorColorsList.size()>0){
+            оrder = doorColorsList.get(0);
+        }
+
+        return оrder;
+    }
+
+    public DoorEntity getDoor(int id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from orders where order_id = :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (DoorEntity.class)
+                .setParameter ("log", id);
+        List<DoorEntity> doorsList = query.list();
+
+        session.close();
+
+        DoorEntity door = null;
+        if(doorsList.size()>0){
+            door = doorsList.get(0);
+        }
+        return  door;
+    }
     public List<SizeOfDoorParts> getSizeOfDoorPartsList(int doortypeId){
 
         Session session = sessionFactory.openSession();
@@ -315,6 +360,20 @@ public class MainDAO {
 
         return list;
 
+    }
+
+    public List<DoorsОrder> getOrders(){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from orders";
+        Query query = session.createSQLQuery(sql).addEntity(DoorsОrder.class);
+
+        List<DoorsОrder> list = query.list();
+
+        session.close();
+
+        return list;
     }
 
 }

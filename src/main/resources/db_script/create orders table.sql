@@ -1,4 +1,4 @@
-DROP TABLE orders;
+DROP TABLE orders CASCADE;
 CREATE TABLE orders
 (
   order_id SERIAL PRIMARY KEY,

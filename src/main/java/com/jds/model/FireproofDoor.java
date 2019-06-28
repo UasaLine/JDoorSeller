@@ -36,9 +36,9 @@ public class FireproofDoor implements Door{
 
 
 
-    public static FireproofDoor createNewDoorOrGetById(String id){
+    public static FireproofDoor createNewDoor(){
 
-        return new FireproofDoor(Integer.parseInt(id));
+        return new FireproofDoor();
     }
 
     public int getGlassWidth() {

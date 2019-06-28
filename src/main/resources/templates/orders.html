@@ -5,7 +5,7 @@
     <title>door seller</title>
     <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/orderListScript.js"></script>
 </head>
 <body>
 
@@ -27,7 +27,7 @@
 <div class="container_main_order">
 
     <div class="div_order_management">
-        <span class="button_cap_menu">+ новый заказ</span>
+        <a class="button_cap_menu" th:href="@{/order}">+ новый заказ</a>
     </div>
 
     <div class="data-Table">
@@ -46,12 +46,12 @@
             </tr>
 
             <tr th:each="accountInfo : ${accountInfos}">
-                <td th:utext="${accountInfo.id}">..</td>
+                <td class="id"  th:utext="${accountInfo.id}">..</td>
                 <td th:utext="${accountInfo.company}">..</td>
                 <td th:utext="${accountInfo.partner}">..</td>
                 <td th:utext="${accountInfo.data}">..</td>
-                <td th:utext="${accountInfo.productionStart}">..</td>
                 <td th:utext="${accountInfo.releasDate}">..</td>
+                <td th:utext="${accountInfo.productionStart}">..</td>
                 <td th:utext="${accountInfo.seller}">..</td>
                 <td th:utext="${accountInfo.comment}">..</td>
                 <td th:utext="${accountInfo.totalAmount}">..</td>

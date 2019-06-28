@@ -1,11 +1,15 @@
 package com.jds.entity;
 
+import com.jds.model.Door;
+import com.jds.model.cutting.Sheet;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Door")
-public class DoorEntity {
+public class DoorEntity implements Door {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,10 +68,24 @@ public class DoorEntity {
     private int price;
 
     @ManyToMany(mappedBy = "doors",fetch = FetchType.EAGER)
-    List<DoorsОrder> Оrders;
+    private List<DoorsОrder> оrders;
 
     @Column(name = "doorColor")
     private String doorColor;
+
+    @Transient
+    private List<Sheet> sheets;
+
+    @Transient
+    private int glassWidth;
+
+    @Transient
+    private int glassHeight;
+
+
+    public DoorEntity() {
+        this.оrders = new ArrayList<DoorsОrder>();
+    }
 
     public int getId() {
         return id;
@@ -214,10 +232,47 @@ public class DoorEntity {
     }
 
     public List<DoorsОrder> getОrders() {
-        return Оrders;
+        return оrders;
     }
 
     public void setОrders(List<DoorsОrder> оrders) {
-        Оrders = оrders;
+        this.оrders = оrders;
     }
+
+    public void addOrder (DoorsОrder door){
+        this.оrders.add(door);
+    }
+
+    public String getDoorColor() {
+        return doorColor;
+    }
+
+    public void setDoorColor(String doorColor) {
+        this.doorColor = doorColor;
+    }
+
+    public List<Sheet> getSheets() {
+        return sheets;
+    }
+
+    public void setSheets(List<Sheet> sheets) {
+        this.sheets = sheets;
+    }
+
+    public int getGlassWidth() {
+        return glassWidth;
+    }
+
+    public void setGlassWidth(int glassWidth) {
+        this.glassWidth = glassWidth;
+    }
+
+    public int getGlassHeight() {
+        return glassHeight;
+    }
+
+    public void setGlassHeight(int glassHeight) {
+        this.glassHeight = glassHeight;
+    }
+
 }
