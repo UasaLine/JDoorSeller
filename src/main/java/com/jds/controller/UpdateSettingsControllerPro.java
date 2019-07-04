@@ -18,6 +18,7 @@ public class UpdateSettingsControllerPro {
     @Autowired
     MainDAO mainDAO;
 
+
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String updateDoorClass(@RequestParam(required = false) String kay,

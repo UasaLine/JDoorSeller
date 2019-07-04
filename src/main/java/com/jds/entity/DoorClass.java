@@ -24,11 +24,11 @@ public class DoorClass {
     @Column(name = "hot", nullable = false)
     private int hot;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorClass", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass", cascade = CascadeType.ALL)
     private List<LimitationDoor> limitationList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorClass", cascade = CascadeType.ALL)
-    private List<DoorEntity> doors;
+    private List<DoorType> doorTypes;
 
     public DoorClass() {
         //empty constructor

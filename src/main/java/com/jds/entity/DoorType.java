@@ -39,8 +39,12 @@ public class DoorType {
     @Column(name = "DS")
     private int DS;//I do not know
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorType", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SizeOfDoorParts> sizeOfDoorPartsList;
+
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "doorClass")
+    private DoorClass doorClass;
 
     public List<SizeOfDoorParts> getSizeOfDoorPartsList() {
         return sizeOfDoorPartsList;

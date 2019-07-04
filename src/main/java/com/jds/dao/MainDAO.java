@@ -318,6 +318,26 @@ public class MainDAO {
 
     }
 
+    public DoorClass getDoorClass(int id) {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from door_class where id = :log";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorClass.class)
+                .setParameter ("log", id);
+        List<DoorClass> list = query.list();
+
+        session.close();
+
+        DoorClass doorClass = null;
+        if(list.size()>0){
+            doorClass = list.get(0);
+        }
+        return doorClass;
+
+    }
+
     public List<DoorClass> getDoorClass() {
 
         Session session = sessionFactory.openSession();
@@ -332,6 +352,7 @@ public class MainDAO {
         return list;
 
     }
+
 
     public List<DoorType> getDoorType() {
 

@@ -1,4 +1,4 @@
-DROP TABLE doors_orders;
+DROP TABLE doors_orders CASCADE;
   CREATE TABLE doors_orders (
   door_id    int REFERENCES door (door_id) ON UPDATE CASCADE ON DELETE CASCADE,
   order_id   int REFERENCES orders (order_id) ON UPDATE CASCADE,

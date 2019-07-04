@@ -34,7 +34,7 @@ public class DoorsОrder {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "dorors_orders",
+            name = "doors_orders",
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "door_id") }
     )

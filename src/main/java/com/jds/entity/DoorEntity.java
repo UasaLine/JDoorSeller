@@ -1,5 +1,6 @@
 package com.jds.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.Door;
 import com.jds.model.cutting.Sheet;
 
@@ -19,9 +20,8 @@ public class DoorEntity implements Door {
     @Column(name = "name", length = 128, nullable = false)
     private String name;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "doorClass")
-    private DoorClass doorClass;
+    @Column(name = "doorType")
+    private int doorType;
 
     @Column(name = "widthDoor")
     private int widthDoor;
@@ -68,7 +68,8 @@ public class DoorEntity implements Door {
     @Column(name = "price")
     private int price;
 
-    @ManyToMany(mappedBy = "doors",fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(mappedBy = "doors",fetch = FetchType.LAZY)
     private List<DoorsОrder> оrders;
 
     @Column(name = "doorColor")
@@ -83,9 +84,18 @@ public class DoorEntity implements Door {
     @Transient
     private int glassHeight;
 
+    @Transient
+    private List<DoorClass> availableDoorClass;
+
+    @Transient
+    private int discountPrice;
+
+    @Transient
+    private int priceWithMarkup;
 
     public DoorEntity() {
         this.оrders = new ArrayList<DoorsОrder>();
+        this.availableDoorClass = new ArrayList<DoorClass>();
     }
 
     public int getId() {
@@ -104,12 +114,12 @@ public class DoorEntity implements Door {
         this.name = name;
     }
 
-    public DoorClass getDoorClass() {
-        return doorClass;
+    public int getDoorType() {
+        return doorType;
     }
 
-    public void setDoorClass(DoorClass doorClass) {
-        this.doorClass = doorClass;
+    public void setDoorType(int doorType) {
+        this.doorType = doorType;
     }
 
     public int getWidthDoor() {
@@ -276,4 +286,31 @@ public class DoorEntity implements Door {
         this.glassHeight = glassHeight;
     }
 
+    public List<DoorClass> getAvailableDoorClass() {
+        return availableDoorClass;
+    }
+
+    public void setAvailableDoorClass(List<DoorClass> availableDoorClass) {
+        this.availableDoorClass = availableDoorClass;
+    }
+
+    public void addAvailableDoorClass(DoorClass doorClass){
+        this.availableDoorClass.add(doorClass);
+    }
+
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(int discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public int getPriceWithMarkup() {
+        return priceWithMarkup;
+    }
+
+    public void setPriceWithMarkup(int priceWithMarkup) {
+        this.priceWithMarkup = priceWithMarkup;
+    }
 }

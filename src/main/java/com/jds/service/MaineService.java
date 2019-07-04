@@ -43,9 +43,19 @@ public class MaineService {
 
     public void calculateTheDoor(DoorEntity door){
 
-        door.setPrice(calculateMetalDoor(door));
-
+        //door.setPrice(calculateMetalDoor(door));
+        int price = getRandomPrice(8500,25000);
+        door.setPrice(price);
+        door.setDiscountPrice(price - ((int) (price*0.25)));
+        door.setPriceWithMarkup(door.getDiscountPrice() + ((int) (door.getDiscountPrice()*1.25)));
     }
+
+    public static int getRandomPrice(int min, int max)
+    {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
+    }
+
     public int calculateMetalDoor(DoorEntity door){
 
         List<DoorPart> partList = getDoorPart(door);
@@ -87,6 +97,9 @@ public class MaineService {
         }
         if (door == null) {
             door = new DoorEntity();
+            door.addAvailableDoorClass(dAO.getDoorClass(3));
+            door.addAvailableDoorClass(dAO.getDoorClass(4));
+            door.addAvailableDoorClass(dAO.getDoorClass(5));
         }
 
 

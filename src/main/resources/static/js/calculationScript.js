@@ -11,6 +11,7 @@ jQuery('document').ready(function(){
 
     var id = $('#id').text();
     var orderId = $('#orderId').text();
+
     //getInstans door
 
     var mode = "loc";
@@ -20,7 +21,7 @@ jQuery('document').ready(function(){
     }
     else{
         $.ajax({
-            url: 'data',
+            url: 'door',
             data: {id: id,orderId: orderId},
             dataType: 'json',
             success: function (data) {
@@ -272,8 +273,9 @@ jQuery('document').ready(function(){
             data: strJSON,
             dataType: 'json',
             success: function (data) {
-                alert('price is: ' + data.price);
-                $('.nameDoor_span').html(data.name);
+                //alert('price is: ' + data.price);
+                door = data;
+                displayPrice();
             },
             error: function (data) {
                 alert('error:' + data);
@@ -323,15 +325,15 @@ jQuery('document').ready(function(){
 
     $('.to_calculate').hover(
         function(){
-
+            $('.priceghost').attr('show','is_alive_lement');
         },
         function(){
-
+            $('.priceghost').attr('show','ghost_lement');
         });
 
     $('.input_div').keydown(function(eventObject){
 
-        if (eventObject.which=='13'){
+        //if (eventObject.which=='13'){
 
             var itamId = $(this).attr('id');
 
@@ -350,7 +352,7 @@ jQuery('document').ready(function(){
 
             representationField();
 
-        }
+        //}
     });
 
     //--------------------------------------
@@ -520,5 +522,11 @@ jQuery('document').ready(function(){
 
     function toOrder(){
         location.href="order?orderId="+orderId;
+    };
+
+    function displayPrice(){
+        $('#price').text(door.price);
+        $('#discountPrice').text(door.discountPrice);
+        $('#priceWithMarkup').text(door.priceWithMarkup);
     };
 });

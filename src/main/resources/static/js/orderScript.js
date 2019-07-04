@@ -34,13 +34,21 @@ jQuery('document').ready(function(){
 
 
     $('#saveOrder').on('click',function(){
-        saveOrder(0);
+        saveOrder(0,0);
+    });
+
+    $('#saveOrderAndShutDown').on('click',function(){
+        saveOrder(0,1);
     });
 
     $('#addDoor').on('click',function(){
         if (orderId == "0"){
-            saveOrder(1);
+            saveOrder(1,0);
         }
+        else {
+            addDoor(orderId);
+        }
+
     });
 
     $('#toChange').on('click',function(){
@@ -49,6 +57,10 @@ jQuery('document').ready(function(){
 
     $('#delete').on('click',function(){
         deleteDoor();
+    });
+
+    $('#deleteOrder').on('click',function(){
+        deletOrder();
     });
 
     $('tbody').on('click','tr',function(){
@@ -96,7 +108,7 @@ jQuery('document').ready(function(){
     function addDoor(orderId){
         location.href="calculation?orderId="+orderId;
     };
-    function saveOrder(add){
+    function saveOrder(add,close){
 
         fillObject();
 
@@ -114,6 +126,10 @@ jQuery('document').ready(function(){
                 if (add == 1){
                     addDoor(orderId);
                 }
+                if (close==1){
+                    location.href="orders";
+                }
+
 
             },
             error: function (data) {
@@ -150,5 +166,19 @@ jQuery('document').ready(function(){
             }
         });
 
+    };
+    function deletOrder(){
+        $.ajax({
+            type: 'DELETE',
+            url: 'order?orderId='+orderId,
+            dataType: 'json',
+            success: function (data) {
+                alert("delete completed"+ data);
+                location.href="orders";
+            },
+            error: function (data) {
+                alert('delete error:' + data);
+            }
+        });
     };
 });

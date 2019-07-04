@@ -81,7 +81,7 @@ public class MainController {
         return "calculation";
     }
 
-    @GetMapping(value = "/data",produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/door",produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public DoorEntity data(@RequestParam(required = false) String kay,
                      @RequestParam(required = false) String dataJson,

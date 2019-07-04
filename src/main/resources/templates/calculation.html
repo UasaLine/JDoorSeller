@@ -18,10 +18,10 @@
         <span class="head_button" id="buttonCalculate">рассчитать</span>
     </div>
     <div class="header_home" >
-        <span class="head_button" id="buttonSaveDoor" show="ghost_lement">сохранить</span>
+        <span class="head_button" id="buttonSaveDoor" >сохранить</span>
     </div>
     <div class="header_home" >
-        <span class="head_button" id="buttonGetCutteig" show="ghost_lement">раскрой</span>
+        <span class="head_button" id="buttonGetCutteig" >раскрой</span>
     </div>
 </div>
 
@@ -29,7 +29,12 @@
 
     <div class="daughter_container1">
         <div class="to_calculate">
-
+            <span class="price"> Цена без скидки:</span>
+            <span class="price" id="price" ></span>
+            <span class="priceghost" show="ghost_lement">Цена со скидкой: 25%</span>
+            <span class="priceghost" id="discountPrice" show="ghost_lement"></span>
+            <span class="priceghost" show="ghost_lement">Цена с наценкой: 25%</span>
+            <span class="priceghost" id="priceWithMarkup" show="ghost_lement"></span>
         </div>
         <div class="nameDoor">
             <span class="nameDoor_span"></span>
@@ -53,68 +58,68 @@
 
     <div class="daughter_container2">
         <div class="vertical_menu">
-            <div  class="vertical_menu_button" id="doorClass">
+            <div  class="vertical_menu_button" id="doorClass" >
                 <div class="left_cell">
-                    <a class="vertical_menu_button_left" href="#"> КЛАСС ДВЕРИ</a>
+                    <a class="vertical_menu_button_left" available="yes" href="#"> КЛАСС ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="doorClassShow" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="doorClassShow" href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" id="metal">
+            <div  class="vertical_menu_button" id="metal" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> МЕТАЛЛ</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> МЕТАЛЛ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="metalShow" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="metalShow" href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" id="widthDoor" >
+            <div  class="vertical_menu_button" id="widthDoor"  >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ШИРИНА ПО КОРОБУ</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ШИРИНА ПО КОРОБУ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="widthDoorShow"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="widthDoorShow"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" id="heightDoor" >
+            <div  class="vertical_menu_button" id="heightDoor"  >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ВЫСОТА ПО КОРОБУ</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ВЫСОТА ПО КОРОБУ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="heightDoorShow" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="heightDoorShow" href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="deepnessDoor">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ГЛУБИНА КОРОБА</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ГЛУБИНА КОРОБА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="deepnessDoorShow"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="deepnessDoorShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="thicknessDoorLeaf" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ТОЛЩИНА ПОЛОТНА</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ТОЛЩИНА ПОЛОТНА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="thicknessDoorLeafShow" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="thicknessDoorLeafShow" href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="sideDoorOpen" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ОТКРЫВАНИЕ</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ОТКРЫВАНИЕ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="sideDoorOpenShow"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="sideDoorOpenShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button"  id="additionalDoorSettings">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ДОПОЛНИТЕЛЬНО</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="additionalDoorSettingsShow" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="additionalDoorSettingsShow" href="#"><strong></strong></a>
                 </div>
             </div>
 
@@ -122,15 +127,23 @@
 
             <div  class="vertical_menu_button" id="doorColor">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ЦВЕТ ДВЕРИ</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ЦВЕТ ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" id="doorColorShow"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes" id="doorColorShow"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button"  >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ВНУТРЕНЯЯ МДФ НАКЛАДКА</a>
+                    <a  class="vertical_menu_button_left" available="no" href="#"> ВНУТРЕНЯЯ МДФ НАКЛАДКА</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                </div>
+            </div>
+            <div  class="vertical_menu_button"  >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" available="no" href="#"> НАРУЖНЯЯ МДФ НАКЛАДКА</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -138,18 +151,10 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> НАРУЖНЯЯ МДФ НАКЛАДКА</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
-                </div>
-            </div>
-            <div  class="vertical_menu_button" >
-                <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
-                </div>
-                <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes"  href="#"><strong></strong></a>
                 </div>
             </div>
 
@@ -157,7 +162,7 @@
 
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ВЕРХНИЙ ЗАМОК</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ВЕРХНИЙ ЗАМОК</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -165,7 +170,7 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> НИЖНИЙ ЗАМОК</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> НИЖНИЙ ЗАМОК</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -173,7 +178,7 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> РУЧКА</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> РУЧКА</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -181,10 +186,10 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                    <a  class="vertical_menu_button_left" available="yes" href="#"> ДОПОЛНИТЕЛЬНО</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" available="yes"  href="#"><strong></strong></a>
                 </div>
             </div>
 

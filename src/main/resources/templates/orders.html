@@ -14,40 +14,30 @@
         <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
     <div class="header_home" >
-        <a th:href="@{/calculation}" class="logo_home">новая дверь</a>
+        <a class="head_button" th:href="@{/order}">+ новый заказ</a>
     </div>
     <div class="header_home" >
-        <a th:href="@{/orders}" class="logo_home">заказы</a>
-    </div>
-    <div class="header_home" >
-        <a th:href="@{/setting}" class="logo_home">настройки</a>
+        <a class="head_button" id ="buttonDeleteOrder">удалить</a>
     </div>
 </div>
 
 <div class="container_main_order">
 
-    <div class="button_menu">
-        <div class="div_order_management">
-            <a class="button_cap_menu" th:href="@{/order}">+ новый заказ</a>
-        </div>
-        <div class="div_order_management">
-            <a class="button_cap_menu" id ="buttonDeleteOrder">удалить</a>
-        </div>
-    </div>
 
-    <div class="data-Table">
+
+    <div class="order-Table">
         <table class="Table">
             <tr >
-                <th>id</th>
-                <th>company</th>
-                <th>partner</th>
-                <th>data</th>
-                <th>releasDate</th>
-                <th>productionStart</th>
-                <th>seller</th>
-                <th>comment</th>
-                <th>totalAmount</th>
-                <th>totalTax</th>
+                <th>№</th>
+                <th>организация</th>
+                <th>контрагент</th>
+                <th>дата</th>
+                <th>дата готовности</th>
+                <th>в работе</th>
+                <th>менеджер</th>
+                <th>комментарий</th>
+                <th>сумма</th>
+                <th>сума ндс</th>
             </tr>
 
             <tr th:each="accountInfo : ${accountInfos}">

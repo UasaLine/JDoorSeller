@@ -213,7 +213,7 @@ td{
     color:#000000;
 }
 .container_main_order{
-    padding: 5px 3px 0px 0px;
+    padding: 3px 3px 0px 0px;
     max-width:1297px;
     margin:0 auto;
     position: relative;
@@ -285,11 +285,11 @@ td{
 
 .vertical_menu_button_left{
     text-decoration: none;
-    color:#000000;
+    //color:#000000;
 }
 .vertical_menu_button_rigtht{
     text-decoration: none;
-    color:#000000;
+    //color:#000000;
 }
 
 .vertical_menu_space{
@@ -421,7 +421,7 @@ td{
 
 .to_calculate{
     height:35px;
-    width:95px;
+    width:200px;
     color:#000000;
     background-color:#DCDCDC;
     border-radius: 5px;
@@ -432,10 +432,10 @@ td{
     padding:10px 0px 0px 10px;
 }
 .to_calculate:hover{
-    height:35px;
+    height:50px;
     width:37%;
     color:#FFFFFF;
-    background-color:#245882;
+    background-color:#696969;
     border-radius: 5px;
     position: absolute;
     padding:10px 0px 0px 10px;
@@ -490,13 +490,13 @@ td{
 .picture_doorL{
     display:inline-block;
     position:relative;
-    top:30px;
+    top:60px;
     left:20px;
 }
 .picture_doorR{
     display:inline-block;
     position:relative;
-    top:30px;
+    top:60px;
     left:25px;
 }
 .opening_side_images{
@@ -508,7 +508,7 @@ td{
 .sizeDoorRepresentation{
     display:inline-block;
     position:relative;
-    top:30px;
+    top:60px;
     left:20px;
     vertical-align: top;
     border-top: solid 1px #A9A9A9;
@@ -600,4 +600,11 @@ tr:hover{
 }
 .order_headerR{
     display:inline-block;
+}
+
+[available="no"]{
+    color: #bfbfbf;
+}
+[available="yes"]{
+    color:#000000;
 }
