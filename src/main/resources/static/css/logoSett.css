@@ -551,26 +551,19 @@ td{
 /*
 //orders
 */
-.button_menu{
-//background-color:#C0C0C0;
-}
 .div_order_management{
+    color:#555;
     height:20px;
-//width:120px;
     margin-left:11px;
-//background-color:#C0C0C0;
     display:inline-block;
-    border-right:solid 1px #808080;
-    border-bottom:solid 1px #808080;
+    border-bottom:solid 1px #DCDCDC;
     padding-right:5px;
 }
 .div_order_management:hover{
+    color:#555;
     height:20px;
-//width:120px;
     margin-left:11px;
-    background-color:#C0C0C0;
     display:inline-block;
-    border-right:solid 1px #808080;
     border-bottom:solid 1px #808080;
     padding-right:5px;
 }
@@ -578,7 +571,6 @@ td{
     text-decoration: none;
 }
 .button_cap_menu:hover{
-    color:#FFFFE0;
     cursor:pointer;
     text-decoration: none;
 }
@@ -607,4 +599,10 @@ tr:hover{
 }
 [available="yes"]{
     color:#000000;
+}
+.input{
+    width:200px;
+}
+.inputData{
+    width:199px;
 }

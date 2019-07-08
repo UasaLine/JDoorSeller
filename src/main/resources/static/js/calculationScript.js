@@ -28,6 +28,7 @@ jQuery('document').ready(function(){
                 //alert('success: ' + data.id);
                 door = data;
                 displayОbject(door);
+                displayDoorClass();
             },
             error: function (data) {
                 alert('error:' + data);
@@ -138,11 +139,12 @@ jQuery('document').ready(function(){
 
     });
 
-    $('.images_door_class').on('click',function(){
+    $('.select_door_class').on('click','.images_door_class',function(){
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
         setDoorField($(this).attr('Item'),$(this).attr('data'));
         representationField($(this).attr('data'));
         pickOut(this);
+        getListOfSelectionFields();
 
     });
 
@@ -529,4 +531,46 @@ jQuery('document').ready(function(){
         $('#discountPrice').text(door.discountPrice);
         $('#priceWithMarkup').text(door.priceWithMarkup);
     };
+
+    function displayDoorClass(){
+
+        for(var i=0; i<door.availableDoorClass.length; ++i){
+            var divName = door.availableDoorClass[i].name;
+            var divId = door.availableDoorClass[i].id;
+            $('<div>')
+                .attr('class','images_div')
+                .attr('id','doorClass'+divId)
+                .appendTo('.select_door_class');
+
+            var doorTypes = door.availableDoorClass[i].doorTypes;
+            for(var j=0; j<doorTypes.length; ++j){
+                $('<img>')
+                    .attr('class','images_door_class')
+                    .attr('data',divName)
+                    .attr('data-LeafDoorLeaf',doorTypes[j].doorLeaf)
+                    .attr('src',doorTypes[j].namePicture)
+                    .attr('Item','doorClass')
+                    .appendTo('#doorClass'+divId);
+            }
+            $('<div>')
+                .attr('class','description_images_door_class')
+                .text(door.availableDoorClass[i].description)
+                .appendTo('#doorClass'+divId);
+        }
+
+    };
+
+    function getListOfSelectionFields(idDoorType) {
+        $.ajax({
+            url: 'doorlimit',
+            data: {idDoorType: "2"},
+            dataType: 'json',
+            success: function (data) {
+                alert('success: ' + data);
+            },
+            error: function (data) {
+                alert('error:' + data);
+            }
+        });
+    }
 });

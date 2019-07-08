@@ -1,5 +1,7 @@
 package com.jds.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -39,12 +41,18 @@ public class DoorType {
     @Column(name = "DS")
     private int DS;//I do not know
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SizeOfDoorParts> sizeOfDoorPartsList;
 
+    @JsonIgnore
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "doorClass")
     private DoorClass doorClass;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
+    private List<LimitationDoor> limitationList;
 
     public List<SizeOfDoorParts> getSizeOfDoorPartsList() {
         return sizeOfDoorPartsList;
@@ -136,5 +144,21 @@ public class DoorType {
 
     public void setDS(int DS) {
         this.DS = DS;
+    }
+
+    public DoorClass getDoorClass() {
+        return doorClass;
+    }
+
+    public void setDoorClass(DoorClass doorClass) {
+        this.doorClass = doorClass;
+    }
+
+    public List<LimitationDoor> getLimitationList() {
+        return limitationList;
+    }
+
+    public void setLimitationList(List<LimitationDoor> limitationList) {
+        this.limitationList = limitationList;
     }
 }

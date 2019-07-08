@@ -135,4 +135,16 @@ public class MaineService {
         dAO.deleteOrder(order);
         return order;
     }
+
+    public int saveOrUpdateDoorType (DoorType doorType){
+
+        doorType.setNamePicture(makeRightNamePictureDoorType(doorType.getNamePicture()));
+        return  dAO.saveOrUpdateDoorType(doorType);
+    }
+    public String makeRightNamePictureDoorType(String namePicture){
+
+        namePicture = namePicture.replace("CalculationDoorsAutonomous","images");
+        namePicture = namePicture + ".jpg";
+        return namePicture;
+    }
 }

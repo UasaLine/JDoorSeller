@@ -98,10 +98,23 @@ jQuery('document').ready(function(){
         $('#comment').val(order.comment);
 
         $('tr').remove();
-        $('.Table > tbody').append('<tr><th>id</th><th>name</th><th>doorClass</th><th>metal</th><th>price</th></tr>');
+        $('.Table > tbody').append('<tr><th>' +
+            'id</th><th>' +
+            'наименование</th><th>' +
+            'класс двери</th><th>' +
+            'металл</th><th>' +
+            'цвет</th><th>' +
+            'цена</th></tr>');
+
         var doors = order.doors;
         for(var j=0; j<doors.length; ++j) {
-            $('.Table > tbody').append('<tr><td class="id">'+doors[j].id+'</td><td>'+doors[j].name+'</td><td>'+doors[j].doorClass+'</td><td>'+doors[j].metal+'</td><td>'+doors[j].price+'</td></tr>');
+            $('.Table > tbody').append('<tr><td class="id">'
+                +doors[j].id+'</td><td>'
+                +doors[j].name+'</td><td>'
+                +doors[j].doorClass+'</td><td>'
+                +doors[j].metal+'</td><td>'
+                +doors[j].doorColor+'</td><td>'
+                +doors[j].price+'</td></tr>');
         }
 
     }

@@ -1,5 +1,7 @@
 package com.jds.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,9 +27,6 @@ public class DoorClass {
     private int hot;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass", cascade = CascadeType.ALL)
-    private List<LimitationDoor> limitationList;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorClass", cascade = CascadeType.ALL)
     private List<DoorType> doorTypes;
 
     public DoorClass() {
@@ -58,15 +57,6 @@ public class DoorClass {
         this.description = description;
     }
 
-
-    public List<LimitationDoor> getLimitationList() {
-        return limitationList;
-    }
-
-    public void setLimitationList(List<LimitationDoor> limitationList) {
-        this.limitationList = limitationList;
-    }
-
     public int getFireproof() {
         return fireproof;
     }
@@ -81,5 +71,13 @@ public class DoorClass {
 
     public void setHot(int hot) {
         this.hot = hot;
+    }
+
+    public List<DoorType> getDoorTypes() {
+        return doorTypes;
+    }
+
+    public void setDoorTypes(List<DoorType> doorTypes) {
+        this.doorTypes = doorTypes;
     }
 }

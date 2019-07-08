@@ -12,8 +12,8 @@ public class LimitationDoor {
     private int id;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "doorClass_id")
-    private DoorClass doorClass;
+    @JoinColumn(name = "doorType_id")
+    private DoorType doorType;
 
     @Column(name = "typeSettings")
     private String typeSettings;
@@ -25,10 +25,10 @@ public class LimitationDoor {
     private String secondItem;
 
     @Column(name = "startRestriction")
-    private int startRestriction;
+    private double startRestriction;
 
     @Column(name = "stopRestriction")
-    private int stopRestriction;
+    private double stopRestriction;
 
     @Column(name = "comment")
     private String comment;
@@ -36,7 +36,12 @@ public class LimitationDoor {
     @Column(name = "defaultValue")
     private int defaultValue;
 
-    public LimitationDoor() {
+
+    public LimitationDoor(String firstItem, double startRestriction, double stopRestriction, int defaultValue) {
+        this.firstItem = firstItem;
+        this.startRestriction = startRestriction;
+        this.stopRestriction = stopRestriction;
+        this.defaultValue = defaultValue;
     }
 
     public int getId() {
@@ -47,12 +52,12 @@ public class LimitationDoor {
         this.id = id;
     }
 
-    public DoorClass getDoorClass() {
-        return doorClass;
+    public DoorType getDoorType() {
+        return doorType;
     }
 
-    public void setDoorClass(DoorClass doorClass) {
-        this.doorClass = doorClass;
+    public void setDoorType(DoorType doorType) {
+        this.doorType = doorType;
     }
 
     public String getTypeSettings() {
@@ -79,19 +84,19 @@ public class LimitationDoor {
         this.secondItem = secondItem;
     }
 
-    public int getStartRestriction() {
+    public double getStartRestriction() {
         return startRestriction;
     }
 
-    public void setStartRestriction(int startRestriction) {
+    public void setStartRestriction(double startRestriction) {
         this.startRestriction = startRestriction;
     }
 
-    public int getStopRestriction() {
+    public double getStopRestriction() {
         return stopRestriction;
     }
 
-    public void setStopRestriction(int stopRestriction) {
+    public void setStopRestriction(double stopRestriction) {
         this.stopRestriction = stopRestriction;
     }
 

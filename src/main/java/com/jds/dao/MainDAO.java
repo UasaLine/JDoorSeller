@@ -61,6 +61,13 @@ public class MainDAO {
             doorType.setId(id);
         }
 
+        DoorClass doorClass = doorType.getDoorClass();
+        id = getDoorClassId(doorClass.getName());//check exists
+        if (id>0){
+            doorClass.setId(id);
+            doorType.setDoorClass(doorClass);
+        }
+
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(doorType);
 

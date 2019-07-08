@@ -6,6 +6,7 @@ import com.jds.entity.*;
 import com.jds.model.Door;
 import com.jds.model.DoorPart;
 import com.jds.model.FireproofDoor;
+import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.cutting.Sheet;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,13 +70,9 @@ public class MainController {
 
 
     @GetMapping(value = "/calculation")
-    public String calculation(@RequestParam(required = false) String kay,
-                              @RequestParam(required = false) String dataJson, Model model,
+    public String calculation(Model model,
                               @RequestParam(required = false) String orderId,
                               @RequestParam(required = false) String id) throws Exception {
-
-
-
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
         return "calculation";
@@ -83,11 +80,9 @@ public class MainController {
 
     @GetMapping(value = "/door",produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity data(@RequestParam(required = false) String kay,
-                     @RequestParam(required = false) String dataJson,
-                     Model model,
-                     @RequestParam(required = false) String id,
-                     @RequestParam(required = false) String orderId) throws Exception {
+    public DoorEntity data(Model model,
+                         @RequestParam(required = false) String id,
+                         @RequestParam(required = false) String orderId) throws Exception {
 
         return service.getDoor(id,orderId);
     }
@@ -123,6 +118,15 @@ public class MainController {
 
 
         return service.saveDoor(door);
+    }
+
+    @GetMapping(value = "/doorlimit", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(Model model,
+                                                                        @RequestParam String idDoorType) throws Exception {
+
+
+        return new RestrictionOfSelectionFields();
     }
 
     @GetMapping(value = "/getOrder", produces= MediaType.APPLICATION_JSON_VALUE)
