@@ -36,7 +36,7 @@ public class DoorEntity implements Door {
     private int doorFanlightHeight;
 
     @Column(name = "metal")
-    private int metal;
+    private double metal;
 
     @Column(name = "deepnessDoor")
     private int deepnessDoor;
@@ -92,6 +92,21 @@ public class DoorEntity implements Door {
 
     @Transient
     private int priceWithMarkup;
+
+    @Transient
+    private int isDoorGlass;
+
+    @Transient
+    private String doorGlass;
+
+    public void createName(){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Дверь противопожарная ДПД EIWS60 ");
+        stringBuilder.append(widthDoor+" X "+heightDoor);
+        stringBuilder.append(" ("+metal+" мм) "+sideDoorOpen+" "+doorColor);
+        name = stringBuilder.toString();
+    }
 
     public DoorEntity() {
         this.оrders = new ArrayList<DoorsОrder>();
@@ -154,11 +169,11 @@ public class DoorEntity implements Door {
         this.doorFanlightHeight = doorFanlightheight;
     }
 
-    public int getMetal() {
+    public double getMetal() {
         return metal;
     }
 
-    public void setMetal(int metal) {
+    public void setMetal(double metal) {
         this.metal = metal;
     }
 

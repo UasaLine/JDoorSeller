@@ -8,7 +8,7 @@ CREATE TABLE door
   heightDoor int,
   аctivDoorLeafWidth int,
   doorFanlightHeight int,
-  metal int,
+  metal real,
   deepnessDoor int,
   thicknessDoorLeaf int,
   sideDoorOpen CHARACTER VARYING(100),

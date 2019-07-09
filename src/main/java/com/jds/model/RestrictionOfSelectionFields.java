@@ -16,9 +16,47 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields() {
         metal = new ArrayList<>();
-        metal.add(new LimitationDoor("1.2",1.2,1.2,1));
-        metal.add(new LimitationDoor("1.5",1.5,1.5,0));
-        metal.add(new LimitationDoor("2.0",2.0,2.0,0));
+        metal.add(new LimitationDoor(
+                "1.2",
+                1.2,
+                1.2,
+                1));
+
+        metal.add(new LimitationDoor(
+                "1.5",
+                1.5,
+                1.5,
+                0));
+        metal.add(new LimitationDoor(
+                "2.0",
+                2.0,
+                2.0,
+                0));
+
+        widthDoor = new ArrayList<>();
+        widthDoor.add(new LimitationDoor("1.2",
+                500,
+                1170,
+                0));
+
+        heightDoor = new ArrayList<>();
+        heightDoor.add(new LimitationDoor("1.2",
+                1500,
+                2200,
+                0));
+
+        deepnessDoor = new ArrayList<>();
+        deepnessDoor.add(new LimitationDoor("97",
+                97,
+                97,
+                1));
+
+        thicknessDoorLeaf = new ArrayList<>();
+        thicknessDoorLeaf.add(new LimitationDoor("60",
+                60,
+                60,
+                1));
+
     }
 
     public List<LimitationDoor> getMetal() {

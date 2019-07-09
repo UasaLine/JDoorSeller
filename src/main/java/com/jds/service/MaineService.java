@@ -48,6 +48,8 @@ public class MaineService {
         door.setPrice(price);
         door.setDiscountPrice(price - ((int) (price*0.25)));
         door.setPriceWithMarkup(door.getDiscountPrice() + ((int) (door.getDiscountPrice()*1.25)));
+        door.createName();
+
     }
 
     public static int getRandomPrice(int min, int max)
@@ -94,12 +96,13 @@ public class MaineService {
         DoorEntity door = null;
         if (id!=null && !id.isEmpty() && !id.equals("0")){
                 door = dAO.getDoor(Integer.parseInt(id));
+                door.addAvailableDoorClass(dAO.getDoorClass(3));
         }
         if (door == null) {
             door = new DoorEntity();
             door.addAvailableDoorClass(dAO.getDoorClass(3));
-            door.addAvailableDoorClass(dAO.getDoorClass(4));
-            door.addAvailableDoorClass(dAO.getDoorClass(5));
+            //door.addAvailableDoorClass(dAO.getDoorClass(4));
+            //door.addAvailableDoorClass(dAO.getDoorClass(5));
         }
 
 

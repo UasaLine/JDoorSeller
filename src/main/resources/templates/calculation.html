@@ -3,10 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>door seller</title>
-    <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/calculationScript.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
 </head>
 <body>
 
@@ -60,23 +60,23 @@
         <div class="vertical_menu">
             <div  class="vertical_menu_button" id="doorClass" >
                 <div class="left_cell">
-                    <a class="vertical_menu_button_left" available="yes" href="#"> КЛАСС ДВЕРИ</a>
+                    <a class="vertical_menu_button_left" id="namedoorClass" available="yes" href="#"> КЛАСС ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="doorClassShow" href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" id="metal" >
+            <div  class="vertical_menu_button" id="metal"  >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> МЕТАЛЛ</a>
+                    <a  class="vertical_menu_button_left"  id="namemetal" available="no" href="#"> МЕТАЛЛ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" available="yes" id="metalShow" href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht"  id="metalShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="widthDoor"  >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ШИРИНА ПО КОРОБУ</a>
+                    <a  class="vertical_menu_button_left" id="namewidthDoor" available="no" href="#"> ШИРИНА ПО КОРОБУ</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="widthDoorShow"  href="#"><strong></strong></a>
@@ -84,7 +84,7 @@
             </div>
             <div  class="vertical_menu_button" id="heightDoor"  >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ВЫСОТА ПО КОРОБУ</a>
+                    <a  class="vertical_menu_button_left" id="nameheightDoor" available="no" href="#"> ВЫСОТА ПО КОРОБУ</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="heightDoorShow" href="#"><strong></strong></a>
@@ -92,7 +92,7 @@
             </div>
             <div  class="vertical_menu_button" id="deepnessDoor">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ГЛУБИНА КОРОБА</a>
+                    <a  class="vertical_menu_button_left" id="namedeepnessDoor" available="no" href="#"> ГЛУБИНА КОРОБА</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="deepnessDoorShow"  href="#"><strong></strong></a>
@@ -100,7 +100,7 @@
             </div>
             <div  class="vertical_menu_button" id="thicknessDoorLeaf" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ТОЛЩИНА ПОЛОТНА</a>
+                    <a  class="vertical_menu_button_left" id="namethicknessDoorLeaf" available="no" href="#"> ТОЛЩИНА ПОЛОТНА</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="thicknessDoorLeafShow" href="#"><strong></strong></a>
@@ -108,7 +108,7 @@
             </div>
             <div  class="vertical_menu_button" id="sideDoorOpen" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ОТКРЫВАНИЕ</a>
+                    <a  class="vertical_menu_button_left" id="namesideDoorOpen" available="yes" href="#"> ОТКРЫВАНИЕ</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="sideDoorOpenShow"  href="#"><strong></strong></a>
@@ -116,7 +116,7 @@
             </div>
             <div  class="vertical_menu_button"  id="additionalDoorSettings">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                    <a  class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="yes" href="#"> ДОПОЛНИТЕЛЬНО</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="additionalDoorSettingsShow" href="#"><strong></strong></a>
@@ -127,7 +127,7 @@
 
             <div  class="vertical_menu_button" id="doorColor">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ЦВЕТ ДВЕРИ</a>
+                    <a  class="vertical_menu_button_left" id="namedoorColor" available="yes" href="#"> ЦВЕТ ДВЕРИ</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes" id="doorColorShow"  href="#"><strong></strong></a>
@@ -151,7 +151,7 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
+                    <a  class="vertical_menu_button_left" available="no" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes"  href="#"><strong></strong></a>
@@ -162,7 +162,7 @@
 
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ВЕРХНИЙ ЗАМОК</a>
+                    <a  class="vertical_menu_button_left" available="no" href="#"> ВЕРХНИЙ ЗАМОК</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -170,7 +170,7 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> НИЖНИЙ ЗАМОК</a>
+                    <a  class="vertical_menu_button_left" available="no" href="#"> НИЖНИЙ ЗАМОК</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -178,7 +178,7 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> РУЧКА</a>
+                    <a  class="vertical_menu_button_left" available="no" href="#"> РУЧКА</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
@@ -186,7 +186,7 @@
             </div>
             <div  class="vertical_menu_button" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="yes" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                    <a  class="vertical_menu_button_left" available="no" href="#"> ДОПОЛНИТЕЛЬНО</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes"  href="#"><strong></strong></a>
@@ -205,83 +205,57 @@
 
         <!--door_class-->
         <div class="select_door_class" show="ghost_lement">
-            <!--
-            <div class="images_div" >
-                <img class="images_door_class" data="ТЕРМО(терморазрыв)" data-LeafDoorLeaf="1" src="images/class/000000002.jpg" Item="doorClass">
-                <img class="images_door_class" data="ТЕРМО(терморазрыв) [2-x]" data-LeafDoorLeaf="2" src="images/class/000000002_2.jpg" Item="doorClass">
-                <div class="description_images_door_class"> Термосберегающая дверь . Для эксплуатации в условиях От -45°С до +40ºС. </div>
-            </div>
-            <div class="images_div">
-                <img class="images_door_class" data="ДПД(противопожарная)" data-LeafDoorLeaf="1" src="images/class/000000003.jpg" Item="doorClass">
-                <img class="images_door_class" data="ДПД(противопожарная)[2-x]" data-LeafDoorLeaf="2" src="images/class/000000003_2.jpg" Item="doorClass">
-                <div class="description_images_door_class"> Противопожарные двери, EI 60, способны блокировать возгорание. </div>
-            </div>
-            <div class="images_div">
-                <img class="images_door_class" data="ДСН(индивидуальная)" data-LeafDoorLeaf="1" src="images/class/000000004.jpg" Item="doorClass">
-                <img class="images_door_class" data="ДСН(индивидуальная) [2-x]" data-LeafDoorLeaf="2" src="images/class/000000004_2.jpg" Item="doorClass">
-                <div class="description_images_door_class"> Стальная дверь без терморазрыва. </div>
-            </div>
-            -->
+
         </div>
 
         <!--metal-->
         <div class="select_metal" show="ghost_lement">
 
-            <div  class="vertical_menu_checkbox" id="metal">
+            <div  class="metal_checkbox vertical_menu_checkbox" id="metal0" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 0.6mm</a>
+                    <a  class="vertical_menu_button_left" id="nememetal0" href="#"> </a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox0" id="checkbox0" Item="metal" data="0.6"  class="ios-toggle" />
-                        <label for="checkbox0" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxmetal0" id="checkboxmetal0" Item="metal" data=""  class="ios-toggle" />
+                        <label for="checkboxmetal0" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-            <div  class="vertical_menu_checkbox" id="metal">
+            <div  class="metal_checkbox vertical_menu_checkbox" id="metal1" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 1mm</a>
+                    <a  class="vertical_menu_button_left" id="nememetal1" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox1" id="checkbox1" Item="metal" data="1"  class="ios-toggle" />
-                        <label for="checkbox1" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxmetal1" id="checkboxmetal1" Item="metal" data=""  class="ios-toggle" />
+                        <label for="checkboxmetal1" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-            <div  class="vertical_menu_checkbox" id="metal">
+            <div  class="metal_checkbox vertical_menu_checkbox" id="metal2" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 1.5mm</a>
+                    <a  class="vertical_menu_button_left" id="nememetal2" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox2" id="checkbox2" Item="metal" data="1.5"  class="ios-toggle" />
-                        <label for="checkbox2" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxmetal2" id="checkboxmetal2" Item="metal" data=""  class="ios-toggle" />
+                        <label for="checkboxmetal2" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-            <div  class="vertical_menu_checkbox" id="metal">
+            <div  class="metal_checkbox vertical_menu_checkbox" id="metal3" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 1.8mm</a>
+                    <a  class="vertical_menu_button_left" id="nememetal3" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox4" id="checkbox4" Item="metal" data="1.8" class="ios-toggle" />
-                        <label for="checkbox4" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxmetal3" id="checkboxmetal3" Item="metal" data=""  class="ios-toggle" />
+                        <label for="checkboxmetal3" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-            <div  class="vertical_menu_checkbox" id="metal">
-                <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 2.0mm</a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div id="toggles">
-                        <input type="checkbox" name="checkbox5" id="checkbox5" Item="metal" data="2.0" class="ios-toggle" />
-                        <label for="checkbox5" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <!--widthDoor-->
@@ -377,25 +351,47 @@
 
         <!--deepnessDoor-->
         <div class="select_deepnessDoor"  show="ghost_lement" >
-            <div  class="vertical_menu_checkbox" id="deepnessDoor">
+            <div  class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor0" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 97 mm</a>
+                    <a  class="vertical_menu_button_left" id="nemedeepnessDoor0" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox7" id="checkbox7" Item="deepnessDoor" data="97" class="ios-toggle" />
-                        <label for="checkbox7" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxdeepnessDoor0" id="checkboxdeepnessDoor0" Item="deepnessDoor" data="" class="ios-toggle" />
+                        <label for="checkboxdeepnessDoor0" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-            <div  class="vertical_menu_checkbox" id="deepnessDoor">
+            <div  class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor1" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 102 mm</a>
+                    <a  class="vertical_menu_button_left" id="nemedeepnessDoor1" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox8" id="checkbox8" Item="deepnessDoor" data="102" class="ios-toggle" />
-                        <label for="checkbox8" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxdeepnessDoor1" id="checkboxdeepnessDoor1" Item="deepnessDoor" data="" class="ios-toggle" />
+                        <label for="checkboxdeepnessDoor1" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor2" show="ghost_lement">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemedeepnessDoor2" href="#"></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxdeepnessDoor2" id="checkboxdeepnessDoor2" Item="deepnessDoor" data="" class="ios-toggle" />
+                        <label for="checkboxdeepnessDoor2" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor3" show="ghost_lement">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemedeepnessDoor3" href="#"></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxdeepnessDoor3" id="checkboxdeepnessDoor3" Item="deepnessDoor" data="" class="ios-toggle" />
+                        <label for="checkboxdeepnessDoor3" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
@@ -403,25 +399,47 @@
 
         <!--thicknessDoorLeaf-->
         <div class="select_thicknessDoorLeaf"  show="ghost_lement" >
-            <div  class="vertical_menu_checkbox" show="thicknessDoorLeaf">
+            <div  class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf0" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 60 mm</a>
+                    <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf0" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox9" id="checkbox9" Item="thicknessDoorLeaf" data="60" class="ios-toggle" />
-                        <label for="checkbox9" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxthicknessDoorLeaf0" id="checkboxthicknessDoorLeaf0" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
+                        <label for="checkboxthicknessDoorLeaf0" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-            <div  class="vertical_menu_checkbox" id="thicknessDoorLeaf">
+            <div  class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf1" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" href="#"> 75 mm</a>
+                    <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf1" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
-                        <input type="checkbox" name="checkbox10" id="checkbox10" Item="thicknessDoorLeaf" data="75" class="ios-toggle" />
-                        <label for="checkbox10" class="checkbox-label"></label>
+                        <input type="checkbox" name="checkboxthicknessDoorLeaf1" id="checkboxthicknessDoorLeaf1" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
+                        <label for="checkboxthicknessDoorLeaf1" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf2" show="ghost_lement">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf2" href="#"></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxthicknessDoorLeaf2" id="checkboxthicknessDoorLeaf2" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
+                        <label for="checkboxthicknessDoorLeaf2" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf3" show="ghost_lement">
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf3" href="#"></a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxthicknessDoorLeaf3" id="checkboxthicknessDoorLeaf3" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
+                        <label for="checkboxthicknessDoorLeaf3" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>

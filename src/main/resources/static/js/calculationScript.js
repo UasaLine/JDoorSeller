@@ -9,6 +9,13 @@ jQuery('document').ready(function(){
     var dataJson = "0";
     var door;
 
+    var failureToSetValue = false;
+
+    var minWidthDoor =0;
+    var maxWidthDoor =0;
+    var minHeightDoor =0;
+    var maxHeightDoor =0;
+
     var id = $('#id').text();
     var orderId = $('#orderId').text();
 
@@ -42,99 +49,9 @@ jQuery('document').ready(function(){
 
     $('.vertical_menu_button').on('click',function(){
 
-        currentItem = $(this).attr('id');
-        currentItemForDisplay = $(this).html();
-
-        addNavigation();
-
-        if (currentItem == "doorClass"){
-            $('.select_door_class').attr('show','is_alive_lement');
-        }
-        else{
-            $('.select_door_class').attr('show','ghost_lement');
-        }
-
-        if (currentItem == "metal"){
-            $('.select_metal').attr('show','is_alive_lement');
-        }
-        else{
-            $('.select_metal').attr('show','ghost_lement');
-        }
-
-        if (currentItem == "widthDoor")	{
-            $('.select_widthDoor').attr('show','is_alive_lement');
-            if (doorLeaf == 1){
-                $('[DoorLeaf="1"]').attr('show','is_alive_lement');
-                $('[DoorLeaf="2"]').attr('show','ghost_lement');
-            }
-            else{
-                $('[DoorLeaf="1"]').attr('show','ghost_lement');
-                $('[DoorLeaf="2"]').attr('show','is_alive_lement');
-            }
-        }
-        else{
-            $('.select_widthDoor').attr('show','ghost_lement');
-        }
-
-        if (currentItem == "heightDoor"){
-            $('.select_heightDoor').attr('show','is_alive_lement');
-
-            if (doorLeaf == 1){
-                $('[DoorLeaf="1"]').attr('show','is_alive_lement');
-                $('[DoorLeaf="2"]').attr('show','ghost_lement');
-            }
-            else{
-                $('[DoorLeaf="1"]').attr('show','ghost_lement');
-                $('[DoorLeaf="2"]').attr('show','is_alive_lement');
-            }
-
-            if(fanlight==1){
-                $('[fanlight="1"]').attr('show','is_alive_lement');
-                $('[doorLeaf="'+doorLeaf+'"][fanlight="1"]').attr('show','ghost_lement');
-            }
-            else{
-                $('[fanlight="1"]').attr('show','ghost_lement');
-            }
-
-        }
-        else{
-            $('.select_heightDoor').attr('show','ghost_lement');
-
-        }
-
-        if(currentItem == "deepnessDoor"){
-            $('.select_deepnessDoor').attr('show','is_alive_lement');
-        }
-        else{
-            $('.select_deepnessDoor').attr('show','ghost_lement');
-        }
-
-        if (currentItem == "thicknessDoorLeaf"){
-            $('.select_thicknessDoorLeaf').attr('show','is_alive_lement');
-        }
-        else {
-            $('.select_thicknessDoorLeaf').attr('show','ghost_lement');
-        }
-
-        if(currentItem == "sideDoorOpen"){
-            $('.select_sideDoorOpen').attr('show','is_alive_lement');
-        }
-        else{
-            $('.select_sideDoorOpen').attr('show','ghost_lement');
-        }
-
-        if(currentItem == "additionalDoorSettings"){
-            $('.select_additionalDoorSettings').attr('show','is_alive_lement');
-        }
-        else{
-            $('.select_additionalDoorSettings').attr('show','ghost_lement');
-        }
-
-        if (currentItem == "doorColor"){
-            $('.select_doorColor').attr('show','is_alive_lement');
-        }
-        else{
-            $('.select_doorColor').attr('show','ghost_lement');
+        if ($('#name'+$(this).attr('id')+'').attr('available')=="yes"){
+            assignPreviouValue();
+            processItemSelection(this);
         }
 
     });
@@ -142,7 +59,7 @@ jQuery('document').ready(function(){
     $('.select_door_class').on('click','.images_door_class',function(){
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
         setDoorField($(this).attr('Item'),$(this).attr('data'));
-        representationField($(this).attr('data'));
+        representationField($(this).attr('dataName'));
         pickOut(this);
         getListOfSelectionFields();
 
@@ -316,7 +233,6 @@ jQuery('document').ready(function(){
             data: strJSON,
             dataType: 'json',
             success: function (data) {
-                alert('price is: ' + data.id);
                 toOrder();
             },
             error: function (data) {
@@ -335,7 +251,7 @@ jQuery('document').ready(function(){
 
     $('.input_div').keydown(function(eventObject){
 
-        //if (eventObject.which=='13'){
+        if (eventObject.which=='13'){
 
             var itamId = $(this).attr('id');
 
@@ -354,7 +270,7 @@ jQuery('document').ready(function(){
 
             representationField();
 
-        //}
+        }
     });
 
     //--------------------------------------
@@ -363,46 +279,77 @@ jQuery('document').ready(function(){
 
 
     function setDoorField(fieldName,value){
-        door[fieldName] = value;
+
+        if (checkInstallationAvailability(fieldName,value)){
+            door[fieldName] = value;
+            failureToSetValue = false;
+        }
+        else {
+            failureToSetValue = true;
+        }
     }
+
+    function checkInstallationAvailability(fieldName,value){
+        if (fieldName == "widthDoor"){
+            if(value<minWidthDoor || value>maxWidthDoor){
+                alert("ограничение для размера: max -"+maxWidthDoor+" min - "+minWidthDoor);
+                return false;
+            }
+        }
+        else if(fieldName == "heightDoor"){
+            if(value<minHeightDoor || value>maxHeightDoor){
+                alert("ограничение для размера: max -"+maxHeightDoor+" min - "+minHeightDoor);
+                return false;
+            }
+        }
+        return true;
+    };
 
     function representationField(value){
 
-        var showValue="";
+        if (!failureToSetValue) {
 
-        //widthDoor
-        if (currentItem == "widthDoor"){
-            if(door.activDoorLeafWidth && door.activDoorLeafWidth!=0){
-                showValue = ""+door.widthDoor+" ["+door.activDoorLeafWidth+"]";
-            }
-            else if(door.widthDoor && door.widthDoor!=0){
-                showValue = ""+door.widthDoor;
-            }
-        }
-        //heightDoor
-        else if (currentItem == "heightDoor"){
-            if(door.doorFanlightheight && door.doorFanlightheight!=0){
-                showValue = ""+door.heightDoor+" ["+door.doorFanlightheight+"]";
-            }
-            else if(door.heightDoor && door.heightDoor!=0){
-                showValue = ""+door.heightDoor;
-            }
-        }
-        //sideDoorOpen
-        else if (currentItem == "sideDoorOpen"){
-            if(door.innerDoorOpen && door.innerDoorOpen!=0){
-                showValue = ""+door.sideDoorOpen+" [внутренняя]";
-            }
-            else if(door.sideDoorOpen && door.sideDoorOpen!=0){
-                showValue = ""+door.sideDoorOpen;
-            }
-        }
-        else{
-            showValue = value;
-        }
+            var showValue = "";
 
-        set(showValue);
-        drawObject();
+            //widthDoor
+            if (currentItem == "widthDoor") {
+                if (door.activDoorLeafWidth && door.activDoorLeafWidth != 0) {
+                    showValue = "" + door.widthDoor + " [" + door.activDoorLeafWidth + "]";
+                }
+                else if (door.widthDoor && door.widthDoor != 0) {
+                    showValue = "" + door.widthDoor;
+                }
+            }
+            //heightDoor
+            else if (currentItem == "heightDoor") {
+                if (door.doorFanlightheight && door.doorFanlightheight != 0) {
+                    showValue = "" + door.heightDoor + " [" + door.doorFanlightheight + "]";
+                }
+                else if (door.heightDoor && door.heightDoor != 0) {
+                    showValue = "" + door.heightDoor;
+                }
+            }
+            //sideDoorOpen
+            else if (currentItem == "sideDoorOpen") {
+                if (door.innerDoorOpen && door.innerDoorOpen != 0) {
+                    showValue = "" + door.sideDoorOpen + " [внутренняя]";
+                }
+                else if (door.sideDoorOpen && door.sideDoorOpen != 0) {
+                    showValue = "" + door.sideDoorOpen;
+                }
+            }
+            //doorClass
+            else if(currentItem == "doorType"){
+                showValue = getTheNameOfTheDoorType(value);
+                currentItem = "doorClass";
+            }
+            else {
+                showValue = value;
+            }
+
+            set(showValue);
+            drawObject();
+        }
     }
 
     function pickOut(item){
@@ -435,7 +382,15 @@ jQuery('document').ready(function(){
                 $(elems[i]).prop('checked', false);
             }
         }
-    }
+    };
+
+    function allDisable(className){
+        //all is ghost_lement
+        var elems = $('.'+className+'');
+        for(var i=0; i<elems.length; ++i){
+            $(elems[i]).attr('show','ghost_lement');
+        }
+    };
 
     function addNavigation (){
         $('.navigation_panel').remove();
@@ -546,10 +501,11 @@ jQuery('document').ready(function(){
             for(var j=0; j<doorTypes.length; ++j){
                 $('<img>')
                     .attr('class','images_door_class')
-                    .attr('data',divName)
+                    .attr('data',divId)
+                    .attr('dataName',divName)
                     .attr('data-LeafDoorLeaf',doorTypes[j].doorLeaf)
                     .attr('src',doorTypes[j].namePicture)
-                    .attr('Item','doorClass')
+                    .attr('Item','doorType')
                     .appendTo('#doorClass'+divId);
             }
             $('<div>')
@@ -560,17 +516,209 @@ jQuery('document').ready(function(){
 
     };
 
+    function displayMetal(data){
+
+        allDisable('metal_checkbox');
+
+        for(var i=0; i<data.metal.length; ++i){
+            $('#metal'+i).attr('show','is_alive_lement');
+            $('#nememetal'+i).text(data.metal[i].firstItem);
+            $('#checkboxmetal'+i).attr('data',data.metal[i].firstItem);
+            if(data.metal[i].defaultValue == 1){
+                $('#checkboxmetal'+i).prop('checked', true);
+                setDoorField($('#checkboxmetal'+i).attr('Item'),
+                    $('#checkboxmetal'+i).attr('data'));
+                currentItem = "metal";
+                representationField($('#checkboxmetal'+i).attr('data'));
+            }
+        }
+        $('#namemetal').attr('available',"yes");
+    };
+
+    function displayWidthDoorAndHeightDoor(data){
+
+        for(var i=0; i<data.widthDoor.length; ++i) {
+            minWidthDoor = data.widthDoor[i].startRestriction;
+            maxWidthDoor = data.widthDoor[i].stopRestriction;
+            $('#namewidthDoor').attr('available',"yes");
+        }
+
+        for(var i=0; i<data.widthDoor.length; ++i) {
+            minHeightDoor = data.heightDoor[i].startRestriction;
+            maxHeightDoor = data.heightDoor[i].stopRestriction;
+            $('#nameheightDoor').attr('available',"yes");
+        }
+
+    };
+
+    function displayDeepnessDoorAndThicknessDoorLeaf(data){
+
+        allDisable('deepnessDoor_checkbox');
+        writeInCheckbox('deepnessDoor',data.deepnessDoor);
+        $('#namedeepnessDoor').attr('available',"yes");
+
+        allDisable('thicknessDoorLeaf_checkbox');
+        writeInCheckbox('thicknessDoorLeaf',data.thicknessDoorLeaf);
+        $('#namethicknessDoorLeaf').attr('available',"yes");
+
+    };
+
+    function writeInCheckbox(nameItem,tab){
+        for(var i=0; i<tab.length; ++i){
+            $('#'+nameItem+i).attr('show','is_alive_lement');
+            $('#neme'+nameItem+i).text(tab[i].firstItem);
+            $('#checkbox'+nameItem+i).attr('data',tab[i].firstItem);
+            if(tab[i].defaultValue == 1){
+                $('#checkbox'+nameItem+i).prop('checked', true);
+                setDoorField($('#checkbox'+name+i).attr('Item'),
+                    $('#checkbox'+nameItem+i).attr('data'));
+                currentItem = nameItem;
+                representationField($('#checkbox'+nameItem+i).attr('data'));
+            }
+        }
+    }
+
     function getListOfSelectionFields(idDoorType) {
         $.ajax({
             url: 'doorlimit',
             data: {idDoorType: "2"},
             dataType: 'json',
             success: function (data) {
-                alert('success: ' + data);
+                //alert('success: ' + data);
+                displayMetal(data);
+                displayWidthDoorAndHeightDoor(data);
+                displayDeepnessDoorAndThicknessDoorLeaf(data);
             },
             error: function (data) {
                 alert('error:' + data);
             }
         });
+    };
+
+    function processItemSelection(item){
+
+        currentItem = $(item).attr('id');
+        currentItemForDisplay = $(item).html();
+        failureToSetValue = false;
+
+        addNavigation();
+
+        if (currentItem == "doorClass"){
+            $('.select_door_class').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_door_class').attr('show','ghost_lement');
+        }
+
+        if (currentItem == "metal"){
+            $('.select_metal').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_metal').attr('show','ghost_lement');
+        }
+
+        if (currentItem == "widthDoor")	{
+            $('.select_widthDoor').attr('show','is_alive_lement');
+            if (doorLeaf == 1){
+                $('[DoorLeaf="1"]').attr('show','is_alive_lement');
+                $('[DoorLeaf="2"]').attr('show','ghost_lement');
+            }
+            else{
+                $('[DoorLeaf="1"]').attr('show','ghost_lement');
+                $('[DoorLeaf="2"]').attr('show','is_alive_lement');
+            }
+        }
+        else{
+            $('.select_widthDoor').attr('show','ghost_lement');
+        }
+
+        if (currentItem == "heightDoor"){
+            $('.select_heightDoor').attr('show','is_alive_lement');
+
+            if (doorLeaf == 1){
+                $('[DoorLeaf="1"]').attr('show','is_alive_lement');
+                $('[DoorLeaf="2"]').attr('show','ghost_lement');
+            }
+            else{
+                $('[DoorLeaf="1"]').attr('show','ghost_lement');
+                $('[DoorLeaf="2"]').attr('show','is_alive_lement');
+            }
+
+            if(fanlight==1){
+                $('[fanlight="1"]').attr('show','is_alive_lement');
+                $('[doorLeaf="'+doorLeaf+'"][fanlight="1"]').attr('show','ghost_lement');
+            }
+            else{
+                $('[fanlight="1"]').attr('show','ghost_lement');
+            }
+
+        }
+        else{
+            $('.select_heightDoor').attr('show','ghost_lement');
+
+        }
+
+        if(currentItem == "deepnessDoor"){
+            $('.select_deepnessDoor').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_deepnessDoor').attr('show','ghost_lement');
+        }
+
+        if (currentItem == "thicknessDoorLeaf"){
+            $('.select_thicknessDoorLeaf').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_thicknessDoorLeaf').attr('show','ghost_lement');
+        }
+
+        if(currentItem == "sideDoorOpen"){
+            $('.select_sideDoorOpen').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_sideDoorOpen').attr('show','ghost_lement');
+        }
+
+        if(currentItem == "additionalDoorSettings"){
+            $('.select_additionalDoorSettings').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_additionalDoorSettings').attr('show','ghost_lement');
+        }
+
+        if (currentItem == "doorColor"){
+            $('.select_doorColor').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_doorColor').attr('show','ghost_lement');
+        }
+
+    };
+
+    function  assignPreviouValue(){
+
+        if (currentItem == "widthDoor"){
+            setDoorField("widthDoor",$('#inputWidthDoor').val());
+        }
+        else if(currentItem == "ActivDoorLeafWidth"){
+            setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
+        }
+        else if(currentItem == "heightDoor"){
+            setDoorField("heightDoor",$('#inputHeightDoor').val());
+        }
+        else if(currentItem == "fanlightHeight"){
+            setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
+        }
+
+        representationField();
+    }
+
+    function getTheNameOfTheDoorType(value){
+        for(var i=0; i<door.availableDoorClass.length; ++i){
+            if (door.availableDoorClass[i].id==value){
+                return door.availableDoorClass[i].name;
+            }
+        }
+       return "..."
     }
 });

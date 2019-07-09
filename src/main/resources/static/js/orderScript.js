@@ -101,7 +101,7 @@ jQuery('document').ready(function(){
         $('.Table > tbody').append('<tr><th>' +
             'id</th><th>' +
             'наименование</th><th>' +
-            'класс двери</th><th>' +
+            'тип двери</th><th>' +
             'металл</th><th>' +
             'цвет</th><th>' +
             'цена</th></tr>');
@@ -111,7 +111,7 @@ jQuery('document').ready(function(){
             $('.Table > tbody').append('<tr><td class="id">'
                 +doors[j].id+'</td><td>'
                 +doors[j].name+'</td><td>'
-                +doors[j].doorClass+'</td><td>'
+                +doors[j].doorType+'</td><td>'
                 +doors[j].metal+'</td><td>'
                 +doors[j].doorColor+'</td><td>'
                 +doors[j].price+'</td></tr>');

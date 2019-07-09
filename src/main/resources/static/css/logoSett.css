@@ -283,13 +283,15 @@ td{
 
 }
 
+.select_metal{
+    text-align-last:justify;
+}
+
 .vertical_menu_button_left{
     text-decoration: none;
-    //color:#000000;
 }
 .vertical_menu_button_rigtht{
     text-decoration: none;
-    //color:#000000;
 }
 
 .vertical_menu_space{
@@ -364,7 +366,7 @@ td{
 .vertical_menu_checkbox{
 
     text-align-last:justify;
-    display:block;
+    //display:block;
     text-decoration: none;
     color:#000000;
     border-bottom: solid 1px #A9A9A9;

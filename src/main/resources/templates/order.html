@@ -66,7 +66,7 @@
 			<tr>
 				<th>id</th>
 				<th>наименование</th>
-				<th>класс двери</th>
+				<th>тип двери</th>
 				<th>металл</th>
 				<th>цвет</th>
 				<th>цена</th>
@@ -74,7 +74,7 @@
 			<tr th:each="accountInfo : ${accountInfos}">
 				<td th:utext="${accountInfo.id}">..</td>
 				<td th:utext="${accountInfo.name}">..</td>
-				<td th:utext="${accountInfo.doorClass}">..</td>
+				<td th:utext="${accountInfo.doorType}">..</td>
 				<td th:utext="${accountInfo.metal}">..</td>
 				<td th:utext="${accountInfo.doorColor}">..</td>
 				<td th:utext="${accountInfo.price}">..</td>
