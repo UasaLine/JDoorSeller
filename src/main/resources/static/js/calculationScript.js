@@ -176,7 +176,16 @@ jQuery('document').ready(function(){
                 oneEnableAllDisable ("filler",this);
             }
         }
-
+        else if(currentItem=="doorGlass"){
+            if ($(this).is(':checked')){
+                $('.input_doorGlass_div').attr('show','is_alive_lement');
+                setDoorField('isDoorGlass',1);
+            }
+            else{
+                $('.input_doorGlass_div').attr('show','ghost_lement');
+                setDoorField('isDoorGlass',0);
+            }
+        }
         representationField($(this).attr('data'));
 
     });
@@ -693,6 +702,20 @@ jQuery('document').ready(function(){
             $('.select_doorColor').attr('show','ghost_lement');
         }
 
+        if(currentItem == "doorGlass"){
+            $('.select_doorGlass').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_doorGlass').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="typeDoorGlass"){
+            $('.select_typeDoorGlass').attr('show','is_alive_lement');
+        }
+        else{
+            $('.select_typeDoorGlass').attr('show','ghost_lement');
+        }
+
     };
 
     function  assignPreviouValue(){
@@ -719,6 +742,6 @@ jQuery('document').ready(function(){
                 return door.availableDoorClass[i].name;
             }
         }
-       return "..."
+        return "..."
     }
 });

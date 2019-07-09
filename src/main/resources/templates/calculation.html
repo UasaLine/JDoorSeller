@@ -149,12 +149,12 @@
                     <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="doorGlass" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="no" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
+                    <a  class="vertical_menu_button_left" id="namedoorGlass" available="yes" href="#"> СТЕКЛО (СТЕКЛОПАКЕТ)</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht" available="yes"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
                 </div>
             </div>
 
@@ -213,7 +213,7 @@
 
             <div  class="metal_checkbox vertical_menu_checkbox" id="metal0" show="ghost_lement">
                 <div class="left_cell_checkbox">
-                    <a  class="vertical_menu_button_left" id="nememetal0" href="#"> </a>
+                    <a  class="vertical_menu_button_left" id="nememetal0" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div id="toggles">
@@ -771,6 +771,93 @@
                 <span>5007</span>
             </div>
 
+        </div>
+
+        <!--doorGlass-->
+        <div class="select_doorGlass"   show="ghost_lement">
+            <div  class="vertical_menu_checkbox" id="doorGlass0" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemedoorGlass0" href="#">Стекло</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxdoorGlass0" id="checkboxdoorGlass0" Item="doorGlass" data="1"  class="ios-toggle" />
+                        <label for="checkboxdoorGlass0" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="input_doorGlass_div" show="ghost_lement">
+
+                <div  class="vertical_menu_button" id="typeDoorGlass" >
+                    <div class="left_cell">
+                        <a  class="vertical_menu_button_left" id="nametypeDoorGlass" available="yes" href="#">тип стеклопакета</a>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    </div>
+                </div>
+                <div  class="vertical_menu_button" >
+                    <div class="left_cell">
+                        <a  class="vertical_menu_button_left" available="yes" href="#"> тонировка</a>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    </div>
+                </div>
+                <div  class="vertical_menu_button" >
+                    <div class="left_cell">
+                        <a  class="vertical_menu_button_left" available="yes" href="#"> бронь</a>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    </div>
+                </div>
+                <div class="input_div" id="WidthDoorGlassDiv"  >
+                    <div class="left_cell_checkbox">
+                        <span>Ширина стекла (w):</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                    </div>
+                </div>
+                <div class="input_div" id="WidthDoorGlassDiv"  >
+                    <div class="left_cell_checkbox">
+                        <span>Ширина стекла (h):</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                    </div>
+                </div>
+                <div class="input_div" id="leftDoorGlassDiv"  >
+                    <div class="left_cell_checkbox">
+                        <span>Левый отступ:</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                    </div>
+                </div>
+                <div class="input_div" id="bottomDoorGlassDiv"  >
+                    <div class="left_cell_checkbox">
+                        <span>Нижний отступ:</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--typeDoorGlass-->
+        <div class="select_typeDoorGlass"   show="ghost_lement">
+            <div class="div_images_Color" data="1004" Item="doorColor">
+                <img class="images_Color"  src="images/null.png" ><br>
+                <span>нет</span>
+            </div>
+            <div class="div_images_Color" data="1013" Item="doorColor">
+                <img class="images_Color"  src="images/sp18.png" ><br>
+                <span>СП ОГ 18</span>
+            </div>
         </div>
 
     </div>
