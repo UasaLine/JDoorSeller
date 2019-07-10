@@ -50,7 +50,7 @@ public class DoorType {
     @JoinColumn(name = "doorClass")
     private DoorClass doorClass;
 
-    @JsonIgnore
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<LimitationDoor> limitationList;
 
