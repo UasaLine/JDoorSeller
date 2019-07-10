@@ -45,7 +45,7 @@ public class DoorType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SizeOfDoorParts> sizeOfDoorPartsList;
 
-
+    @JsonIgnore
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "doorClass")
     private DoorClass doorClass;
