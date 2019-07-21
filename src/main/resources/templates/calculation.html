@@ -160,33 +160,33 @@
 
             <a  class="vertical_menu_space"  href="#">  </a>
 
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="topLock" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="no" href="#"> ВЕРХНИЙ ЗАМОК</a>
+                    <a  class="vertical_menu_button_left" id="nametopLock" available="yes" href="#"> ВЕРХНИЙ ЗАМОК</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="topLockShow"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="lowerLock" >
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="no" href="#"> НИЖНИЙ ЗАМОК</a>
+                    <a  class="vertical_menu_button_left" id="namelowerLock" available="yes" href="#"> НИЖНИЙ ЗАМОК</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="lowerLockShow"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="handle">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="no" href="#"> РУЧКА</a>
+                    <a  class="vertical_menu_button_left" id="namehandle" available="yes" href="#"> РУЧКА</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht" id="handleShow"  href="#"><strong></strong></a>
                 </div>
             </div>
-            <div  class="vertical_menu_button" >
+            <div  class="vertical_menu_button" id="additionally">
                 <div class="left_cell">
-                    <a  class="vertical_menu_button_left" available="no" href="#"> ДОПОЛНИТЕЛЬНО</a>
+                    <a  class="vertical_menu_button_left" id="nameadditionally" available="yes" href="#"> ДОПОЛНИТЕЛЬНО</a>
                 </div>
                 <div align="right" class="right_cell">
                     <a class="vertical_menu_button_rigtht" available="yes"  href="#"><strong></strong></a>
@@ -790,29 +790,29 @@
 
                 <div  class="vertical_menu_button" id="typeDoorGlass" >
                     <div class="left_cell">
-                        <a  class="vertical_menu_button_left" id="nametypeDoorGlass" available="yes" href="#">тип стеклопакета</a>
+                        <a  class="vertical_menu_button_left" id="nametypeDoorGlass" available="yes" href="#">тип стекла</a>
                     </div>
                     <div align="right" class="right_cell">
-                        <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                        <a class="vertical_menu_button_rigtht" id="typeDoorGlassShow"  href="#"><strong></strong></a>
                     </div>
                 </div>
-                <div  class="vertical_menu_button" >
+                <div  class="vertical_menu_button" id="toning" >
                     <div class="left_cell">
-                        <a  class="vertical_menu_button_left" available="yes" href="#"> тонировка</a>
+                        <a  class="vertical_menu_button_left" id="nametoning" available="yes" href="#"> тонировка</a>
                     </div>
                     <div align="right" class="right_cell">
-                        <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                        <a class="vertical_menu_button_rigtht" id="toningShow"  href="#"><strong></strong></a>
                     </div>
                 </div>
-                <div  class="vertical_menu_button" >
+                <div  class="vertical_menu_button" id="armor">
                     <div class="left_cell">
-                        <a  class="vertical_menu_button_left" available="yes" href="#"> бронь</a>
+                        <a  class="vertical_menu_button_left" id="namearmor" available="yes" href="#"> бронь</a>
                     </div>
                     <div align="right" class="right_cell">
-                        <a class="vertical_menu_button_rigtht"  href="#"><strong></strong></a>
+                        <a class="vertical_menu_button_rigtht" id="armorShow"  href="#"><strong></strong></a>
                     </div>
                 </div>
-                <div class="input_div" id="WidthDoorGlassDiv"  >
+                <div class="input_div" id="widthDoorGlassDiv"  >
                     <div class="left_cell_checkbox">
                         <span>Ширина стекла (w):</span>
                     </div>
@@ -820,12 +820,12 @@
                         <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
                 </div>
-                <div class="input_div" id="WidthDoorGlassDiv"  >
+                <div class="input_div" id="heightDoorGlassDiv"  >
                     <div class="left_cell_checkbox">
-                        <span>Ширина стекла (h):</span>
+                        <span>Высота стекла (h):</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
-                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                        <input class="input_size" id="inputHeightDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
                 </div>
                 <div class="input_div" id="leftDoorGlassDiv"  >
@@ -833,7 +833,7 @@
                         <span>Левый отступ:</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
-                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                        <input class="input_size" id="inputleftDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
                 </div>
                 <div class="input_div" id="bottomDoorGlassDiv"  >
@@ -841,26 +841,159 @@
                         <span>Нижний отступ:</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
-                        <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
+                        <input class="input_size" id="inputbottomDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!--typeDoorGlass-->
-        <div class="select_typeDoorGlass"   show="ghost_lement">
-            <div class="div_images_Color" data="1004" Item="doorColor">
+            <!--typeDoorGlass-->
+            <div class="select_typeDoorGlass"   show="ghost_lement">
+                <div class="div_images_DoorGlass" data="нет" Item="typeDoorGlass">
+                    <img class="images_Color"  src="images/null.png" ><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_DoorGlass" data="18 сп" Item="typeDoorGlass">
+                    <img class="images_Color"  src="images/sp18.png" ><br>
+                    <span>СП ОГ 18</span>
+                </div>
+            </div>
+            <!--toning-->
+            <div class="select_toning"   show="ghost_lement">
+                <div class="div_images_DoorGlass" data="нет" Item="toning">
+                    <img class="images_Color"  src="images/null.png" ><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_DoorGlass" data="50%" Item="toning">
+                    <img class="images_Color"  src="images/sp18.png" ><br>
+                    <span>50%</span>
+                </div>
+            </div>
+            <!--armor-->
+            <div class="select_armor"   show="ghost_lement">
+            <div class="div_images_DoorGlass" data="нет" Item="armor">
                 <img class="images_Color"  src="images/null.png" ><br>
                 <span>нет</span>
             </div>
-            <div class="div_images_Color" data="1013" Item="doorColor">
+            <div class="div_images_DoorGlass" data="15dpi" Item="armor">
                 <img class="images_Color"  src="images/sp18.png" ><br>
-                <span>СП ОГ 18</span>
+                <span>15dpi</span>
             </div>
         </div>
 
-    </div>
+        <!--topLock-->
+        <div class="select_topLock"   show="ghost_lement">
+            <div class="div_images_furniture" data="нет" Item="topLock">
+                <img class="images_Color"  src="images/null.png" ><br>
+                <span>нет</span>
+            </div>
+        </div>
+
+        <!--lowerLock-->
+        <div class="select_lowerLock"   show="ghost_lement">
+            <div class="div_images_furniture" data="нет" Item="lowerLock">
+                <img class="images_Color"  src="images/null.png" ><br>
+                <span>нет</span>
+            </div>
+            <div class="div_images_furniture" data="Замок врезной 2000 противопожарный" Item="lowerLock">
+                <img class="images_Color"  src="images/Замок врезной 2000 противопожарный.jpg" ><br>
+                <span>Замок врезной 2000 противопожарный</span>
+            </div>
+        </div>
+
+        <!--handle-->
+        <div class="select_handle"   show="ghost_lement">
+            <div class="div_images_furniture" data="нет" Item="handle">
+                <img class="images_Color"  src="images/null.png" ><br>
+                <span>нет</span>
+            </div>
+            <div class="div_images_furniture" data="Ручка противопожная на планке ЧЕРНАЯ  ISEO (HP-72.1303-BL)" Item="handle">
+                <img class="images_Color"  src="images/SST00001844.jpg" ><br>
+                <span>Ручка противопожная на планке ЧЕРНАЯ  ISEO (HP-72.1303-BL)</span>
+            </div>
+        </div>
+
+        <!--additionally-->
+        <div class="select_additionally"   show="ghost_lement">
+            <div  class="vertical_menu_checkbox" id="nightLock0" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemenightLock0" href="#">Ночная задвижка</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxnightLock0" id="checkboxnightLock0" Item="doorGlass" data="1"  class="ios-toggle" />
+                        <label for="checkboxnightLock0" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+            <div  class="vertical_menu_checkbox" id="peephole0" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemepeephole0" href="#">Глазок</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxpeephole0" id="checkboxpeephole0" Item="doorGlass" data="1"  class="ios-toggle" />
+                        <label for="checkboxpeephole0" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div  class="vertical_menu_button" id="closer" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" id="namecloser" available="yes" href="#">Доводчик</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht" id="closerShow"  href="#"><strong></strong></a>
+                </div>
+            </div>
+
+            <div  class="vertical_menu_checkbox" id="plateUnderCloser0" >
+                <div class="left_cell_checkbox">
+                    <a  class="vertical_menu_button_left" id="nemeplateUnderCloser0" href="#">Пластина под доводчик</a>
+                </div>
+                <div align="right" class="right_cell_checkbox">
+                    <div id="toggles">
+                        <input type="checkbox" name="checkboxplateUnderCloser0" id="checkboxplateUnderCloser0" Item="doorGlass" data="1"  class="ios-toggle" />
+                        <label for="checkboxplateUnderCloser0" class="checkbox-label"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div  class="vertical_menu_button" id="endDoorLock" >
+                <div class="left_cell">
+                    <a  class="vertical_menu_button_left" id="nameendDoorLock" available="yes" href="#">Торцевой шпингалет</a>
+                </div>
+                <div align="right" class="right_cell">
+                    <a class="vertical_menu_button_rigtht" id="endDoorLockShow"  href="#"><strong></strong></a>
+                </div>
+            </div>
+        </div>
+
+        <!--closer-->
+        <div class="select_closer"   show="ghost_lement">
+            <div class="div_images_furniture" data="нет" Item="closer">
+                <img class="images_Color"  src="images/null.png" ><br>
+                <span>нет</span>
+            </div>
+            <div class="div_images_furniture" data="Доводчик (100-120 кг) коричневый" Item="closer">
+                <img class="images_Color"  src="images/SST00001844.jpg" ><br>
+                <span>Доводчик (100-120 кг) коричневый</span>
+            </div>
+        </div>
+        <!--endDoorLock-->
+        <div class="select_endDoorLock"   show="ghost_lement">
+            <div class="div_images_furniture" data="нет" Item="endDoorLock">
+                <img class="images_Color"  src="images/null.png" ><br>
+                <span>нет</span>
+            </div>
+            <div class="div_images_furniture" data="Шпингалет" Item="endDoorLock">
+                <img class="images_Color"  src="images/SST00001844.jpg" ><br>
+                <span>Шпингалет</span>
+            </div>
+        </div>
+
+   </div>
 </div>
 
 </body>

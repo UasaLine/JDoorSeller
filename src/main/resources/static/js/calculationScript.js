@@ -2,6 +2,8 @@ jQuery('document').ready(function(){
 
     var currentItem  = "";
     var currentItemForDisplay = "";
+    var currentItemDaughterForDisplay = "";
+    var currentItemForDisplayId = "";
 
     var doorLeaf = 1;
     var fanlight = 0;
@@ -56,6 +58,12 @@ jQuery('document').ready(function(){
 
     });
 
+    $('.navigation_panel_div').on('click','.navigation_panel',function(){
+
+            processItemSelection(this);
+
+    });
+
     $('.select_door_class').on('click','.images_door_class',function(){
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
         setDoorField($(this).attr('Item'),$(this).attr('data'));
@@ -66,6 +74,18 @@ jQuery('document').ready(function(){
     });
 
     $('.div_images_Color').on('click',function(){
+        setDoorField($(this).attr('Item'),$(this).attr('data'));
+        representationField($(this).attr('data'));
+        pickOut(this);
+    });
+
+    $('.div_images_DoorGlass').on('click',function(){
+        setDoorGlassField($(this).attr('Item'),$(this).attr('data'));
+        representationField($(this).attr('data'));
+        pickOut(this);
+    });
+
+    $('.div_images_furniture').on('click',function(){
         setDoorField($(this).attr('Item'),$(this).attr('data'));
         representationField($(this).attr('data'));
         pickOut(this);
@@ -276,6 +296,18 @@ jQuery('document').ready(function(){
             else if(itamId == "fanlightHeightDiv"){
                 setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
             }
+            else if(itamId == "widthDoorGlassDiv"){
+                setDoorGlassField("glassWidth",$('#inputWidthDoorGlass').val());
+            }
+            else if(itamId == "heightDoorGlassDiv"){
+                setDoorGlassField("glassHeight",$('#inputHeightDoorGlass').val());
+            }
+            else if(itamId == "leftDoorGlassDiv"){
+                setDoorGlassField("leftGlassPosition",$('#inputleftDoorGlass').val());
+            }
+            else if(itamId == "bottomDoorGlassDiv"){
+                setDoorGlassField("bottomGlassPosition",$('#inputbottomDoorGlass').val());
+            }
 
             representationField();
 
@@ -296,6 +328,10 @@ jQuery('document').ready(function(){
         else {
             failureToSetValue = true;
         }
+    }
+
+    function setDoorGlassField(fieldName,value){
+        door.doorGlass[fieldName] = value;
     }
 
     function checkInstallationAvailability(fieldName,value){
@@ -402,9 +438,27 @@ jQuery('document').ready(function(){
     };
 
     function addNavigation (){
+
         $('.navigation_panel').remove();
-        $('<a>').attr('class','navigation_panel').attr('href','#').html(currentItemForDisplay).appendTo('.navigation_panel_div');
-        $('<span>').attr('class','navigation_panel').html('->').appendTo('.navigation_panel_div');
+
+        $('<a>').attr('class','navigation_panel')
+            .attr('href','#')
+            .attr('id',currentItemForDisplayId)
+            .html(currentItemForDisplay)
+            .appendTo('.navigation_panel_div');
+        $('<span>').attr('class','navigation_panel')
+            .html('->')
+            .appendTo('.navigation_panel_div');
+
+        if (currentItemDaughterForDisplay != ""){
+            $('<a>').attr('class','navigation_panel')
+                .attr('href','#')
+                .html(currentItemDaughterForDisplay)
+                .appendTo('.navigation_panel_div');
+        }
+
+
+
     };
 
     //--------------------------------------
@@ -445,6 +499,28 @@ jQuery('document').ready(function(){
             }
         }
 
+        if(door.isDoorGlass==1){
+            var glassHeight = (door.doorGlass.glassHeight*2)/10;
+            var glassWidth = (door.doorGlass.glassWidth*2)/10;
+
+            var topGlassPosition =0;
+            if(door.doorGlass.bottomGlassPosition==0){
+                topGlassPosition = (height - glassHeight)/2;
+            }
+            else {
+                topGlassPosition = height - glassHeight - (door.doorGlass.bottomGlassPosition*2)/10;
+            }
+
+            var leftGlassPosition
+            if(door.doorGlass.leftGlassPosition==0){
+                leftGlassPosition = (width-glassWidth)/2;
+            }
+            else {
+                leftGlassPosition = (door.doorGlass.leftGlassPosition*2)/10;
+            }
+
+        }
+
         //delete
         $('.picture_doorL').remove();
         $('.picture_doorR').remove();
@@ -455,6 +531,15 @@ jQuery('document').ready(function(){
         if	(!!color && !!width && !!height){
             $('<img>').attr('class','color_door').attr('src','images/Door/AColor1/'+color+'.jpg').attr('style','width:'+width+'px; height:'+height+'px;').appendTo('.picture_doorL');
             $('<img>').attr('class','opening_side_images').attr('src','images/Door/'+sideOpeningL+'.png').attr('style','width:'+width+'px; height:'+height+'px;').appendTo('.picture_doorL');
+
+            if(door.isDoorGlass==1){
+                   //draw glass
+                    $('<img>')
+                    .attr('class','opening_side_images')
+                    .attr('src','images/Door/window.png')
+                    .attr('style','width:'+glassWidth+'px; height:'+glassHeight+'px; top:'+topGlassPosition+'px; left:'+leftGlassPosition+'px;')
+                    .appendTo('.picture_doorL');
+            }
         }
 
         //draw door R
@@ -465,6 +550,16 @@ jQuery('document').ready(function(){
             //draw size
             $('<span>').attr('class','sizeDoorSpan').attr('style','width:20px; height:'+height+'px; ').html(door.heightDoor).appendTo('.picture_doorR');
             $('<span>').attr('class','sizeDoorSpanBottom').attr('style','width:'+width+'px; height:20px;left:0px;top:'+height+'px;').html(door.widthDoor).appendTo('.picture_doorR');
+
+            if(door.isDoorGlass==1){
+                //draw glass
+                var reflectionleftGlassPosition = (width-glassWidth-leftGlassPosition);
+                $('<img>')
+                    .attr('class','opening_side_images')
+                    .attr('src','images/Door/window.png')
+                    .attr('style','width:'+glassWidth+'px; height:'+glassHeight+'px; top:'+topGlassPosition+'px; left:'+reflectionleftGlassPosition+'px;')
+                    .appendTo('.picture_doorR');
+            }
         }
 
     }
@@ -608,9 +703,11 @@ jQuery('document').ready(function(){
 
         currentItem = $(item).attr('id');
         currentItemForDisplay = $(item).html();
+        currentItemDaughterForDisplay = "";
+        currentItemForDisplayId = currentItem;
         failureToSetValue = false;
 
-        addNavigation();
+
 
         if (currentItem == "doorClass"){
             $('.select_door_class').attr('show','is_alive_lement');
@@ -710,11 +807,90 @@ jQuery('document').ready(function(){
         }
 
         if (currentItem =="typeDoorGlass"){
+
             $('.select_typeDoorGlass').attr('show','is_alive_lement');
+
+            currentItemForDisplay = $('#namedoorGlass').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'doorGlass';
         }
         else{
             $('.select_typeDoorGlass').attr('show','ghost_lement');
         }
+
+        if (currentItem =="toning"){
+
+            $('.select_toning').attr('show','is_alive_lement');
+
+            currentItemForDisplay = $('#namedoorGlass').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'doorGlass';
+        }
+        else{
+            $('.select_toning').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="armor"){
+            $('.select_armor').attr('show','is_alive_lement');
+
+            currentItemForDisplay = $('#namedoorGlass').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'doorGlass';
+        }
+        else{
+            $('.select_armor').attr('show','ghost_lement');
+        }
+
+
+        if (currentItem =="topLock"){
+            $('.select_topLock').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_topLock').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="lowerLock"){
+            $('.select_lowerLock').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_lowerLock').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="handle"){
+            $('.select_handle').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_handle').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="additionally"){
+            $('.select_additionally').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_additionally').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="closer"){
+            $('.select_closer').attr('show','is_alive_lement');
+            currentItemForDisplay = $('#nameadditionally').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'additionally';
+        }
+        else {
+            $('.select_closer').attr('show','ghost_lement');
+        }
+
+        if (currentItem =="endDoorLock"){
+            $('.select_endDoorLock').attr('show','is_alive_lement');
+            currentItemForDisplay = $('#nameadditionally').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'additionally';
+        }
+        else {
+            $('.select_endDoorLock').attr('show','ghost_lement');
+        }
+
+        addNavigation();
 
     };
 

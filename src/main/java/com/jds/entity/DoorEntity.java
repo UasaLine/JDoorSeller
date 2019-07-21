@@ -79,12 +79,6 @@ public class DoorEntity implements Door {
     private List<Sheet> sheets;
 
     @Transient
-    private int glassWidth;
-
-    @Transient
-    private int glassHeight;
-
-    @Transient
     private List<DoorClass> availableDoorClass;
 
     @Transient
@@ -97,7 +91,7 @@ public class DoorEntity implements Door {
     private int isDoorGlass;
 
     @Transient
-    private String doorGlass;
+    private DoorGlass doorGlass;
 
     public void createName(){
 
@@ -111,6 +105,7 @@ public class DoorEntity implements Door {
     public DoorEntity() {
         this.оrders = new ArrayList<DoorsОrder>();
         this.availableDoorClass = new ArrayList<DoorClass>();
+        this.doorGlass = new DoorGlass();
     }
 
     public int getId() {
@@ -285,20 +280,20 @@ public class DoorEntity implements Door {
         this.sheets = sheets;
     }
 
-    public int getGlassWidth() {
-        return glassWidth;
+    public int getIsDoorGlass() {
+        return isDoorGlass;
     }
 
-    public void setGlassWidth(int glassWidth) {
-        this.glassWidth = glassWidth;
+    public void setIsDoorGlass(int isDoorGlass) {
+        this.isDoorGlass = isDoorGlass;
     }
 
-    public int getGlassHeight() {
-        return glassHeight;
+    public DoorGlass getDoorGlass() {
+        return doorGlass;
     }
 
-    public void setGlassHeight(int glassHeight) {
-        this.glassHeight = glassHeight;
+    public void setDoorGlass(DoorGlass doorGlass) {
+        this.doorGlass = doorGlass;
     }
 
     public List<DoorClass> getAvailableDoorClass() {

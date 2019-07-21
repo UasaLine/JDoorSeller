@@ -100,10 +100,10 @@ public class DoorPart {
         condition = condition.replace("OS",String.valueOf(door.getАctivDoorLeafWidth()));
 
         //K - glassWidth
-        condition = condition.replace("K",String.valueOf(door.getGlassWidth()));
+        condition = condition.replace("K",String.valueOf(door.getDoorGlass().getGlassWidth()));
 
         //J - glassWidth
-        condition = condition.replace("J",String.valueOf(door.getGlassHeight()));
+        condition = condition.replace("J",String.valueOf(door.getDoorGlass().getGlassHeight()));
 
         if(provision) {
             //"и" - and
