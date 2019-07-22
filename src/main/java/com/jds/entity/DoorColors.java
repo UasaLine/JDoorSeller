@@ -19,6 +19,11 @@ public class DoorColors {
     @Column(name = "picturePathFirst")
     private String picturePath;
 
+    public DoorColors(String name, String picturePath) {
+        this.name = name;
+        this.picturePath = picturePath;
+    }
+
     public int getId() {
         return id;
     }

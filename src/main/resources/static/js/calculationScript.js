@@ -692,6 +692,7 @@ jQuery('document').ready(function(){
                 displayMetal(data);
                 displayWidthDoorAndHeightDoor(data);
                 displayDeepnessDoorAndThicknessDoorLeaf(data);
+                displayColor(data);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -706,8 +707,6 @@ jQuery('document').ready(function(){
         currentItemDaughterForDisplay = "";
         currentItemForDisplayId = currentItem;
         failureToSetValue = false;
-
-
 
         if (currentItem == "doorClass"){
             $('.select_door_class').attr('show','is_alive_lement');
@@ -841,16 +840,35 @@ jQuery('document').ready(function(){
             $('.select_armor').attr('show','ghost_lement');
         }
 
+        if (currentItem =="topLockkit"){
+            $('.select_topLockkit').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_topLockkit').attr('show','ghost_lement');
+        }
 
         if (currentItem =="topLock"){
             $('.select_topLock').attr('show','is_alive_lement');
+            currentItemForDisplay = $('#nametopLockkit').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'topLockkit';
         }
         else {
             $('.select_topLock').attr('show','ghost_lement');
         }
 
+        if (currentItem =="lowerLockkit"){
+            $('.select_lowerLockkit').attr('show','is_alive_lement');
+        }
+        else {
+            $('.select_lowerLockkit').attr('show','ghost_lement');
+        }
+
         if (currentItem =="lowerLock"){
             $('.select_lowerLock').attr('show','is_alive_lement');
+            currentItemForDisplay = $('#namelowerLockkit').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'lowerLockkit';
         }
         else {
             $('.select_lowerLock').attr('show','ghost_lement');
@@ -919,5 +937,22 @@ jQuery('document').ready(function(){
             }
         }
         return "..."
+    };
+
+    function displayColor(data) {
+
+        var tab = data.colors;
+        var tabL = tab.length;
+        var bias = 0;
+
+        for(var i=0; i<15; ++i){
+            if ((i+bias)<tabL){
+                $('#doorColorDiv'+i).attr('show','is_alive_lement');
+                $('#doorColorDiv'+i).attr('data',tab[i+bias].name);
+                $('#doorColorImg'+i).attr('src',tab[i+bias].picturePath);
+                $('#doorColorSpan'+i).text(tab[i+bias].name);
+            }
+
+        }
     }
 });
