@@ -336,7 +336,7 @@ td{
 
 }
 
-#checkbox{
+[check ='checkbox']{
 //border: 2px dashed #696969;
     background-color:#696969;
 }
@@ -417,7 +417,7 @@ td{
     color:#FFFFFF;
     background-color:#696969;
 }
-.div_images_Color#checkbox{
+.div_images_Color[check ="checkbox"]{
     color:#FFFFFF;
 }
 
@@ -607,4 +607,11 @@ tr:hover{
 }
 .inputData{
     width:199px;
+}
+
+.color_pages{
+    color: #245882;
+}
+.pag:hover{
+    cursor: pointer;
 }

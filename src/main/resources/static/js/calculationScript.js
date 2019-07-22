@@ -18,6 +18,8 @@ jQuery('document').ready(function(){
     var minHeightDoor =0;
     var maxHeightDoor =0;
 
+    var colors;
+
     var id = $('#id').text();
     var orderId = $('#orderId').text();
 
@@ -70,6 +72,17 @@ jQuery('document').ready(function(){
         representationField($(this).attr('dataName'));
         pickOut(this);
         getListOfSelectionFields();
+
+    });
+
+    $('.color_pages').on('click','.pag',function(){
+         if($(this).attr('data')==">"){
+            var val = Number.parseInt($('.color_pages').attr('data'));
+            displayColor(val+1);
+         }
+         else {
+             displayColor($(this).attr('data'));
+         }
 
     });
 
@@ -404,10 +417,10 @@ jQuery('document').ready(function(){
         var elems = $('.'+attr);
         var elemsTotal = elems.length;
         for(var i=0; i<elemsTotal; ++i){
-            $(elems[i]).attr('id', 'no')
+            $(elems[i]).attr('check', 'no')
         }
 
-        $(item).attr('id','checkbox');
+        $(item).attr('check','checkbox');
     }
 
     function set(Value){
@@ -692,7 +705,8 @@ jQuery('document').ready(function(){
                 displayMetal(data);
                 displayWidthDoorAndHeightDoor(data);
                 displayDeepnessDoorAndThicknessDoorLeaf(data);
-                displayColor(data);
+                colors = data.colors;
+                displayColor(0);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -939,20 +953,42 @@ jQuery('document').ready(function(){
         return "..."
     };
 
-    function displayColor(data) {
+    function displayColor(bias) {
 
-        var tab = data.colors;
-        var tabL = tab.length;
-        var bias = 0;
+        var tabSize = colors.length;
+        var amountElements =10;
+        var amountPag = (tabSize/amountElements).toFixed(0);
+        var biasInt = Number.parseInt(bias)*amountElements;
 
-        for(var i=0; i<15; ++i){
-            if ((i+bias)<tabL){
-                $('#doorColorDiv'+i).attr('show','is_alive_lement');
-                $('#doorColorDiv'+i).attr('data',tab[i+bias].name);
-                $('#doorColorImg'+i).attr('src',tab[i+bias].picturePath);
-                $('#doorColorSpan'+i).text(tab[i+bias].name);
+        //delete
+        $('.pag').remove();
+
+        for (var i=0; i<amountPag ; ++i) {
+            $('<a>').attr('class','pag')
+                .attr('data',i)
+                .text(''+i+' ')
+                .appendTo('.color_pages');
+        }
+        $('<a>').attr('class','pag')
+            .attr('data','>')
+            .text(' > ')
+            .appendTo('.color_pages');
+
+        $('.color_pages').attr('data',bias);
+
+        for(var i=0; i<amountElements; ++i){
+            if ((i+biasInt)<tabSize){
+                $('#imagesdoorColorDiv'+i).attr('show','is_alive_lement');
+                $('#imagesdoorColorDiv'+i).attr('data',colors[i+biasInt].name);
+                $('#imagesdoorColorImg'+i).attr('src',colors[i+biasInt].picturePath);
+                $('#imagesdoorColorSpan'+i).text(colors[i+biasInt].name);
             }
-
+            else {
+                $('#imagesdoorColorDiv'+i).attr('show','ghost_lement');
+                $('#imagesdoorColorDiv'+i).attr('data',"");
+                $('#imagesdoorColorImg'+i).attr('src',"");
+                $('#imagesdoorColorSpan'+i).text("");
+            }
         }
     }
 });
