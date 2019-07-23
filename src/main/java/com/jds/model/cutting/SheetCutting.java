@@ -13,9 +13,6 @@ public class SheetCutting {
     int numberOfSheets;
 
 
-
-
-
     public SheetCutting(List<DoorPart> parts, Sheet sheet) {
         this.parts = parts;
         this.sheets = new ArrayList<>();
@@ -58,10 +55,13 @@ public class SheetCutting {
                 System.out.println("!!!ERROR the workpiece does not fit!");//exeption
             }
 
-            //inverted 90
             if((part.getHeight()<=sheet.getHeight()&&(part.getWidth()<=sheet.getWidth()))){
-                newDoorParts.add(part);
                 newDoorParts.add(DoorPart.getInstansInverted(part));
+            }
+
+            //inverted 90
+            if((part.getHeight()<=sheet.getWidth()&&(part.getWidth()<=sheet.getHeight()))){
+                newDoorParts.add(part);
             }
 
         }
@@ -249,5 +249,11 @@ public class SheetCutting {
 
     public void setNumberOfSheets(int numberOfSheets) {
         this.numberOfSheets = numberOfSheets;
+    }
+
+    public void clearHardCalculationData(){
+        for(Sheet sheet:sheets){
+            sheet.setHorCutList(null);
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.jds.service;
 
 import com.jds.dao.MainDAO;
 import com.jds.entity.*;
+import com.jds.model.CostList;
 import com.jds.model.Door;
 import com.jds.model.DoorPart;
 import com.jds.model.FireproofDoor;
@@ -16,8 +17,6 @@ public class MaineService {
 
     @Autowired
     private MainDAO dAO;
-
-
 
     public List<DoorClass> getDoorClass(){
         return  dAO.getDoorClass();
@@ -37,13 +36,16 @@ public class MaineService {
 
     public List<DoorPart> getDoorPart(DoorEntity fireproofDoor){
 
-        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(1),fireproofDoor);
+        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(2),fireproofDoor);
 
     }
 
     public void calculateTheDoor(DoorEntity door){
 
-        //door.setPrice(calculateMetalDoor(door));
+        CostList costList = new CostList();
+
+        calculateMetalDoor(door);
+
         int price = getRandomPrice(8500,25000);
         door.setPrice(price);
         door.setDiscountPrice(price - ((int) (price*0.25)));
@@ -52,21 +54,25 @@ public class MaineService {
 
     }
 
-    public static int getRandomPrice(int min, int max)
-    {
+    public static int getRandomPrice(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
 
-    public int calculateMetalDoor(DoorEntity door){
+    public void calculateMetalDoor(DoorEntity door){
 
         List<DoorPart> partList = getDoorPart(door);
         Sheet sheet = new Sheet(2500,1250);
 
         SheetCutting sheetCutting = new SheetCutting(partList,sheet);
         sheetCutting.CompleteCutting();
+        sheetCutting.clearHardCalculationData();
+
+
         door.setSheets(sheetCutting.getSheets());
-        return 0;
+        double doorWeigh = 0;//door.getSheets().size()*dAO.door.getMetal().
+        door.setWeigh(doorWeigh);
+
     }
 
     public DoorEntity saveDoor(DoorEntity door){
@@ -144,6 +150,7 @@ public class MaineService {
         doorType.setNamePicture(makeRightNamePictureDoorType(doorType.getNamePicture()));
         return  dAO.saveOrUpdateDoorType(doorType);
     }
+
     public String makeRightNamePictureDoorType(String namePicture){
 
         namePicture = namePicture.replace("CalculationDoorsAutonomous","images");

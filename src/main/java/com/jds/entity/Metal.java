@@ -26,8 +26,19 @@ public class Metal {
     @Column(name = "is_used")
     private int isUsed;
 
+    @Column(name = "price")
+    private int price;
+
     public Metal() {
         //empty constructor
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getId() {

@@ -13,6 +13,9 @@ public class Sheet {
     List<HorizontalCut> horCutList;
     List<DoorPart> containsParts;
 
+    public Sheet() {
+
+    }
 
     public Sheet(int width, int height) {
         this.width = width;
@@ -27,7 +30,7 @@ public class Sheet {
     }
 
     public Sheet(Sheet sheet){
-        new Sheet(sheet.getWidth(),sheet.getHeight());
+        this(sheet.getWidth(),sheet.getHeight());
     }
 
     public int getWidth() {

@@ -246,22 +246,9 @@ jQuery('document').ready(function(){
 
     $('#buttonGetCutteig').on('click',function(){
 
-        var strJSON = JSON.stringify(door);
 
-        $.ajax({
-            type: 'POST',
-            url: 'cutting',
-            contentType: "application/json",
-            data: strJSON,
-            dataType: 'json',
-            success: function (data) {
-                alert('width is: ' + data.length);
-                drawCutting(data);
-            },
-            error: function (data) {
-                alert('error:' + data);
-            }
-        });
+                drawCutting();
+
     });
 
     $('#buttonSaveDoor').on('click',function(){
@@ -577,19 +564,25 @@ jQuery('document').ready(function(){
 
     }
 
-    function drawCutting(Sheet){
+    function drawCutting(){
         var k =0.186;
-        for(var i=0; i<Sheet.length; ++i){
+        var sheet = door.sheets;
+        for(var i=0; i<sheet.length; ++i){
 
             //delete
             $('.picture_doorL').remove();
             $('.picture_doorR').remove();
 
-            $('<div>').attr('class','Sheet').attr('style','width:'+Sheet[i].width/k+'px; height:'+Sheet[i].height/k+'px;').appendTo('.daughter_container1');
+            $('<div>').attr('class','Sheet')
+                .attr('style','width:'+sheet[i].width*k+'px; height:'+sheet[i].height*k+'px;')
+                .appendTo('.daughter_container1');
 
-            var doorParts = Sheet[i].containsParts;
+            var doorParts = sheet[i].containsParts;
             for(var j=0; j<doorParts.length; ++j){
-                $('<div>').attr('class','doorPart').attr('style','width:'+doorParts[j].width/k+'px; height:'+doorParts[j].height/k+'px;top:'+doorParts[j].positioningTop/k+'px;left:'+doorParts[j].positioningLeft/k+'px;').appendTo('.Sheet');
+                $('<div>')
+                    .attr('class','doorPart')
+                    .attr('style','width:'+doorParts[j].width*k+'px; height:'+doorParts[j].height*k+'px;top:'+doorParts[j].positioningTop*k+'px;left:'+doorParts[j].positioningLeft*k+'px;')
+                    .appendTo('.Sheet');
             }
         }
     }

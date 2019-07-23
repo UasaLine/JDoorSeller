@@ -36,19 +36,6 @@ create table Size_Door_Parts
   quantity CHARACTER VARYING(100) NOT NULL
 );
 
-
-
-create table Metal
-(
-  id SERIAL PRIMARY KEY,
-  id_manufacturer_program CHARACTER VARYING(12) NOT NULL,
-  name  CHARACTER VARYING(100) NOT NULL,
-  name_displayed CHARACTER VARYING(100),
-  index_heft INT,
-  is_used CHARACTER VARYING(100) NOT NULL
-);
-
-
 create table Door_Furniture
 (
   id SERIAL PRIMARY KEY,

@@ -133,6 +133,7 @@ public class MainDAO {
 
         return door;
     }
+
     @Transactional(propagation = Propagation.REQUIRED)
     public DoorsОrder saveOrder (DoorsОrder Оrder){
 
@@ -170,6 +171,7 @@ public class MainDAO {
         return 0;
 
     }
+
     public int getDooTypeId(String name){
 
         Session session = sessionFactory.openSession();
@@ -189,6 +191,7 @@ public class MainDAO {
         return 0;
 
     }
+
     public int getMetalId(String id){
 
         Session session = sessionFactory.openSession();
@@ -208,6 +211,27 @@ public class MainDAO {
         return 0;
 
     }
+
+    public Metal getMetal(Double val){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from metal where id_manufacturer_program like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (Metal.class)
+                .setParameter ("log", id);
+        List<Metal> metalList = query.list();
+
+        session.close();
+
+        if(metalList.size()>0){
+            return metalList.get(0);
+        }
+        return null;
+
+    }
+
     public int getDoorFurnitureId(String id){
 
         Session session = sessionFactory.openSession();
@@ -227,6 +251,7 @@ public class MainDAO {
         return 0;
 
     }
+
     public int getDoorColorsId(String id){
 
         Session session = sessionFactory.openSession();
@@ -246,6 +271,7 @@ public class MainDAO {
         return 0;
 
     }
+
     public int getSizeOfDoorPartsId(String name){
 
         Session session = sessionFactory.openSession();

@@ -89,9 +89,7 @@ public class MainController {
 
     @PostMapping(value = "/data", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Door calculateTheDoor(@RequestParam(required = false) String kay,
-                     @RequestParam(required = false) String dataJson,
-                     Model model,
+    public DoorEntity calculateTheDoor(Model model,
                      @RequestBody DoorEntity door) throws Exception {
 
         service.calculateTheDoor(door);

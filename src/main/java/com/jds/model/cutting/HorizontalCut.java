@@ -8,6 +8,9 @@ public class HorizontalCut {
 
 List<VerticalСut> verticalСutList;
 
+    public HorizontalCut() {
+    }
+
     public HorizontalCut(VerticalСut verticalСutList) {
         this.verticalСutList = new LinkedList<>();
         this.verticalСutList.add(verticalСutList);

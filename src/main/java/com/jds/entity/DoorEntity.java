@@ -1,6 +1,7 @@
 package com.jds.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jds.model.CostList;
 import com.jds.model.Door;
 import com.jds.model.cutting.Sheet;
 
@@ -93,6 +94,28 @@ public class DoorEntity implements Door {
     @Transient
     private DoorGlass doorGlass;
 
+    @Transient
+    private CostList costList;
+
+    @Transient
+    private double weigh;
+
+    public CostList getCostList() {
+        return costList;
+    }
+
+    public void setCostList(CostList costList) {
+        this.costList = costList;
+    }
+
+    public double getWeigh() {
+        return weigh;
+    }
+
+    public void setWeigh(double weigh) {
+        this.weigh = weigh;
+    }
+
     public void createName(){
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -106,6 +129,7 @@ public class DoorEntity implements Door {
         this.оrders = new ArrayList<DoorsОrder>();
         this.availableDoorClass = new ArrayList<DoorClass>();
         this.doorGlass = new DoorGlass();
+        this.costList = new CostList();
     }
 
     public int getId() {
