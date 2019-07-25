@@ -2,9 +2,7 @@ package com.jds.model.cutting;
 
 import com.jds.model.DoorPart;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SheetCutting {
 
@@ -38,6 +36,7 @@ public class SheetCutting {
         }
         for(Sheet sheet :sheets){
             sheet.printSheet();
+            sheet.calculateAmountWorkSpace();
         }
 
     }
@@ -46,11 +45,15 @@ public class SheetCutting {
 
         List<DoorPart> newDoorParts = new LinkedList<>();
         for (int i =0; i<parts.size();  i++){
+
             DoorPart part = parts.get(i);
             part.setIndex(i);
+            part.setSpace((double)(part.getWidth()*part.getHeight())/1000000);
+
             if((part.getHeight()>=sheet.getHeight())&&(part.getHeight()>=sheet.getWidth())){
                 System.out.println("!!!ERROR the workpiece does not fit!");//exeption
             }
+
             if((part.getWidth()>=sheet.getHeight())&&(part.getWidth()>=sheet.getWidth())){
                 System.out.println("!!!ERROR the workpiece does not fit!");//exeption
             }
@@ -63,6 +66,13 @@ public class SheetCutting {
             if((part.getHeight()<=sheet.getWidth()&&(part.getWidth()<=sheet.getHeight()))){
                 newDoorParts.add(part);
             }
+
+            Collections.sort(newDoorParts, new Comparator<DoorPart>() {
+                @Override
+                public int compare(DoorPart o1, DoorPart o2) {
+                    return o1.compareTo(o2);
+                }
+            });
 
         }
         return newDoorParts;

@@ -8,50 +8,10 @@ public class CostList {
     int totalCost;
     List<LineCostList> list;
 
-
-
-    public class LineCostList {
-
-        String name;
-        int group;
-        Boolean headline;
-        int cost;
-
-        public LineCostList() {
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getGroup() {
-            return group;
-        }
-
-        public void setGroup(int group) {
-            this.group = group;
-        }
-
-        public Boolean getHeadline() {
-            return headline;
-        }
-
-        public void setHeadline(Boolean headline) {
-            this.headline = headline;
-        }
-
-        public int getCost() {
-            return cost;
-        }
-
-        public void setCost(int cost) {
-            this.cost = cost;
-        }
-    }
+    public void addLine(String name,int group,boolean headline,int cost){
+       list.add(new LineCostList(name,group,headline,cost));
+       totalCost +=cost;
+   }
 
     public CostList() {
         totalCost = 0;
@@ -73,4 +33,5 @@ public class CostList {
     public void setCostList(List<LineCostList> list) {
         this.list = list;
     }
+
 }

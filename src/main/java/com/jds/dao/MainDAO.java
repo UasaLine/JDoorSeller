@@ -212,15 +212,15 @@ public class MainDAO {
 
     }
 
-    public Metal getMetal(Double val){
+    public Metal getMetal(double val){
 
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from metal where id_manufacturer_program like :log";
+        sql = "select * from metal where name_displayed = :log";
         Query query = session.createSQLQuery (sql)
                 .addEntity (Metal.class)
-                .setParameter ("log", id);
+                .setParameter ("log", val);
         List<Metal> metalList = query.list();
 
         session.close();
@@ -271,6 +271,27 @@ public class MainDAO {
         return 0;
 
     }
+
+    public DoorColors getDoorColor(String name){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from Door_Colors where name like :log";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (Metal.class)
+                .setParameter ("log", name);
+        List<DoorColors> doorColorsList = query.list();
+
+        session.close();
+
+        if(doorColorsList.size()>0){
+            return doorColorsList.get(0);
+        }
+        return null;
+
+    }
+
 
     public int getSizeOfDoorPartsId(String name){
 

@@ -100,6 +100,35 @@ public class DoorEntity implements Door {
     @Transient
     private double weigh;
 
+    @Transient
+    private double space;
+
+    public void calculateWeigh(Metal metal){
+
+        space = 0;
+
+        for (Sheet sheet:sheets){
+            space +=sheet.getAmountWorkSpace();
+        }
+        this.weigh = space*metal.getIndexHeft();
+    }
+
+    public void calculateCostMetal(Metal metal){
+        int costMetal = sheets.size()*metal.getIndexHeft()*metal.getPrice();
+        costList.addLine("металл[листов: "+sheets.size()+", вес: "+metal.getIndexHeft()+", цена:"+metal.getPrice()+"]"
+                ,1
+                ,false
+                ,costMetal);
+    }
+
+    public double getSpace() {
+        return space;
+    }
+
+    public void setSpace(double space) {
+        this.space = space;
+    }
+
     public CostList getCostList() {
         return costList;
     }

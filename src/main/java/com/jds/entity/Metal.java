@@ -18,7 +18,7 @@ public class Metal {
     private String name;
 
     @Column(name = "name_displayed", nullable = false)
-    private String nameDisplayed;
+    private double nameDisplayed;
 
     @Column(name = "index_heft")
     private int indexHeft;
@@ -65,11 +65,11 @@ public class Metal {
         this.name = name;
     }
 
-    public String getNameDisplayed() {
+    public double getNameDisplayed() {
         return nameDisplayed;
     }
 
-    public void setNameDisplayed(String nameDisplayed) {
+    public void setNameDisplayed(double nameDisplayed) {
         this.nameDisplayed = nameDisplayed;
     }
 

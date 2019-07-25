@@ -13,6 +13,8 @@ public class Sheet {
     List<HorizontalCut> horCutList;
     List<DoorPart> containsParts;
 
+    double amountWorkSpace;
+
     public Sheet() {
 
     }
@@ -31,6 +33,20 @@ public class Sheet {
 
     public Sheet(Sheet sheet){
         this(sheet.getWidth(),sheet.getHeight());
+    }
+
+    public void calculateAmountWorkSpace(){
+        for (DoorPart doorPart:containsParts){
+            amountWorkSpace += (double)((doorPart.getHeight())*(doorPart.getWidth()))/1000000;
+        }
+    }
+
+    public double getAmountWorkSpace() {
+        return amountWorkSpace;
+    }
+
+    public void setAmountWorkSpace(double amountWorkSpace) {
+        this.amountWorkSpace = amountWorkSpace;
     }
 
     public int getWidth() {

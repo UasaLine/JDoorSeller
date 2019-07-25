@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoorPart {
+public class DoorPart implements Comparable<DoorPart> {
 
     String name;
     int width;
@@ -19,7 +19,7 @@ public class DoorPart {
     boolean inverted;
     int index;
     Metal metal;
-    int space;
+    double space;
     int positioningTop;
     int positioningLeft;
 
@@ -40,12 +40,17 @@ public class DoorPart {
         return newDoorPart;
     }
 
+    @Override
+    public int compareTo(DoorPart o) {
+        return (int) ((o.getSpace()-this.getSpace())*1000);
+    }
+
     public DoorPart(String name, int width, int height, int quantity) {
         this.name = name;
         this.width = width;
         this.height = height;
         this.quantity = quantity;
-        this.space = (width*height)/1000000;
+        this.space = (double)(width*height)/1000000;
         this.inverted =false;
         this.posted = false;
     }
@@ -189,11 +194,11 @@ public class DoorPart {
         this.metal = metal;
     }
 
-    public int getSpace() {
+    public double getSpace() {
         return space;
     }
 
-    public void setSpace(int space) {
+    public void setSpace(double space) {
         this.space = space;
     }
 

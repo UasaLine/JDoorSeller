@@ -42,9 +42,11 @@ public class MaineService {
 
     public void calculateTheDoor(DoorEntity door){
 
-        CostList costList = new CostList();
+
 
         calculateMetalDoor(door);
+        calculateColorDoor(door);
+
 
         int price = getRandomPrice(8500,25000);
         door.setPrice(price);
@@ -68,11 +70,19 @@ public class MaineService {
         sheetCutting.CompleteCutting();
         sheetCutting.clearHardCalculationData();
 
+        Metal metal = dAO.getMetal(door.getMetal());
 
         door.setSheets(sheetCutting.getSheets());
-        double doorWeigh = 0;//door.getSheets().size()*dAO.door.getMetal().
-        door.setWeigh(doorWeigh);
+        door.calculateWeigh(metal);
+        door.calculateCostMetal(metal);
+    }
 
+    public void calculateColorDoor(DoorEntity door){
+
+        double spaceColor =  door.getSpace();//-S_ребер;?
+        double costColor = dAO.getDoorColor(door.getDoorColor()).getPricePaintingMeterOfSpace()*((spaceColor)/5);
+        //door.add
+        //"По итогу площадь("+S_Color+")/5 Цену краски за кг * ("+PriceColor+") ";
     }
 
     public DoorEntity saveDoor(DoorEntity door){

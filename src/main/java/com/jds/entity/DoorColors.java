@@ -19,9 +19,24 @@ public class DoorColors {
     @Column(name = "picturePathFirst")
     private String picturePath;
 
-    public DoorColors(String name, String picturePath) {
+    @Column(name = "price")
+    private int pricePaintingMeterOfSpace;
+
+    public int getPricePaintingMeterOfSpace() {
+        return pricePaintingMeterOfSpace;
+    }
+
+    public void setPricePaintingMeterOfSpace(int pricePaintingMeterOfSpace) {
+        this.pricePaintingMeterOfSpace = pricePaintingMeterOfSpace;
+    }
+
+    public DoorColors(String name, String picturePath, int price) {
         this.name = name;
         this.picturePath = picturePath;
+        this.pricePaintingMeterOfSpace = price;
+    }
+
+    public DoorColors() {
     }
 
     public int getId() {
