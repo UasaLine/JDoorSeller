@@ -3,6 +3,7 @@ package com.jds.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.CostList;
 import com.jds.model.Door;
+import com.jds.model.DoorClassForFrond;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 
@@ -82,7 +83,7 @@ public class DoorEntity implements Door {
     private List<Sheet> sheets;
 
     @Transient
-    private List<DoorClass> availableDoorClass;
+    private List<DoorClassForFrond> availableDoorClass;
 
     @Transient
     private int discountPrice;
@@ -108,7 +109,15 @@ public class DoorEntity implements Door {
     @Transient
     private int sealingLine;
 
+    @Transient
     private int firstSealingLine;
+
+    @Transient
+    private int secondSealingLine;
+
+    @Transient
+    private int thirdSealingLine;
+
 
     public void calculateWeigh(Metal metal){
 
@@ -176,7 +185,7 @@ public class DoorEntity implements Door {
 
     public DoorEntity() {
         this.оrders = new ArrayList<DoorsОrder>();
-        this.availableDoorClass = new ArrayList<DoorClass>();
+        this.availableDoorClass = new ArrayList<DoorClassForFrond>();
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
     }
@@ -394,15 +403,15 @@ public class DoorEntity implements Door {
         this.doorGlass = doorGlass;
     }
 
-    public List<DoorClass> getAvailableDoorClass() {
+    public List<DoorClassForFrond> getAvailableDoorClass() {
         return availableDoorClass;
     }
 
-    public void setAvailableDoorClass(List<DoorClass> availableDoorClass) {
+    public void setAvailableDoorClass(List<DoorClassForFrond> availableDoorClass) {
         this.availableDoorClass = availableDoorClass;
     }
 
-    public void addAvailableDoorClass(DoorClass doorClass){
+    public void addAvailableDoorClass(DoorClassForFrond doorClass){
         this.availableDoorClass.add(doorClass);
     }
 
@@ -428,5 +437,29 @@ public class DoorEntity implements Door {
 
     public void setSealingLine(int sealingLine) {
         this.sealingLine = sealingLine;
+    }
+
+    public int getFirstSealingLine() {
+        return firstSealingLine;
+    }
+
+    public void setFirstSealingLine(int firstSealingLine) {
+        this.firstSealingLine = firstSealingLine;
+    }
+
+    public int getSecondSealingLine() {
+        return secondSealingLine;
+    }
+
+    public void setSecondSealingLine(int secondSealingLine) {
+        this.secondSealingLine = secondSealingLine;
+    }
+
+    public int getThirdSealingLine() {
+        return thirdSealingLine;
+    }
+
+    public void setThirdSealingLine(int thirdSealingLine) {
+        this.thirdSealingLine = thirdSealingLine;
     }
 }

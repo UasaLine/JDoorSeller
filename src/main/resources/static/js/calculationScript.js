@@ -38,7 +38,7 @@ jQuery('document').ready(function(){
             success: function (data) {
                 //alert('success: ' + data.id);
                 door = data;
-                displayObject(door);
+                displayObject();
                 displayDoorClass();
             },
             error: function (data) {
@@ -144,83 +144,98 @@ jQuery('document').ready(function(){
 
         }
         else if(currentItem=="additionalDoorSettings"){
-            if($(this).attr("item")=="doorstep"){
-                if (!$(this).is(':checked')){
-                    $('#stainlessSteelDoorstep_checkbox').prop('checked', false);
-                    setDoorField($(this).attr('Item'),0);
-                    setDoorField($('#stainlessSteelDoorstep_checkbox').attr('Item'),0);
+
+            if ($(this).attr("available")=='yes'){
+                if($(this).attr("item")=="doorstep"){
+                    if (!$(this).is(':checked')){
+                        $('#stainlessSteelDoorstep_checkbox').prop('checked', false);
+                        setDoorField($(this).attr('Item'),0);
+                        setDoorField($('#stainlessSteelDoorstep_checkbox').attr('Item'),0);
+                    }
+                    else {
+                        setDoorField($(this).attr('Item'),$(this).attr('data'));
+                    }
                 }
-                else {
+                else if($(this).attr("item")=="stainlessSteelDoorstep"){
+                    if ($(this).is(':checked')&!($('#doorstepcheckbox').is(':checked'))){
+                        $('#doorstepcheckbox').prop('checked', true);
+                        setDoorField($(this).attr('Item'),$(this).attr('data'));
+                        setDoorField($('#doorstepcheckbox').attr('Item'),$(this).attr('data'));
+                    }
+                    else {
+                        setDoorField($(this).attr('Item'),0);
+                    }
+                }
+                else if($(this).attr("item")=="doorTrim"){
+                    if ($(this).is(':checked')){
+                        $('[Item="topDoorTrim"]').prop('checked', true);
+                        $('[Item="leftDoorTrim"]').prop('checked', true);
+                        $('[Item="rightDoorTrim"]').prop('checked', true);
+                    }
+                    else{
+                        $('[Item="topDoorTrim"]').prop('checked', false);
+                        $('[Item="leftDoorTrim"]').prop('checked', false);
+                        $('[Item="rightDoorTrim"]').prop('checked', false);
+                    }
+                }
+                else if($(this).attr("item")=="topDoorTrim"){
+                    if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
+                        $('[Item="doorTrim"]').prop('checked', true);
+                    }
+                    else{
+                        if((!$('[Item="leftDoorTrim"]').is(':checked'))&(!$('[Item="rightDoorTrim"]').is(':checked'))){
+                            $('[Item="doorTrim"]').prop('checked', false);
+                        }
+                    }
+                }
+                else if($(this).attr("item")=="leftDoorTrim"){
+                    if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
+                        $('[Item="doorTrim"]').prop('checked', true);
+                    }
+                    else{
+                        if((!$('[Item="topDoorTrim"]').is(':checked'))&(!$('[Item="rightDoorTrim"]').is(':checked'))){
+                            $('[Item="doorTrim"]').prop('checked', false);
+                        }
+                    }
+                }
+                else if($(this).attr("item")=="rightDoorTrim"){
+                    if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
+                        $('[Item="doorTrim"]').prop('checked', true);
+                    }
+                    else{
+                        if((!$('[Item="leftDoorTrim"]').is(':checked'))&(!$('[Item="topDoorTrim"]').is(':checked'))){
+                            $('[Item="doorTrim"]').prop('checked', false);
+                        }
+                    }
+                }
+                else if($(this).attr("item")=="firstSealingLine"){
+                    oneEnableAllDisable ("firstSealingLine",this);
                     setDoorField($(this).attr('Item'),$(this).attr('data'));
                 }
-            }
-            else if($(this).attr("item")=="stainlessSteelDoorstep"){
-                if ($(this).is(':checked')&!($('#doorstepcheckbox').is(':checked'))){
-                    $('#doorstepcheckbox').prop('checked', true);
+                else if($(this).attr("item")=="secondSealingLine"){
+                    oneEnableAllDisable ("secondSealingLine",this);
                     setDoorField($(this).attr('Item'),$(this).attr('data'));
-                    setDoorField($('#doorstepcheckbox').attr('Item'),$(this).attr('data'));
                 }
-                else {
-                    setDoorField($(this).attr('Item'),0);
-                }
-            }
-            else if($(this).attr("item")=="doorTrim"){
-                if ($(this).is(':checked')){
-                    $('[Item="topDoorTrim"]').prop('checked', true);
-                    $('[Item="leftDoorTrim"]').prop('checked', true);
-                    $('[Item="rightDoorTrim"]').prop('checked', true);
-                }
-                else{
-                    $('[Item="topDoorTrim"]').prop('checked', false);
-                    $('[Item="leftDoorTrim"]').prop('checked', false);
-                    $('[Item="rightDoorTrim"]').prop('checked', false);
-                }
-            }
-            else if($(this).attr("item")=="topDoorTrim"){
-                if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
-                    $('[Item="doorTrim"]').prop('checked', true);
-                }
-                else{
-                    if((!$('[Item="leftDoorTrim"]').is(':checked'))&(!$('[Item="rightDoorTrim"]').is(':checked'))){
-                        $('[Item="doorTrim"]').prop('checked', false);
+                else if($(this).attr("item")=="thirdSealingLine"){
+                    if ($(this).is(':checked')){
+                        oneEnableAllDisable ("thirdSealingLine",this);
+                        setDoorField($(this).attr('Item'),$(this).attr('data'));
+                        setDoorField('sealingLine',3);
                     }
-                }
-            }
-            else if($(this).attr("item")=="leftDoorTrim"){
-                if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
-                    $('[Item="doorTrim"]').prop('checked', true);
-                }
-                else{
-                    if((!$('[Item="topDoorTrim"]').is(':checked'))&(!$('[Item="rightDoorTrim"]').is(':checked'))){
-                        $('[Item="doorTrim"]').prop('checked', false);
+                    else {
+                        setDoorField($(this).attr('Item'),0);
+                        setDoorField('sealingLine',2);
                     }
+
+                }
+                else if($(this).attr("item")=="filler"){
+                    oneEnableAllDisable ("filler",this);
                 }
             }
-            else if($(this).attr("item")=="rightDoorTrim"){
-                if(($(this).is(':checked')) & (!$('[Item="doorTrim"]').is(':checked'))){
-                    $('[Item="doorTrim"]').prop('checked', true);
-                }
-                else{
-                    if((!$('[Item="leftDoorTrim"]').is(':checked'))&(!$('[Item="topDoorTrim"]').is(':checked'))){
-                        $('[Item="doorTrim"]').prop('checked', false);
-                    }
-                }
+            else {
+                $(this).prop('checked', false);
             }
-            else if($(this).attr("item")=="firstSealingLine"){
-                oneEnableAllDisable ("firstSealingLine",this);
-                setDoorField($(this).attr('Item'),$(this).attr('data'));
-            }
-            else if($(this).attr("item")=="secondSealingLine"){
-                oneEnableAllDisable ("secondSealingLine",this);
-                setDoorField($(this).attr('Item'),$(this).attr('data'));
-            }
-            else if($(this).attr("item")=="thirdSealingLine"){
-                oneEnableAllDisable ("thirdSealingLine",this);
-                setDoorField($(this).attr('Item'),$(this).attr('data'));
-            }
-            else if($(this).attr("item")=="filler"){
-                oneEnableAllDisable ("filler",this);
-            }
+
         }
         else if(currentItem=="doorGlass"){
             if ($(this).is(':checked')){
@@ -999,5 +1014,16 @@ jQuery('document').ready(function(){
                 $('#imagesdoorColorSpan'+i).text("");
             }
         }
+    }
+
+    function  displayadditionalDoorSettings(data){
+
+        var tabSize = data.additionalDoorSetting.length;
+
+        for (var i=0; i<tabSize ; ++i){
+            var additionalName = data.additionalDoorSetting[i].firstItem;
+            $('#'+additionalName+'checkbox').attr('available','yes')
+        }
+
     }
 });

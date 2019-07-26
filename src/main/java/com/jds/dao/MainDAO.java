@@ -55,6 +55,8 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public int saveOrUpdateDoorType(DoorType doorType) {
 
+        doorType.makeRightNamePictureDoorType();
+
         int id = getDooTypeId(doorType.getName());//check exists
         if (id>0){
             doorType.setId(id);

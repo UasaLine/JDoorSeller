@@ -14,11 +14,10 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> deepnessDoor;
     private List<LimitationDoor> thicknessDoorLeaf;
     private List<DoorColors> colors;
+    private List<LimitationDoor>  additionalDoorSetting;
 
 
     public  RestrictionOfSelectionFields stuffColors(List<DoorColors> colors){
-
-        //colors.add(new DoorColors("1004","images/Door/AColor1/1004.jpg",320));
         this.setColors(colors);
         return this;
     }
@@ -67,9 +66,29 @@ public class RestrictionOfSelectionFields {
                 60,
                 1));
 
+        additionalDoorSetting = new  ArrayList<>();
+        additionalDoorSetting.add(new LimitationDoor("doorstep",
+                1,
+                0,
+                1));
+        additionalDoorSetting.add(new LimitationDoor("firstSealingLine",
+                1,
+                1,
+                1));
+        additionalDoorSetting.add(new LimitationDoor("secondSealingLine",
+                2,
+                2,
+                1));
+
     }
 
+    public List<LimitationDoor> getAdditionalDoorSetting() {
+        return additionalDoorSetting;
+    }
 
+    public void setAdditionalDoorSetting(List<LimitationDoor> additionalDoorSetting) {
+        this.additionalDoorSetting = additionalDoorSetting;
+    }
 
     public List<LimitationDoor> getMetal() {
         return metal;

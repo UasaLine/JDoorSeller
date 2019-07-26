@@ -125,11 +125,11 @@ public class MaineService {
         DoorEntity door = null;
         if (id!=null && !id.isEmpty() && !id.equals("0")){
                 door = dAO.getDoor(Integer.parseInt(id));
-                door.addAvailableDoorClass(dAO.getDoorClass(3));
+                door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorClass(6)));
         }
         if (door == null) {
             door = new DoorEntity();
-            door.addAvailableDoorClass(dAO.getDoorClass(3));
+            door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorClass(6)));
             //door.addAvailableDoorClass(dAO.getDoorClass(4));
             //door.addAvailableDoorClass(dAO.getDoorClass(5));
         }
@@ -170,15 +170,7 @@ public class MaineService {
 
     public int saveOrUpdateDoorType (DoorType doorType){
 
-        doorType.setNamePicture(makeRightNamePictureDoorType(doorType.getNamePicture()));
         return  dAO.saveOrUpdateDoorType(doorType);
-    }
-
-    public String makeRightNamePictureDoorType(String namePicture){
-
-        namePicture = namePicture.replace("CalculationDoorsAutonomous","images");
-        namePicture = namePicture + ".jpg";
-        return namePicture;
     }
 
     public SalaryConstants saveSalaryConstants(SalaryConstants constants){

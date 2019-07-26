@@ -59,6 +59,12 @@ public class DoorType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<BendSetting> bendSettings;
 
+    public void makeRightNamePictureDoorType(){
+
+        namePicture = namePicture.replace("CalculationDoorsAutonomous","images");
+        namePicture = namePicture + ".jpg";
+
+    }
 
     public List<BendSetting> getBendSettings() {
         return bendSettings;
