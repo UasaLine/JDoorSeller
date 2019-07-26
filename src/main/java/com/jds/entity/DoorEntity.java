@@ -108,6 +108,8 @@ public class DoorEntity implements Door {
     @Transient
     private int sealingLine;
 
+    private int firstSealingLine;
+
     public void calculateWeigh(Metal metal){
 
         space = 0;

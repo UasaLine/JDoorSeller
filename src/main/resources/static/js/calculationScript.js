@@ -38,7 +38,7 @@ jQuery('document').ready(function(){
             success: function (data) {
                 //alert('success: ' + data.id);
                 door = data;
-                displayОbject(door);
+                displayObject(door);
                 displayDoorClass();
             },
             error: function (data) {
@@ -146,12 +146,22 @@ jQuery('document').ready(function(){
         else if(currentItem=="additionalDoorSettings"){
             if($(this).attr("item")=="doorstep"){
                 if (!$(this).is(':checked')){
-                    $('[Item="stainlessSteelDoorstep"]').prop('checked', false);
+                    $('#stainlessSteelDoorstep_checkbox').prop('checked', false);
+                    setDoorField($(this).attr('Item'),0);
+                    setDoorField($('#stainlessSteelDoorstep_checkbox').attr('Item'),0);
+                }
+                else {
+                    setDoorField($(this).attr('Item'),$(this).attr('data'));
                 }
             }
             else if($(this).attr("item")=="stainlessSteelDoorstep"){
-                if ($(this).is(':checked')&!($('[Item="doorstep"]').is(':checked'))){
-                    $('[Item="doorstep"]').prop('checked', true);
+                if ($(this).is(':checked')&!($('#doorstepcheckbox').is(':checked'))){
+                    $('#doorstepcheckbox').prop('checked', true);
+                    setDoorField($(this).attr('Item'),$(this).attr('data'));
+                    setDoorField($('#doorstepcheckbox').attr('Item'),$(this).attr('data'));
+                }
+                else {
+                    setDoorField($(this).attr('Item'),0);
                 }
             }
             else if($(this).attr("item")=="doorTrim"){
@@ -198,12 +208,15 @@ jQuery('document').ready(function(){
             }
             else if($(this).attr("item")=="firstSealingLine"){
                 oneEnableAllDisable ("firstSealingLine",this);
+                setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
             else if($(this).attr("item")=="secondSealingLine"){
                 oneEnableAllDisable ("secondSealingLine",this);
+                setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
             else if($(this).attr("item")=="thirdSealingLine"){
                 oneEnableAllDisable ("thirdSealingLine",this);
+                setDoorField($(this).attr('Item'),$(this).attr('data'));
             }
             else if($(this).attr("item")=="filler"){
                 oneEnableAllDisable ("filler",this);
@@ -219,6 +232,8 @@ jQuery('document').ready(function(){
                 setDoorField('isDoorGlass',0);
             }
         }
+
+
         representationField($(this).attr('data'));
 
     });
@@ -465,7 +480,7 @@ jQuery('document').ready(function(){
     //periodic installation
     //--------------------------------------
 
-    function displayОbject(){
+    function displayObject(){
         for (var key in door) {
             currentItem = key;
             representationField(door[key]);
@@ -700,6 +715,7 @@ jQuery('document').ready(function(){
                 displayDeepnessDoorAndThicknessDoorLeaf(data);
                 colors = data.colors;
                 displayColor(0);
+                displayadditionalDoorSettings(data);
             },
             error: function (data) {
                 alert('error:' + data);
