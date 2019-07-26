@@ -949,7 +949,7 @@ jQuery('document').ready(function(){
     function displayColor(bias) {
 
         var tabSize = colors.length;
-        var amountElements =10;
+        var amountElements =20;
         var amountPag = (tabSize/amountElements).toFixed(0);
         var biasInt = Number.parseInt(bias)*amountElements;
 

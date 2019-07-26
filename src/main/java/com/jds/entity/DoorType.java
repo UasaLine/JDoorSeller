@@ -11,7 +11,7 @@ public class DoorType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name", length = 128, nullable = false)
@@ -41,11 +41,12 @@ public class DoorType {
     @Column(name = "DS")
     private int DS;//I do not know
 
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SizeOfDoorParts> sizeOfDoorPartsList;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "doorClass")
     private DoorClass doorClass;
@@ -53,6 +54,19 @@ public class DoorType {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<LimitationDoor> limitationList;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
+    private List<BendSetting> bendSettings;
+
+
+    public List<BendSetting> getBendSettings() {
+        return bendSettings;
+    }
+
+    public void setBendSettings(List<BendSetting> bendSettings) {
+        this.bendSettings = bendSettings;
+    }
 
     public List<SizeOfDoorParts> getSizeOfDoorPartsList() {
         return sizeOfDoorPartsList;

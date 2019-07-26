@@ -124,7 +124,7 @@ public class MainController {
                                                                         @RequestParam String idDoorType) throws Exception {
 
 
-        return new RestrictionOfSelectionFields();
+        return service.getRestrictionOfSelectionFields();
     }
 
     @GetMapping(value = "/getOrder", produces= MediaType.APPLICATION_JSON_VALUE)

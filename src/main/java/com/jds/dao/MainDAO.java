@@ -2,6 +2,7 @@ package com.jds.dao;
 
 import com.jds.entity.*;
 import com.jds.model.FireproofDoor;
+import com.jds.model.modelEnum.TypeOfSalaryConst;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -10,12 +11,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -98,13 +97,16 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdateSizeOfDoorParts(SizeOfDoorParts sizeOfDoorParts) {
 
+
         sizeOfDoorParts.decodeAfterJson();
 
-        int id = getSizeOfDoorPartsId(sizeOfDoorParts.getName());//check exists
+        saveOrUpdateDoorType(sizeOfDoorParts.getDoorType());
+
+        int id = getSizeOfDoorPartsId(sizeOfDoorParts.getName(),sizeOfDoorParts.getDoorType().getId());//check exists
         if (id>0){
             sizeOfDoorParts.setId(id);
         }
-        sizeOfDoorParts.getDoorType().setId(saveOrUpdateDoorType(sizeOfDoorParts.getDoorType()));
+
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(sizeOfDoorParts);
@@ -112,7 +114,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void saveDoorColors(DoorColors doorColors) {
+    public DoorColors saveDoorColors(DoorColors doorColors) {
 
         int id = getDoorColorsId(doorColors.getIdManufacturerProgram());//check exists
         if (id>0){
@@ -122,6 +124,7 @@ public class MainDAO {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(doorColors);
 
+        return doorColors;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -150,6 +153,94 @@ public class MainDAO {
         Session session = sessionFactory.getCurrentSession();
         session.delete(order);
 
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public BendSetting saveBendSetting(BendSetting bendSetting){
+
+        int idDoorType = saveOrUpdateDoorType(bendSetting.getDoorType());
+
+
+        int id = getbendSettingId(idDoorType,bendSetting.getMetal(),bendSetting.getSealingLine()).getId();//check exists
+        if (id>0){
+            bendSetting.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(bendSetting);
+
+        return bendSetting;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public SalaryConstants saveSalaryConstants(SalaryConstants constants){
+        int id = getSalaryConstantsId(constants.getName()).getId();//check exists
+        if (id>0){
+            constants.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(constants);
+
+        return constants;
+    }
+
+    public Map<TypeOfSalaryConst,Double> getSalaryConstantsMap(){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from salary_constants";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (SalaryConstants.class);
+        List<SalaryConstants> salaryConstantsList = query.list();
+
+        session.close();
+
+        Map<TypeOfSalaryConst,Double> salaryConstantsMap = new HashMap<>();
+        for (SalaryConstants salaryConstants:salaryConstantsList){
+            salaryConstantsMap.put(salaryConstants.getName(),salaryConstants.getValue());
+        }
+
+        return salaryConstantsMap;
+    }
+
+    public SalaryConstants getSalaryConstantsId(TypeOfSalaryConst name){
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from salary_constants where name like :nameSC ";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (SalaryConstants.class)
+                .setParameter ("nameSC", name.toString());
+        List<SalaryConstants> salaryConstantsList = query.list();
+
+        session.close();
+
+        if(salaryConstantsList.size()>0){
+            return salaryConstantsList.get(0);
+        }
+        return new SalaryConstants();
+    }
+
+    public BendSetting getbendSettingId(int doorTypeId,double metal,int sealingLine){
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from bend_setting where doortype_id =:TypeId and metal =:metalvalue and sealingline =:sealing ";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (BendSetting.class)
+                .setParameter ("TypeId", doorTypeId)
+                .setParameter ("metalvalue", metal)
+                .setParameter ("sealing", sealingLine);
+        List<BendSetting> BendList = query.list();
+
+        session.close();
+
+        if(BendList.size()>0){
+            return BendList.get(0);
+        }
+        return new BendSetting();
     }
 
     public int getDoorClassId(String name){
@@ -257,9 +348,9 @@ public class MainDAO {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from Door_Colors where idManufacturerProgram like :log";
+        sql = "select * from door_colors where idManufacturerProgram like :log";
         Query query = session.createSQLQuery (sql)
-                .addEntity (Metal.class)
+                .addEntity (DoorColors.class)
                 .setParameter ("log", id);
         List<DoorColors> doorColorsList = query.list();
 
@@ -277,9 +368,9 @@ public class MainDAO {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from Door_Colors where name like :log";
+        sql = "select * from door_colors where name like :log";
         Query query = session.createSQLQuery (sql)
-                .addEntity (Metal.class)
+                .addEntity (DoorColors.class)
                 .setParameter ("log", name);
         List<DoorColors> doorColorsList = query.list();
 
@@ -293,15 +384,31 @@ public class MainDAO {
     }
 
 
-    public int getSizeOfDoorPartsId(String name){
+    public List<DoorColors> getDoorColors(){
 
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from size_door_parts where name like :log";
+        sql = "select * from door_colors ";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (DoorColors.class);
+        List<DoorColors> doorColorsList = query.list();
+
+        session.close();
+
+        return doorColorsList;
+    }
+
+    public int getSizeOfDoorPartsId(String name,int doortype){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from size_door_parts where name like :log and doortype_id = :doortype";
         Query query = session.createSQLQuery (sql)
                 .addEntity (SizeOfDoorParts.class)
-                .setParameter ("log", name);
+                .setParameter ("log", name)
+                .setParameter ("doortype", doortype);
         List<SizeOfDoorParts> sizeOfDoorPartsList = query.list();
 
         session.close();
@@ -459,5 +566,7 @@ public class MainDAO {
 
         return list;
     }
+
+
 
 }

@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.CostList;
 import com.jds.model.Door;
 import com.jds.model.cutting.Sheet;
+import com.jds.model.modelEnum.TypeOfSalaryConst;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Door")
@@ -103,6 +105,9 @@ public class DoorEntity implements Door {
     @Transient
     private double space;
 
+    @Transient
+    private int sealingLine;
+
     public void calculateWeigh(Metal metal){
 
         space = 0;
@@ -119,6 +124,19 @@ public class DoorEntity implements Door {
                 ,1
                 ,false
                 ,costMetal);
+    }
+
+    public void calculateColorDoor(DoorColors doorColors){
+
+        double spaceColor =  getSpace();//-S_ребер;?
+        double costColor = (doorColors.getPricePaintingMeterOfSpace()*spaceColor)/5;
+
+        costList.addLine("Цвет[площадь:"+spaceColor
+                        +", цена метра2:"+doorColors.getPricePaintingMeterOfSpace()
+                        +", формула:площадь*(цена за кг)/5]",
+                2,
+                false,
+                (int)costColor);
     }
 
     public double getSpace() {
@@ -321,6 +339,31 @@ public class DoorEntity implements Door {
         return doorColor;
     }
 
+    public DoorEntity calculateSalary(BendSetting bendSetting, Map<TypeOfSalaryConst,Double> ConstMap){
+
+        //constructorSalary
+        costList.addLine("Конструктор:",
+                        3,
+                        false,
+                (int) (ConstMap.get(TypeOfSalaryConst.CONSTRUCTOR_COST) + ConstMap.get(TypeOfSalaryConst.MARKUP_CONSTRUCTOR)));
+
+        //cuttingSalary
+
+        costList.addLine("Резка:",
+                3,
+                false,
+                (int)(this.sheets.size()*ConstMap.get(TypeOfSalaryConst.CUTTING_COST_PER_SHEET)));
+
+
+        //bendingSalary
+
+        //Полимерка
+        //МДФ
+        //СТЕКЛО
+
+        return this;
+    }
+
     public void setDoorColor(String doorColor) {
         this.doorColor = doorColor;
     }
@@ -375,5 +418,13 @@ public class DoorEntity implements Door {
 
     public void setPriceWithMarkup(int priceWithMarkup) {
         this.priceWithMarkup = priceWithMarkup;
+    }
+
+    public int getSealingLine() {
+        return sealingLine;
+    }
+
+    public void setSealingLine(int sealingLine) {
+        this.sealingLine = sealingLine;
     }
 }

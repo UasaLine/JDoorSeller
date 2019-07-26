@@ -2,15 +2,14 @@ package com.jds.service;
 
 import com.jds.dao.MainDAO;
 import com.jds.entity.*;
-import com.jds.model.CostList;
-import com.jds.model.Door;
-import com.jds.model.DoorPart;
-import com.jds.model.FireproofDoor;
+import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
+import com.jds.model.modelEnum.TypeOfSalaryConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MaineService {
@@ -43,9 +42,12 @@ public class MaineService {
     public void calculateTheDoor(DoorEntity door){
 
 
-
         calculateMetalDoor(door);
         calculateColorDoor(door);
+        ;
+        BendSetting bendSetting = dAO.getbendSettingId(door.getDoorType(),door.getMetal(),door.getSealingLine());
+        door = door.calculateSalary(bendSetting,dAO.getSalaryConstantsMap());
+
 
 
         int price = getRandomPrice(8500,25000);
@@ -54,6 +56,15 @@ public class MaineService {
         door.setPriceWithMarkup(door.getDiscountPrice() + ((int) (door.getDiscountPrice()*1.25)));
         door.createName();
 
+    }
+
+    public DoorColors saveDoorColors(DoorColors doorColors){
+        doorColors.setPicturePath("images/Door/AColor1/"+doorColors.getPicturePath()+".jpg");
+        return dAO.saveDoorColors(doorColors);
+    }
+
+    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(){
+        return new RestrictionOfSelectionFields().stuffColors(dAO.getDoorColors());
     }
 
     public static int getRandomPrice(int min, int max) {
@@ -79,10 +90,12 @@ public class MaineService {
 
     public void calculateColorDoor(DoorEntity door){
 
-        double spaceColor =  door.getSpace();//-S_ребер;?
-        double costColor = dAO.getDoorColor(door.getDoorColor()).getPricePaintingMeterOfSpace()*((spaceColor)/5);
-        //door.add
-        //"По итогу площадь("+S_Color+")/5 Цену краски за кг * ("+PriceColor+") ";
+        door.calculateColorDoor(dAO.getDoorColor(door.getDoorColor()));
+    }
+
+
+    public BendSetting saveBendSetting(BendSetting bendSetting){
+        return dAO.saveBendSetting(bendSetting);
     }
 
     public DoorEntity saveDoor(DoorEntity door){
@@ -166,5 +179,9 @@ public class MaineService {
         namePicture = namePicture.replace("CalculationDoorsAutonomous","images");
         namePicture = namePicture + ".jpg";
         return namePicture;
+    }
+
+    public SalaryConstants saveSalaryConstants(SalaryConstants constants){
+        return  dAO.saveSalaryConstants(constants);
     }
 }

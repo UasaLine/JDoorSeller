@@ -106,14 +106,47 @@ public class UpdateSettingsControllerPro {
 
     @PostMapping(value = "/update/doorcolors", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateDoorColors(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
+    public String updateDoorColors(@RequestParam(required = false) String kay,
+                                   @RequestParam(required = false) String dataJson) throws Exception {
 
 
         StringReader reader = new StringReader(dataJson);
         ObjectMapper mapper = new ObjectMapper();
 
         DoorColors doorColors = mapper.readValue(reader, DoorColors.class);
-        mainDAO.saveDoorColors(doorColors);
+        service.saveDoorColors(doorColors);
+
+
+        return "jr";
+    }
+
+    @PostMapping(value = "/update/bendsetting", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateBendSetting(@RequestParam(required = false) String kay,
+                                   @RequestParam(required = false) String dataJson) throws Exception {
+
+
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        BendSetting bendSetting = mapper.readValue(reader, BendSetting.class);
+        service.saveBendSetting(bendSetting);
+
+
+        return "jr";
+    }
+
+    @PostMapping(value = "/update/salaryconstants", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateSalaryConstants(@RequestParam(required = false) String kay,
+                                    @RequestParam(required = false) String dataJson) throws Exception {
+
+
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        SalaryConstants salaryConstants = mapper.readValue(reader, SalaryConstants.class);
+        service.saveSalaryConstants(salaryConstants);
 
         return "jr";
     }
