@@ -233,7 +233,12 @@ jQuery('document').ready(function(){
                 }
             }
             else {
-                $(this).prop('checked', false);
+                if($(this).is(':checked')){
+                    $(this).prop('checked', false);
+                }
+                else {
+                    $(this).prop('checked', true);
+                }
             }
 
         }
@@ -641,7 +646,7 @@ jQuery('document').ready(function(){
             for(var j=0; j<doorTypes.length; ++j){
                 $('<img>')
                     .attr('class','images_door_class')
-                    .attr('data',divId)
+                    .attr('data',doorTypes[j].id)
                     .attr('dataName',divName)
                     .attr('data-LeafDoorLeaf',doorTypes[j].doorLeaf)
                     .attr('src',doorTypes[j].namePicture)
@@ -666,8 +671,7 @@ jQuery('document').ready(function(){
             $('#checkboxmetal'+i).attr('data',data.metal[i].firstItem);
             if(data.metal[i].defaultValue == 1){
                 $('#checkboxmetal'+i).prop('checked', true);
-                setDoorField($('#checkboxmetal'+i).attr('Item'),
-                    $('#checkboxmetal'+i).attr('data'));
+                setDoorField($('#checkboxmetal'+i).attr('Item'),$('#checkboxmetal'+i).attr('data'));
                 currentItem = "metal";
                 representationField($('#checkboxmetal'+i).attr('data'));
             }
@@ -980,7 +984,7 @@ jQuery('document').ready(function(){
     function displayColor(bias) {
 
         var tabSize = colors.length;
-        var amountElements =20;
+        var amountElements =15;
         var amountPag = (tabSize/amountElements).toFixed(0);
         var biasInt = Number.parseInt(bias)*amountElements;
 
@@ -1021,8 +1025,23 @@ jQuery('document').ready(function(){
         var tabSize = data.additionalDoorSetting.length;
 
         for (var i=0; i<tabSize ; ++i){
-            var additionalName = data.additionalDoorSetting[i].firstItem;
-            $('#'+additionalName+'checkbox').attr('available','yes')
+            var additionalName = data.additionalDoorSetting[i].secondItem;
+
+            if(data.additionalDoorSetting[i].startRestriction != data.additionalDoorSetting[i].stopRestriction){
+                $('#neme'+additionalName).attr('available','yes');
+                $('#'+additionalName+'_checkbox')
+                    .attr('available','yes')
+                    .attr('data',data.additionalDoorSetting[i].startRestriction);
+
+            }
+
+
+            if(data.additionalDoorSetting[i].defaultValue == 1){
+                $('#'+additionalName+'_checkbox').prop('checked', true);
+                setDoorField($('#'+additionalName+'_checkbox').attr('Item'),
+                    $('#'+additionalName+'_checkbox').attr('data'));
+            }
+
         }
 
     }

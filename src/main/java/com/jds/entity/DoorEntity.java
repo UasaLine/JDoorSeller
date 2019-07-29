@@ -350,16 +350,20 @@ public class DoorEntity implements Door {
         return doorColor;
     }
 
-    public DoorEntity calculateSalary(BendSetting bendSetting, Map<TypeOfSalaryConst,Double> ConstMap){
+    public DoorEntity calculateSalary(BendSetting bendSetting,
+                                      Map<TypeOfSalaryConst,Double> ConstMap,
+                                      SalarySetting salarySetting,
+                                      DoorType doorType){
 
         //constructorSalary
+        //********************************************************
         costList.addLine("Конструктор:",
                         3,
                         false,
                 (int) (ConstMap.get(TypeOfSalaryConst.CONSTRUCTOR_COST) + ConstMap.get(TypeOfSalaryConst.MARKUP_CONSTRUCTOR)));
 
         //cuttingSalary
-
+        //********************************************************
         costList.addLine("Резка:",
                 3,
                 false,
@@ -367,10 +371,46 @@ public class DoorEntity implements Door {
 
 
         //bendingSalary
+        //********************************************************
+        if(bendSetting.getBend()==0){
+            System.out.println("ERROR calculateSalary  - Количество гибов = 0!");
+        }
+        double bendingCost = ConstMap.get(TypeOfSalaryConst.BENDING_COST);
+        double cost = bendingCost*bendSetting.getBend();
+        costList.addLine("Гибка: ["+bendSetting.getBend()+" Х "+bendingCost+" = "+cost,
+                3,
+                false,
+                (int)cost);
 
-        //Полимерка
-        //МДФ
-        //СТЕКЛО
+        //guillotine
+        //********************************************************
+        if(bendSetting.getGuillotine()==0){
+            System.out.println("ERROR calculateSalary  - Количество резов гильотины = 0!");
+        }
+        cost = bendSetting.getGuillotine()*ConstMap.get(TypeOfSalaryConst.GUILLOTINE_COST);
+        costList.addLine("Гильотина: "+bendSetting.getGuillotine()
+                        +" Х "+ConstMap.get(TypeOfSalaryConst.GUILLOTINE_COST)+" = "+cost,
+                3,
+                false,
+                (int)cost);
+
+
+        //contact welding
+        //********************************************************
+        cost = 0;
+        if (metal<1.4){
+            if(doorType.getDoorLeaf()==1){
+                cost = salarySetting.getContactWeldingForOneLeaf();
+            }
+            else if(doorType.getDoorLeaf()==2){
+                cost = salarySetting.getContactWeldingForTwoLeaf();
+            }
+            costList.addLine("Контактная Сварка: "+cost,
+                    3,
+                    false,
+                    (int)cost);
+
+        }
 
         return this;
     }
@@ -432,6 +472,12 @@ public class DoorEntity implements Door {
     }
 
     public int getSealingLine() {
+        if (sealingLine==0 && thirdSealingLine !=0){
+            sealingLine= 3;
+        }
+        else {
+            sealingLine= 2;
+        }
         return sealingLine;
     }
 

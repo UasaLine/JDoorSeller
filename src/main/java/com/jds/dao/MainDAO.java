@@ -516,6 +516,25 @@ public class MainDAO {
 
     }
 
+    public DoorType getDoorType(int id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from door_type where id = :val ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorType.class)
+                .setParameter ("val", id);
+
+        List<DoorType> list = query.list();
+
+        session.close();
+
+        DoorType doorType = new DoorType();
+        if(list.size()>0){
+            doorType = list.get(0);
+        }
+        return doorType;
+    }
 
     public List<DoorType> getDoorType() {
 
@@ -569,6 +588,23 @@ public class MainDAO {
         return list;
     }
 
+    public SalarySetting getSalarySetting(double metal){
 
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from salary_setting where metal = :metalVal";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SalarySetting.class)
+                .setParameter ("metalVal", metal);
+        List<SalarySetting> list = query.list();
+
+        session.close();
+
+        SalarySetting salarySetting = new SalarySetting();
+        if(list.size()>0){
+            salarySetting = list.get(0);
+        }
+        return salarySetting;
+}
 
 }

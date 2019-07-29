@@ -39,6 +39,15 @@ public class LimitationDoor {
 
     public LimitationDoor(String firstItem, double startRestriction, double stopRestriction, int defaultValue) {
         this.firstItem = firstItem;
+        this.secondItem = firstItem;
+        this.startRestriction = startRestriction;
+        this.stopRestriction = stopRestriction;
+        this.defaultValue = defaultValue;
+    }
+
+    public LimitationDoor(String firstItem,String secondItem, double startRestriction, double stopRestriction, int defaultValue) {
+        this.firstItem = firstItem;
+        this.secondItem = secondItem;
         this.startRestriction = startRestriction;
         this.stopRestriction = stopRestriction;
         this.defaultValue = defaultValue;

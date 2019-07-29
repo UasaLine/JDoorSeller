@@ -33,9 +33,9 @@ public class MaineService {
         return dAO.getMetals();
     }
 
-    public List<DoorPart> getDoorPart(DoorEntity fireproofDoor){
+    public List<DoorPart> getDoorPart(DoorEntity door){
 
-        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(2),fireproofDoor);
+        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(door.getDoorType()),door);
 
     }
 
@@ -44,9 +44,11 @@ public class MaineService {
 
         calculateMetalDoor(door);
         calculateColorDoor(door);
-        ;
+
         BendSetting bendSetting = dAO.getbendSettingId(door.getDoorType(),door.getMetal(),door.getSealingLine());
-        door = door.calculateSalary(bendSetting,dAO.getSalaryConstantsMap());
+        DoorType doorType = dAO.getDoorType(door.getDoorType());
+        SalarySetting salarySetting = dAO.getSalarySetting(door.getMetal());
+        door = door.calculateSalary(bendSetting,dAO.getSalaryConstantsMap(), salarySetting,doorType);
 
 
 

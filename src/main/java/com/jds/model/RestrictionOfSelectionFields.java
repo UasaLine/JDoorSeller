@@ -69,15 +69,34 @@ public class RestrictionOfSelectionFields {
         additionalDoorSetting = new  ArrayList<>();
         additionalDoorSetting.add(new LimitationDoor("doorstep",
                 1,
-                0,
+                1,
                 1));
+        additionalDoorSetting.add(new LimitationDoor("stainlessSteelDoorstep",
+                1,
+                0,
+                0));
         additionalDoorSetting.add(new LimitationDoor("firstSealingLine",
+                "firstSealingLine_1",
                 1,
                 1,
                 1));
         additionalDoorSetting.add(new LimitationDoor("secondSealingLine",
+                "secondSealingLine_2",
                 2,
                 2,
+                1));
+
+        additionalDoorSetting.add(new LimitationDoor("topDoorTrim",
+                1,
+                0,
+                1));
+        additionalDoorSetting.add(new LimitationDoor("leftDoorTrim",
+                1,
+                0,
+                1));
+        additionalDoorSetting.add(new LimitationDoor("rightDoorTrim",
+                1,
+                0,
                 1));
 
     }
