@@ -151,4 +151,19 @@ public class UpdateSettingsControllerPro {
         return "jr";
     }
 
+    @PostMapping(value = "/update/salarysetting", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateSalarySetting(@RequestParam(required = false) String kay,
+                                        @RequestParam(required = false) String dataJson) throws Exception {
+
+
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        SalarySetting salarySetting = mapper.readValue(reader, SalarySetting.class);
+        service.saveSalarySetting(salarySetting);
+
+        return "jr";
+    }
+
 }

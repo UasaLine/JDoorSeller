@@ -187,6 +187,19 @@ public class MainDAO {
         return constants;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public SalarySetting saveSalarySetting(SalarySetting setting){
+        int id = getSalarySetting(setting.getMetal()).getId();//check exists
+        if (id>0){
+            setting.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(setting);
+
+        return setting;
+    }
+
     public Map<TypeOfSalaryConst,Double> getSalaryConstantsMap(){
 
         Session session = sessionFactory.openSession();

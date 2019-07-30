@@ -14,6 +14,24 @@ public class SalarySetting {
     @Column(name = "metal")
     private double metal;
 
+    @Column(name = "weldingForOneLeaf")
+    private int weldingForOneLeaf;
+
+    @Column(name = "weldingForTwoLeaf")
+    private int weldingForTwoLeaf;
+
+    @Column(name = "weldingForOneLeafMDF")
+    private int weldingForOneLeafMDF;
+
+    @Column(name = "weldingForTwoLeafMDF")
+    private int weldingForTwoLeafMDF;
+
+    @Column(name = "weldingForOneLeafHot")
+    private int weldingForOneLeafHot;
+
+    @Column(name = "weldingForTwoLeafHot")
+    private int weldingForTwoLeafHot;
+
     @Column(name = "contactweldingforoneleaf")
     private int contactWeldingForOneLeaf;
 
@@ -53,5 +71,53 @@ public class SalarySetting {
 
     public void setContactWeldingForTwoLeaf(int contactWeldingForTwoLeaf) {
         this.contactWeldingForTwoLeaf = contactWeldingForTwoLeaf;
+    }
+
+    public int getWeldingForOneLeaf() {
+        return weldingForOneLeaf;
+    }
+
+    public void setWeldingForOneLeaf(int weldingForOneLeaf) {
+        this.weldingForOneLeaf = weldingForOneLeaf;
+    }
+
+    public int getWeldingForTwoLeaf() {
+        return weldingForTwoLeaf;
+    }
+
+    public void setWeldingForTwoLeaf(int weldingForTwoLeaf) {
+        this.weldingForTwoLeaf = weldingForTwoLeaf;
+    }
+
+    public int getWeldingForOneLeafMDF() {
+        return weldingForOneLeafMDF;
+    }
+
+    public void setWeldingForOneLeafMDF(int weldingForOneLeafMDF) {
+        this.weldingForOneLeafMDF = weldingForOneLeafMDF;
+    }
+
+    public int getWeldingForTwoLeafMDF() {
+        return weldingForTwoLeafMDF;
+    }
+
+    public void setWeldingForTwoLeafMDF(int weldingForTwoLeafMDF) {
+        this.weldingForTwoLeafMDF = weldingForTwoLeafMDF;
+    }
+
+    public int getWeldingForOneLeafHot() {
+        return weldingForOneLeafHot;
+    }
+
+    public void setWeldingForOneLeafHot(int weldingForOneLeafHot) {
+        this.weldingForOneLeafHot = weldingForOneLeafHot;
+    }
+
+    public int getWeldingForTwoLeafHot() {
+        return weldingForTwoLeafHot;
+    }
+
+    public void setWeldingForTwoLeafHot(int weldingForTwoLeafHot) {
+        this.weldingForTwoLeafHot = weldingForTwoLeafHot;
     }
 }

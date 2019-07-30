@@ -34,7 +34,7 @@ public class DoorEntity implements Door {
     private int heightDoor;
 
     @Column(name = "аctivDoorLeafWidth")
-    private int аctivDoorLeafWidth;
+    private int activeDoorLeafWidth;
 
     @Column(name = "doorFanlightHeight")
     private int doorFanlightHeight;
@@ -117,6 +117,18 @@ public class DoorEntity implements Door {
 
     @Transient
     private int thirdSealingLine;
+
+    @Transient
+    private int MDF;
+
+    @Transient
+    private int additionallyHingeMain;
+
+    @Transient
+    private int additionallyHingeNotMain;
+
+    @Transient
+    private int amplifierCloser;
 
 
     public void calculateWeigh(Metal metal){
@@ -230,12 +242,12 @@ public class DoorEntity implements Door {
         this.heightDoor = heightDoor;
     }
 
-    public int getАctivDoorLeafWidth() {
-        return аctivDoorLeafWidth;
+    public int getActiveDoorLeafWidth() {
+        return activeDoorLeafWidth;
     }
 
-    public void setАctivDoorLeafWidth(int аctivDoorLeafWidth) {
-        this.аctivDoorLeafWidth = аctivDoorLeafWidth;
+    public void setActiveDoorLeafWidth(int activeDoorLeafWidth) {
+        this.activeDoorLeafWidth = activeDoorLeafWidth;
     }
 
     public int getDoorFanlightHeight() {
@@ -412,6 +424,118 @@ public class DoorEntity implements Door {
 
         }
 
+        //welding
+        //********************************************************
+
+        //main
+        cost = 0;
+        double spaceDoor = ((double)(widthDoor*heightDoor))/1000000;
+        if(doorType.getDoorLeaf()==1){
+           if((widthDoor<=ConstMap.get(TypeOfSalaryConst.WIDTH_LIMIT_ONE_LEAF))
+                   &&(heightDoor<=ConstMap.get(TypeOfSalaryConst.HEIGHT_LIMIT_ONE_LEAF))){
+
+                   if(doorType.getDoorClass().getHot()==1){
+                       cost = salarySetting.getWeldingForOneLeafHot();
+                   }
+                   else if(MDF==1) {
+                       cost = salarySetting.getWeldingForOneLeafMDF();
+                   }
+                   else {
+                       cost = salarySetting.getWeldingForOneLeaf();
+                   }
+           }
+           else {
+               cost = spaceDoor*ConstMap.get(TypeOfSalaryConst.COST_OVER_LIMIT_ONE_LEAF);
+           }
+        }
+        else if(doorType.getDoorLeaf()==2){
+            if((widthDoor<=ConstMap.get(TypeOfSalaryConst.WIDTH_LIMIT_TWO_LEAF))
+                    &&(heightDoor<=ConstMap.get(TypeOfSalaryConst.HEIGHT_LIMIT_TWO_LEAF))){
+
+                    if(doorType.getDoorClass().getHot()==1){
+                        cost = salarySetting.getWeldingForTwoLeafHot();
+                    }
+                    else if(MDF==1) {
+                        cost = salarySetting.getWeldingForTwoLeafMDF();
+                    }
+                    else {
+                        cost = salarySetting.getWeldingForTwoLeaf();
+                    }
+
+            }
+            else {
+                cost = spaceDoor*ConstMap.get(TypeOfSalaryConst.COST_OVER_LIMIT_TWO_LEAF);
+            }
+        }
+        costList.addLine("Сварка: "+cost,
+                3,
+                false,
+                (int)cost);
+
+        //doorFanlight
+        cost = 0;
+        if (doorFanlightHeight>0){
+            cost = ConstMap.get(TypeOfSalaryConst.COST_DOOR_FANLIGHT);
+            costList.addLine("Фрамуга: "+cost,
+                    3,
+                    false,
+                    (int)cost);
+        }
+
+        //handle
+        //ConstMap.get(TypeOfSalaryConst.COST_WELDED_HANDLE);
+
+
+        //door hinge
+        cost = 0;
+        if(additionallyHingeMain==1||additionallyHingeNotMain==1){
+
+            if(additionallyHingeMain==1){
+                cost+=ConstMap.get(TypeOfSalaryConst.COST_WELDING_ADDITIONAL_DOOR_HINGE);
+            }
+            if (additionallyHingeNotMain==1){
+                cost+=ConstMap.get(TypeOfSalaryConst.COST_WELDING_ADDITIONAL_DOOR_HINGE);
+            }
+
+            costList.addLine("Доп.петля - "+cost,
+                    3,
+                    false,
+                    (int) cost);
+        }
+
+        //Amplifier Closer
+        cost=0;
+        if (amplifierCloser==1){
+            cost = ConstMap.get(TypeOfSalaryConst.COST_AMPLIFIER_CLOSER);
+            costList.addLine("усилитель доводчика - "+cost,
+                    3,
+                    false,
+                    (int) cost);
+        }
+
+        //Glass
+        cost=0;
+        if(doorGlass!=null){
+            cost = ConstMap.get(TypeOfSalaryConst.WELDING_FOR_GLASS);
+            costList.addLine("Стеклопакет - "+cost,
+                    3,
+                    false,
+                    (int) cost);
+        }
+
+        //like L5
+        //ConstMap.get(TypeOfSalaryConst.SQUARES_MODEL_L5;
+
+        //thirdSealingLine
+        cost = 0;
+        if (thirdSealingLine>0){
+            cost = ConstMap.get(TypeOfSalaryConst.COST_THIRD_SEALING_LINE);
+            costList.addLine("Доп. линия уплотнения - "+cost,
+                    3,
+                    false,
+                    (int) cost);
+        }
+
         return this;
     }
 
@@ -507,5 +631,29 @@ public class DoorEntity implements Door {
 
     public void setThirdSealingLine(int thirdSealingLine) {
         this.thirdSealingLine = thirdSealingLine;
+    }
+
+    public int getMDF() {
+        return MDF;
+    }
+
+    public void setMDF(int MDF) {
+        this.MDF = MDF;
+    }
+
+    public int getAdditionallyHingeMain() {
+        return additionallyHingeMain;
+    }
+
+    public void setAdditionallyHingeMain(int additionallyHingeMain) {
+        this.additionallyHingeMain = additionallyHingeMain;
+    }
+
+    public int getAdditionallyHingeNotMain() {
+        return additionallyHingeNotMain;
+    }
+
+    public void setAdditionallyHingeNotMain(int additionallyHingeNotMain) {
+        this.additionallyHingeNotMain = additionallyHingeNotMain;
     }
 }

@@ -178,4 +178,10 @@ public class MaineService {
     public SalaryConstants saveSalaryConstants(SalaryConstants constants){
         return  dAO.saveSalaryConstants(constants);
     }
+
+    public SalarySetting saveSalarySetting(SalarySetting setting){
+        return  dAO.saveSalarySetting(setting);
+    }
+
+
 }
