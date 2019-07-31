@@ -22,6 +22,9 @@ public class DoorColors {
     @Column(name = "price")
     private int pricePaintingMeterOfSpace;
 
+    @Column(name = "smooth")
+    private int smooth;
+
     public int getPricePaintingMeterOfSpace() {
         return pricePaintingMeterOfSpace;
     }
@@ -69,5 +72,13 @@ public class DoorColors {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public int getSmooth() {
+        return smooth;
+    }
+
+    public void setSmooth(int smooth) {
+        this.smooth = smooth;
     }
 }

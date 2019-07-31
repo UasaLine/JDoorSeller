@@ -5,5 +5,6 @@ create table Door_Colors
   idManufacturerProgram CHARACTER VARYING(12) NOT NULL,
   name  CHARACTER VARYING(100) NOT NULL,
   picturePathFirst CHARACTER VARYING(100),
-  price int
+  price int,
+  smooth int
 );

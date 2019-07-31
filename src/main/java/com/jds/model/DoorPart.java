@@ -102,7 +102,7 @@ public class DoorPart implements Comparable<DoorPart> {
         condition = condition.replace("t",String.valueOf(door.getThicknessDoorLeaf()));
 
         //OS - аctivDoorLeafWidth
-        condition = condition.replace("OS",String.valueOf(door.getАctivDoorLeafWidth()));
+        condition = condition.replace("OS",String.valueOf(door.getActiveDoorLeafWidth()));
 
         //K - glassWidth
         condition = condition.replace("K",String.valueOf(door.getDoorGlass().getGlassWidth()));

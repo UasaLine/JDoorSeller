@@ -43,12 +43,16 @@ public class MaineService {
 
 
         calculateMetalDoor(door);
-        calculateColorDoor(door);
+
+        DoorColors doorColors = dAO.getDoorColor(door.getDoorColor());
+
+        door.calculateColorDoor(doorColors);
 
         BendSetting bendSetting = dAO.getbendSettingId(door.getDoorType(),door.getMetal(),door.getSealingLine());
         DoorType doorType = dAO.getDoorType(door.getDoorType());
         SalarySetting salarySetting = dAO.getSalarySetting(door.getMetal());
-        door = door.calculateSalary(bendSetting,dAO.getSalaryConstantsMap(), salarySetting,doorType);
+
+        door = door.calculateSalary(bendSetting,dAO.getSalaryConstantsMap(),salarySetting,doorType,doorColors);
 
 
 
@@ -90,10 +94,7 @@ public class MaineService {
         door.calculateCostMetal(metal);
     }
 
-    public void calculateColorDoor(DoorEntity door){
 
-        door.calculateColorDoor(dAO.getDoorColor(door.getDoorColor()));
-    }
 
 
     public BendSetting saveBendSetting(BendSetting bendSetting){

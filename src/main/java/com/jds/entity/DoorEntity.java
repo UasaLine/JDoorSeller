@@ -365,7 +365,8 @@ public class DoorEntity implements Door {
     public DoorEntity calculateSalary(BendSetting bendSetting,
                                       Map<TypeOfSalaryConst,Double> ConstMap,
                                       SalarySetting salarySetting,
-                                      DoorType doorType){
+                                      DoorType doorType,
+                                      DoorColors doorColors){
 
         //constructorSalary
         //********************************************************
@@ -426,41 +427,73 @@ public class DoorEntity implements Door {
 
         //welding
         //********************************************************
+        weldingCost(bendSetting,
+                ConstMap,
+                salarySetting,
+                doorType,
+                doorColors);
 
+
+        //clean
+        //*****************************************
+        cleanCost(bendSetting,
+                    ConstMap,
+                    salarySetting,
+                    doorType,
+                    doorColors);
+
+
+        //Polymer coloring
+        //*****************************************
+        polymerColoringCost(bendSetting,
+                            ConstMap,
+                            salarySetting,
+                            doorType,
+                            doorColors);
+
+        return this;
+    }
+
+
+    private void weldingCost(BendSetting bendSetting,
+                             Map<TypeOfSalaryConst,Double> ConstMap,
+                             SalarySetting salarySetting,
+                             DoorType doorType,
+                             DoorColors doorColors){
         //main
-        cost = 0;
+        double cost = 0;
         double spaceDoor = ((double)(widthDoor*heightDoor))/1000000;
         if(doorType.getDoorLeaf()==1){
-           if((widthDoor<=ConstMap.get(TypeOfSalaryConst.WIDTH_LIMIT_ONE_LEAF))
-                   &&(heightDoor<=ConstMap.get(TypeOfSalaryConst.HEIGHT_LIMIT_ONE_LEAF))){
+            if((widthDoor<=ConstMap.get(TypeOfSalaryConst.WIDTH_LIMIT_ONE_LEAF))
+                    &&(heightDoor<=ConstMap.get(TypeOfSalaryConst.HEIGHT_LIMIT_ONE_LEAF))){
 
-                   if(doorType.getDoorClass().getHot()==1){
-                       cost = salarySetting.getWeldingForOneLeafHot();
-                   }
-                   else if(MDF==1) {
-                       cost = salarySetting.getWeldingForOneLeafMDF();
-                   }
-                   else {
-                       cost = salarySetting.getWeldingForOneLeaf();
-                   }
-           }
-           else {
-               cost = spaceDoor*ConstMap.get(TypeOfSalaryConst.COST_OVER_LIMIT_ONE_LEAF);
-           }
+                if(doorType.getDoorClass().getHot()==1){
+                    cost = salarySetting.getWeldingForOneLeafHot();
+                }
+                else if(MDF==1) {
+                    cost = salarySetting.getWeldingForOneLeafMDF();
+                }
+                else {
+                    cost = salarySetting.getWeldingForOneLeaf();
+                }
+            }
+            else {
+                cost = spaceDoor*ConstMap.get(TypeOfSalaryConst.COST_OVER_LIMIT_ONE_LEAF);
+            }
         }
         else if(doorType.getDoorLeaf()==2){
             if((widthDoor<=ConstMap.get(TypeOfSalaryConst.WIDTH_LIMIT_TWO_LEAF))
                     &&(heightDoor<=ConstMap.get(TypeOfSalaryConst.HEIGHT_LIMIT_TWO_LEAF))){
 
-                    if(doorType.getDoorClass().getHot()==1){
-                        cost = salarySetting.getWeldingForTwoLeafHot();
-                    }
-                    else if(MDF==1) {
-                        cost = salarySetting.getWeldingForTwoLeafMDF();
-                    }
-                    else {
-                        cost = salarySetting.getWeldingForTwoLeaf();
-                    }
+                if(doorType.getDoorClass().getHot()==1){
+                    cost = salarySetting.getWeldingForTwoLeafHot();
+                }
+                else if(MDF==1) {
+                    cost = salarySetting.getWeldingForTwoLeafMDF();
+                }
+                else {
+                    cost = salarySetting.getWeldingForTwoLeaf();
+                }
 
             }
             else {
@@ -530,13 +563,118 @@ public class DoorEntity implements Door {
         cost = 0;
         if (thirdSealingLine>0){
             cost = ConstMap.get(TypeOfSalaryConst.COST_THIRD_SEALING_LINE);
-            costList.addLine("Доп. линия уплотнения - "+cost,
+            costList.addLine("Доп. линия уплотнения ",
                     3,
                     false,
                     (int) cost);
         }
+    }
 
-        return this;
+
+    private void cleanCost(BendSetting bendSetting,
+                           Map<TypeOfSalaryConst,Double> ConstMap,
+                           SalarySetting salarySetting,
+                           DoorType doorType,
+                           DoorColors doorColors){
+
+        if (doorType.getDoorLeaf()==1){
+
+            costList.addLine(" зачистка, базовая ставка ",3,false,
+                    ConstMap.get(TypeOfSalaryConst.COST_CLEAN_ONE_LEAF).intValue());
+
+            if(doorColors.getSmooth()==1){
+                costList.addLine(" зачистка, гладкая краска ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_SMOOTH_PAINT_ONE_LEAF).intValue());
+            }
+
+            //if(){
+            //    costList.addLine(" зачистка, L5 ",3,false,
+            //            ConstMap.get(TypeOfSalaryConst.COST_CLEAN_SQUARES_L5_PAINT_ONE_LEAF).intValue());
+            //}
+
+            if(additionallyHingeMain==1){
+                costList.addLine(" зачистка, доп петля ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_ADDITIONALLY_HINGE_ONE_LEAF).intValue());
+            }
+
+            if(thirdSealingLine>0){
+                costList.addLine(" зачистка, Доп. линия уплотнения ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_THIRD_SEALING_LINE_ONE_LEAF).intValue());
+            }
+
+            if(thirdSealingLine>0){
+                costList.addLine(" зачистка, Термо ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_HOT_ONE_LEAF).intValue());
+            }
+
+
+        }
+        else if(doorType.getDoorLeaf()==2){
+
+            costList.addLine(" зачистка, базовая ставка ",3,false,
+                    ConstMap.get(TypeOfSalaryConst.COST_CLEAN_TWO_LEAF).intValue());
+
+            if(doorColors.getSmooth()==1){
+                costList.addLine(" зачистка, гладкая краска ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_SMOOTH_PAINT_TWO_LEAF).intValue());
+            }
+
+            //if(){
+            //    costList.addLine(" зачистка, L5 ",3,false,
+            //            ConstMap.get(TypeOfSalaryConst.COST_CLEAN_SQUARES_L5_PAINT_TWO_LEAF).intValue());
+            //}
+
+            if(additionallyHingeMain==1){
+                costList.addLine(" зачистка, доп петля ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_ADDITIONALLY_HINGE_TWO_LEAF).intValue());
+            }
+
+            if(thirdSealingLine>0){
+                costList.addLine(" зачистка, Доп. линия уплотнения ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_THIRD_SEALING_LINE_TWO_LEAF).intValue());
+            }
+
+            if(thirdSealingLine>0){
+                costList.addLine(" зачистка, Термо ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_CLEAN_HOT_TWO_LEAF).intValue());
+            }
+
+        }
+    }
+
+    private void polymerColoringCost (BendSetting bendSetting,
+                                      Map<TypeOfSalaryConst,Double> ConstMap,
+                                      SalarySetting salarySetting,
+                                      DoorType doorType,
+                                      DoorColors doorColors){
+        if (doorType.getDoorLeaf()==1) {
+            if(doorType.getDoorClass().getHot()==1){
+                costList.addLine(" Полимерка : Створок-1шт,Термо ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_HOT_ONE_LEAF).intValue());
+            }
+            else if(MDF==1){
+                costList.addLine(" Полимерка : Створок-1шт,МД ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_MDF_ONE_LEAF).intValue());
+            }
+            else {
+                costList.addLine(" Полимерка : Створок-1шт,ММ ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_ONE_LEAF).intValue());
+            }
+        }
+        else if (doorType.getDoorLeaf()==2){
+            if(doorType.getDoorClass().getHot()==2){
+                costList.addLine(" Полимерка : Створок-1шт,Термо ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_HOT_TWO_LEAF).intValue());
+            }
+            else if(MDF==1){
+                costList.addLine(" Полимерка : Створок-1шт,МД ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_MDF_TWO_LEAF).intValue());
+            }
+            else {
+                costList.addLine(" Полимерка : Створок-1шт,ММ ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_TWO_LEAF).intValue());
+            }
+        }
     }
 
     public void setDoorColor(String doorColor) {
