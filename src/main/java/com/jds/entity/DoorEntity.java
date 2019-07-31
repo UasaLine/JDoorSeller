@@ -451,6 +451,12 @@ public class DoorEntity implements Door {
                             doorType,
                             doorColors);
 
+        //assembly
+        assemblyCost(bendSetting,
+                ConstMap,
+                salarySetting,
+                doorType,
+                doorColors);
         return this;
     }
 
@@ -663,17 +669,60 @@ public class DoorEntity implements Door {
         }
         else if (doorType.getDoorLeaf()==2){
             if(doorType.getDoorClass().getHot()==2){
-                costList.addLine(" Полимерка : Створок-1шт,Термо ",3,false,
+                costList.addLine(" Полимерка : Створок-2шт,Термо ",3,false,
                         ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_HOT_TWO_LEAF).intValue());
             }
             else if(MDF==1){
-                costList.addLine(" Полимерка : Створок-1шт,МД ",3,false,
+                costList.addLine(" Полимерка : Створок-2шт,МД ",3,false,
                         ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_MDF_TWO_LEAF).intValue());
             }
             else {
-                costList.addLine(" Полимерка : Створок-1шт,ММ ",3,false,
+                costList.addLine(" Полимерка : Створок-2шт,ММ ",3,false,
                         ConstMap.get(TypeOfSalaryConst.COST_POLYMER_COLOR_TWO_LEAF).intValue());
             }
+        }
+    }
+
+    private void assemblyCost(BendSetting bendSetting,
+                              Map<TypeOfSalaryConst,Double> ConstMap,
+                              SalarySetting salarySetting,
+                              DoorType doorType,
+                              DoorColors doorColors){
+
+        if (doorType.getDoorLeaf()==1){
+
+            if(doorType.getDoorClass().getHot()==1){
+                costList.addLine(" Сборка : Створок-1шт,Термо ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_HOT_ONE_LEAF).intValue());
+            }
+            else if(MDF==1){
+                costList.addLine(" Сборка : Створок-1шт,МД ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_MDF_ONE_LEAF).intValue());
+            }
+            else {
+                costList.addLine(" Сборка : Створок-1шт,ММ ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_ONE_LEAF).intValue());
+            }
+        }
+        else if(doorType.getDoorLeaf()==2){
+
+            if(doorType.getDoorClass().getHot()==1){
+                costList.addLine(" Сборка : Створок-2шт,Термо ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_HOT_TWO_LEAF).intValue());
+            }
+            else if(MDF==1){
+                costList.addLine(" Сборка : Створок-2шт,МД ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_MDF_TWO_LEAF).intValue());
+            }
+            else {
+                costList.addLine(" Сборка : Створок-2шт,ММ ",3,false,
+                        ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_TWO_LEAF).intValue());
+            }
+        }
+
+        if(doorGlass!=null){
+            costList.addLine(" Сборка : стеклопакет ",3,false,
+                    ConstMap.get(TypeOfSalaryConst.COST_ASSEMBLY_GLASS).intValue());
         }
     }
 
