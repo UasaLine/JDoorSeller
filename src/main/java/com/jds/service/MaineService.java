@@ -42,19 +42,17 @@ public class MaineService {
     public void calculateTheDoor(DoorEntity door){
 
 
-        calculateMetalDoor(door);
+        PayrollSettings paySettings = new PayrollSettings();
+        paySettings.setBendSetting(dAO.getbendSettingId(door.getDoorType(),door.getMetal(),door.getSealingLine()));
+        paySettings.setConstMap(dAO.getSalaryConstantsMap());
+        paySettings.setDoorColors(dAO.getDoorColor(door.getDoorColor()));
+        paySettings.setDoorType(dAO.getDoorType(door.getDoorType()));
+        paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
-        DoorColors doorColors = dAO.getDoorColor(door.getDoorColor());
-
-        door.calculateColorDoor(doorColors);
-
-        BendSetting bendSetting = dAO.getbendSettingId(door.getDoorType(),door.getMetal(),door.getSealingLine());
-        DoorType doorType = dAO.getDoorType(door.getDoorType());
-        SalarySetting salarySetting = dAO.getSalarySetting(door.getMetal());
-
-        door = door.calculateSalary(bendSetting,dAO.getSalaryConstantsMap(),salarySetting,doorType,doorColors);
-
-
+        door = calculateMetalDoor(door)
+                .calculateColorDoor(paySettings.getDoorColors())
+                .calculateSalary(paySettings)
+                .calculateFurniture();
 
         int price = getRandomPrice(8500,25000);
         door.setPrice(price);
@@ -73,12 +71,12 @@ public class MaineService {
         return new RestrictionOfSelectionFields().stuffColors(dAO.getDoorColors());
     }
 
-    public static int getRandomPrice(int min, int max) {
+    private static int getRandomPrice(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
 
-    public void calculateMetalDoor(DoorEntity door){
+    private DoorEntity calculateMetalDoor(DoorEntity door){
 
         List<DoorPart> partList = getDoorPart(door);
         Sheet sheet = new Sheet(2500,1250);
@@ -92,6 +90,8 @@ public class MaineService {
         door.setSheets(sheetCutting.getSheets());
         door.calculateWeigh(metal);
         door.calculateCostMetal(metal);
+
+        return door;
     }
 
 
