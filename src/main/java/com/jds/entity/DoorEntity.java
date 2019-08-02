@@ -10,6 +10,7 @@ import com.jds.model.modelEnum.TypeOfSalaryConst;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,9 @@ public class DoorEntity implements Door {
     @Column(name = "doorType")
     private int doorType;
 
+    @Column(name = "metal")
+    private double metal;
+
     @Column(name = "widthDoor")
     private int widthDoor;
 
@@ -39,9 +43,6 @@ public class DoorEntity implements Door {
 
     @Column(name = "doorFanlightHeight")
     private int doorFanlightHeight;
-
-    @Column(name = "metal")
-    private double metal;
 
     @Column(name = "deepnessDoor")
     private int deepnessDoor;
@@ -55,12 +56,14 @@ public class DoorEntity implements Door {
     @Column(name = "innerDoorOpen")
     private int innerDoorOpen;
 
+    //doorstep
     @Column(name = "doorstep")
     private int doorstep;
 
     @Column(name = "stainlessSteelDoorstep")
     private int stainlessSteelDoorstep;
 
+    //Trim
     @Column(name = "topDoorTrim")
     private int topDoorTrim;
 
@@ -70,27 +73,28 @@ public class DoorEntity implements Door {
     @Column(name = "rightDoorTrim")
     private int rightDoorTrim;
 
+    //price
     @Column(name = "price")
     private int price;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "doors",fetch = FetchType.LAZY)
-    private List<DoorsОrder> оrders;
-
-    @Column(name = "doorColor")
-    private String doorColor;
-
-    @Transient
-    private List<Sheet> sheets;
-
-    @Transient
-    private List<DoorClassForFrond> availableDoorClass;
 
     @Transient
     private int discountPrice;
 
     @Transient
     private int priceWithMarkup;
+
+    @Column(name = "doorColor")
+    private String doorColor;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "doors",fetch = FetchType.LAZY)
+    private List<DoorsОrder> orders;
+
+    @Transient
+    private List<Sheet> sheets;
+
+    @Transient
+    private List<DoorClassForFrond> availableDoorClass;
 
     @Transient
     private int isDoorGlass;
@@ -107,6 +111,7 @@ public class DoorEntity implements Door {
     @Transient
     private double space;
 
+    //sealingLine
     @Transient
     private int sealingLine;
 
@@ -131,6 +136,8 @@ public class DoorEntity implements Door {
     @Transient
     private int amplifierCloser;
 
+    @Transient
+    private Map<String,DoorFurniture> furnitureKit;
 
     public void calculateWeigh(Metal metal){
 
@@ -200,10 +207,11 @@ public class DoorEntity implements Door {
     }
 
     public DoorEntity() {
-        this.оrders = new ArrayList<DoorsОrder>();
+        this.orders = new ArrayList<DoorsОrder>();
         this.availableDoorClass = new ArrayList<DoorClassForFrond>();
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
+        this.furnitureKit = new HashMap<>();
     }
 
     public int getId() {
@@ -351,15 +359,15 @@ public class DoorEntity implements Door {
     }
 
     public List<DoorsОrder> getОrders() {
-        return оrders;
+        return orders;
     }
 
     public void setОrders(List<DoorsОrder> оrders) {
-        this.оrders = оrders;
+        this.orders = оrders;
     }
 
     public void addOrder (DoorsОrder door){
-        this.оrders.add(door);
+        this.orders.add(door);
     }
 
     public String getDoorColor() {
@@ -855,5 +863,29 @@ public class DoorEntity implements Door {
 
     public void setAdditionallyHingeNotMain(int additionallyHingeNotMain) {
         this.additionallyHingeNotMain = additionallyHingeNotMain;
+    }
+
+    public List<DoorsОrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<DoorsОrder> orders) {
+        this.orders = orders;
+    }
+
+    public int getAmplifierCloser() {
+        return amplifierCloser;
+    }
+
+    public void setAmplifierCloser(int amplifierCloser) {
+        this.amplifierCloser = amplifierCloser;
+    }
+
+    public Map<String, DoorFurniture> getFurnitureKit() {
+        return furnitureKit;
+    }
+
+    public void setFurnitureKit(Map<String, DoorFurniture> furnitureKit) {
+        this.furnitureKit = furnitureKit;
     }
 }

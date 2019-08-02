@@ -735,6 +735,7 @@ jQuery('document').ready(function(){
                 colors = data.colors;
                 displayColor(0);
                 displayadditionalDoorSettings(data);
+                displayFurniture(data);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -1042,6 +1043,47 @@ jQuery('document').ready(function(){
                     $('#'+additionalName+'_checkbox').attr('data'));
             }
 
+        }
+
+    }
+
+    function displayFurniture(data){
+        var bias = "0";
+        //topLock
+        var tabSize = data.topLock.length;
+        var amountElements =4;
+        var amountPag = (tabSize/amountElements).toFixed(0);
+        var biasInt = Number.parseInt(bias)*amountElements;
+
+        //delete
+        $('.pag').remove();
+
+        for (var i=0; i<amountPag ; ++i) {
+            $('<a>').attr('class','pag')
+                .attr('data',i)
+                .text(''+i+' ')
+                .appendTo('.color_pages');
+        }
+        $('<a>').attr('class','pag')
+            .attr('data','>')
+            .text(' > ')
+            .appendTo('.color_pages');
+
+        $('.color_pages').attr('data',bias);
+
+        for(var i=0; i<amountElements; ++i){
+            if ((i+biasInt)<tabSize){
+                $('#topLockDiv'+i).attr('show','is_alive_lement');
+                $('#topLockDiv'+i).attr('data',data.topLock[i+biasInt].id);
+                $('#topLockImg'+i).attr('src',data.topLock[i+biasInt].picturePathFirst);
+                $('#topLockSpan'+i).text(data.topLock[i+biasInt].name);
+            }
+            else {
+                $('#topLockDiv'+i).attr('show','ghost_lement');
+                $('#topLockDiv'+i).attr('data',"");
+                $('#topLockImg'+i).attr('src',"");
+                $('#topLockSpan'+i).text("");
+            }
         }
 
     }

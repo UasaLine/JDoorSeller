@@ -121,10 +121,9 @@ public class MainController {
     @GetMapping(value = "/doorlimit", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public RestrictionOfSelectionFields getRestrictionOfSelectionFields(Model model,
-                                                                        @RequestParam String idDoorType) throws Exception {
+                               @RequestParam String idDoorType) throws Exception {
 
-
-        return service.getRestrictionOfSelectionFields();
+        return service.getRestrictionOfSelectionFields(idDoorType);
     }
 
     @GetMapping(value = "/getOrder", produces= MediaType.APPLICATION_JSON_VALUE)

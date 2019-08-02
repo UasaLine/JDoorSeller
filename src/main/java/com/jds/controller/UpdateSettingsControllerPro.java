@@ -74,7 +74,6 @@ public class UpdateSettingsControllerPro {
         return "jr";
     }
 
-
     @PostMapping(value = "/update/metal", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String updateMetal(@RequestParam(required = false) String kay,
@@ -92,7 +91,8 @@ public class UpdateSettingsControllerPro {
 
     @PostMapping(value = "/update/Furniture", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String updateFurniture(@RequestParam("request") String data,@RequestBody String dataJson) throws Exception {
+    public String updateFurniture(@RequestParam(required = false) String kay,
+                                  @RequestParam(required = false) String dataJson) throws Exception {
 
 
         StringReader reader = new StringReader(dataJson);

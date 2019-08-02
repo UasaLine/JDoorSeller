@@ -5,6 +5,7 @@ import com.jds.entity.*;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
+import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,8 +68,14 @@ public class MaineService {
         return dAO.saveDoorColors(doorColors);
     }
 
-    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(){
-        return new RestrictionOfSelectionFields().stuffColors(dAO.getDoorColors());
+    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(String idDoorType){
+
+        int idType = Integer.parseInt(idDoorType);
+
+        return new RestrictionOfSelectionFields()
+                .stuffColors(dAO.getDoorColors())
+                .addTopLock(dAO.getFurnitureByType(TypeOfFurniture.TOP_LOCK, idType))
+                .addLowerLock(dAO.getFurnitureByType(TypeOfFurniture.LOWER_LOCK, idType));
     }
 
     private static int getRandomPrice(int min, int max) {
@@ -128,13 +135,16 @@ public class MaineService {
         DoorEntity door = null;
         if (id!=null && !id.isEmpty() && !id.equals("0")){
                 door = dAO.getDoor(Integer.parseInt(id));
-                door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorClass(6)));
+                door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorClass(2)));
         }
         if (door == null) {
             door = new DoorEntity();
-            door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorClass(6)));
-            //door.addAvailableDoorClass(dAO.getDoorClass(4));
-            //door.addAvailableDoorClass(dAO.getDoorClass(5));
+
+            List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
+
+            for (DoorClass doorClass:doorClassList){
+                door.addAvailableDoorClass(new DoorClassForFrond(doorClass));
+            }
         }
 
 

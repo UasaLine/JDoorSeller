@@ -11,6 +11,7 @@ public class DoorClassForFrond {
     private int id;
     private String name;
     private List<DoorTypesForFrond> doorTypes;
+    private String description;
 
     public DoorClassForFrond() {
     }
@@ -19,6 +20,7 @@ public class DoorClassForFrond {
         this.id = doorClass.getId();
         this.name = doorClass.getName();
         this.doorTypes = convertDoorTypesToDoorTypesForFrond(doorClass.getDoorTypes());
+        this.description = doorClass.getDescription();
     }
 
     private  List<DoorTypesForFrond> convertDoorTypesToDoorTypesForFrond(List<DoorType> Types){
@@ -53,4 +55,14 @@ public class DoorClassForFrond {
     public void setDoorTypes(List<DoorTypesForFrond> doorTypes) {
         this.doorTypes = doorTypes;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 }

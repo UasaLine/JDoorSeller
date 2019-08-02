@@ -1,6 +1,7 @@
 package com.jds.model;
 
 import com.jds.entity.DoorColors;
+import com.jds.entity.DoorFurniture;
 import com.jds.entity.LimitationDoor;
 
 import java.util.ArrayList;
@@ -15,10 +16,30 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> thicknessDoorLeaf;
     private List<DoorColors> colors;
     private List<LimitationDoor>  additionalDoorSetting;
+    private List<DoorFurniture>  topLock;
+    private List<DoorFurniture>  lowerLock;
 
 
     public  RestrictionOfSelectionFields stuffColors(List<DoorColors> colors){
         this.setColors(colors);
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addTopLock(List<DoorFurniture> furnitures){
+        topLock = new ArrayList<>();
+        for(DoorFurniture furniture:furnitures){
+            furniture.setDoorType(null);
+            topLock.add(furniture);
+        }
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addLowerLock(List<DoorFurniture> furnitures){
+        lowerLock = new ArrayList<>();
+        for(DoorFurniture furniture:furnitures){
+            furniture.setDoorType(null);
+            lowerLock.add(furniture);
+        }
         return this;
     }
 
@@ -155,5 +176,21 @@ public class RestrictionOfSelectionFields {
 
     public void setColors(List<DoorColors> colors) {
         this.colors = colors;
+    }
+
+    public List<DoorFurniture> getTopLock() {
+        return topLock;
+    }
+
+    public void setTopLock(List<DoorFurniture> topLock) {
+        this.topLock = topLock;
+    }
+
+    public List<DoorFurniture> getLowerLock() {
+        return lowerLock;
+    }
+
+    public void setLowerLock(List<DoorFurniture> lowerLock) {
+        this.lowerLock = lowerLock;
     }
 }

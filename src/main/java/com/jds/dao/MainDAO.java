@@ -2,6 +2,7 @@ package com.jds.dao;
 
 import com.jds.entity.*;
 import com.jds.model.FireproofDoor;
+import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -77,6 +78,8 @@ public class MainDAO {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveDoorFurniture(DoorFurniture doorFurniture) {
+
+        saveOrUpdateDoorType(doorFurniture.getDoorType());
 
         int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram());//check exists
         if (id>0){
@@ -343,7 +346,7 @@ public class MainDAO {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from door_furniture where id_manufacturer_program like :log";
+        sql = "select * from door_furniture where idmanufacturerprogram like :log";
         Query query = session.createSQLQuery (sql)
                 .addEntity (DoorFurniture.class)
                 .setParameter ("log", id);
@@ -356,6 +359,23 @@ public class MainDAO {
         }
         return 0;
 
+    }
+
+    public List<DoorFurniture> getFurnitureByType(TypeOfFurniture type,int idType){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_furniture where doortype_id = :idtype and typeoffurniture like :typefurniture";
+        Query query = session.createSQLQuery (sql)
+                .addEntity (DoorFurniture.class)
+                .setParameter ("idtype", idType)
+                .setParameter ("typefurniture", type.toString());
+        List<DoorFurniture> doorFurnitureList = query.list();
+
+        session.close();
+
+        return doorFurnitureList;
     }
 
     public int getDoorColorsId(String id){
@@ -511,6 +531,21 @@ public class MainDAO {
             doorClass = list.get(0);
         }
         return doorClass;
+
+    }
+
+    public List<DoorClass> getAvailableDoorClass() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from door_class ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorClass.class);
+        List<DoorClass> list = query.list();
+
+        session.close();
+
+        return list;
 
     }
 

@@ -1,6 +1,9 @@
 package com.jds.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jds.model.modelEnum.TypeOfFurniture;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,10 +19,16 @@ public class DoorFurniture {
     private String idManufacturerProgram;
 
     @Column(name = "typeOfFurniture")
-    private String typeOfFurniture;
+    @Enumerated(EnumType.STRING)
+    private TypeOfFurniture typeOfFurniture;
 
-    //@Column(name = "doorType")
-    //private DoorType doorType;
+    @Column(name = "name")
+    private String name;
+
+
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "doorType_id")
+    private DoorType doorType;
 
     @Column(name = "quantity")
     private int quantity;
@@ -39,8 +48,8 @@ public class DoorFurniture {
     @Column(name = "bugelHandle")
     private int bugelHandle;
 
-    @Column(name = "аrmorLock")
-    private int аrmorLock;
+    @Column(name = "armorLock")
+    private int armorLock;
 
     @Column(name = "picturePathFirst")
     private String picturePathFirst;
@@ -76,11 +85,11 @@ public class DoorFurniture {
         this.idManufacturerProgram = idManufacturerProgram;
     }
 
-    public String getTypeOfFurniture() {
+    public TypeOfFurniture getTypeOfFurniture() {
         return typeOfFurniture;
     }
 
-    public void setTypeOfFurniture(String typeOfFurniture) {
+    public void setTypeOfFurniture(TypeOfFurniture typeOfFurniture) {
         this.typeOfFurniture = typeOfFurniture;
     }
 
@@ -132,12 +141,12 @@ public class DoorFurniture {
         this.bugelHandle = bugelHandle;
     }
 
-    public int getАrmorLock() {
-        return аrmorLock;
+    public int getArmorLock() {
+        return armorLock;
     }
 
-    public void setАrmorLock(int аrmorLock) {
-        this.аrmorLock = аrmorLock;
+    public void setArmorLock(int armorLock) {
+        this.armorLock = armorLock;
     }
 
     public String getPicturePathFirst() {
@@ -186,5 +195,21 @@ public class DoorFurniture {
 
     public void setNumberOfDoorLeaves(int numberOfDoorLeaves) {
         this.numberOfDoorLeaves = numberOfDoorLeaves;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DoorType getDoorType() {
+        return doorType;
+    }
+
+    public void setDoorType(DoorType doorType) {
+        this.doorType = doorType;
     }
 }
