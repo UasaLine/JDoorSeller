@@ -212,4 +212,5 @@ public class DoorFurniture {
     public void setDoorType(DoorType doorType) {
         this.doorType = doorType;
     }
+
 }

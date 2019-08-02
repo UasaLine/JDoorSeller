@@ -725,7 +725,7 @@ jQuery('document').ready(function(){
     function getListOfSelectionFields(idDoorType) {
         $.ajax({
             url: 'doorlimit',
-            data: {idDoorType: "2"},
+            data: {idDoorType: door.doorType},
             dataType: 'json',
             success: function (data) {
                 //alert('success: ' + data);
@@ -735,7 +735,9 @@ jQuery('document').ready(function(){
                 colors = data.colors;
                 displayColor(0);
                 displayadditionalDoorSettings(data);
-                displayFurniture(data);
+                displayFurniture('topLock',data.topLock,0);
+                displayFurniture('lowerLock',data.lowerLock,0);
+                displayFurniture('hendle',data.hendle,0);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -1047,16 +1049,15 @@ jQuery('document').ready(function(){
 
     }
 
-    function displayFurniture(data){
-        var bias = "0";
-        //topLock
-        var tabSize = data.topLock.length;
+    function displayFurniture(nameTab,tab,bias){
+
+        var tabSize = tab.length;
         var amountElements =4;
         var amountPag = (tabSize/amountElements).toFixed(0);
         var biasInt = Number.parseInt(bias)*amountElements;
 
         //delete
-        $('.pag').remove();
+        $('.'+nameTab+'pag').remove();
 
         for (var i=0; i<amountPag ; ++i) {
             $('<a>').attr('class','pag')
@@ -1064,19 +1065,19 @@ jQuery('document').ready(function(){
                 .text(''+i+' ')
                 .appendTo('.color_pages');
         }
-        $('<a>').attr('class','pag')
+        $('<a>').attr('class',nameTab+'pag')
             .attr('data','>')
             .text(' > ')
-            .appendTo('.color_pages');
+            .appendTo('.'+nameTab+'_pages');
 
         $('.color_pages').attr('data',bias);
 
         for(var i=0; i<amountElements; ++i){
             if ((i+biasInt)<tabSize){
-                $('#topLockDiv'+i).attr('show','is_alive_lement');
-                $('#topLockDiv'+i).attr('data',data.topLock[i+biasInt].id);
-                $('#topLockImg'+i).attr('src',data.topLock[i+biasInt].picturePathFirst);
-                $('#topLockSpan'+i).text(data.topLock[i+biasInt].name);
+                $('#'+nameTab+'Div'+i).attr('show','is_alive_lement');
+                $('#'+nameTab+'Div'+i).attr('data',tab[i+biasInt].id);
+                $('#'+nameTab+'Img'+i).attr('src',tab[i+biasInt].picturePathFirst);
+                $('#'+nameTab+'Span'+i).text(tab[i+biasInt].name);
             }
             else {
                 $('#topLockDiv'+i).attr('show','ghost_lement');
