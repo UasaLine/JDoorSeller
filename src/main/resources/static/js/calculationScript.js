@@ -19,6 +19,7 @@ jQuery('document').ready(function(){
     var maxHeightDoor =0;
 
     var colors;
+    var RestrictionOfSelectionFields;
 
     var id = $('#id').text();
     var orderId = $('#orderId').text();
@@ -99,9 +100,10 @@ jQuery('document').ready(function(){
     });
 
     $('.div_images_furniture').on('click',function(){
-        setDoorField($(this).attr('Item'),$(this).attr('data'));
-        representationField($(this).attr('data'));
+        setDoorFurniture($(this).attr('Item'),$(this).attr('data'));
+        representationField($(this).children('span').html());
         pickOut(this);
+
     });
 
     $('.ios-toggle').on('click',function(){
@@ -367,6 +369,30 @@ jQuery('document').ready(function(){
 
     function setDoorGlassField(fieldName,value){
         door.doorGlass[fieldName] = value;
+    }
+
+    function setDoorFurniture(fieldName,value){
+        var furn = findObject(fieldName,value);
+        door.furnitureKit[fieldName] = furn;
+        if(currentItem=='lowerLock'){
+            if(furn.itCylinderLock == 1){
+                $('#namelowerlockCylinder').attr('available','yes');
+            }
+            else {
+                $('#namelowerlockCylinder').attr('available','no');
+            }
+        }
+    }
+
+    function findObject(name,value){
+        var sizeRest =  RestrictionOfSelectionFields[name].length;
+        var tab = RestrictionOfSelectionFields[name];
+        for(var i=0;i<sizeRest;++i){
+            if (tab[i].id = value){
+                return tab[i];
+            }
+        }
+        return new Object();
     }
 
     function checkInstallationAvailability(fieldName,value){
@@ -735,9 +761,12 @@ jQuery('document').ready(function(){
                 colors = data.colors;
                 displayColor(0);
                 displayadditionalDoorSettings(data);
-                displayFurniture('topLock',data.topLock,0);
-                displayFurniture('lowerLock',data.lowerLock,0);
-                displayFurniture('hendle',data.hendle,0);
+                displayFurniture('topLock',data.topLock,0,'kit');
+                displayFurniture('lowerLock',data.lowerLock,0,'kit');
+                displayFurniture('handle',data.handle,0,'');
+                displayFurniture('lowerlockCylinder',data.lowerlockCylinder,0,'');
+                displayFurniture('closer',data.closer,0,'');
+                RestrictionOfSelectionFields = data;
             },
             error: function (data) {
                 alert('error:' + data);
@@ -953,6 +982,15 @@ jQuery('document').ready(function(){
             $('.select_endDoorLock').attr('show','ghost_lement');
         }
 
+        if (currentItem =="lowerlockCylinder"){
+            $('.select_lowerlockCylinder').attr('show','is_alive_lement');
+            currentItemForDisplay = $('#namelowerLockkit').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'lowerLockkit';
+        }
+        else {
+            $('.select_lowerlockCylinder').attr('show','ghost_lement');
+        }
         addNavigation();
 
     };
@@ -1014,7 +1052,7 @@ jQuery('document').ready(function(){
                 $('#imagesdoorColorImg'+i).attr('src',colors[i+biasInt].picturePath);
                 $('#imagesdoorColorSpan'+i).text(colors[i+biasInt].name);
             }
-            else {
+            else {available
                 $('#imagesdoorColorDiv'+i).attr('show','ghost_lement');
                 $('#imagesdoorColorDiv'+i).attr('data',"");
                 $('#imagesdoorColorImg'+i).attr('src',"");
@@ -1049,12 +1087,19 @@ jQuery('document').ready(function(){
 
     }
 
-    function displayFurniture(nameTab,tab,bias){
+    function displayFurniture(nameTab,tab,bias,postfixName){
 
         var tabSize = tab.length;
         var amountElements =4;
         var amountPag = (tabSize/amountElements).toFixed(0);
         var biasInt = Number.parseInt(bias)*amountElements;
+
+        if(tabSize>0){
+           $('#name'+nameTab+postfixName).attr('available','yes');
+        }
+        else {
+            $('#name'+nameTab+postfixName).attr('available','no');
+        }
 
         //delete
         $('.'+nameTab+'pag').remove();
