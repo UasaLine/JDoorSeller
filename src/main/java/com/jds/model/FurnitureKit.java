@@ -5,17 +5,23 @@ import com.jds.entity.DoorFurniture;
 public class FurnitureKit {
 
     private DoorFurniture topLock;
-    private DoorFurniture lowerinternaLockDecoration;
-    private DoorFurniture lowerouterLockDecoration;
+    private DoorFurniture topinternaLockDecoration;
+    private DoorFurniture topouterLockDecoration;
     private DoorFurniture toplockCylinder;
 
     private DoorFurniture lowerLock;
-    private DoorFurniture topinternaLockDecoration;
-    private DoorFurniture topouterLockDecoration;
+    private DoorFurniture lowerinternaLockDecoration;
+    private DoorFurniture lowerouterLockDecoration;
     private DoorFurniture lowerlockCylinder;
 
     private DoorFurniture handle;
     private DoorFurniture closer;
+
+    private int nightLock;
+    private int peephole;
+    private int amplifierCloser;
+
+    private DoorFurniture endDoorLock;
 
     public DoorFurniture getCloser() {
         return closer;
@@ -95,5 +101,37 @@ public class FurnitureKit {
 
     public void setLowerlockCylinder(DoorFurniture lowerlockCylinder) {
         this.lowerlockCylinder = lowerlockCylinder;
+    }
+
+    public int getNightLock() {
+        return nightLock;
+    }
+
+    public void setNightLock(int nightLock) {
+        this.nightLock = nightLock;
+    }
+
+    public int getPeephole() {
+        return peephole;
+    }
+
+    public void setPeephole(int peephole) {
+        this.peephole = peephole;
+    }
+
+    public int getAmplifierCloser() {
+        return amplifierCloser;
+    }
+
+    public void setAmplifierCloser(int amplifierCloser) {
+        this.amplifierCloser = amplifierCloser;
+    }
+
+    public DoorFurniture getEndDoorLock() {
+        return endDoorLock;
+    }
+
+    public void setEndDoorLock(DoorFurniture endDoorLock) {
+        this.endDoorLock = endDoorLock;
     }
 }

@@ -18,5 +18,7 @@ create table door_furniture
   sketchPathFirst CHARACTER VARYING(100),
   sketchPathSecond CHARACTER VARYING(100),
   forWarmDoors INT,
-  numberOfDoorLeaves INT
+  numberOfDoorLeaves INT,
+  price NUMERIC(9,2),
+  pricecomit CHARACTER VARYING(100)
 );

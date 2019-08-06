@@ -92,8 +92,7 @@ public class MainController {
     public DoorEntity calculateTheDoor(Model model,
                      @RequestBody DoorEntity door) throws Exception {
 
-        service.calculateTheDoor(door);
-        return door;
+        return service.calculateTheDoor(door);
     }
     @PostMapping(value = "/cutting", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

@@ -1,10 +1,10 @@
 package com.jds.model;
 
 public class LineCostList {
-    String name;
-    int group;
-    boolean headline;
-    int cost;
+    private String name;
+    private  int group;
+    private boolean headline;
+    private int cost;
 
     public LineCostList(String name, int group, boolean headline, int cost) {
         this.name = name;
@@ -46,5 +46,9 @@ public class LineCostList {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public boolean isHeadline() {
+        return headline;
     }
 }

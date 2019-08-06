@@ -35,6 +35,9 @@
             <span class="priceghost" id="discountPrice" show="ghost_lement"></span>
             <span class="priceghost" show="ghost_lement">Цена с наценкой: 25%</span>
             <span class="priceghost" id="priceWithMarkup" show="ghost_lement"></span>
+            <div class="priceghost" id="calculateResultDiv" show="ghost_lement">
+
+            </div>
         </div>
         <div class="nameDoor">
             <span class="nameDoor_span"></span>
@@ -762,7 +765,7 @@
                     <a  class="vertical_menu_button_left" id="nemedoorGlass0" href="#">Стекло</a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="checkboxdoorGlass0" id="checkboxdoorGlass0" Item="doorGlass" data="1"  class="ios-toggle" />
                         <label for="checkboxdoorGlass0" class="checkbox-label"></label>
                     </div>
@@ -1052,7 +1055,7 @@
                     <a  class="vertical_menu_button_left" id="nemenightLock" available="no" href="#">Ночная задвижка</a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div  class="toggles">
+                    <div class="toggles">
                         <input type="checkbox" name="nightLock_checkbox" id="nightLock_checkbox" Item="nightLock" data="1"  class="ios-toggle" />
                         <label for="nightLock_checkbox" class="checkbox-label"></label>
                     </div>
@@ -1063,13 +1066,12 @@
                     <a  class="vertical_menu_button_left" id="nemepeephole" available="no" href="#">Глазок</a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="peephole_checkbox" id="peephole_checkbox" Item="peephole" data="1"  class="ios-toggle" />
                         <label for="peephole_checkbox" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-
             <div  class="vertical_menu_button" id="closer" >
                 <div class="left_cell">
                     <a  class="vertical_menu_button_left" id="namecloser" available="yes" href="#">Доводчик</a>
@@ -1078,20 +1080,18 @@
                     <a class="vertical_menu_button_rigtht" id="closerShow"  href="#"><strong></strong></a>
                 </div>
             </div>
-
             <div  class="vertical_menu_checkbox" id="additionally_amplifierCloser" >
                 <div class="left_cell_checkbox">
                     <a  class="vertical_menu_button_left" id="nemeamplifierCloser" available="no" href="#">Пластина под доводчик</a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
-                        <input type="checkbox" name="amplifierCloser_checkbox" id="amplifierCloser_checkbox" Item="doorGlass" data="1"  class="ios-toggle" />
+                    <div  class="toggles">
+                        <input type="checkbox" name="amplifierCloser_checkbox" id="amplifierCloser_checkbox" Item="amplifierCloser" data="1"  class="ios-toggle" />
                         <label for="amplifierCloser_checkbox" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
-
-            <div  class="vertical_menu_button" id="additionally_endDoorLock" >
+            <div  class="vertical_menu_button" id="endDoorLock" >
                 <div class="left_cell">
                     <a  class="vertical_menu_button_left" id="nameendDoorLock" available="yes" href="#">Торцевой шпингалет</a>
                 </div>
@@ -1134,9 +1134,24 @@
                 <img class="images_Color"  src="images/null.png" ><br>
                 <span>нет</span>
             </div>
-            <div class="div_images_furniture" data="Шпингалет" Item="endDoorLock">
-                <img class="images_Color"  src="images/SST00001844.jpg" ><br>
-                <span>Шпингалет</span>
+            <div class="div_images_furniture" id="endDoorLockDiv0" data="" Item="endDoorLock" show="ghost_lement">
+                <img class="images_Color" id="endDoorLockImg0" src="" ><br>
+                <span id="endDoorLockSpan0"></span>
+            </div>
+            <div class="div_images_furniture" id="endDoorLockDiv1" data="" Item="endDoorLock" show="ghost_lement">
+                <img class="images_Color" id="endDoorLockImg1" src="" ><br>
+                <span id="endDoorLockSpan1"></span>
+            </div>
+            <div class="div_images_furniture" id="endDoorLockDiv2" data="" Item="endDoorLock" show="ghost_lement">
+                <img class="images_Color" id="endDoorLockImg2" src="" ><br>
+                <span id="endDoorLockSpan2"></span>
+            </div>
+            <div class="div_images_furniture" id="endDoorLockDiv3" data="" Item="endDoorLock" show="ghost_lement">
+                <img class="images_Color" id="endDoorLockImg3" src="" ><br>
+                <span id="endDoorLockSpan3"></span>
+            </div>
+            <div class="endDoorLock_pages" data="0">
+                <a class="endDoorLockpag" data=">"> > </a>
             </div>
         </div>
 

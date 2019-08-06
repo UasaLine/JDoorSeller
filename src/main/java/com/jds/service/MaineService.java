@@ -40,7 +40,7 @@ public class MaineService {
 
     }
 
-    public void calculateTheDoor(DoorEntity door){
+    public DoorEntity calculateTheDoor(DoorEntity door){
 
 
         PayrollSettings paySettings = new PayrollSettings();
@@ -50,16 +50,19 @@ public class MaineService {
         paySettings.setDoorType(dAO.getDoorType(door.getDoorType()));
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
+        //new instance cost
+        door.setCostList(new CostList());
+
         door = calculateMetalDoor(door)
                 .calculateColorDoor(paySettings.getDoorColors())
                 .calculateSalary(paySettings)
-                .calculateFurniture();
+                .calculateFurniture()
+                .costToPrice()
+                .createName();
 
-        int price = getRandomPrice(8500,25000);
-        door.setPrice(price);
-        door.setDiscountPrice(price - ((int) (price*0.25)));
-        door.setPriceWithMarkup(door.getDiscountPrice() + ((int) (door.getDiscountPrice()*1.25)));
-        door.createName();
+        //int price = getRandomPrice(8500,25000);
+
+        return door;
 
     }
 
@@ -78,7 +81,8 @@ public class MaineService {
                 .addLowerLock(dAO.getFurnitureByType(TypeOfFurniture.LOWER_LOCK, idType))
                 .addHendle(dAO.getFurnitureByType(TypeOfFurniture.HANDLE, idType))
                 .addLowerlockCylinder(dAO.getFurnitureByType(TypeOfFurniture.LOCK_CYLINDER, idType))
-                .addCloser(dAO.getFurnitureByType(TypeOfFurniture.CLOSER, idType));
+                .addCloser(dAO.getFurnitureByType(TypeOfFurniture.CLOSER, idType))
+                .addEndDoorLock(dAO.getFurnitureByType(TypeOfFurniture.END_DOOR_LOCK, idType));
     }
 
     private static int getRandomPrice(int min, int max) {

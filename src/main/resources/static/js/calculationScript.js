@@ -254,6 +254,43 @@ jQuery('document').ready(function(){
                 setDoorField('isDoorGlass',0);
             }
         }
+        else if(currentItem=='additionally') {
+            if ($(this).attr("available")=='yes'){
+                if($(this).attr("item")=="nightLock"){
+                    if ($(this).is(':checked')){
+                        setDoorFurniture($(this).attr('Item'),$(this).attr('data'));
+                    }
+                    else {
+                        setDoorFurniture($(this).attr('Item'),0);
+                    }
+                }
+                else if($(this).attr("item")=="peephole"){
+                    if ($(this).is(':checked')){
+                        setDoorFurniture($(this).attr('Item'),$(this).attr('data'));
+                    }
+                    else {
+                        setDoorFurniture($(this).attr('Item'),0);
+                    }
+                }
+                else if($(this).attr("item")=="amplifierCloser"){
+                    if ($(this).is(':checked')){
+                        setDoorFurniture($(this).attr('Item'),$(this).attr('data'));
+                    }
+                    else {
+                        setDoorFurniture($(this).attr('Item'),0);
+                    }
+                }
+            }
+            else {
+                if($(this).is(':checked')){
+                    $(this).prop('checked', false);
+                }
+                else {
+                    $(this).prop('checked', true);
+                }
+            }
+
+        }
 
 
         representationField($(this).attr('data'));
@@ -283,9 +320,7 @@ jQuery('document').ready(function(){
 
     $('#buttonGetCutteig').on('click',function(){
 
-
                 drawCutting();
-
     });
 
     $('#buttonSaveDoor').on('click',function(){
@@ -642,7 +677,7 @@ jQuery('document').ready(function(){
             for(var j=0; j<doorParts.length; ++j){
                 $('<div>')
                     .attr('class','doorPart')
-                    .attr('style','width:'+doorParts[j].width*k+'px; height:'+doorParts[j].height*k+'px;top:'+doorParts[j].positioningTop*k+'px;left:'+doorParts[j].positioningLeft*k+'px;')
+                    .attr('style','width:'+doorParts[j].height*k+'px; height:'+doorParts[j].width*k+'px;top:'+doorParts[j].positioningTop*k+'px;left:'+doorParts[j].positioningLeft*k+'px;')
                     .appendTo('.Sheet');
             }
         }
@@ -656,6 +691,17 @@ jQuery('document').ready(function(){
         $('#price').text(door.price);
         $('#discountPrice').text(door.discountPrice);
         $('#priceWithMarkup').text(door.priceWithMarkup);
+
+        var tab = door.costList.list;
+        var size = tab.length;
+
+        for(var i=0;i<size;++i){
+            $('<sran>')
+                .text(''+tab[i].name+' - '+tab[i].cost)
+                .appendTo('#calculateResultDiv');
+            $('<br>').appendTo('#calculateResultDiv');
+        }
+
     };
 
     function displayDoorClass(){
@@ -766,6 +812,7 @@ jQuery('document').ready(function(){
                 displayFurniture('handle',data.handle,0,'');
                 displayFurniture('lowerlockCylinder',data.lowerlockCylinder,0,'');
                 displayFurniture('closer',data.closer,0,'');
+                displayFurniture('endDoorLock',data.endDoorLock,0,'');
                 RestrictionOfSelectionFields = data;
             },
             error: function (data) {

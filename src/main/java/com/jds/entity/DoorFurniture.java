@@ -69,6 +69,12 @@ public class DoorFurniture {
     @Column(name = "numberOfDoorLeaves")
     private int numberOfDoorLeaves;
 
+    @Column(name = "price")
+    private double price;
+
+    @Column(name = "pricecomit")
+    private String priceComit;
+
     public int getId() {
         return id;
     }
@@ -213,5 +219,19 @@ public class DoorFurniture {
         this.doorType = doorType;
     }
 
+    public double getPrice() {
+        return price;
+    }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getPriceComit() {
+        return priceComit;
+    }
+
+    public void setPriceComit(String priceComit) {
+        this.priceComit = priceComit;
+    }
 }

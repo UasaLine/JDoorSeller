@@ -21,6 +21,7 @@ public class RestrictionOfSelectionFields {
     private List<DoorFurniture>  handle;
     private List<DoorFurniture> lowerlockCylinder;
     private List<DoorFurniture> closer;
+    private List<DoorFurniture> endDoorLock;
 
 
     public  RestrictionOfSelectionFields stuffColors(List<DoorColors> colors){
@@ -69,6 +70,15 @@ public class RestrictionOfSelectionFields {
         for(DoorFurniture furniture:furnitures){
             furniture.setDoorType(null);
             closer.add(furniture);
+        }
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addEndDoorLock(List<DoorFurniture> furnitures){
+        endDoorLock = new ArrayList<>();
+        for(DoorFurniture furniture:furnitures){
+            furniture.setDoorType(null);
+            endDoorLock.add(furniture);
         }
         return this;
     }
@@ -247,5 +257,13 @@ public class RestrictionOfSelectionFields {
 
     public void setCloser(List<DoorFurniture> closer) {
         this.closer = closer;
+    }
+
+    public List<DoorFurniture> getEndDoorLock() {
+        return endDoorLock;
+    }
+
+    public void setEndDoorLock(List<DoorFurniture> endDoorLock) {
+        this.endDoorLock = endDoorLock;
     }
 }

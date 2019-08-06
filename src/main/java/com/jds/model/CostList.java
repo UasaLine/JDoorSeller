@@ -34,4 +34,11 @@ public class CostList {
         this.list = list;
     }
 
+    public List<LineCostList> getList() {
+        return list;
+    }
+
+    public void setList(List<LineCostList> list) {
+        this.list = list;
+    }
 }

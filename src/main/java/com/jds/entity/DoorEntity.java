@@ -194,13 +194,15 @@ public class DoorEntity implements Door {
         this.weigh = weigh;
     }
 
-    public void createName(){
+    public DoorEntity createName(){
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Дверь противопожарная ДПД EIWS60 ");
         stringBuilder.append(widthDoor+" X "+heightDoor);
         stringBuilder.append(" ("+metal+" мм) "+sideDoorOpen+" "+doorColor);
         name = stringBuilder.toString();
+        return this;
+
     }
 
     public DoorEntity() {
@@ -454,7 +456,90 @@ public class DoorEntity implements Door {
         return this;
     }
 
+    public DoorEntity costToPrice(){
+        setPrice(costList.getTotalCost());
+        setDiscountPrice(price - ((int) (price*0.25)));
+        setPriceWithMarkup(discountPrice + ((int) (discountPrice*1.25)));
+        return this;
+    }
+
     public DoorEntity calculateFurniture(){
+
+        //TopLock
+        if (furnitureKit.getTopLock()!=null){
+            costList.addLine("Фурнитура: верхний замок ",
+                    4,
+                    false,
+                    (int )furnitureKit.getTopLock().getPrice());
+        }
+        if (furnitureKit.getTopinternaLockDecoration()!=null){
+            costList.addLine("Фурнитура: накладка верх. внутреняя ",
+                    4,
+                    false,
+                    (int )furnitureKit.getTopinternaLockDecoration().getPrice());
+        }
+        if (furnitureKit.getTopouterLockDecoration()!=null){
+            costList.addLine("Фурнитура: накладка верх. внешняя ",
+                    4,
+                    false,
+                    (int )furnitureKit.getTopouterLockDecoration().getPrice());
+        }
+
+        if (furnitureKit.getToplockCylinder()!=null){
+            costList.addLine("Фурнитура: цилиндр ",
+                    4,
+                    false,
+                    (int )furnitureKit.getToplockCylinder().getPrice());
+        }
+
+        //LowerLock
+        if (furnitureKit.getLowerLock()!=null){
+            costList.addLine("Фурнитура: нижний замок ",
+                    4,
+                    false,
+                    (int )furnitureKit.getLowerLock().getPrice());
+        }
+        if (furnitureKit.getLowerinternaLockDecoration()!=null){
+            costList.addLine("Фурнитура: накладка низ. внутренняя",
+                    4,
+                    false,
+                    (int )furnitureKit.getLowerinternaLockDecoration().getPrice());
+        }
+        if (furnitureKit.getLowerouterLockDecoration()!=null){
+            costList.addLine("Фурнитура: накладка низ. внешняя",
+                    4,
+                    false,
+                    (int )furnitureKit.getLowerouterLockDecoration().getPrice());
+        }
+        if (furnitureKit.getLowerlockCylinder()!=null){
+            costList.addLine("Фурнитура: цилиндр ",
+                    4,
+                    false,
+                    (int )furnitureKit.getLowerlockCylinder().getPrice());
+        }
+
+
+        // handle
+        if (furnitureKit.getHandle()!=null){
+            costList.addLine("Фурнитура: ручка ",
+                    4,
+                    false,
+                    (int )furnitureKit.getHandle().getPrice());
+        }
+        // Closer
+        if (furnitureKit.getCloser()!=null){
+            costList.addLine("Фурнитура: доводчик ",
+                    4,
+                    false,
+                    (int )furnitureKit.getCloser().getPrice());
+        }
+        //endDoorLock
+        if (furnitureKit.getEndDoorLock()!=null){
+            costList.addLine("Фурнитура: доводчик ",
+                    4,
+                    false,
+                    (int )furnitureKit.getEndDoorLock().getPrice());
+        }
 
         return this;
     }
@@ -548,7 +633,7 @@ public class DoorEntity implements Door {
 
         //Glass
         cost=0;
-        if(doorGlass!=null){
+        if(doorGlass.exists()){
             cost = paySet.getConstMap().get(TypeOfSalaryConst.WELDING_FOR_GLASS);
             costList.addLine("Стеклопакет - "+cost,
                     3,
@@ -702,7 +787,7 @@ public class DoorEntity implements Door {
             }
         }
 
-        if(doorGlass!=null){
+        if(doorGlass.exists()){
             costList.addLine(" Сборка : стеклопакет ",3,false,
                     paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_GLASS).intValue());
         }

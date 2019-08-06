@@ -14,6 +14,14 @@ public class DoorGlass {
 
     }
 
+    public boolean exists(){
+
+        if ((typeDoorGlass !="")&&(glassWidth>0)&&(glassHeight>0)){
+            return true;
+        }
+        return false;
+    }
+
     public String getTypeDoorGlass() {
         return typeDoorGlass;
     }
