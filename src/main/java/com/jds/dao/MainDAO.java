@@ -211,7 +211,7 @@ public class MainDAO {
         sql = "select * from salary_constants";
         Query query = session.createSQLQuery (sql)
                 .addEntity (SalaryConstants.class);
-        List<SalaryConstants> salaryConstantsList = query.list();
+        List<SalaryConstants> salaryConstantsList = query.getResultList ();
 
         session.close();
 
