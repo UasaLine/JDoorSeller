@@ -81,7 +81,7 @@ public class MainDAO {
 
         saveOrUpdateDoorType(doorFurniture.getDoorType());
 
-        int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram());//check exists
+        int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram(),doorFurniture.getDoorType().getId());//check exists
         if (id>0){
             doorFurniture.setId(id);
         }
@@ -341,15 +341,16 @@ public class MainDAO {
 
     }
 
-    public int getDoorFurnitureId(String id){
+    public int getDoorFurnitureId(String id,int idDoorType){
 
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from door_furniture where idmanufacturerprogram like :log";
+        sql = "select * from door_furniture where idmanufacturerprogram like :log and doortype_id = :idDoorT";
         Query query = session.createSQLQuery (sql)
                 .addEntity (DoorFurniture.class)
-                .setParameter ("log", id);
+                .setParameter ("log", id)
+                .setParameter ("idDoorT",idDoorType);
         List<DoorFurniture> doorFurnitureList = query.list();
 
         session.close();

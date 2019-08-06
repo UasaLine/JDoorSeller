@@ -1,10 +1,7 @@
 package com.jds.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jds.model.CostList;
-import com.jds.model.Door;
-import com.jds.model.DoorClassForFrond;
-import com.jds.model.PayrollSettings;
+import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 
@@ -137,7 +134,7 @@ public class DoorEntity implements Door {
     private int amplifierCloser;
 
     @Transient
-    private Map<String,DoorFurniture> furnitureKit;
+    private FurnitureKit furnitureKit;
 
     public void calculateWeigh(Metal metal){
 
@@ -211,7 +208,7 @@ public class DoorEntity implements Door {
         this.availableDoorClass = new ArrayList<DoorClassForFrond>();
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
-        this.furnitureKit = new HashMap<>();
+        this.furnitureKit = new FurnitureKit();
     }
 
     public int getId() {
@@ -881,11 +878,11 @@ public class DoorEntity implements Door {
         this.amplifierCloser = amplifierCloser;
     }
 
-    public Map<String, DoorFurniture> getFurnitureKit() {
+    public FurnitureKit getFurnitureKit() {
         return furnitureKit;
     }
 
-    public void setFurnitureKit(Map<String, DoorFurniture> furnitureKit) {
+    public void setFurnitureKit(FurnitureKit furnitureKit) {
         this.furnitureKit = furnitureKit;
     }
 }

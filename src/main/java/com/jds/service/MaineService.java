@@ -76,7 +76,9 @@ public class MaineService {
                 .stuffColors(dAO.getDoorColors())
                 .addTopLock(dAO.getFurnitureByType(TypeOfFurniture.TOP_LOCK, idType))
                 .addLowerLock(dAO.getFurnitureByType(TypeOfFurniture.LOWER_LOCK, idType))
-                .addHendle(dAO.getFurnitureByType(TypeOfFurniture.HANDLE, idType));
+                .addHendle(dAO.getFurnitureByType(TypeOfFurniture.HANDLE, idType))
+                .addLowerlockCylinder(dAO.getFurnitureByType(TypeOfFurniture.LOCK_CYLINDER, idType))
+                .addCloser(dAO.getFurnitureByType(TypeOfFurniture.CLOSER, idType));
     }
 
     private static int getRandomPrice(int min, int max) {

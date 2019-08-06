@@ -19,6 +19,8 @@ public class RestrictionOfSelectionFields {
     private List<DoorFurniture>  topLock;
     private List<DoorFurniture>  lowerLock;
     private List<DoorFurniture>  handle;
+    private List<DoorFurniture> lowerlockCylinder;
+    private List<DoorFurniture> closer;
 
 
     public  RestrictionOfSelectionFields stuffColors(List<DoorColors> colors){
@@ -52,6 +54,25 @@ public class RestrictionOfSelectionFields {
         }
         return this;
     }
+
+    public RestrictionOfSelectionFields addLowerlockCylinder(List<DoorFurniture> furnitures){
+        lowerlockCylinder = new ArrayList<>();
+        for(DoorFurniture furniture:furnitures){
+            furniture.setDoorType(null);
+            lowerlockCylinder.add(furniture);
+        }
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addCloser(List<DoorFurniture> furnitures){
+        closer = new ArrayList<>();
+        for(DoorFurniture furniture:furnitures){
+            furniture.setDoorType(null);
+            closer.add(furniture);
+        }
+        return this;
+    }
+
 
     //replace with getting data from the database
     public RestrictionOfSelectionFields() {
@@ -210,5 +231,21 @@ public class RestrictionOfSelectionFields {
 
     public void setHandle(List<DoorFurniture> handle) {
         this.handle = handle;
+    }
+
+    public List<DoorFurniture> getLowerlockCylinder() {
+        return lowerlockCylinder;
+    }
+
+    public void setLowerlockCylinder(List<DoorFurniture> lowerlockCylinder) {
+        this.lowerlockCylinder = lowerlockCylinder;
+    }
+
+    public List<DoorFurniture> getCloser() {
+        return closer;
+    }
+
+    public void setCloser(List<DoorFurniture> closer) {
+        this.closer = closer;
     }
 }
