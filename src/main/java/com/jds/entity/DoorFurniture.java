@@ -75,6 +75,13 @@ public class DoorFurniture {
     @Column(name = "pricecomit")
     private String priceComit;
 
+    public void makeRightNamePictureDoorType(){
+
+        picturePathFirst = picturePathFirst.replace("CalculationDoorsAutonomous","images");
+        picturePathFirst = picturePathFirst + ".jpg";
+
+    }
+
     public int getId() {
         return id;
     }

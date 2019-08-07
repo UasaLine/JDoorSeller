@@ -535,7 +535,7 @@ public class DoorEntity implements Door {
         }
         //endDoorLock
         if (furnitureKit.getEndDoorLock()!=null){
-            costList.addLine("Фурнитура: доводчик ",
+            costList.addLine("Фурнитура: торцевой шпингалет ",
                     4,
                     false,
                     (int )furnitureKit.getEndDoorLock().getPrice());

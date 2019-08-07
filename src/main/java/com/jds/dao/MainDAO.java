@@ -80,6 +80,7 @@ public class MainDAO {
     public void saveDoorFurniture(DoorFurniture doorFurniture) {
 
         saveOrUpdateDoorType(doorFurniture.getDoorType());
+        doorFurniture.makeRightNamePictureDoorType();
 
         int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram(), doorFurniture.getDoorType().getId());//check exists
         if (id > 0) {
