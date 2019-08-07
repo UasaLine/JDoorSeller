@@ -32,7 +32,7 @@ public class MainDAO {
     public void saveOrUpdateDoorClass(DoorClass doorClass) {
 
         int id = getDoorClassId(doorClass.getName());//check exists
-        if (id>0){
+        if (id > 0) {
             doorClass.setId(id);
         }
         Session session = sessionFactory.getCurrentSession();
@@ -44,7 +44,7 @@ public class MainDAO {
     public void saveMetal(Metal metal) {
 
         int id = getMetalId(metal.getIdManufacturerProgram());//check exists
-        if (id>0){
+        if (id > 0) {
             metal.setId(id);
         }
 
@@ -59,13 +59,13 @@ public class MainDAO {
         doorType.makeRightNamePictureDoorType();
 
         int id = getDooTypeId(doorType.getName());//check exists
-        if (id>0){
+        if (id > 0) {
             doorType.setId(id);
         }
 
         DoorClass doorClass = doorType.getDoorClass();
         id = getDoorClassId(doorClass.getName());//check exists
-        if (id>0){
+        if (id > 0) {
             doorClass.setId(id);
             doorType.setDoorClass(doorClass);
         }
@@ -81,8 +81,8 @@ public class MainDAO {
 
         saveOrUpdateDoorType(doorFurniture.getDoorType());
 
-        int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram(),doorFurniture.getDoorType().getId());//check exists
-        if (id>0){
+        int id = getDoorFurnitureId(doorFurniture.getIdManufacturerProgram(), doorFurniture.getDoorType().getId());//check exists
+        if (id > 0) {
             doorFurniture.setId(id);
         }
 
@@ -107,8 +107,8 @@ public class MainDAO {
 
         saveOrUpdateDoorType(sizeOfDoorParts.getDoorType());
 
-        int id = getSizeOfDoorPartsId(sizeOfDoorParts.getName(),sizeOfDoorParts.getDoorType().getId());//check exists
-        if (id>0){
+        int id = getSizeOfDoorPartsId(sizeOfDoorParts.getName(), sizeOfDoorParts.getDoorType().getId());//check exists
+        if (id > 0) {
             sizeOfDoorParts.setId(id);
         }
 
@@ -122,7 +122,7 @@ public class MainDAO {
     public DoorColors saveDoorColors(DoorColors doorColors) {
 
         int id = getDoorColorsId(doorColors.getIdManufacturerProgram());//check exists
-        if (id>0){
+        if (id > 0) {
             doorColors.setId(id);
         }
 
@@ -133,7 +133,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public DoorEntity saveDoor(DoorEntity door){
+    public DoorEntity saveDoor(DoorEntity door) {
 
         Session session = sessionFactory.getCurrentSession();
 
@@ -143,7 +143,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public DoorsОrder saveOrder (DoorsОrder Оrder){
+    public DoorsОrder saveOrder(DoorsОrder Оrder) {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(Оrder);
@@ -153,7 +153,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteOrder (DoorsОrder order){
+    public void deleteOrder(DoorsОrder order) {
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(order);
@@ -161,13 +161,13 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public BendSetting saveBendSetting(BendSetting bendSetting){
+    public BendSetting saveBendSetting(BendSetting bendSetting) {
 
         int idDoorType = saveOrUpdateDoorType(bendSetting.getDoorType());
 
 
-        int id = getbendSettingId(idDoorType,bendSetting.getMetal(),bendSetting.getSealingLine()).getId();//check exists
-        if (id>0){
+        int id = getbendSettingId(idDoorType, bendSetting.getMetal(), bendSetting.getSealingLine()).getId();//check exists
+        if (id > 0) {
             bendSetting.setId(id);
         }
 
@@ -178,9 +178,9 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public SalaryConstants saveSalaryConstants(SalaryConstants constants){
+    public SalaryConstants saveSalaryConstants(SalaryConstants constants) {
         int id = getSalaryConstantsId(constants.getName()).getId();//check exists
-        if (id>0){
+        if (id > 0) {
             constants.setId(id);
         }
 
@@ -191,9 +191,9 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public SalarySetting saveSalarySetting(SalarySetting setting){
+    public SalarySetting saveSalarySetting(SalarySetting setting) {
         int id = getSalarySetting(setting.getMetal()).getId();//check exists
-        if (id>0){
+        if (id > 0) {
             setting.setId(id);
         }
 
@@ -203,175 +203,175 @@ public class MainDAO {
         return setting;
     }
 
-    public Map<TypeOfSalaryConst,Double> getSalaryConstantsMap(){
+    public Map<TypeOfSalaryConst, Double> getSalaryConstantsMap() {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from salary_constants";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (SalaryConstants.class);
-        List<SalaryConstants> salaryConstantsList = query.getResultList ();
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SalaryConstants.class);
+        List<SalaryConstants> salaryConstantsList = query.getResultList();
 
         session.close();
 
-        Map<TypeOfSalaryConst,Double> salaryConstantsMap = new HashMap<>();
-        for (SalaryConstants salaryConstants:salaryConstantsList){
-            salaryConstantsMap.put(salaryConstants.getName(),salaryConstants.getValue());
+        Map<TypeOfSalaryConst, Double> salaryConstantsMap = new HashMap<>();
+        for (SalaryConstants salaryConstants : salaryConstantsList) {
+            salaryConstantsMap.put(salaryConstants.getName(), salaryConstants.getValue());
         }
 
         return salaryConstantsMap;
     }
 
-    public SalaryConstants getSalaryConstantsId(TypeOfSalaryConst name){
+    public SalaryConstants getSalaryConstantsId(TypeOfSalaryConst name) {
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from salary_constants where name like :nameSC ";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (SalaryConstants.class)
-                .setParameter ("nameSC", name.toString());
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SalaryConstants.class)
+                .setParameter("nameSC", name.toString());
         List<SalaryConstants> salaryConstantsList = query.list();
 
         session.close();
 
-        if(salaryConstantsList.size()>0){
+        if (salaryConstantsList.size() > 0) {
             return salaryConstantsList.get(0);
         }
         return new SalaryConstants();
     }
 
-    public BendSetting getbendSettingId(int doorTypeId,double metal,int sealingLine){
+    public BendSetting getbendSettingId(int doorTypeId, double metal, int sealingLine) {
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from bend_setting where doortype_id =:TypeId and metal =:metalvalue and sealingline =:sealing ";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (BendSetting.class)
-                .setParameter ("TypeId", doorTypeId)
-                .setParameter ("metalvalue", metal)
-                .setParameter ("sealing", sealingLine);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(BendSetting.class)
+                .setParameter("TypeId", doorTypeId)
+                .setParameter("metalvalue", metal)
+                .setParameter("sealing", sealingLine);
         List<BendSetting> BendList = query.list();
 
         session.close();
 
-        if(BendList.size()>0){
+        if (BendList.size() > 0) {
             return BendList.get(0);
         }
         return new BendSetting();
     }
 
-    public int getDoorClassId(String name){
+    public int getDoorClassId(String name) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_class where name like :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorClass.class)
-                .setParameter ("log", name);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorClass.class)
+                .setParameter("log", name);
         List<DoorClass> doorClassList = query.list();
 
         session.close();
 
-        if(doorClassList.size()>0){
+        if (doorClassList.size() > 0) {
             return doorClassList.get(0).getId();
         }
         return 0;
 
     }
 
-    public int getDooTypeId(String name){
+    public int getDooTypeId(String name) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_type where name like :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorType.class)
-                .setParameter ("log", name);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorType.class)
+                .setParameter("log", name);
         List<DoorType> doorTypeList = query.list();
 
         session.close();
 
-        if(doorTypeList.size()>0){
+        if (doorTypeList.size() > 0) {
             return doorTypeList.get(0).getId();
         }
         return 0;
 
     }
 
-    public int getMetalId(String id){
+    public int getMetalId(String id) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from metal where id_manufacturer_program like :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (Metal.class)
-                .setParameter ("log", id);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(Metal.class)
+                .setParameter("log", id);
         List<Metal> metalList = query.list();
 
         session.close();
 
-        if(metalList.size()>0){
+        if (metalList.size() > 0) {
             return metalList.get(0).getId();
         }
         return 0;
 
     }
 
-    public Metal getMetal(double val){
+    public Metal getMetal(double val) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from metal where name_displayed = :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (Metal.class)
-                .setParameter ("log", val);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(Metal.class)
+                .setParameter("log", val);
         List<Metal> metalList = query.list();
 
         session.close();
 
-        if(metalList.size()>0){
+        if (metalList.size() > 0) {
             return metalList.get(0);
         }
         return null;
 
     }
 
-    public int getDoorFurnitureId(String id,int idDoorType){
+    public int getDoorFurnitureId(String id, int idDoorType) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_furniture where idmanufacturerprogram like :log and doortype_id = :idDoorT";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorFurniture.class)
-                .setParameter ("log", id)
-                .setParameter ("idDoorT",idDoorType);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorFurniture.class)
+                .setParameter("log", id)
+                .setParameter("idDoorT", idDoorType);
         List<DoorFurniture> doorFurnitureList = query.list();
 
         session.close();
 
-        if(doorFurnitureList.size()>0){
+        if (doorFurnitureList.size() > 0) {
             return doorFurnitureList.get(0).getId();
         }
         return 0;
 
     }
 
-    public List<DoorFurniture> getFurnitureByType(TypeOfFurniture type,int idType){
+    public List<DoorFurniture> getFurnitureByType(TypeOfFurniture type, int idType) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_furniture where doortype_id = :idtype and typeoffurniture like :typefurniture";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorFurniture.class)
-                .setParameter ("idtype", idType)
-                .setParameter ("typefurniture", type.toString());
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorFurniture.class)
+                .setParameter("idtype", idType)
+                .setParameter("typefurniture", type.toString());
         List<DoorFurniture> doorFurnitureList = query.list();
 
         session.close();
@@ -379,40 +379,56 @@ public class MainDAO {
         return doorFurnitureList;
     }
 
-    public int getDoorColorsId(String id){
+    public List<DoorFurniture> getFurniture(TypeOfFurniture type) {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_furniture where typeoffurniture like :typefurniture";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorFurniture.class)
+                .setParameter("typefurniture", type.toString());
+        List<DoorFurniture> doorFurnitureList = query.list();
+
+        session.close();
+
+        return doorFurnitureList;
+    }
+
+    public int getDoorColorsId(String id) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_colors where idManufacturerProgram like :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorColors.class)
-                .setParameter ("log", id);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorColors.class)
+                .setParameter("log", id);
         List<DoorColors> doorColorsList = query.list();
 
         session.close();
 
-        if(doorColorsList.size()>0){
+        if (doorColorsList.size() > 0) {
             return doorColorsList.get(0).getId();
         }
         return 0;
 
     }
 
-    public DoorColors getDoorColor(String name){
+    public DoorColors getDoorColor(String name) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_colors where name like :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorColors.class)
-                .setParameter ("log", name);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorColors.class)
+                .setParameter("log", name);
         List<DoorColors> doorColorsList = query.list();
 
         session.close();
 
-        if(doorColorsList.size()>0){
+        if (doorColorsList.size() > 0) {
             return doorColorsList.get(0);
         }
         return null;
@@ -420,14 +436,14 @@ public class MainDAO {
     }
 
 
-    public List<DoorColors> getDoorColors(){
+    public List<DoorColors> getDoorColors() {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_colors ";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorColors.class);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorColors.class);
         List<DoorColors> doorColorsList = query.list();
 
         session.close();
@@ -435,77 +451,77 @@ public class MainDAO {
         return doorColorsList;
     }
 
-    public int getSizeOfDoorPartsId(String name,int doortype){
+    public int getSizeOfDoorPartsId(String name, int doortype) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from size_door_parts where name like :log and doortype_id = :doortype";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (SizeOfDoorParts.class)
-                .setParameter ("log", name)
-                .setParameter ("doortype", doortype);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SizeOfDoorParts.class)
+                .setParameter("log", name)
+                .setParameter("doortype", doortype);
         List<SizeOfDoorParts> sizeOfDoorPartsList = query.list();
 
         session.close();
 
-        if(sizeOfDoorPartsList.size()>0){
+        if (sizeOfDoorPartsList.size() > 0) {
             return sizeOfDoorPartsList.get(0).getId();
         }
         return 0;
 
     }
 
-    public DoorsОrder getOrder(int id){
+    public DoorsОrder getOrder(int id) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from orders where order_id = :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorsОrder.class)
-                .setParameter ("log", id);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorsОrder.class)
+                .setParameter("log", id);
         List<DoorsОrder> doorColorsList = query.list();
 
         session.close();
 
         DoorsОrder оrder = null;
-        if(doorColorsList.size()>0){
+        if (doorColorsList.size() > 0) {
             оrder = doorColorsList.get(0);
         }
 
         return оrder;
     }
 
-    public DoorEntity getDoor(int id){
+    public DoorEntity getDoor(int id) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door where door_id = :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (DoorEntity.class)
-                .setParameter ("log", id);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorEntity.class)
+                .setParameter("log", id);
         List<DoorEntity> doorsList = query.list();
 
         session.close();
 
         DoorEntity door = null;
-        if(doorsList.size()>0){
+        if (doorsList.size() > 0) {
             door = doorsList.get(0);
         }
-        return  door;
+        return door;
     }
 
-    public List<SizeOfDoorParts> getSizeOfDoorPartsList(int doortypeId){
+    public List<SizeOfDoorParts> getSizeOfDoorPartsList(int doortypeId) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from size_door_parts where doortype_id = :log";
-        Query query = session.createSQLQuery (sql)
-                .addEntity (SizeOfDoorParts.class)
-                .setParameter ("log", doortypeId);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SizeOfDoorParts.class)
+                .setParameter("log", doortypeId);
 
         List<SizeOfDoorParts> list = query.list();
 
@@ -522,13 +538,13 @@ public class MainDAO {
         String sql = "select * from door_class where id = :log";
         Query query = session.createSQLQuery(sql)
                 .addEntity(DoorClass.class)
-                .setParameter ("log", id);
+                .setParameter("log", id);
         List<DoorClass> list = query.list();
 
         session.close();
 
         DoorClass doorClass = null;
-        if(list.size()>0){
+        if (list.size() > 0) {
             doorClass = list.get(0);
         }
         return doorClass;
@@ -565,21 +581,21 @@ public class MainDAO {
 
     }
 
-    public DoorType getDoorType(int id){
+    public DoorType getDoorType(int id) {
 
         Session session = sessionFactory.openSession();
 
         String sql = "select * from door_type where id = :val ";
         Query query = session.createSQLQuery(sql)
                 .addEntity(DoorType.class)
-                .setParameter ("val", id);
+                .setParameter("val", id);
 
         List<DoorType> list = query.list();
 
         session.close();
 
         DoorType doorType = new DoorType();
-        if(list.size()>0){
+        if (list.size() > 0) {
             doorType = list.get(0);
         }
         return doorType;
@@ -600,7 +616,7 @@ public class MainDAO {
 
     }
 
-    public List<FireproofDoor> getlistDoor(){
+    public List<FireproofDoor> getlistDoor() {
 
         List<FireproofDoor> list = new ArrayList<>();
         list.add(new FireproofDoor());
@@ -623,7 +639,7 @@ public class MainDAO {
 
     }
 
-    public List<DoorsОrder> getOrders(){
+    public List<DoorsОrder> getOrders() {
 
         Session session = sessionFactory.openSession();
 
@@ -637,23 +653,23 @@ public class MainDAO {
         return list;
     }
 
-    public SalarySetting getSalarySetting(double metal){
+    public SalarySetting getSalarySetting(double metal) {
 
         Session session = sessionFactory.openSession();
 
         String sql = "select * from salary_setting where metal = :metalVal";
         Query query = session.createSQLQuery(sql)
                 .addEntity(SalarySetting.class)
-                .setParameter ("metalVal", metal);
+                .setParameter("metalVal", metal);
         List<SalarySetting> list = query.list();
 
         session.close();
 
         SalarySetting salarySetting = new SalarySetting();
-        if(list.size()>0){
+        if (list.size() > 0) {
             salarySetting = list.get(0);
         }
         return salarySetting;
-}
+    }
 
 }
