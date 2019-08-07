@@ -10,5 +10,6 @@ CREATE TABLE orders
   seller int,
   comment CHARACTER VARYING(100),
   totalAmount int,
-  totalTax int
+  totalTax int,
+  totalQuantity int
 );

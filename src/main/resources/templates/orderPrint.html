@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>door seller</title>    
+    <link rel="stylesheet" type="text/css" href="css/print.css" />
+</head>
+<body>
+<div class="mainDiv">
+<h1>Заказ покупателя № </h1><h1 th:utext="${order.order_id}"></h1><h1 class="ot"> от </h1><h1 th:utext="${order.data}"></h1>
+<hr align="left" width="800" size="2" color=" black " />
+
+<span>Поставшик:</span><span class="ot" th:utext="${order.company}"></span><br><br>
+<span>Покупатель:</span><span class="ot" th:utext="${order.partner}"></span><br><br>
+
+	<div class="data-Table">
+		<table class="lux">
+			<tr>
+				<th>№</th>
+				<th>id</th>
+				<th>Товары (работы, услуги)</th>
+				<th>Кол-во</th>
+				<th>Ед.	</th>
+				<th>Цена</th>
+				<th>Сумма</th>
+			</tr>
+			<tr th:each="door : ${order.doors}">
+				<td th:utext="${door.id}">..</td>
+				<td th:utext="${door.id}">..</td>
+				<td th:utext="${door.name}">..</td>				
+				<td>1</td>
+				<td>шт.</td>
+				<td th:utext="${door.priceWithMarkup}">..</td>
+				<td th:utext="${door.priceWithMarkup}">..</td>
+			</tr>
+
+		</table>
+	</div>	
+	<div class="total">	
+		<span><strong>Итого: </strong></span><span th:utext="${order.totalAmount}"><strong></strong></span><br>
+		<span><strong>В том числе НДС: </strong></span><span th:utext="${order.totalTax}"><strong></strong></span><br>
+	</div>		
+		
+		<span><strong>Всего наименований:</strong></span>
+	    <span class="ot" th:utext="${order.totalQuantity}"></span>
+	    <span class="ot"><strong>на сумму</strong></span>
+	    <span class="ot"  th:utext="${order.totalAmount}"></span>
+	    <span class="ot"><strong>руб.</strong></span><br>
+
+		
+		<hr align="left" width="800" size="2" color=" black " />
+		<div>
+		<span>Исполнитель___________</span>	<span class ="customer_signature">Заказчик___________</span>
+		</div>
+</div>		
+</body>
+</html>

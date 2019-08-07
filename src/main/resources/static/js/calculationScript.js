@@ -316,6 +316,7 @@ jQuery('document').ready(function(){
                 alert('error:' + data);
             }
         });
+
     });
 
     $('#buttonGetCutteig').on('click',function(){

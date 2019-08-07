@@ -120,7 +120,7 @@ public class MaineService {
     }
 
    public DoorsОrder saveOrder (DoorsОrder order){
-        return dAO.saveOrder(order);
+        return dAO.saveOrder(order.calculateTotal());
    }
 
    public List<DoorsОrder> getOrders(){
@@ -130,6 +130,7 @@ public class MaineService {
    public DoorsОrder getOrder(String id){
 
         int intId = Integer.parseInt(id);
+
         if (intId == 0) {
            return new DoorsОrder();
         }
@@ -142,7 +143,7 @@ public class MaineService {
         DoorEntity door = null;
         if (id!=null && !id.isEmpty() && !id.equals("0")){
                 door = dAO.getDoor(Integer.parseInt(id));
-                door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorClass(2)));
+                door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorType(door.getDoorType()).getDoorClass()));
         }
         if (door == null) {
             door = new DoorEntity();

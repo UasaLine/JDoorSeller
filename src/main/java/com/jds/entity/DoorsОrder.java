@@ -1,8 +1,7 @@
 package com.jds.entity;
 
-import com.jds.model.FireproofDoor;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,24 +12,24 @@ public class DoorsОrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    int order_id;
+    private int order_id;
 
     @Column(name = "company")
-    String company;
+    private String company;
 
     @Column(name = "partner")
-    String partner;
+    private String partner;
 
     @Column(name = "data")
     @Temporal(TemporalType.DATE)
-    Date data;
+    private Date data;
 
     @Column(name = "releasDate")
     @Temporal(TemporalType.DATE)
-    Date releasDate;
+    private Date releasDate;
 
     @Column(name = "productionStart")
-    int productionStart;
+    private int productionStart;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -38,20 +37,27 @@ public class DoorsОrder {
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "door_id") }
     )
-    List<DoorEntity> doors;
+    private List<DoorEntity> doors;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "seller")
-    User seller;
+    private User seller;
 
     @Column(name = "comment")
-    String comment;
+    private String comment;
 
     @Column(name = "totalAmount")
-    int totalAmount;
+    private int totalAmount;
 
     @Column(name = "totalTax")
-    int totalTax;
+    private int totalTax;
+
+    @Column(name = "totalQuantity")
+    private int totalQuantity;
+
+    public DoorsОrder() {
+        doors = new ArrayList<>();
+    }
 
     public int deleteDoor(int id){
 
@@ -63,6 +69,23 @@ public class DoorsОrder {
         }
         return 0;
     }
+
+    public DoorsОrder calculateTotal(){
+
+        totalAmount=0;
+        totalTax=0;
+        totalQuantity=0;
+        int tax = 20;
+
+        for (DoorEntity door:doors){
+            totalQuantity+=1;
+            totalAmount+=door.getPriceWithMarkup();
+            totalTax+=(door.getPriceWithMarkup()*tax)/(100+tax);
+        }
+
+        return this;
+    }
+
 
     public int getId() {
         return order_id;
@@ -162,5 +185,13 @@ public class DoorsОrder {
 
     public void setOrder_id(int order_id) {
         this.order_id = order_id;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 }

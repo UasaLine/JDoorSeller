@@ -19,5 +19,7 @@ CREATE TABLE door
   leftDoorTrim int,
   rightDoorTrim int,
   price int,
+  discountPrice int,
+  priceWithMarkup int,
   doorColor CHARACTER VARYING(100)
 );

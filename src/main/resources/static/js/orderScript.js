@@ -1,12 +1,6 @@
 jQuery('document').ready(function(){
 
-    /*
-    //test delete
-    $('.Table > tbody').append('<tr><td class="id">1</td><td>DSN</td><td>DPD</td><td>1</td><td>20000</td></tr>');
-    $('.Table > tbody').append('<tr><td class="id">2</td><td>DSN</td><td>DPD</td><td>1</td><td>20000</td></tr>');
-    $('.Table > tbody').append('<tr><td class="id">3</td><td>DSN</td><td>DPD</td><td>1</td><td>20000</td></tr>');
-    $('.Table > tbody').append('<tr><td class="id">4</td><td>DSN</td><td>DPD</td><td>1</td><td>20000</td></tr>');
-    */
+
 
     //getInstans order
     var orderId=$('#order_id').text();
@@ -61,6 +55,10 @@ jQuery('document').ready(function(){
 
     $('#deleteOrder').on('click',function(){
         deletOrder();
+    });
+
+    $('#print').on('click',function(){
+        printOrder();
     });
 
     $('tbody').on('click','tr',function(){
@@ -193,5 +191,11 @@ jQuery('document').ready(function(){
                 alert('delete error:' + data);
             }
         });
+    };
+
+    function printOrder(){
+
+        location.href = 'orderprint?orderId='+orderId;
+
     };
 });

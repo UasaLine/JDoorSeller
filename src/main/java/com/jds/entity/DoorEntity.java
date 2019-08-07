@@ -74,17 +74,17 @@ public class DoorEntity implements Door {
     @Column(name = "price")
     private int price;
 
-    @Transient
+    @Column(name = "discountPrice")
     private int discountPrice;
 
-    @Transient
+    @Column(name = "priceWithMarkup")
     private int priceWithMarkup;
 
     @Column(name = "doorColor")
     private String doorColor;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "doors",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "doors",fetch = FetchType.EAGER)
     private List<DoorsОrder> orders;
 
     @Transient
@@ -970,4 +970,6 @@ public class DoorEntity implements Door {
     public void setFurnitureKit(FurnitureKit furnitureKit) {
         this.furnitureKit = furnitureKit;
     }
+
+
 }

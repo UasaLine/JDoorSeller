@@ -141,10 +141,10 @@ public class MainController {
     public DoorsОrder saveOrder(@RequestParam(required = false) String kay,
                                   @RequestParam(required = false) String dataJson,
                                   Model model,
-                                  @RequestBody DoorsОrder Оrder) throws Exception {
+                                  @RequestBody DoorsОrder order) throws Exception {
 
 
-        return service.saveOrder(Оrder);
+        return service.saveOrder(order);
     }
 
     @GetMapping(value = "/order")
@@ -180,5 +180,13 @@ public class MainController {
                                   @RequestParam(required = false) String orderId) throws Exception {
 
         return service.deleteOrder(orderId);
+    }
+
+    @GetMapping(value = "/orderprint")
+    public String getPrintOrder(Model model,
+                                @RequestParam(required = false) String orderId) throws Exception {
+
+        model.addAttribute("order", service.getOrder(orderId));
+        return "orderPrint";
     }
 }
