@@ -182,11 +182,5 @@ public class MainController {
         return service.deleteOrder(orderId);
     }
 
-    @GetMapping(value = "/orderprint")
-    public String getPrintOrder(Model model,
-                                @RequestParam(required = false) String orderId) throws Exception {
 
-        model.addAttribute("order", service.getOrder(orderId));
-        return "orderPrint";
-    }
 }
