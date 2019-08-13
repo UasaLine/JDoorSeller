@@ -20,5 +20,12 @@ public class PrintController {
         model.addAttribute("order", service.getOrder(orderId));
         return "orderPrint";
     }
+    @GetMapping(value = "/doorsprint")
+    public String getPrintDoors(Model model,
+                                @RequestParam(required = false) String orderId) throws Exception {
+
+        model.addAttribute("order", service.getOrder(orderId));
+        return "doorsPrint";
+    }
 
 }

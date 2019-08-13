@@ -61,6 +61,10 @@ jQuery('document').ready(function(){
         printOrder();
     });
 
+    $('#printDoors').on('click',function(){
+        printDoors();
+    });
+
     $('tbody').on('click','tr',function(){
 
         currentDoorId = $(this).children('.id').text();
@@ -192,10 +196,14 @@ jQuery('document').ready(function(){
             }
         });
     };
-
     function printOrder(){
 
         location.href = 'orderprint?orderId='+orderId;
+
+    };
+    function printDoors(){
+
+        location.href = 'doorsprint?orderId='+orderId;
 
     };
 });
