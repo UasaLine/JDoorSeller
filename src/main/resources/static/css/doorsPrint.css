@@ -64,3 +64,6 @@ text-align: left;
 	height:150px;
 	border:1px solid black;
 }
+#shadowId{
+	display: none;
+}
