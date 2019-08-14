@@ -46,20 +46,20 @@ text-align: left;
 }
 
 .doorDiv{
-	background:#D8E6F3;
-	width:29%;
+
+	width:25%;
 	height:1100px;
 	display:inline-block;
 }
 .optionsDiv{
-	background:#AFCDE7;
-	width:70%;
+
+	width:65%;
 	height:1100px;
 	display:inline-block;
 	vertical-align: top;
 }
 .comment{
-	background:#FFD700;
+
 	width:100%;
 	height:150px;
 	border:1px solid black;

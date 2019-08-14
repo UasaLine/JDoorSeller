@@ -1,0 +1,36 @@
+.picture_doorL{
+    display:inline-block;
+    position:relative;
+    top:60px;
+    left:20px;
+}
+.picture_doorR{
+    display:inline-block;
+    position:relative;
+    top:60px;
+    left:25px;
+}
+.opening_side_images{
+    position: absolute;
+    top:0px;
+    left:0px;
+
+}
+.sizeDoorSpan{
+    writing-mode:tb-rl;
+    vertical-align:middle;
+    text-align:center;
+    border-right: solid 1px #A9A9A9;
+    border-top: solid 1px #A9A9A9;
+    border-bottom: solid 1px #A9A9A9;
+    vertical-align: top;
+}
+.sizeDoorSpanBottom{
+    vertical-align:middle;
+    text-align:center;
+    border-right: solid 1px #A9A9A9;
+    border-left: solid 1px #A9A9A9;
+    border-bottom: solid 1px #A9A9A9;
+    vertical-align: top;
+    position: absolute;
+}

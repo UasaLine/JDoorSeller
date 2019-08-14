@@ -1,10 +1,4 @@
-body{
 
-}
-
-.contaner{
-
-}
 
 /* ------------------------------------------------ */
 /* top */
@@ -13,7 +7,7 @@ body{
 .top_head{
 
     background-color:#245882;
-//padding: 3px 3px 3px 50px;
+    //padding: 3px 3px 3px 50px;
     width:100%;
     max-width:1300px;
     margin:0 auto;
@@ -130,7 +124,6 @@ h2 {
     text-indent: 10px;
 }
 p {
-
     color: #555;
     padding: 10px,0px,0px,0px;
     margin:0px;
@@ -492,24 +485,8 @@ td{
     top:49px;
 }
 
-.picture_doorL{
-    display:inline-block;
-    position:relative;
-    top:60px;
-    left:20px;
-}
-.picture_doorR{
-    display:inline-block;
-    position:relative;
-    top:60px;
-    left:25px;
-}
-.opening_side_images{
-    position: absolute;
-    top:0px;
-    left:0px;
 
-}
+
 .sizeDoorRepresentation{
     display:inline-block;
     position:relative;
@@ -520,24 +497,9 @@ td{
     border-bottom: solid 1px #A9A9A9;
 
 }
-.sizeDoorSpan{
-    writing-mode:tb-rl;
-    vertical-align:middle;
-    text-align:center;
-    border-right: solid 1px #A9A9A9;
-    border-top: solid 1px #A9A9A9;
-    border-bottom: solid 1px #A9A9A9;
-    vertical-align: top;
-}
-.sizeDoorSpanBottom{
-    vertical-align:middle;
-    text-align:center;
-    border-right: solid 1px #A9A9A9;
-    border-left: solid 1px #A9A9A9;
-    border-bottom: solid 1px #A9A9A9;
-    vertical-align: top;
-    position: absolute;
-}
+
+
+
 .Sheet{
     display:inline-block;
     position:relative;

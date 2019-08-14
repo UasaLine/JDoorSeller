@@ -24,6 +24,8 @@ jQuery('document').ready(function(){
             $('<div>').attr('class','doorDiv').attr('id','doorDiv'+i).appendTo('#'+i);
             $('<div>').attr('class','optionsDiv').attr('id','optionsDiv'+i).appendTo('#'+i);
 
+            drawObject(data[i].door,i);
+
             //options cap
             $('<span>').text(data[i].orderNumber).appendTo('#optionsDiv'+i);
             $('<br>').appendTo('#optionsDiv'+i);

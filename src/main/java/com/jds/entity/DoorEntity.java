@@ -35,7 +35,10 @@ public class DoorEntity implements Door {
     @Column(name = "heightDoor")
     private int heightDoor;
 
-    @Column(name = "аctivDoorLeafWidth")
+    @Column(name = "doorLeaf")
+    private int doorLeaf;
+
+    @Column(name = "activeDoorLeafWidth")
     private int activeDoorLeafWidth;
 
     @Column(name = "doorFanlightHeight")
@@ -170,6 +173,14 @@ public class DoorEntity implements Door {
 
     }
 
+    public int getDoorLeaf() {
+        return doorLeaf;
+    }
+
+    public void setDoorLeaf(int doorLeaf) {
+        this.doorLeaf = doorLeaf;
+    }
+
     public double getSpace() {
         return space;
     }
@@ -211,6 +222,7 @@ public class DoorEntity implements Door {
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
         this.furnitureKit = new FurnitureKit();
+        doorLeaf = 1;
     }
 
     public int getId() {
