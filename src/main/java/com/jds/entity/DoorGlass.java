@@ -1,14 +1,17 @@
 package com.jds.entity;
 
+import com.jds.model.modelEnum.TypeOfFurniture;
+
 public class DoorGlass {
 
-    private String typeDoorGlass;
-    private String toning;
-    private String armor;
+    private DoorFurniture typeDoorGlass;
+    private DoorFurniture toning;
+    private DoorFurniture armor;
     private int glassWidth;
     private int glassHeight;
     private int leftGlassPosition;
     private int bottomGlassPosition;
+
 
     public DoorGlass() {
 
@@ -16,33 +19,56 @@ public class DoorGlass {
 
     public boolean exists(){
 
-        if ((typeDoorGlass !="")&&(glassWidth>0)&&(glassHeight>0)){
+        if ((typeDoorGlass!=null)&&(glassWidth>0)&&(glassHeight>0)){
             return true;
         }
         return false;
     }
 
-    public String getTypeDoorGlass() {
+    public double getSpace(){
+
+        double S =((double)glassWidth*(double) glassHeight)/1000000;
+
+        return S;
+    }
+
+    public DoorFurniture getTypeDoorGlass() {
         return typeDoorGlass;
     }
 
-    public void setTypeDoorGlass(String typeDoorGlass) {
+    public int getCost(TypeOfFurniture type,double space){
+
+        if(type==TypeOfFurniture.TYPE_GLASS){
+            return (int)(typeDoorGlass.getPrice()*space);
+        }
+        if(type==TypeOfFurniture.ARMOR_GLASS_PELLICLE){
+            return (int)(armor.getPrice()*space);
+        }
+        if(type==TypeOfFurniture.GLASS_PELLICLE){
+            return (int)(toning.getPrice()*space);
+        }
+
+        return 0;
+    }
+
+
+    public void setTypeDoorGlass(DoorFurniture typeDoorGlass) {
         this.typeDoorGlass = typeDoorGlass;
     }
 
-    public String getToning() {
+    public DoorFurniture getToning() {
         return toning;
     }
 
-    public void setToning(String toning) {
+    public void setToning(DoorFurniture toning) {
         this.toning = toning;
     }
 
-    public String getArmor() {
+    public DoorFurniture getArmor() {
         return armor;
     }
 
-    public void setArmor(String armor) {
+    public void setArmor(DoorFurniture armor) {
         this.armor = armor;
     }
 

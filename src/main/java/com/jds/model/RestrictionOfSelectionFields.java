@@ -22,6 +22,9 @@ public class RestrictionOfSelectionFields {
     private List<DoorFurniture> lowerlockCylinder;
     private List<DoorFurniture> closer;
     private List<DoorFurniture> endDoorLock;
+    private List<DoorFurniture> typeDoorGlass;
+    private List<DoorFurniture> toning;
+    private List<DoorFurniture> armor;
 
 
     public  RestrictionOfSelectionFields stuffColors(List<DoorColors> colors){
@@ -79,6 +82,33 @@ public class RestrictionOfSelectionFields {
         for(DoorFurniture furniture:furnitures){
             furniture.setDoorType(null);
             endDoorLock.add(furniture);
+        }
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addGlass(List<DoorFurniture> furnitures) {
+        typeDoorGlass = new ArrayList<>();
+        for (DoorFurniture furniture : furnitures) {
+            furniture.setDoorType(null);
+            typeDoorGlass.add(furniture);
+        }
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addToning(List<DoorFurniture> furnitures) {
+        toning = new ArrayList<>();
+        for (DoorFurniture furniture : furnitures) {
+            furniture.setDoorType(null);
+            toning.add(furniture);
+        }
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addArmor(List<DoorFurniture> furnitures) {
+        armor = new ArrayList<>();
+        for (DoorFurniture furniture : furnitures) {
+            furniture.setDoorType(null);
+            armor.add(furniture);
         }
         return this;
     }
@@ -265,5 +295,29 @@ public class RestrictionOfSelectionFields {
 
     public void setEndDoorLock(List<DoorFurniture> endDoorLock) {
         this.endDoorLock = endDoorLock;
+    }
+
+    public List<DoorFurniture> getTypeDoorGlass() {
+        return typeDoorGlass;
+    }
+
+    public void setTypeDoorGlass(List<DoorFurniture> typeDoorGlass) {
+        this.typeDoorGlass = typeDoorGlass;
+    }
+
+    public List<DoorFurniture> getToning() {
+        return toning;
+    }
+
+    public void setToning(List<DoorFurniture> toning) {
+        this.toning = toning;
+    }
+
+    public List<DoorFurniture> getArmor() {
+        return armor;
+    }
+
+    public void setArmor(List<DoorFurniture> armor) {
+        this.armor = armor;
     }
 }

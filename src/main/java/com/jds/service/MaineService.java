@@ -59,6 +59,7 @@ public class MaineService {
                 .calculateColorDoor(paySettings.getDoorColors())
                 .calculateSalary(paySettings)
                 .calculateFurniture()
+                .calculateGlass()
                 .costToPrice()
                 .createName();
 
@@ -84,7 +85,10 @@ public class MaineService {
                 .addHendle(dAO.getFurnitureByType(TypeOfFurniture.HANDLE, idType))
                 .addLowerlockCylinder(dAO.getFurnitureByType(TypeOfFurniture.LOCK_CYLINDER, idType))
                 .addCloser(dAO.getFurniture(TypeOfFurniture.CLOSER))
-                .addEndDoorLock(dAO.getFurniture(TypeOfFurniture.END_DOOR_LOCK));
+                .addEndDoorLock(dAO.getFurniture(TypeOfFurniture.END_DOOR_LOCK))
+                .addGlass(dAO.getFurnitureByType(TypeOfFurniture.TYPE_GLASS, idType))
+                .addToning(dAO.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
+                .addArmor(dAO.getFurniture(TypeOfFurniture.ARMOR_GLASS_PELLICLE));
     }
 
     private static int getRandomPrice(int min, int max) {

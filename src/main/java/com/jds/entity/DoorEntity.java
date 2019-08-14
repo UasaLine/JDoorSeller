@@ -3,6 +3,7 @@ package com.jds.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
+import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 
 import javax.persistence.*;
@@ -100,6 +101,9 @@ public class DoorEntity implements Door {
     private int isDoorGlass;
 
     @Transient
+    private int isDoorFanlightGlass;
+
+    @Transient
     private DoorGlass doorGlass;
 
     @Transient
@@ -171,6 +175,39 @@ public class DoorEntity implements Door {
 
         return this;
 
+    }
+
+    public DoorEntity calculateGlass(){
+
+        if(doorGlass.exists()){
+
+            double glassSpace = doorGlass.getSpace();
+            int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS,glassSpace);
+            costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getTypeDoorGlass().getName(),
+                    5,false, cost);
+
+            if(doorGlass.getToning()!=null){
+                cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE,glassSpace);
+                costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getToning().getName(),
+                        5,false, cost);
+            }
+
+            if(doorGlass.getToning()!=null){
+                cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE,glassSpace);
+                costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getArmor().getName(),
+                        5,false, cost);
+            }
+
+
+        }
+
+
+
+        if(isDoorFanlightGlass==1){
+
+        }
+
+        return this;
     }
 
     public int getDoorLeaf() {

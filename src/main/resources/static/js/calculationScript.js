@@ -52,9 +52,10 @@ jQuery('document').ready(function(){
     //select
     //--------------------------------------
 
+    // language=JQuery-CSS
     $('.vertical_menu_button').on('click',function(){
 
-        if ($('#name'+$(this).attr('id')+'').attr('available')=="yes"){
+        if ($('#name'+$(this).attr('id')+'').attr('available')==="yes"){
             assignPreviouValue();
             processItemSelection(this);
         }
@@ -94,8 +95,8 @@ jQuery('document').ready(function(){
     });
 
     $('.div_images_DoorGlass').on('click',function(){
-        setDoorGlassField($(this).attr('Item'),$(this).attr('data'));
-        representationField($(this).attr('data'));
+        setDoorGlassImg($(this).attr('Item'),$(this).attr('data'));
+        representationField($(this).children('span').html());
         pickOut(this);
     });
 
@@ -403,6 +404,10 @@ jQuery('document').ready(function(){
         }
     }
 
+    function setDoorGlassImg(fieldName,value){
+        var furn = findObject(fieldName,value);
+        door.doorGlass[fieldName] = furn;
+    }
     function setDoorGlassField(fieldName,value){
         door.doorGlass[fieldName] = value;
     }
@@ -716,12 +721,15 @@ jQuery('document').ready(function(){
                 colors = data.colors;
                 displayColor(0);
                 displayadditionalDoorSettings(data);
-                displayFurniture('topLock',data.topLock,0,'kit');
-                displayFurniture('lowerLock',data.lowerLock,0,'kit');
-                displayFurniture('handle',data.handle,0,'');
-                displayFurniture('lowerlockCylinder',data.lowerlockCylinder,0,'');
-                displayFurniture('closer',data.closer,0,'');
-                displayFurniture('endDoorLock',data.endDoorLock,0,'');
+                displayListOfItems('topLock',data.topLock,0,'kit');
+                displayListOfItems('lowerLock',data.lowerLock,0,'kit');
+                displayListOfItems('handle',data.handle,0,'');
+                displayListOfItems('lowerlockCylinder',data.lowerlockCylinder,0,'');
+                displayListOfItems('closer',data.closer,0,'');
+                displayListOfItems('endDoorLock',data.endDoorLock,0,'');
+                displayListOfItems('typeDoorGlass',data.typeDoorGlass,0,'');
+                displayListOfItems('toning',data.toning,0,'');
+                displayListOfItems('armor',data.armor,0,'');
                 RestrictionOfSelectionFields = data;
             },
             error: function (data) {
@@ -1043,7 +1051,7 @@ jQuery('document').ready(function(){
 
     }
 
-    function displayFurniture(nameTab,tab,bias,postfixName){
+    function displayListOfItems(nameTab,tab,bias,postfixName){
 
         var tabSize = tab.length;
         var amountElements =4;
