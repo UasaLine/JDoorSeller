@@ -9,8 +9,11 @@ import java.util.List;
 
 public class PrintAppToTheOrder {
 
-    private DoorEntity door;
+    private String orderNumber;
+    private String customer;
+    private String orderDate;
 
+    private DoorEntity door;
 
     private List<ParamApp> sizes;
     private List<ParamApp> appearance;
@@ -20,7 +23,11 @@ public class PrintAppToTheOrder {
     public PrintAppToTheOrder() {
     }
 
-    public PrintAppToTheOrder(DoorEntity door) {
+    public PrintAppToTheOrder(DoorEntity door,DoorsОrder order) {
+
+        orderNumber = "Приложение к заказу №: "+order.getId()+" /1";
+        customer = "Клиент: "+order.getPartner();
+        orderDate = "Дата заказа: "+order.getData();
 
         this.door = door;
 
@@ -49,8 +56,42 @@ public class PrintAppToTheOrder {
 
         furniture = new ArrayList<>();
         furniture.add(new ParamApp("Верхний замок:",String.valueOf(door.getDoorstep())));
+
     }
 
+
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public DoorEntity getDoor() {
+        return door;
+    }
+
+    public void setDoor(DoorEntity door) {
+        this.door = door;
+    }
 
     public List<ParamApp> getSizes() {
         return sizes;

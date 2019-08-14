@@ -10,6 +10,7 @@ import com.jds.model.modelEnum.TypeOfSalaryConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -109,7 +110,6 @@ public class MaineService {
         return door;
     }
 
-
     public BendSetting saveBendSetting(BendSetting bendSetting) {
         return dAO.saveBendSetting(bendSetting);
     }
@@ -201,7 +201,16 @@ public class MaineService {
     }
 
     public List<PrintAppToTheOrder> getPrintAppList(String orderId){
+
         DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
-        return null;
+        List<DoorEntity> doors = order.getDoors();
+
+        List<PrintAppToTheOrder> printAppList = new ArrayList<>();
+        for(DoorEntity door:doors){
+            printAppList.add(new PrintAppToTheOrder(door,order));
+        }
+
+        return printAppList;
+
     }
 }
