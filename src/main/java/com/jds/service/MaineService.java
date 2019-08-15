@@ -220,6 +220,7 @@ public class MaineService {
 
         List<PrintAppToTheOrder> printAppList = new ArrayList<>();
         for(DoorEntity door:doors){
+            door.clearNonSerializingFields();
             printAppList.add(new PrintAppToTheOrder(door,order));
         }
 

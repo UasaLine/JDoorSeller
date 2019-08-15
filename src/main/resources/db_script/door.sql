@@ -23,5 +23,6 @@ CREATE TABLE door
   discountPrice int,
   priceWithMarkup int,
   doorColor CHARACTER VARYING(100),
-  glass_id int
+  glass_id int,
+  isDoorGlass int
 );

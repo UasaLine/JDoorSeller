@@ -97,14 +97,13 @@ public class DoorEntity implements Door {
     @Transient
     private List<DoorClassForFrond> availableDoorClass;
 
-    @Transient
+    @Column(name = "isDoorGlass")
     private int isDoorGlass;
 
     @Transient
     private int isDoorFanlightGlass;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "glass_id", referencedColumnName = "id")
     private DoorGlass doorGlass;
 
@@ -202,7 +201,7 @@ public class DoorEntity implements Door {
                         5,false, cost);
             }
 
-            if(doorGlass.getToning()!=null){
+            if(doorGlass.getArmor()!=null){
                 cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE,glassSpace);
                 costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getArmor().getName(),
                         5,false, cost);

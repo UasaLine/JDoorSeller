@@ -17,11 +17,11 @@ public class DoorGlass {
     @JoinColumn(name = "typeDoorGlass")
     private DoorFurniture typeDoorGlass;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "toning")
     private DoorFurniture toning;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "armor")
     private DoorFurniture armor;
 
@@ -36,7 +36,6 @@ public class DoorGlass {
 
     @Column(name = "bottomGlassPosition")
     private int bottomGlassPosition;
-
 
     @OneToOne(mappedBy = "doorGlass",fetch = FetchType.LAZY)
     private DoorEntity door;
@@ -69,10 +68,10 @@ public class DoorGlass {
         if(type==TypeOfFurniture.TYPE_GLASS){
             return (int)(typeDoorGlass.getPrice()*space);
         }
-        if(type==TypeOfFurniture.ARMOR_GLASS_PELLICLE){
+        if(armor!=null && type==TypeOfFurniture.ARMOR_GLASS_PELLICLE){
             return (int)(armor.getPrice()*space);
         }
-        if(type==TypeOfFurniture.GLASS_PELLICLE){
+        if(toning!=null && type==TypeOfFurniture.GLASS_PELLICLE){
             return (int)(toning.getPrice()*space);
         }
 

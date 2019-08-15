@@ -5,7 +5,6 @@ CREATE TABLE glass
   typeDoorGlass int,
   toning int,
   armor int,
-  hot int,
   glassWidth int,
   glassHeight int,
   leftGlassPosition int,
