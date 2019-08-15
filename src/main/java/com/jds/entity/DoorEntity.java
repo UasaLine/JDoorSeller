@@ -88,7 +88,7 @@ public class DoorEntity implements Door {
     private String doorColor;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "doors",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "doors",fetch = FetchType.LAZY)
     private List<DoorsОrder> orders;
 
     @Transient
@@ -103,7 +103,9 @@ public class DoorEntity implements Door {
     @Transient
     private int isDoorFanlightGlass;
 
-    @Transient
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "glass_id", referencedColumnName = "id")
     private DoorGlass doorGlass;
 
     @Transient
@@ -142,6 +144,14 @@ public class DoorEntity implements Door {
 
     @Transient
     private FurnitureKit furnitureKit;
+
+    public DoorEntity clearNonSerializingFields(){
+        orders = null;
+        if (getDoorGlass() != null){
+            getDoorGlass().clearNonSerializingFields();
+        }
+        return this;
+    }
 
     public void calculateWeigh(Metal metal){
 

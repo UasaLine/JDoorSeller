@@ -137,8 +137,16 @@ public class MaineService {
         if (intId == 0) {
             return new DoorsОrder();
         }
+        return clearNonSerializingFields(dAO.getOrder(intId));
+    }
 
-        return dAO.getOrder(intId);
+    public DoorsОrder clearNonSerializingFields(DoorsОrder order){
+
+        List<DoorEntity> doors = order.getDoors();
+        for(DoorEntity door:doors){
+            door.clearNonSerializingFields();
+        }
+       return order;
     }
 
     public DoorEntity getDoor(String id, String orderId) {
@@ -166,6 +174,7 @@ public class MaineService {
             dAO.saveOrder(order);
         }
 
+        door.clearNonSerializingFields();
         return door;
 
     }
@@ -177,7 +186,7 @@ public class MaineService {
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
                 dAO.saveOrder(order);
-                return order;
+                return clearNonSerializingFields(order);
             }
 
         }

@@ -35,7 +35,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addTopLock(List<DoorFurniture> furnitures){
         topLock = new ArrayList<>();
         for(DoorFurniture furniture:furnitures){
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             topLock.add(furniture);
         }
         return this;
@@ -44,7 +44,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addLowerLock(List<DoorFurniture> furnitures){
         lowerLock = new ArrayList<>();
         for(DoorFurniture furniture:furnitures){
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             lowerLock.add(furniture);
         }
         return this;
@@ -53,7 +53,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addHendle(List<DoorFurniture> furnitures){
         handle = new ArrayList<>();
         for(DoorFurniture furniture:furnitures){
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             handle.add(furniture);
         }
         return this;
@@ -62,7 +62,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addLowerlockCylinder(List<DoorFurniture> furnitures){
         lowerlockCylinder = new ArrayList<>();
         for(DoorFurniture furniture:furnitures){
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             lowerlockCylinder.add(furniture);
         }
         return this;
@@ -71,7 +71,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addCloser(List<DoorFurniture> furnitures){
         closer = new ArrayList<>();
         for(DoorFurniture furniture:furnitures){
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             closer.add(furniture);
         }
         return this;
@@ -80,7 +80,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addEndDoorLock(List<DoorFurniture> furnitures){
         endDoorLock = new ArrayList<>();
         for(DoorFurniture furniture:furnitures){
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             endDoorLock.add(furniture);
         }
         return this;
@@ -89,7 +89,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addGlass(List<DoorFurniture> furnitures) {
         typeDoorGlass = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             typeDoorGlass.add(furniture);
         }
         return this;
@@ -98,7 +98,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addToning(List<DoorFurniture> furnitures) {
         toning = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             toning.add(furniture);
         }
         return this;
@@ -107,7 +107,7 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields addArmor(List<DoorFurniture> furnitures) {
         armor = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setDoorType(null);
+            furniture.setNuulLazyFild();
             armor.add(furniture);
         }
         return this;

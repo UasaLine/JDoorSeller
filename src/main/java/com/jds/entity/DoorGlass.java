@@ -2,16 +2,44 @@ package com.jds.entity;
 
 import com.jds.model.modelEnum.TypeOfFurniture;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "glass")
 public class DoorGlass {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "typeDoorGlass")
     private DoorFurniture typeDoorGlass;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "toning")
     private DoorFurniture toning;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "armor")
     private DoorFurniture armor;
+
+    @Column(name = "glassWidth")
     private int glassWidth;
+
+    @Column(name = "glassHeight")
     private int glassHeight;
+
+    @Column(name = "leftGlassPosition")
     private int leftGlassPosition;
+
+    @Column(name = "bottomGlassPosition")
     private int bottomGlassPosition;
 
+
+    @OneToOne(mappedBy = "doorGlass",fetch = FetchType.LAZY)
+    private DoorEntity door;
 
     public DoorGlass() {
 
@@ -51,6 +79,21 @@ public class DoorGlass {
         return 0;
     }
 
+    public DoorGlass clearNonSerializingFields(){
+
+        door = null;
+
+        if(toning!=null){
+            toning.setNuulLazyFild();
+        }
+        if(armor!=null){
+            armor.setNuulLazyFild();
+        }
+        if(typeDoorGlass!=null){
+            typeDoorGlass.setNuulLazyFild();
+        }
+        return this;
+    }
 
     public void setTypeDoorGlass(DoorFurniture typeDoorGlass) {
         this.typeDoorGlass = typeDoorGlass;
@@ -103,4 +146,22 @@ public class DoorGlass {
     public void setBottomGlassPosition(int bottomGlassPosition) {
         this.bottomGlassPosition = bottomGlassPosition;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public DoorEntity getDoor() {
+        return door;
+    }
+
+    public void setDoor(DoorEntity door) {
+        this.door = door;
+    }
+
+
 }

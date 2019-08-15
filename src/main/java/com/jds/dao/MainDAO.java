@@ -136,6 +136,8 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public DoorEntity saveDoor(DoorEntity door) {
 
+
+
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(door);

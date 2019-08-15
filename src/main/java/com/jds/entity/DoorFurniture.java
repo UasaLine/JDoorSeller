@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.modelEnum.TypeOfFurniture;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Door_Furniture")
@@ -24,7 +25,6 @@ public class DoorFurniture {
 
     @Column(name = "name")
     private String name;
-
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "doorType_id")
@@ -74,6 +74,24 @@ public class DoorFurniture {
 
     @Column(name = "pricecomit")
     private String priceComit;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "toning")
+    private List<DoorGlass> toning;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "typeDoorGlass")
+    private List<DoorGlass> typeDoorGlass;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "armor")
+    private List<DoorGlass> armors;
+
+
+    public DoorFurniture setNuulLazyFild(){
+        setDoorType(null);
+        setToning(null);
+        setArmors(null);
+        setTypeDoorGlass(null);
+        return this;
+    }
 
     public void makeRightNamePictureDoorType(){
 
@@ -240,5 +258,30 @@ public class DoorFurniture {
 
     public void setPriceComit(String priceComit) {
         this.priceComit = priceComit;
+    }
+
+
+    public List<DoorGlass> getTypeDoorGlass() {
+        return typeDoorGlass;
+    }
+
+    public void setTypeDoorGlass(List<DoorGlass> typeDoorGlass) {
+        this.typeDoorGlass = typeDoorGlass;
+    }
+
+    public List<DoorGlass> getToning() {
+        return toning;
+    }
+
+    public void setToning(List<DoorGlass> toning) {
+        this.toning = toning;
+    }
+
+    public List<DoorGlass> getArmors() {
+        return armors;
+    }
+
+    public void setArmors(List<DoorGlass> armors) {
+        this.armors = armors;
     }
 }
