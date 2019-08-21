@@ -127,7 +127,11 @@ public class MaineService {
     }
 
     public List<DoorsОrder> getOrders() {
-        return dAO.getOrders();
+        List<DoorsОrder> orders = dAO.getOrders();
+        for(DoorsОrder order:orders){
+            clearNonSerializingFields(order);
+        }
+        return orders;
     }
 
     public DoorsОrder getOrder(String id) {

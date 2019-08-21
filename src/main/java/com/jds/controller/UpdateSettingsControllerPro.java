@@ -8,9 +8,11 @@ import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.StringReader;
+import java.util.List;
 
 
 @Controller
@@ -164,6 +166,14 @@ public class UpdateSettingsControllerPro {
         service.saveSalarySetting(salarySetting);
 
         return "jr";
+    }
+
+
+    @PostMapping(value = "/loading/orders", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<DoorsОrder> getOrders(@RequestParam(required = false) String kay) throws Exception {
+
+        return service.getOrders();
     }
 
 }
