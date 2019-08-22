@@ -1,27 +1,131 @@
-package com.jds.model;
+package com.jds.entity;
 
+import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorFurniture;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "FurnitureKit")
 public class FurnitureKit {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne()
+    @JoinColumn(name = "topLock")
     private DoorFurniture topLock;
+
+    @ManyToOne()
+    @JoinColumn(name = "topinternaLockDecoration")
     private DoorFurniture topinternaLockDecoration;
+
+    @ManyToOne()
+    @JoinColumn(name = "topouterLockDecoration")
     private DoorFurniture topouterLockDecoration;
+
+    @ManyToOne()
+    @JoinColumn(name = "toplockCylinder")
     private DoorFurniture toplockCylinder;
 
+    @ManyToOne()
+    @JoinColumn(name = "lowerLock")
     private DoorFurniture lowerLock;
+
+    @ManyToOne()
+    @JoinColumn(name = "lowerinternaLockDecoration")
     private DoorFurniture lowerinternaLockDecoration;
+
+    @ManyToOne()
+    @JoinColumn(name = "lowerouterLockDecoration")
     private DoorFurniture lowerouterLockDecoration;
+
+    @ManyToOne()
+    @JoinColumn(name = "lowerlockCylinder")
     private DoorFurniture lowerlockCylinder;
 
+    @ManyToOne()
+    @JoinColumn(name = "handle")
     private DoorFurniture handle;
+
+    @ManyToOne()
+    @JoinColumn(name = "closer")
     private DoorFurniture closer;
 
+    @ManyToOne()
+    @JoinColumn(name = "endDoorLock")
+    private DoorFurniture endDoorLock;
+
+    @Column(name = "nightLock")
     private int nightLock;
+
+    @Column(name = "peephole")
     private int peephole;
+
+    @Column(name = "amplifierCloser")
     private int amplifierCloser;
 
-    private DoorFurniture endDoorLock;
+    @OneToOne(mappedBy = "furnitureKit",fetch = FetchType.LAZY)
+    private DoorEntity door;
+
+
+    public boolean exists(){
+
+        if ((topLock!=null)||(lowerLock!=null)||(handle!=null)||(closer!=null)){
+            return true;
+        }
+        return false;
+    }
+
+    public FurnitureKit clearNonSerializingFields(){
+
+        door = null;
+
+        if(topLock!=null){
+            topLock.setNuulLazyFild();
+        }
+        if(topinternaLockDecoration!=null){
+            topinternaLockDecoration.setNuulLazyFild();
+        }
+        if(topouterLockDecoration!=null){
+            topouterLockDecoration.setNuulLazyFild();
+        }
+
+        if(toplockCylinder!=null){
+            toplockCylinder.setNuulLazyFild();
+        }
+
+
+
+        if(lowerLock!=null){
+            lowerLock.setNuulLazyFild();
+        }
+
+        if(lowerinternaLockDecoration!=null){
+            lowerinternaLockDecoration.setNuulLazyFild();
+        }
+        if(lowerouterLockDecoration!=null){
+            lowerouterLockDecoration.setNuulLazyFild();
+        }
+
+        if(lowerlockCylinder!=null){
+            lowerlockCylinder.setNuulLazyFild();
+        }
+
+        if(handle!=null){
+            handle.setNuulLazyFild();
+        }
+        if(closer!=null){
+            closer.setNuulLazyFild();
+        }
+        if(endDoorLock!=null){
+            endDoorLock.setNuulLazyFild();
+        }
+        return this;
+    }
 
     public DoorFurniture getCloser() {
         return closer;
@@ -133,5 +237,21 @@ public class FurnitureKit {
 
     public void setEndDoorLock(DoorFurniture endDoorLock) {
         this.endDoorLock = endDoorLock;
+    }
+
+    public DoorEntity getDoor() {
+        return door;
+    }
+
+    public void setDoor(DoorEntity door) {
+        this.door = door;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -75,6 +75,8 @@ public class DoorFurniture {
     @Column(name = "pricecomit")
     private String priceComit;
 
+    //glass
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "toning")
     private List<DoorGlass> toning;
 
@@ -83,6 +85,42 @@ public class DoorFurniture {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "armor")
     private List<DoorGlass> armors;
+
+    //Furniture
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topLock")
+    private List<DoorFurniture> topLock;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topinternaLockDecoration")
+    private List<DoorFurniture> topinternaLockDecoration;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topouterLockDecoration")
+    private List<DoorFurniture> topouterLockDecoration;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "toplockCylinder")
+    private List<DoorFurniture> toplockCylinder;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lowerLock")
+    private List<DoorFurniture> lowerLock;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lowerinternaLockDecoration")
+    private List<DoorFurniture> lowerinternaLockDecoration;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lowerouterLockDecoration")
+    private List<DoorFurniture> lowerouterLockDecoration;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lowerlockCylinder")
+    private List<DoorFurniture> lowerlockCylinder;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "handle")
+    private List<DoorFurniture> handle;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "closer")
+    private List<DoorFurniture> closer;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "endDoorLock")
+    private List<DoorFurniture> endDoorLock;
+
 
 
     public DoorFurniture setNuulLazyFild(){

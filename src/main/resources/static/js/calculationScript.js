@@ -491,6 +491,18 @@ jQuery('document').ready(function(){
             else if(currentItem == "doorGlass"){
                 showValue = getNameGlass(value);
             }
+            //furnitureKit
+            else if(currentItem == "furnitureKit"){
+
+                currentItem = 'topLockkit';
+                set(getFurniture(value,'topLock'));
+
+                currentItem = 'lowerLockkit';
+                set(getFurniture(value,'lowerLock'));
+
+                currentItem = 'handle';
+                showValue = getFurniture(value,'handle');
+            }
             else {
                 showValue = value;
             }
@@ -609,7 +621,7 @@ jQuery('document').ready(function(){
         $('#priceWithMarkup').text(door.priceWithMarkup);
 
         if(door.costList!==null) {
-            var tab = door.costList;
+            var tab = door.costList.list;
             var size = tab.length;
             for (var i = 0; i < size; ++i) {
                 $('<sran>')
@@ -1106,10 +1118,11 @@ jQuery('document').ready(function(){
 
     function getNameGlass(value) {
 
-        if(typeof value == "object" &&  value.glassWidth>0 && value.glassHeight>0){
-            return ''+value.glassWidth+' X '+value.glassHeight;
+        if(value!==null){
+            if(typeof value == "object" &&  value.glassWidth>0 && value.glassHeight>0){
+                return ''+value.glassWidth+' X '+value.glassHeight;
+            }
         }
-
         return '';
 
     }
@@ -1142,7 +1155,16 @@ jQuery('document').ready(function(){
         }
 
     }
+
     function displaySideDoorOpen(){
         $('[data = '+door.sideDoorOpen+']').prop('checked', true);
+    }
+
+    function getFurniture(value,name){
+
+        if(value[name]!==null){
+            return value[name].name;
+        }
+        return '';
     }
 });

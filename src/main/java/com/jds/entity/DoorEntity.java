@@ -8,9 +8,7 @@ import com.jds.model.modelEnum.TypeOfSalaryConst;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "Door")
@@ -107,6 +105,10 @@ public class DoorEntity implements Door {
     @JoinColumn(name = "glass_id", referencedColumnName = "id")
     private DoorGlass doorGlass;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "furniture_id", referencedColumnName = "id")
+    private FurnitureKit furnitureKit;
+
     @Transient
     private CostList costList;
 
@@ -141,13 +143,26 @@ public class DoorEntity implements Door {
     @Transient
     private int amplifierCloser;
 
-    @Transient
-    private FurnitureKit furnitureKit;
+
+
+    public DoorEntity clearEmptyLinks(){
+
+        if(doorGlass!=null && !doorGlass.exists()){
+            doorGlass=null;
+        }
+        if(furnitureKit!=null && !furnitureKit.exists()){
+            furnitureKit=null;
+        }
+        return this;
+    }
 
     public DoorEntity clearNonSerializingFields(){
         orders = null;
         if (getDoorGlass() != null){
             getDoorGlass().clearNonSerializingFields();
+        }
+        if (getFurnitureKit() != null){
+            getFurnitureKit().clearNonSerializingFields();
         }
         return this;
     }

@@ -1,0 +1,9 @@
+DROP TABLE specification_setting;
+create table specification_setting
+(
+  id SERIAL PRIMARY KEY,
+  rawMaterials_id CHARACTER VARYING(100) NOT NULL,
+  formula CHARACTER VARYING(100) NOT NULL,
+  doorType_id  CHARACTER VARYING(100) NOT NULL,
+  metal NUMERIC(9,1)
+);

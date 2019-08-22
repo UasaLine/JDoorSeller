@@ -41,7 +41,6 @@ public class DoorType {
     @Column(name = "DS")
     private int DS;//I do not know
 
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<BendSetting> bendSettings;
 
@@ -57,11 +56,13 @@ public class DoorType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SizeOfDoorParts> sizeOfDoorPartsList;
 
-
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<LimitationDoor> limitationList;
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
+    private List<SpecificationSetting> specificationSettings;
 
     public void makeRightNamePictureDoorType(){
 
@@ -192,5 +193,13 @@ public class DoorType {
 
     public void setDoorFurnitures(List<DoorFurniture> doorFurnitures) {
         this.doorFurnitures = doorFurnitures;
+    }
+
+    public List<SpecificationSetting> getSpecificationSettings() {
+        return specificationSettings;
+    }
+
+    public void setSpecificationSettings(List<SpecificationSetting> specificationSettings) {
+        this.specificationSettings = specificationSettings;
     }
 }

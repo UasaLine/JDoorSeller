@@ -119,8 +119,11 @@ public class MaineService {
     }
 
     public DoorEntity saveDoor(DoorEntity door) {
-        return dAO.saveDoor(door);
+
+        return dAO.saveDoor(door.clearEmptyLinks());
+
     }
+
 
     public DoorsОrder saveOrder(DoorsОrder order) {
         return dAO.saveOrder(order.calculateTotal());
@@ -172,13 +175,13 @@ public class MaineService {
 
 
         if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {
-
             DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
             order.addDoor(door);
             dAO.saveOrder(order);
         }
 
         door.clearNonSerializingFields();
+
         return door;
 
     }

@@ -13,15 +13,15 @@ public class DoorGlass {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "typeDoorGlass")
     private DoorFurniture typeDoorGlass;
 
-    @ManyToOne(optional = true)
+    @ManyToOne()
     @JoinColumn(name = "toning")
     private DoorFurniture toning;
 
-    @ManyToOne(optional = true)
+    @ManyToOne()
     @JoinColumn(name = "armor")
     private DoorFurniture armor;
 
