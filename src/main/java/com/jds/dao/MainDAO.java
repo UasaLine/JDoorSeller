@@ -206,6 +206,53 @@ public class MainDAO {
         return setting;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public MaterialFormula saveOrUpdateMaterialFormula(MaterialFormula setting) {
+
+        int id = getMaterialFormulaById(setting.getIdManufacturerProgram());//check exists
+        if (id > 0) {
+            setting.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(setting);
+
+        return setting;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public RawMaterials saveOrUpdateRawMaterials(RawMaterials setting) {
+
+        int id = getRawMaterialsById(setting.getIdManufacturerProgram());//check exists
+        if (id > 0) {
+            setting.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(setting);
+
+        return setting;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting){
+
+        saveOrUpdateDoorType(setting.getDoorType());
+        saveOrUpdateMaterialFormula(setting.getFormula());
+        saveOrUpdateRawMaterials(setting.getRawMaterials());
+
+        int id = getSpecificationSettingId(setting.getMetal(),setting.getDoorType().getId());//check exists
+
+        if (id > 0) {
+            setting.setId(id);
+        }
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(setting);
+
+        return setting;
+    }
+
     public Map<TypeOfSalaryConst, Double> getSalaryConstantsMap() {
 
         Session session = sessionFactory.openSession();
@@ -360,6 +407,46 @@ public class MainDAO {
 
         if (doorFurnitureList.size() > 0) {
             return doorFurnitureList.get(0).getId();
+        }
+        return 0;
+
+    }
+
+    public int getMaterialFormulaById (String id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from material_formula where idmanufacturerprogram like :log ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(MaterialFormula.class)
+                .setParameter("log", id);
+        List<MaterialFormula> materialFormulas = query.list();
+
+        session.close();
+
+        if (materialFormulas.size() > 0) {
+            return materialFormulas.get(0).getId();
+        }
+        return 0;
+
+    }
+
+    public int getRawMaterialsById (String id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from raw_materials where idmanufacturerprogram like :log ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(RawMaterials.class)
+                .setParameter("log", id);
+        List<RawMaterials> rawMaterialsList = query.list();
+
+        session.close();
+
+        if (rawMaterialsList.size() > 0) {
+            return rawMaterialsList.get(0).getId();
         }
         return 0;
 
@@ -673,6 +760,25 @@ public class MainDAO {
             salarySetting = list.get(0);
         }
         return salarySetting;
+    }
+
+    public int getSpecificationSettingId(double metal,int typyDoorId){
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SpecificationSetting.class)
+                .setParameter("metalVal", metal)
+                .setParameter("idDoorT", typyDoorId);
+        List<SpecificationSetting> list = query.list();
+
+        session.close();
+
+        SpecificationSetting specificationSetting = new SpecificationSetting();
+        if (list.size() > 0) {
+            specificationSetting = list.get(0);
+        }
+        return specificationSetting.getId();
     }
 
 }

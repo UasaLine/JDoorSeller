@@ -15,12 +15,16 @@ public class SpecificationSetting {
     @JoinColumn(name = "rawMaterials_id")
     private RawMaterials rawMaterials;
 
-    @Column(name = "formula")
-    private String formula;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "formula_id")
+    private MaterialFormula formula;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "doorType_id")
     private DoorType doorType;
+
+    @Column(name = "resource")
+    private double resource;
 
     @Column(name = "metal")
     private double metal;
@@ -41,12 +45,20 @@ public class SpecificationSetting {
         this.rawMaterials = rawMaterials;
     }
 
-    public String getFormula() {
+    public MaterialFormula getFormula() {
         return formula;
     }
 
-    public void setFormula(String formula) {
+    public void setFormula(MaterialFormula formula) {
         this.formula = formula;
+    }
+
+    public double getResource() {
+        return resource;
+    }
+
+    public void setResource(double resource) {
+        this.resource = resource;
     }
 
     public DoorType getDoorType() {

@@ -220,6 +220,10 @@ public class MaineService {
         return dAO.saveSalarySetting(setting);
     }
 
+    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting){
+       return dAO.saveSpecificationSetting(setting);
+    }
+
     public List<PrintAppToTheOrder> getPrintAppList(String orderId){
 
         DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));

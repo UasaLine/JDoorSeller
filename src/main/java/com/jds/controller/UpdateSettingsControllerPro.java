@@ -176,4 +176,20 @@ public class UpdateSettingsControllerPro {
         return service.getOrders();
     }
 
+
+    @PostMapping(value = "/update/specificationsetting", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateSpecificationSetting(@RequestParam(required = false) String kay,
+                                        @RequestParam(required = false) String dataJson) throws Exception {
+
+
+        StringReader reader = new StringReader(dataJson);
+        ObjectMapper mapper = new ObjectMapper();
+
+        SpecificationSetting setting = mapper.readValue(reader, SpecificationSetting.class);
+        service.saveSpecificationSetting(setting);
+
+        return "jr";
+    }
+
 }
