@@ -52,6 +52,8 @@ public class MaineService {
         paySettings.setDoorType(dAO.getDoorType(door.getDoorType()));
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
+        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(),door.getDoorType());
+
         //new instance cost
         door.setCostList(new CostList());
 
@@ -60,6 +62,7 @@ public class MaineService {
                 .calculateSalary(paySettings)
                 .calculateFurniture()
                 .calculateGlass()
+                .calculateMaterials(speciSettingList)
                 .costToPrice()
                 .createName();
 

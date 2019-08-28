@@ -129,6 +129,13 @@ public class DoorPart implements Comparable<DoorPart> {
         return new Expression(function).eval().intValue();
 
     }
+    public static double evalDouble(String function){
+        if (function.isEmpty()){
+            return 1;
+        }
+        return new Expression(function).eval().doubleValue();
+
+    }
 
     public String getName() {
         return name;

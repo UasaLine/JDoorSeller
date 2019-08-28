@@ -143,7 +143,24 @@ public class DoorEntity implements Door {
     @Transient
     private int amplifierCloser;
 
+    @Transient
+    private int filling;
 
+    public DoorEntity calculateMaterials(List<SpecificationSetting> speciSettingList){
+
+        int costMetal = 0;
+        for(SpecificationSetting setting:speciSettingList){
+           double value = setting.countByTheFormula(this);
+           double price = setting.getRawMaterials().getPrice();
+            costMetal =  (int)(value*price);
+            costList.addLine("материаллы : "+setting.getRawMaterials().getName()+", "+value+", "+price+" руб."
+                    ,12
+                    ,false
+                    ,costMetal);
+        }
+
+        return this;
+    }
 
     public DoorEntity clearEmptyLinks(){
 
@@ -1044,5 +1061,19 @@ public class DoorEntity implements Door {
         this.furnitureKit = furnitureKit;
     }
 
+    public int getIsDoorFanlightGlass() {
+        return isDoorFanlightGlass;
+    }
 
+    public void setIsDoorFanlightGlass(int isDoorFanlightGlass) {
+        this.isDoorFanlightGlass = isDoorFanlightGlass;
+    }
+
+    public int getFilling() {
+        return filling;
+    }
+
+    public void setFilling(int filling) {
+        this.filling = filling;
+    }
 }

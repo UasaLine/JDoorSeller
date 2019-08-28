@@ -209,6 +209,8 @@ public class MainDAO {
     @Transactional(propagation = Propagation.REQUIRED)
     public MaterialFormula saveOrUpdateMaterialFormula(MaterialFormula setting) {
 
+        setting.decodeAfterJson();
+
         int id = getMaterialFormulaById(setting.getIdManufacturerProgram());//check exists
         if (id > 0) {
             setting.setId(id);
@@ -241,7 +243,7 @@ public class MainDAO {
         saveOrUpdateMaterialFormula(setting.getFormula());
         saveOrUpdateRawMaterials(setting.getRawMaterials());
 
-        int id = getSpecificationSettingId(setting.getMetal(),setting.getDoorType().getId());//check exists
+        int id = getSpecificationSettingId(setting.getMetal(),setting.getDoorType().getId(),setting.getRawMaterials().getId());//check exists
 
         if (id > 0) {
             setting.setId(id);
@@ -762,7 +764,26 @@ public class MainDAO {
         return salarySetting;
     }
 
-    public int getSpecificationSettingId(double metal,int typyDoorId){
+    public int getSpecificationSettingId(double metal,int typyDoorId,int rawMaterialsId ){
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT and rawMaterials_id = :rawId";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SpecificationSetting.class)
+                .setParameter("metalVal", metal)
+                .setParameter("rawId", rawMaterialsId)
+                .setParameter("idDoorT", typyDoorId);
+        List<SpecificationSetting> list = query.list();
+
+        session.close();
+
+        SpecificationSetting specificationSetting = new SpecificationSetting();
+        if (list.size() > 0) {
+            specificationSetting = list.get(0);
+        }
+        return specificationSetting.getId();
+    }
+    public List<SpecificationSetting> getSpecificationSetting(double metal,int typyDoorId){
         Session session = sessionFactory.openSession();
 
         String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT";
@@ -774,11 +795,11 @@ public class MainDAO {
 
         session.close();
 
-        SpecificationSetting specificationSetting = new SpecificationSetting();
+        List<SpecificationSetting> specificationSettingList = new ArrayList<>();
         if (list.size() > 0) {
-            specificationSetting = list.get(0);
+            specificationSettingList = list;
         }
-        return specificationSetting.getId();
+        return specificationSettingList;
     }
 
 }

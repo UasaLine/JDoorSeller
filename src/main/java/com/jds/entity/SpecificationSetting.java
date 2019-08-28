@@ -29,6 +29,11 @@ public class SpecificationSetting {
     @Column(name = "metal")
     private double metal;
 
+    public double countByTheFormula(DoorEntity door){
+
+       return formula.Calculation(door);
+    }
+
     public int getId() {
         return id;
     }
