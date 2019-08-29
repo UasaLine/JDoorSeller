@@ -64,6 +64,18 @@ public class DoorType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SpecificationSetting> specificationSettings;
 
+    public DoorType clearNonSerializingFields(){
+
+        doorClass = null;
+        bendSettings = null;
+        doorFurnitures = null;
+        sizeOfDoorPartsList = null;
+        limitationList = null;
+        specificationSettings = null;
+
+        return this;
+    }
+
     public void makeRightNamePictureDoorType(){
 
         namePicture = namePicture.replace("CalculationDoorsAutonomous","images");

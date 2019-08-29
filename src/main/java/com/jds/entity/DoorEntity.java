@@ -93,7 +93,7 @@ public class DoorEntity implements Door {
     private List<Sheet> sheets;
 
     @Transient
-    private List<DoorClassForFrond> availableDoorClass;
+    private List<DoorClass> availableDoorClass;
 
     @Column(name = "isDoorGlass")
     private int isDoorGlass;
@@ -296,7 +296,7 @@ public class DoorEntity implements Door {
 
     public DoorEntity() {
         this.orders = new ArrayList<DoorsОrder>();
-        this.availableDoorClass = new ArrayList<DoorClassForFrond>();
+        this.availableDoorClass = new ArrayList<DoorClass>();
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
         this.furnitureKit = new FurnitureKit();
@@ -947,15 +947,15 @@ public class DoorEntity implements Door {
         this.doorGlass = doorGlass;
     }
 
-    public List<DoorClassForFrond> getAvailableDoorClass() {
+    public List<DoorClass> getAvailableDoorClass() {
         return availableDoorClass;
     }
 
-    public void setAvailableDoorClass(List<DoorClassForFrond> availableDoorClass) {
+    public void setAvailableDoorClass(List<DoorClass> availableDoorClass) {
         this.availableDoorClass = availableDoorClass;
     }
 
-    public void addAvailableDoorClass(DoorClassForFrond doorClass){
+    public void addAvailableDoorClass(DoorClass doorClass){
         this.availableDoorClass.add(doorClass);
     }
 

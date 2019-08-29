@@ -163,7 +163,7 @@ public class MaineService {
         DoorEntity door = null;
         if (id != null && !id.isEmpty() && !id.equals("0")) {
             door = dAO.getDoor(Integer.parseInt(id));
-            door.addAvailableDoorClass(new DoorClassForFrond(dAO.getDoorType(door.getDoorType()).getDoorClass()));
+            door.addAvailableDoorClass(dAO.getDoorType(door.getDoorType()).getDoorClass().clearNonSerializingFields());
         }
         if (door == null) {
             door = new DoorEntity();
@@ -171,7 +171,7 @@ public class MaineService {
             List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
 
             for (DoorClass doorClass : doorClassList) {
-                door.addAvailableDoorClass(new DoorClassForFrond(doorClass));
+                door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
             }
         }
 

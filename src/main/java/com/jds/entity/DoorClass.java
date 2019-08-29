@@ -33,6 +33,16 @@ public class DoorClass {
         //empty constructor
     }
 
+    public DoorClass clearNonSerializingFields(){
+
+        for(DoorType doorType:doorTypes){
+            doorType.clearNonSerializingFields();
+        }
+
+        return this;
+    }
+
+
     public int getId() {
         return id;
     }
