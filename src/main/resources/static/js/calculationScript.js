@@ -62,7 +62,7 @@ jQuery('document').ready(function(){
 
     $('.select_door_class').on('click','.images_door_class',function(){
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
-        setDoorField($(this).attr('Item'),$(this).attr('data'));
+        setDoorField($(this).attr('Item'),getDoorTypeFromAvailable($(this).attr('data')));
         representationField($(this).attr('dataName'));
         pickOut(this);
         getListOfSelectionFields();
@@ -724,7 +724,7 @@ jQuery('document').ready(function(){
     function getListOfSelectionFields(idDoorType) {
         $.ajax({
             url: 'doorlimit',
-            data: {idDoorType: door.doorType},
+            data: {idDoorType: door.doorType.id},
             dataType: 'json',
             success: function (data) {
                 //alert('success: ' + data);
@@ -998,6 +998,18 @@ jQuery('document').ready(function(){
             for(var j=0; j<type.length; ++j) {
                 if (type[j].id === value) {
                     return door.availableDoorClass[i].name;
+                }
+            }
+        }
+        return "..."
+    };
+
+    function getDoorTypeFromAvailable(value){
+        for(var i=0; i<door.availableDoorClass.length; ++i){
+            var type = door.availableDoorClass[i].doorTypes;
+            for(var j=0; j<type.length; ++j) {
+                if (type[j].id == value) {
+                    return door.availableDoorClass[i];
                 }
             }
         }

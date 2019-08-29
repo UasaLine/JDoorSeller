@@ -6,13 +6,11 @@ import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.TypeOfFurniture;
-import com.jds.model.modelEnum.TypeOfSalaryConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class MaineService {
@@ -38,7 +36,7 @@ public class MaineService {
 
     public List<DoorPart> getDoorPart(DoorEntity door) {
 
-        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(door.getDoorType()), door);
+        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(door.getDoorType().getId()), door);
 
     }
 
@@ -46,13 +44,13 @@ public class MaineService {
 
 
         PayrollSettings paySettings = new PayrollSettings();
-        paySettings.setBendSetting(dAO.getbendSettingId(door.getDoorType(), door.getMetal(), door.getSealingLine()));
+        paySettings.setBendSetting(dAO.getbendSettingId(door.getDoorType().getId(), door.getMetal(), door.getSealingLine()));
         paySettings.setConstMap(dAO.getSalaryConstantsMap());
         paySettings.setDoorColors(dAO.getDoorColor(door.getDoorColor()));
-        paySettings.setDoorType(dAO.getDoorType(door.getDoorType()));
+        paySettings.setDoorType(door.getDoorType());
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
-        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(),door.getDoorType());
+        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(),door.getDoorType().getId());
 
         //new instance cost
         door.setCostList(new CostList());
@@ -163,7 +161,7 @@ public class MaineService {
         DoorEntity door = null;
         if (id != null && !id.isEmpty() && !id.equals("0")) {
             door = dAO.getDoor(Integer.parseInt(id));
-            door.addAvailableDoorClass(dAO.getDoorType(door.getDoorType()).getDoorClass().clearNonSerializingFields());
+            door.addAvailableDoorClass(door.getDoorType().getDoorClass().clearNonSerializingFields());
         }
         if (door == null) {
             door = new DoorEntity();

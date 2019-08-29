@@ -22,8 +22,9 @@ public class DoorEntity implements Door {
     @Column(name = "name", length = 128, nullable = false)
     private String name;
 
-    @Column(name = "doorType")
-    private int doorType;
+    @ManyToOne()
+    @JoinColumn(name = "doorType")
+    private DoorType doorType;
 
     @Column(name = "metal")
     private double metal;
@@ -181,6 +182,9 @@ public class DoorEntity implements Door {
         if (getFurnitureKit() != null){
             getFurnitureKit().clearNonSerializingFields();
         }
+        if (doorType != null) {
+            doorType.clearNonSerializingFields();
+        }
         return this;
     }
 
@@ -319,11 +323,11 @@ public class DoorEntity implements Door {
         this.name = name;
     }
 
-    public int getDoorType() {
+    public DoorType getDoorType() {
         return doorType;
     }
 
-    public void setDoorType(int doorType) {
+    public void setDoorType(DoorType doorType) {
         this.doorType = doorType;
     }
 

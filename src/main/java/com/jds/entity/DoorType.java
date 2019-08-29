@@ -64,6 +64,10 @@ public class DoorType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<SpecificationSetting> specificationSettings;
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
+    private List<DoorEntity> doorEntityList;
+
     public DoorType clearNonSerializingFields(){
 
         doorClass = null;
@@ -72,6 +76,7 @@ public class DoorType {
         sizeOfDoorPartsList = null;
         limitationList = null;
         specificationSettings = null;
+        doorEntityList = null;
 
         return this;
     }
