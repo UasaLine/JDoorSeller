@@ -7,7 +7,7 @@
 .top_head{
 
     background-color:#245882;
-    //padding: 3px 3px 3px 50px;
+//padding: 3px 3px 3px 50px;
     width:100%;
     max-width:1300px;
     margin:0 auto;
@@ -162,11 +162,13 @@ a[href^="#accordion"] + *{display: none;}
 .data-Table{
     top: 5px;
     left:10px;
-    height:600px;
+//height:600px;
     width: 100%;
     display:block;
     position: relative;
-   //margin-top:10px;
+//margin-top:10px;
+    border-bottom: solid 1px #A9A9A9;
+    margin-bottom:10px;
 }
 Table{
     width: 100%;
@@ -362,7 +364,7 @@ td{
 .vertical_menu_checkbox{
 
     text-align-last:justify;
-    //display:block;
+//display:block;
     text-decoration: none;
     color:#000000;
     border-bottom: solid 1px #A9A9A9;
@@ -430,7 +432,7 @@ td{
     padding:10px 0px 0px 10px;
 }
 .to_calculate:hover{
-    height:500px;
+    height:700px;
     width:37%;
     color:#FFFFFF;
     background-color:#696969;
@@ -559,6 +561,8 @@ tr:hover{
 }
 .order_headerR{
     display:inline-block;
+    vertical-align: top;
+    width:300px;
 }
 
 [available="no"]{
@@ -568,10 +572,18 @@ tr:hover{
     color:#000000;
 }
 .input{
-    width:200px;
+    width:50%;
+    border: 0px double black;
+    font-size:20px;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    margin-right:1px;
 }
 .inputData{
-    width:199px;
+    width:50%;
+    border: 0px double black;
+    font-size:20px;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    color:#808080;
 }
 
 .color_pages{
@@ -579,4 +591,16 @@ tr:hover{
 }
 .pag:hover{
     cursor: pointer;
+}
+
+.headerLine{
+    border-bottom: solid 1px #A9A9A9;
+    height:40px;
+
+}
+
+.nameheaderLine{
+    font-size:20px;
+    color:#14181B;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }

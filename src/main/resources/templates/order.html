@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>door seller</title>    
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/orderScript.js"></script>
+	<title>door seller</title>
+	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/orderScript.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
 </head>
 <body>
 
 <div class="top_head">
-    <div class="header_logo" >
-        <a th:href="@{/}" class="logo_text">door seller</a>
-    </div>
+	<div class="header_logo" >
+		<a th:href="@{/}" class="logo_text">door seller</a>
+	</div>
 	<div class="header_home" >
 		<span class="head_button" id="saveOrderAndShutDown">сохранить и закрыть</span>
 	</div>
-    <div class="header_home" >
+	<div class="header_home" >
 		<span class="head_button" id="saveOrder">сохранить</span>
-    </div>
-    <div class="header_home" >
+	</div>
+	<div class="header_home" >
 		<span class="head_button" id="deleteOrder">удалить</span>
-    </div>
+	</div>
 	<div class="header_home">
 		<span  class="head_button" id ="print">печать заказа</span>
 	</div>
@@ -31,29 +32,44 @@
 </div>
 
 <div class="container_main_order">
-
-    <div class="order_header">	
+	<span >№:</span>
+	<span   id="order_id" th:text="${orederId}"></span>
+	<div class="order_header">
 		<div class="order_headerL">
-		    <p><b>№:</b></p>
-		    <p><b>организация:</b></p>
-			<p><b>контрагент:</b></p>
-			<p><b>дата заказа:</b></p>
-			<p><b>дата готовности:</b></p>
-			<p><b>в работе:</b></p>
-			<p><b>ответственный:</b></p>
-			<p><b>комменткрий:</b></p>
+
+			<div class="headerLine">
+				<span class="nameheaderLine">организация:</span>
+				<input  id="company" class="input" type="text" value="" placeholder="организация">
+			</div>
+			<div class="headerLine">
+				<span class="nameheaderLine">контрагент:</span>
+				<input  id="partner" class="input" type="text" value="" placeholder="контрагент">
+			</div>
+			<div class="headerLine">
+				<span class="nameheaderLine">дата заказа:</span>
+				<input  id="data" class="inputData" type="date"  placeholder="дата заказа">
+			</div>
+			<div class="headerLine">
+				<span class="nameheaderLine">дата готовности:</span>
+				<input  id="releasDate" class="inputData" type="date"  placeholder="дата готовности">
+			</div>
+
 		</div>
 		<div class="order_headerR">
-		    <span   id="order_id" th:text="${orederId}"></span></br>
-			<input  id="company" class="input" type="text" value="" placeholder="организация"></br>
-			<input  id="partner" class="input" type="text" value="" placeholder="контрагент"></br>
-			<input  id="data" class="inputData" type="date"  placeholder="дата заказа"></br>
-			<input  id="releasDate" class="inputData" type="date"  placeholder="дата готовности"></br>
-			<input  id="productionStart" class="input" type="checkbox" value="" placeholder="в работе"></br>
-			<input  id="seller" class="input" type="text" value="" placeholder="ответственный"></br>
-			<input  id="comment" class="input" type="text" value="" placeholder="комменткрий">
-		</div>			
+			<div class=""   id="metal0" >
+				<div class="left_cell_checkbox">
+					<a  class="vertical_menu_button_left" id="nememetal0" href="#">в работе:</a>
+				</div>
+				<div align="right" class="right_cell_checkbox">
+					<div class="toggles">
+						<input type="checkbox" name="productionStart" id="productionStart" Item="metal" data=""  class="ios-toggle" />
+						<label for="productionStart" class="checkbox-label"></label>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 
 	<div class="button_menu">
 		<div class="div_order_management">
@@ -66,8 +82,8 @@
 			<span class="button_cap_menu" id ="delete">удалить</span>
 		</div>
 	</div>
-	
-    <div class="data-Table">
+
+	<div class="data-Table">
 		<table class="Table">
 			<tr>
 				<th>id</th>
@@ -87,7 +103,17 @@
 			</tr>
 
 		</table>
-</div>
+	</div>
+
+	<div class="order_header">
+		<span class="nameheaderLine">ответственный:</span>
+		<input  id="seller" class="input" type="text" value="" placeholder="ответственный"></br>
+
+
+		<span class="nameheaderLine">комменткрий:</span>
+		<input  id="comment" class="input" type="text" value="" placeholder="комменткрий">
+	</div>
+
 
 </body>
 </html>
