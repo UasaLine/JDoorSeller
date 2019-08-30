@@ -1009,7 +1009,7 @@ jQuery('document').ready(function(){
             var type = door.availableDoorClass[i].doorTypes;
             for(var j=0; j<type.length; ++j) {
                 if (type[j].id == value) {
-                    return door.availableDoorClass[i];
+                    return type[j];
                 }
             }
         }

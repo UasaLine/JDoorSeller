@@ -47,7 +47,7 @@ public class MaineService {
         paySettings.setBendSetting(dAO.getbendSettingId(door.getDoorType().getId(), door.getMetal(), door.getSealingLine()));
         paySettings.setConstMap(dAO.getSalaryConstantsMap());
         paySettings.setDoorColors(dAO.getDoorColor(door.getDoorColor()));
-        paySettings.setDoorType(door.getDoorType());
+        paySettings.setDoorType(dAO.getDoorType(door.getDoorType().getId()));
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
         List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(),door.getDoorType().getId());
