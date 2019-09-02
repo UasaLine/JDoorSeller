@@ -551,7 +551,17 @@ public class DoorEntity implements Door {
     }
 
     public DoorEntity costToPrice(){
-        setPrice(costList.getTotalCost());
+
+        double summMarkUp=0;
+        if (isDoorGlass==1) {
+            summMarkUp = doorType.getMarkUpGlassPackage() * costList.getTotalCost()/100;
+        }
+        else {
+            summMarkUp = doorType.getMarkUp() * costList.getTotalCost()/100;
+        }
+
+
+        setPrice(costList.getTotalCost()+ (int)summMarkUp);
         setDiscountPrice(price - ((int) (price*0.25)));
         setPriceWithMarkup(discountPrice + ((int) (discountPrice*1.25)));
         return this;

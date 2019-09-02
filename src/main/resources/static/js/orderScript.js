@@ -113,7 +113,7 @@ jQuery('document').ready(function(){
             $('.Table > tbody').append('<tr><td class="id">'
                 +doors[j].id+'</td><td>'
                 +doors[j].name+'</td><td>'
-                +doors[j].doorType+'</td><td>'
+                +doors[j].doorType.name+'</td><td>'
                 +doors[j].metal+'</td><td>'
                 +doors[j].doorColor+'</td><td>'
                 +doors[j].price+'</td></tr>');
