@@ -38,38 +38,51 @@
 		<div class="order_headerL">
 
 			<div class="headerLine">
-				<span class="nameheaderLine">организация:</span>
+				<span class="nameheaderLine">организация:</span><br>
 				<input  id="company" class="input" type="text" value="" placeholder="организация">
 			</div>
 			<div class="headerLine">
-				<span class="nameheaderLine">контрагент:</span>
+				<span class="nameheaderLine">контрагент:</span><br>
 				<input  id="partner" class="input" type="text" value="" placeholder="контрагент">
 			</div>
 			<div class="headerLine">
-				<span class="nameheaderLine">дата заказа:</span>
+				<span class="nameheaderLine">дата заказа:</span><br>
 				<input  id="data" class="inputData" type="date"  placeholder="дата заказа">
 			</div>
 			<div class="headerLine">
-				<span class="nameheaderLine">дата готовности:</span>
+				<span class="nameheaderLine">дата готовности:</span><br>
 				<input  id="releasDate" class="inputData" type="date"  placeholder="дата готовности">
 			</div>
-
+			<div class="headerLine">
+				<span class="nameheaderLine">ответственный:</span>
+				<input  id="seller" class="input" type="text" value="" placeholder="ответственный"></br>
+			</div>
 		</div>
 		<div class="order_headerR">
-			<div class=""   id="metal0" >
+			<div class="checkbox"   id="inWork" >
 				<div class="left_cell_checkbox">
-					<a  class="vertical_menu_button_left" id="nememetal0" href="#">в работе:</a>
+					<a  class="vertical_menu_button_left" id="nemeproductionStart" href="#">в работе:</a>
 				</div>
 				<div align="right" class="right_cell_checkbox">
 					<div class="toggles">
-						<input type="checkbox" name="productionStart" id="productionStart" Item="metal" data=""  class="ios-toggle" />
+						<input type="checkbox" name="productionStart" id="productionStart" class="ios-toggle" />
 						<label for="productionStart" class="checkbox-label"></label>
+					</div>
+				</div>
+			</div>
+			<div class="checkbox"    >
+				<div class="left_cell_checkbox">
+					<a  class="vertical_menu_button_left" id="nemeinTheManufacturerDatabase" href="#">в базе производителя:</a>
+				</div>
+				<div align="right" class="right_cell_checkbox">
+					<div class="toggles">
+						<input type="checkbox" name="inTheManufacturerDatabase" id="inTheManufacturerDatabase"  class="ios-toggle" />
+						<label for="inTheManufacturerDatabase" class="checkbox-label"></label>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 	<div class="button_menu">
 		<div class="div_order_management">
@@ -104,15 +117,14 @@
 
 		</table>
 	</div>
-
+	<div class="totalOrder">
+		<span>ИТОГО:</span>
+	</div>
 	<div class="order_header">
-		<span class="nameheaderLine">ответственный:</span>
-		<input  id="seller" class="input" type="text" value="" placeholder="ответственный"></br>
-
-
 		<span class="nameheaderLine">комменткрий:</span>
 		<input  id="comment" class="input" type="text" value="" placeholder="комменткрий">
 	</div>
+</div>
 
 
 </body>

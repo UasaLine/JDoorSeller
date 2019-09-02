@@ -538,10 +538,16 @@ td{
 }
 .button_cap_menu{
     text-decoration: none;
+    font-size:20px;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    color:#245882;
 }
 .button_cap_menu:hover{
     cursor:pointer;
     text-decoration: none;
+    font-size:20px;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    color:#245882;
 }
 th{
     background-color:#D3D3D3;
@@ -558,11 +564,12 @@ tr:hover{
 }
 .order_headerL{
     display:inline-block;
+    width:30%;
 }
 .order_headerR{
     display:inline-block;
     vertical-align: top;
-    width:300px;
+    width:65%;
 }
 
 [available="no"]{
@@ -572,18 +579,23 @@ tr:hover{
     color:#000000;
 }
 .input{
-    width:50%;
-    border: 0px double black;
+    width:100%;
+    border: 1px solid #808080;
     font-size:20px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     margin-right:1px;
+    border-radius: 5px;
+    background-color:#DCDCDC;
+
 }
 .inputData{
-    width:50%;
-    border: 0px double black;
+    width:100%;
+    border: 1px solid #808080;
     font-size:20px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     color:#808080;
+    border-radius: 5px;
+    background-color:#DCDCDC;
 }
 
 .color_pages{
@@ -594,8 +606,7 @@ tr:hover{
 }
 
 .headerLine{
-    border-bottom: solid 1px #A9A9A9;
-    height:40px;
+    height:55px;
 
 }
 
@@ -603,4 +614,8 @@ tr:hover{
     font-size:20px;
     color:#14181B;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+
+.checkbox{
+    text-align: right;
 }
