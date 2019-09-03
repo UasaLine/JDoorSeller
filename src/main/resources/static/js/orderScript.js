@@ -98,6 +98,7 @@ jQuery('document').ready(function(){
         $('#productionStart').val(order.productionStart);
         //order.seller  = $('#seller').val();
         $('#comment').val(order.comment);
+        $('#total').text(order.totalAmount);
 
         $('tr').remove();
         $('.Table > tbody').append('<tr><th>' +
@@ -116,7 +117,7 @@ jQuery('document').ready(function(){
                 +doors[j].doorType.name+'</td><td>'
                 +doors[j].metal+'</td><td>'
                 +doors[j].doorColor+'</td><td>'
-                +doors[j].price+'</td></tr>');
+                +doors[j].priceWithMarkup+'</td></tr>');
         }
 
     }
