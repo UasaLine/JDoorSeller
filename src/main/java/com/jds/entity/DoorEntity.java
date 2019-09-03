@@ -195,6 +195,7 @@ public class DoorEntity implements Door {
         for (Sheet sheet:sheets){
             space +=sheet.getAmountWorkSpace();
         }
+        space = space*1.15;
         this.weigh = space*metal.getIndexHeft();
     }
 
@@ -227,9 +228,8 @@ public class DoorEntity implements Door {
         double spaceColor =  getSpace();//-S_ребер;?
         double costColor = (doorColors.getPricePaintingMeterOfSpace()*spaceColor)/5;
 
-        costList.addLine("Цвет[площадь:"+spaceColor
-                        +", цена метра2:"+doorColors.getPricePaintingMeterOfSpace()
-                        +", формула:площадь*(цена за кг)/5]",
+        costList.addLine("Цвет : [S-"+spaceColor
+                        +", цена-"+doorColors.getPricePaintingMeterOfSpace(),
                 2,
                 false,
                 (int)costColor);

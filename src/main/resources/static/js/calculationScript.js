@@ -620,14 +620,19 @@ jQuery('document').ready(function(){
         $('#discountPrice').text(door.discountPrice);
         $('#priceWithMarkup').text(door.priceWithMarkup);
 
+        $('.decryption').remove();
+
         if(door.costList!==null) {
             var tab = door.costList.list;
             var size = tab.length;
             for (var i = 0; i < size; ++i) {
                 $('<sran>')
+                    .attr('class','decryption')
                     .text('' + tab[i].name + ' - ' + tab[i].cost)
                     .appendTo('#calculateResultDiv');
-                $('<br>').appendTo('#calculateResultDiv');
+                $('<br>')
+                    .attr('class','decryption')
+                    .appendTo('#calculateResultDiv');
             }
         }
     };

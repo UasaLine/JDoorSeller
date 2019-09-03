@@ -11,17 +11,17 @@ import java.util.List;
 
 public class DoorPart implements Comparable<DoorPart> {
 
-    String name;
-    int width;
-    int height;
-    int quantity;
-    boolean posted;
-    boolean inverted;
-    int index;
-    Metal metal;
-    double space;
-    int positioningTop;
-    int positioningLeft;
+    private String name;
+    private int width;
+    private int height;
+    private int quantity;
+    private boolean posted;
+    private boolean inverted;
+    private int index;
+    private Metal metal;
+    private double space;
+    private int positioningTop;
+    private int positioningLeft;
 
     public DoorPart() {
     }
