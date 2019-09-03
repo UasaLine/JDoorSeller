@@ -67,6 +67,7 @@ public class UpdateSettingsControllerPro {
     public String updateSizeOfDoorParts(@RequestParam(required = false) String kay,
                                         @RequestParam(required = false) String dataJson) throws Exception {
 
+        //!!! make sure there are no lines with the same name
         StringReader reader = new StringReader(dataJson);
         ObjectMapper mapper = new ObjectMapper();
 

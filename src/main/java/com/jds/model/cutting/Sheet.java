@@ -10,10 +10,9 @@ public class Sheet {
 
     int width;
     int height;
+    double amountWorkSpace;
     List<HorizontalCut> horCutList;
     List<DoorPart> containsParts;
-
-    double amountWorkSpace;
 
     public Sheet() {
 
@@ -33,6 +32,11 @@ public class Sheet {
 
     public Sheet(Sheet sheet){
         this(sheet.getWidth(),sheet.getHeight());
+    }
+
+    public double getResidueSpace(){
+        double S = (width*height)/1000000;
+        return (S-amountWorkSpace)/S;
     }
 
     public void calculateAmountWorkSpace(){
@@ -99,5 +103,6 @@ public class Sheet {
     public void setContainsParts(List<DoorPart> containsParts) {
         this.containsParts = containsParts;
     }
+
 
 }

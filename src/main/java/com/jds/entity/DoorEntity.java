@@ -199,8 +199,24 @@ public class DoorEntity implements Door {
     }
 
     public void calculateCostMetal(Metal metal){
-        int costMetal = sheets.size()*metal.getIndexHeft()*metal.getPrice();
-        costList.addLine("металл[листов: "+sheets.size()+", вес: "+metal.getIndexHeft()+", цена:"+metal.getPrice()+"]"
+
+        for (Sheet sheet:sheets){
+            List<DoorPart> doorPartArrayList = sheet.getContainsParts();
+            for(DoorPart doorPart:doorPartArrayList){
+                costList.addLine("металл :"+doorPart.getName()+" - "+doorPart.getSpace()
+                        ,1
+                        ,false
+                        ,0);
+            }
+        }
+
+        int quantitySheetsInt = sheets.size();
+        Sheet sheet = sheets.get(quantitySheetsInt-1);
+        double quantitySheetsDoubl = (double) quantitySheetsInt - sheet.getResidueSpace();
+        int costMetal = (int)(quantitySheetsDoubl*metal.getIndexHeft()*metal.getPrice());
+        costList.addLine("металл : total [лист-"+quantitySheetsDoubl+
+                        ", вес-"+metal.getIndexHeft()+
+                        ", цена-"+metal.getPrice()+"]"
                 ,1
                 ,false
                 ,costMetal);

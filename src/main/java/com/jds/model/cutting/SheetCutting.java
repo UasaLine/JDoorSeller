@@ -43,6 +43,9 @@ public class SheetCutting {
 
     public List<DoorPart> preparedParts(List<DoorPart> parts,Sheet sheet){
 
+
+        parts = makeTheQuantitySingle(parts);
+
         List<DoorPart> newDoorParts = new LinkedList<>();
         for (int i =0; i<parts.size();  i++){
 
@@ -123,6 +126,25 @@ public class SheetCutting {
                 break;
         }
         return Post;
+    }
+
+    public List<DoorPart> makeTheQuantitySingle(List<DoorPart> parts){
+
+        List<DoorPart> newList = new ArrayList<>();
+        for(DoorPart doorPart:parts){
+            if(doorPart.getQuantity()>1){
+                int quantity = doorPart.getQuantity();
+                while (quantity>0){
+                    newList.add(doorPart);
+                    quantity--;
+                }
+            }
+            else {
+                newList.add(doorPart);
+            }
+        }
+
+        return newList;
     }
 
     public void placeAPartOnASheet(DoorPart doorPart,VerticalСut verСut,int nH){
