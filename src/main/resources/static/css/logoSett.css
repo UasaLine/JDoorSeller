@@ -580,7 +580,7 @@ tr:hover{
 }
 .input{
     width:100%;
-    border: 1px solid #808080;
+    border: 0px solid #808080;
     font-size:20px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     margin-right:1px;
@@ -590,10 +590,9 @@ tr:hover{
 }
 .inputData{
     width:100%;
-    border: 1px solid #808080;
+    border: 0px solid #808080;
     font-size:20px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color:#808080;
     border-radius: 5px;
     background-color:#DCDCDC;
 }
@@ -611,7 +610,7 @@ tr:hover{
 }
 
 .nameheaderLine{
-    font-size:20px;
+    font-size:16px;
     color:#14181B;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }

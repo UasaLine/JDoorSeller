@@ -176,7 +176,7 @@ public class MainController {
 
     @DeleteMapping(value = "/order", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorsОrder deleteOrder( Model model,
+    public String deleteOrder( Model model,
                                   @RequestParam(required = false) String orderId) throws Exception {
 
         return service.deleteOrder(orderId);

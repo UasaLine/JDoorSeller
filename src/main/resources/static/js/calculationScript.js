@@ -33,6 +33,8 @@ jQuery('document').ready(function(){
             displayObject(door);
             displayDoorClass();
             displayPrice();
+            getListOfSelectionFields();
+
             },
         error: function (data) {
                 alert('error:' + data);
@@ -295,23 +297,27 @@ jQuery('document').ready(function(){
 
     $('#buttonCalculate').on('click',function(){
 
-        var strJSON = JSON.stringify(door);
+        if (checkThCompletedFields()){
 
-        $.ajax({
-            type: 'POST',
-            url: 'data',
-            contentType: "application/json",
-            data: strJSON,
-            dataType: 'json',
-            success: function (data) {
-                //alert('price is: ' + data.price);
-                door = data;
-                displayPrice();
-            },
-            error: function (data) {
-                alert('error:' + data);
-            }
-        });
+            var strJSON = JSON.stringify(door);
+
+            $.ajax({
+                type: 'POST',
+                url: 'data',
+                contentType: "application/json",
+                data: strJSON,
+                dataType: 'json',
+                success: function (data) {
+                    //alert('price is: ' + data.price);
+                    door = data;
+                    displayPrice();
+                },
+                error: function (data) {
+                    alert('error:' + data);
+                }
+            });
+
+        }
 
     });
 
@@ -358,7 +364,7 @@ jQuery('document').ready(function(){
                 setDoorField("widthDoor",$('#inputWidthDoor').val());
             }
             else if(itamId == "ActivDoorLeafWidthDiv"){
-                setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
+                setDoorField("activeDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
             }
             else if(itamId == "heightDoorDiv"){
                 setDoorField("heightDoor",$('#inputHeightDoor').val());
@@ -387,7 +393,6 @@ jQuery('document').ready(function(){
     //--------------------------------------
     //setter
     //--------------------------------------
-
 
     function setDoorField(fieldName,value){
 
@@ -435,13 +440,13 @@ jQuery('document').ready(function(){
 
     function checkInstallationAvailability(fieldName,value){
         if (fieldName == "widthDoor"){
-            if(value<minWidthDoor || value>maxWidthDoor){
+            if(doorLeaf==1 && (value<minWidthDoor || value>maxWidthDoor)){
                 alert("ограничение для размера: max -"+maxWidthDoor+" min - "+minWidthDoor);
                 return false;
             }
         }
         else if(fieldName == "heightDoor"){
-            if(value<minHeightDoor || value>maxHeightDoor){
+            if(doorLeaf==1 && (value<minHeightDoor || value>maxHeightDoor)){
                 alert("ограничение для размера: max -"+maxHeightDoor+" min - "+minHeightDoor);
                 return false;
             }
@@ -780,6 +785,9 @@ jQuery('document').ready(function(){
 
         if (currentItem == "widthDoor")	{
             $('.select_widthDoor').attr('show','is_alive_lement');
+            if(door!=null && door.widthDoor!=null && door.widthDoor!=0){
+                $('#inputWidthDoor').attr('value',door.widthDoor);
+            }
             if (doorLeaf == 1){
                 $('[DoorLeaf="1"]').attr('show','is_alive_lement');
                 $('[DoorLeaf="2"]').attr('show','ghost_lement');
@@ -794,7 +802,12 @@ jQuery('document').ready(function(){
         }
 
         if (currentItem == "heightDoor"){
+
             $('.select_heightDoor').attr('show','is_alive_lement');
+            if(door!=null && door.heightDoor!=null && door.heightDoor!=0){
+                $('#inputHeightDoor').attr('value',door.heightDoor);
+            }
+
 
             if (doorLeaf == 1){
                 $('[DoorLeaf="1"]').attr('show','is_alive_lement');
@@ -998,15 +1011,21 @@ jQuery('document').ready(function(){
     }
 
     function getTheNameOfTheDoorType(value){
-        for(var i=0; i<door.availableDoorClass.length; ++i){
-            var type = door.availableDoorClass[i].doorTypes;
-            for(var j=0; j<type.length; ++j) {
-                if (type[j].id === value) {
-                    return door.availableDoorClass[i].name;
-                }
-            }
-        }
-        return "..."
+
+      if (value instanceof Object){
+          return value.name;
+      }
+      else {
+          for(var i=0; i<door.availableDoorClass.length; ++i){
+              var type = door.availableDoorClass[i].doorTypes;
+              for(var j=0; j<type.length; ++j) {
+                  if (type[j].id === value) {
+                      return door.availableDoorClass[i].name;
+                  }
+              }
+          }
+      }
+        return ".."
     };
 
     function getDoorTypeFromAvailable(value){
@@ -1179,9 +1198,30 @@ jQuery('document').ready(function(){
 
     function getFurniture(value,name){
 
-        if(value[name]!==null){
+        if(value!=null && value[name]!==null){
             return value[name].name;
         }
         return '';
+    }
+
+    function checkThCompletedFields(){
+
+        if ((door.widthDoor==0) && (door.heightDoor==0)) {
+            alert("please select door dimensions!");
+            return false;
+        }
+        if ((door.sideDoorOpen==null)) {
+            alert("please select side door open!");
+            return false;
+        }
+        if ((door.doorColor==null)) {
+            alert("please select door color!");
+            return false;
+        }
+        if ((doorLeaf == 2) && (door.activeDoorLeafWidth==null || door.activeDoorLeafWidth==0)){
+            alert("please select active door leaf width!");
+            return false;
+        }
+        return true;
     }
 });

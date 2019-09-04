@@ -160,19 +160,26 @@ public class MaineService {
 
         DoorEntity door = null;
         if (id != null && !id.isEmpty() && !id.equals("0")) {
+
             door = dAO.getDoor(Integer.parseInt(id));
-            door.addAvailableDoorClass(door.getDoorType().getDoorClass().clearNonSerializingFields());
+
+            if (door.getFurnitureKit() == null){
+                door.setFurnitureKit(new FurnitureKit());
+            }
+
+            if(door.getDoorGlass()==null){
+               door.setDoorGlass(new DoorGlass());
+            }
+
         }
         if (door == null) {
             door = new DoorEntity();
-
-            List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
-
-            for (DoorClass doorClass : doorClassList) {
-                door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
-            }
         }
 
+        List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
+        for (DoorClass doorClass : doorClassList) {
+            door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
+        }
 
         if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {
             DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
@@ -201,10 +208,10 @@ public class MaineService {
         return null;
     }
 
-    public DoorsОrder deleteOrder(String orderId) {
+    public String deleteOrder(String orderId) {
         DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
         dAO.deleteOrder(order);
-        return order;
+        return String.valueOf(order.getId());
     }
 
     public int saveOrUpdateDoorType(DoorType doorType) {
