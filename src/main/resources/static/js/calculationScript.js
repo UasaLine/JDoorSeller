@@ -303,9 +303,10 @@ jQuery('document').ready(function(){
 
             $.ajax({
                 type: 'POST',
-                url: 'data',
-                contentType: "application/json",
-                data: strJSON,
+                url: 'rest/data',
+                //contentType: "application/json",
+                //data: strJSON,
+                data:{id: id,orderId: orderId},
                 dataType: 'json',
                 success: function (data) {
                     //alert('price is: ' + data.price);

@@ -41,7 +41,7 @@ public class DoorsОrder {
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "seller")
-    private User seller;
+    private UserEntity seller;
 
     @Column(name = "comment")
     private String comment;
@@ -143,11 +143,11 @@ public class DoorsОrder {
         this.doors = doors;
     }
 
-    public User getSeller() {
+    public UserEntity getSeller() {
         return seller;
     }
 
-    public void setSeller(User seller) {
+    public void setSeller(UserEntity seller) {
         this.seller = seller;
     }
 

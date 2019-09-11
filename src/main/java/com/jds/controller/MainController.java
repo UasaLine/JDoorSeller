@@ -87,23 +87,12 @@ public class MainController {
         return service.getDoor(id,orderId);
     }
 
-    @PostMapping(value = "/data", produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/rest/data", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public DoorEntity calculateTheDoor(Model model,
                      @RequestBody DoorEntity door) throws Exception {
 
         return service.calculateTheDoor(door);
-    }
-    @PostMapping(value = "/cutting", produces= MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<Sheet> cuttingTheDoor(@RequestParam(required = false) String kay,
-                                      @RequestParam(required = false) String dataJson,
-                                      Model model,
-                                      @RequestBody DoorEntity door) throws Exception {
-
-        List<Sheet> sheets = Application.testDelete();
-        //return sheets.get(0).getContainsParts();
-        return sheets;
     }
 
     @PostMapping(value = "/saveDoor", produces= MediaType.APPLICATION_JSON_VALUE)
