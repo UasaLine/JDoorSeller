@@ -11,9 +11,12 @@ import com.jds.model.cutting.Sheet;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -124,11 +127,8 @@ public class MainController {
 
     @GetMapping(value = "/getOrder", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorsОrder saveOrder(@RequestParam(required = false) String kay,
-                                  @RequestParam(required = false) String dataJson,
-                                  Model model,
-                                  @RequestParam(required = false) String orderId) throws Exception {
-
+    public DoorsОrder saveOrder(Model model,
+                                @RequestParam(required = false) String orderId) throws Exception {
 
         return service.getOrder(orderId);
     }
@@ -149,6 +149,10 @@ public class MainController {
                            @RequestParam(required = false) String dataJson, Model model,
                            @RequestParam(required = false) String orderId) throws Exception {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity principal  = (UserEntity) authentication.getPrincipal();
+
+        model.addAttribute("username",principal.getUsername());
         model.addAttribute("orederId", (orderId==null)? 0:orderId);
         return "order";
     }

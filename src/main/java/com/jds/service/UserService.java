@@ -3,7 +3,6 @@ package com.jds.service;
 import com.jds.entity.UserEntity;
 import com.jds.model.Role;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
