@@ -136,6 +136,8 @@ public class DoorFurniture {
         picturePathFirst = picturePathFirst.replace("CalculationDoorsAutonomous","images");
         picturePathFirst = picturePathFirst + ".jpg";
 
+        sketchPathFirst = sketchPathFirst.replace("CalculationDoorsAutonomous","images");
+        sketchPathSecond = sketchPathSecond.replace("CalculationDoorsAutonomous","images");
     }
 
     public int getId() {

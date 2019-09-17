@@ -7,6 +7,6 @@ public class ApplicationTest {
 
     @Test
     public void ConfigureGlobal() {
-        System.out.println(new BCryptPasswordEncoder().encode("admin"));
+        System.out.println(new BCryptPasswordEncoder().encode("Zapp123"));
     }
 }

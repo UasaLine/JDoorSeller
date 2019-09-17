@@ -14,8 +14,63 @@
     position: absolute;
     top:0px;
     left:0px;
-
 }
+
+/*
+handle
+ */
+
+.handle_images{
+    position:absolute;
+    height:40px;
+    width:40px;
+}
+.left_side2_handle{
+    top:50%;
+    left:35%;
+}
+.rigth_side2_handle{
+    top:50%;
+    right:35%;
+}
+.left_side_handle{
+    top:50%;
+    left:10%;
+}
+.rigth_side_handle{
+    top:50%;
+    right:10%;
+}
+
+/*
+closer
+ */
+.closer_images{
+    position:absolute;
+    height:20px;
+    width:40px;
+    top:0%;
+    left:50%;
+}
+
+/*
+stainlessSteelDoorstep
+ */
+.stainlessSteelDoorstepL_images{
+    position:absolute;
+    height:3%;
+    width:91%;
+    left:4.5%;
+    top:96%;
+}
+.stainlessSteelDoorstepR_images{
+    position:absolute;
+    height:1.5%;
+    width:91%;
+    left:4.5%;
+    top:97.8%;
+}
+
 .sizeDoorSpan{
     writing-mode:tb-rl;
     vertical-align:middle;

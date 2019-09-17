@@ -34,7 +34,6 @@ jQuery('document').ready(function(){
             displayDoorClass();
             displayPrice();
             getListOfSelectionFields();
-
             },
         error: function (data) {
                 alert('error:' + data);
@@ -64,11 +63,11 @@ jQuery('document').ready(function(){
 
     $('.select_door_class').on('click','.images_door_class',function(){
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
+        setDoorField("doorLeaf",doorLeaf);
         setDoorField($(this).attr('Item'),getDoorTypeFromAvailable($(this).attr('data')));
         representationField($(this).attr('dataName'));
         pickOut(this);
         getListOfSelectionFields();
-
     });
 
     $('.color_pages').on('click','.pag',function(){
@@ -431,7 +430,7 @@ jQuery('document').ready(function(){
         var sizeRest =  RestrictionOfSelectionFields[name].length;
         var tab = RestrictionOfSelectionFields[name];
         for(var i=0;i<sizeRest;++i){
-            if (tab[i].id = value){
+            if (tab[i].id == value){
                 return tab[i];
             }
         }
@@ -509,7 +508,9 @@ jQuery('document').ready(function(){
                 showValue = getFurniture(value,'handle');
             }
             else {
-                showValue = value;
+                if (value!=0 || value!="0"){
+                    showValue = value;
+                }
             }
 
             set(showValue);
@@ -732,33 +733,36 @@ jQuery('document').ready(function(){
     }
 
     function getListOfSelectionFields(idDoorType) {
-        $.ajax({
-            url: 'doorlimit',
-            data: {idDoorType: door.doorType.id},
-            dataType: 'json',
-            success: function (data) {
-                //alert('success: ' + data);
-                displayMetal(data);
-                displayWidthDoorAndHeightDoor(data);
-                displayDeepnessDoorAndThicknessDoorLeaf(data);
-                colors = data.colors;
-                displayColor(0);
-                displayadditionalDoorSettings(data);
-                displayListOfItems('topLock',data.topLock,0,'kit');
-                displayListOfItems('lowerLock',data.lowerLock,0,'kit');
-                displayListOfItems('handle',data.handle,0,'');
-                displayListOfItems('lowerlockCylinder',data.lowerlockCylinder,0,'');
-                displayListOfItems('closer',data.closer,0,'');
-                displayListOfItems('endDoorLock',data.endDoorLock,0,'');
-                displayListOfItems('typeDoorGlass',data.typeDoorGlass,0,'');
-                displayListOfItems('toning',data.toning,0,'');
-                displayListOfItems('armor',data.armor,0,'');
-                RestrictionOfSelectionFields = data;
-            },
-            error: function (data) {
-                alert('error:' + data);
-            }
-        });
+
+        if (door.doorType != null) {
+            $.ajax({
+                url: 'doorlimit',
+                data: {idDoorType: door.doorType.id},
+                dataType: 'json',
+                success: function (data) {
+                    //alert('success: ' + data);
+                    displayMetal(data);
+                    displayWidthDoorAndHeightDoor(data);
+                    displayDeepnessDoorAndThicknessDoorLeaf(data);
+                    colors = data.colors;
+                    displayColor(0);
+                    displayadditionalDoorSettings(data);
+                    displayListOfItems('topLock', data.topLock, 0, 'kit');
+                    displayListOfItems('lowerLock', data.lowerLock, 0, 'kit');
+                    displayListOfItems('handle', data.handle, 0, '');
+                    displayListOfItems('lowerlockCylinder', data.lowerlockCylinder, 0, '');
+                    displayListOfItems('closer', data.closer, 0, '');
+                    displayListOfItems('endDoorLock', data.endDoorLock, 0, '');
+                    displayListOfItems('typeDoorGlass', data.typeDoorGlass, 0, '');
+                    displayListOfItems('toning', data.toning, 0, '');
+                    displayListOfItems('armor', data.armor, 0, '');
+                    RestrictionOfSelectionFields = data;
+                },
+                error: function (data) {
+                    alert('error:' + data);
+                }
+            });
+        }
     };
 
     function processItemSelection(item){
