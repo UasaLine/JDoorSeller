@@ -32,7 +32,6 @@ public class MainController {
     @GetMapping(value = "/")
     public String updateDoorClass(@RequestParam(required = false) String kay,
                                   @RequestParam(required = false) String dataJson) throws Exception {
-
         return "MinePage";
     }
 

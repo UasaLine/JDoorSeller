@@ -178,7 +178,11 @@ public class MaineService {
 
         List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
         for (DoorClass doorClass : doorClassList) {
-            door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
+            //exclusively for the test
+            if ("ДПД(противопожарная)".equals(doorClass.getName())){
+                door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
+            }
+
         }
 
         if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {

@@ -22,6 +22,8 @@ jQuery('document').ready(function(){
     var id = $('#id').text();
     var orderId = $('#orderId').text();
 
+    $('#myModal').modal('show');
+
     //getInstans door
     $.ajax({
         url: 'door',
@@ -44,7 +46,9 @@ jQuery('document').ready(function(){
     //--------------------------------------
     //select
     //--------------------------------------
-
+    $('.list-group-item-action').on('click',function(){
+        alert($(this).text());
+    });
     // language=JQuery-CSS
     $('.vertical_menu_button').on('click',function(){
 
@@ -388,6 +392,7 @@ jQuery('document').ready(function(){
 
         }
     });
+
 
     //--------------------------------------
     //setter

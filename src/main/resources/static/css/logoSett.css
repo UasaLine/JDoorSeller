@@ -5,9 +5,9 @@
 /* ------------------------------------------------ */
 
 .top_head{
-
     background-color:#245882;
     width:100%;
+    height: 50px;
     max-width:1300px;
     margin:0 auto;
     position: relative;
@@ -80,59 +80,6 @@
     max-width:1301px;
     margin:0 auto;
 }
-.ac-container{
-
-    background-color:#ededed;
-    max-width:300px;
-    width:200px;
-    height:600px;
-    position: relative;
-    top: 5px;
-    display:inline-block;
-
-
-}
-h2 {
-    color: #000000;
-    font-size: 30px;
-    font-weight: 800;
-    padding: 45px 0 15px;
-    cursor:pointer;
-}
-.accordion {
-//border: 2px solid #ddd;
-    border-top: none;
-    margin: 10px 0;
-    float: left;
-// width: 470px;
-    position: relative;
-    background-color: #ededed;
-}
-.accordion a {
-    display: block;
-    text-decoration: none;
-}
-.accordion h2, .accordion a{
-    background-color: #ededed;
-    color: #000000;
-    font-weight: 800;
-    font: 14px/30px 'Verdana', sans-serif;
-    height: 30px;
-    margin: 0;
-    padding: 0;
-    text-indent: 10px;
-}
-p {
-    color: #555;
-    padding: 10px,0px,0px,0px;
-    margin:0px;
-    margin-left:10px;
-    margin-bottom:3px;
-}
-
-a[href^="#accordion"] + *{display: none;}
-#accordion-css3 :target{display: block;}
-
 
 /* ----------------------------------------- */
 /* basement */
