@@ -1,13 +1,7 @@
 package com.jds.controller;
 
-import com.jds.Application;
-import com.jds.dao.MainDAO;
 import com.jds.entity.*;
-import com.jds.model.Door;
-import com.jds.model.DoorPart;
-import com.jds.model.FireproofDoor;
 import com.jds.model.RestrictionOfSelectionFields;
-import com.jds.model.cutting.Sheet;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,7 +23,7 @@ public class MainController {
     @GetMapping(value = "/")
     public String updateDoorClass(@RequestParam(required = false) String kay,
                                   @RequestParam(required = false) String dataJson) throws Exception {
-        return "MinePage";
+        return "minePageBootstr";
     }
 
     @GetMapping(value = "/login")

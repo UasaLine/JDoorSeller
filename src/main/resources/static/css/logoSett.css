@@ -5,58 +5,58 @@
 /* ------------------------------------------------ */
 
 .top_head{
-    background-color:#245882;
     width:100%;
     height: 50px;
     max-width:1300px;
     margin:0 auto;
     position: relative;
-
 }
 
 .header_logo{
     padding: 3px 50px 3px 50px;
     display:inline-block;
-    height:35px;
+    height:40px;
     vertical-align: top;
-
+    color: #373a3c;
+   //border-radius: 5px;
+    border-right: 1px solid #373a3c;
 }
 
 .header_home{
-    padding: 12px 50px 0px 50px;
+    padding: 12px 10px 0px 10px;
     display:inline-block;
-    border-left:solid 1px #191970;
+    //border-left:solid 1px #191970;
     height:35px;
     vertical-align: top;
-
 }
 
 .logo_text{
     font-size:30px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color:#B0C4DE;
+    color:#373a3c;
     text-decoration: none;
 }
 
 .logo_home{
     font-size:18px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color:#B0C4DE;
+    color:#373a3c;
     text-decoration: none;
 
 }
 .head_button{
     font-size:18px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color:#B0C4DE;
+    color:#373a3c;
     text-decoration: none;
 }
 .head_button:hover{
     font-size:18px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    color:#00FFFF;
+    color:#373a3c;
     text-decoration: none;
     cursor:pointer;
+    border-bottom: 1px solid #373a3c;
 }
 
 .lending_div{
@@ -171,7 +171,7 @@ td{
     display:inline-block;
     height:800px;
     width:39%;
-    background-color: #ededed;
+    //background-color: #ededed;
     vertical-align: top;
 
 }
@@ -426,7 +426,7 @@ td{
     height:35px;
     width:35%;
     color:#000000;
-    background-color:#ededed;
+    //background-color:#ededed;
     border-radius: 5px;
     position: absolute;
     left:5px;

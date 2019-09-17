@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <link type="text/css" href="css/jumbotron.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-static-top navbar-dark bg-inverse">
+    <a class="navbar-brand" th:href="@{/}">DOOR SELLER</a>
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/orders}">заказы </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/setting}">настройки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">выйти</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">Двери Центурион - на защите вашей собственности!</h1>
+        <p>Компания «Сибсталь» занимается 100 лет производством и продажей стальных дверей. Модельный ряд представлен в каталоге, где можно купить двери от простых до технологичных с гарантией качества..</p>
+        <p><a class="btn btn-primary btn-lg" href="https://centurion-door.ru/o-kompanii/" role="button">больше информации »</a></p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>МЕГАТРОН</h2>
+            <p>Двери из титановый сплавов, и астероидного металла.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Центурион</h2>
+            <p>Двери всемирноизвестной торговой марки  Центурион.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Individuall</h2>
+            <p>Двери созданые для Вас по вашим требованиям.</p>
+            <p><a class="btn btn-secondary" th:href="@{/calculation}" role="button">конфигуратор »</a></p>
+        </div>
+
+
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>© МЕГАТРОН 2019</p>
+    </footer>
+</div> <!-- /container -->
+
+
+</body>
+</html>
