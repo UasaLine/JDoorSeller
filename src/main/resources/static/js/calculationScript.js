@@ -21,17 +21,17 @@ jQuery('document').ready(function(){
 
     var id = $('#id').text();
     var orderId = $('#orderId').text();
-
-    $('#myModal').modal('show');
+    var doorGroup = $('#doorGroup').text();
 
     //getInstans door
     $.ajax({
         url: 'door',
-        data: {id: id,orderId: orderId},
+        data: {id: id,orderId: orderId,doorGroup: doorGroup},
         dataType: 'json',
         success: function (data) {
             //alert('success: ' + data.id);
             door = data;
+            $('.arrow_explanations').attr('show','is_alive_lement');
             displayObject(door);
             displayDoorClass();
             displayPrice();
@@ -49,8 +49,10 @@ jQuery('document').ready(function(){
     $('.list-group-item-action').on('click',function(){
         alert($(this).text());
     });
-    // language=JQuery-CSS
+
     $('.vertical_menu_button').on('click',function(){
+
+        $('.arrow_explanations').attr('show','ghost_lement');
 
         if ($('#name'+$(this).attr('id')+'').attr('available')==="yes"){
             assignPreviouValue();
@@ -364,16 +366,16 @@ jQuery('document').ready(function(){
             var itamId = $(this).attr('id');
 
             if (itamId == "widthDoorDiv"){
-                setDoorField("widthDoor",$('#inputWidthDoor').val());
+                setDoorField("widthDoor",$('#inputWidthDoor option:selected').text());
             }
             else if(itamId == "ActivDoorLeafWidthDiv"){
-                setDoorField("activeDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
+                setDoorField("activeDoorLeafWidth",$('#inputActivDoorLeafWidth option:selected').text());
             }
             else if(itamId == "heightDoorDiv"){
-                setDoorField("heightDoor",$('#inputHeightDoor').val());
+                setDoorField("heightDoor",$('#inputHeightDoor option:selected').text());
             }
             else if(itamId == "fanlightHeightDiv"){
-                setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
+                setDoorField("doorFanlightHeight",$('#inputHeightFanlight option:selected').text());
             }
             else if(itamId == "widthDoorGlassDiv"){
                 setDoorGlassField("glassWidth",$('#inputWidthDoorGlass').val());
@@ -443,18 +445,6 @@ jQuery('document').ready(function(){
     }
 
     function checkInstallationAvailability(fieldName,value){
-        if (fieldName == "widthDoor"){
-            if(doorLeaf==1 && (value<minWidthDoor || value>maxWidthDoor)){
-                alert("ограничение для размера: max -"+maxWidthDoor+" min - "+minWidthDoor);
-                return false;
-            }
-        }
-        else if(fieldName == "heightDoor"){
-            if(doorLeaf==1 && (value<minHeightDoor || value>maxHeightDoor)){
-                alert("ограничение для размера: max -"+maxHeightDoor+" min - "+minHeightDoor);
-                return false;
-            }
-        }
         return true;
     };
 
@@ -1004,16 +994,16 @@ jQuery('document').ready(function(){
     function  assignPreviouValue(){
 
         if (currentItem == "widthDoor"){
-            setDoorField("widthDoor",$('#inputWidthDoor').val());
+            setDoorField("widthDoor",$('#inputWidthDoor option:selected').text());
         }
         else if(currentItem == "ActivDoorLeafWidth"){
-            setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth').val());
+            setDoorField("activDoorLeafWidth",$('#inputActivDoorLeafWidth option:selected').text());
         }
         else if(currentItem == "heightDoor"){
-            setDoorField("heightDoor",$('#inputHeightDoor').val());
+            setDoorField("heightDoor",$('#inputHeightDoor option:selected').text());
         }
         else if(currentItem == "fanlightHeight"){
-            setDoorField("doorFanlightHeight",$('#inputHeightFanlight').val());
+            setDoorField("doorFanlightHeight",$('#inputHeightFanlight option:selected').text());
         }
 
         representationField();

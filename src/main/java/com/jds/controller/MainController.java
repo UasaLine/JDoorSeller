@@ -70,22 +70,34 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/calculation")
-    public String calculation(Model model,
+    @GetMapping(value = "/calculationSelect")
+    public String calculationSelect(Model model,
                               @RequestParam(required = false) String orderId,
                               @RequestParam(required = false) String id) throws Exception {
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
+        return "doorGroupSelection";
+    }
+
+    @GetMapping(value = "/calculation")
+    public String calculation(Model model,
+                              @RequestParam(required = false) String orderId,
+                              @RequestParam(required = false) String id,
+                              @RequestParam(required = false) String doorGroup) throws Exception {
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("id", id);
+        model.addAttribute("doorGroup", doorGroup);
         return "calculation";
     }
 
     @GetMapping(value = "/door",produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public DoorEntity data(Model model,
-                         @RequestParam(required = false) String id,
-                         @RequestParam(required = false) String orderId) throws Exception {
+                           @RequestParam(required = false) String id,
+                           @RequestParam(required = false) String orderId,
+                           @RequestParam(required = false) String doorGroup) throws Exception {
 
-        return service.getDoor(id,orderId);
+        return service.getDoor(id,orderId,doorGroup);
     }
 
     @PostMapping(value = "/data", produces= MediaType.APPLICATION_JSON_VALUE)

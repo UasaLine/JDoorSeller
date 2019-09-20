@@ -9,7 +9,9 @@
     <link rel="stylesheet" type="text/css" href="css/drawDoor.css" />
     <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
     <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-
+    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
 </head>
 <body>
 
@@ -47,6 +49,7 @@
         </div>
         <span id = "orderId" th:text="${orderId}" show="ghost_lement"></span>
         <span id = "id" th:text="${id}" show="ghost_lement"></span>
+        <span id = "doorGroup" th:text="${doorGroup}" show="ghost_lement"></span>
     </div>
 
     <div class="daughter_container2">
@@ -192,10 +195,16 @@
 
     <div class="daughter_container3">
 
+        <!--arrow explanations-->
+        <div class="arrow_explanations" show="ghost_lement">
+            <img class="images_Color" src="images/arrow.png"><br>
+            <h1 class="display-3 font-italic">начни создавать дверь с выбора класса</h1>
+        </div>
+
         <div class="navigation_panel_div">
 
         </div>
-
+        <br>
         <!--door_class-->
         <div class="select_door_class" show="ghost_lement">
 
@@ -255,11 +264,21 @@
         <div class="select_widthDoor"     show="ghost_lement" >
 
             <div class="input_div" id="widthDoorDiv"  >
-                <div class="left_cell_checkbox">
+                <!--
+				<div class="left_cell_checkbox">
                     <span>Ширина (L):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <input class="input_size" id="inputWidthDoor" type="text" value="" size="4" placeholder="0">
+                </div>
+				-->
+                <div >
+                    <label for="inputWidthDoor">Ширина (L):</label>
+                    <select class="custom-select d-block w-100" id="inputWidthDoor" required="">
+                        <option value="">860</option>
+                        <option>960</option>
+                        <option>1000</option>
+                    </select>
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -274,11 +293,21 @@
             </div>
 
             <div class="input_div" id="ActivDoorLeafWidthDiv" DoorLeaf="2" show="ghost_lement" >
+                <!--
                 <div class="left_cell_checkbox">
                     <span>Ширина активной створки(I):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <input class="input_size" id="inputActivDoorLeafWidth" type="text" value="" size="4" placeholder="0">
+                </div>
+                -->
+                <div >
+                    <label for="inputActivDoorLeafWidth">Ширина активной створки(I):</label>
+                    <select class="custom-select d-block w-100" id="inputActivDoorLeafWidth" required="">
+                        <option value="">850</option>
+                        <option>900</option>
+                        <option>950</option>
+                    </select>
                 </div>
             </div>
             <div class="images_div" DoorLeaf="2" show="ghost_lement" >
@@ -291,11 +320,21 @@
         <div class="select_heightDoor"    show="ghost_lement" >
 
             <div class="input_div" id="heightDoorDiv" >
+                <!--
                 <div class="left_cell_checkbox">
                     <span>Высота (H):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <input class="input_size" id="inputHeightDoor" type="text" value="" size="4" placeholder="0">
+                </div>
+                -->
+                <div >
+                    <label for="inputHeightDoor">Высота (H):</label>
+                    <select class="custom-select d-block w-100" id="inputHeightDoor" required="">
+                        <option value="">1900</option>
+                        <option>2000</option>
+                        <option>2100</option>
+                    </select>
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -315,7 +354,7 @@
                     <a  class="vertical_menu_button_left" href="#"> Фрамуга</a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="checkbox6" id="checkbox6" data="0.6mm" class="ios-toggle" />
                         <label for="checkbox6" class="checkbox-label"></label>
                     </div>
@@ -323,11 +362,21 @@
             </div>
 
             <div class="input_div" id = "fanlightHeightDiv"fanlight="1"  show="ghost_lement">
+                <!--
                 <div class="left_cell_checkbox">
                     <span>Высота фрамуги (k):</span>
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <input class="input_size" id="inputHeightFanlight" type="text" value="" size="4" placeholder="0">
+                </div>
+                -->
+                <div >
+                    <label for="inputHeightFanlight">Высота фрамуги (k):</label>
+                    <select class="custom-select d-block w-100" id="inputHeightFanlight" required="">
+                        <option value="">860</option>
+                        <option>960</option>
+                        <option>1000</option>
+                    </select>
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -349,7 +398,7 @@
                     <a  class="vertical_menu_button_left" id="nemedeepnessDoor0" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="checkboxdeepnessDoor0" id="checkboxdeepnessDoor0" Item="deepnessDoor" data="" class="ios-toggle" />
                         <label for="checkboxdeepnessDoor0" class="checkbox-label"></label>
                     </div>
@@ -360,7 +409,7 @@
                     <a  class="vertical_menu_button_left" id="nemedeepnessDoor1" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="checkboxdeepnessDoor1" id="checkboxdeepnessDoor1" Item="deepnessDoor" data="" class="ios-toggle" />
                         <label for="checkboxdeepnessDoor1" class="checkbox-label"></label>
                     </div>
@@ -371,7 +420,7 @@
                     <a  class="vertical_menu_button_left" id="nemedeepnessDoor2" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="checkboxdeepnessDoor2" id="checkboxdeepnessDoor2" Item="deepnessDoor" data="" class="ios-toggle" />
                         <label for="checkboxdeepnessDoor2" class="checkbox-label"></label>
                     </div>
@@ -382,7 +431,7 @@
                     <a  class="vertical_menu_button_left" id="nemedeepnessDoor3" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div class="toggles">
                         <input type="checkbox" name="checkboxdeepnessDoor3" id="checkboxdeepnessDoor3" Item="deepnessDoor" data="" class="ios-toggle" />
                         <label for="checkboxdeepnessDoor3" class="checkbox-label"></label>
                     </div>
@@ -397,7 +446,7 @@
                     <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf0" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div  class="toggles">
                         <input type="checkbox" name="checkboxthicknessDoorLeaf0" id="checkboxthicknessDoorLeaf0" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
                         <label for="checkboxthicknessDoorLeaf0" class="checkbox-label"></label>
                     </div>
@@ -408,7 +457,7 @@
                     <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf1" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div  class="toggles">
                         <input type="checkbox" name="checkboxthicknessDoorLeaf1" id="checkboxthicknessDoorLeaf1" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
                         <label for="checkboxthicknessDoorLeaf1" class="checkbox-label"></label>
                     </div>
@@ -419,7 +468,7 @@
                     <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf2" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div  class="toggles">
                         <input type="checkbox" name="checkboxthicknessDoorLeaf2" id="checkboxthicknessDoorLeaf2" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
                         <label for="checkboxthicknessDoorLeaf2" class="checkbox-label"></label>
                     </div>
@@ -430,7 +479,7 @@
                     <a  class="vertical_menu_button_left" id="nemethicknessDoorLeaf3" href="#"></a>
                 </div>
                 <div align="right" class="right_cell_checkbox">
-                    <div>
+                    <div  class="toggles">
                         <input type="checkbox" name="checkboxthicknessDoorLeaf3" id="checkboxthicknessDoorLeaf3" Item="thicknessDoorLeaf" data="" class="ios-toggle" />
                         <label for="checkboxthicknessDoorLeaf3" class="checkbox-label"></label>
                     </div>

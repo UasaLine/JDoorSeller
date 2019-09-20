@@ -156,21 +156,17 @@ public class MaineService {
        return order;
     }
 
-    public DoorEntity getDoor(String id, String orderId) {
+    public DoorEntity getDoor(String id, String orderId,String doorGroup) {
 
         DoorEntity door = null;
         if (id != null && !id.isEmpty() && !id.equals("0")) {
-
             door = dAO.getDoor(Integer.parseInt(id));
-
             if (door.getFurnitureKit() == null){
                 door.setFurnitureKit(new FurnitureKit());
             }
-
             if(door.getDoorGlass()==null){
                door.setDoorGlass(new DoorGlass());
             }
-
         }
         if (door == null) {
             door = new DoorEntity();
@@ -182,7 +178,6 @@ public class MaineService {
             if ("ДПД(противопожарная)".equals(doorClass.getName())){
                 door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
             }
-
         }
 
         if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {

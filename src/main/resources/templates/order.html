@@ -4,9 +4,12 @@
 <head>
 	<title>door seller</title>
 	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/orderScript.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
+	<!-- Подключаем Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
 </head>
 <body>
 
@@ -34,64 +37,52 @@
 <div class="container_main_order">
 	<span >№:</span>
 	<span   id="order_id" th:text="${orederId}"></span>
+	<!--
+	<span id="username">admin</span>
+	-->
 	<div class="order_header">
-		<div class="order_headerL">
+		<div class="row ">
+			<div class="col-md-6 mb-3">
+				<label for="state">статус заказа</label>
+				<select class="custom-select d-block w-100" id="state" required="">
+					<option value="">расчет</option>
+					<option>ждет оплату</option>
+					<option>в работу</option>
+				</select>
+			</div>
+		</div>
+		<div class="row ">
 
-			<div class="headerLine">
-				<span class="nameheaderLine">организация:</span><br>
-				<input  id="company" class="input" type="text" value="" placeholder="организация">
+			<div class="col-md-6 mb-3">
+				<label for="partner">контрагент:</label>
+				<input type="text" class="form-control" id="partner" placeholder="контрагент" value="" required="">
 			</div>
-			<div class="headerLine">
-				<span class="nameheaderLine">контрагент:</span><br>
-				<input  id="partner" class="input" type="text" value="" placeholder="контрагент">
+			<div class="col-md-6 mb-3">
+				<label for="company">организация:</label>
+				<input type="text" class="form-control" id="company" placeholder="организация" value="" required="">
 			</div>
-			<div class="headerLine">
-				<span class="nameheaderLine">дата заказа:</span><br>
-				<input  id="data" class="inputData" type="date"  placeholder="дата заказа">
+			<div class="col-md-6 mb-3">
+				<label for="releasDate">дата готовности:</label>
+				<input type="date" class="form-control" id="releasDate" placeholder="" value="" required="">
 			</div>
-			<div class="headerLine">
-				<span class="nameheaderLine">дата готовности:</span><br>
-				<input  id="releasDate" class="inputData" type="date"  placeholder="дата готовности">
+			<div class="col-md-6 mb-3">
+				<label for="data">дата заказа:</label>
+				<input type="date" class="form-control" id="data" placeholder="" value="" required="">
 			</div>
+
 		</div>
-		<div class="order_headerR">
-			<div class="checkbox" >
-				<span  id="username" th:text="${username}"></span><br>
-			</div>
-			<div class="checkbox"   id="inWork" >
-				<div class="left_cell_checkbox">
-					<a  class="vertical_menu_button_left" id="nemeproductionStart" href="#">в работе:</a>
-				</div>
-				<div align="right" class="right_cell_checkbox">
-					<div class="toggles">
-						<input type="checkbox" name="productionStart" id="productionStart" class="ios-toggle" />
-						<label for="productionStart" class="checkbox-label"></label>
-					</div>
-				</div>
-			</div>
-			<div class="checkbox"    >
-				<div class="left_cell_checkbox">
-					<a  class="vertical_menu_button_left" id="nemeinTheManufacturerDatabase" href="#">в базе производителя:</a>
-				</div>
-				<div align="right" class="right_cell_checkbox">
-					<div class="toggles">
-						<input type="checkbox" name="inTheManufacturerDatabase" id="inTheManufacturerDatabase"  class="ios-toggle" />
-						<label for="inTheManufacturerDatabase" class="checkbox-label"></label>
-					</div>
-				</div>
-			</div>
-		</div>
+
 	</div>
 
-	<div class="button_menu">
-		<div class="div_order_management">
-			<span class="button_cap_menu" id ="addDoor">+ новая дверь</span>
+	<div class="top_head">
+		<div class="header_home">
+			<span class="head_button" id="addDoor">+ новая дверь</span>
 		</div>
-		<div class="div_order_management">
-			<span class="button_cap_menu" id ="toChange">изменить</span>
+		<div class="header_home">
+			<span class="head_button" id="toChange">изменить</span>
 		</div>
-		<div class="div_order_management">
-			<span class="button_cap_menu" id ="delete">удалить</span>
+		<div class="header_home">
+			<span class="head_button" id="delete">удалить</span>
 		</div>
 	</div>
 
@@ -120,9 +111,9 @@
 		<span>ИТОГО:</span>
         <span id="total"></span>
 	</div>
-	<div class="order_header">
-		<span class="nameheaderLine">комменткрий:</span>
-		<input  id="comment" class="input" type="text" value="" placeholder="комменткрий">
+	<div class="mb-3">
+		<label for="comment">комменткрий: </label>
+		<input type="text" class="form-control" id="comment" placeholder="комментарий">
 	</div>
 </div>
 

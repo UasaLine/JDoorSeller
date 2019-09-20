@@ -122,7 +122,7 @@ jQuery('document').ready(function(){
 
     }
     function addDoor(orderId){
-        location.href="calculation?orderId="+orderId;
+        location.href="calculationSelect?orderId="+orderId;
     };
     function saveOrder(add,close){
 
