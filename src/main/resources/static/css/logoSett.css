@@ -147,8 +147,6 @@ tr:hover{
 /* calculation */
 /* ------------------------------------------------- */
 
-
-
 .container_main{
     padding: 5px 3px 0px 0px;
     max-width:1300px;
@@ -268,6 +266,25 @@ tr:hover{
 .left_cell{
     display:inline-block;
 
+}
+
+/* -----------------------------------------*/
+/*additional_data
+/* -----------------------------------------*/
+.additional_data{
+    color: white;
+    background:#373a3c;
+}
+.data_L{
+    width:40%;
+    display:inline-block;
+    vertical-align: top;
+}
+.data_R{
+    width:59%;
+    display:inline-block;
+    vertical-align: top;
+    padding: 10px;
 }
 
 /* -----------------------------------------*/

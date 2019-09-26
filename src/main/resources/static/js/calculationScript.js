@@ -122,6 +122,7 @@ jQuery('document').ready(function(){
             }
             else{
                 fanlight = 0;
+                setDoorField('doorFanlightHeight',0);
                 $('[fanlight="1"]').attr('show','ghost_lement');
             }
         }
@@ -329,6 +330,7 @@ jQuery('document').ready(function(){
     $('#buttonGetCutteig').on('click',function(){
 
                 drawCutting();
+                showAdditional_data();
     });
 
     $('#buttonSaveDoor').on('click',function(){
@@ -456,8 +458,8 @@ jQuery('document').ready(function(){
 
             //widthDoor
             if (currentItem == "widthDoor") {
-                if (door.activDoorLeafWidth && door.activDoorLeafWidth != 0) {
-                    showValue = "" + door.widthDoor + " [" + door.activDoorLeafWidth + "]";
+                if (door.activeDoorLeafWidth != 0) {
+                    showValue = "" + door.widthDoor + " [" + door.activeDoorLeafWidth + "]";
                 }
                 else if (door.widthDoor && door.widthDoor != 0) {
                     showValue = "" + door.widthDoor;
@@ -465,8 +467,8 @@ jQuery('document').ready(function(){
             }
             //heightDoor
             else if (currentItem == "heightDoor") {
-                if (door.doorFanlightheight && door.doorFanlightheight != 0) {
-                    showValue = "" + door.heightDoor + " [" + door.doorFanlightheight + "]";
+                if (door.doorFanlightHeight != 0) {
+                    showValue = "" + door.heightDoor + " [" + door.doorFanlightHeight + "]";
                 }
                 else if (door.heightDoor && door.heightDoor != 0) {
                     showValue = "" + door.heightDoor;
@@ -589,17 +591,17 @@ jQuery('document').ready(function(){
     }
 
     function drawCutting(){
+
+        //delete
+        $('.Sheet').remove();
         var k =0.186;
         var sheet = door.sheets;
-        for(var i=0; i<sheet.length; ++i){
 
-            //delete
-            $('.picture_doorL').remove();
-            $('.picture_doorR').remove();
+        for(var i=0; i<sheet.length; ++i){
 
             $('<div>').attr('class','Sheet')
                 .attr('style','width:'+sheet[i].width*k+'px; height:'+sheet[i].height*k+'px;')
-                .appendTo('.daughter_container1');
+                .appendTo('.data_L');
 
             var doorParts = sheet[i].containsParts;
             for(var j=0; j<doorParts.length; ++j){
@@ -1222,5 +1224,14 @@ jQuery('document').ready(function(){
             return false;
         }
         return true;
+    }
+    
+    function showAdditional_data() {
+       if( $('.additional_data').attr('show')=='ghost_lement'){
+           $('.additional_data').attr('show','yas');
+       }
+       else {
+           $('.additional_data').attr('show','ghost_lement');
+       }
     }
 });

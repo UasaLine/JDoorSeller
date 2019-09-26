@@ -26,8 +26,20 @@
         <span class="head_button" id="buttonSaveDoor" >сохранить</span>
     </div>
     <div class="header_home" >
-        <span class="head_button" id="buttonGetCutteig" >раскрой</span>
+        <span class="head_button" id="buttonGetCutteig" >показать расчет</span>
     </div>
+</div>
+
+<div class="additional_data" show="ghost_lement">
+
+    <div class="data_L">
+
+    </div>
+
+    <div class="data_R" id = "calculateResultDiv">
+
+    </div>
+
 </div>
 
 <div class="container_main">
@@ -40,9 +52,6 @@
             <span class="priceghost" id="discountPrice" show="ghost_lement"></span>
             <span class="priceghost" show="ghost_lement">Цена с наценкой: 25%</span>
             <span class="priceghost" id="priceWithMarkup" show="ghost_lement"></span>
-            <div class="priceghost" id="calculateResultDiv" show="ghost_lement">
-
-            </div>
         </div>
         <div class="nameDoor">
             <span class="nameDoor_span"></span>
@@ -355,8 +364,8 @@
                 </div>
                 <div align="right" class="right_cell_checkbox">
                     <div class="toggles">
-                        <input type="checkbox" name="checkbox6" id="checkbox6" data="0.6mm" class="ios-toggle" />
-                        <label for="checkbox6" class="checkbox-label"></label>
+                        <input type="checkbox" name="fanlightcheckboxname" id="fanlightcheckbox" data="1" class="ios-toggle" />
+                        <label for="fanlightcheckbox" class="checkbox-label"></label>
                     </div>
                 </div>
             </div>
@@ -373,9 +382,9 @@
                 <div >
                     <label for="inputHeightFanlight">Высота фрамуги (k):</label>
                     <select class="custom-select d-block w-100" id="inputHeightFanlight" required="">
-                        <option value="">860</option>
-                        <option>960</option>
-                        <option>1000</option>
+                        <option value="">200</option>
+                        <option>300</option>
+                        <option>400</option>
                     </select>
                 </div>
             </div>

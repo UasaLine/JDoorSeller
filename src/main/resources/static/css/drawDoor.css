@@ -3,12 +3,14 @@
     position:relative;
     top:60px;
     left:20px;
+    margin:5px;
 }
 .picture_doorR{
     display:inline-block;
     position:relative;
     top:60px;
-    left:25px;
+    left:20px;
+    margin:5px;
 }
 .opening_side_images{
     position: absolute;
@@ -16,6 +18,16 @@
     left:0px;
 }
 
+.fanlight{
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+.Leaf{
+    position: absolute;
+    bottom:0px;
+    left:0px;
+}
 /*
 handle
  */
