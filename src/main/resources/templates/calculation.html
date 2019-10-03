@@ -5,11 +5,13 @@
     <title>door seller</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/drawDoorScript.js"></script>
+    <script type="text/javascript" src="js/number_selection.js"></script>
     <script type="text/javascript" src="js/calculationScript.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/drawDoor.css" />
-    <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+    <link rel="stylesheet" type="text/css" href="css/drawDoor.css"/>
+    <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css"/>
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
+    <link rel="stylesheet" type="text/css" href="css/number_selection.css"/>
     <!-- Подключаем Bootstrap CSS -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
 </head>
@@ -281,13 +283,11 @@
                     <input class="input_size" id="inputWidthDoor" type="text" value="" size="4" placeholder="0">
                 </div>
 				-->
-                <div >
-                    <label for="inputWidthDoor">Ширина (L):</label>
-                    <select class="custom-select d-block w-100" id="inputWidthDoor" required="">
-                        <option value="">860</option>
-                        <option>960</option>
-                        <option>1000</option>
-                    </select>
+                <div>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                            id="inputWidthDoor"
+                            name="Ширина (L):"
+                            data="0">Ширина (L):</button>
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -311,12 +311,10 @@
                 </div>
                 -->
                 <div >
-                    <label for="inputActivDoorLeafWidth">Ширина активной створки(I):</label>
-                    <select class="custom-select d-block w-100" id="inputActivDoorLeafWidth" required="">
-                        <option value="">850</option>
-                        <option>900</option>
-                        <option>950</option>
-                    </select>
+                    <button type="button" class="btn btn-secondary btn-lg select_size"
+                            id="inputActivDoorLeafWidth"
+                            name="Ширина активной створки(I):"
+                            data="0">Ширина активной створки(I):</button>
                 </div>
             </div>
             <div class="images_div" DoorLeaf="2" show="ghost_lement" >
@@ -338,12 +336,10 @@
                 </div>
                 -->
                 <div >
-                    <label for="inputHeightDoor">Высота (H):</label>
-                    <select class="custom-select d-block w-100" id="inputHeightDoor" required="">
-                        <option value="">1900</option>
-                        <option>2000</option>
-                        <option>2100</option>
-                    </select>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                            id="inputHeightDoor"
+                            name="Высота (H):"
+                            data="0">Высота (H):</button>
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -356,7 +352,6 @@
                 <img class="images_widthDoor"  src="images/annotate note/Height2.jpg">
                 <div class="description_images_door_class"> Высота двери по коробу в милиметрах. </div>
             </div>
-
 
             <div  class="vertical_menu_checkbox" >
                 <div class="left_cell_checkbox">
@@ -380,12 +375,10 @@
                 </div>
                 -->
                 <div >
-                    <label for="inputHeightFanlight">Высота фрамуги (k):</label>
-                    <select class="custom-select d-block w-100" id="inputHeightFanlight" required="">
-                        <option value="">200</option>
-                        <option>300</option>
-                        <option>400</option>
-                    </select>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                            id="inputHeightFanlight"
+                            name="Высота фрамуги (k):"
+                            data="0">Высота фрамуги (k):</button>
                 </div>
             </div>
             <!--DoorLeaf="1"-->
@@ -858,36 +851,61 @@
                     </div>
                 </div>
                 <div class="input_div" id="widthDoorGlassDiv"  >
+                    <!--
                     <div class="left_cell_checkbox">
                         <span>Ширина стекла (w):</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
                         <input class="input_size" id="inputWidthDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
+                    -->
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                            id="inputWidthDoorGlass"
+                            name="Ширина стекла (w):"
+                            data="0">Ширина стекла (w):</button>
                 </div>
                 <div class="input_div" id="heightDoorGlassDiv"  >
-                    <div class="left_cell_checkbox">
-                        <span>Высота стекла (h):</span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <input class="input_size" id="inputHeightDoorGlass" type="text" value="" size="4" placeholder="0">
-                    </div>
+                    <!--
+                   <div class="left_cell_checkbox">
+                       <span>Высота стекла (h):</span>
+                   </div>
+                   <div align="right" class="right_cell_checkbox">
+                       <input class="input_size" id="inputHeightDoorGlass" type="text" value="" size="4" placeholder="0">
+                   </div>
+                   -->
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                           id="inputHeightDoorGlass"
+                           name="Высота стекла (h):"
+                           data="0">Высота стекла (h):</button>
+
                 </div>
                 <div class="input_div" id="leftDoorGlassDiv"  >
+                    <!--
                     <div class="left_cell_checkbox">
                         <span>Левый отступ:</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
                         <input class="input_size" id="inputleftDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
+                    -->
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                            id="inputleftDoorGlass"
+                            name="Левый отступ:"
+                            data="0">Левый отступ:</button>
                 </div>
                 <div class="input_div" id="bottomDoorGlassDiv"  >
+                    <!--
                     <div class="left_cell_checkbox">
                         <span>Нижний отступ:</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
                         <input class="input_size" id="inputbottomDoorGlass" type="text" value="" size="4" placeholder="0">
                     </div>
+                    -->
+                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                            id="inputbottomDoorGlass"
+                            name="Нижний отступ:"
+                            data="0">Нижний отступ:</button>
                 </div>
 
             </div>
@@ -1261,6 +1279,46 @@
         </div>
 
    </div>
+</div>
+
+
+<!--number_selection-->
+<div class="android_main_contener" show="ghost_lement">
+    <div class="android_hader">
+        <span id="nameSelectForm" data="">ширина</span>
+    </div >
+
+    <div class="android_counter">
+        <div class="counter_column">
+            <span class="counter_line line1" id="addL">+</span>
+            <div class="counter_line_intL">
+                <span class="counter_line numberL">09</span>
+                <span class="counter_line numberL">08</span>
+                <span class="counter_line numberL">07</span>
+            </div>
+            <span class="counter_line line1" id="reduceL">-</span>
+        </div>
+        <div class="counter_column">
+            <span class="counter_line line1" id="addR">+</span>
+            <div class="counter_line_intR">
+                <span class="counter_line numberR">10</span>
+                <span class="counter_line numberR">20</span>
+                <span class="counter_line numberR">30</span>
+            </div>
+            <span class="counter_line line1" id="reduceR">-</span>
+        </div>
+    </div>
+
+    <div class="android_basement">
+        <div class="android_basementL">
+            <span class='pass' id="select_cancel">отмена</span>
+        </div>
+        <div class="android_basementR">
+            <span class='pass' id="select_set">установить</span>
+        </div>
+    </div>
+</div>
+<div class="wall_of_darkness" show="ghost_lement">
 </div>
 
 

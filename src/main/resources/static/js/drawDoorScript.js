@@ -66,6 +66,21 @@ function drawObject(door,i){
                 .attr('src','images/Door/AColor1/'+color+'.jpg')
                 .attr('style','width:'+width+'px; height:'+(doorFanlightHeight+height)+'px;').appendTo('#picture_doorL'+i);
 
+            //Trim
+            if(door.leftDoorTrim==0){
+                $('<div>').attr('class','puffinLeft')
+                    .attr('style','width:3.5%; height:'+(doorFanlightHeight+height)+'px;').appendTo('#picture_doorL'+i);
+            }
+            if(door.rightDoorTrim==0){
+                $('<div>').attr('class','puffinRight')
+                    .attr('style','width:3.5%; height:'+(doorFanlightHeight+height)+'px;').appendTo('#picture_doorL'+i);
+            }
+            if(door.topDoorTrim==0){
+                $('<div>').attr('class','puffinUp')
+                    .attr('style','width:'+width+'px; height:2%;').appendTo('#picture_doorL'+i);
+            }
+
+
             if (doorFanlightHeight>0) {
 
                 //draw fanlight

@@ -101,3 +101,24 @@ stainlessSteelDoorstep
     vertical-align: top;
     position: absolute;
 }
+.puffinLeft{
+    background:white;
+    position: absolute;
+    top:0px;
+    left:0px;
+    border-right:2px dashed #373a3c;
+}
+.puffinUp{
+    background:white;
+    position: absolute;
+    top:0px;
+    left:0px;
+    border-bottom:2px dashed #373a3c;
+}
+.puffinRight{
+    background:white;
+    position: absolute;
+    top:0px;
+    right:0px;
+    border-left:2px dashed #373a3c;
+}
