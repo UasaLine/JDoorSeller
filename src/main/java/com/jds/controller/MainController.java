@@ -1,6 +1,7 @@
 package com.jds.controller;
 
 import com.jds.entity.*;
+import com.jds.model.Door;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ public class MainController {
     @Autowired
     private MaineService service;
 
-
     @GetMapping(value = "/")
     public String updateDoorClass(@RequestParam(required = false) String kay,
                                   @RequestParam(required = false) String dataJson) throws Exception {
@@ -35,29 +35,76 @@ public class MainController {
     }
 
     @GetMapping(value = "/setting")
-    public String setting(@RequestParam(required = false) String kay,
-                                  @RequestParam(required = false) String dataJson, Model model) throws Exception {
-
+    public String setting(Model model) throws Exception {
         List<DoorClass> list = service.getDoorClass();
         model.addAttribute("accountInfos", list);
-        return "settingPage_doorclass.html";
+        return "setting";
     }
+
+    @GetMapping(value = "/doorclasslist")
+    public String getDoorClassList( Model model) throws Exception {
+        List<DoorClass> list = service.getDoorClass();
+        model.addAttribute("accountInfos", list);
+        return "doorClassList";
+    }
+
     @GetMapping(value = "/doorclass")
-    public String getDoorClass(@RequestParam(required = false) String kay,
-                               @RequestParam(required = false) String dataJson, Model model) throws Exception {
+    public String getDoorClass(@RequestParam(required = false) String classId, Model model) throws Exception {
+
+        DoorClass doorClass = service.getDoorClass(classId);
+        model.addAttribute("classId", classId);
+        model.addAttribute("name", doorClass.getName());
+        model.addAttribute("description", doorClass.getDescription());
+        model.addAttribute("fireproof", doorClass.getFireproof());
+        model.addAttribute("hot", doorClass.getHot());
+
+        return "doorClass";
+    }
+
+    @PostMapping(value = "/doorclass")
+    public String saveDoorClass(@RequestParam(required = false) String classId,
+                                @RequestParam(required = false) String name,
+                                @RequestParam(required = false) String description,
+                                @RequestParam(required = false) boolean fireproofcheckbox,
+                                @RequestParam(required = false) boolean hotcheckbox,
+                                Model model) throws Exception {
+
+        service.saveOrUpdateDoorClass(classId,name,description,
+                                         fireproofcheckbox,hotcheckbox);
 
         List<DoorClass> list = service.getDoorClass();
         model.addAttribute("accountInfos", list);
-        return "settingPage_doorclass";
+        return "doorClassList";
     }
+
+    @DeleteMapping(value = "/doorclass", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public int deleteDoorclass( Model model,@RequestParam(required = false) String classId) throws Exception {
+
+        service.deleteDoorClass(classId);
+
+        return 1;
+    }
+
+    @GetMapping(value = "/doortypeList")
+    public String getDoorTypeList(Model model,@RequestParam(required = false) String classId) throws Exception {
+
+        List<DoorClass> DoorClassList = service.getDoorClass();
+
+        model.addAttribute("classId",classId);
+        model.addAttribute("doorClassList", DoorClassList);
+        model.addAttribute("doorTypeList", service.getTypeFromListById(DoorClassList,classId));
+
+        return "doorTypeList";
+    }
+
     @GetMapping(value = "/doortype")
-    public String getDoorType(@RequestParam(required = false) String kay,
-                               @RequestParam(required = false) String dataJson, Model model) throws Exception {
+    public String getDoorType(@RequestParam(required = false) String typeId, Model model) throws Exception {
 
+        DoorType doorType = service.getDoorType(typeId);
+        model.addAttribute("typeId", typeId);
 
-        List<DoorType> list = service.getDoorType();
-        model.addAttribute("accountInfos", list);
-        return "settingPage_doortype";
+        return "doorType";
     }
 
     @GetMapping(value = "/metal")

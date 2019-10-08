@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>door seller</title>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/doorClassListScript.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+
+	<!-- Подключаем Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="top_head">
+	<div class="header_logo" >
+		<a th:href="@{/}" class="logo_text">door seller</a>
+	</div>
+</div>
+<br>
+<div class="conten_body">
+
+	<h1 class="display-4">классы дверей</h1>
+
+	<div class="order-Table">
+		<table class="Table">
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>description</th>
+				<th>fireproof</th>
+				<th>hot</th>
+			</tr>
+			<tr th:each="accountInfo : ${accountInfos}">
+				<td class="id" th:utext="${accountInfo.id}">..</td>
+				<td th:utext="${accountInfo.name}">..</td>
+				<td th:utext="${accountInfo.description}">..</td>
+				<td th:utext="${accountInfo.fireproof}">..</td>
+				<td th:utext="${accountInfo.hot}">..</td>
+			</tr>
+
+		</table>
+	</div>
+
+	<div class="linebottom"></div><br>
+	<button type="button" class="btn btn-primary btn-lg "  id="addClass">добавить класс</button>
+	<button type="button" class="btn btn-primary btn-lg "  id="buttonDelete">удалить класс</button>
+
+</div>
+
+</body>
+</html>

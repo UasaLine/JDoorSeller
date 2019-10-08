@@ -1,32 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>JDS setting</title>
-    <link rel="stylesheet" type="text/css" href="css/logo.css" />
+    <title>door seller</title>
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
 </head>
 <body>
+
 <div class="top_head">
-    <div class="header_logo" >
-        <a href="https://doorseller.herokuapp.com" class="logo_text">door seller</a>
+    <div class="header_logo">
+        <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
     <div class="header_home" >
-        <a th:href="@{/calculation}" class="logo_home">новая дверь</a>
-    </div>
-    <div class="header_home" >
-        <a th:href="@{/orders}" class="logo_home">заказы</a>
-    </div>
-    <div class="header_home" >
-        <a th:href="@{/setting}" class="logo_home">настройки</a>
-    </div>
-    <div class="header_home" >
-        <span class="logo_home" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span>
-    </div>
-    <div class="header_home" >
-        <form th:action="@{/logout}" method="post">
-            <input class="logo_home" type="submit" value="Sign Out"/>
-        </form>
+        <a th:href="@{/doorclasslist}" class="logo_home">door class</a>
     </div>
 </div>
+<br>
+
+
 </body>
 </html>

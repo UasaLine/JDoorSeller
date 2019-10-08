@@ -8,8 +8,12 @@ import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -18,8 +22,28 @@ public class MaineService {
     @Autowired
     private MainDAO dAO;
 
+    public void saveOrUpdateDoorClass(String classId,String name,String description,
+                                 boolean fireproofcheckbox,boolean hotcheckbox){
+
+        dAO.saveOrUpdateDoorClassById(new DoorClass(Integer.parseInt(classId)
+                                                    ,name
+                                                    ,description
+                                                    ,dooltranslateIntoInt(fireproofcheckbox)
+                                                    ,dooltranslateIntoInt(hotcheckbox)));
+
+    }
+
     public List<DoorClass> getDoorClass() {
         return dAO.getDoorClass();
+    }
+
+    public DoorClass getDoorClass(String calassId) {
+        return dAO.getDoorClass(Integer.parseInt(calassId));
+    }
+
+    public int deleteDoorClass(String calassId){
+        dAO.deleteDoorClass(dAO.getDoorClass(Integer.parseInt(calassId)));
+        return 1;
     }
 
     public List<FireproofDoor> getlistDoor() {
@@ -28,6 +52,29 @@ public class MaineService {
 
     public List<DoorType> getDoorType() {
         return dAO.getDoorType();
+    }
+    public DoorType getDoorType(String typeId) {
+        return dAO.getDoorType(Integer.parseInt(typeId));
+    }
+    public List<DoorType> getTypeFromListById(List<DoorClass> DoorClassList ,String classId) throws NotBoundException {
+
+       if (classId == null){
+           classId = "1";
+       }
+       if (DoorClassList==null && DoorClassList.size()==0){
+           throw new NotBoundException("List DoorClassList empty!");
+       }
+       int intId = Integer.parseInt(classId);
+
+        Optional<DoorClass> doorClass = DoorClassList.stream()
+                                       .filter((c) -> c.getId()==intId)
+                                       .findFirst();
+
+        if (doorClass.isPresent()) {
+            return doorClass.get().getDoorTypes();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public List<Metal> getMetals() {
@@ -243,5 +290,14 @@ public class MaineService {
 
         return printAppList;
 
+    }
+
+    public static int dooltranslateIntoInt (boolean value){
+            if (value==true){
+                return 1;
+            }
+            else {
+                return 0;
+            }
     }
 }

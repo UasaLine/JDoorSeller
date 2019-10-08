@@ -1,10 +1,14 @@
 package com.jds.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Door_Class")
 public class DoorClass {
@@ -29,10 +33,6 @@ public class DoorClass {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass", cascade = CascadeType.ALL)
     private List<DoorType> doorTypes;
 
-    public DoorClass() {
-        //empty constructor
-    }
-
     public DoorClass clearNonSerializingFields(){
 
         for(DoorType doorType:doorTypes){
@@ -42,52 +42,14 @@ public class DoorClass {
         return this;
     }
 
-
-    public int getId() {
-        return id;
+    public DoorClass() {
     }
 
-    public void setId(int id) {
+    public DoorClass(int id,String name, String description, int fireproof,int hot) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getFireproof() {
-        return fireproof;
-    }
-
-    public void setFireproof(int fireproof) {
         this.fireproof = fireproof;
-    }
-
-    public int getHot() {
-        return hot;
-    }
-
-    public void setHot(int hot) {
         this.hot = hot;
-    }
-
-    public List<DoorType> getDoorTypes() {
-        return doorTypes;
-    }
-
-    public void setDoorTypes(List<DoorType> doorTypes) {
-        this.doorTypes = doorTypes;
     }
 }

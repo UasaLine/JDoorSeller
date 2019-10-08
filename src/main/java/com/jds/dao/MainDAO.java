@@ -39,6 +39,21 @@ public class MainDAO {
         session.saveOrUpdate(doorClass);
 
     }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveOrUpdateDoorClassById(DoorClass doorClass) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(doorClass);
+
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteDoorClass(DoorClass doorClass) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(doorClass);
+
+    }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveMetal(Metal metal) {
@@ -635,7 +650,7 @@ public class MainDAO {
 
         session.close();
 
-        DoorClass doorClass = null;
+        DoorClass doorClass = new DoorClass();
         if (list.size() > 0) {
             doorClass = list.get(0);
         }

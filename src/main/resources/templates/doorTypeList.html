@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>door seller</title>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/doorTypeListScript.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+
+	<!-- Подключаем Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+</head>
+<body>
+	
+		<div class="top_head">
+			<div class="header_logo" >
+				<a th:href="@{/}" class="logo_text">door seller</a>
+			</div>
+		</div>
+
+		<div class="conten_body">
+
+			<h1 class="display-4">типы дверей</h1>
+			<span id="currentClassId" th:value="${classId}" show="ghost_lement"> </span>
+			<div class="container_main">
+
+				<div class="daughter_container25">
+					<div class="list-group">
+						<!--add active-->
+						<a th:each=" doorClass: ${doorClassList}"
+						   th:utext="${doorClass.name}"
+						   th:data="${doorClass.id}"
+						   href="#"
+						   class="list-group-item list-group-item-action"></a>
+
+					</div>
+				</div>
+
+				<div class="element-Div">
+					<table class="Table">
+						<tr>
+							<th>id</th>
+							<th>name</th>
+							<th>doorL</th>
+							<th>DToRel</th>
+							<th>markUp</th>
+							<th>markUpGP</th>
+							<th>namePicture</th>
+						</tr>
+						<tr th:each="doorType : ${doorTypeList}">
+							<td class="id" th:utext="${doorType.id}">..</td>
+							<td th:utext="${doorType.name}">..</td>
+							<td th:utext="${doorType.doorLeaf}">..</td>
+							<td th:utext="${doorType.daysToRelease}">..</td>
+							<td th:utext="${doorType.markUp}">..</td>
+							<td th:utext="${doorType.markUpGlassPackage}">..</td>
+							<td th:utext="${doorType.namePicture}">..</td>
+						</tr>
+
+					</table>
+
+					<div class="linebottom"></div><br>
+					<button type="button" class="btn btn-primary btn-lg " id="addClass">добавить тип</button>
+					<button type="button" class="btn btn-primary btn-lg " id="buttonDelete">удалить тип</button>
+				</div>
+
+
+			</div>
+		</div>
+
+</body>
+</html>
