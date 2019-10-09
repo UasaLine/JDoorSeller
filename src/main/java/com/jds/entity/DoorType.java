@@ -84,7 +84,12 @@ public class DoorType {
     public void makeRightNamePictureDoorType() {
 
         namePicture = namePicture.replace("CalculationDoorsAutonomous", "images");
-        namePicture = namePicture + ".jpg";
+        namePicture = namePicture.replace("\\", "/");
+
+        int index = namePicture.lastIndexOf(".jpg");
+        if(index == - 1) {
+            namePicture = namePicture + ".jpg";
+        }
 
     }
 

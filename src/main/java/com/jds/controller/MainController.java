@@ -135,6 +135,16 @@ public class MainController {
         return "doorType";
     }
 
+
+    @GetMapping(value = "/creattemplate")
+    public String getTemplate(@RequestParam(required = false) String typeId,
+                              @RequestParam(required = false) String classId,
+                              Model model) throws Exception {
+
+        return "creatTemplate";
+    }
+
+
     @GetMapping(value = "/metal")
     public String getMetal(@RequestParam(required = false) String kay,
                            @RequestParam(required = false) String dataJson, Model model) throws Exception {
