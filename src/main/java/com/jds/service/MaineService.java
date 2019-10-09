@@ -6,6 +6,7 @@ import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.TypeOfFurniture;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +23,14 @@ public class MaineService {
     @Autowired
     private MainDAO dAO;
 
-    public void saveOrUpdateDoorClass(String classId,String name,String description,
-                                 boolean fireproofcheckbox,boolean hotcheckbox){
+    public void saveOrUpdateDoorClass(String classId, String name, String description,
+                                      boolean fireproofcheckbox, boolean hotcheckbox) {
 
         dAO.saveOrUpdateDoorClassById(new DoorClass(Integer.parseInt(classId)
-                                                    ,name
-                                                    ,description
-                                                    ,dooltranslateIntoInt(fireproofcheckbox)
-                                                    ,dooltranslateIntoInt(hotcheckbox)));
+                , name
+                , description
+                , dooltranslateIntoInt(fireproofcheckbox)
+                , dooltranslateIntoInt(hotcheckbox)));
 
     }
 
@@ -41,7 +42,7 @@ public class MaineService {
         return dAO.getDoorClass(Integer.parseInt(calassId));
     }
 
-    public int deleteDoorClass(String calassId){
+    public int deleteDoorClass(String calassId) {
         dAO.deleteDoorClass(dAO.getDoorClass(Integer.parseInt(calassId)));
         return 1;
     }
@@ -53,22 +54,31 @@ public class MaineService {
     public List<DoorType> getDoorType() {
         return dAO.getDoorType();
     }
-    public DoorType getDoorType(String typeId) {
-        return dAO.getDoorType(Integer.parseInt(typeId));
-    }
-    public List<DoorType> getTypeFromListById(List<DoorClass> DoorClassList ,String classId) throws NotBoundException {
 
-       if (classId == null){
-           classId = "1";
-       }
-       if (DoorClassList==null && DoorClassList.size()==0){
-           throw new NotBoundException("List DoorClassList empty!");
-       }
-       int intId = Integer.parseInt(classId);
+    public DoorType getDoorType(String typeId) {
+        if (typeId == null) {
+            return new DoorType();
+        }
+        return getDoorType(Integer.parseInt(typeId));
+    }
+    public DoorType getDoorType(@NonNull int typeId) {
+
+        return dAO.getDoorType(typeId);
+    }
+
+    public List<DoorType> getTypeFromListById(List<DoorClass> DoorClassList, String classId) throws NotBoundException {
+
+        if (classId == null) {
+            classId = "1";
+        }
+        if (DoorClassList == null && DoorClassList.size() == 0) {
+            throw new NotBoundException("List DoorClassList empty!");
+        }
+        int intId = Integer.parseInt(classId);
 
         Optional<DoorClass> doorClass = DoorClassList.stream()
-                                       .filter((c) -> c.getId()==intId)
-                                       .findFirst();
+                .filter((c) -> c.getId() == intId)
+                .findFirst();
 
         if (doorClass.isPresent()) {
             return doorClass.get().getDoorTypes();
@@ -97,7 +107,7 @@ public class MaineService {
         paySettings.setDoorType(dAO.getDoorType(door.getDoorType().getId()));
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
-        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(),door.getDoorType().getId());
+        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(), door.getDoorType().getId());
 
         //new instance cost
         door.setCostList(new CostList());
@@ -178,7 +188,7 @@ public class MaineService {
 
     public List<DoorsОrder> getOrders() {
         List<DoorsОrder> orders = dAO.getOrders();
-        for(DoorsОrder order:orders){
+        for (DoorsОrder order : orders) {
             clearNonSerializingFields(order);
         }
         return orders;
@@ -194,25 +204,25 @@ public class MaineService {
         return clearNonSerializingFields(dAO.getOrder(intId));
     }
 
-    public DoorsОrder clearNonSerializingFields(DoorsОrder order){
+    public DoorsОrder clearNonSerializingFields(DoorsОrder order) {
 
         List<DoorEntity> doors = order.getDoors();
-        for(DoorEntity door:doors){
+        for (DoorEntity door : doors) {
             door.clearNonSerializingFields();
         }
-       return order;
+        return order;
     }
 
-    public DoorEntity getDoor(String id, String orderId,String doorGroup) {
+    public DoorEntity getDoor(String id, String orderId, String doorGroup) {
 
         DoorEntity door = null;
         if (id != null && !id.isEmpty() && !id.equals("0")) {
             door = dAO.getDoor(Integer.parseInt(id));
-            if (door.getFurnitureKit() == null){
+            if (door.getFurnitureKit() == null) {
                 door.setFurnitureKit(new FurnitureKit());
             }
-            if(door.getDoorGlass()==null){
-               door.setDoorGlass(new DoorGlass());
+            if (door.getDoorGlass() == null) {
+                door.setDoorGlass(new DoorGlass());
             }
         }
         if (door == null) {
@@ -222,7 +232,7 @@ public class MaineService {
         List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
         for (DoorClass doorClass : doorClassList) {
             //exclusively for the test
-            if ("ДПД(противопожарная)".equals(doorClass.getName())){
+            if ("ДПД(противопожарная)".equals(doorClass.getName())) {
                 door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
             }
         }
@@ -260,11 +270,38 @@ public class MaineService {
         return String.valueOf(order.getId());
     }
 
-    public int saveOrUpdateDoorType(DoorType doorType) {
+    public int saveOrUpdateDoorType(@NonNull String typeId, @NonNull String classId, String name,
+                                    String namePicture, int doorLeaf,
+                                    String nameForPrint, String nameForPrintInternalOpening,
+                                    int daysToRelease, int markUp, int markUpGlassPackage) {
 
-        return dAO.saveOrUpdateDoorType(doorType);
+        int intTypeid = Integer.parseInt(typeId);
+        int intClassId = Integer.parseInt(classId);
+        DoorType doorType = new DoorType();
+
+        if (intTypeid==0 && intClassId>0) {
+            DoorClass doorClass = dAO.getDoorClass(intClassId);
+            doorType.setDoorClass(doorClass);
+        }
+        if ( intTypeid>0){
+            doorType = dAO.getDoorType(intTypeid);
+        }
+            doorType.setName(name);
+            doorType.setNamePicture(namePicture);
+            doorType.setDoorLeaf(doorLeaf);
+            doorType.setNameForPrint(nameForPrint);
+            doorType.setNameForPrintInternalOpening(nameForPrintInternalOpening);
+            doorType.setDaysToRelease(daysToRelease);
+            doorType.setMarkUp(markUp);
+            doorType.setMarkUpGlassPackage(markUpGlassPackage);
+
+        return saveOrUpdateDoorType(doorType);
     }
 
+
+    public int saveOrUpdateDoorType(DoorType doorType){
+        return dAO.saveOrUpdateDoorType(doorType);
+    }
     public SalaryConstants saveSalaryConstants(SalaryConstants constants) {
         return dAO.saveSalaryConstants(constants);
     }
@@ -273,31 +310,30 @@ public class MaineService {
         return dAO.saveSalarySetting(setting);
     }
 
-    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting){
-       return dAO.saveSpecificationSetting(setting);
+    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
+        return dAO.saveSpecificationSetting(setting);
     }
 
-    public List<PrintAppToTheOrder> getPrintAppList(String orderId){
+    public List<PrintAppToTheOrder> getPrintAppList(String orderId) {
 
         DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
         List<DoorEntity> doors = order.getDoors();
 
         List<PrintAppToTheOrder> printAppList = new ArrayList<>();
-        for(DoorEntity door:doors){
+        for (DoorEntity door : doors) {
             door.clearNonSerializingFields();
-            printAppList.add(new PrintAppToTheOrder(door,order));
+            printAppList.add(new PrintAppToTheOrder(door, order));
         }
 
         return printAppList;
 
     }
 
-    public static int dooltranslateIntoInt (boolean value){
-            if (value==true){
-                return 1;
-            }
-            else {
-                return 0;
-            }
+    public static int dooltranslateIntoInt(boolean value) {
+        if (value == true) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

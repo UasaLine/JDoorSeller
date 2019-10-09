@@ -68,7 +68,7 @@ public class DoorType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<DoorEntity> doorEntityList;
 
-    public DoorType clearNonSerializingFields(){
+    public DoorType clearNonSerializingFields() {
 
         doorClass = null;
         bendSettings = null;
@@ -81,9 +81,9 @@ public class DoorType {
         return this;
     }
 
-    public void makeRightNamePictureDoorType(){
+    public void makeRightNamePictureDoorType() {
 
-        namePicture = namePicture.replace("CalculationDoorsAutonomous","images");
+        namePicture = namePicture.replace("CalculationDoorsAutonomous", "images");
         namePicture = namePicture + ".jpg";
 
     }

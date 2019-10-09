@@ -18,9 +18,4 @@ jQuery('document').ready(function(){
         location.href="doorclasslist";
     });
 
-
-
-    $('#saveClass').on('click',function() {
-
-    });
 });

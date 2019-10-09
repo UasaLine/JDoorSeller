@@ -39,6 +39,7 @@ public class MainDAO {
         session.saveOrUpdate(doorClass);
 
     }
+
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdateDoorClassById(DoorClass doorClass) {
 
@@ -152,7 +153,6 @@ public class MainDAO {
     public DoorEntity saveDoor(DoorEntity door) {
 
 
-
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(door);
@@ -252,13 +252,13 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting){
+    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
 
         saveOrUpdateDoorType(setting.getDoorType());
         saveOrUpdateMaterialFormula(setting.getFormula());
         saveOrUpdateRawMaterials(setting.getRawMaterials());
 
-        int id = getSpecificationSettingId(setting.getMetal(),setting.getDoorType().getId(),setting.getRawMaterials().getId());//check exists
+        int id = getSpecificationSettingId(setting.getMetal(), setting.getDoorType().getId(), setting.getRawMaterials().getId());//check exists
 
         if (id > 0) {
             setting.setId(id);
@@ -429,7 +429,7 @@ public class MainDAO {
 
     }
 
-    public int getMaterialFormulaById (String id){
+    public int getMaterialFormulaById(String id) {
 
         Session session = sessionFactory.openSession();
 
@@ -449,7 +449,7 @@ public class MainDAO {
 
     }
 
-    public int getRawMaterialsById (String id){
+    public int getRawMaterialsById(String id) {
 
         Session session = sessionFactory.openSession();
 
@@ -779,7 +779,7 @@ public class MainDAO {
         return salarySetting;
     }
 
-    public int getSpecificationSettingId(double metal,int typyDoorId,int rawMaterialsId ){
+    public int getSpecificationSettingId(double metal, int typyDoorId, int rawMaterialsId) {
         Session session = sessionFactory.openSession();
 
         String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT and rawMaterials_id = :rawId";
@@ -798,7 +798,8 @@ public class MainDAO {
         }
         return specificationSetting.getId();
     }
-    public List<SpecificationSetting> getSpecificationSetting(double metal,int typyDoorId){
+
+    public List<SpecificationSetting> getSpecificationSetting(double metal, int typyDoorId) {
         Session session = sessionFactory.openSession();
 
         String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT";
