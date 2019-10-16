@@ -48,6 +48,12 @@ public class MainController {
         return "doorClassList";
     }
 
+    @GetMapping(value = "/doorclassis", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<DoorClass> getDoorClassis(Model model) throws Exception {
+        return service.getDoorClass();
+    }
+
     @GetMapping(value = "/doorclass")
     public String getDoorClass(@RequestParam(required = false) String classId, Model model) throws Exception {
 

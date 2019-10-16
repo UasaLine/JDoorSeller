@@ -36,20 +36,12 @@ public class MaineService {
 
     public List<DoorClass> getDoorClass() {
 
-        //for test please restore
-        //return dAO.getDoorClass();
-
         List<DoorClass> doorClassList = dAO.getDoorClass();
 
-        for (DoorClass doorClassElem: doorClassList){
-            List<DoorType> doorTypelist = doorClassElem.getDoorTypes();
-            for (DoorType typeElem:doorTypelist ){
-                typeElem.makeRightNamePictureDoorType();
-                dAO.saveOrUpdateDoorType(typeElem);
-            }
-        }
-
-        return doorClassList;
+        return doorClassList.stream()
+                .peek((dClass)->dClass.getDoorTypes().stream().
+                                                      forEach((type)->type.clearNonSerializingFields()))
+                .collect(Collectors.toList());
     }
 
     public DoorClass getDoorClass(String calassId) {

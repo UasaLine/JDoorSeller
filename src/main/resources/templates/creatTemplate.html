@@ -3,8 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>door seller</title>
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/creattemplate.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
     <!-- Подключаем Bootstrap CSS -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
 </head>
@@ -14,10 +16,10 @@
     <div class="header_logo">
         <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
-    <div class="header_home" >
+    <div class="header_home">
         <a th:href="@{/doorclasslist}" class="logo_home">door class</a>
     </div>
-    <div class="header_home" >
+    <div class="header_home">
         <a th:href="@{/doortypelist}" class="logo_home">door type</a>
     </div>
 </div>
@@ -27,74 +29,100 @@
     <div class="form-group">
 
         <h1 class="display-4">шаблон</h1>
-        <div class="linebottom"></div><br>
+        <div class="linebottom"></div>
+        <br>
 
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">класс двери:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>ДПД</option>
-                <option>Термо</option>
-                <option>ДСН</option>
-                <option>Центурион</option>
-            </select>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">вид двери:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-
-            </select>
-        </div>
+            <div class="col-md-6 mb-3">
+                <label for="exampleFormControlSelect1">класс двери:</label>
+                <select class="form-control" id="doorclassselect">
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="exampleFormControlSelect1">вид двери:</label>
+                <select class="form-control" id="doortypeselect">
+                </select>
+            </div>
 
         <h4>металл</h4>
-        <div class="linebottom"></div><br>
+        <div class="linebottom"></div>
+        <br>
 
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">металл:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-
+            <div class="col-md-6 mb-3" id="metalDiv">
+            <label for="metalSelect0">металл:</label>
+            <select class="form-control metalSelect" id="metalSelect0" data="0">
             </select>
         </div>
 
         <h4>размеры</h4>
-        <div class="linebottom"></div><br>
+        <div class="linebottom"></div>
+        <br>
 
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">ширина двери:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
 
-            </select>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">высота двери:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <!--width-->
+            <div class="col-md-6 mb-3">
+                <label for="widthSizMaxMinDiv">ширина двери: (интервал)</label>
+                <div class="row" id="widthSizMaxMinDiv">
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="min">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="max">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="step">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3" id="widthSizeDiv">
+                <label for="widthDoorInput0">ширина двери:</label>
+                <input type="number" class="form-control widthDoorInput" id="widthDoorInput0" data="0" placeholder="ширина">
+            </div>
 
-            </select>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">глубина:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <!--height-->
+            <div class="col-md-6 mb-3">
+                <label for="sizheightMaxMinDiv">высота двери: (интервал)</label>
+                <div class="row" id="sizheightMaxMinDiv">
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="min">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="max">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="step">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3" id="heightSizeDiv">
+                <label for="heightDoorInput0">высота двери:</label>
+                <input type="number" class="form-control heightDoorInput" id="heightDoorInput0" data="0" placeholder="ширина">
+            </div>
 
-            </select>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="exampleFormControlSelect1">толщина полотна:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <!--deepnessDoor-->
+            <div class="col-md-6 mb-3" id="deepnessDoorDiv">
+                <label for="deepnessDoorInput0">глубина:</label>
+                <input type="number" class="form-control deepnessDoorInput" id="deepnessDoorInput0" data="0" placeholder="глубина">
+            </div>
 
-            </select>
-        </div>
+            <!--deepnessDoor-->
+            <div class="col-md-6 mb-3" id="thicknessDoorLeafDiv">
+                <label for="thicknessDoorLeafInput0">толщина полотна:</label>
+                <input class="form-control thicknessDoorLeafInput" id="thicknessDoorLeafInput0" data="0">
+            </div>
 
         <h4>цвета</h4>
-        <div class="linebottom"></div><br>
+        <div class="linebottom"></div>
+        <br>
 
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlSelect1">цвет:</label>
             <select class="form-control" id="exampleFormControlSelect1">
-
             </select>
         </div>
 
         <h4>дополнительные настройки</h4>
-        <div class="linebottom"></div><br>
+        <div class="linebottom"></div>
+        <br>
         <div class="col-md-6 mb-3">
             <label for="exampleFormControlSelect1">порог:</label>
             <select class="form-control" id="exampleFormControlSelect1">

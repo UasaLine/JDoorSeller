@@ -23,7 +23,6 @@ jQuery('document').ready(function(){
     var orderId = $('#orderId').text();
     var doorGroup = $('#doorGroup').text();
 
-    //getInstans door
     $.ajax({
         url: 'door',
         data: {id: id,orderId: orderId,doorGroup: doorGroup},

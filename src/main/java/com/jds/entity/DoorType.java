@@ -87,7 +87,7 @@ public class DoorType {
         namePicture = namePicture.replace("\\", "/");
 
         int index = namePicture.lastIndexOf(".jpg");
-        if(index == - 1) {
+        if (index == -1) {
             namePicture = namePicture + ".jpg";
         }
 

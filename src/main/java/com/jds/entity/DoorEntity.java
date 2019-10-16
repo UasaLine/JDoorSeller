@@ -87,7 +87,7 @@ public class DoorEntity implements Door {
     private String doorColor;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "doors",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "doors", fetch = FetchType.LAZY)
     private List<DoorsОrder> orders;
 
     @Transient
@@ -147,39 +147,39 @@ public class DoorEntity implements Door {
     @Transient
     private int filling;
 
-    public DoorEntity calculateMaterials(List<SpecificationSetting> speciSettingList){
+    public DoorEntity calculateMaterials(List<SpecificationSetting> speciSettingList) {
 
         int costMetal = 0;
-        for(SpecificationSetting setting:speciSettingList){
-           double value = setting.countByTheFormula(this);
-           double price = setting.getRawMaterials().getPrice();
-            costMetal =  (int)(value*price);
-            costList.addLine("материаллы : "+setting.getRawMaterials().getName()+", "+value+", "+price+" руб."
-                    ,12
-                    ,false
-                    ,costMetal);
+        for (SpecificationSetting setting : speciSettingList) {
+            double value = setting.countByTheFormula(this);
+            double price = setting.getRawMaterials().getPrice();
+            costMetal = (int) (value * price);
+            costList.addLine("материаллы : " + setting.getRawMaterials().getName() + ", " + value + ", " + price + " руб."
+                    , 12
+                    , false
+                    , costMetal);
         }
 
         return this;
     }
 
-    public DoorEntity clearEmptyLinks(){
+    public DoorEntity clearEmptyLinks() {
 
-        if(doorGlass!=null && !doorGlass.exists()){
-            doorGlass=null;
+        if (doorGlass != null && !doorGlass.exists()) {
+            doorGlass = null;
         }
-        if(furnitureKit!=null && !furnitureKit.exists()){
-            furnitureKit=null;
+        if (furnitureKit != null && !furnitureKit.exists()) {
+            furnitureKit = null;
         }
         return this;
     }
 
-    public DoorEntity clearNonSerializingFields(){
+    public DoorEntity clearNonSerializingFields() {
         orders = null;
-        if (getDoorGlass() != null){
+        if (getDoorGlass() != null) {
             getDoorGlass().clearNonSerializingFields();
         }
-        if (getFurnitureKit() != null){
+        if (getFurnitureKit() != null) {
             getFurnitureKit().clearNonSerializingFields();
         }
         if (doorType != null) {
@@ -188,83 +188,82 @@ public class DoorEntity implements Door {
         return this;
     }
 
-    public void calculateWeigh(Metal metal){
+    public void calculateWeigh(Metal metal) {
 
         space = 0;
 
-        for (Sheet sheet:sheets){
-            space +=sheet.getAmountWorkSpace();
+        for (Sheet sheet : sheets) {
+            space += sheet.getAmountWorkSpace();
         }
-        space = space*1.15;
-        this.weigh = space*metal.getIndexHeft();
+        space = space * 1.15;
+        this.weigh = space * metal.getIndexHeft();
     }
 
-    public void calculateCostMetal(Metal metal){
+    public void calculateCostMetal(Metal metal) {
 
-        for (Sheet sheet:sheets){
+        for (Sheet sheet : sheets) {
             List<DoorPart> doorPartArrayList = sheet.getContainsParts();
-            for(DoorPart doorPart:doorPartArrayList){
-                costList.addLine("металл :"+doorPart.getName()+" - "+doorPart.getSpace()
-                        ,1
-                        ,false
-                        ,0);
+            for (DoorPart doorPart : doorPartArrayList) {
+                costList.addLine("металл :" + doorPart.getName() + " - " + doorPart.getSpace()
+                        , 1
+                        , false
+                        , 0);
             }
         }
 
         int quantitySheetsInt = sheets.size();
-        Sheet sheet = sheets.get(quantitySheetsInt-1);
+        Sheet sheet = sheets.get(quantitySheetsInt - 1);
         double quantitySheetsDoubl = (double) quantitySheetsInt - sheet.getResidueSpace();
-        int costMetal = (int)(quantitySheetsDoubl*metal.getIndexHeft()*metal.getPrice());
-        costList.addLine("металл : total [лист-"+quantitySheetsDoubl+
-                        ", вес-"+metal.getIndexHeft()+
-                        ", цена-"+metal.getPrice()+"]"
-                ,1
-                ,false
-                ,costMetal);
+        int costMetal = (int) (quantitySheetsDoubl * metal.getIndexHeft() * metal.getPrice());
+        costList.addLine("металл : total [лист-" + quantitySheetsDoubl +
+                        ", вес-" + metal.getIndexHeft() +
+                        ", цена-" + metal.getPrice() + "]"
+                , 1
+                , false
+                , costMetal);
     }
 
-    public DoorEntity calculateColorDoor(DoorColors doorColors){
+    public DoorEntity calculateColorDoor(DoorColors doorColors) {
 
-        double spaceColor =  getSpace();//-S_ребер;?
-        double costColor = (doorColors.getPricePaintingMeterOfSpace()*spaceColor)/5;
+        double spaceColor = getSpace();//-S_ребер;?
+        double costColor = (doorColors.getPricePaintingMeterOfSpace() * spaceColor) / 5;
 
-        costList.addLine("Цвет : [S-"+spaceColor
-                        +", цена-"+doorColors.getPricePaintingMeterOfSpace(),
+        costList.addLine("Цвет : [S-" + spaceColor
+                        + ", цена-" + doorColors.getPricePaintingMeterOfSpace(),
                 2,
                 false,
-                (int)costColor);
+                (int) costColor);
 
         return this;
 
     }
 
-    public DoorEntity calculateGlass(){
+    public DoorEntity calculateGlass() {
 
-        if(doorGlass.exists()){
+        if (doorGlass.exists()) {
 
             double glassSpace = doorGlass.getSpace();
-            int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS,glassSpace);
-            costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getTypeDoorGlass().getName(),
-                    5,false, cost);
+            int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace);
+            costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getTypeDoorGlass().getName(),
+                    5, false, cost);
 
-            if(doorGlass.getToning()!=null){
-                cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE,glassSpace);
-                costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getToning().getName(),
-                        5,false, cost);
+            if (doorGlass.getToning() != null) {
+                cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace);
+                costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getToning().getName(),
+                        5, false, cost);
             }
 
-            if(doorGlass.getArmor()!=null){
-                cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE,glassSpace);
-                costList.addLine("Стекло: S-"+glassSpace+", "+doorGlass.getArmor().getName(),
-                        5,false, cost);
+            if (doorGlass.getArmor() != null) {
+                cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE, glassSpace);
+                costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getArmor().getName(),
+                        5, false, cost);
             }
 
 
         }
 
 
-
-        if(isDoorFanlightGlass==1){
+        if (isDoorFanlightGlass == 1) {
 
         }
 
@@ -303,12 +302,12 @@ public class DoorEntity implements Door {
         this.weigh = weigh;
     }
 
-    public DoorEntity createName(){
+    public DoorEntity createName() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Дверь противопожарная ДПД EIWS60 ");
-        stringBuilder.append(widthDoor+" X "+heightDoor);
-        stringBuilder.append(" ("+metal+" мм) "+sideDoorOpen+" "+doorColor);
+        stringBuilder.append(widthDoor + " X " + heightDoor);
+        stringBuilder.append(" (" + metal + " мм) " + sideDoorOpen + " " + doorColor);
         name = stringBuilder.toString();
         return this;
 
@@ -475,7 +474,7 @@ public class DoorEntity implements Door {
         this.orders = оrders;
     }
 
-    public void addOrder (DoorsОrder door){
+    public void addOrder(DoorsОrder door) {
         this.orders.add(door);
     }
 
@@ -483,15 +482,14 @@ public class DoorEntity implements Door {
         return doorColor;
     }
 
-    public DoorEntity calculateSalary(PayrollSettings paySet){
-
+    public DoorEntity calculateSalary(PayrollSettings paySet) {
 
 
         //constructorSalary
         //********************************************************
         costList.addLine("Конструктор:",
-                        3,
-                        false,
+                3,
+                false,
                 (int) (paySet.getConstMap().get(TypeOfSalaryConst.CONSTRUCTOR_COST)
                         + paySet.getConstMap().get(TypeOfSalaryConst.MARKUP_CONSTRUCTOR)));
 
@@ -500,48 +498,47 @@ public class DoorEntity implements Door {
         costList.addLine("Резка:",
                 3,
                 false,
-                (int)(this.sheets.size()*paySet.getConstMap().get(TypeOfSalaryConst.CUTTING_COST_PER_SHEET)));
+                (int) (this.sheets.size() * paySet.getConstMap().get(TypeOfSalaryConst.CUTTING_COST_PER_SHEET)));
 
 
         //bendingSalary
         //********************************************************
-        if(paySet.getBendSetting().getBend()==0){
+        if (paySet.getBendSetting().getBend() == 0) {
             System.out.println("ERROR calculateSalary  - Количество гибов = 0!");
         }
         double bendingCost = paySet.getConstMap().get(TypeOfSalaryConst.BENDING_COST);
-        double cost = bendingCost*paySet.getBendSetting().getBend();
-        costList.addLine("Гибка: ["+paySet.getBendSetting().getBend()+" Х "+bendingCost+" = "+cost,
+        double cost = bendingCost * paySet.getBendSetting().getBend();
+        costList.addLine("Гибка: [" + paySet.getBendSetting().getBend() + " Х " + bendingCost + " = " + cost,
                 3,
                 false,
-                (int)cost);
+                (int) cost);
 
         //guillotine
         //********************************************************
-        if(paySet.getBendSetting().getGuillotine()==0){
+        if (paySet.getBendSetting().getGuillotine() == 0) {
             System.out.println("ERROR calculateSalary  - Количество резов гильотины = 0!");
         }
-        cost = paySet.getBendSetting().getGuillotine()*paySet.getConstMap().get(TypeOfSalaryConst.GUILLOTINE_COST);
-        costList.addLine("Гильотина: "+paySet.getBendSetting().getGuillotine()
-                        +" Х "+paySet.getConstMap().get(TypeOfSalaryConst.GUILLOTINE_COST)+" = "+cost,
+        cost = paySet.getBendSetting().getGuillotine() * paySet.getConstMap().get(TypeOfSalaryConst.GUILLOTINE_COST);
+        costList.addLine("Гильотина: " + paySet.getBendSetting().getGuillotine()
+                        + " Х " + paySet.getConstMap().get(TypeOfSalaryConst.GUILLOTINE_COST) + " = " + cost,
                 3,
                 false,
-                (int)cost);
+                (int) cost);
 
 
         //contact welding
         //********************************************************
         cost = 0;
-        if (metal<1.4){
-            if(paySet.getDoorType().getDoorLeaf()==1){
+        if (metal < 1.4) {
+            if (paySet.getDoorType().getDoorLeaf() == 1) {
                 cost = paySet.getSalarySetting().getContactWeldingForOneLeaf();
-            }
-            else if(paySet.getDoorType().getDoorLeaf()==2){
+            } else if (paySet.getDoorType().getDoorLeaf() == 2) {
                 cost = paySet.getSalarySetting().getContactWeldingForTwoLeaf();
             }
-            costList.addLine("Контактная Сварка: "+cost,
+            costList.addLine("Контактная Сварка: " + cost,
                     3,
                     false,
-                    (int)cost);
+                    (int) cost);
 
         }
 
@@ -566,158 +563,150 @@ public class DoorEntity implements Door {
         return this;
     }
 
-    public DoorEntity costToPrice(){
+    public DoorEntity costToPrice() {
 
-        double summMarkUp=0;
-        if (isDoorGlass==1) {
-            summMarkUp = doorType.getMarkUpGlassPackage() * costList.getTotalCost()/100;
+        double summMarkUp = 0;
+        if (isDoorGlass == 1) {
+            summMarkUp = doorType.getMarkUpGlassPackage() * costList.getTotalCost() / 100;
+        } else {
+            summMarkUp = doorType.getMarkUp() * costList.getTotalCost() / 100;
         }
-        else {
-            summMarkUp = doorType.getMarkUp() * costList.getTotalCost()/100;
-        }
 
 
-        setPrice(costList.getTotalCost()+ (int)summMarkUp);
-        setDiscountPrice(price - ((int) (price*0.25)));
-        setPriceWithMarkup(discountPrice + ((int) (discountPrice*1.25)));
+        setPrice(costList.getTotalCost() + (int) summMarkUp);
+        setDiscountPrice(price - ((int) (price * 0.25)));
+        setPriceWithMarkup(discountPrice + ((int) (discountPrice * 1.25)));
         return this;
     }
 
-    public DoorEntity calculateFurniture(){
+    public DoorEntity calculateFurniture() {
 
         //TopLock
-        if (furnitureKit.getTopLock()!=null){
+        if (furnitureKit.getTopLock() != null) {
             costList.addLine("Фурнитура: верхний замок ",
                     4,
                     false,
-                    (int )furnitureKit.getTopLock().getPrice());
+                    (int) furnitureKit.getTopLock().getPrice());
         }
-        if (furnitureKit.getTopinternaLockDecoration()!=null){
+        if (furnitureKit.getTopinternaLockDecoration() != null) {
             costList.addLine("Фурнитура: накладка верх. внутреняя ",
                     4,
                     false,
-                    (int )furnitureKit.getTopinternaLockDecoration().getPrice());
+                    (int) furnitureKit.getTopinternaLockDecoration().getPrice());
         }
-        if (furnitureKit.getTopouterLockDecoration()!=null){
+        if (furnitureKit.getTopouterLockDecoration() != null) {
             costList.addLine("Фурнитура: накладка верх. внешняя ",
                     4,
                     false,
-                    (int )furnitureKit.getTopouterLockDecoration().getPrice());
+                    (int) furnitureKit.getTopouterLockDecoration().getPrice());
         }
 
-        if (furnitureKit.getToplockCylinder()!=null){
+        if (furnitureKit.getToplockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
                     4,
                     false,
-                    (int )furnitureKit.getToplockCylinder().getPrice());
+                    (int) furnitureKit.getToplockCylinder().getPrice());
         }
 
         //LowerLock
-        if (furnitureKit.getLowerLock()!=null){
+        if (furnitureKit.getLowerLock() != null) {
             costList.addLine("Фурнитура: нижний замок ",
                     4,
                     false,
-                    (int )furnitureKit.getLowerLock().getPrice());
+                    (int) furnitureKit.getLowerLock().getPrice());
         }
-        if (furnitureKit.getLowerinternaLockDecoration()!=null){
+        if (furnitureKit.getLowerinternaLockDecoration() != null) {
             costList.addLine("Фурнитура: накладка низ. внутренняя",
                     4,
                     false,
-                    (int )furnitureKit.getLowerinternaLockDecoration().getPrice());
+                    (int) furnitureKit.getLowerinternaLockDecoration().getPrice());
         }
-        if (furnitureKit.getLowerouterLockDecoration()!=null){
+        if (furnitureKit.getLowerouterLockDecoration() != null) {
             costList.addLine("Фурнитура: накладка низ. внешняя",
                     4,
                     false,
-                    (int )furnitureKit.getLowerouterLockDecoration().getPrice());
+                    (int) furnitureKit.getLowerouterLockDecoration().getPrice());
         }
-        if (furnitureKit.getLowerlockCylinder()!=null){
+        if (furnitureKit.getLowerlockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
                     4,
                     false,
-                    (int )furnitureKit.getLowerlockCylinder().getPrice());
+                    (int) furnitureKit.getLowerlockCylinder().getPrice());
         }
 
 
         // handle
-        if (furnitureKit.getHandle()!=null){
+        if (furnitureKit.getHandle() != null) {
             costList.addLine("Фурнитура: ручка ",
                     4,
                     false,
-                    (int )furnitureKit.getHandle().getPrice());
+                    (int) furnitureKit.getHandle().getPrice());
         }
         // Closer
-        if (furnitureKit.getCloser()!=null){
+        if (furnitureKit.getCloser() != null) {
             costList.addLine("Фурнитура: доводчик ",
                     4,
                     false,
-                    (int )furnitureKit.getCloser().getPrice());
+                    (int) furnitureKit.getCloser().getPrice());
         }
         //endDoorLock
-        if (furnitureKit.getEndDoorLock()!=null){
+        if (furnitureKit.getEndDoorLock() != null) {
             costList.addLine("Фурнитура: торцевой шпингалет ",
                     4,
                     false,
-                    (int )furnitureKit.getEndDoorLock().getPrice());
+                    (int) furnitureKit.getEndDoorLock().getPrice());
         }
 
         return this;
     }
 
-    private void weldingCost(PayrollSettings paySet){
+    private void weldingCost(PayrollSettings paySet) {
         //main
         double cost = 0;
-        double spaceDoor = ((double)(widthDoor*heightDoor))/1000000;
-        if(paySet.getDoorType().getDoorLeaf()==1){
-            if((widthDoor<=paySet.getConstMap().get(TypeOfSalaryConst.WIDTH_LIMIT_ONE_LEAF))
-                    &&(heightDoor<=paySet.getConstMap().get(TypeOfSalaryConst.HEIGHT_LIMIT_ONE_LEAF))){
+        double spaceDoor = ((double) (widthDoor * heightDoor)) / 1000000;
+        if (paySet.getDoorType().getDoorLeaf() == 1) {
+            if ((widthDoor <= paySet.getConstMap().get(TypeOfSalaryConst.WIDTH_LIMIT_ONE_LEAF))
+                    && (heightDoor <= paySet.getConstMap().get(TypeOfSalaryConst.HEIGHT_LIMIT_ONE_LEAF))) {
 
-                if(paySet.getDoorType().getDoorClass().getHot()==1){
+                if (paySet.getDoorType().getDoorClass().getHot() == 1) {
                     cost = paySet.getSalarySetting().getWeldingForOneLeafHot();
-                }
-                else if(MDF==1) {
+                } else if (MDF == 1) {
                     cost = paySet.getSalarySetting().getWeldingForOneLeafMDF();
-                }
-                else {
+                } else {
                     cost = paySet.getSalarySetting().getWeldingForOneLeaf();
                 }
+            } else {
+                cost = spaceDoor * paySet.getConstMap().get(TypeOfSalaryConst.COST_OVER_LIMIT_ONE_LEAF);
             }
-            else {
-                cost = spaceDoor*paySet.getConstMap().get(TypeOfSalaryConst.COST_OVER_LIMIT_ONE_LEAF);
-            }
-        }
-        else if(paySet.getDoorType().getDoorLeaf()==2){
-            if((widthDoor<=paySet.getConstMap().get(TypeOfSalaryConst.WIDTH_LIMIT_TWO_LEAF))
-                    &&(heightDoor<=paySet.getConstMap().get(TypeOfSalaryConst.HEIGHT_LIMIT_TWO_LEAF))){
+        } else if (paySet.getDoorType().getDoorLeaf() == 2) {
+            if ((widthDoor <= paySet.getConstMap().get(TypeOfSalaryConst.WIDTH_LIMIT_TWO_LEAF))
+                    && (heightDoor <= paySet.getConstMap().get(TypeOfSalaryConst.HEIGHT_LIMIT_TWO_LEAF))) {
 
-                if(paySet.getDoorType().getDoorClass().getHot()==1){
+                if (paySet.getDoorType().getDoorClass().getHot() == 1) {
                     cost = paySet.getSalarySetting().getWeldingForTwoLeafHot();
-                }
-                else if(MDF==1) {
+                } else if (MDF == 1) {
                     cost = paySet.getSalarySetting().getWeldingForTwoLeafMDF();
-                }
-                else {
+                } else {
                     cost = paySet.getSalarySetting().getWeldingForTwoLeaf();
                 }
 
-            }
-            else {
-                cost = spaceDoor*paySet.getConstMap().get(TypeOfSalaryConst.COST_OVER_LIMIT_TWO_LEAF);
+            } else {
+                cost = spaceDoor * paySet.getConstMap().get(TypeOfSalaryConst.COST_OVER_LIMIT_TWO_LEAF);
             }
         }
-        costList.addLine("Сварка: "+cost,
+        costList.addLine("Сварка: " + cost,
                 3,
                 false,
-                (int)cost);
+                (int) cost);
 
         //doorFanlight
         cost = 0;
-        if (doorFanlightHeight>0){
+        if (doorFanlightHeight > 0) {
             cost = paySet.getConstMap().get(TypeOfSalaryConst.COST_DOOR_FANLIGHT);
-            costList.addLine("Фрамуга: "+cost,
+            costList.addLine("Фрамуга: " + cost,
                     3,
                     false,
-                    (int)cost);
+                    (int) cost);
         }
 
         //handle
@@ -726,36 +715,36 @@ public class DoorEntity implements Door {
 
         //door hinge
         cost = 0;
-        if(additionallyHingeMain==1||additionallyHingeNotMain==1){
+        if (additionallyHingeMain == 1 || additionallyHingeNotMain == 1) {
 
-            if(additionallyHingeMain==1){
-                cost+=paySet.getConstMap().get(TypeOfSalaryConst.COST_WELDING_ADDITIONAL_DOOR_HINGE);
+            if (additionallyHingeMain == 1) {
+                cost += paySet.getConstMap().get(TypeOfSalaryConst.COST_WELDING_ADDITIONAL_DOOR_HINGE);
             }
-            if (additionallyHingeNotMain==1){
-                cost+=paySet.getConstMap().get(TypeOfSalaryConst.COST_WELDING_ADDITIONAL_DOOR_HINGE);
+            if (additionallyHingeNotMain == 1) {
+                cost += paySet.getConstMap().get(TypeOfSalaryConst.COST_WELDING_ADDITIONAL_DOOR_HINGE);
             }
 
-            costList.addLine("Доп.петля - "+cost,
+            costList.addLine("Доп.петля - " + cost,
                     3,
                     false,
                     (int) cost);
         }
 
         //Amplifier Closer
-        cost=0;
-        if (amplifierCloser==1){
+        cost = 0;
+        if (amplifierCloser == 1) {
             cost = paySet.getConstMap().get(TypeOfSalaryConst.COST_AMPLIFIER_CLOSER);
-            costList.addLine("усилитель доводчика - "+cost,
+            costList.addLine("усилитель доводчика - " + cost,
                     3,
                     false,
                     (int) cost);
         }
 
         //Glass
-        cost=0;
-        if(doorGlass.exists()){
+        cost = 0;
+        if (doorGlass.exists()) {
             cost = paySet.getConstMap().get(TypeOfSalaryConst.WELDING_FOR_GLASS);
-            costList.addLine("Стеклопакет - "+cost,
+            costList.addLine("Стеклопакет - " + cost,
                     3,
                     false,
                     (int) cost);
@@ -766,7 +755,7 @@ public class DoorEntity implements Door {
 
         //thirdSealingLine
         cost = 0;
-        if (thirdSealingLine>0){
+        if (thirdSealingLine > 0) {
             cost = paySet.getConstMap().get(TypeOfSalaryConst.COST_THIRD_SEALING_LINE);
             costList.addLine("Доп. линия уплотнения ",
                     3,
@@ -775,15 +764,15 @@ public class DoorEntity implements Door {
         }
     }
 
-    private void cleanCost(PayrollSettings paySet){
+    private void cleanCost(PayrollSettings paySet) {
 
-        if (paySet.getDoorType().getDoorLeaf()==1){
+        if (paySet.getDoorType().getDoorLeaf() == 1) {
 
-            costList.addLine(" зачистка, базовая ставка ",3,false,
+            costList.addLine(" зачистка, базовая ставка ", 3, false,
                     paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_ONE_LEAF).intValue());
 
-            if(paySet.getDoorColors().getSmooth()==1){
-                costList.addLine(" зачистка, гладкая краска ",3,false,
+            if (paySet.getDoorColors().getSmooth() == 1) {
+                costList.addLine(" зачистка, гладкая краска ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_SMOOTH_PAINT_ONE_LEAF).intValue());
             }
 
@@ -792,30 +781,29 @@ public class DoorEntity implements Door {
             //            ConstMap.get(TypeOfSalaryConst.COST_CLEAN_SQUARES_L5_PAINT_ONE_LEAF).intValue());
             //}
 
-            if(additionallyHingeMain==1){
-                costList.addLine(" зачистка, доп петля ",3,false,
+            if (additionallyHingeMain == 1) {
+                costList.addLine(" зачистка, доп петля ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_ADDITIONALLY_HINGE_ONE_LEAF).intValue());
             }
 
-            if(thirdSealingLine>0){
-                costList.addLine(" зачистка, Доп. линия уплотнения ",3,false,
+            if (thirdSealingLine > 0) {
+                costList.addLine(" зачистка, Доп. линия уплотнения ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_THIRD_SEALING_LINE_ONE_LEAF).intValue());
             }
 
-            if(thirdSealingLine>0){
-                costList.addLine(" зачистка, Термо ",3,false,
+            if (thirdSealingLine > 0) {
+                costList.addLine(" зачистка, Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_HOT_ONE_LEAF).intValue());
             }
 
 
-        }
-        else if(paySet.getDoorType().getDoorLeaf()==2){
+        } else if (paySet.getDoorType().getDoorLeaf() == 2) {
 
-            costList.addLine(" зачистка, базовая ставка ",3,false,
+            costList.addLine(" зачистка, базовая ставка ", 3, false,
                     paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_TWO_LEAF).intValue());
 
-            if(paySet.getDoorColors().getSmooth()==1){
-                costList.addLine(" зачистка, гладкая краска ",3,false,
+            if (paySet.getDoorColors().getSmooth() == 1) {
+                costList.addLine(" зачистка, гладкая краска ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_SMOOTH_PAINT_TWO_LEAF).intValue());
             }
 
@@ -824,124 +812,109 @@ public class DoorEntity implements Door {
             //            paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_SQUARES_L5_PAINT_TWO_LEAF).intValue());
             //}
 
-            if(additionallyHingeMain==1){
-                costList.addLine(" зачистка, доп петля ",3,false,
+            if (additionallyHingeMain == 1) {
+                costList.addLine(" зачистка, доп петля ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_ADDITIONALLY_HINGE_TWO_LEAF).intValue());
             }
 
-            if(thirdSealingLine>0){
-                costList.addLine(" зачистка, Доп. линия уплотнения ",3,false,
+            if (thirdSealingLine > 0) {
+                costList.addLine(" зачистка, Доп. линия уплотнения ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_THIRD_SEALING_LINE_TWO_LEAF).intValue());
             }
 
-            if(thirdSealingLine>0){
-                costList.addLine(" зачистка, Термо ",3,false,
+            if (thirdSealingLine > 0) {
+                costList.addLine(" зачистка, Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_HOT_TWO_LEAF).intValue());
             }
 
         }
     }
 
-    private void polymerColoringCost (PayrollSettings paySet){
+    private void polymerColoringCost(PayrollSettings paySet) {
 
-        if (paySet.getDoorType().getDoorLeaf()==1) {
-            if(paySet.getDoorType().getDoorClass().getHot()==1){
-                costList.addLine(" Полимерка : Створок-1шт,Термо ",3,false,
+        if (paySet.getDoorType().getDoorLeaf() == 1) {
+            if (paySet.getDoorType().getDoorClass().getHot() == 1) {
+                costList.addLine(" Полимерка : Створок-1шт,Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_POLYMER_COLOR_HOT_ONE_LEAF).intValue());
-            }
-            else if(MDF==1){
-                costList.addLine(" Полимерка : Створок-1шт,МД ",3,false,
+            } else if (MDF == 1) {
+                costList.addLine(" Полимерка : Створок-1шт,МД ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_POLYMER_COLOR_MDF_ONE_LEAF).intValue());
-            }
-            else {
-                costList.addLine(" Полимерка : Створок-1шт,ММ ",3,false,
+            } else {
+                costList.addLine(" Полимерка : Створок-1шт,ММ ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_POLYMER_COLOR_ONE_LEAF).intValue());
             }
-        }
-        else if (paySet.getDoorType().getDoorLeaf()==2){
-            if(paySet.getDoorType().getDoorClass().getHot()==2){
-                costList.addLine(" Полимерка : Створок-2шт,Термо ",3,false,
+        } else if (paySet.getDoorType().getDoorLeaf() == 2) {
+            if (paySet.getDoorType().getDoorClass().getHot() == 2) {
+                costList.addLine(" Полимерка : Створок-2шт,Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_POLYMER_COLOR_HOT_TWO_LEAF).intValue());
-            }
-            else if(MDF==1){
-                costList.addLine(" Полимерка : Створок-2шт,МД ",3,false,
+            } else if (MDF == 1) {
+                costList.addLine(" Полимерка : Створок-2шт,МД ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_POLYMER_COLOR_MDF_TWO_LEAF).intValue());
-            }
-            else {
-                costList.addLine(" Полимерка : Створок-2шт,ММ ",3,false,
+            } else {
+                costList.addLine(" Полимерка : Створок-2шт,ММ ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_POLYMER_COLOR_TWO_LEAF).intValue());
             }
         }
     }
 
-    private void assemblyCost(PayrollSettings paySet){
+    private void assemblyCost(PayrollSettings paySet) {
 
-        if (paySet.getDoorType().getDoorLeaf()==1){
+        if (paySet.getDoorType().getDoorLeaf() == 1) {
 
-            if(paySet.getDoorType().getDoorClass().getHot()==1){
-                costList.addLine(" Сборка : Створок-1шт,Термо ",3,false,
+            if (paySet.getDoorType().getDoorClass().getHot() == 1) {
+                costList.addLine(" Сборка : Створок-1шт,Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_HOT_ONE_LEAF).intValue());
-            }
-            else if(MDF==1){
-                costList.addLine(" Сборка : Створок-1шт,МД ",3,false,
+            } else if (MDF == 1) {
+                costList.addLine(" Сборка : Створок-1шт,МД ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_MDF_ONE_LEAF).intValue());
-            }
-            else {
-                costList.addLine(" Сборка : Створок-1шт,ММ ",3,false,
+            } else {
+                costList.addLine(" Сборка : Створок-1шт,ММ ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_ONE_LEAF).intValue());
             }
-        }
-        else if(paySet.getDoorType().getDoorLeaf()==2){
+        } else if (paySet.getDoorType().getDoorLeaf() == 2) {
 
-            if(paySet.getDoorType().getDoorClass().getHot()==1){
-                costList.addLine(" Сборка : Створок-2шт,Термо ",3,false,
+            if (paySet.getDoorType().getDoorClass().getHot() == 1) {
+                costList.addLine(" Сборка : Створок-2шт,Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_HOT_TWO_LEAF).intValue());
-            }
-            else if(MDF==1){
-                costList.addLine(" Сборка : Створок-2шт,МД ",3,false,
+            } else if (MDF == 1) {
+                costList.addLine(" Сборка : Створок-2шт,МД ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_MDF_TWO_LEAF).intValue());
-            }
-            else {
-                costList.addLine(" Сборка : Створок-2шт,ММ ",3,false,
+            } else {
+                costList.addLine(" Сборка : Створок-2шт,ММ ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_TWO_LEAF).intValue());
             }
         }
 
-        if(doorGlass.exists()){
-            costList.addLine(" Сборка : стеклопакет ",3,false,
+        if (doorGlass.exists()) {
+            costList.addLine(" Сборка : стеклопакет ", 3, false,
                     paySet.getConstMap().get(TypeOfSalaryConst.COST_ASSEMBLY_GLASS).intValue());
         }
     }
 
-    private void packagingCost(PayrollSettings paySet){
+    private void packagingCost(PayrollSettings paySet) {
 
-        if (paySet.getDoorType().getDoorLeaf()==1){
+        if (paySet.getDoorType().getDoorLeaf() == 1) {
 
-            if(paySet.getDoorType().getDoorClass().getHot()==1){
-                costList.addLine(" Упаковка : Створок-1шт,Термо ",3,false,
+            if (paySet.getDoorType().getDoorClass().getHot() == 1) {
+                costList.addLine(" Упаковка : Створок-1шт,Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_PACKAGING_HOT_ONE_LEAF).intValue());
-            }
-            else if(MDF==1){
-                costList.addLine(" Упаковка : Створок-1шт,МД ",3,false,
+            } else if (MDF == 1) {
+                costList.addLine(" Упаковка : Створок-1шт,МД ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_PACKAGING_MDF_ONE_LEAF).intValue());
-            }
-            else {
-                costList.addLine(" Упаковка : Створок-1шт,ММ ",3,false,
+            } else {
+                costList.addLine(" Упаковка : Створок-1шт,ММ ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_PACKAGING_ONE_LEAF).intValue());
             }
-        }
-        else if(paySet.getDoorType().getDoorLeaf()==2){
+        } else if (paySet.getDoorType().getDoorLeaf() == 2) {
 
-            if(paySet.getDoorType().getDoorClass().getHot()==1){
-                costList.addLine(" Упаковка : Створок-2шт,Термо ",3,false,
+            if (paySet.getDoorType().getDoorClass().getHot() == 1) {
+                costList.addLine(" Упаковка : Створок-2шт,Термо ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_PACKAGING_HOT_TWO_LEAF).intValue());
-            }
-            else if(MDF==1){
-                costList.addLine(" Упаковка : Створок-2шт,МД ",3,false,
+            } else if (MDF == 1) {
+                costList.addLine(" Упаковка : Створок-2шт,МД ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_PACKAGING_MDF_TWO_LEAF).intValue());
-            }
-            else {
-                costList.addLine(" Упаковка : Створок-2шт,ММ ",3,false,
+            } else {
+                costList.addLine(" Упаковка : Створок-2шт,ММ ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_PACKAGING_TWO_LEAF).intValue());
             }
         }
@@ -985,7 +958,7 @@ public class DoorEntity implements Door {
         this.availableDoorClass = availableDoorClass;
     }
 
-    public void addAvailableDoorClass(DoorClass doorClass){
+    public void addAvailableDoorClass(DoorClass doorClass) {
         this.availableDoorClass.add(doorClass);
     }
 
@@ -1006,11 +979,10 @@ public class DoorEntity implements Door {
     }
 
     public int getSealingLine() {
-        if (sealingLine==0 && thirdSealingLine !=0){
-            sealingLine= 3;
-        }
-        else {
-            sealingLine= 2;
+        if (sealingLine == 0 && thirdSealingLine != 0) {
+            sealingLine = 3;
+        } else {
+            sealingLine = 2;
         }
         return sealingLine;
     }
