@@ -3,10 +3,14 @@ package com.jds.model;
 import com.jds.entity.DoorColors;
 import com.jds.entity.DoorFurniture;
 import com.jds.entity.LimitationDoor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class RestrictionOfSelectionFields {
 
     private List<LimitationDoor> metal;
@@ -16,6 +20,18 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> thicknessDoorLeaf;
     private List<DoorColors> colors;
     private List<LimitationDoor> additionalDoorSetting;
+
+    private List<LimitationDoor> doorstep;
+    private List<LimitationDoor> stainlessSteelDoorstep;
+    private List<LimitationDoor> topDoorTrim;
+    private List<LimitationDoor> leftDoorTrim;
+    private List<LimitationDoor> rightDoorTrim;
+
+
+    private List<LimitationDoor> firstSealingLine;
+    private List<LimitationDoor> secondSealingLine;
+    private List<LimitationDoor> thirdSealingLine;
+
     private List<DoorFurniture> topLock;
     private List<DoorFurniture> lowerLock;
     private List<DoorFurniture> handle;
@@ -191,133 +207,26 @@ public class RestrictionOfSelectionFields {
                 0,
                 1));
 
+        doorstep = new ArrayList<>();
+        doorstep.add(new LimitationDoor("doorstep",
+                1,
+                1,
+                1));
+        doorstep.add(new LimitationDoor("doorstep",
+                0,
+                1,
+                0));
+
+        stainlessSteelDoorstep = new ArrayList<>();
+        stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep",
+                1,
+                1,
+                1));
+        stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep",
+                0,
+                1,
+                0));
     }
 
-    public List<LimitationDoor> getAdditionalDoorSetting() {
-        return additionalDoorSetting;
-    }
 
-    public void setAdditionalDoorSetting(List<LimitationDoor> additionalDoorSetting) {
-        this.additionalDoorSetting = additionalDoorSetting;
-    }
-
-    public List<LimitationDoor> getMetal() {
-        return metal;
-    }
-
-    public void setMetal(List<LimitationDoor> metal) {
-        this.metal = metal;
-    }
-
-    public List<LimitationDoor> getWidthDoor() {
-        return widthDoor;
-    }
-
-    public void setWidthDoor(List<LimitationDoor> widthDoor) {
-        this.widthDoor = widthDoor;
-    }
-
-    public List<LimitationDoor> getHeightDoor() {
-        return heightDoor;
-    }
-
-    public void setHeightDoor(List<LimitationDoor> heightDoor) {
-        this.heightDoor = heightDoor;
-    }
-
-    public List<LimitationDoor> getDeepnessDoor() {
-        return deepnessDoor;
-    }
-
-    public void setDeepnessDoor(List<LimitationDoor> deepnessDoor) {
-        this.deepnessDoor = deepnessDoor;
-    }
-
-    public List<LimitationDoor> getThicknessDoorLeaf() {
-        return thicknessDoorLeaf;
-    }
-
-    public void setThicknessDoorLeaf(List<LimitationDoor> thicknessDoorLeaf) {
-        this.thicknessDoorLeaf = thicknessDoorLeaf;
-    }
-
-    public List<DoorColors> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<DoorColors> colors) {
-        this.colors = colors;
-    }
-
-    public List<DoorFurniture> getTopLock() {
-        return topLock;
-    }
-
-    public void setTopLock(List<DoorFurniture> topLock) {
-        this.topLock = topLock;
-    }
-
-    public List<DoorFurniture> getLowerLock() {
-        return lowerLock;
-    }
-
-    public void setLowerLock(List<DoorFurniture> lowerLock) {
-        this.lowerLock = lowerLock;
-    }
-
-    public List<DoorFurniture> getHandle() {
-        return handle;
-    }
-
-    public void setHandle(List<DoorFurniture> handle) {
-        this.handle = handle;
-    }
-
-    public List<DoorFurniture> getLowerlockCylinder() {
-        return lowerlockCylinder;
-    }
-
-    public void setLowerlockCylinder(List<DoorFurniture> lowerlockCylinder) {
-        this.lowerlockCylinder = lowerlockCylinder;
-    }
-
-    public List<DoorFurniture> getCloser() {
-        return closer;
-    }
-
-    public void setCloser(List<DoorFurniture> closer) {
-        this.closer = closer;
-    }
-
-    public List<DoorFurniture> getEndDoorLock() {
-        return endDoorLock;
-    }
-
-    public void setEndDoorLock(List<DoorFurniture> endDoorLock) {
-        this.endDoorLock = endDoorLock;
-    }
-
-    public List<DoorFurniture> getTypeDoorGlass() {
-        return typeDoorGlass;
-    }
-
-    public void setTypeDoorGlass(List<DoorFurniture> typeDoorGlass) {
-        this.typeDoorGlass = typeDoorGlass;
-    }
-
-    public List<DoorFurniture> getToning() {
-        return toning;
-    }
-
-    public void setToning(List<DoorFurniture> toning) {
-        this.toning = toning;
-    }
-
-    public List<DoorFurniture> getArmor() {
-        return armor;
-    }
-
-    public void setArmor(List<DoorFurniture> armor) {
-        this.armor = armor;
-    }
 }

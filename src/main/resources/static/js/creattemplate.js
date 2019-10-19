@@ -43,13 +43,32 @@ jQuery('document').ready(function(){
             addInputField('deepnessDoorInput','deepnessDoorDiv');
         }
     });
+
     $('#thicknessDoorLeafDiv').change('.thicknessDoorLeafInput',function(){
-        if (allFieldsAreFilled('.thicknessDoorLeafInput')) {
+        if (allFieldsAreFilled('.colorsSelect')) {
             addInputField('thicknessDoorLeafInput','thicknessDoorLeafDiv');
         }
     });
 
-	function grtListDoorClassToSelect(){
+    $('#colorsDiv').change('.colorsSelect',function(){
+        if (allFieldsAreFilled('.colorsSelect')) {
+            addSelectField('colorsSelect','colorsDiv');
+        }
+        fillInColor();
+    });
+
+    $('#doorstepDiv').change('.doorstepSelect',function(){
+        if (allFieldsAreFilled('.doorstepSelect')) {
+            addSelectField('doorstepSelect','doorstepDiv');
+        }
+        fillInSelector('.doorstepSelect','doorstep');
+    });
+
+    $('#stainlessSteelDoorstepDiv').change('.stainlessSteelDoorstepSelect',function(){
+
+    });
+
+    function grtListDoorClassToSelect(){
 		
 		$.ajax({
         url: 'doorclassis',        
@@ -122,6 +141,12 @@ jQuery('document').ready(function(){
             success: function (data) {
                 template = data;
                 fillInMetal();
+                fillInColor();
+                fillInSelector('.doorstepSelect','doorstep');
+                fillInSelector('.stainlessSteelDoorstepSelect','stainlessSteelDoorstep');
+                fillInSelector('.firstSealingLineSelect','firstSealingLine');
+                fillInSelector('.secondSealingLineSelect','secondSealingLine');
+                fillInSelector('.thirdSealingLineSelect','thirdSealingLine');
             },
             error: function (data) {
                 alert('!ERROR: данные шаблона получить не удалось:');
@@ -140,6 +165,28 @@ jQuery('document').ready(function(){
 		}
 	}
 
+    function fillInColor(){
+
+        var colors = $('.colorsSelect');
+
+        for (var i=0;i<colors.length;++i){
+            if (!$(colors[i]).val()){
+                fillInFieldFromColor('#'+$(colors[i]).attr('id'),template.colors);
+            }
+        }
+    }
+
+    function fillInSelector(selector,nameTable){
+
+        var elem = $(selector);
+
+        for (var i=0;i<elem.length;++i){
+            if (!$(elem[i]).val()){
+                fillInFieldFromLimiBoolToInt('#'+$(elem[i]).attr('id'),template[nameTable]);
+            }
+        }
+    }
+
 	function fillInFieldFromLimit(selector,table){
 
         $(selector).empty();
@@ -153,6 +200,33 @@ jQuery('document').ready(function(){
         }
 
 	}
+
+    function fillInFieldFromLimiBoolToInt(selector,table){
+
+        $(selector).empty();
+
+        $(selector).append($('<option ></option>')); <!--empty line-->
+
+        for(var i=0;i<table.length;++i){
+            $(selector).append(
+                $('<option value='+table[i].id+'>'+translateToBoolean(table[i].startRestriction)+'</option>')
+            );
+        }
+    }
+
+    function fillInFieldFromColor(selector,table){
+
+        $(selector).empty();
+
+        $(selector).append($('<option ></option>')); <!--empty line-->
+
+        for(var i=0;i<table.length;++i){
+            $(selector).append(
+                $('<option value='+table[i].id+'>'+table[i].name+'</option>')
+            );
+        }
+
+    }
 
 	function addMetalField(){
 
@@ -191,7 +265,7 @@ jQuery('document').ready(function(){
         return allFilled;
 	}
 
-    function  addInputField(name,div){
+    function addInputField(name,div){
         var data = lastElemNumber('.'+name)+1;
         $('<input>').attr('class','form-control '+name)
             .attr('id',''+name+data)
@@ -199,5 +273,27 @@ jQuery('document').ready(function(){
             .appendTo('#'+div);
 
         return '#'+name+data;
+    }
+
+    function addSelectField(name,div) {
+
+        var data = lastElemNumber('.'+name)+1;
+        $('<select>').attr('class','form-control '+name)
+            .attr('id',''+name+data)
+            .attr('data',data)
+            .appendTo('#'+div);
+
+        return '#'+name+data;
+
+    }
+
+    function translateToBoolean(int){
+        if (int == 0){
+            return 'нет';
+        }
+        else if (int == 1){
+            return 'да';
+        }
+        alert('error: translateToBoolean: value is not valid!')
     }
 });
