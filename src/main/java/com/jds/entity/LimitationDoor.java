@@ -1,7 +1,12 @@
 package com.jds.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Limitation_Door")
 public class LimitationDoor {
@@ -18,6 +23,9 @@ public class LimitationDoor {
     @Column(name = "typeSettings")
     private String typeSettings;
 
+    @Column(name = "item_id")
+    private String itemId;
+
     @Column(name = "firstItem")
     private String firstItem;
 
@@ -29,6 +37,9 @@ public class LimitationDoor {
 
     @Column(name = "stopRestriction")
     private double stopRestriction;
+
+    @Column(name = "pairOfValues")
+    private int pairOfValues;
 
     @Column(name = "comment")
     private String comment;
@@ -50,78 +61,6 @@ public class LimitationDoor {
         this.secondItem = secondItem;
         this.startRestriction = startRestriction;
         this.stopRestriction = stopRestriction;
-        this.defaultValue = defaultValue;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public DoorType getDoorType() {
-        return doorType;
-    }
-
-    public void setDoorType(DoorType doorType) {
-        this.doorType = doorType;
-    }
-
-    public String getTypeSettings() {
-        return typeSettings;
-    }
-
-    public void setTypeSettings(String typeSettings) {
-        this.typeSettings = typeSettings;
-    }
-
-    public String getFirstItem() {
-        return firstItem;
-    }
-
-    public void setFirstItem(String firstItem) {
-        this.firstItem = firstItem;
-    }
-
-    public String getSecondItem() {
-        return secondItem;
-    }
-
-    public void setSecondItem(String secondItem) {
-        this.secondItem = secondItem;
-    }
-
-    public double getStartRestriction() {
-        return startRestriction;
-    }
-
-    public void setStartRestriction(double startRestriction) {
-        this.startRestriction = startRestriction;
-    }
-
-    public double getStopRestriction() {
-        return stopRestriction;
-    }
-
-    public void setStopRestriction(double stopRestriction) {
-        this.stopRestriction = stopRestriction;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public int getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(int defaultValue) {
         this.defaultValue = defaultValue;
     }
 

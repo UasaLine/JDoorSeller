@@ -29,99 +29,104 @@
     <div class="form-group">
 
         <h1 class="display-4">шаблон</h1>
-        <div class="linebottom"></div>
+
+        <!--<div class="linebottom"></div>-->
+
+        <div class="row ">
+            <div class="col-md-2 mb-3">
+                <button type="button" class="btn btn-primary" id="saveTemplate">сохранить</button>
+                <button type="button" class="btn btn-primary" id="delete">удалить</button>
+            </div>
+            <div class="col-md-1 mb-3">
+                <label  for="doorclassselect">класс двери:</label>
+            </div>
+            <div class="col-md-3 mb-3">
+                <select class="form-control" id="doorclassselect"><option></option><option value="4">ДПД(противопожарная)</option><option value="7">центурион</option><option value="2">ДСН(индивидуальная)</option><option value="3"></option><option value="1">ТЕРМО(терморазрыв)</option></select>
+            </div>
+            <div class="col-md-1 mb-3">
+                <label  for="doortypeselect">вид двери:</label>
+            </div>
+            <div class="col-md-3 mb-3">
+                <select class="form-control" id="doortypeselect"><option></option><option value="11">ДПД одностворчатая</option><option value="10">ДПД двустворчатая</option></select>
+            </div>
+        </div>
+        <h4 class="chapter">металл</h4>
         <br>
 
-            <div class="col-md-6 mb-3">
-                <label for="doorclassselect">класс двери:</label>
-                <select class="form-control" id="doorclassselect">
-                </select>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="doortypeselect">вид двери:</label>
-                <select class="form-control" id="doortypeselect">
-                </select>
-            </div>
-
-        <h4>металл</h4>
-        <div class="linebottom"></div>
-        <br>
-
-            <div class="col-md-6 mb-3" id="metalDiv">
+        <div class="col-md-6 mb-3" id="metalDiv">
             <label for="metalSelect0">металл:</label>
             <select class="form-control metalSelect" id="metalSelect0" data="0">
             </select>
         </div>
 
-        <h4>размеры</h4>
-        <div class="linebottom"></div>
+        <h4 class="chapter">размеры</h4>
         <br>
 
 
-            <!--width-->
-            <div class="col-md-6 mb-3">
-                <label for="widthSizMaxMinDiv">ширина двери: (интервал)</label>
-                <div class="row" id="widthSizMaxMinDiv">
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="min">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="max">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="step">
-                    </div>
+        <!--width-->
+        <div class="col-md-6 mb-3">
+            <label for="widthSizMaxMinDiv">ширина двери: (интервал)</label>
+            <div class="row" id="widthSizMaxMinDiv">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="min">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="max">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="step">
                 </div>
             </div>
-            <div class="col-md-6 mb-3" id="widthSizeDiv">
-                <label for="widthDoorInput0">ширина двери:</label>
-                <input type="number" class="form-control widthDoorInput" id="widthDoorInput0" data="0" placeholder="ширина">
-            </div>
+        </div>
+        <div class="col-md-6 mb-3" id="widthSizeDiv">
+            <label for="widthDoorInput0">ширина двери:</label>
+            <input type="number" class="form-control widthDoorInput" id="widthDoorInput0" data="0" placeholder="ширина">
+        </div>
 
-            <!--height-->
-            <div class="col-md-6 mb-3">
-                <label for="sizheightMaxMinDiv">высота двери: (интервал)</label>
-                <div class="row" id="sizheightMaxMinDiv">
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="min">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="max">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="step">
-                    </div>
+        <!--height-->
+        <div class="col-md-6 mb-3">
+            <label for="sizheightMaxMinDiv">высота двери: (интервал)</label>
+            <div class="row" id="sizheightMaxMinDiv">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="min">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="max">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="step">
                 </div>
             </div>
-            <div class="col-md-6 mb-3" id="heightSizeDiv">
-                <label for="heightDoorInput0">высота двери:</label>
-                <input type="number" class="form-control heightDoorInput" id="heightDoorInput0" data="0" placeholder="ширина">
-            </div>
+        </div>
+        <div class="col-md-6 mb-3" id="heightSizeDiv">
+            <label for="heightDoorInput0">высота двери:</label>
+            <input type="number" class="form-control heightDoorInput" id="heightDoorInput0" data="0"
+                   placeholder="ширина">
+        </div>
 
-            <!--deepnessDoor-->
-            <div class="col-md-6 mb-3" id="deepnessDoorDiv">
-                <label for="deepnessDoorInput0">глубина:</label>
-                <input type="number" class="form-control deepnessDoorInput" id="deepnessDoorInput0" data="0" placeholder="глубина">
-            </div>
+        <!--deepnessDoor-->
+        <div class="col-md-6 mb-3" id="deepnessDoorDiv">
+            <label for="deepnessDoorInput0">глубина:</label>
+            <input type="number" class="form-control deepnessDoorInput" id="deepnessDoorInput0" data="0"
+                   placeholder="глубина">
+        </div>
 
-            <!--deepnessDoor-->
-            <div class="col-md-6 mb-3" id="thicknessDoorLeafDiv">
-                <label for="thicknessDoorLeafInput0">толщина полотна:</label>
-                <input class="form-control thicknessDoorLeafInput" id="thicknessDoorLeafInput0" data="0">
-            </div>
+        <!--deepnessDoor-->
+        <div class="col-md-6 mb-3" id="thicknessDoorLeafDiv">
+            <label for="thicknessDoorLeafInput0">толщина полотна:</label>
+            <input class="form-control thicknessDoorLeafInput" id="thicknessDoorLeafInput0" data="0" placeholder="толщина полотна">
+        </div>
 
-        <h4>цвета</h4>
-        <div class="linebottom"></div>
+        <h4 class="chapter">цвета</h4>
         <br>
 
         <div class="col-md-6 mb-3" id="colorsDiv">
             <label for="colorsSelect0">цвет:</label>
-            <select class="form-control colorsSelect" id="colorsSelect0" data="0">
+            <select class="form-control colorsSelect" id="colorsSelect0" data="0" толщина полотна>
             </select>
         </div>
 
-        <h4>дополнительные настройки</h4>
-        <div class="linebottom" ></div>
+        <h4 class="chapter">дополнительные настройки</h4>
         <br>
 
         <div class="col-md-6 mb-3" id="doorstepDiv">
@@ -129,29 +134,133 @@
             <select class="form-control doorstepSelect" id="doorstepSelect0" data="0">
             </select>
         </div>
-
         <div class="col-md-6 mb-3" id="stainlessSteelDoorstepDiv">
             <label for="stainlessSteelDoorstepSelect0">порог нержавейка:</label>
-            <select class="form-control stainlessSteelDoorstepSelect" id="stainlessSteelDoorstepSelect0"  data="0">
+            <select class="form-control stainlessSteelDoorstepSelect" id="stainlessSteelDoorstepSelect0" data="0">
             </select>
         </div>
         <div class="col-md-6 mb-3" id="firstSealingLineDiv">
             <label for="firstSealingLineSelect0">первая линия уплотнения:</label>
             <select class="form-control firstSealingLineSelect" id="firstSealingLineSelect0" data="0">
-
             </select>
         </div>
         <div class="col-md-6 mb-3" id="secondSealingLineDiv">
             <label for="secondSealingLineSelect0">вторая линия уплотнения:</label>
-            <select class="form-control" id="secondSealingLineSelect0" data="0">
+            <select class="form-control secondSealingLineSelect" id="secondSealingLineSelect0" data="0">
             </select>
         </div>
         <div class="col-md-6 mb-3" id="thirdSealingLineDiv">
             <label for="thirdSealingLineSelect0">третья линия уплотнения:</label>
-            <select class="form-control" id="thirdSealingLineSelect0" data="0">
+            <select class="form-control thirdSealingLineSelect" id="thirdSealingLineSelect0" data="0">
             </select>
         </div>
 
+        <h4 class="chapter">фурнитура</h4>
+        <br>
+
+        <!--topLock-->
+        <div class="col-md-6 mb-3" id="topLockDiv">
+            <label for="topLockSelect0">веерхний замок:</label>
+            <select class="form-control topLockSelect" id="topLockSelect0" data="0">
+            </select>
+        </div>
+
+        <!--lowerLock-->
+        <div class="col-md-6 mb-3" id="lowerLockDiv">
+            <label for="lowerLockSelect0">нижний замок:</label>
+            <select class="form-control lowerLockSelect" id="lowerLockSelect0" data="0">
+            </select>
+        </div>
+
+        <!--handle-->
+        <div class="col-md-6 mb-3" id="handleDiv">
+            <label for="handleSelect0">ручка:</label>
+            <select class="form-control handleSelect" id="handleSelect0" data="0">
+            </select>
+        </div>
+
+        <!--lowerlockCylinder-->
+        <div class="col-md-6 mb-3" id="lowerlockCylinderDiv">
+            <label for="lowerlockCylinderSelect0">цилиндр нижнего замка:</label>
+            <select class="form-control lowerlockCylinderSelect" id="lowerlockCylinderSelect0" data="0">
+            </select>
+        </div>
+
+        <!--toplockCylinder-->
+        <div class="col-md-6 mb-3" id="toplockCylinderDiv">
+            <label for="toplockCylinderSelect0">цилиндр верхнего замка:</label>
+            <select class="form-control toplockCylinder" id="toplockCylinderSelect0" data="0">
+            </select>
+        </div>
+
+        <!--topInLockDecor-->
+        <div class="col-md-6 mb-3" id="topInLockDecorDiv">
+            <label for="topInLockDecorSelect0">внутреная накладка верхнего замка:</label>
+            <select class="form-control topInLockDecorSelect" id="topInLockDecorSelect0" data="0">
+            </select>
+        </div>
+
+        <!--topOutLockDecor-->
+        <div class="col-md-6 mb-3" id="topOutLockDecorDiv">
+            <label for="topOutLockDecorSelect0">внешная накладка верхнего замка:</label>
+            <select class="form-control topOutLockDecorSelect" id="topOutLockDecorSelect0" data="0">
+            </select>
+        </div>
+
+        <!--lowerInLockDecor-->
+        <div class="col-md-6 mb-3" id="lowerInLockDecorDiv">
+            <label for="lowerInLockDecorSelect0">внешная накладка нижнего замка:</label>
+            <select class="form-control lowerInLockDecorSelect" id="lowerInLockDecorSelect0"
+                    data="0">
+            </select>
+        </div>
+
+        <!--lowerOutLockDecor-->
+        <div class="col-md-6 mb-3" id="lowerOutLockDecorDiv">
+            <label for="lowerOutLockDecorSelect0">внутреная накладка нижнего замка:</label>
+            <select class="form-control lowerOutLockDecorSelect" id="lowerOutLockDecorSelect0" data="0">
+            </select>
+        </div>
+
+
+        <h4 class="chapter">дополнительная фурнитура</h4>
+        <br>
+
+        <!--closer-->
+        <div class="col-md-6 mb-3" id="closerDiv">
+            <label for="closerSelect0">доводчик:</label>
+            <select class="form-control closerSelect" id="closerSelect0" data="0">
+            </select>
+        </div>
+
+        <!--endDoorLock-->
+        <div class="col-md-6 mb-3" id="endDoorLockDiv">
+            <label for="endDoorLockSelect0">торцевой шпингалет:</label>
+            <select class="form-control endDoorLockSelect" id="endDoorLockSelect0" data="0">
+            </select>
+        </div>
+
+        <h4 class="chapter">стекло</h4>
+        <br>
+
+        <!--typeDoorGlass-->
+        <div class="col-md-6 mb-3" id="typeDoorGlassDiv">
+            <label for="typeDoorGlassSelect0">тип стекла:</label>
+            <select class="form-control typeDoorGlassSelect" id="typeDoorGlassSelect0" data="0">
+            </select>
+        </div>
+        <!--toning-->
+        <div class="col-md-6 mb-3" id="toningDiv">
+            <label for="toningSelect0">тонировка:</label>
+            <select class="form-control toningSelect" id="toningSelect0" data="0">
+            </select>
+        </div>
+        <!--armor-->
+        <div class="col-md-6 mb-3" id="armorDiv">
+            <label for="armorSelect0">броня:</label>
+            <select class="form-control armorSelect" id="armorSelect0" data="0">
+            </select>
+        </div>
     </div>
 </div>
 

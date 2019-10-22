@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.entity.*;
 import com.jds.model.Door;
+import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -216,6 +217,14 @@ public class MainController {
                                                                         @RequestParam String idDoorType) throws Exception {
 
         return service.getRestrictionOfSelectionFields(idDoorType);
+    }
+
+    @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public DoorTemplate getTemplate(Model model,
+                                    @RequestParam String idDoorType) throws Exception {
+
+        return service.getDoorTemplate(idDoorType);
     }
 
     @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)

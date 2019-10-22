@@ -67,6 +67,7 @@ public class MaineService {
         }
         return getDoorType(Integer.parseInt(typeId));
     }
+
     public DoorType getDoorType(@NonNull int typeId) {
 
         return dAO.getDoorType(typeId);
@@ -152,6 +153,14 @@ public class MaineService {
                 .addGlass(dAO.getFurnitureByType(TypeOfFurniture.TYPE_GLASS, idType))
                 .addToning(dAO.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
                 .addArmor(dAO.getFurniture(TypeOfFurniture.ARMOR_GLASS_PELLICLE));
+    }
+
+    public DoorTemplate getDoorTemplate(String idDoorType){
+
+        return DoorTemplate.builder()
+                           .template(getRestrictionOfSelectionFields(idDoorType))
+                           .restriction(getRestrictionOfSelectionFields("0"))
+                           .build();
     }
 
     private static int getRandomPrice(int min, int max) {
