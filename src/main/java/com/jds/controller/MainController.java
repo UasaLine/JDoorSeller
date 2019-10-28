@@ -1,7 +1,6 @@
 package com.jds.controller;
 
 import com.jds.entity.*;
-import com.jds.model.Door;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.service.MaineService;
@@ -216,7 +215,7 @@ public class MainController {
     public RestrictionOfSelectionFields getRestrictionOfSelectionFields(Model model,
                                                                         @RequestParam String idDoorType) throws Exception {
 
-        return service.getRestrictionOfSelectionFields(idDoorType);
+        return service.getTemplateFromLimits(idDoorType);
     }
 
     @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -225,6 +224,13 @@ public class MainController {
                                     @RequestParam String idDoorType) throws Exception {
 
         return service.getDoorTemplate(idDoorType);
+    }
+    @PostMapping(value = "/saveTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void saveTemplate(Model model,@RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
+
+        service.saveDoorTemplate(templateJSON);
+
     }
 
     @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -57,6 +57,12 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteLimit(LimitationDoor limitationDoor ) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(limitationDoor);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
     public void saveMetal(Metal metal) {
 
         int id = getMetalId(metal.getIdManufacturerProgram());//check exists
@@ -270,6 +276,15 @@ public class MainDAO {
         return setting;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public LimitationDoor saveLimitationDoor(LimitationDoor limit){
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(limit);
+
+        return limit;
+    }
+
     public Map<TypeOfSalaryConst, Double> getSalaryConstantsMap() {
 
         Session session = sessionFactory.openSession();
@@ -428,6 +443,27 @@ public class MainDAO {
         return 0;
 
     }
+
+    public DoorFurniture getDoorFurnitureId(int id) {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_furniture where id = :fId";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorFurniture.class)
+                .setParameter("fId", id);
+        List<DoorFurniture> doorFurnitureList = query.list();
+
+        session.close();
+
+        if (doorFurnitureList.size() > 0) {
+            return doorFurnitureList.get(0);
+        }
+        return null;
+
+    }
+
 
     public int getMaterialFormulaById(String id) {
 
@@ -818,4 +854,22 @@ public class MainDAO {
         return specificationSettingList;
     }
 
+    public List<LimitationDoor> getLimitationDoor (int doorTypeId){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from limitation_door where doortype_id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(LimitationDoor.class)
+                .setParameter("id", doorTypeId);
+        List<LimitationDoor> list = query.list();
+
+        session.close();
+
+        List<LimitationDoor> limitList = new ArrayList<>();
+        if (list.size() > 0) {
+            limitList = list;
+        }
+        return limitList;
+    }
 }

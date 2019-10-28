@@ -56,6 +56,9 @@
 	width:49%;
 	text-align: center;
 	cursor:se-resize;
+
+	margin:0 25% 0 25%;
+	width:50%;
 }
 
 .counter_line{

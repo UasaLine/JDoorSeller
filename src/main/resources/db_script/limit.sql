@@ -1,5 +1,5 @@
-DROP TABLE Limitation_Door;
-create table Limitation_Door
+DROP TABLE limitation_door;
+create table limitation_door
 (
   id               SERIAL PRIMARY KEY,
   doorType_id      INT NOT NULL,
@@ -7,9 +7,10 @@ create table Limitation_Door
   item_id          INT,
   firstItem        CHARACTER VARYING(100),
   secondItem       CHARACTER VARYING(100),
-  startRestriction INT,
-  stopRestriction  INT,
+  startRestriction real,
+  stopRestriction  real,
   comment          CHARACTER VARYING(100),
-  defaultValue     INT NOT NULL,
+  step             INT,
+  defaultValue     INT,
   pairOfValues     INT NOT NULL
 );

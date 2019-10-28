@@ -23,42 +23,41 @@ public class PrintAppToTheOrder {
     public PrintAppToTheOrder() {
     }
 
-    public PrintAppToTheOrder(DoorEntity door,DoorsОrder order) {
+    public PrintAppToTheOrder(DoorEntity door, DoorsОrder order) {
 
-        orderNumber = "Приложение к заказу №: "+order.getId()+" /1";
-        customer = "Клиент: "+order.getPartner();
-        orderDate = "Дата заказа: "+order.getData();
+        orderNumber = "Приложение к заказу №: " + order.getId() + " /1";
+        customer = "Клиент: " + order.getPartner();
+        orderDate = "Дата заказа: " + order.getData();
 
         this.door = door;
 
         sizes = new ArrayList<>();
-        sizes.add(new ParamApp("Толщина металла:",String.valueOf(door.getMetal())));
-        sizes.add(new ParamApp("Ширина:",String.valueOf(door.getWidthDoor())));
-        sizes.add(new ParamApp("Высота:",String.valueOf(door.getHeightDoor())));
-        sizes.add(new ParamApp("Глубина:",String.valueOf(door.getDeepnessDoor())));
-        sizes.add(new ParamApp("Толщина полотна:",String.valueOf(door.getThicknessDoorLeaf())));
-        sizes.add(new ParamApp("Открывание:",String.valueOf(door.getSideDoorOpen())));
-        sizes.add(new ParamApp("Внутреннее открывание:",String.valueOf(door.getInnerDoorOpen())));
-        sizes.add(new ParamApp("Ширина активной створки:",String.valueOf(door.getActiveDoorLeafWidth())));
-        sizes.add(new ParamApp("Высота фрамуги:",String.valueOf(door.getDoorFanlightHeight())));
+        sizes.add(new ParamApp("Толщина металла:", String.valueOf(door.getMetal())));
+        sizes.add(new ParamApp("Ширина:", String.valueOf(door.getWidthDoor())));
+        sizes.add(new ParamApp("Высота:", String.valueOf(door.getHeightDoor())));
+        sizes.add(new ParamApp("Глубина:", String.valueOf(door.getDeepnessDoor())));
+        sizes.add(new ParamApp("Толщина полотна:", String.valueOf(door.getThicknessDoorLeaf())));
+        sizes.add(new ParamApp("Открывание:", String.valueOf(door.getSideDoorOpen())));
+        sizes.add(new ParamApp("Внутреннее открывание:", String.valueOf(door.getInnerDoorOpen())));
+        sizes.add(new ParamApp("Ширина активной створки:", String.valueOf(door.getActiveDoorLeafWidth())));
+        sizes.add(new ParamApp("Высота фрамуги:", String.valueOf(door.getDoorFanlightHeight())));
 
         appearance = new ArrayList<>();
-        appearance.add(new ParamApp("Цвет двери:",String.valueOf(door.getDoorColor())));
-        appearance.add(new ParamApp("Дек.накладка:",String.valueOf("нет")));
-        appearance.add(new ParamApp("Доп.петля:",String.valueOf(door.getAdditionallyHingeMain())));
-        appearance.add(new ParamApp("Стекло:",String.valueOf(door.getIsDoorGlass())));
+        appearance.add(new ParamApp("Цвет двери:", String.valueOf(door.getDoorColor())));
+        appearance.add(new ParamApp("Дек.накладка:", String.valueOf("нет")));
+        appearance.add(new ParamApp("Доп.петля:", String.valueOf(door.getAdditionallyHingeMain())));
+        appearance.add(new ParamApp("Стекло:", String.valueOf(door.getIsDoorGlass())));
 
         internalView = new ArrayList<>();
-        internalView.add(new ParamApp("Порог:",String.valueOf(door.getDoorstep())));
-        internalView.add(new ParamApp("Наличник:",String.valueOf(door.getTopDoorTrim())));
-        internalView.add(new ParamApp("Цвет накладки:","нет"));
+        internalView.add(new ParamApp("Порог:", String.valueOf(door.getDoorstep())));
+        internalView.add(new ParamApp("Наличник:", String.valueOf(door.getTopDoorTrim())));
+        internalView.add(new ParamApp("Цвет накладки:", "нет"));
 
 
         furniture = new ArrayList<>();
-        furniture.add(new ParamApp("Верхний замок:",String.valueOf(door.getDoorstep())));
+        furniture.add(new ParamApp("Верхний замок:", String.valueOf(door.getDoorstep())));
 
     }
-
 
 
     public String getOrderNumber() {

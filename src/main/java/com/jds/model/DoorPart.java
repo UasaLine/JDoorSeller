@@ -26,7 +26,7 @@ public class DoorPart implements Comparable<DoorPart> {
     public DoorPart() {
     }
 
-    public static DoorPart getInstansInverted(DoorPart doorPart){
+    public static DoorPart getInstansInverted(DoorPart doorPart) {
         DoorPart newDoorPart = new DoorPart();
         newDoorPart.setName(doorPart.getName());
         newDoorPart.setWidth(doorPart.getHeight());
@@ -42,7 +42,7 @@ public class DoorPart implements Comparable<DoorPart> {
 
     @Override
     public int compareTo(DoorPart o) {
-        return (int) ((o.getSpace()-this.getSpace())*1000);
+        return (int) ((o.getSpace() - this.getSpace()) * 1000);
     }
 
     public DoorPart(String name, int width, int height, int quantity) {
@@ -50,29 +50,29 @@ public class DoorPart implements Comparable<DoorPart> {
         this.width = width;
         this.height = height;
         this.quantity = quantity;
-        this.space = (double)(width*height)/1000000;
-        this.inverted =false;
+        this.space = (double) (width * height) / 1000000;
+        this.inverted = false;
         this.posted = false;
     }
 
-    public static List<DoorPart> getDoopPartsList(List<SizeOfDoorParts> list, DoorEntity Door){
+    public static List<DoorPart> getDoopPartsList(List<SizeOfDoorParts> list, DoorEntity Door) {
 
         List<DoorPart> partList = new ArrayList<>();
 
 
-        for(SizeOfDoorParts parts:list){
+        for (SizeOfDoorParts parts : list) {
 
-            String size = parsePatternForCalculation(parts.getCondition(),Door,true);
+            String size = parsePatternForCalculation(parts.getCondition(), Door, true);
             int booCondition = eval(size);
 
-            if (booCondition==1 ) {
+            if (booCondition == 1) {
 
                 DoorPart doorPart = new DoorPart();
 
-                size = parsePatternForCalculation(parts.getHeight(),Door,false);
+                size = parsePatternForCalculation(parts.getHeight(), Door, false);
                 doorPart.setHeight(eval(size));
 
-                size = parsePatternForCalculation(parts.getWidth(),Door,false);
+                size = parsePatternForCalculation(parts.getWidth(), Door, false);
                 doorPart.setWidth(eval(size));
 
                 doorPart.setName(parts.getName());
@@ -87,34 +87,33 @@ public class DoorPart implements Comparable<DoorPart> {
         return partList;
     }
 
-    public static String parsePatternForCalculation(String condition,DoorEntity door,Boolean provision){
+    public static String parsePatternForCalculation(String condition, DoorEntity door, Boolean provision) {
 
         //H - widthDoor
-        condition = condition.replace("H",String.valueOf(door.getHeightDoor()));
+        condition = condition.replace("H", String.valueOf(door.getHeightDoor()));
 
         //L - widthDoor
-        condition = condition.replace("L",String.valueOf(door.getWidthDoor()));
+        condition = condition.replace("L", String.valueOf(door.getWidthDoor()));
 
         //g - deepnessDoor
-        condition = condition.replace("g",String.valueOf(door.getDeepnessDoor()));
+        condition = condition.replace("g", String.valueOf(door.getDeepnessDoor()));
 
         //t - thicknessDoorLeaf
-        condition = condition.replace("t",String.valueOf(door.getThicknessDoorLeaf()));
+        condition = condition.replace("t", String.valueOf(door.getThicknessDoorLeaf()));
 
         //OS - аctivDoorLeafWidth
-        condition = condition.replace("OS",String.valueOf(door.getActiveDoorLeafWidth()));
+        condition = condition.replace("OS", String.valueOf(door.getActiveDoorLeafWidth()));
 
         //K - glassWidth
-        condition = condition.replace("K",String.valueOf(door.getDoorGlass().getGlassWidth()));
+        condition = condition.replace("K", String.valueOf(door.getDoorGlass().getGlassWidth()));
 
         //J - glassWidth
-        condition = condition.replace("J",String.valueOf(door.getDoorGlass().getGlassHeight()));
+        condition = condition.replace("J", String.valueOf(door.getDoorGlass().getGlassHeight()));
 
-        if(provision) {
+        if (provision) {
             //"и" - and
             condition = condition.replace("и", "&&");// only for test
-        }
-        else {
+        } else {
             //" " - +
             condition = condition.replace(" ", "+");// only for test
         }
@@ -122,15 +121,16 @@ public class DoorPart implements Comparable<DoorPart> {
         return condition;
     }
 
-    public static int eval(String function){
-        if (function.isEmpty()){
+    public static int eval(String function) {
+        if (function.isEmpty()) {
             return 1;
         }
         return new Expression(function).eval().intValue();
 
     }
-    public static double evalDouble(String function){
-        if (function.isEmpty()){
+
+    public static double evalDouble(String function) {
+        if (function.isEmpty()) {
             return 1;
         }
         return new Expression(function).eval().doubleValue();

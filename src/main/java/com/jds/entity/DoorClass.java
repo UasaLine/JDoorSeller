@@ -30,7 +30,10 @@ public class DoorClass {
     @Column(name = "hot", nullable = false)
     private int hot;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass", cascade = CascadeType.ALL)
+    //@Column(name = "valid", nullable = false)
+    //private int valid;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass")
     private List<DoorType> doorTypes;
 
     public DoorClass clearNonSerializingFields(){

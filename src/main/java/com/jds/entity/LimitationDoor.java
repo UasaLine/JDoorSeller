@@ -1,9 +1,13 @@
 package com.jds.entity;
 
+import com.jds.model.LimiItem;
+import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,15 +20,16 @@ public class LimitationDoor {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "doorType_id")
     private DoorType doorType;
 
     @Column(name = "typeSettings")
-    private String typeSettings;
+    @Enumerated(EnumType.STRING)
+    private TypeOfLimitionDoor typeSettings;
 
     @Column(name = "item_id")
-    private String itemId;
+    private int itemId;
 
     @Column(name = "firstItem")
     private String firstItem;
@@ -38,6 +43,9 @@ public class LimitationDoor {
     @Column(name = "stopRestriction")
     private double stopRestriction;
 
+    //@Column(name = "step")
+    //private double step;
+
     @Column(name = "pairOfValues")
     private int pairOfValues;
 
@@ -48,6 +56,9 @@ public class LimitationDoor {
     private int defaultValue;
 
 
+    public LimitationDoor() {
+    }//empty constructor
+
     public LimitationDoor(String firstItem, double startRestriction, double stopRestriction, int defaultValue) {
         this.firstItem = firstItem;
         this.secondItem = firstItem;
@@ -56,7 +67,7 @@ public class LimitationDoor {
         this.defaultValue = defaultValue;
     }
 
-    public LimitationDoor(String firstItem,String secondItem, double startRestriction, double stopRestriction, int defaultValue) {
+    public LimitationDoor(String firstItem, String secondItem, double startRestriction, double stopRestriction, int defaultValue) {
         this.firstItem = firstItem;
         this.secondItem = secondItem;
         this.startRestriction = startRestriction;
@@ -64,5 +75,42 @@ public class LimitationDoor {
         this.defaultValue = defaultValue;
     }
 
+    public void setFildForSaveToDataBase(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
+                                         @NonNull List<LimitationDoor> oldLimitList) {
 
+        int newId = 0;
+        if (oldLimitList.size() > 0) {
+            newId = oldLimitList.get(0).getId();
+            oldLimitList.remove(0);
+        }
+
+        this.id = newId;
+        this.doorType = doorType;
+        this.typeSettings = type;
+
+
+    }
+
+    public static LimitationDoor getNewLimit(@NonNull LimiItem item, @NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
+                                             @NonNull List<LimitationDoor> oldLimitList) {
+        int newId = 0;
+        if (oldLimitList.size() > 0) {
+            newId = oldLimitList.get(0).getId();
+            oldLimitList.remove(0);
+        }
+
+        LimitationDoor limit = new LimitationDoor();
+        limit.setId(newId);
+        limit.setDoorType(doorType);
+        limit.setTypeSettings(type);
+        limit.setFirstItem(item.getName());
+        limit.setItemId(item.getId());
+        limit.setPairOfValues(0);
+        return limit;
+    }
+
+    public LimitationDoor setNuulLazyFild(){
+        this.doorType = null;
+        return this;
+    }
 }

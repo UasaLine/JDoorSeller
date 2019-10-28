@@ -2,6 +2,7 @@ package com.jds.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jds.model.LimiItem;
 import com.jds.model.modelEnum.TypeOfFurniture;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Door_Furniture")
-public class DoorFurniture {
+public class DoorFurniture implements LimiItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +27,7 @@ public class DoorFurniture {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "doorType_id")
     private DoorType doorType;
 

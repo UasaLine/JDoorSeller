@@ -8,7 +8,7 @@ import com.jds.model.modelEnum.SideDoorOpen;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FireproofDoor implements Door{
+public class FireproofDoor {
 
     private int id;
     private String name;
