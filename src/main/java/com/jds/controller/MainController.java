@@ -20,6 +20,7 @@ public class MainController {
     @Autowired
     private MaineService service;
 
+
     @GetMapping(value = "/")
     public String updateDoorClass(@RequestParam(required = false) String kay,
                                   @RequestParam(required = false) String dataJson) throws Exception {
@@ -170,53 +171,6 @@ public class MainController {
         return "doorGroupSelection";
     }
 
-    @GetMapping(value = "/calculation")
-    public String calculation(Model model,
-                              @RequestParam(required = false) String orderId,
-                              @RequestParam(required = false) String id,
-                              @RequestParam(required = false) String doorGroup) throws Exception {
-        model.addAttribute("orderId", orderId);
-        model.addAttribute("id", id);
-        model.addAttribute("doorGroup", doorGroup);
-        return "calculation";
-    }
-
-    @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorEntity data(Model model,
-                           @RequestParam(required = false) String id,
-                           @RequestParam(required = false) String orderId,
-                           @RequestParam(required = false) String doorGroup) throws Exception {
-
-        return service.getDoor(id, orderId, doorGroup);
-    }
-
-    @PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorEntity calculateTheDoor(Model model,
-                                       @RequestBody DoorEntity door) throws Exception {
-
-        return service.calculateTheDoor(door);
-    }
-
-    @PostMapping(value = "/saveDoor", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorEntity saveDoor(@RequestParam(required = false) String kay,
-                               @RequestParam(required = false) String dataJson,
-                               Model model,
-                               @RequestBody DoorEntity door) throws Exception {
-
-
-        return service.saveDoor(door);
-    }
-
-    @GetMapping(value = "/doorlimit", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(Model model,
-                                                                        @RequestParam String idDoorType) throws Exception {
-
-        return service.getTemplateFromLimits(idDoorType);
-    }
 
     @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -265,16 +219,7 @@ public class MainController {
         return "order";
     }
 
-    @DeleteMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorsОrder deleteOrder(@RequestParam(required = false) String kay,
-                                  @RequestParam(required = false) String dataJson, Model model,
-                                  @RequestParam(required = false) String orderId,
-                                  @RequestParam(required = false) String id) throws Exception {
 
-
-        return service.deleteDoorFromOrder(id, orderId);
-    }
 
     @GetMapping(value = "/orders")
     public String getOrders(Model model) throws Exception {

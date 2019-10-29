@@ -345,7 +345,7 @@ public class MaineService {
             door = new DoorEntity();
         }
 
-        List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
+        List<DoorClass> doorClassList = getDoorClassBy(doorGroup);
         for (DoorClass doorClass : doorClassList) {
                 door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
         }
@@ -359,6 +359,16 @@ public class MaineService {
         door.clearNonSerializingFields();
 
         return door;
+
+    }
+
+    public List<DoorClass>  getDoorClassBy(String doorGroup){
+        if (doorGroup!=null && !"0".equals(doorGroup)){
+            return dAO.getAvailableDoorClass(Integer.parseInt(doorGroup));
+        }
+        else {
+            return dAO.getAvailableDoorClass();
+        }
 
     }
 

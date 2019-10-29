@@ -11,11 +11,6 @@ jQuery('document').ready(function () {
     var door;
     var failureToSetValue = false;
 
-    var minWidthDoor = 0;
-    var maxWidthDoor = 0;
-    var minHeightDoor = 0;
-    var maxHeightDoor = 0;
-
     var colors;
     var RestrictionOfSelectionFields;
 
@@ -719,15 +714,11 @@ jQuery('document').ready(function () {
 
     function displayWidthDoorAndHeightDoor(data) {
 
-        for (var i = 0; i < data.widthDoor.length; ++i) {
-            minWidthDoor = data.widthDoor[i].startRestriction;
-            maxWidthDoor = data.widthDoor[i].stopRestriction;
+        if (data.widthDoor.length>0){
             $('#namewidthDoor').attr('available', "yes");
         }
 
-        for (var i = 0; i < data.widthDoor.length; ++i) {
-            minHeightDoor = data.heightDoor[i].startRestriction;
-            maxHeightDoor = data.heightDoor[i].stopRestriction;
+        if (data.heightDoor.length>0){
             $('#nameheightDoor').attr('available', "yes");
         }
 
@@ -748,13 +739,13 @@ jQuery('document').ready(function () {
     function writeInCheckbox(nameItem, tab) {
         for (var i = 0; i < tab.length; ++i) {
             $('#' + nameItem + i).attr('show', 'is_alive_lement');
-            $('#neme' + nameItem + i).text(tab[i].firstItem);
-            $('#checkbox' + nameItem + i).attr('data', tab[i].firstItem);
+            $('#neme' + nameItem + i).text(tab[i].startRestriction);
+            $('#checkbox' + nameItem + i).attr('data', tab[i].startRestriction);
             if (tab[i].defaultValue == 1) {
                 $('#checkbox' + nameItem + i).prop('checked', true);
-                setDoorField(nameItem, tab[i].firstItem);
+                setDoorField(nameItem, tab[i].startRestriction);
                 currentItem = nameItem;
-                representationField(tab[i].firstItem);
+                representationField(tab[i].startRestriction);
             }
         }
     }
@@ -1107,7 +1098,6 @@ jQuery('document').ready(function () {
                 $('#imagesdoorColorSpan' + i).text(colors[i + biasInt].name);
             }
             else {
-                available
                 $('#imagesdoorColorDiv' + i).attr('show', 'ghost_lement');
                 $('#imagesdoorColorDiv' + i).attr('data', "");
                 $('#imagesdoorColorImg' + i).attr('src', "");

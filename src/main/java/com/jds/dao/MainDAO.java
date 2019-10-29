@@ -709,6 +709,22 @@ public class MainDAO {
 
     }
 
+    public List<DoorClass> getAvailableDoorClass(int id) {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from door_class where id = :classId";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorClass.class)
+                .setParameter("classId", id);
+        List<DoorClass> list = query.list();
+
+        session.close();
+
+        return list;
+
+    }
+
     public List<DoorClass> getDoorClass() {
 
         Session session = sessionFactory.openSession();
