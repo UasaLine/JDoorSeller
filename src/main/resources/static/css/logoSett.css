@@ -177,7 +177,7 @@ tr:hover {
     max-width: 1297px;
     margin: 0 auto;
     position: relative;
-    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    //font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     text-decoration: none;
     color: #000000;
 }

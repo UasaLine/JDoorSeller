@@ -26,6 +26,10 @@ jQuery('document').ready(function(){
 
     });
 
+    $('#addOrder').on('click',function() {
+        location.href="order";
+    });
+
 	function getOrder(orderId){
         location.href="order?orderId="+orderId;
 	};

@@ -16,22 +16,38 @@
     <div class="header_logo" >
         <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
-    <div class="header_home" >
-        <a class="head_button" th:href="@{/order}">+ новый заказ</a>
-    </div>
-    <div class="header_home" >
-        <a class="head_button" id ="buttonDeleteOrder">удалить</a>
-    </div>
 </div>
 <br>
 
 
-    <h1 class="display-4">заказы</h1>
-    <!--<div class="linebottom"></div><br>-->
-
-
-
 <div class="container_main_order">
+
+    <h1 class="display-4">заказы</h1>
+
+    <div class="row ">
+        <div class="col-md-2 mb-3">
+            <button type="button" class="btn btn-primary" id="addOrder">создать</button>
+            <button type="button" class="btn btn-primary" id="buttonDeleteOrder">удалить</button>
+        </div>
+        <div class="col-md-1 mb-3">
+            <label  for="doorclassselect">контрагент:</label>
+        </div>
+        <div class="col-md-3 mb-3">
+            <select class="form-control" id="doorclassselect">
+            </select>
+        </div>
+
+        <div class="col-md-1 mb-3">
+            <label  for="doorclassselect">дата:</label>
+        </div>
+        <div class="col-md-2 mb-3">
+            <input type="date" class="form-control" id="data1" placeholder="" value="" required="">
+        </div>
+        <div class="col-md-2 mb-3">
+            <input type="date" class="form-control" id="data2" placeholder="" value="" required="">
+        </div>
+    </div>
+
 
     <div class="order-Table">
         <table class="Table">
