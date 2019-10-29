@@ -31,15 +31,17 @@
     </div>
 
     <form th:action="@{/login}" method="post">
-        <div class="headerLine">
-            <span class="nameheaderLine"> user name:  </span><br>
-            <input class="input" type="text" name="username"/>
+        <div class="form-group">
+            <label for="username">user name:</label>
+            <input type=text" class="form-control" name="username" id="username">
         </div>
-        <div class="headerLine">
-            <span class="nameheaderLine"> Password:  </span><br>
-            <input class="input" type="password" name="password"/>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" name="password">
         </div>
-        <div class="headerLine">
+
+        <div class="form-group">
             <input class="btn btn-outline-secondary" type="submit" value="войти">
         </div>
     </form>

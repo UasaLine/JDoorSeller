@@ -1,7 +1,7 @@
 jQuery('document').ready(function(){
 
 
-    $('.btn').on('click',function(){
+    $('.classGroupDiv').on('click','.classGroupButton',function(){
 
         var orderId = $('#orderId').text();
         var doorGroup = $(this).attr('id');
