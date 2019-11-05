@@ -668,8 +668,10 @@ jQuery('document').ready(function () {
     function displayDoorClass() {
 
         for (var i = 0; i < door.availableDoorClass.length; ++i) {
+
             var divName = door.availableDoorClass[i].name;
             var divId = door.availableDoorClass[i].id;
+
             $('<div>')
                 .attr('class', 'images_div')
                 .attr('id', 'doorClass' + divId)
@@ -693,6 +695,44 @@ jQuery('document').ready(function () {
         }
 
     };
+
+    function displayDoorClass2() {
+
+        for (var i = 0; i < door.availableDoorClass.length; ++i) {
+
+            var divName = door.availableDoorClass[i].name;
+            var divId = door.availableDoorClass[i].id;
+
+            var doorTypes = door.availableDoorClass[i].doorTypes;
+            for (var j = 0; j < doorTypes.length; ++j) {
+
+                $('<div>')
+                    .attr('class', 'card')
+                    .attr('id', 'doorClass' + j)
+                    .appendTo('.select_door_class');
+
+                    $('<img>')
+                        .attr('class', 'images_door_class card-img-top')
+                        .attr('data', doorTypes[j].id)
+                        .attr('dataName', divName)
+                        .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
+                        .attr('src', doorTypes[j].namePicture)
+                        .attr('Item', 'doorType')
+                        .appendTo('#doorClass' + j);
+
+                    $('<div>')
+                        .attr('class', 'card-body')
+                        .attr('id', 'card-body' + j)
+                        .appendTo('#doorClass' + j);
+
+                        $('<p>')
+                            .attr('class', 'card-text')
+                            .text(doorTypes[j].name)
+                            .appendTo('#card-body' + j);
+            }
+        }
+    };
+
 
     function displayMetal(data) {
 
@@ -1343,7 +1383,7 @@ jQuery('document').ready(function () {
                 door = data;
                 $('.arrow_explanations').attr('show', 'is_alive_lement');
                 displayObject(door);
-                displayDoorClass();
+                displayDoorClass2();
                 displayPrice();
                 getListOfSelectionFields();
             },

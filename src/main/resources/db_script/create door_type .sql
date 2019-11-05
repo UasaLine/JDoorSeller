@@ -11,5 +11,11 @@ create table Door_Type
   daysToRelease               INT,
   markUp                      INT,
   markUpGlassPackage          INT,
-  DS                          INT
+  DS                          INT,
+  priceList                   real,
+  retailPrice                 real,
+  wholesalePriceFromStock1    real,
+  wholesalePriceFromStock2    real,
+  wholesalePriceFromOrder     real
 );
+

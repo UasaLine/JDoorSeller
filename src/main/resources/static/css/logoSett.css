@@ -169,7 +169,7 @@ tr:hover {
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     text-decoration: none;
     color: #000000;
-    border-top: 1px solid #C0C0C0;
+    //border-top: 1px solid #C0C0C0;
 }
 
 .container_main_order {
@@ -640,4 +640,10 @@ tr:hover {
 
 .form-control {
     margin-bottom: 5px;
+}
+
+.card{
+    float:left;
+    width: 31%;
+    margin-left:3px;
 }

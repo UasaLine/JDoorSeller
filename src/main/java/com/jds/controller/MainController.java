@@ -128,6 +128,11 @@ public class MainController {
                                @RequestParam(required = false) int daysToRelease,
                                @RequestParam(required = false) int markUp,
                                @RequestParam(required = false) int markUpGlassPackage,
+                               @RequestParam(required = false) boolean priceList,
+                               @RequestParam(required = false) double retailPrice,
+                               @RequestParam(required = false) double wholesalePriceFromStock1,
+                               @RequestParam(required = false) double wholesalePriceFromStock2,
+                               @RequestParam(required = false) double wholesalePriceFromOrder,
                                Model model) throws Exception {
 
 
@@ -236,5 +241,13 @@ public class MainController {
         return service.deleteOrder(orderId);
     }
 
+
+    @GetMapping(value = "/availableGroups")
+    @ResponseBody
+    public List<DoorClass> getAavailableDoorClass(Model model) throws Exception {
+
+        return service.getDoorClass();
+
+    }
 
 }

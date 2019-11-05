@@ -305,7 +305,8 @@ public class DoorEntity {
     public DoorEntity createName() {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Дверь противопожарная ДПД EIWS60 ");
+        stringBuilder.append(doorType.getNameForPrint());
+        stringBuilder.append(" ");
         stringBuilder.append(widthDoor + " X " + heightDoor);
         stringBuilder.append(" (" + metal + " мм) " + sideDoorOpen + " " + doorColor);
         name = stringBuilder.toString();

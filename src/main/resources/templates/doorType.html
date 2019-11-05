@@ -37,8 +37,18 @@
 			    <input type="text" name="typeId" th:value="${typeId}" show="ghost_lement">
 			    <input type="text" name="classId" th:value="${classId}" show="ghost_lement">
 
-				<h1 class="display-4">тип двери</h1>
-				<div class="linebottom"></div><br>					
+
+			<h1 class="display-4">тип двери</h1>
+
+
+
+			<button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
+			<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>
+			<br>
+			<br>
+
+			<h4 class="chapter">Настройка типа</h4>
+			<br>
 
 				<div class="col-md-6 mb-3">
 					<label for="name">имя:</label>
@@ -70,6 +80,9 @@
 					<input type="number" class="form-control" name="daysToRelease" id="daysToRelease" placeholder="производство в днях:" th:value="${type.daysToRelease}" >
 				</div>
 
+			<h4 class="chapter">Настройка цен</h4>
+			<br>
+
 				<div class="col-md-6 mb-3">
 					<label for="markUp">наценка %:</label>
 					<input type="number" class="form-control" name="markUp" id="markUp" placeholder="наценка:" th:value="${type.markUp}" >
@@ -80,10 +93,35 @@
 					<input type="number" class="form-control" name="markUpGlassPackage" id="markUpGlassPackage" placeholder="наценка на стекло" th:value="${type.markUpGlassPackage}" >
 				</div>
 
-				
-				<div class="linebottom"></div><br>
-			    <button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
-				<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>
+			<br>
+
+			<div class="custom-control custom-switch">
+				<input type="checkbox" class="custom-control-input" name="priceList" id="priceList">
+				<label class="custom-control-label" for="priceList">расчет по прайсу</label>
+			</div>
+
+			<br>
+
+			<div class="ghost" id="priceSettingByPrice">
+
+				<div class="col-md-6 mb-3">
+					<label for="retailPrice">розничная цена,руб:</label>
+					<input type="number" class="form-control" name="retailPrice" id="retailPrice" placeholder="розничная цена,руб" value="0">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="wholesalePriceFromStock1">оптовая цена со склада,руб:</label>
+					<input type="number" class="form-control" name="wholesalePriceFromStock1" id="wholesalePriceFromStock1" placeholder="оптовая цена со склада,руб" value="0">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="wholesalePriceFromStock2">оптовая цена со склада свыше 1 мил в месяц,руб:</label>
+					<input type="number" class="form-control" name="wholesalePriceFromStock2" id="wholesalePriceFromStock2" placeholder="оптовая цена со склада свыше 1 мил в месяц,руб" value="0">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="wholesalePriceFromOrder">оптовая цена на заказ по предоплате,руб:</label>
+					<input type="number" class="form-control" name="wholesalePriceFromOrder" id="wholesalePriceFromOrder" placeholder="оптовая цена на заказ по предоплате,руб" value="0">
+				</div>
+
+			</div>
 
 				<!--
 				disabled

@@ -44,9 +44,7 @@ jQuery('document').ready(function () {
 
     });
 
-
     $('#metalDiv').change('.metalSelect', function () {
-
         saveInJavaObjectforMetal('metal');
         if (allFieldsAreFilled('.metalSelect')) {
             addMetalField();
@@ -54,11 +52,33 @@ jQuery('document').ready(function () {
         fillInMetal();
 
     });
+    $('#metalDiv').on('click','.metalLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('metal');
+            $(this).prop('checked', true);
+            saveInJavaObjectforMetal('metal');
+        }
+        else {
+            saveInJavaObjectforMetal('metal');
+        }
+    });
+
 
     $('#widthDoorDiv').change('.widthDoorInput', function () {
         saveInJavaObjectSize('widthDoor');
         if (allFieldsAreFilled('.widthDoorInput')) {
-            addInputField('widthDoorInput', 'widthDoorDiv');
+            //addInputField('widthDoorInput', 'widthDoorDiv');
+            addField('widthDoor','input');
+        }
+    });
+    $('#widthDoorDiv').on('click','.widthDoorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('widthDoor');
+            $(this).prop('checked', true);
+            saveInJavaObjectSize('widthDoor');
+        }
+        else {
+            saveInJavaObjectSize('widthDoor');
         }
     });
     $('#widthSizMaxMinDiv').change(function () {
@@ -71,6 +91,16 @@ jQuery('document').ready(function () {
             addInputField('heightDoorInput', 'heightDoorDiv');
         }
     });
+    $('#heightDoorDiv').on('click','.heightDoorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('heightDoor');
+            $(this).prop('checked', true);
+            saveInJavaObjectSize('heightDoor');
+        }
+        else {
+            saveInJavaObjectSize('heightDoor');
+        }
+    });
     $('#heightSizMaxMinDiv').change(function () {
         saveInJavaObjectSize('heightDoor');
     });
@@ -80,12 +110,33 @@ jQuery('document').ready(function () {
             addInputField('deepnessDoorInput', 'deepnessDoorDiv');
         }
     });
+    $('#deepnessDoorDiv').on('click','.deepnessDoorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('deepnessDoor');
+            $(this).prop('checked', true);
+            saveInJavaObjectSize('deepnessDoor');
+        }
+        else {
+            saveInJavaObjectSize('deepnessDoor');
+        }
+    });
     $('#thicknessDoorLeafDiv').change('.thicknessDoorLeafInput', function () {
         saveInJavaObjectSize('thicknessDoorLeaf');
         if (allFieldsAreFilled('.thicknessDoorLeafInput')) {
             addInputField('thicknessDoorLeafInput', 'thicknessDoorLeafDiv');
         }
     });
+    $('#thicknessDoorLeafDiv').on('click','.thicknessDoorLeafLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('thicknessDoorLeaf');
+            $(this).prop('checked', true);
+            saveInJavaObjectSize('thicknessDoorLeaf');
+        }
+        else {
+            saveInJavaObjectSize('thicknessDoorLeaf');
+        }
+    });
+
 
     $('#colorsDiv').change('.colorsSelect', function () {
         saveInJavaObjectColor('colors');
@@ -191,6 +242,34 @@ jQuery('document').ready(function () {
         });
     });
 
+
+    $('#widthDoorCheckbox').on('click', function () {
+
+        switchSize('widthDoor');
+
+    });
+
+    $('#heightDoorCheckbox').on('click', function () {
+
+        switchSize('heightDoor');
+
+    });
+
+    function switchSize(nameJavaObject) {
+        if ($('#'+nameJavaObject+'Checkbox').is(':checked')){
+
+            $('#'+nameJavaObject+'Period').addClass('ghost');
+            $('#'+nameJavaObject+'Div').removeClass('ghost');
+            clearPeriod(nameJavaObject);
+        }
+        else {
+
+            $('#'+nameJavaObject+'Period').removeClass('ghost');
+            $('#'+nameJavaObject+'Div').addClass('ghost');
+            clearSize(nameJavaObject);
+        }
+    }
+
     function grtListDoorClassToSelect() {
 
         $.ajax({
@@ -256,10 +335,10 @@ jQuery('document').ready(function () {
 
     function installFromTemplatAfterSelectingType() {
 
-        installFromTemplateSize('widthDoor');
-        installFromTemplateSize('heightDoor');
-        installFromTemplateSize('deepnessDoor');
-        installFromTemplateSize('thicknessDoorLeaf');
+        installFromTemplateSize('widthDoor',true);
+        installFromTemplateSize('heightDoor',true);
+        installFromTemplateSize('deepnessDoor',false);
+        installFromTemplateSize('thicknessDoorLeaf',false);
         installFromTemplateMetal();
         installFromTemplateColor();
         installFromTemplateSelect('doorstep');
@@ -295,29 +374,37 @@ jQuery('document').ready(function () {
     function installOneValue(nameJavaObject, val) {
         var selector = '.' + nameJavaObject + 'Input';
         if (allFieldsAreFilled(selector)) {
-            addSizeField(nameJavaObject);
+            //addSizeField(nameJavaObject);
+            addField(nameJavaObject,'input','Input');
         }
         elem = getNotCompletedFields(selector);
         $(elem).val(val);
 
         if (allFieldsAreFilled(selector)) {
-            addSizeField(nameJavaObject);
+            //addSizeField(nameJavaObject);
+            addField(nameJavaObject,'input','Input');
         }
     }
 
-    function installFromTemplateSize(nameJavaObject) {
+    function installFromTemplateSize(nameJavaObject,twoInputOptions) {
 
         var table = template[nameJavaObject];
         var length = table.length;
+        var check = false;
 
         for (var i = 0; i < length; ++i) {
             if (table[i].pairOfValues == 1) {
                 installPairOfValues(nameJavaObject, table[i].startRestriction, table[i].stopRestriction);
             }
             else {
+                check = true;
                 installOneValue(nameJavaObject, table[i].startRestriction);
             }
 
+        }
+        if(twoInputOptions && check){
+            $('#'+nameJavaObject+'Checkbox').prop('checked', true);
+            switchSize(nameJavaObject);
         }
     }
 
@@ -336,6 +423,7 @@ jQuery('document').ready(function () {
             elem = getNotCompletedFields(selector);
             fillInFieldFromLimit('#' + $(elem).attr('id'), restriction.metal);
             setValueInSelect('#' + $(elem).attr('id'),table[i].firstItem);
+            setSwitchDefaultVal(elem,'metal',table[i].defaultValue);
 
             addMetalField();
         }
@@ -583,12 +671,73 @@ jQuery('document').ready(function () {
     function addMetalField() {
 
         var data = lastElemNumber('.metalSelect') + 1;
-        $('<select>').attr('class', 'form-control metalSelect')
-            .attr('id', 'metalSelect' + data)
-            .attr('data', data)
+
+        $('<div>').attr('class', 'row')
+            .attr('id', 'metalLineDiv' + data)
             .appendTo('#metalDiv');
 
+            $('<div>').attr('class', 'col-md-6 mb-3')
+                .attr('id', 'metalLineSelect' + data)
+                .appendTo('#metalLineDiv' + data);
+
+                $('<select>').attr('class', 'form-control metalSelect')
+                    .attr('id', 'metalSelect' + data)
+                    .attr('data', data)
+                    .appendTo('#metalLineSelect' + data);
+
+            $('<div>').attr('class', 'custom-control custom-switch')
+                .attr('id', 'metalLineSwitch' + data)
+                .appendTo('#metalLineDiv' + data);
+
+                $('<input>').attr('class', 'custom-control-input metalLineCheckbox')
+                    .attr('id', 'metalLineCheckbox' + data)
+                    .attr('type', 'checkbox')
+                    .attr('data', data)
+                    .appendTo('#metalLineSwitch' + data);
+
+                $('<label>').attr('class', 'custom-control-label')
+                    .attr('for', 'metalLineCheckbox' + data)
+                    .text('default')
+                    .appendTo('#metalLineSwitch' + data);
+
         return '#metalSelect' + data;
+
+    }
+
+    function addField(nameJavaObject,activField,typField) {
+
+
+        var data = lastElemNumber('.'+nameJavaObject+typField) + 1;
+
+        $('<div>').attr('class', 'row')
+            .attr('id', ''+nameJavaObject+'LineDiv' + data)
+            .appendTo('#'+nameJavaObject+'Div');
+
+            $('<div>').attr('class', 'col-md-6 mb-3')
+                .attr('id', ''+nameJavaObject+'LineSelect' + data)
+                .appendTo('#'+nameJavaObject+'LineDiv' + data);
+
+                $('<'+activField+'>').attr('class', 'form-control '+nameJavaObject + typField)
+                    .attr('id', ''+nameJavaObject + typField + data)
+                    .attr('data', data)
+                    .appendTo('#'+nameJavaObject+'LineSelect' + data);
+
+            $('<div>').attr('class', 'custom-control custom-switch')
+                .attr('id', ''+nameJavaObject+'LineSwitch' + data)
+                .appendTo('#'+nameJavaObject+'LineDiv' + data);
+
+                $('<input>').attr('class', 'custom-control-input '+nameJavaObject+'LineCheckbox')
+                    .attr('id', ''+nameJavaObject+'LineCheckbox' + data)
+                    .attr('type', 'checkbox')
+                    .attr('data', data)
+                    .appendTo('#'+nameJavaObject+'LineSwitch' + data);
+
+                $('<label>').attr('class', 'custom-control-label')
+                    .attr('for', ''+nameJavaObject+'LineCheckbox' + data)
+                    .text('default')
+                    .appendTo('#'+nameJavaObject+'LineSwitch' + data);
+
+        return '#'+nameJavaObject+'Select' + data;
 
     }
 
@@ -703,16 +852,31 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                template[nameFieldJavaObject].push(findInRestriction($(elem[i]).val(), nameFieldJavaObject));
+                var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
+                template[nameFieldJavaObject].push(findInRestriction($(elem[i]).val(), nameFieldJavaObject,defaultVal));
             }
         }
     }
 
-    function findInRestriction(val, nameFieldJavaObject) {
+    function getDefVal(elem,nameFieldJavaObject){
+        var dataVal = $(elem).attr('data');
+
+        if ($('#'+nameFieldJavaObject+'LineCheckbox'+dataVal).is(':checked')){
+            return 1;
+        } else {
+            return 0;
+        }
+
+        return 0;
+    }
+
+    function findInRestriction(val, nameFieldJavaObject,defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].firstItem == val) {
-                return tab[i];
+                var lim = tab[i];
+                lim.defaultValue = defaultVal;
+                return lim;
             }
         }
     }
@@ -728,8 +892,9 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
+                var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
                 template[nameFieldJavaObject].push(newInstansLim($(elem[i]).val(),
-                                                                 0,0,0));
+                                                                 0,0,defaultVal));
             }
         }
         //for pairOfValues = 1
@@ -838,4 +1003,47 @@ jQuery('document').ready(function () {
             }
         });
     }
+
+    function clearPeriod(nameJavaObject) {
+        $('#'+nameJavaObject+'Min').val('');
+        $('#'+nameJavaObject+'Max').val('');
+        $('#'+nameJavaObject+'Step').val('');
+    }
+
+    function clearSize(nameJavaObject){
+        var elems = $('.'+nameJavaObject+'Input');
+        for(var i=0; i <elems.length;++i){
+
+            if($(elems[i]).attr('data')=='0'){
+                $(elems[i]).empty();
+            }
+            else {
+                $(elems[i]).remove();
+                $('#'+nameJavaObject+'LineDiv'+i).remove();
+            }
+
+        }
+    }
+
+    function switchOffAll(nameJavaObject) {
+
+        var elems = $('.' + nameJavaObject+'LineCheckbox');
+        for (var i = 0; i < elems.length; ++i) {
+            $(elems[i]).prop('checked', false);
+        }
+    };
+
+    function setSwitchDefaultVal(elem,nameJavaObject,defaultValue){
+
+        var dataVal = $(elem).attr('data');
+        var defSwitch = $('#'+nameJavaObject+'LineCheckbox'+dataVal);
+
+        if (defaultValue==1){
+            $(defSwitch).prop('checked', true);
+        }
+        else {
+            $(defSwitch).prop('checked', false);
+        }
+    }
+
 });
