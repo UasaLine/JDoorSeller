@@ -13,10 +13,9 @@ import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-
 
         return userHoldder(username);
     }
@@ -51,6 +50,16 @@ public class UserService implements UserDetailsService {
         }
 
         return null;
+    }
+
+    public List<UserEntity> getUsers(){
+
+        List<UserEntity> list = new ArrayList<>();
+        list.add(userHoldder("admin"));
+        list.add(userHoldder("boss"));
+        list.add(userHoldder("user"));
+
+        return list;
     }
 
 }

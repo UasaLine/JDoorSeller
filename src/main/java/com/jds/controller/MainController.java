@@ -214,9 +214,7 @@ public class MainController {
     }
 
     @GetMapping(value = "/order")
-    public String getOrder(@RequestParam(required = false) String kay,
-                           @RequestParam(required = false) String dataJson, Model model,
-                           @RequestParam(required = false) String orderId) throws Exception {
+    public String getOrder(Model model,@RequestParam(required = false) String orderId) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity principal = (UserEntity) authentication.getPrincipal();
