@@ -42,8 +42,9 @@
 
 
 
-			<button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
-			<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>
+				<button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
+				<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>
+
 			<br>
 			<br>
 
@@ -95,6 +96,8 @@
 
 			<br>
 
+			<input class="ghost" id="priceListInt" th:value="${type.priceList}">
+
 			<div class="custom-control custom-switch">
 				<input type="checkbox" class="custom-control-input" name="priceList" id="priceList">
 				<label class="custom-control-label" for="priceList">расчет по прайсу</label>
@@ -106,19 +109,19 @@
 
 				<div class="col-md-6 mb-3">
 					<label for="retailPrice">розничная цена,руб:</label>
-					<input type="number" class="form-control" name="retailPrice" id="retailPrice" placeholder="розничная цена,руб" value="0">
+					<input type="number" class="form-control" name="retailPrice" id="retailPrice" placeholder="розничная цена,руб" th:value="${type.retailPrice}">
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="wholesalePriceFromStock1">оптовая цена со склада,руб:</label>
-					<input type="number" class="form-control" name="wholesalePriceFromStock1" id="wholesalePriceFromStock1" placeholder="оптовая цена со склада,руб" value="0">
+					<input type="number" class="form-control" name="wholesalePriceFromStock1" id="wholesalePriceFromStock1" placeholder="оптовая цена со склада,руб" th:value="${type.wholesalePriceFromStock1}">
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="wholesalePriceFromStock2">оптовая цена со склада свыше 1 мил в месяц,руб:</label>
-					<input type="number" class="form-control" name="wholesalePriceFromStock2" id="wholesalePriceFromStock2" placeholder="оптовая цена со склада свыше 1 мил в месяц,руб" value="0">
+					<input type="number" class="form-control" name="wholesalePriceFromStock2" id="wholesalePriceFromStock2" placeholder="оптовая цена со склада свыше 1 мил в месяц,руб" th:value="${type.wholesalePriceFromStock2}">
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="wholesalePriceFromOrder">оптовая цена на заказ по предоплате,руб:</label>
-					<input type="number" class="form-control" name="wholesalePriceFromOrder" id="wholesalePriceFromOrder" placeholder="оптовая цена на заказ по предоплате,руб" value="0">
+					<input type="number" class="form-control" name="wholesalePriceFromOrder" id="wholesalePriceFromOrder" placeholder="оптовая цена на заказ по предоплате,руб" th:value="${type.wholesalePriceFromOrder}">
 				</div>
 
 			</div>

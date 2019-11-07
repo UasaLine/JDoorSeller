@@ -107,7 +107,8 @@ jQuery('document').ready(function () {
     $('#deepnessDoorDiv').change('.deepnessDoorInput', function () {
         saveInJavaObjectSize('deepnessDoor');
         if (allFieldsAreFilled('.deepnessDoorInput')) {
-            addInputField('deepnessDoorInput', 'deepnessDoorDiv');
+            //addInputField('deepnessDoorInput', 'deepnessDoorDiv');
+            addField('deepnessDoor','input','Input');
         }
     });
     $('#deepnessDoorDiv').on('click','.deepnessDoorLineCheckbox', function () {
@@ -123,7 +124,8 @@ jQuery('document').ready(function () {
     $('#thicknessDoorLeafDiv').change('.thicknessDoorLeafInput', function () {
         saveInJavaObjectSize('thicknessDoorLeaf');
         if (allFieldsAreFilled('.thicknessDoorLeafInput')) {
-            addInputField('thicknessDoorLeafInput', 'thicknessDoorLeafDiv');
+            //addInputField('thicknessDoorLeafInput', 'thicknessDoorLeafDiv');
+            addField('thicknessDoorLeaf','input','Input');
         }
     });
     $('#thicknessDoorLeafDiv').on('click','.thicknessDoorLeafLineCheckbox', function () {
@@ -141,10 +143,23 @@ jQuery('document').ready(function () {
     $('#colorsDiv').change('.colorsSelect', function () {
         saveInJavaObjectColor('colors');
         if (allFieldsAreFilled('.colorsSelect')) {
-            addSelectField('colors');
+            //addSelectField('colors');
+            addField('colors','select','Select');
         }
         fillInColor();
     });
+    $('#colorsDiv').on('click','.colorsLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('colors');
+            $(this).prop('checked', true);
+            saveInJavaObjectforMetal('colors');
+        }
+        else {
+            saveInJavaObjectforMetal('colors');
+        }
+    });
+
+
 
     $('#doorstepDiv').change('.doorstepSelect', function () {
         saveInJavaObjectSelect('doorstep');
@@ -371,7 +386,7 @@ jQuery('document').ready(function () {
         $('#' + nameJavaObject + 'Max').val(max);
     }
 
-    function installOneValue(nameJavaObject, val) {
+    function installOneValue(nameJavaObject, val,defaultValue) {
         var selector = '.' + nameJavaObject + 'Input';
         if (allFieldsAreFilled(selector)) {
             //addSizeField(nameJavaObject);
@@ -379,6 +394,7 @@ jQuery('document').ready(function () {
         }
         elem = getNotCompletedFields(selector);
         $(elem).val(val);
+        setSwitchDefaultVal(elem,nameJavaObject,defaultValue);
 
         if (allFieldsAreFilled(selector)) {
             //addSizeField(nameJavaObject);
@@ -398,7 +414,7 @@ jQuery('document').ready(function () {
             }
             else {
                 check = true;
-                installOneValue(nameJavaObject, table[i].startRestriction);
+                installOneValue(nameJavaObject, table[i].startRestriction,table[i].defaultValue);
             }
 
         }
@@ -438,13 +454,19 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < length; ++i) {
             if (allFieldsAreFilled(selector)) {
-                addSelectField('colors');
+                //addSelectField('colors');
+                addField('colors','select','Select');
             }
+
             elem = getNotCompletedFields(selector);
             fillInFieldFromColor('#' + $(elem).attr('id'), restriction.colors);
             setValueInSelectInt('#' + $(elem).attr('id'),table[i].id);
+            setSwitchDefaultVal(elem,'colors',table[i].defaultValue);
 
-            addSelectField('colors');
+            if (allFieldsAreFilled(selector)) {
+                //addSelectField('colors');
+                addField('colors','select','Select');
+            }
 
         }
     }
@@ -894,7 +916,7 @@ jQuery('document').ready(function () {
             if ($(elem[i]).val()) {
                 var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
                 template[nameFieldJavaObject].push(newInstansLim($(elem[i]).val(),
-                                                                 0,0,defaultVal));
+                                                                 0,0,0,defaultVal));
             }
         }
         //for pairOfValues = 1
@@ -904,17 +926,18 @@ jQuery('document').ready(function () {
             template[nameFieldJavaObject].push(newInstansLim($('#' + nameFieldJavaObject + 'Min').val(),
                 $('#' + nameFieldJavaObject + 'Max').val(),
                 $('#' + nameFieldJavaObject + 'Step').val(),
-                1));
+                1,0));
         }
 
     }
 
-    function newInstansLim(min, max, step,pairVal) {
+    function newInstansLim(min, max, step,pairVal,defaultVal) {
         var lim = new function () {
             this.startRestriction = min;
             this.stopRestriction = max;
             this.step = step;
             this.pairOfValues = pairVal;
+            this.defaultValue = defaultVal;
         }
         return lim;
     }

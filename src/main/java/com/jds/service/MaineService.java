@@ -99,40 +99,6 @@ public class MaineService {
         return dAO.getMetals();
     }
 
-    public List<DoorPart> getDoorPart(DoorEntity door) {
-
-        return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(door.getDoorType().getId()), door);
-
-    }
-
-    public DoorEntity calculateTheDoor(DoorEntity door) {
-
-
-        PayrollSettings paySettings = new PayrollSettings();
-        paySettings.setBendSetting(dAO.getbendSettingId(door.getDoorType().getId(), door.getMetal(), door.getSealingLine()));
-        paySettings.setConstMap(dAO.getSalaryConstantsMap());
-        paySettings.setDoorColors(dAO.getDoorColor(door.getDoorColor()));
-        paySettings.setDoorType(dAO.getDoorType(door.getDoorType().getId()));
-        paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
-
-        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(), door.getDoorType().getId());
-
-        //new instance cost
-        door.setCostList(new CostList());
-
-        door = calculateMetalDoor(door)
-                .calculateColorDoor(paySettings.getDoorColors())
-                .calculateSalary(paySettings)
-                .calculateFurniture()
-                .calculateGlass()
-                .calculateMaterials(speciSettingList)
-                .costToPrice()
-                .createName();
-
-        //int price = getRandomPrice(8500,25000);
-
-        return door;
-    }
 
     public DoorColors saveDoorColors(DoorColors doorColors) {
         doorColors.setPicturePath("images/Door/AColor1/" + doorColors.getPicturePath() + ".jpg");
@@ -232,6 +198,7 @@ public class MaineService {
         }
     }
 
+
     public List<LimitationDoor> generateSizeDoor(TypeOfLimitionDoor typeSettings) {
         List<LimitationDoor> size = new ArrayList<>();
 
@@ -270,33 +237,11 @@ public class MaineService {
         return (int) (Math.random() * ++max) + min;
     }
 
-    private DoorEntity calculateMetalDoor(DoorEntity door) {
-
-        List<DoorPart> partList = getDoorPart(door);
-        Sheet sheet = new Sheet(2500, 1250);
-
-        SheetCutting sheetCutting = new SheetCutting(partList, sheet);
-        sheetCutting.CompleteCutting();
-        sheetCutting.clearHardCalculationData();
-
-        Metal metal = dAO.getMetal(door.getMetal());
-
-        door.setSheets(sheetCutting.getSheets());
-        door.calculateWeigh(metal);
-        door.calculateCostMetal(metal);
-
-        return door;
-    }
 
     public BendSetting saveBendSetting(BendSetting bendSetting) {
         return dAO.saveBendSetting(bendSetting);
     }
 
-    public DoorEntity saveDoor(DoorEntity door) {
-
-        return dAO.saveDoor(door.clearEmptyLinks());
-
-    }
 
     public DoorsОrder saveOrder(DoorsОrder order) {
         return dAO.saveOrder(order.calculateTotal());
@@ -320,71 +265,13 @@ public class MaineService {
         return clearNonSerializingFields(dAO.getOrder(intId));
     }
 
-    public DoorsОrder clearNonSerializingFields(DoorsОrder order) {
+    public static DoorsОrder clearNonSerializingFields(DoorsОrder order) {
 
         List<DoorEntity> doors = order.getDoors();
         for (DoorEntity door : doors) {
             door.clearNonSerializingFields();
         }
         return order;
-    }
-
-    public DoorEntity getDoor(String id, String orderId, String doorGroup) {
-
-        DoorEntity door = null;
-        if (id != null && !id.isEmpty() && !id.equals("0")) {
-            door = dAO.getDoor(Integer.parseInt(id));
-            if (door.getFurnitureKit() == null) {
-                door.setFurnitureKit(new FurnitureKit());
-            }
-            if (door.getDoorGlass() == null) {
-                door.setDoorGlass(new DoorGlass());
-            }
-        }
-        if (door == null) {
-            door = new DoorEntity();
-        }
-
-        List<DoorClass> doorClassList = getDoorClassBy(doorGroup);
-        for (DoorClass doorClass : doorClassList) {
-                door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
-        }
-
-        if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {
-            DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
-            order.addDoor(door);
-            dAO.saveOrder(order);
-        }
-
-        door.clearNonSerializingFields();
-
-        return door;
-
-    }
-
-    public List<DoorClass>  getDoorClassBy(String doorGroup){
-        if (doorGroup!=null && !"0".equals(doorGroup)){
-            return dAO.getAvailableDoorClass(Integer.parseInt(doorGroup));
-        }
-        else {
-            return dAO.getAvailableDoorClass();
-        }
-
-    }
-
-    public DoorsОrder deleteDoorFromOrder(String id, String orderId) {
-
-        if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && id != null && !id.isEmpty() && !id.equals("0")) {
-            DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
-            int mess = order.deleteDoor(Integer.parseInt(id));
-            if (mess == 1) {
-                dAO.saveOrder(order);
-                return clearNonSerializingFields(order);
-            }
-
-        }
-
-        return null;
     }
 
     public String deleteOrder(String orderId) {
@@ -396,7 +283,10 @@ public class MaineService {
     public int saveOrUpdateDoorType(@NonNull String typeId, @NonNull String classId, String name,
                                     String namePicture, int doorLeaf,
                                     String nameForPrint, String nameForPrintInternalOpening,
-                                    int daysToRelease, int markUp, int markUpGlassPackage) {
+                                    int daysToRelease, int markUp, int markUpGlassPackage,
+                                    boolean priceList, double retailPrice,
+                                    double wholesalePriceFromStock1, double wholesalePriceFromStock2,
+                                    double wholesalePriceFromOrder) {
 
         int intTypeid = Integer.parseInt(typeId);
         int intClassId = Integer.parseInt(classId);
@@ -417,10 +307,22 @@ public class MaineService {
         doorType.setDaysToRelease(daysToRelease);
         doorType.setMarkUp(markUp);
         doorType.setMarkUpGlassPackage(markUpGlassPackage);
+        doorType.setPriceList(booleanToInt(priceList));
+        doorType.setRetailPrice(retailPrice);
+        doorType.setWholesalePriceFromStock1(wholesalePriceFromStock1);
+        doorType.setWholesalePriceFromStock2(wholesalePriceFromStock2);
+        doorType.setWholesalePriceFromOrder(wholesalePriceFromOrder);
 
         return saveOrUpdateDoorType(doorType);
     }
 
+    public int booleanToInt(boolean val) {
+
+        if (val) {
+            return 1;
+        }
+        return 0;
+    }
 
     public void saveDoorTemplate(RestrictionOfSelectionFields restriction) {
 

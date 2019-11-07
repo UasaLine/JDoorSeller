@@ -142,7 +142,9 @@ public class MainController {
                 service.saveOrUpdateDoorType(typeId, classId, name,
                         namePicture, doorLeaf,
                         nameForPrint, nameForPrintInternalOpening,
-                        daysToRelease, markUp, markUpGlassPackage)));
+                        daysToRelease, markUp, markUpGlassPackage,
+                        priceList,retailPrice,
+                        wholesalePriceFromStock1,wholesalePriceFromStock2,wholesalePriceFromOrder)));
 
         return "doorType";
     }

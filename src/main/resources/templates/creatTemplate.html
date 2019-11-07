@@ -169,10 +169,19 @@
         <h4 class="chapter">цвета</h4>
         <br>
 
-        <div class="col-md-6 mb-3" id="colorsDiv">
-            <label for="colorsSelect0">цвет:</label>
-            <select class="form-control colorsSelect" id="colorsSelect0" data="0" толщина полотна>
-            </select>
+        <!--COLOR-->
+        <div id="colorsDiv">
+        <label for="colorsSelect0">цвет:</label>
+            <div class="row" id="colorsLineDiv0">
+                <div class="col-md-6 mb-3"id="colorsLineSelect0" >
+                    <select class="form-control colorsSelect" id="colorsSelect0" data="0" толщина полотна>
+                    </select>
+                </div>
+                <div class="custom-control custom-switch" id="colorsLineSwitch0">
+                    <input type="checkbox" class="custom-control-input colorsLineCheckbox" id="colorsLineCheckbox0" >
+                    <label class="custom-control-label" for="colorsLineCheckbox0">default</label>
+                </div>
+            </div>
         </div>
 
         <h4 class="chapter">дополнительные настройки</h4>

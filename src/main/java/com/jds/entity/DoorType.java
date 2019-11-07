@@ -39,7 +39,23 @@ public class DoorType {
     private int markUpGlassPackage;
 
     @Column(name = "DS")
-    private int DS;//I do not know
+    private int DS;//I do not know what is this
+
+    @Column(name = "priceList")
+    int priceList;
+
+    @Column(name = "retailPrice")
+    double retailPrice;
+
+    @Column(name = "wholesalePriceFromStock1")
+    double  wholesalePriceFromStock1;
+
+    @Column(name = "wholesalePriceFromStock2")
+    double  wholesalePriceFromStock2;
+
+    @Column(name = "wholesalePriceFromOrder")
+    double  wholesalePriceFromOrder;
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
     private List<BendSetting> bendSettings;
@@ -223,5 +239,53 @@ public class DoorType {
 
     public void setSpecificationSettings(List<SpecificationSetting> specificationSettings) {
         this.specificationSettings = specificationSettings;
+    }
+
+    public int getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(int priceList) {
+        this.priceList = priceList;
+    }
+
+    public double getRetailPrice() {
+        return retailPrice;
+    }
+
+    public void setRetailPrice(double retailPrice) {
+        this.retailPrice = retailPrice;
+    }
+
+    public double getWholesalePriceFromStock1() {
+        return wholesalePriceFromStock1;
+    }
+
+    public void setWholesalePriceFromStock1(double wholesalePriceFromStock1) {
+        this.wholesalePriceFromStock1 = wholesalePriceFromStock1;
+    }
+
+    public double getWholesalePriceFromStock2() {
+        return wholesalePriceFromStock2;
+    }
+
+    public void setWholesalePriceFromStock2(double wholesalePriceFromStock2) {
+        this.wholesalePriceFromStock2 = wholesalePriceFromStock2;
+    }
+
+    public double getWholesalePriceFromOrder() {
+        return wholesalePriceFromOrder;
+    }
+
+    public void setWholesalePriceFromOrder(double wholesalePriceFromOrder) {
+        this.wholesalePriceFromOrder = wholesalePriceFromOrder;
+    }
+
+    public List<DoorEntity> getDoorEntityList() {
+        return doorEntityList;
+    }
+
+    public void setDoorEntityList(List<DoorEntity> doorEntityList) {
+        this.doorEntityList = doorEntityList;
     }
 }

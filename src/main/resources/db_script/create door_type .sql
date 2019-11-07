@@ -12,7 +12,7 @@ create table Door_Type
   markUp                      INT,
   markUpGlassPackage          INT,
   DS                          INT,
-  priceList                   real,
+  priceList                   INT,
   retailPrice                 real,
   wholesalePriceFromStock1    real,
   wholesalePriceFromStock2    real,

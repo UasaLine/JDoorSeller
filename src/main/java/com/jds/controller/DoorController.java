@@ -3,6 +3,7 @@ package com.jds.controller;
 import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorsОrder;
 import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.service.DoorService;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class DoorController {
 
     @Autowired
-    private MaineService service;
+    private DoorService service;
+    @Autowired
+    private MaineService maineService;
 
     @GetMapping(value = "/calculation")
     public String calculation(Model model,
@@ -42,7 +45,7 @@ public class DoorController {
     public RestrictionOfSelectionFields getRestrictionOfSelectionFields(Model model,
                                                                         @RequestParam String idDoorType) throws Exception {
 
-        return service.getTemplateFromLimits(idDoorType);
+        return maineService.getTemplateFromLimits(idDoorType);
     }
 
     @PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_VALUE)
