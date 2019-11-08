@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -27,10 +28,25 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public String getOrder(Model model,@RequestParam(required = false) String orderId) throws Exception {
+    public String getUser(Model model,@RequestParam(required = false) String userId) throws Exception {
 
-        model.addAttribute("userId", (orderId == null) ? 0 : orderId);
+        model.addAttribute("userId", (userId == null) ? "0" : userId);
+        model.addAttribute("user",service.getUser((userId == null) ? "0" : userId));
         return "doorUser";
+
+    }
+
+    @PostMapping(value = "/user")
+    public String saveUser(Model model,@RequestParam(required = false) String username,
+                           @RequestParam(required = false) String userId,
+                           @RequestParam(required = false) String password,
+                           @RequestParam(required = false) boolean enabledСheckbox) throws Exception {
+
+        service.saveUser(userId,username,password,enabledСheckbox);
+
+        List<UserEntity> list = service.getUsers();
+        model.addAttribute("users", list);
+        return "doorUserList";
 
     }
 

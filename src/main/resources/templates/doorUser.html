@@ -27,38 +27,35 @@
 	
 	<div class="top_head">
 
-		<span id = "fireproof" th:text="${fireproof}" show="ghost_lement"></span>
-		<span id = "hot" th:text="${hot}" show="ghost_lement"></span>
+		<span id = "enabled" th:text="${user.enabled}" show="ghost_lement"></span>
 
-		<form th:action="@{/doorclass}" method="post">
+
+		<form th:action="@{/user}" method="post">
 
 
 		<div class="form-group">
 
-			    <input type="text" name="classId" th:value="${userId}" show="ghost_lement">
+			    <input type="text" name="userId" th:value="${user.id}" show="ghost_lement">
 
-				<h1 class="display-4">Пользователи</h1>
+				<h1 class="display-4">Пользователь</h1>
 				<div class="linebottom"></div><br>					
 
 				<div class="col-md-6 mb-3">
-					<label for="name">имя:</label>
-					<input type="text" class="form-control" name="name" id="name" placeholder="имя" th:value="${name}" >
+					<label for="username">имя:</label>
+					<input type="text" class="form-control" name="username" id="username" placeholder="имя" th:value="${user.username}" >
 				</div>
-				
+
+
 				<div class="col-md-6 mb-3">
-					<label for="description">описание:</label>
-					<input type="text" class="form-control" name="description" id="description" placeholder="описание" th:value="${description}" >
+					<label for="password">password:</label>
+					<input type="text" class="form-control" name="password" id="password" placeholder="password" th:value="${user.password}" >
 				</div>
 				
 				<div class="custom-control custom-switch">
-					  <input type="checkbox" class="custom-control-input" name="fireproofcheckbox" id="fireproofcheckbox">
-					  <label class="custom-control-label" for="fireproofcheckbox">противопожарная</label>
+					  <input type="checkbox" class="custom-control-input" name="enabledСheckbox" id="enabledСheckbox">
+					  <label class="custom-control-label" for="enabledСheckbox">enabled</label>
 				</div>
-				
-				<div class="custom-control custom-switch">
-					  <input type="checkbox" class="custom-control-input" name="hotcheckbox"  id="hotcheckbox">
-					  <label class="custom-control-label" for="hotcheckbox">теплая</label>
-				</div>
+
 				
 				<div class="linebottom"></div><br>
 			    <button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
