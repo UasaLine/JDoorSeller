@@ -23,7 +23,14 @@ public class MainController {
 
     @GetMapping(value = "/")
     public String updateDoorClass() throws Exception {
-        return "minePageBootstr";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity principal = (UserEntity) authentication.getPrincipal();
+
+        if (principal.isAdmin()){
+            return "minePageBootstr";
+        }
+        return "redirect:orders";
     }
 
     @GetMapping(value = "/login")

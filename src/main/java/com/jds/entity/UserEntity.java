@@ -45,4 +45,15 @@ public class UserEntity implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "seller", cascade = CascadeType.ALL)
     List<DoorsОrder> orders;
 
+    public boolean isAdmin(){
+
+        boolean isAdmin = false;
+        for (Role role:authorities){
+            if (role == Role.ADMIN){
+                isAdmin = true;
+            }
+        }
+        return isAdmin;
+    }
+
 }

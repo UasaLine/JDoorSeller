@@ -17,14 +17,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/",
-                        "/minePage.html",
-                        "/css/*","/css/bootstrap-4.3.1css/*",
-                        "/js/*","/js/bootstrap-4.3.1js/*",
+                .antMatchers("/css/*",
+                        "/css/bootstrap-4.3.1css/*","/js/*",
+                        "/js/bootstrap-4.3.1js/*",
                         "/images/*","/images/background/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
