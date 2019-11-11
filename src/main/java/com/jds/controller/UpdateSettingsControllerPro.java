@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jds.dao.MainDAO;
 import com.jds.entity.*;
 import com.jds.service.MaineService;
+import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ public class UpdateSettingsControllerPro {
 
     @Autowired
     MaineService service;
+
+    @Autowired
+    OrderService orderService;
 
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -174,7 +178,7 @@ public class UpdateSettingsControllerPro {
     @ResponseBody
     public List<DoorsОrder> getOrders(@RequestParam(required = false) String kay) throws Exception {
 
-        return service.getOrders();
+        return orderService.getOrders();
     }
 
 

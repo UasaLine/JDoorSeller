@@ -1,10 +1,8 @@
 package com.jds.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +16,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 public class UserEntity implements UserDetails {
 
     @Id
@@ -25,24 +25,35 @@ public class UserEntity implements UserDetails {
     @Column(name = "id", nullable = false)
     private int id;
 
+    @JsonIgnore
     @Column(name = "password")
     String password;
 
     @Column(name = "login")
     private String username;
 
+    @JsonIgnore
     @Transient
     private List<Role> authorities;
+
+    @JsonIgnore
     @Transient
     private boolean accountNonExpired;
+
+    @JsonIgnore
     @Transient
     private boolean accountNonLocked;
+
+    @JsonIgnore
     @Transient
     private boolean credentialsNonExpired;
+
+    @JsonIgnore
     @Transient
     private boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "seller", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
     List<DoorsОrder> orders;
 
     public boolean isAdmin(){

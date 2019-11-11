@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>door seller</title>
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
+    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="top_head">
+    <div class="header_logo">
+        <a th:href="@{/}" class="logo_text">door seller</a>
+    </div>
+
+</div>
+<br>
+
+<div class="col-md-6 mb-3">
+    <label for="retailMargin">наценка в %:</label>
+    <input type="number" class="form-control" name="retailMargin" id="retailMargin"  placeholder="%"  >
+</div>
+
+<div class="col-md-6 mb-3">
+    <label for="salesTax">ставка НДС:</label>
+    <input type="number" class="form-control" name="salesTax" id="salesTax"  placeholder="%"  >
+</div>
+
+</body>
+</html>

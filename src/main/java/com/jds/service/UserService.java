@@ -7,6 +7,8 @@ import com.jds.model.Role;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +32,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserEntity userHoldder(String username) {
+
 
         if (username.equals("admin")) {
 
@@ -104,9 +107,11 @@ public class UserService implements UserDetailsService {
 
         int idInt = Integer.parseInt(userId);
 
+
         if (idInt==9300){
             return userHoldder("admin");
         }
+
         else if (idInt==0){
             return UserEntity.builder()
                     .username("newUser")
@@ -121,4 +126,10 @@ public class UserService implements UserDetailsService {
         user.setAuthorities(roleList);
         user.setEnabled(true);
     }
+
+    public UserEntity getCurrentUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return  (UserEntity) authentication.getPrincipal();
+    }
+
 }

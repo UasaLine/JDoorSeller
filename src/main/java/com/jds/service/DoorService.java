@@ -1,6 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.MainDAO;
+import com.jds.dao.OrderDAO;
 import com.jds.entity.*;
 import com.jds.model.CostList;
 import com.jds.model.DoorPart;
@@ -20,6 +21,10 @@ public class DoorService {
 
     @Autowired
     private MainDAO dAO;
+    @Autowired
+    private OrderDAO orderDAO;
+    @Autowired
+    private OrderService orderService;
 
 
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
@@ -109,9 +114,9 @@ public class DoorService {
         }
 
         if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {
-            DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
+            DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             order.addDoor(door);
-            dAO.saveOrder(order);
+            orderDAO.saveOrder(order);
         }
 
         door.clearNonSerializingFields();
@@ -138,11 +143,11 @@ public class DoorService {
     public DoorsОrder deleteDoorFromOrder(String id, String orderId) {
 
         if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && id != null && !id.isEmpty() && !id.equals("0")) {
-            DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
+            DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
-                dAO.saveOrder(order);
-                return MaineService.clearNonSerializingFields(order);
+                orderDAO.saveOrder(order);
+                return orderService.clearNonSerializingFields(order);
             }
 
         }

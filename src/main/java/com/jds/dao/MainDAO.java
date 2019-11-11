@@ -167,24 +167,6 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public DoorsОrder saveOrder(DoorsОrder Оrder) {
-
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(Оrder);
-
-        return Оrder;
-
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteOrder(DoorsОrder order) {
-
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(order);
-
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
     public BendSetting saveBendSetting(BendSetting bendSetting) {
 
         int idDoorType = saveOrUpdateDoorType(bendSetting.getDoorType());
@@ -615,27 +597,6 @@ public class MainDAO {
 
     }
 
-    public DoorsОrder getOrder(int id) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from orders where order_id = :log";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(DoorsОrder.class)
-                .setParameter("log", id);
-        List<DoorsОrder> doorColorsList = query.list();
-
-        session.close();
-
-        DoorsОrder оrder = null;
-        if (doorColorsList.size() > 0) {
-            оrder = doorColorsList.get(0);
-        }
-
-        return оrder;
-    }
-
     public DoorEntity getDoor(int id) {
 
         Session session = sessionFactory.openSession();
@@ -798,19 +759,6 @@ public class MainDAO {
 
     }
 
-    public List<DoorsОrder> getOrders() {
-
-        Session session = sessionFactory.openSession();
-
-        String sql = "select * from orders";
-        Query query = session.createSQLQuery(sql).addEntity(DoorsОrder.class);
-
-        List<DoorsОrder> list = query.list();
-
-        session.close();
-
-        return list;
-    }
 
     public SalarySetting getSalarySetting(double metal) {
 

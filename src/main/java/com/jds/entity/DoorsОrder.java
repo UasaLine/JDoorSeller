@@ -1,9 +1,9 @@
 package com.jds.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 @Table(name = "orders")
@@ -39,7 +39,7 @@ public class DoorsОrder {
     )
     private List<DoorEntity> doors;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "seller")
     private UserEntity seller;
 
@@ -55,9 +55,14 @@ public class DoorsОrder {
     @Column(name = "totalQuantity")
     private int totalQuantity;
 
-    public DoorsОrder() {
+    public DoorsОrder()throws Exception {
         doors = new ArrayList<>();
+
+
+
+        data = new java.sql.Date(new Date().getTime());;
     }
+
 
     public int deleteDoor(int id){
 
@@ -82,6 +87,7 @@ public class DoorsОrder {
             totalAmount+=door.getPriceWithMarkup();
             totalTax+=(door.getPriceWithMarkup()*tax)/(100+tax);
         }
+
 
         return this;
     }

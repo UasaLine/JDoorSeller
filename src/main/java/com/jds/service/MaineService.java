@@ -243,42 +243,6 @@ public class MaineService {
     }
 
 
-    public DoorsОrder saveOrder(DoorsОrder order) {
-        return dAO.saveOrder(order.calculateTotal());
-    }
-
-    public List<DoorsОrder> getOrders() {
-        List<DoorsОrder> orders = dAO.getOrders();
-        for (DoorsОrder order : orders) {
-            clearNonSerializingFields(order);
-        }
-        return orders;
-    }
-
-    public DoorsОrder getOrder(String id) {
-
-        int intId = Integer.parseInt(id);
-
-        if (intId == 0) {
-            return new DoorsОrder();
-        }
-        return clearNonSerializingFields(dAO.getOrder(intId));
-    }
-
-    public static DoorsОrder clearNonSerializingFields(DoorsОrder order) {
-
-        List<DoorEntity> doors = order.getDoors();
-        for (DoorEntity door : doors) {
-            door.clearNonSerializingFields();
-        }
-        return order;
-    }
-
-    public String deleteOrder(String orderId) {
-        DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
-        dAO.deleteOrder(order);
-        return String.valueOf(order.getId());
-    }
 
     public int saveOrUpdateDoorType(@NonNull String typeId, @NonNull String classId, String name,
                                     String namePicture, int doorLeaf,
@@ -413,20 +377,7 @@ public class MaineService {
         return dAO.saveSpecificationSetting(setting);
     }
 
-    public List<PrintAppToTheOrder> getPrintAppList(String orderId) {
 
-        DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
-        List<DoorEntity> doors = order.getDoors();
-
-        List<PrintAppToTheOrder> printAppList = new ArrayList<>();
-        for (DoorEntity door : doors) {
-            door.clearNonSerializingFields();
-            printAppList.add(new PrintAppToTheOrder(door, order));
-        }
-
-        return printAppList;
-
-    }
 
     public static int dooltranslateIntoInt(boolean value) {
         if (value == true) {

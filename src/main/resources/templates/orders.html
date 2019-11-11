@@ -17,6 +17,9 @@
         <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
     <div class="header_home" >
+        <a th:href="@{/usersetting}" class="logo_home">настройки</a>
+    </div>
+    <div class="header_home" >
         <a th:href="@{/logout}" class="logo_home">выйти</a>
     </div>
 </div>
@@ -74,7 +77,7 @@
                 <td th:utext="${accountInfo.data}">..</td>
                 <td th:utext="${accountInfo.releasDate}">..</td>
                 <td th:utext="${accountInfo.productionStart}">..</td>
-                <td th:utext="${accountInfo.seller}">..</td>
+                <td th:utext="${accountInfo.seller.username}">..</td>
                 <td th:utext="${accountInfo.comment}">..</td>
                 <td th:utext="${accountInfo.totalAmount}">..</td>
                 <td th:utext="${accountInfo.totalTax}">..</td>

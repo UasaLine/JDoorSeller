@@ -50,4 +50,11 @@ public class UserController {
 
     }
 
+    @GetMapping(value = "usersetting")
+    public String getUsersSettingPage(Model model) throws Exception {
+
+
+        return "userSetting";
+    }
+
 }

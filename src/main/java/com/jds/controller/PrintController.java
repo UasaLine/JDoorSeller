@@ -3,6 +3,7 @@ package com.jds.controller;
 import com.jds.model.PrintAppToTheOrder;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.service.MaineService;
+import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.List;
 public class PrintController {
 
     @Autowired
-    private MaineService service;
+    private OrderService service;
 
     @GetMapping(value = "/orderprint")
     public String getPrintOrder(Model model,

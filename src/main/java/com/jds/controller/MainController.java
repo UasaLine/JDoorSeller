@@ -200,52 +200,7 @@ public class MainController {
 
     }
 
-    @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorsОrder saveOrder(Model model,
-                                @RequestParam(required = false) String orderId) throws Exception {
 
-        return service.getOrder(orderId);
-    }
-
-    @PostMapping(value = "/saveOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorsОrder saveOrder(@RequestParam(required = false) String kay,
-                                @RequestParam(required = false) String dataJson,
-                                Model model,
-                                @RequestBody DoorsОrder order) throws Exception {
-
-
-        return service.saveOrder(order);
-    }
-
-    @GetMapping(value = "/order")
-    public String getOrder(Model model,@RequestParam(required = false) String orderId) throws Exception {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity principal = (UserEntity) authentication.getPrincipal();
-
-        model.addAttribute("username", principal.getUsername());
-        model.addAttribute("orederId", (orderId == null) ? 0 : orderId);
-        return "order";
-    }
-
-
-
-    @GetMapping(value = "/orders")
-    public String getOrders(Model model) throws Exception {
-        List<DoorsОrder> list = service.getOrders();
-        model.addAttribute("accountInfos", list);
-        return "orders";
-    }
-
-    @DeleteMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String deleteOrder(Model model,
-                              @RequestParam(required = false) String orderId) throws Exception {
-
-        return service.deleteOrder(orderId);
-    }
 
 
     @GetMapping(value = "/availableGroups")
