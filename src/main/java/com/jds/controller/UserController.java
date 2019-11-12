@@ -53,8 +53,17 @@ public class UserController {
     @GetMapping(value = "usersetting")
     public String getUsersSettingPage(Model model) throws Exception {
 
-
+        model.addAttribute("setting", service.getUserSetting());
         return "userSetting";
+    }
+
+    @PostMapping(value = "usersetting")
+    public String saveUsersSetting(@RequestParam(required = false) int retailMargin,
+                                   @RequestParam(required = false) int salesTax,
+                                   @RequestParam(required = false) boolean includesTax) throws Exception {
+
+        service.saveUserSetting(retailMargin,salesTax,includesTax);
+        return "redirect:usersetting";
     }
 
 }

@@ -2,6 +2,7 @@ package com.jds.dao;
 
 
 import com.jds.entity.UserEntity;
+import com.jds.entity.UserSetting;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -84,5 +85,29 @@ public class UserDAO {
 
     }
 
+    public UserSetting getUserSetting (int id){
+        Session session = sessionFactory.openSession();
 
+        String sql;
+        sql = "select * from users_setting where id = :userId";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(UserSetting.class)
+                .setParameter("userId", id);
+        List<UserSetting> list = query.list();
+
+        session.close();
+
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveUserSetting(UserSetting setting) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(setting);
+
+    }
 }

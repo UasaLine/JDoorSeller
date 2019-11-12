@@ -16,8 +16,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 public class UserEntity implements UserDetails {
 
     @Id
@@ -31,6 +29,7 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "login")
     private String username;
+
 
     @JsonIgnore
     @Transient

@@ -3,6 +3,7 @@ package com.jds.service;
 
 import com.jds.dao.UserDAO;
 import com.jds.entity.UserEntity;
+import com.jds.entity.UserSetting;
 import com.jds.model.Role;
 
 import lombok.NonNull;
@@ -24,6 +25,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserDAO dAO;
+    @Autowired
+    private MaineService maineService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -132,4 +135,18 @@ public class UserService implements UserDetailsService {
         return  (UserEntity) authentication.getPrincipal();
     }
 
+    public UserSetting getUserSetting(){
+        return  dAO.getUserSetting(getCurrentUser().getId());
+    }
+
+    public void saveUserSetting(int retailMargin,int salesTax,boolean includesTax){
+        dAO.saveUserSetting(
+                UserSetting.builder()
+                .id(getCurrentUser().getId())
+                .retailMargin(retailMargin)
+                .salesTax(salesTax)
+                .includesTax(maineService.booleanToInt(includesTax))
+                .build()
+        );
+    }
 }

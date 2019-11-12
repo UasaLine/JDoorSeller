@@ -166,8 +166,7 @@ public class MainController {
 
 
     @GetMapping(value = "/metal")
-    public String getMetal(@RequestParam(required = false) String kay,
-                           @RequestParam(required = false) String dataJson, Model model) throws Exception {
+    public String getMetal( Model model) throws Exception {
 
         List<Metal> list = service.getMetals();
         model.addAttribute("accountInfos", list);
