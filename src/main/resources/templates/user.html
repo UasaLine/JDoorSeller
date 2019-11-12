@@ -47,16 +47,23 @@
 
 
 				<div class="col-md-6 mb-3">
-					<label for="password">password:</label>
-					<input type="text" class="form-control" name="password" id="password" placeholder="password" th:value="${user.password}" >
-				</div>
-				
-				<div class="custom-control custom-switch">
-					  <input type="checkbox" class="custom-control-input" name="enabledСheckbox" id="enabledСheckbox">
-					  <label class="custom-control-label" for="enabledСheckbox">enabled</label>
+					<label for="password">new password:</label>
+					<input type="text" class="form-control" name="password" id="password" placeholder="password" >
 				</div>
 
-				
+
+				<div class="col-md-6 mb-3">
+					<label for="discount">Скидка от розничных цен завода,%:</label>
+					<input type="number" class="form-control" name="discount" id="discount" placeholder="%" th:value="${user.discount}" >
+				</div>
+
+
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" name="enabledСheckbox" id="enabledСheckbox">
+					<label class="custom-control-label" for="enabledСheckbox">enabled</label>
+				</div>
+
+
 				<div class="linebottom"></div><br>
 			    <button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
 				<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>

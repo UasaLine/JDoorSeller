@@ -4,8 +4,6 @@ import com.jds.entity.UserEntity;
 
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +22,7 @@ public class UserController {
     public String getUsers(Model model) throws Exception {
         List<UserEntity> list = service.getUsers();
         model.addAttribute("users", list);
-        return "doorUserList";
+        return "userList";
     }
 
     @GetMapping(value = "/user")
@@ -32,7 +30,7 @@ public class UserController {
 
         model.addAttribute("userId", (userId == null) ? "0" : userId);
         model.addAttribute("user",service.getUser((userId == null) ? "0" : userId));
-        return "doorUser";
+        return "user";
 
     }
 
@@ -40,13 +38,14 @@ public class UserController {
     public String saveUser(Model model,@RequestParam(required = false) String username,
                            @RequestParam(required = false) String userId,
                            @RequestParam(required = false) String password,
+                           @RequestParam(required = false) int discount,
                            @RequestParam(required = false) boolean enabledСheckbox) throws Exception {
 
-        service.saveUser(userId,username,password,enabledСheckbox);
+        service.saveUser(userId,username,password,discount,enabledСheckbox);
 
         List<UserEntity> list = service.getUsers();
         model.addAttribute("users", list);
-        return "doorUserList";
+        return "userList";
 
     }
 

@@ -30,6 +30,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "login")
     private String username;
 
+    @Column(name = "discount")
+    private int discount;
 
     @JsonIgnore
     @Transient

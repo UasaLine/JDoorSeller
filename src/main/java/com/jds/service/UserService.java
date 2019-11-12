@@ -83,7 +83,7 @@ public class UserService implements UserDetailsService {
         return list;
     }
 
-    public void saveUser(@NonNull String userId, @NonNull String username, @NonNull String password, boolean enabledСheckbox) {
+    public void saveUser(@NonNull String userId, @NonNull String username, @NonNull String password,int discount, boolean enabledСheckbox) {
 
         if (username == "" || password == "") {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
@@ -97,13 +97,23 @@ public class UserService implements UserDetailsService {
         dAO.saveOrUpdateUser(UserEntity.builder()
                 .id(idInt)
                 .username(username)
-                .password(new BCryptPasswordEncoder().encode(password))
+                .password(insertPassword(password))
                 .authorities(roleList)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
+                .discount(discount)
                 .enabled(enabledСheckbox)
                 .build());
+    }
+
+    public String insertPassword(String pass){
+        if (pass =="") {
+           return getCurrentUser().getPassword();
+        }
+        else {
+            return new BCryptPasswordEncoder().encode(pass);
+        }
     }
 
     public UserEntity getUser(String userId){
