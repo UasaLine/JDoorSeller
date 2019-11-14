@@ -28,17 +28,16 @@ public class DoorService {
 
 
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
-        if (door.getDoorType().getPriceList()==1){
+        if (door.getDoorType().getPriceList() == 1) {
             return recalculateTheDoorByPriceList(door);
-        }
-        else {
-           return recalculateTheDoorCompletely(door);
+        } else {
+            return recalculateTheDoorCompletely(door);
         }
     }
 
-    public DoorEntity recalculateTheDoorByPriceList(DoorEntity doorEntity){
+    public DoorEntity recalculateTheDoorByPriceList(DoorEntity doorEntity) {
         return doorEntity.setPriceOfDoorType()
-                         .createName();
+                .createName();
     }
 
     public DoorEntity recalculateTheDoorCompletely(DoorEntity door) {
@@ -92,46 +91,36 @@ public class DoorService {
 
     }
 
-    public DoorEntity getDoor(String id, String orderId, String doorGroup) {
+    public DoorEntity getDoor(@NonNull String id, @NonNull String orderId, @NonNull String typid) {
 
-        DoorEntity door = null;
-        if (id != null && !id.isEmpty() && !id.equals("0")) {
-            door = dAO.getDoor(Integer.parseInt(id));
-            if (door.getFurnitureKit() == null) {
-                door.setFurnitureKit(new FurnitureKit());
-            }
-            if (door.getDoorGlass() == null) {
-                door.setDoorGlass(new DoorGlass());
-            }
+        DoorEntity door;
+
+        int intId = Integer.parseInt(id);
+        int intTypid = Integer.parseInt(id);
+
+        if (intId > 0){
+            door = dAO.getDoor(intId);
         }
-        if (door == null) {
+        else if (intId==0 && intTypid>0){
+            door = new DoorEntity();
+        }
+        else {
             door = new DoorEntity();
         }
 
-        List<DoorClass> doorClassList = getDoorClassBy(doorGroup);
+
+        List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
         for (DoorClass doorClass : doorClassList) {
             door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
         }
 
-        if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && (door.getId() == 0)) {
+        if (!orderId.isEmpty() && !orderId.equals("0") && door.getId() == 0) {
             DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             order.addDoor(door);
             orderDAO.saveOrder(order);
         }
 
-        door.clearNonSerializingFields();
-
-        return door;
-
-    }
-
-    public List<DoorClass> getDoorClassBy(String doorGroup) {
-        if (doorGroup != null && !"0".equals(doorGroup)) {
-            return dAO.getAvailableDoorClass(Integer.parseInt(doorGroup));
-        } else {
-            return dAO.getAvailableDoorClass();
-        }
-
+        return door.clearNonSerializingFields();
     }
 
     public DoorEntity saveDoor(DoorEntity door) {

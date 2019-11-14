@@ -147,6 +147,17 @@ public class DoorEntity {
     @Transient
     private int filling;
 
+    public DoorEntity initializeGlassAndFurnitureKit(){
+
+        if (furnitureKit == null) {
+            furnitureKit = new FurnitureKit();
+        }
+        if (doorGlass == null) {
+            doorGlass = new DoorGlass();
+        }
+        return this;
+    }
+
     public DoorEntity calculateMaterials(List<SpecificationSetting> speciSettingList) {
 
         int costMetal = 0;

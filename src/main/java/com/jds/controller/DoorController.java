@@ -23,10 +23,10 @@ public class DoorController {
     public String calculation(Model model,
                               @RequestParam(required = false) String orderId,
                               @RequestParam(required = false) String id,
-                              @RequestParam(required = false) String doorGroup) throws Exception {
+                              @RequestParam(required = false) String typid) throws Exception {
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
-        model.addAttribute("doorGroup", doorGroup);
+        model.addAttribute("typid", typid);
         return "calculation";
     }
 
@@ -35,9 +35,9 @@ public class DoorController {
     public DoorEntity data(Model model,
                            @RequestParam(required = false) String id,
                            @RequestParam(required = false) String orderId,
-                           @RequestParam(required = false) String doorGroup) throws Exception {
+                           @RequestParam(required = false) String typid) throws Exception {
 
-        return service.getDoor(id, orderId, doorGroup);
+        return service.getDoor(id, orderId, typid);
     }
 
     @GetMapping(value = "/doorlimit", produces = MediaType.APPLICATION_JSON_VALUE)
