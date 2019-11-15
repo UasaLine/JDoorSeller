@@ -4,6 +4,7 @@ import com.jds.entity.*;
 import com.jds.model.FireproofDoor;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
+import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -115,7 +116,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void saveOrUpdateLimitationDoor(LimitationDoor limitationDoor) {
+    public void saveOrUpdateLimitationDoor(@NonNull LimitationDoor limitationDoor) {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(limitationDoor);

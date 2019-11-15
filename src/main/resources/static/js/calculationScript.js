@@ -22,8 +22,16 @@ jQuery('document').ready(function () {
     var sizeMax =0;
 
 
-    getNewClassisInstans();
+    getNewDoorInstans();
 
+    function FillOutForm(data){
+        door = data;
+        $('.arrow_explanations').attr('show', 'is_alive_lement');
+        displayObject(door);
+        displayDoorClass2();
+        displayPrice();
+        getListOfSelectionFields();
+    }
 
     //--------------------------------------
     //select
@@ -1372,7 +1380,7 @@ jQuery('document').ready(function () {
         return 0;
     }
 
-    function getNewClassisInstans(){
+    function getNewDoorInstans(){
 
         $.ajax({
             url: 'door',
@@ -1380,18 +1388,15 @@ jQuery('document').ready(function () {
             dataType: 'json',
             success: function (data) {
                 //alert('success: ' + data.id);
-                door = data;
-                $('.arrow_explanations').attr('show', 'is_alive_lement');
-                displayObject(door);
-                displayDoorClass2();
-                displayPrice();
-                getListOfSelectionFields();
+                FillOutForm(data);
+
             },
             error: function (data) {
                 alert('error:' + data);
             }
         });
 
-    }
+    };
+
 
 });

@@ -32,18 +32,16 @@ public class DoorController {
 
     @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity data(Model model,
-                           @RequestParam(required = false) String id,
-                           @RequestParam(required = false) String orderId,
-                           @RequestParam(required = false) String typid) throws Exception {
+    public DoorEntity data(@RequestParam(required = false,defaultValue = "0") String id,
+                           @RequestParam(required = false,defaultValue = "0") String orderId,
+                           @RequestParam(required = false,defaultValue = "0") String typid) throws Exception {
 
-        return service.getDoor(id, orderId, typid);
+        return service.getDoor(Integer.parseInt(id), orderId, Integer.parseInt(typid));
     }
 
     @GetMapping(value = "/doorlimit", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(Model model,
-                                                                        @RequestParam String idDoorType) throws Exception {
+    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(@RequestParam String idDoorType) throws Exception {
 
         return maineService.getTemplateFromLimits(idDoorType);
     }

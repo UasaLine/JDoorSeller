@@ -3,10 +3,8 @@ package com.jds.model;
 import com.jds.entity.DoorColors;
 import com.jds.entity.DoorFurniture;
 import com.jds.entity.LimitationDoor;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.jds.entity.Metal;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,137 +51,69 @@ public class RestrictionOfSelectionFields {
     public RestrictionOfSelectionFields(int doorTypeId) {
 
         this.doorTypeid = doorTypeId;
-        metal = new ArrayList<>();
-        metal.add(new LimitationDoor(
-                "1.2",
-                1.2,
-                1.2,
-                1));
-
-        metal.add(new LimitationDoor(
-                "1.5",
-                1.5,
-                1.5,
-                0));
-        metal.add(new LimitationDoor(
-                "2.0",
-                2.0,
-                2.0,
-                0));
 
         widthDoor = new ArrayList<>();
-        widthDoor.add(new LimitationDoor("1.2",
-                500,
-                1170,
-                0));
+        widthDoor.add(new LimitationDoor("1.2",500,1170,0));
 
         heightDoor = new ArrayList<>();
-        heightDoor.add(new LimitationDoor("1.2",
-                1500,
-                2200,
-                0));
+        heightDoor.add(new LimitationDoor("1.2", 1500,2200,0));
 
         deepnessDoor = new ArrayList<>();
-        deepnessDoor.add(new LimitationDoor("97",
-                97,
-                97,
-                1));
+        deepnessDoor.add(new LimitationDoor("97",97, 97, 1));
 
         thicknessDoorLeaf = new ArrayList<>();
-        thicknessDoorLeaf.add(new LimitationDoor("60",
-                60,
-                60,
-                1));
+        thicknessDoorLeaf.add(new LimitationDoor("60",60,60,1));
 
         additionalDoorSetting = new ArrayList<>();
-        additionalDoorSetting.add(new LimitationDoor("doorstep",
-                1,
-                1,
+        additionalDoorSetting.add(new LimitationDoor("doorstep",1, 1,1));
+        additionalDoorSetting.add(new LimitationDoor("stainlessSteelDoorstep",1,0,0));
+        additionalDoorSetting.add(new LimitationDoor("firstSealingLine","firstSealingLine_1",1, 1,
                 1));
-        additionalDoorSetting.add(new LimitationDoor("stainlessSteelDoorstep",
-                1,
-                0,
-                0));
-        additionalDoorSetting.add(new LimitationDoor("firstSealingLine",
-                "firstSealingLine_1",
-                1,
-                1,
+        additionalDoorSetting.add(new LimitationDoor("secondSealingLine","secondSealingLine_2",2,2,
                 1));
-        additionalDoorSetting.add(new LimitationDoor("secondSealingLine",
-                "secondSealingLine_2",
-                2,
-                2,
+        additionalDoorSetting.add(new LimitationDoor("topDoorTrim",1,0,
                 1));
-
-        additionalDoorSetting.add(new LimitationDoor("topDoorTrim",
-                1,
-                0,
+        additionalDoorSetting.add(new LimitationDoor("leftDoorTrim",1,0,
                 1));
-        additionalDoorSetting.add(new LimitationDoor("leftDoorTrim",
-                1,
-                0,
-                1));
-        additionalDoorSetting.add(new LimitationDoor("rightDoorTrim",
-                1,
-                0,
+        additionalDoorSetting.add(new LimitationDoor("rightDoorTrim",1,0,
                 1));
 
         doorstep = new ArrayList<>();
-        doorstep.add(new LimitationDoor("doorstep",
-                1,
-                1,
-                1));
-        doorstep.add(new LimitationDoor("doorstep",
-                0,
-                1,
-                0));
+        doorstep.add(new LimitationDoor("doorstep",1,1,1));
+        doorstep.add(new LimitationDoor("doorstep",0,1,0));
 
         stainlessSteelDoorstep = new ArrayList<>();
-        stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep",
-                1,
-                1,
+        stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep",1,1,
                 1));
-        stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep",
-                0,
-                1,
+        stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep",0, 1,
                 0));
 
         firstSealingLine = new ArrayList<>();
-        firstSealingLine.add(new LimitationDoor("doorstep",
-                1,
-                1,
-                1));
-        firstSealingLine.add(new LimitationDoor("doorstep",
-                0,
-                1,
-                0));
+        firstSealingLine.add(new LimitationDoor("doorstep", 1, 1,1));
+        firstSealingLine.add(new LimitationDoor("doorstep",0,1,0));
+
         secondSealingLine = new ArrayList<>();
-        secondSealingLine.add(new LimitationDoor("doorstep",
-                1,
-                1,
-                1));
-        secondSealingLine.add(new LimitationDoor("doorstep",
-                0,
-                1,
-                0));
+        secondSealingLine.add(new LimitationDoor("doorstep",1,1,1));
+        secondSealingLine.add(new LimitationDoor("doorstep",0,1,0));
+
         thirdSealingLine = new ArrayList<>();
-        thirdSealingLine.add(new LimitationDoor("doorstep",
-                1,
-                1,
-                1));
-        thirdSealingLine.add(new LimitationDoor("doorstep",
-                2,
-                0,
-                0));
-        thirdSealingLine.add(new LimitationDoor("doorstep",
-                3,
-                0,
-                0));
+        thirdSealingLine.add(new LimitationDoor("doorstep",1,1,1));
+        thirdSealingLine.add(new LimitationDoor("doorstep",2,0,0));
+        thirdSealingLine.add(new LimitationDoor("doorstep",3,0,0));
     }
 
     public void addMetal(LimitationDoor limit) {
         this.metal.add(limit.setNuulLazyFild());
     }
+
+    public void addMetal(@NonNull Metal metal) {
+        this.metal.add(
+                new LimitationDoor(String.valueOf(metal.getNameDisplayed()),
+                        metal.getNameDisplayed(),
+                        metal.getNameDisplayed(),
+                        0));
+    }
+
 
     public RestrictionOfSelectionFields widthDoor(List<LimitationDoor> widthDoor) {
         this.setWidthDoor(widthDoor);
@@ -452,4 +382,11 @@ public class RestrictionOfSelectionFields {
         return this;
     }
 
+    public RestrictionOfSelectionFields stuffMetal(@NonNull List<Metal> metals) {
+
+        metals.stream().forEach((metal) -> this.addMetal(metal));
+
+        return this;
+
+    }
 }

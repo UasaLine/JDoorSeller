@@ -147,6 +147,9 @@ public class DoorEntity {
     @Transient
     private int filling;
 
+    @Transient
+    private RestrictionOfSelectionFields template;
+
     public DoorEntity initializeGlassAndFurnitureKit(){
 
         if (furnitureKit == null) {
@@ -1100,5 +1103,13 @@ public class DoorEntity {
 
     public void setFilling(int filling) {
         this.filling = filling;
+    }
+
+    public RestrictionOfSelectionFields getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(RestrictionOfSelectionFields template) {
+        this.template = template;
     }
 }

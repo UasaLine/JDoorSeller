@@ -110,8 +110,11 @@ public class MaineService {
         int idType = Integer.parseInt(idDoorType);
 
         return new RestrictionOfSelectionFields(idType)
+
                 .widthDoor(generateSizeDoor(TypeOfLimitionDoor.HEIGHT))
                 .heightDoor(generateSizeDoor(TypeOfLimitionDoor.WIDTH))
+
+                .stuffMetal(dAO.getMetals())
 
                 .stuffColors(dAO.getDoorColors())
 
@@ -232,17 +235,9 @@ public class MaineService {
                 .build();
     }
 
-    private static int getRandomPrice(int min, int max) {
-        max -= min;
-        return (int) (Math.random() * ++max) + min;
-    }
-
-
     public BendSetting saveBendSetting(BendSetting bendSetting) {
         return dAO.saveBendSetting(bendSetting);
     }
-
-
 
     public int saveOrUpdateDoorType(@NonNull String typeId, @NonNull String classId, String name,
                                     String namePicture, int doorLeaf,
@@ -376,7 +371,6 @@ public class MaineService {
     public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
         return dAO.saveSpecificationSetting(setting);
     }
-
 
 
     public static int dooltranslateIntoInt(boolean value) {

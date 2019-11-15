@@ -3,10 +3,7 @@ package com.jds.service;
 import com.jds.dao.MainDAO;
 import com.jds.dao.OrderDAO;
 import com.jds.entity.*;
-import com.jds.model.CostList;
-import com.jds.model.DoorPart;
-import com.jds.model.PayrollSettings;
-import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
@@ -25,6 +22,8 @@ public class DoorService {
     private OrderDAO orderDAO;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private MaineService maineService;
 
 
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
@@ -91,37 +90,44 @@ public class DoorService {
 
     }
 
-    public DoorEntity getDoor(@NonNull String id, @NonNull String orderId, @NonNull String typid) {
+    public DoorEntity getDoor(@NonNull int id, @NonNull String orderId, @NonNull int typid) {
 
         DoorEntity door;
 
-        int intId = Integer.parseInt(id);
-        int intTypid = Integer.parseInt(id);
-
-        if (intId > 0){
-            door = dAO.getDoor(intId);
+        if (id > 0){
+            door = dAO.getDoor(id);
         }
-        else if (intId==0 && intTypid>0){
-            door = new DoorEntity();
+        else if (id==0 && typid>0){
+            door = createNewDoorByTemplate(typid);
         }
         else {
             door = new DoorEntity();
+            List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
+            for (DoorClass doorClass : doorClassList) {
+                door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
+            }
         }
 
 
-        List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
-        for (DoorClass doorClass : doorClassList) {
-            door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
-        }
-
+        int intOrderId = Integer.parseInt(orderId);
         if (!orderId.isEmpty() && !orderId.equals("0") && door.getId() == 0) {
-            DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
+            DoorsОrder order = orderDAO.getOrder(intOrderId);
             order.addDoor(door);
             orderDAO.saveOrder(order);
         }
 
         return door.clearNonSerializingFields();
     }
+
+    public DoorEntity createNewDoorByTemplate(@NonNull int typeId){
+
+        DoorTemplate doorTemplate = maineService.getDoorTemplate(String.valueOf(typeId));
+
+        return new DoorEntity();
+
+    }
+
+
 
     public DoorEntity saveDoor(DoorEntity door) {
 
