@@ -310,29 +310,120 @@ jQuery('document').ready(function () {
     $('#topLockDiv').change('.topLockSelect', function () {
         addNewFieldAndfillInforFurnitur('topLock');//nameJavaObject
     });
+    $('#topLockDiv').on('click','.topLockLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('topLock');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('topLock');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('topLock');
+        }
+    });
+
     $('#lowerLockDiv').change('.lowerLockSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerLock');//nameJavaObject
+    });
+    $('#lowerLockDiv').on('click','.lowerLockLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('lowerLock');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('lowerLock');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('lowerLock');
+        }
     });
     $('#handleDiv').change('.handleSelect', function () {
         addNewFieldAndfillInforFurnitur('handle');//nameJavaObject
     });
+    $('#handleDiv').on('click','.handleLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('handle');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('handle');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('handle');
+        }
+    });
     $('#lowerlockCylinderDiv').change('.lowerlockCylinderSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerlockCylinder');//nameJavaObject
+    });
+    $('#lowerlockCylinderDiv').on('click','.lowerlockCylinderLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('lowerlockCylinder');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('lowerlockCylinder');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('lowerlockCylinder');
+        }
     });
     $('#toplockCylinderDiv').change('.toplockCylinderSelect', function () {
         addNewFieldAndfillInforFurnitur('toplockCylinder');//nameJavaObject
     });
+    $('#toplockCylinderDiv').on('click','.toplockCylinderLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('toplockCylinder');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('toplockCylinder');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('toplockCylinder');
+        }
+    });
     $('#topInLockDecorDiv').change('.topInLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('topInLockDecor');//nameJavaObject
+    });
+    $('#topInLockDecorDiv').on('click','.topInLockDecorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('topInLockDecor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('topInLockDecor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('topInLockDecor');
+        }
     });
     $('#topOutLockDecorDiv').change('.topOutLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('topOutLockDecor');//nameJavaObject
     });
+    $('#topOutLockDecorDiv').on('click','.topOutLockDecorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('topOutLockDecor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('topOutLockDecor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('topOutLockDecor');
+        }
+    });
     $('#lowerInLockDecorDiv').change('.lowerInLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerInLockDecor');//nameJavaObject
     });
+    $('#lowerInLockDecorDiv').on('click','.lowerInLockDecorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('lowerInLockDecor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('lowerInLockDecor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('lowerInLockDecor');
+        }
+    });
     $('#lowerOutLockDecorDiv').change('.lowerOutLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerOutLockDecor');
+    });
+    $('#lowerOutLockDecorDiv').on('click','.lowerOutLockDecorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('lowerOutLockDecor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('lowerOutLockDecor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('lowerOutLockDecor');
+        }
     });
 
     //additionally furnitur
@@ -340,20 +431,71 @@ jQuery('document').ready(function () {
     $('#closerDiv').change('.closerSelect', function () {
         addNewFieldAndfillInforFurnitur('closer');//nameJavaObject
     });
+    $('#closerDiv').on('click','.closerLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('closer');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('closer');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('closer');
+        }
+    });
     $('#endDoorLockDiv').change('.endDoorLockSelect', function () {
         addNewFieldAndfillInforFurnitur('endDoorLock');//nameJavaObject
     });
+    $('#endDoorLockDiv').on('click','.endDoorLockLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('endDoorLock');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('endDoorLock');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('endDoorLock');
+        }
+    });
+
 
     //glass
 
     $('#typeDoorGlassDiv').change('.typeDoorGlassSelect', function () {
         addNewFieldAndfillInforFurnitur('typeDoorGlass');//nameJavaObject
     });
+    $('#typeDoorGlassDiv').on('click','.typeDoorGlassLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('typeDoorGlass');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('typeDoorGlass');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('typeDoorGlass');
+        }
+    });
     $('#toningDiv').change('.toningSelect', function () {
         addNewFieldAndfillInforFurnitur('toning');//nameJavaObject
     });
+    $('#toningDiv').on('click','.toningLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('toning');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('toning');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('toning');
+        }
+    });
     $('#armorDiv').change('.armorSelect', function () {
         addNewFieldAndfillInforFurnitur('armor');//nameJavaObject
+    });
+    $('#armorDiv').on('click','.armorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('armor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('armor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('armor');
+        }
     });
 
 
