@@ -201,7 +201,7 @@ jQuery('document').ready(function () {
 
 
     $('#colorsDiv').change('.colorsSelect', function () {
-        saveInJavaObjectColor('colors');
+        saveInJavaObjectColorAndFurnitur('colors');
         if (allFieldsAreFilled('.colorsSelect')) {
             //addSelectField('colors');
             addField('colors','select','Select');
@@ -212,10 +212,10 @@ jQuery('document').ready(function () {
         if ($(this).is(':checked')) {
             switchOffAll('colors');
             $(this).prop('checked', true);
-            saveInJavaObjectColor('colors');
+            saveInJavaObjectColorAndFurnitur('colors');
         }
         else {
-            saveInJavaObjectColor('colors');
+            saveInJavaObjectColorAndFurnitur('colors');
         }
     });
 
@@ -549,7 +549,7 @@ jQuery('document').ready(function () {
 
             elem = getNotCompletedFields(selector);
             fillInFieldFromColor('#' + $(elem).attr('id'), restriction.colors);
-            setValueInSelectInt('#' + $(elem).attr('id'),table[i].id);
+            setValueInSelectInt('#' + $(elem).attr('id'),table[i].itemId);
             setSwitchDefaultVal(elem,'colors',table[i].defaultValue);
 
             if (allFieldsAreFilled(selector)) {
@@ -620,11 +620,12 @@ jQuery('document').ready(function () {
                 if (allFieldsAreFilled(selector)) {
                     addField(nameJavaObject,'select','Select');
                 }
+
                 elem = getNotCompletedFields(selector);
-                //$(elem).append($('<option value=' + table[i].id + '>' + table[i].name + '</option>'));
-                //$(elem).find("option:contains(table[i].name)").attr("selected", "selected");
                 fillInFieldFromLimiForFurnitur('#' + $(elem).attr('id'), restriction[nameJavaObject]);
-                setValueInSelectInt('#' + $(elem).attr('id'),table[i].id);
+                setValueInSelectInt('#' + $(elem).attr('id'),table[i].itemId);
+                setSwitchDefaultVal(elem,nameJavaObject,table[i].defaultValue);
+
                 if (allFieldsAreFilled(selector)) {
                     addField(nameJavaObject,'select','Select');
                 }
@@ -739,7 +740,7 @@ jQuery('document').ready(function () {
             <!--empty line-->
             for (var i = 0; i < table.length; ++i) {
                 $(selector).append(
-                    $('<option value=' + table[i].id + '>' + table[i].name + '</option>')
+                    $('<option value=' + table[i].itemId + '>' + table[i].firstItem + '</option>')
                 );
             }
         }
@@ -754,7 +755,7 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < table.length; ++i) {
             $(selector).append(
-                $('<option value=' + table[i].id + '>' + table[i].name + '</option>')
+                $('<option value=' + table[i].itemId + '>' + table[i].firstItem + '</option>')
             );
         }
 
@@ -890,7 +891,7 @@ jQuery('document').ready(function () {
     }
 
     function addNewFieldAndfillInforFurnitur(nameJavaObject) {
-        saveInJavaObjectFurnitur(nameJavaObject);
+        saveInJavaObjectColorAndFurnitur(nameJavaObject);
         if (allFieldsAreFilled('.' + nameJavaObject + 'Select')) {
                 addField(nameJavaObject,'select','Select');
         }
@@ -996,7 +997,7 @@ jQuery('document').ready(function () {
         return lim;
     }
 
-    function saveInJavaObjectColor(nameFieldJavaObject){
+    function saveInJavaObjectColorAndFurnitur(nameFieldJavaObject){
         //delete all
         var size = template[nameFieldJavaObject].length;
         template[nameFieldJavaObject].splice(0, size);
@@ -1005,15 +1006,18 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                template[nameFieldJavaObject].push(findInRestrForColor($(elem[i]).val(), nameFieldJavaObject));
+                var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
+                template[nameFieldJavaObject].push(findInRestrByItemId($(elem[i]).val(), nameFieldJavaObject,defaultVal));
             }
         }
     }
-    function findInRestrForColor(val, nameFieldJavaObject) {
+    function findInRestrByItemId(val, nameFieldJavaObject,defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
-            if (tab[i].id == val){
-                return tab[i];
+            if (tab[i].itemId == val){
+                var lim = tab[i];
+                lim.defaultValue = defaultVal;
+                return lim;
             }
         }
     }

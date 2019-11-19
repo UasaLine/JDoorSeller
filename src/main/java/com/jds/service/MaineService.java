@@ -135,11 +135,13 @@ public class MaineService {
                 .addLowerOutLockDecor(dAO.getFurniture(TypeOfFurniture.LOWER_OUT_LOCK_DECOR));
     }
 
-    public RestrictionOfSelectionFields getTemplateFromLimits(String doorTypeId) {
+    public RestrictionOfSelectionFields getTemplateFromLimits(@NonNull String doorTypeId) {
 
-        List<LimitationDoor> limitList = dAO.getLimitationDoor(Integer.parseInt(doorTypeId));
+        int intDoorTypeId = Integer.parseInt(doorTypeId);
+
+        List<LimitationDoor> limitList = dAO.getLimitationDoor(intDoorTypeId);
         RestrictionOfSelectionFields restriction = new RestrictionOfSelectionFields();
-        restriction.setDoorTypeid(Integer.parseInt(doorTypeId));
+        restriction.setDoorTypeid(intDoorTypeId);
 
         limitList.stream().forEach((lim) -> RestrictionBuild(restriction, lim));
 
@@ -170,34 +172,34 @@ public class MaineService {
             restriction.addThirdSealingLine(lim);
 
         } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
-            restriction.addColors(dAO.getDoorColor(lim.getFirstItem()));
+            restriction.addColors(lim);
 
         } else if (TypeOfLimitionDoor.TOP_LOCK == lim.getTypeSettings()) {
-            restriction.addTopLock(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addTopLock(lim);
         } else if (TypeOfLimitionDoor.LOWER_LOCK == lim.getTypeSettings()) {
-            restriction.addLowerLock(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addLowerLock(lim);
         } else if (TypeOfLimitionDoor.HANDLE == lim.getTypeSettings()) {
-            restriction.addHandle(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addHandle(lim);
         } else if (TypeOfLimitionDoor.LOCK_CYLINDER == lim.getTypeSettings()) {
-            restriction.addLockCylinder(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addLockCylinder(lim);
         } else if (TypeOfLimitionDoor.TOP_IN_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addTopInLockDecor(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addTopInLockDecor(lim);
         } else if (TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addTopOutLockDecor(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addTopOutLockDecor(lim);
         } else if (TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addLowerInLockDecor(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addLowerInLockDecor(lim);
         } else if (TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addLowerOutLockDecor(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addLowerOutLockDecor(lim);
         } else if (TypeOfLimitionDoor.CLOSER == lim.getTypeSettings()) {
-            restriction.addCloser(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addCloser(lim);
         } else if (TypeOfLimitionDoor.END_DOOR_LOCK == lim.getTypeSettings()) {
-            restriction.addEndDoorLock(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addEndDoorLock(lim);
         } else if (TypeOfLimitionDoor.TYPE_GLASS == lim.getTypeSettings()) {
-            restriction.addTypeDoorGlass(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addTypeDoorGlass(lim);
         } else if (TypeOfLimitionDoor.TONING == lim.getTypeSettings()) {
-            restriction.addToning(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addToning(lim);
         } else if (TypeOfLimitionDoor.ARMOR == lim.getTypeSettings()) {
-            restriction.addArmor(dAO.getDoorFurnitureId(lim.getItemId()));
+            restriction.addArmor(lim);
         }
     }
 
@@ -296,7 +298,7 @@ public class MaineService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DEPTH, restriction.getDeepnessDoor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LEAF_THICKNESS, restriction.getThicknessDoorLeaf(), limitList);
 
-        saveAsLimitationDoorForColors(doorType, TypeOfLimitionDoor.COLOR_DOOR, restriction.getColors(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.COLOR_DOOR, restriction.getColors(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DOORSTEP, restriction.getDoorstep(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP, restriction.getStainlessSteelDoorstep(), limitList);
@@ -305,22 +307,22 @@ public class MaineService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SECOND_SEALING_LINE, restriction.getSecondSealingLine(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.THIRD_SEALING_LINE, restriction.getThirdSealingLine(), limitList);
 
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.TOP_LOCK, restriction.getTopLock(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.LOWER_LOCK, restriction.getLowerLock(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.HANDLE, restriction.getHandle(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.LOCK_CYLINDER, restriction.getLockCylinder(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_LOCK, restriction.getTopLock(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_LOCK, restriction.getLowerLock(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HANDLE, restriction.getHandle(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOCK_CYLINDER, restriction.getLockCylinder(), limitList);
 
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR, restriction.getTopInLockDecor(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR, restriction.getTopOutLockDecor(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR, restriction.getLowerInLockDecor(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR, restriction.getLowerOutLockDecor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR, restriction.getTopInLockDecor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR, restriction.getTopOutLockDecor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR, restriction.getLowerInLockDecor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR, restriction.getLowerOutLockDecor(), limitList);
 
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.CLOSER, restriction.getCloser(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.END_DOOR_LOCK, restriction.getEndDoorLock(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.CLOSER, restriction.getCloser(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.END_DOOR_LOCK, restriction.getEndDoorLock(), limitList);
 
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.TYPE_GLASS, restriction.getTypeDoorGlass(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.TONING, restriction.getToning(), limitList);
-        saveAsLimitationDoorForFurniture(doorType, TypeOfLimitionDoor.ARMOR, restriction.getArmor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TYPE_GLASS, restriction.getTypeDoorGlass(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TONING, restriction.getToning(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.ARMOR, restriction.getArmor(), limitList);
 
         deleteAllDoorTemplate(limitList);
 
@@ -343,9 +345,9 @@ public class MaineService {
     }
 
     public void saveAsLimitationDoorForColors(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
-                                              List<DoorColors> colorList, List<LimitationDoor> oldLimitList) {
+                                              List<LimitationDoor> colorList, List<LimitationDoor> oldLimitList) {
 
-        colorList.stream().forEach((color) -> dAO.saveOrUpdateLimitationDoor(LimitationDoor.getNewLimit(color, doorType, type, oldLimitList)));
+        colorList.stream().forEach((color) -> dAO.saveOrUpdateLimitationDoor(color));
 
     }
 

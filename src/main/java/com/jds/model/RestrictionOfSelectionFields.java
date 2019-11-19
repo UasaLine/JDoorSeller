@@ -4,6 +4,7 @@ import com.jds.entity.DoorColors;
 import com.jds.entity.DoorFurniture;
 import com.jds.entity.LimitationDoor;
 import com.jds.entity.Metal;
+import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> heightDoor = new ArrayList<>();
     private List<LimitationDoor> deepnessDoor = new ArrayList<>();
     private List<LimitationDoor> thicknessDoorLeaf = new ArrayList<>();
-    private List<DoorColors> colors = new ArrayList<>();
+    private List<LimitationDoor> colors = new ArrayList<>();
     private List<LimitationDoor> additionalDoorSetting = new ArrayList<>();
 
     private List<LimitationDoor> doorstep = new ArrayList<>();
@@ -31,20 +32,20 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> secondSealingLine = new ArrayList<>();
     private List<LimitationDoor> thirdSealingLine = new ArrayList<>();
 
-    private List<DoorFurniture> topLock = new ArrayList<>();
-    private List<DoorFurniture> lowerLock = new ArrayList<>();
-    private List<DoorFurniture> handle = new ArrayList<>();
-    private List<DoorFurniture> lockCylinder = new ArrayList<>();
-    private List<DoorFurniture> topInLockDecor = new ArrayList<>();
-    private List<DoorFurniture> topOutLockDecor = new ArrayList<>();
-    private List<DoorFurniture> lowerInLockDecor = new ArrayList<>();
-    private List<DoorFurniture> lowerOutLockDecor = new ArrayList<>();
-    private List<DoorFurniture> closer = new ArrayList<>();
-    private List<DoorFurniture> endDoorLock = new ArrayList<>();
+    private List<LimitationDoor> topLock = new ArrayList<>();
+    private List<LimitationDoor> lowerLock = new ArrayList<>();
+    private List<LimitationDoor> handle = new ArrayList<>();
+    private List<LimitationDoor> lockCylinder = new ArrayList<>();
+    private List<LimitationDoor> topInLockDecor = new ArrayList<>();
+    private List<LimitationDoor> topOutLockDecor = new ArrayList<>();
+    private List<LimitationDoor> lowerInLockDecor = new ArrayList<>();
+    private List<LimitationDoor> lowerOutLockDecor = new ArrayList<>();
+    private List<LimitationDoor> closer = new ArrayList<>();
+    private List<LimitationDoor> endDoorLock = new ArrayList<>();
 
-    private List<DoorFurniture> typeDoorGlass = new ArrayList<>();
-    private List<DoorFurniture> toning = new ArrayList<>();
-    private List<DoorFurniture> armor = new ArrayList<>();
+    private List<LimitationDoor> typeDoorGlass = new ArrayList<>();
+    private List<LimitationDoor> toning = new ArrayList<>();
+    private List<LimitationDoor> armor = new ArrayList<>();
 
 
     //replace with getting data from the database
@@ -90,7 +91,7 @@ public class RestrictionOfSelectionFields {
         thirdSealingLine.add(new LimitationDoor("магнитный", 3, 3,1));
     }
 
-    public void addMetal(LimitationDoor limit) {
+    public void addMetal(@NonNull LimitationDoor limit) {
         this.metal.add(limit.setNuulLazyFild());
     }
 
@@ -102,270 +103,268 @@ public class RestrictionOfSelectionFields {
                         0));
     }
 
-
-    public RestrictionOfSelectionFields widthDoor(List<LimitationDoor> widthDoor) {
+    public RestrictionOfSelectionFields widthDoor(@NonNull List<LimitationDoor> widthDoor) {
         this.setWidthDoor(widthDoor);
         return this;
     }
 
-    public void addWidthDoor(LimitationDoor limit) {
+    public void addWidthDoor(@NonNull LimitationDoor limit) {
         this.widthDoor.add(limit.setNuulLazyFild());
     }
 
-    public RestrictionOfSelectionFields heightDoor(List<LimitationDoor> heightDoor) {
+    public RestrictionOfSelectionFields heightDoor(@NonNull List<LimitationDoor> heightDoor) {
         this.setHeightDoor(heightDoor);
         return this;
     }
 
-    public void addHeightDoor(LimitationDoor limit) {
+    public void addHeightDoor(@NonNull LimitationDoor limit) {
         this.heightDoor.add(limit.setNuulLazyFild());
     }
 
-    public void addDeepnessDoor(LimitationDoor deepnessDoor) {
+    public void addDeepnessDoor(@NonNull LimitationDoor deepnessDoor) {
         this.deepnessDoor.add(deepnessDoor.setNuulLazyFild());
     }
 
-    public void addThicknessDoorLeaf(LimitationDoor thicknessDoorLeaf) {
+    public void addThicknessDoorLeaf(@NonNull LimitationDoor thicknessDoorLeaf) {
         this.thicknessDoorLeaf.add(thicknessDoorLeaf.setNuulLazyFild());
     }
 
-    public void addDoorstep(LimitationDoor doorstep) {
+    public void addDoorstep(@NonNull LimitationDoor doorstep) {
         this.doorstep.add(doorstep.setNuulLazyFild());
     }
 
-    public void addStainlessSteelDoorstep(LimitationDoor stainlessSteelDoorstep) {
+    public void addStainlessSteelDoorstep(@NonNull LimitationDoor stainlessSteelDoorstep) {
         this.stainlessSteelDoorstep.add(stainlessSteelDoorstep.setNuulLazyFild());
     }
 
-    public void addFirstSealingLine(LimitationDoor lim) {
+    public void addFirstSealingLine(@NonNull LimitationDoor lim) {
         this.firstSealingLine.add(lim.setNuulLazyFild());
     }
 
-    public void addSecondSealingLine(LimitationDoor lim) {
+    public void addSecondSealingLine(@NonNull LimitationDoor lim) {
         this.secondSealingLine.add(lim.setNuulLazyFild());
     }
 
-    public void addThirdSealingLine(LimitationDoor lim) {
+    public void addThirdSealingLine(@NonNull LimitationDoor lim) {
 
         this.thirdSealingLine.add(lim.setNuulLazyFild());
     }
 
-    public RestrictionOfSelectionFields stuffColors(List<DoorColors> colors) {
-        this.setColors(colors);
+    public RestrictionOfSelectionFields stuffColors(@NonNull List<DoorColors> colors) {
+
+        colors.stream().forEach((color)->addColors(color));
         return this;
     }
 
-    public void addColors(DoorColors color) {
+    public void addColors(@NonNull DoorColors color) {
         if (color != null) {
-            this.colors.add(color);
+            this.colors.add(LimitationDoor.builder()
+                            .typeSettings(TypeOfLimitionDoor.COLOR_DOOR)
+                            .itemId(color.getId())
+                            .firstItem(color.getName())
+                            .build());
         }
     }
+    public void addColors(@NonNull LimitationDoor color) {
 
-    public RestrictionOfSelectionFields addTopLock(List<DoorFurniture> furnitures) {
+            this.colors.add(color.setNuulLazyFild());
+
+    }
+
+    public RestrictionOfSelectionFields addTopLock(@NonNull List<DoorFurniture> furnitures) {
         topLock = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            topLock.add(furniture);
+
+            addTopLock(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.TOP_LOCK)
+                    .itemId(furniture.getId())
+                    .firstItem(furniture.getName())
+                    .build());
         }
         return this;
     }
 
-    public void addTopLock(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.topLock.add(furniture);
-        }
+    public void addTopLock(@NonNull LimitationDoor furnitureLimit) {
+
+            this.topLock.add(furnitureLimit.setNuulLazyFild());
+
     }
 
-    public RestrictionOfSelectionFields addLowerLock(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addLowerLock(@NonNull List<DoorFurniture> furnitures) {
         lowerLock = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            lowerLock.add(furniture);
+            addLowerLock(getLim(furniture,TypeOfLimitionDoor.LOWER_LOCK));
         }
         return this;
     }
 
 
-    public void addLowerLock(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.lowerLock.add(furniture);
-        }
+    public void addLowerLock(@NonNull LimitationDoor furniture) {
+
+            this.lowerLock.add(furniture.setNuulLazyFild());
     }
 
-    public RestrictionOfSelectionFields addHendle(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addHendle(@NonNull List<DoorFurniture> furnitures) {
         handle = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            handle.add(furniture);
+            addHandle(getLim(furniture,TypeOfLimitionDoor.HANDLE));
         }
         return this;
     }
 
-    public void addHandle(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.handle.add(furniture);
-        }
+    public void addHandle(@NonNull LimitationDoor furniture) {
+
+            this.handle.add(furniture.setNuulLazyFild());
+
     }
 
-    public RestrictionOfSelectionFields addLockCylinder(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addLockCylinder(@NonNull List<DoorFurniture> furnitures) {
         lockCylinder = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            lockCylinder.add(furniture);
+
+            addLockCylinder(getLim(furniture,TypeOfLimitionDoor.LOCK_CYLINDER));
         }
         return this;
     }
 
-    public void addLockCylinder(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.lockCylinder.add(furniture);
-        }
+    public void addLockCylinder(@NonNull LimitationDoor furniture) {
+
+            this.lockCylinder.add(furniture.setNuulLazyFild());
+
     }
 
-    public RestrictionOfSelectionFields addCloser(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addCloser(@NonNull List<DoorFurniture> furnitures) {
         closer = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            closer.add(furniture);
+
+            addCloser(getLim(furniture,TypeOfLimitionDoor.CLOSER));
         }
         return this;
     }
 
-    public void addTopInLockDecor(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.topInLockDecor.add(furniture);
-        }
+    public void addTopInLockDecor(@NonNull LimitationDoor furniture) {
+
+
+            this.topInLockDecor.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addTopOutLockDecor(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.topOutLockDecor.add(furniture);
-        }
+    public void addTopOutLockDecor(@NonNull LimitationDoor furniture) {
+
+            this.topOutLockDecor.add(furniture.setNuulLazyFild());
     }
 
-    public void addLowerInLockDecor(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.lowerInLockDecor.add(furniture);
-        }
+    public void addLowerInLockDecor(@NonNull LimitationDoor furniture) {
+
+            this.lowerInLockDecor.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addLowerOutLockDecor(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.lowerOutLockDecor.add(furniture);
-        }
+    public void addLowerOutLockDecor(@NonNull LimitationDoor furniture) {
+
+            this.lowerOutLockDecor.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addCloser(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.closer.add(furniture);
-        }
+    public void addCloser(@NonNull LimitationDoor furniture) {
+
+
+            this.closer.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addEndDoorLock(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.endDoorLock.add(furniture);
-        }
+    public void addEndDoorLock(@NonNull LimitationDoor furniture) {
+
+            this.endDoorLock.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addTypeDoorGlass(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.typeDoorGlass.add(furniture);
-        }
+    public void addTypeDoorGlass(@NonNull LimitationDoor furniture) {
+
+            this.typeDoorGlass.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addToning(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.toning.add(furniture);
-        }
+    public void addToning(@NonNull LimitationDoor furniture) {
+
+            this.toning.add(furniture.setNuulLazyFild());
+
     }
 
-    public void addArmor(DoorFurniture furniture) {
-        if (furniture != null) {
-            furniture.setNuulLazyFild();
-            this.armor.add(furniture);
-        }
+    public void addArmor(@NonNull LimitationDoor furniture) {
+
+            this.armor.add(furniture.setNuulLazyFild());
+
     }
 
-    public RestrictionOfSelectionFields addEndDoorLock(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addEndDoorLock(@NonNull List<DoorFurniture> furnitures) {
         endDoorLock = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            endDoorLock.add(furniture);
+
+            addEndDoorLock(getLim(furniture,TypeOfLimitionDoor.END_DOOR_LOCK));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addGlass(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addGlass(@NonNull List<DoorFurniture> furnitures) {
         typeDoorGlass = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            typeDoorGlass.add(furniture);
+
+            addTypeDoorGlass(getLim(furniture,TypeOfLimitionDoor.TYPE_GLASS));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addToning(List<DoorFurniture> furnitures) {
+
+    public RestrictionOfSelectionFields addToning(@NonNull List<DoorFurniture> furnitures) {
         toning = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            toning.add(furniture);
+
+            addToning(getLim(furniture,TypeOfLimitionDoor.TONING));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addArmor(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addArmor(@NonNull List<DoorFurniture> furnitures) {
         armor = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            armor.add(furniture);
+
+            addArmor(getLim(furniture,TypeOfLimitionDoor.ARMOR));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addTopInLockDecor(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addTopInLockDecor(@NonNull List<DoorFurniture> furnitures) {
         topInLockDecor = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            topInLockDecor.add(furniture);
+
+            addTopInLockDecor(getLim(furniture,TypeOfLimitionDoor.TOP_IN_LOCK_DECOR));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addTopOutLockDecor(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addTopOutLockDecor(@NonNull List<DoorFurniture> furnitures) {
         topOutLockDecor = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            topOutLockDecor.add(furniture);
+            addTopOutLockDecor(getLim(furniture,TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addLowerInLockDecor(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addLowerInLockDecor(@NonNull List<DoorFurniture> furnitures) {
         lowerInLockDecor = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            lowerInLockDecor.add(furniture);
+
+            addLowerInLockDecor(getLim(furniture,TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR));
         }
         return this;
     }
 
-    public RestrictionOfSelectionFields addLowerOutLockDecor(List<DoorFurniture> furnitures) {
+    public RestrictionOfSelectionFields addLowerOutLockDecor(@NonNull List<DoorFurniture> furnitures) {
         lowerOutLockDecor = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
-            furniture.setNuulLazyFild();
-            lowerOutLockDecor.add(furniture);
+
+            addLowerOutLockDecor(getLim(furniture,TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR));
         }
         return this;
     }
@@ -377,4 +376,14 @@ public class RestrictionOfSelectionFields {
         return this;
 
     }
+
+
+    public LimitationDoor getLim (@NonNull DoorFurniture furniture,@NonNull TypeOfLimitionDoor typeOfLimitionDoor){
+       return LimitationDoor.builder()
+                .typeSettings(typeOfLimitionDoor)
+                .itemId(furniture.getId())
+                .firstItem(furniture.getName())
+                .build();
+    }
+
 }

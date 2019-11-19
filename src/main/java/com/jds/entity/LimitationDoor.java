@@ -2,17 +2,19 @@ package com.jds.entity;
 
 import com.jds.model.LimiItem;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
+
+
 @Entity
 @Table(name = "Limitation_Door")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LimitationDoor {
 
     @Id
@@ -56,8 +58,6 @@ public class LimitationDoor {
     private int defaultValue;
 
 
-    public LimitationDoor() {
-    }//empty constructor
 
     public LimitationDoor(String firstItem, double startRestriction, double stopRestriction, int defaultValue) {
         this.firstItem = firstItem;
