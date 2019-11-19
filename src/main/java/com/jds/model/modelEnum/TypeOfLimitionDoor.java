@@ -2,22 +2,34 @@ package com.jds.model.modelEnum;
 
 public enum TypeOfLimitionDoor {
     METAL_THICKNESS,
+
     WIDTH,
     HEIGHT,
     WIDTH_ACTIVE_LEAF,
     DEPTH,
     LEAF_THICKNESS,
+
     INTERNAL_OPENING,
+
     FANLIGHT,
     HEIGHT_FANLIGHT,
+
     COLOR_DOOR,
     COLOR_WOOD_PANEL,
+
     DOORSTEP,
     STAINLESS_STEEL_DOORSTEP,
+
     FIRST_SEALING_LINE,
     SECOND_SEALING_LINE,
     THIRD_SEALING_LINE,
+
+    TOP_DOOR_TRIM,
+    LEFT_DOOR_TRIM,
+    RIGHT_DOOR_TRIM,
+
     STYROFOAM,
+
     TOP_LOCK,
     LOWER_LOCK,
     HANDLE,

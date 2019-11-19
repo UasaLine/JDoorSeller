@@ -38,11 +38,17 @@ jQuery('document').ready(function () {
         installFromTemplateSize('thicknessDoorLeaf',false);
         installFromTemplateMetal();
         installFromTemplateColor();
+
         installFromTemplateSelect('doorstep');
         installFromTemplateSelect('stainlessSteelDoorstep');
+
         installFromTemplateSealingLine('firstSealingLine');
         installFromTemplateSealingLine('secondSealingLine');
         installFromTemplateSealingLine('thirdSealingLine');
+
+        installFromTemplateSelect('leftDoorTrim');
+        installFromTemplateSelect('rightDoorTrim');
+        installFromTemplateSelect('topDoorTrim');
 
         installFromTemplateFurnitur('topLock');
         installFromTemplateFurnitur('lowerLock');
@@ -73,6 +79,10 @@ jQuery('document').ready(function () {
         fillInSealingLine('firstSealingLine');
         fillInSealingLine('secondSealingLine');
         fillInSealingLine('thirdSealingLine');
+
+        fillInSelector('.topDoorTrimSelect', 'topDoorTrim');
+        fillInSelector('.leftDoorTrimSelect', 'leftDoorTrim');
+        fillInSelector('.rightDoorTrimSelect', 'rightDoorTrim');
 
         fillInFurnitur('topLock');
         fillInFurnitur('lowerLock');
@@ -304,6 +314,65 @@ jQuery('document').ready(function () {
         }
     });
 
+
+    $('#topDoorTrimDiv').change('.topDoorTrimSelect', function () {
+
+        saveInJavaObjectforRestrictionValue('topDoorTrim');
+        if (allFieldsAreFilled('.topDoorTrimSelect')) {
+            addField('topDoorTrim','select','Select');
+        }
+        fillInSelector('.topDoorTrimSelect', 'topDoorTrim');
+    });
+    $('#topDoorTrimDiv').on('click','.topDoorTrimLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('topDoorTrim');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('topDoorTrim');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('topDoorTrim');
+        }
+    });
+
+
+    $('#leftDoorTrimDiv').change('.leftDoorTrimSelect', function () {
+
+        saveInJavaObjectforRestrictionValue('leftDoorTrim');
+        if (allFieldsAreFilled('.leftDoorTrimSelect')) {
+            addField('leftDoorTrim','select','Select');
+        }
+        fillInSelector('.leftDoorTrimSelect', 'leftDoorTrim');
+    });
+    $('#leftDoorTrimDiv').on('click','.leftDoorTrimCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('leftDoorTrim');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('leftDoorTrim');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('leftDoorTrim');
+        }
+    });
+
+
+    $('#rightDoorTrimDiv').change('.rightDoorTrimSelect', function () {
+
+        saveInJavaObjectforRestrictionValue('rightDoorTrim');
+        if (allFieldsAreFilled('.rightDoorTrimSelect')) {
+            addField('rightDoorTrim','select','Select');
+        }
+        fillInSelector('.rightDoorTrimSelect', 'rightDoorTrim');
+    });
+    $('#rightDoorTrimDiv').on('click','.rightDoorTrimLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('rightDoorTrim');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('rightDoorTrim');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('rightDoorTrim');
+        }
+    });
 
     //furnitur
 

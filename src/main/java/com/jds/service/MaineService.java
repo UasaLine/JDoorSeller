@@ -160,16 +160,25 @@ public class MaineService {
             restriction.addDeepnessDoor(lim);
         } else if (TypeOfLimitionDoor.LEAF_THICKNESS == lim.getTypeSettings()) {
             restriction.addThicknessDoorLeaf(lim);
+
         } else if (TypeOfLimitionDoor.DOORSTEP == lim.getTypeSettings()) {
             restriction.addDoorstep(lim);
         } else if (TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP == lim.getTypeSettings()) {
             restriction.addStainlessSteelDoorstep(lim);
+
         } else if (TypeOfLimitionDoor.FIRST_SEALING_LINE == lim.getTypeSettings()) {
             restriction.addFirstSealingLine(lim);
         } else if (TypeOfLimitionDoor.SECOND_SEALING_LINE == lim.getTypeSettings()) {
             restriction.addSecondSealingLine(lim);
         } else if (TypeOfLimitionDoor.THIRD_SEALING_LINE == lim.getTypeSettings()) {
             restriction.addThirdSealingLine(lim);
+
+        } else if (TypeOfLimitionDoor.TOP_DOOR_TRIM == lim.getTypeSettings()) {
+            restriction.addTopDoorTrim(lim);
+        } else if (TypeOfLimitionDoor.LEFT_DOOR_TRIM == lim.getTypeSettings()) {
+            restriction.addLeftDoorTrim(lim);
+        } else if (TypeOfLimitionDoor.RIGHT_DOOR_TRIM == lim.getTypeSettings()) {
+            restriction.addRightDoorTrim(lim);
 
         } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
             restriction.addColors(lim);
@@ -306,6 +315,10 @@ public class MaineService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.FIRST_SEALING_LINE, restriction.getFirstSealingLine(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SECOND_SEALING_LINE, restriction.getSecondSealingLine(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.THIRD_SEALING_LINE, restriction.getThirdSealingLine(), limitList);
+
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_DOOR_TRIM, restriction.getTopDoorTrim(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LEFT_DOOR_TRIM, restriction.getLeftDoorTrim(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.RIGHT_DOOR_TRIM, restriction.getRightDoorTrim(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_LOCK, restriction.getTopLock(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_LOCK, restriction.getLowerLock(), limitList);

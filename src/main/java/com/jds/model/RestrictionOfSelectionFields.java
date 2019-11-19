@@ -32,6 +32,10 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> secondSealingLine = new ArrayList<>();
     private List<LimitationDoor> thirdSealingLine = new ArrayList<>();
 
+    private List<LimitationDoor> topDoorTrim = new ArrayList<>();
+    private List<LimitationDoor> leftDoorTrim = new ArrayList<>();
+    private List<LimitationDoor> rightDoorTrim = new ArrayList<>();
+
     private List<LimitationDoor> topLock = new ArrayList<>();
     private List<LimitationDoor> lowerLock = new ArrayList<>();
     private List<LimitationDoor> handle = new ArrayList<>();
@@ -53,18 +57,6 @@ public class RestrictionOfSelectionFields {
 
         this.doorTypeid = doorTypeId;
 
-
-        additionalDoorSetting.add(new LimitationDoor("firstSealingLine","firstSealingLine_1",1, 1,
-                1));
-        additionalDoorSetting.add(new LimitationDoor("secondSealingLine","secondSealingLine_2",2,2,
-                1));
-        additionalDoorSetting.add(new LimitationDoor("topDoorTrim",1,0,
-                1));
-        additionalDoorSetting.add(new LimitationDoor("leftDoorTrim",1,0,
-                1));
-        additionalDoorSetting.add(new LimitationDoor("rightDoorTrim",1,0,
-                1));
-
         doorstep = new ArrayList<>();
         doorstep.add(new LimitationDoor("doorstep",1,1,1));
         doorstep.add(new LimitationDoor("doorstep",0,1,0));
@@ -82,13 +74,25 @@ public class RestrictionOfSelectionFields {
 
         secondSealingLine = new ArrayList<>();
         secondSealingLine.add(new LimitationDoor("тонкий", 1, 1,1));
-        secondSealingLine.add(new LimitationDoor("тиугольный", 2, 2,1));
-        secondSealingLine.add(new LimitationDoor("магнитный", 3, 3,1));
+        secondSealingLine.add(new LimitationDoor("тиугольный", 2, 2,0));
+        secondSealingLine.add(new LimitationDoor("магнитный", 3, 3,0));
 
         thirdSealingLine = new ArrayList<>();
         thirdSealingLine.add(new LimitationDoor("тонкий", 1, 1,1));
-        thirdSealingLine.add(new LimitationDoor("тиугольный", 2, 2,1));
-        thirdSealingLine.add(new LimitationDoor("магнитный", 3, 3,1));
+        thirdSealingLine.add(new LimitationDoor("тиугольный", 2, 2,0));
+        thirdSealingLine.add(new LimitationDoor("магнитный", 3, 3,0));
+
+        topDoorTrim = new ArrayList<>();
+        topDoorTrim.add(new LimitationDoor("да", 1, 1,0));
+        topDoorTrim.add(new LimitationDoor("нет",0,0,0));
+
+        leftDoorTrim = new ArrayList<>();
+        leftDoorTrim.add(new LimitationDoor("да", 1, 1,0));
+        leftDoorTrim.add(new LimitationDoor("нет",0,0,0));
+
+        rightDoorTrim = new ArrayList<>();
+        rightDoorTrim.add(new LimitationDoor("да", 1, 1,0));
+        rightDoorTrim.add(new LimitationDoor("нет",0,0,0));
     }
 
     public void addMetal(@NonNull LimitationDoor limit) {
@@ -165,6 +169,7 @@ public class RestrictionOfSelectionFields {
                             .build());
         }
     }
+
     public void addColors(@NonNull LimitationDoor color) {
 
             this.colors.add(color.setNuulLazyFild());
@@ -315,7 +320,6 @@ public class RestrictionOfSelectionFields {
         return this;
     }
 
-
     public RestrictionOfSelectionFields addToning(@NonNull List<DoorFurniture> furnitures) {
         toning = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {
@@ -377,6 +381,15 @@ public class RestrictionOfSelectionFields {
 
     }
 
+    public void addTopDoorTrim(@NonNull LimitationDoor lim){
+        topDoorTrim.add(lim.setNuulLazyFild());
+    }
+    public void addLeftDoorTrim(@NonNull LimitationDoor lim){
+        leftDoorTrim.add(lim.setNuulLazyFild());
+    }
+    public void addRightDoorTrim(@NonNull LimitationDoor lim){
+        rightDoorTrim.add(lim.setNuulLazyFild());
+    }
 
     public LimitationDoor getLim (@NonNull DoorFurniture furniture,@NonNull TypeOfLimitionDoor typeOfLimitionDoor){
        return LimitationDoor.builder()
