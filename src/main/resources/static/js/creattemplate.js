@@ -30,6 +30,66 @@ jQuery('document').ready(function () {
             }
         });
     }
+    function installFromTemplatAfterSelectingType() {
+
+        installFromTemplateSize('widthDoor',true);
+        installFromTemplateSize('heightDoor',true);
+        installFromTemplateSize('deepnessDoor',false);
+        installFromTemplateSize('thicknessDoorLeaf',false);
+        installFromTemplateMetal();
+        installFromTemplateColor();
+        installFromTemplateSelect('doorstep');
+        installFromTemplateSelect('stainlessSteelDoorstep');
+        installFromTemplateSealingLine('firstSealingLine');
+        installFromTemplateSealingLine('secondSealingLine');
+        installFromTemplateSealingLine('thirdSealingLine');
+
+        installFromTemplateFurnitur('topLock');
+        installFromTemplateFurnitur('lowerLock');
+        installFromTemplateFurnitur('handle');
+        installFromTemplateFurnitur('lockCylinder');
+        installFromTemplateFurnitur('toplockCylinder');
+        installFromTemplateFurnitur('topInLockDecor');
+        installFromTemplateFurnitur('topOutLockDecor');
+        installFromTemplateFurnitur('lowerInLockDecor');
+        installFromTemplateFurnitur('lowerOutLockDecor');
+
+        installFromTemplateFurnitur('closer');
+        installFromTemplateFurnitur('endDoorLock');
+
+        installFromTemplateFurnitur('typeDoorGlass');
+        installFromTemplateFurnitur('toning');
+        installFromTemplateFurnitur('armor');
+
+    }
+    function fillInAlLSelectAfterSelectingType() {
+
+        fillInMetal();
+        fillInColor();
+
+        fillInSelector('.doorstepSelect', 'doorstep');
+        fillInSelector('.stainlessSteelDoorstepSelect', 'stainlessSteelDoorstep');
+
+        fillInSealingLine('firstSealingLine');
+        fillInSealingLine('secondSealingLine');
+        fillInSealingLine('thirdSealingLine');
+
+        fillInFurnitur('topLock');
+        fillInFurnitur('lowerLock');
+        fillInFurnitur('handle');
+        fillInFurnitur('lowerlockCylinder');
+        fillInFurnitur('toplockCylinder');
+        fillInFurnitur('topInLockDecor');
+        fillInFurnitur('topOutLockDecor');
+        fillInFurnitur('lowerInLockDecor');
+        fillInFurnitur('lowerOutLockDecor');
+        fillInFurnitur('closer');
+        fillInFurnitur('endDoorLock');
+
+        fillInFurnitur('typeDoorGlass');
+        fillInFurnitur('toning');
+        fillInFurnitur('armor');
+    }
 
 
     $('#doorclassselect').change(function () {
@@ -45,7 +105,7 @@ jQuery('document').ready(function () {
     });
 
     $('#metalDiv').change('.metalSelect', function () {
-        saveInJavaObjectforMetal('metal');
+        saveInJavaObjectforRestrictionValue('metal');
         if (allFieldsAreFilled('.metalSelect')) {
             addMetalField();
         }
@@ -56,10 +116,10 @@ jQuery('document').ready(function () {
         if ($(this).is(':checked')) {
             switchOffAll('metal');
             $(this).prop('checked', true);
-            saveInJavaObjectforMetal('metal');
+            saveInJavaObjectforRestrictionValue('metal');
         }
         else {
-            saveInJavaObjectforMetal('metal');
+            saveInJavaObjectforRestrictionValue('metal');
         }
     });
 
@@ -152,39 +212,98 @@ jQuery('document').ready(function () {
         if ($(this).is(':checked')) {
             switchOffAll('colors');
             $(this).prop('checked', true);
-            saveInJavaObjectforMetal('colors');
+            saveInJavaObjectColor('colors');
         }
         else {
-            saveInJavaObjectforMetal('colors');
+            saveInJavaObjectColor('colors');
         }
     });
 
 
 
     $('#doorstepDiv').change('.doorstepSelect', function () {
-        saveInJavaObjectSelect('doorstep');
+
+        alert($(this).prev().is("input"));
+
+        saveInJavaObjectforRestrictionValue('doorstep');
         if (allFieldsAreFilled('.doorstepSelect')) {
-            addSelectField('doorstep');
+            addField('doorstep','select','Select');
         }
         fillInSelector('.doorstepSelect', 'doorstep');
     });
+    $('#doorstepDiv').on('click','.doorstepLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('doorstep');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('doorstep');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('doorstep');
+        }
+    });
+
     $('#stainlessSteelDoorstepDiv').change('.stainlessSteelDoorstepSelect', function () {
-        saveInJavaObjectSelect('stainlessSteelDoorstep');
+        saveInJavaObjectforRestrictionValue('stainlessSteelDoorstep');
         if (allFieldsAreFilled('.stainlessSteelDoorstepSelect')) {
-            addSelectField('stainlessSteelDoorstep');
+            addField('stainlessSteelDoorstep','select','Select');
         }
         fillInSelector('.stainlessSteelDoorstepSelect', 'stainlessSteelDoorstep');
     });
+    $('#stainlessSteelDoorstepDiv').on('click','.stainlessSteelDoorstepLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('stainlessSteelDoorstep');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('stainlessSteelDoorstep');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('stainlessSteelDoorstep');
+        }
+    });
+
+
 
     $('#firstSealingLineDiv').change('.firstSealingLineSelect', function () {
         addNewFieldAndfillInforSealingLine('firstSealingLine');
     });
+    $('#firstSealingLineDiv').on('click','.firstSealingLineLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('firstSealingLine');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('firstSealingLine');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('firstSealingLine');
+        }
+    });
+
     $('#secondSealingLineDiv').change('.secondSealingLineSelect', function () {
         addNewFieldAndfillInforSealingLine('secondSealingLine');
     });
+    $('#secondSealingLineDiv').on('click','.secondSealingLineLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('secondSealingLine');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('secondSealingLine');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('secondSealingLine');
+        }
+    });
+
     $('#thirdSealingLineDiv').change('.thirdSealingLineSelect', function () {
         addNewFieldAndfillInforSealingLine('thirdSealingLine');
     });
+    $('#thirdSealingLineDiv').on('click','.thirdSealingLineLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('thirdSealingLine');
+            $(this).prop('checked', true);
+            saveInJavaObjectforRestrictionValue('thirdSealingLine');
+        }
+        else {
+            saveInJavaObjectforRestrictionValue('thirdSealingLine');
+        }
+    });
+
 
     //furnitur
 
@@ -348,38 +467,6 @@ jQuery('document').ready(function () {
     }
 
 
-    function installFromTemplatAfterSelectingType() {
-
-        installFromTemplateSize('widthDoor',true);
-        installFromTemplateSize('heightDoor',true);
-        installFromTemplateSize('deepnessDoor',false);
-        installFromTemplateSize('thicknessDoorLeaf',false);
-        installFromTemplateMetal();
-        installFromTemplateColor();
-        installFromTemplateSelect('doorstep');
-        installFromTemplateSelect('stainlessSteelDoorstep');
-        installFromTemplateSealingLine('firstSealingLine');
-        installFromTemplateSealingLine('secondSealingLine');
-        installFromTemplateSealingLine('thirdSealingLine');
-
-        installFromTemplateFurnitur('topLock');
-        installFromTemplateFurnitur('lowerLock');
-        installFromTemplateFurnitur('handle');
-        installFromTemplateFurnitur('lockCylinder');
-        installFromTemplateFurnitur('toplockCylinder');
-        installFromTemplateFurnitur('topInLockDecor');
-        installFromTemplateFurnitur('topOutLockDecor');
-        installFromTemplateFurnitur('lowerInLockDecor');
-        installFromTemplateFurnitur('lowerOutLockDecor');
-
-        installFromTemplateFurnitur('closer');
-        installFromTemplateFurnitur('endDoorLock');
-
-        installFromTemplateFurnitur('typeDoorGlass');
-        installFromTemplateFurnitur('toning');
-        installFromTemplateFurnitur('armor');
-
-    }
 
     function installPairOfValues(nameJavaObject, min, max) {
         $('#' + nameJavaObject + 'Min').val(min);
@@ -441,7 +528,9 @@ jQuery('document').ready(function () {
             setValueInSelect('#' + $(elem).attr('id'),table[i].firstItem);
             setSwitchDefaultVal(elem,'metal',table[i].defaultValue);
 
-            addMetalField();
+            if (allFieldsAreFilled(selector)) {
+                addMetalField();
+            }
         }
     }
 
@@ -480,14 +569,17 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < length; ++i) {
             if (allFieldsAreFilled(selector)) {
-                addSelectField(nameJavaObject);
+                addField(nameJavaObject,'select','Select');
             }
             elem = getNotCompletedFields(selector);
-            //$(elem).append($('<option value=' + table[i].startRestriction + '>' + translateToBoolean(table[i].startRestriction) + '</option>'));
-            //$(elem).find("option:contains('+table[i].firstItem+')").attr("selected", "selected");
             fillInFieldFromLimiBoolToInt('#' + $(elem).attr('id'), restriction[nameJavaObject]);
             setValueInSelectInt('#' + $(elem).attr('id'),table[i].startRestriction);
-            addSelectField(nameJavaObject);
+            setSwitchDefaultVal(elem,nameJavaObject,table[i].defaultValue);
+
+            if (allFieldsAreFilled(selector)) {
+                addField(nameJavaObject,'select','Select');
+            }
+
         }
     }
 
@@ -500,14 +592,18 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < length; ++i) {
             if (allFieldsAreFilled(selector)) {
-                addSelectField(nameJavaObject);
+                addField(nameJavaObject,'select','Select');
             }
+
             elem = getNotCompletedFields(selector);
-            //$(elem).append($('<option value=' + table[i].startRestriction + '>' + table[i].startRestriction + '</option>'));
-            //$(elem).find("option:contains(table[i].startRestriction)").attr("selected", "selected");
             fillInFieldFromLimiSealingLine('#' + $(elem).attr('id'), restriction[nameJavaObject]);
             setValueInSelectInt('#' + $(elem).attr('id'),table[i].startRestriction);
-            addSelectField(nameJavaObject);
+            setSwitchDefaultVal(elem,nameJavaObject,table[i].defaultValue);
+
+            if (allFieldsAreFilled(selector)) {
+
+                addField(nameJavaObject,'select','Select');
+            }
         }
     }
 
@@ -522,46 +618,20 @@ jQuery('document').ready(function () {
 
             for (var i = 0; i < length; ++i) {
                 if (allFieldsAreFilled(selector)) {
-                    addSelectField(nameJavaObject);
+                    addField(nameJavaObject,'select','Select');
                 }
                 elem = getNotCompletedFields(selector);
                 //$(elem).append($('<option value=' + table[i].id + '>' + table[i].name + '</option>'));
                 //$(elem).find("option:contains(table[i].name)").attr("selected", "selected");
                 fillInFieldFromLimiForFurnitur('#' + $(elem).attr('id'), restriction[nameJavaObject]);
                 setValueInSelectInt('#' + $(elem).attr('id'),table[i].id);
-                addSelectField(nameJavaObject);
+                if (allFieldsAreFilled(selector)) {
+                    addField(nameJavaObject,'select','Select');
+                }
             }
         }
     }
 
-    function fillInAlLSelectAfterSelectingType() {
-
-        fillInMetal();
-        fillInColor();
-
-        fillInSelector('.doorstepSelect', 'doorstep');
-        fillInSelector('.stainlessSteelDoorstepSelect', 'stainlessSteelDoorstep');
-
-        fillInSealingLine('firstSealingLine');
-        fillInSealingLine('secondSealingLine');
-        fillInSealingLine('thirdSealingLine');
-
-        fillInFurnitur('topLock');
-        fillInFurnitur('lowerLock');
-        fillInFurnitur('handle');
-        fillInFurnitur('lowerlockCylinder');
-        fillInFurnitur('toplockCylinder');
-        fillInFurnitur('topInLockDecor');
-        fillInFurnitur('topOutLockDecor');
-        fillInFurnitur('lowerInLockDecor');
-        fillInFurnitur('lowerOutLockDecor');
-        fillInFurnitur('closer');
-        fillInFurnitur('endDoorLock');
-
-        fillInFurnitur('typeDoorGlass');
-        fillInFurnitur('toning');
-        fillInFurnitur('armor');
-    }
 
     function fillInMetal() {
 
@@ -655,7 +725,7 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < table.length; ++i) {
             $(selector).append(
-                $('<option value=' + table[i].startRestriction + '>' + table[i].startRestriction + '</option>')
+                $('<option value=' + table[i].startRestriction + '>' + table[i].firstItem + '</option>')
             );
         }
     }
@@ -763,18 +833,6 @@ jQuery('document').ready(function () {
 
     }
 
-    function addSizeField(nameJavaObject) {
-
-        var data = lastElemNumber('.' + nameJavaObject) + 1;
-        $('<input>').attr('class', 'form-control ' + nameJavaObject + 'Input')
-            .attr('id', '' + nameJavaObject + 'Input' + data)
-            .attr('data', data)
-            .appendTo('#' + nameJavaObject + 'Div');
-
-        return '#' + nameJavaObject + 'Input' + data;
-
-    }
-
     function lastElemNumber(selector) {
         var elem = $(selector);
         var number = 0;
@@ -821,21 +879,6 @@ jQuery('document').ready(function () {
         return '#' + name + data;
     }
 
-    function addSelectField(nameJavaObject) {
-
-        var name = '' + nameJavaObject + 'Select';
-        var div = '' + nameJavaObject + 'Div';
-        var data = lastElemNumber('.' + name) + 1;
-
-        $('<select>').attr('class', 'form-control ' + name)
-            .attr('id', '' + name + data)
-            .attr('data', data)
-            .appendTo('#' + div);
-
-        return '#' + name + data;
-
-    }
-
     function translateToBoolean(int) {
         if (int == 0) {
             return 'нет';
@@ -849,22 +892,23 @@ jQuery('document').ready(function () {
     function addNewFieldAndfillInforFurnitur(nameJavaObject) {
         saveInJavaObjectFurnitur(nameJavaObject);
         if (allFieldsAreFilled('.' + nameJavaObject + 'Select')) {
-            addSelectField(nameJavaObject);
+                addField(nameJavaObject,'select','Select');
         }
         fillInFurnitur(nameJavaObject);
     }
 
     function addNewFieldAndfillInforSealingLine(nameJavaObject) {
-        saveInJavaObjectSelect(nameJavaObject);
+        saveInJavaObjectforRestrictionValue(nameJavaObject);
         if (allFieldsAreFilled('.' + nameJavaObject + 'Select')) {
-            addSelectField(nameJavaObject);
+            //addSelectField(nameJavaObject);
+            addField(nameJavaObject,'select','Select');
         }
         fillInSealingLine(nameJavaObject);
     }
 
     //refill template
 
-    function saveInJavaObjectforMetal(nameFieldJavaObject) {
+    function saveInJavaObjectforRestrictionValue(nameFieldJavaObject) {
 
         //delete all
         var size = template[nameFieldJavaObject].length;
@@ -893,6 +937,16 @@ jQuery('document').ready(function () {
     }
 
     function findInRestriction(val, nameFieldJavaObject,defaultVal) {
+        var tab = restriction[nameFieldJavaObject];
+        for (var i = 0; i < tab.length; ++i) {
+            if (tab[i].startRestriction == val) {
+                var lim = tab[i];
+                lim.defaultValue = defaultVal;
+                return lim;
+            }
+        }
+    }
+    function findInFirstItem(val, nameFieldJavaObject,defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].firstItem == val) {

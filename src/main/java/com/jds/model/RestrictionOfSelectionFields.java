@@ -52,21 +52,7 @@ public class RestrictionOfSelectionFields {
 
         this.doorTypeid = doorTypeId;
 
-        widthDoor = new ArrayList<>();
-        widthDoor.add(new LimitationDoor("1.2",500,1170,0));
 
-        heightDoor = new ArrayList<>();
-        heightDoor.add(new LimitationDoor("1.2", 1500,2200,0));
-
-        deepnessDoor = new ArrayList<>();
-        deepnessDoor.add(new LimitationDoor("97",97, 97, 1));
-
-        thicknessDoorLeaf = new ArrayList<>();
-        thicknessDoorLeaf.add(new LimitationDoor("60",60,60,1));
-
-        additionalDoorSetting = new ArrayList<>();
-        additionalDoorSetting.add(new LimitationDoor("doorstep",1, 1,1));
-        additionalDoorSetting.add(new LimitationDoor("stainlessSteelDoorstep",1,0,0));
         additionalDoorSetting.add(new LimitationDoor("firstSealingLine","firstSealingLine_1",1, 1,
                 1));
         additionalDoorSetting.add(new LimitationDoor("secondSealingLine","secondSealingLine_2",2,2,
@@ -89,17 +75,19 @@ public class RestrictionOfSelectionFields {
                 0));
 
         firstSealingLine = new ArrayList<>();
-        firstSealingLine.add(new LimitationDoor("doorstep", 1, 1,1));
-        firstSealingLine.add(new LimitationDoor("doorstep",0,1,0));
+        firstSealingLine.add(new LimitationDoor("тонкий", 1, 1,1));
+        firstSealingLine.add(new LimitationDoor("тиугольный",2,2,0));
+        firstSealingLine.add(new LimitationDoor("магнитный",3,3,0));
 
         secondSealingLine = new ArrayList<>();
-        secondSealingLine.add(new LimitationDoor("doorstep",1,1,1));
-        secondSealingLine.add(new LimitationDoor("doorstep",0,1,0));
+        secondSealingLine.add(new LimitationDoor("тонкий", 1, 1,1));
+        secondSealingLine.add(new LimitationDoor("тиугольный", 2, 2,1));
+        secondSealingLine.add(new LimitationDoor("магнитный", 3, 3,1));
 
         thirdSealingLine = new ArrayList<>();
-        thirdSealingLine.add(new LimitationDoor("doorstep",1,1,1));
-        thirdSealingLine.add(new LimitationDoor("doorstep",2,0,0));
-        thirdSealingLine.add(new LimitationDoor("doorstep",3,0,0));
+        thirdSealingLine.add(new LimitationDoor("тонкий", 1, 1,1));
+        thirdSealingLine.add(new LimitationDoor("тиугольный", 2, 2,1));
+        thirdSealingLine.add(new LimitationDoor("магнитный", 3, 3,1));
     }
 
     public void addMetal(LimitationDoor limit) {
