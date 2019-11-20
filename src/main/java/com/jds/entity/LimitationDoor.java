@@ -113,4 +113,12 @@ public class LimitationDoor {
         this.doorType = null;
         return this;
     }
+
+    public boolean isDefault(){
+        if (this.defaultValue == 1){
+            return true;
+        }
+        return false;
+    }
+
 }

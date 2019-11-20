@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoorService {
@@ -90,28 +91,20 @@ public class DoorService {
 
     }
 
-    public DoorEntity getDoor(@NonNull int id, @NonNull String orderId, @NonNull int typid) {
+    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
 
         DoorEntity door;
 
-        if (id > 0){
+        if (id > 0) {
             door = dAO.getDoor(id);
-        }
-        else if (id==0 && typid>0){
+        } else if (id == 0 && typid > 0) {
             door = createNewDoorByTemplate(typid);
-        }
-        else {
-            door = new DoorEntity();
-            List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
-            for (DoorClass doorClass : doorClassList) {
-                door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
-            }
+        } else {
+            door = createNewDoorWithAvailableDoorClass();
         }
 
-
-        int intOrderId = Integer.parseInt(orderId);
-        if (!orderId.isEmpty() && !orderId.equals("0") && door.getId() == 0) {
-            DoorsОrder order = orderDAO.getOrder(intOrderId);
+        if (orderId != 0 && door.getId() == 0) {
+            DoorsОrder order = orderDAO.getOrder(orderId);
             order.addDoor(door);
             orderDAO.saveOrder(order);
         }
@@ -119,14 +112,88 @@ public class DoorService {
         return door.clearNonSerializingFields();
     }
 
-    public DoorEntity createNewDoorByTemplate(@NonNull int typeId){
+    public DoorEntity createNewDoorWithAvailableDoorClass() {
+        DoorEntity door = new DoorEntity();
+        List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
+        for (DoorClass doorClass : doorClassList) {
+            door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
+        }
+        return door;
+    }
 
-        DoorTemplate doorTemplate = maineService.getDoorTemplate(String.valueOf(typeId));
+    public DoorEntity createNewDoorByTemplate(@NonNull int typeId) {
 
-        return new DoorEntity();
+        RestrictionOfSelectionFields template = maineService.getTemplateFromLimits(String.valueOf(typeId));
+        DoorType doorType = dAO.getDoorType(typeId);
+
+
+
+        DoorEntity doorEntity = new DoorEntity();
+        doorEntity.setTemplate(template);
+
+        doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
+        //doorEntity.setWidthDoor(findInTemplateSize(doorTemplate.getTemplate().getWidthDoor()));
+        //doorEntity.setHeightDoor(findInTemplateSize(doorTemplate.getTemplate().getHeightDoor()));
+        doorEntity.setDoorLeaf(doorType.getDoorLeaf());
+        //doorEntity.setActiveDoorLeafWidth()
+        //doorEntity.setDoorFanlightHeight
+        doorEntity.setDeepnessDoor((int) findInTemplateRestriction(template.getDeepnessDoor()));
+        doorEntity.setThicknessDoorLeaf((int) findInTemplateRestriction(template.getThicknessDoorLeaf()));
+        //sideDoorOpen
+        //innerDoorOpen;
+
+        doorEntity.setDoorstep((int) findInTemplateRestriction(template.getDoorstep()));
+        doorEntity.setStainlessSteelDoorstep((int) findInTemplateRestriction(template.getStainlessSteelDoorstep()));
+        doorEntity.setTopDoorTrim((int) findInTemplateRestriction(template.getTopDoorTrim()));
+        doorEntity.setLeftDoorTrim((int) findInTemplateRestriction(template.getLeftDoorTrim()));
+        doorEntity.setRightDoorTrim((int) findInTemplateRestriction(template.getRightDoorTrim()));
+        //price
+        //discountPrice
+        //priceWithMarkup
+        doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
+
+        /*
+        isDoorGlass
+        furnitureKit
+        doorGlass
+        sealingLine
+        firstSealingLine
+        secondSealingLine
+        thirdSealingLine
+        additionallyHingeMain
+        additionallyHingeNotMain
+        amplifierCloser
+       */
+
+        return doorEntity;
 
     }
 
+    public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+            return defList.get(0).getStartRestriction();
+        }
+
+        return 0;
+    }
+
+    public String findInTemplateColor(@NonNull List<LimitationDoor> listLim) {
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+            return defList.get(0).getFirstItem();
+        }
+
+        return "";
+    }
 
 
     public DoorEntity saveDoor(DoorEntity door) {

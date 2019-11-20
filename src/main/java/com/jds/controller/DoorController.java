@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Controller
 public class DoorController {
 
@@ -32,11 +34,13 @@ public class DoorController {
 
     @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity data(@RequestParam(required = false,defaultValue = "0") String id,
-                           @RequestParam(required = false,defaultValue = "0") String orderId,
-                           @RequestParam(required = false,defaultValue = "0") String typid) throws Exception {
+    public DoorEntity data(@RequestParam(required = false, defaultValue = "0") String id,
+                           @RequestParam(required = false, defaultValue = "0") String orderId,
+                           @RequestParam(required = false, defaultValue = "0") String typid) throws Exception {
 
-        return service.getDoor(Integer.parseInt(id), orderId, Integer.parseInt(typid));
+        return service.getDoor(Integer.parseInt(id),
+                Integer.parseInt(orderId),
+                Integer.parseInt(typid));
     }
 
     @GetMapping(value = "/doorlimit", produces = MediaType.APPLICATION_JSON_VALUE)

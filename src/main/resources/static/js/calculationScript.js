@@ -30,12 +30,23 @@ jQuery('document').ready(function () {
         displayObject(door);
         displayDoorClass2();
         displayPrice();
-        getListOfSelectionFields();
+        fillInTheFieldsToTheTemplate(data.template);
     }
 
     //--------------------------------------
     //select
     //--------------------------------------
+
+    $('.select_door_class').on('click', '.images_door_class', function () {
+        doorLeaf = $(this).attr('data-LeafDoorLeaf');
+        setDoorField("doorLeaf", doorLeaf);
+        setDoorField($(this).attr('Item'), getDoorTypeFromAvailable($(this).attr('data')));
+        representationField($(this).attr('dataName'));
+        pickOut(this);
+        //getListOfSelectionFields();
+        getNewDoorInstans();
+    });
+
     $('.list-group-item-action').on('click', function () {
         alert($(this).text());
     });
@@ -57,14 +68,6 @@ jQuery('document').ready(function () {
 
     });
 
-    $('.select_door_class').on('click', '.images_door_class', function () {
-        doorLeaf = $(this).attr('data-LeafDoorLeaf');
-        setDoorField("doorLeaf", doorLeaf);
-        setDoorField($(this).attr('Item'), getDoorTypeFromAvailable($(this).attr('data')));
-        representationField($(this).attr('dataName'));
-        pickOut(this);
-        getListOfSelectionFields();
-    });
 
     $('.color_pages').on('click', '.pag', function () {
         if ($(this).attr('data') == ">") {
@@ -716,7 +719,7 @@ jQuery('document').ready(function () {
 
                 $('<div>')
                     .attr('class', 'card')
-                    .attr('id', 'doorClass' + j)
+                    .attr('id', 'doorClass' + divId)
                     .appendTo('.select_door_class');
 
                     $('<img>')
@@ -726,17 +729,17 @@ jQuery('document').ready(function () {
                         .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
                         .attr('src', doorTypes[j].namePicture)
                         .attr('Item', 'doorType')
-                        .appendTo('#doorClass' + j);
+                        .appendTo('#doorClass' + divId);
 
                     $('<div>')
                         .attr('class', 'card-body')
-                        .attr('id', 'card-body' + j)
-                        .appendTo('#doorClass' + j);
+                        .attr('id', 'card-body' + divId+j)
+                        .appendTo('#doorClass' + divId);
 
                         $('<p>')
                             .attr('class', 'card-text')
                             .text(doorTypes[j].name)
-                            .appendTo('#card-body' + j);
+                            .appendTo('#card-body' + divId+j);
             }
         }
     };
@@ -798,31 +801,17 @@ jQuery('document').ready(function () {
         }
     }
 
-    function getListOfSelectionFields(idDoorType) {
+    function getListOfSelectionFields() {
 
         if (door.doorType != null) {
             $.ajax({
-                url: 'doorlimit',
-                data: {idDoorType: door.doorType.id},
+                url: 'door',
+                data: {id: id,typid: door.doorType.id, orderId: orderId},
                 dataType: 'json',
                 success: function (data) {
                     //alert('success: ' + data);
-                    displayMetal(data);
-                    displayWidthDoorAndHeightDoor(data);
-                    displayDeepnessDoorAndThicknessDoorLeaf(data);
-                    colors = data.colors;
-                    displayColor(0);
-                    displayadditionalDoorSettings(data);
-                    displayListOfItems('topLock', data.topLock, 0, 'kit');
-                    displayListOfItems('lowerLock', data.lowerLock, 0, 'kit');
-                    displayListOfItems('handle', data.handle, 0, '');
-                    displayListOfItems('lowerlockCylinder', data.lowerlockCylinder, 0, '');
-                    displayListOfItems('closer', data.closer, 0, '');
-                    displayListOfItems('endDoorLock', data.endDoorLock, 0, '');
-                    displayListOfItems('typeDoorGlass', data.typeDoorGlass, 0, '');
-                    displayListOfItems('toning', data.toning, 0, '');
-                    displayListOfItems('armor', data.armor, 0, '');
-                    RestrictionOfSelectionFields = data;
+                    FillOutForm(data);
+                    fillInTheFieldsToTheTemplate(data.template);
                 },
                 error: function (data) {
                     alert('error:' + data);
@@ -1382,9 +1371,14 @@ jQuery('document').ready(function () {
 
     function getNewDoorInstans(){
 
+        var typid = 0;
+        if (door!=null){
+            typid = door.doorType.id;
+        }
+
         $.ajax({
             url: 'door',
-            data: {id: id, orderId: orderId, doorGroup: doorGroup},
+            data: {id: id, orderId: orderId, typid: typid},
             dataType: 'json',
             success: function (data) {
                 //alert('success: ' + data.id);
@@ -1398,5 +1392,23 @@ jQuery('document').ready(function () {
 
     };
 
+    function fillInTheFieldsToTheTemplate(data) {
+        displayMetal(data);
+        displayWidthDoorAndHeightDoor(data);
+        displayDeepnessDoorAndThicknessDoorLeaf(data);
+        colors = data.colors;
+        displayColor(0);
+        displayadditionalDoorSettings(data);
+        displayListOfItems('topLock', data.topLock, 0, 'kit');
+        displayListOfItems('lowerLock', data.lowerLock, 0, 'kit');
+        displayListOfItems('handle', data.handle, 0, '');
+        displayListOfItems('lowerlockCylinder', data.lowerlockCylinder, 0, '');
+        displayListOfItems('closer', data.closer, 0, '');
+        displayListOfItems('endDoorLock', data.endDoorLock, 0, '');
+        displayListOfItems('typeDoorGlass', data.typeDoorGlass, 0, '');
+        displayListOfItems('toning', data.toning, 0, '');
+        displayListOfItems('armor', data.armor, 0, '');
+        RestrictionOfSelectionFields = data;
+    };
 
 });
