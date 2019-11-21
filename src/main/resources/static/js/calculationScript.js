@@ -16,7 +16,6 @@ jQuery('document').ready(function () {
 
     var id = $('#id').text();
     var orderId = $('#orderId').text();
-    var doorGroup = $('#doorGroup').text();
 
     var sizeMin =0;
     var sizeMax =0;
@@ -26,11 +25,11 @@ jQuery('document').ready(function () {
 
     function FillOutForm(data){
         door = data;
-        $('.arrow_explanations').attr('show', 'is_alive_lement');
         displayObject(door);
         displayDoorClass2();
         displayPrice();
         fillInTheFieldsToTheTemplate(data.template);
+        $('.select_door_class').attr('show', 'is_alive_lement');
     }
 
     //--------------------------------------
@@ -67,7 +66,6 @@ jQuery('document').ready(function () {
         processItemSelection(this);
 
     });
-
 
     $('.color_pages').on('click', '.pag', function () {
         if ($(this).attr('data') == ">") {
@@ -353,7 +351,6 @@ jQuery('document').ready(function () {
         function () {
             $('.priceghost').attr('show', 'ghost_lement');
         });
-
 
     //select namber
 
@@ -709,6 +706,9 @@ jQuery('document').ready(function () {
 
     function displayDoorClass2() {
 
+
+        $('.class_card').remove();
+
         for (var i = 0; i < door.availableDoorClass.length; ++i) {
 
             var divName = door.availableDoorClass[i].name;
@@ -718,7 +718,7 @@ jQuery('document').ready(function () {
             for (var j = 0; j < doorTypes.length; ++j) {
 
                 $('<div>')
-                    .attr('class', 'card')
+                    .attr('class', 'card class_card')
                     .attr('id', 'doorClass' + divId)
                     .appendTo('.select_door_class');
 
@@ -749,18 +749,22 @@ jQuery('document').ready(function () {
 
         allDisable('metal_checkbox');
 
-        for (var i = 0; i < data.metal.length; ++i) {
-            $('#metal' + i).attr('show', 'is_alive_lement');
-            $('#nememetal' + i).text(data.metal[i].firstItem);
-            $('#checkboxmetal' + i).attr('data', data.metal[i].firstItem);
-            if (data.metal[i].defaultValue == 1) {
-                $('#checkboxmetal' + i).prop('checked', true);
-                setDoorField($('#checkboxmetal' + i).attr('Item'), $('#checkboxmetal' + i).attr('data'));
-                currentItem = "metal";
-                representationField($('#checkboxmetal' + i).attr('data'));
+
+            for (var i = 0; i < data.metal.length; ++i) {
+                $('#metal' + i).attr('show', 'is_alive_lement');
+                $('#nememetal' + i).text(data.metal[i].firstItem);
+                $('#checkboxmetal' + i).attr('data', data.metal[i].firstItem);
+                if (data.metal[i].defaultValue == 1) {
+                    $('#checkboxmetal' + i).prop('checked', true);
+                    setDoorField($('#checkboxmetal' + i).attr('Item'), $('#checkboxmetal' + i).attr('data'));
+                    currentItem = "metal";
+                    representationField($('#checkboxmetal' + i).attr('data'));
+                }
             }
-        }
-        $('#namemetal').attr('available', "yes");
+            $('#namemetal').attr('available', "yes");
+
+
+
     };
 
     function displayWidthDoorAndHeightDoor(data) {
@@ -1089,7 +1093,7 @@ jQuery('document').ready(function () {
                 }
             }
         }
-        return ".."
+        return ""
     };
 
     function getDoorTypeFromAvailable(value) {
@@ -1101,7 +1105,7 @@ jQuery('document').ready(function () {
                 }
             }
         }
-        return "..."
+        return ""
     };
 
     function displayColor(bias) {
@@ -1130,9 +1134,9 @@ jQuery('document').ready(function () {
         for (var i = 0; i < amountElements; ++i) {
             if ((i + biasInt) < tabSize) {
                 $('#imagesdoorColorDiv' + i).attr('show', 'is_alive_lement');
-                $('#imagesdoorColorDiv' + i).attr('data', colors[i + biasInt].name);
+                $('#imagesdoorColorDiv' + i).attr('data', colors[i + biasInt].firstItem);
                 $('#imagesdoorColorImg' + i).attr('src', colors[i + biasInt].picturePath);
-                $('#imagesdoorColorSpan' + i).text(colors[i + biasInt].name);
+                $('#imagesdoorColorSpan' + i).text(colors[i + biasInt].firstItem);
             }
             else {
                 $('#imagesdoorColorDiv' + i).attr('show', 'ghost_lement');
@@ -1381,9 +1385,7 @@ jQuery('document').ready(function () {
             data: {id: id, orderId: orderId, typid: typid},
             dataType: 'json',
             success: function (data) {
-                //alert('success: ' + data.id);
                 FillOutForm(data);
-
             },
             error: function (data) {
                 alert('error:' + data);
@@ -1393,22 +1395,26 @@ jQuery('document').ready(function () {
     };
 
     function fillInTheFieldsToTheTemplate(data) {
-        displayMetal(data);
-        displayWidthDoorAndHeightDoor(data);
-        displayDeepnessDoorAndThicknessDoorLeaf(data);
-        colors = data.colors;
-        displayColor(0);
-        displayadditionalDoorSettings(data);
-        displayListOfItems('topLock', data.topLock, 0, 'kit');
-        displayListOfItems('lowerLock', data.lowerLock, 0, 'kit');
-        displayListOfItems('handle', data.handle, 0, '');
-        displayListOfItems('lowerlockCylinder', data.lowerlockCylinder, 0, '');
-        displayListOfItems('closer', data.closer, 0, '');
-        displayListOfItems('endDoorLock', data.endDoorLock, 0, '');
-        displayListOfItems('typeDoorGlass', data.typeDoorGlass, 0, '');
-        displayListOfItems('toning', data.toning, 0, '');
-        displayListOfItems('armor', data.armor, 0, '');
-        RestrictionOfSelectionFields = data;
+
+        if(data!=null){
+            displayMetal(data);
+            displayWidthDoorAndHeightDoor(data);
+            displayDeepnessDoorAndThicknessDoorLeaf(data);
+            colors = data.colors;
+            displayColor(0);
+            displayadditionalDoorSettings(data);
+            displayListOfItems('topLock', data.topLock, 0, 'kit');
+            displayListOfItems('lowerLock', data.lowerLock, 0, 'kit');
+            displayListOfItems('handle', data.handle, 0, '');
+            displayListOfItems('lowerlockCylinder', data.lowerlockCylinder, 0, '');
+            displayListOfItems('closer', data.closer, 0, '');
+            displayListOfItems('endDoorLock', data.endDoorLock, 0, '');
+            displayListOfItems('typeDoorGlass', data.typeDoorGlass, 0, '');
+            displayListOfItems('toning', data.toning, 0, '');
+            displayListOfItems('armor', data.armor, 0, '');
+            RestrictionOfSelectionFields = data;
+
+        }
     };
 
 });

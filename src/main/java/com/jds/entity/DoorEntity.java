@@ -987,6 +987,11 @@ public class DoorEntity {
     public void addAvailableDoorClass(DoorClass doorClass) {
         this.availableDoorClass.add(doorClass);
     }
+    public void addAvailableDoorClass(List<DoorClass> doorClassList) {
+        for (DoorClass doorClass : doorClassList) {
+            addAvailableDoorClass(doorClass.clearNonSerializingFields());
+        }
+    }
 
     public int getDiscountPrice() {
         return discountPrice;

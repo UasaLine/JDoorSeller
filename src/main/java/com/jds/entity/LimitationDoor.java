@@ -45,8 +45,11 @@ public class LimitationDoor {
     @Column(name = "stopRestriction")
     private double stopRestriction;
 
-    //@Column(name = "step")
-    //private double step;
+    @Column(name = "step")
+    private double step;
+
+    @Column(name = "picturePath")
+    private String picturePath;
 
     @Column(name = "pairOfValues")
     private int pairOfValues;

@@ -10,6 +10,7 @@ create table limitation_door
   startRestriction real,
   stopRestriction  real,
   comment          CHARACTER VARYING(100),
+  picturePath      CHARACTER VARYING(150),
   step             INT,
   defaultValue     INT,
   pairOfValues     INT NOT NULL

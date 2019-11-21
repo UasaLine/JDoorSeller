@@ -233,8 +233,6 @@ jQuery('document').ready(function () {
 
     $('#doorstepDiv').change('.doorstepSelect', function () {
 
-        alert($(this).prev().is("input"));
-
         saveInJavaObjectforRestrictionValue('doorstep');
         if (allFieldsAreFilled('.doorstepSelect')) {
             addField('doorstep','select','Select');

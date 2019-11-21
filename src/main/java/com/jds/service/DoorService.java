@@ -113,11 +113,10 @@ public class DoorService {
     }
 
     public DoorEntity createNewDoorWithAvailableDoorClass() {
+
         DoorEntity door = new DoorEntity();
-        List<DoorClass> doorClassList = dAO.getAvailableDoorClass();
-        for (DoorClass doorClass : doorClassList) {
-            door.addAvailableDoorClass(doorClass.clearNonSerializingFields());
-        }
+        door.addAvailableDoorClass(dAO.getAvailableDoorClass());
+
         return door;
     }
 
@@ -126,9 +125,11 @@ public class DoorService {
         RestrictionOfSelectionFields template = maineService.getTemplateFromLimits(String.valueOf(typeId));
         DoorType doorType = dAO.getDoorType(typeId);
 
-
-
         DoorEntity doorEntity = new DoorEntity();
+        doorEntity.addAvailableDoorClass(dAO.getAvailableDoorClass());
+
+        doorEntity.setDoorType(doorType);
+
         doorEntity.setTemplate(template);
 
         doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
