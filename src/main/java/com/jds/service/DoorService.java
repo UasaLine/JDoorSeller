@@ -148,6 +148,11 @@ public class DoorService {
         doorEntity.setTopDoorTrim((int) findInTemplateRestriction(template.getTopDoorTrim()));
         doorEntity.setLeftDoorTrim((int) findInTemplateRestriction(template.getLeftDoorTrim()));
         doorEntity.setRightDoorTrim((int) findInTemplateRestriction(template.getRightDoorTrim()));
+
+        //sealingLine
+        doorEntity.setFirstSealingLine((int) findInTemplateRestriction(template.getFirstSealingLine()));
+        doorEntity.setSecondSealingLine((int) findInTemplateRestriction(template.getSecondSealingLine()));
+        doorEntity.setThirdSealingLine((int) findInTemplateRestriction(template.getThirdSealingLine()));
         //price
         //discountPrice
         //priceWithMarkup
@@ -157,10 +162,7 @@ public class DoorService {
         isDoorGlass
         furnitureKit
         doorGlass
-        sealingLine
-        firstSealingLine
-        secondSealingLine
-        thirdSealingLine
+
         additionallyHingeMain
         additionallyHingeNotMain
         amplifierCloser

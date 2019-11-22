@@ -230,7 +230,6 @@ jQuery('document').ready(function () {
     });
 
 
-
     $('#doorstepDiv').change('.doorstepSelect', function () {
 
         saveInJavaObjectforRestrictionValue('doorstep');
@@ -267,7 +266,6 @@ jQuery('document').ready(function () {
             saveInJavaObjectforRestrictionValue('stainlessSteelDoorstep');
         }
     });
-
 
 
     $('#firstSealingLineDiv').change('.firstSealingLineSelect', function () {

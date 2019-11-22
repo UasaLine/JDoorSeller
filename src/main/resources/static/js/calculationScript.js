@@ -17,13 +17,13 @@ jQuery('document').ready(function () {
     var id = $('#id').text();
     var orderId = $('#orderId').text();
 
-    var sizeMin =0;
-    var sizeMax =0;
+    var sizeMin = 0;
+    var sizeMax = 0;
 
 
     getNewDoorInstans();
 
-    function FillOutForm(data){
+    function FillOutForm(data) {
         door = data;
         displayObject(door);
         displayDoorClass2();
@@ -381,10 +381,10 @@ jQuery('document').ready(function () {
         sizeMax = sizeLimMax($(this).attr('id'));
 
         select_introduction($(this).attr('data'),
-                            $(this).attr('name'),
-                            $(this).attr('id'),
-                             sizeMin,
-                             sizeMax);
+            $(this).attr('name'),
+            $(this).attr('id'),
+            sizeMin,
+            sizeMax);
 
     });
 
@@ -537,6 +537,21 @@ jQuery('document').ready(function () {
 
                 currentItem = 'handle';
                 showValue = getFurniture(value, 'handle');
+            }
+            //doorstep//DoorTrim
+            else if(currentItem == "doorstep"
+                || currentItem == "stainlessSteelDoorstep"
+                || currentItem == "topDoorTrim"
+                || currentItem == "leftDoorTrim"
+                || currentItem == "rightDoorTrim"){
+
+                fillCheckbox(currentItem,value);
+            }
+            else if(currentItem == "firstSealingLine"
+                || currentItem == "secondSealingLine"
+                || currentItem == "thirdSealingLine"){
+
+                fillCheckbox(currentItem+'_'+value,1);
             }
             else {
                 if (value != 0 || value != "0") {
@@ -722,24 +737,24 @@ jQuery('document').ready(function () {
                     .attr('id', 'doorClass' + divId)
                     .appendTo('.select_door_class');
 
-                    $('<img>')
-                        .attr('class', 'images_door_class card-img-top')
-                        .attr('data', doorTypes[j].id)
-                        .attr('dataName', divName)
-                        .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
-                        .attr('src', doorTypes[j].namePicture)
-                        .attr('Item', 'doorType')
-                        .appendTo('#doorClass' + divId);
+                $('<img>')
+                    .attr('class', 'images_door_class card-img-top')
+                    .attr('data', doorTypes[j].id)
+                    .attr('dataName', divName)
+                    .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
+                    .attr('src', doorTypes[j].namePicture)
+                    .attr('Item', 'doorType')
+                    .appendTo('#doorClass' + divId);
 
-                    $('<div>')
-                        .attr('class', 'card-body')
-                        .attr('id', 'card-body' + divId+j)
-                        .appendTo('#doorClass' + divId);
+                $('<div>')
+                    .attr('class', 'card-body')
+                    .attr('id', 'card-body' + divId + j)
+                    .appendTo('#doorClass' + divId);
 
-                        $('<p>')
-                            .attr('class', 'card-text')
-                            .text(doorTypes[j].name)
-                            .appendTo('#card-body' + divId+j);
+                $('<p>')
+                    .attr('class', 'card-text')
+                    .text(doorTypes[j].name)
+                    .appendTo('#card-body' + divId + j);
             }
         }
     };
@@ -750,30 +765,29 @@ jQuery('document').ready(function () {
         allDisable('metal_checkbox');
 
 
-            for (var i = 0; i < data.metal.length; ++i) {
-                $('#metal' + i).attr('show', 'is_alive_lement');
-                $('#nememetal' + i).text(data.metal[i].firstItem);
-                $('#checkboxmetal' + i).attr('data', data.metal[i].firstItem);
-                if (data.metal[i].defaultValue == 1) {
-                    $('#checkboxmetal' + i).prop('checked', true);
-                    setDoorField($('#checkboxmetal' + i).attr('Item'), $('#checkboxmetal' + i).attr('data'));
-                    currentItem = "metal";
-                    representationField($('#checkboxmetal' + i).attr('data'));
-                }
+        for (var i = 0; i < data.metal.length; ++i) {
+            $('#metal' + i).attr('show', 'is_alive_lement');
+            $('#nememetal' + i).text(data.metal[i].firstItem);
+            $('#checkboxmetal' + i).attr('data', data.metal[i].firstItem);
+            if (data.metal[i].defaultValue == 1) {
+                $('#checkboxmetal' + i).prop('checked', true);
+                setDoorField($('#checkboxmetal' + i).attr('Item'), $('#checkboxmetal' + i).attr('data'));
+                currentItem = "metal";
+                representationField($('#checkboxmetal' + i).attr('data'));
             }
-            $('#namemetal').attr('available', "yes");
-
+        }
+        $('#namemetal').attr('available', "yes");
 
 
     };
 
     function displayWidthDoorAndHeightDoor(data) {
 
-        if (data.widthDoor.length>0){
+        if (data.widthDoor.length > 0) {
             $('#namewidthDoor').attr('available', "yes");
         }
 
-        if (data.heightDoor.length>0){
+        if (data.heightDoor.length > 0) {
             $('#nameheightDoor').attr('available', "yes");
         }
 
@@ -783,11 +797,16 @@ jQuery('document').ready(function () {
 
         allDisable('deepnessDoor_checkbox');
         writeInCheckbox('deepnessDoor', data.deepnessDoor);
-        $('#namedeepnessDoor').attr('available', "yes");
+        if(data.deepnessDoor.length>1){
+            $('#namedeepnessDoor').attr('available', "yes");
+        }
+
 
         allDisable('thicknessDoorLeaf_checkbox');
         writeInCheckbox('thicknessDoorLeaf', data.thicknessDoorLeaf);
-        $('#namethicknessDoorLeaf').attr('available', "yes");
+        if(data.thicknessDoorLeaf.length>1) {
+            $('#namethicknessDoorLeaf').attr('available', "yes");
+        }
 
     };
 
@@ -810,7 +829,7 @@ jQuery('document').ready(function () {
         if (door.doorType != null) {
             $.ajax({
                 url: 'door',
-                data: {id: id,typid: door.doorType.id, orderId: orderId},
+                data: {id: id, typid: door.doorType.id, orderId: orderId},
                 dataType: 'json',
                 success: function (data) {
                     //alert('success: ' + data);
@@ -1149,33 +1168,50 @@ jQuery('document').ready(function () {
 
     function displayadditionalDoorSettings(data) {
 
-        var tabSize = data.additionalDoorSetting.length;
+        displayElement("doorstep", data);
+        displayElement("stainlessSteelDoorstep", data);
 
-        for (var i = 0; i < tabSize; ++i) {
-            var additionalName = data.additionalDoorSetting[i].secondItem;
+        displayElement("topDoorTrim", data);
+        displayElement("leftDoorTrim", data);
+        displayElement("rightDoorTrim", data);
 
-            if (data.additionalDoorSetting[i].startRestriction != data.additionalDoorSetting[i].stopRestriction) {
-                $('#neme' + additionalName).attr('available', 'yes');
-                $('#' + additionalName + '_checkbox')
-                    .attr('available', 'yes')
-                    .attr('data', data.additionalDoorSetting[i].startRestriction);
+        displayElementSealingLine("firstSealingLine", data);
+        displayElementSealingLine("secondSealingLine", data);
+        displayElementSealingLine("thirdSealingLine", data);
+
+
+    };
+
+    function displayElement(name, data) {
+        var tabSize = data[name].length;
+        if (tabSize > 1) {
+            $('#name' + name).attr('available', 'yes');
+            $('#' + name + '_checkbox').attr('available', 'yes');
+        }
+    };
+
+    function displayElementSealingLine(name, data) {
+
+        var tab = data[name];
+        var tabSize = tab.length;
+
+        if(tabSize>1){
+            for (var i = 0; i < tabSize; i++) {
+
+                var lineName = name+'_'+tab[i].startRestriction;
+
+                $('#name' + lineName).attr('available', 'yes');
+                $('#' + lineName + '_checkbox').attr('available', 'yes');
 
             }
-
-
-            if (data.additionalDoorSetting[i].defaultValue == 1) {
-                $('#' + additionalName + '_checkbox').prop('checked', true);
-                setDoorField($('#' + additionalName + '_checkbox').attr('Item'),
-                    $('#' + additionalName + '_checkbox').attr('data'));
-            }
-
         }
 
-    }
+    };
+
 
     function displayListOfItems(nameTab, tab, bias, postfixName) {
 
-        if(tab!=null) {
+        if (tab != null) {
             var tabSize = tab.length;
             var amountElements = 4;
             var amountPag = (tabSize / amountElements).toFixed(0);
@@ -1312,29 +1348,29 @@ jQuery('document').ready(function () {
             $('[Item="doorTrim"]').prop('checked', false);
     };
 
-    function sizeLimMin(elemId){
-        if(elemId=='inputWidthDoor'){
+    function sizeLimMin(elemId) {
+        if (elemId == 'inputWidthDoor') {
             var tab = RestrictionOfSelectionFields['widthDoor'];
-            for(var i =0; i<tab.length;i++){
-                if (tab[i].pairOfValues==1) {
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
                     return tab[i].startRestriction;
                 }
             }
             return 0;
         }
-        else if (elemId=='inputHeightDoor') {
+        else if (elemId == 'inputHeightDoor') {
             var tab = RestrictionOfSelectionFields['heightDoor'];
-            for(var i =0; i<tab.length;i++){
-                if (tab[i].pairOfValues==1) {
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
                     return tab[i].startRestriction;
                 }
             }
             return 0;
         }
-        else if (elemId=='inputHeightFanlight') {
+        else if (elemId == 'inputHeightFanlight') {
             var tab = RestrictionOfSelectionFields['heightFanlight'];
-            for(var i =0; i<tab.length;i++){
-                if (tab[i].pairOfValues==1) {
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
                     return tab[i].startRestriction;
                 }
             }
@@ -1342,29 +1378,30 @@ jQuery('document').ready(function () {
         }
         return 0;
     }
-    function sizeLimMax(elemId){
-        if(elemId=='inputWidthDoor'){
+
+    function sizeLimMax(elemId) {
+        if (elemId == 'inputWidthDoor') {
             var tab = RestrictionOfSelectionFields['widthDoor'];
-            for(var i =0; i<tab.length;i++){
-                if (tab[i].pairOfValues==1) {
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
                     return tab[i].stopRestriction;
                 }
             }
             return 5000;
         }
-        else if (elemId=='inputHeightDoor') {
+        else if (elemId == 'inputHeightDoor') {
             var tab = RestrictionOfSelectionFields['heightDoor'];
-            for(var i =0; i<tab.length;i++){
-                if (tab[i].pairOfValues==1) {
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
                     return tab[i].stopRestriction;
                 }
             }
             return 5000;
         }
-        else if (elemId=='inputHeightFanlight') {
+        else if (elemId == 'inputHeightFanlight') {
             var tab = RestrictionOfSelectionFields['heightFanlight'];
-            for(var i =0; i<tab.length;i++){
-                if (tab[i].pairOfValues==1) {
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
                     return tab[i].stopRestriction;
                 }
             }
@@ -1373,10 +1410,10 @@ jQuery('document').ready(function () {
         return 0;
     }
 
-    function getNewDoorInstans(){
+    function getNewDoorInstans() {
 
         var typid = 0;
-        if (door!=null){
+        if (door != null) {
             typid = door.doorType.id;
         }
 
@@ -1396,7 +1433,7 @@ jQuery('document').ready(function () {
 
     function fillInTheFieldsToTheTemplate(data) {
 
-        if(data!=null){
+        if (data != null) {
             displayMetal(data);
             displayWidthDoorAndHeightDoor(data);
             displayDeepnessDoorAndThicknessDoorLeaf(data);
@@ -1417,4 +1454,12 @@ jQuery('document').ready(function () {
         }
     };
 
+    function fillCheckbox(name,value) {
+        if (value==1){
+            $('#'+name+'_checkbox').prop('checked', true);
+        }
+        else {
+            $('#'+name+'_checkbox').prop('checked', false);
+        }
+    };
 });
