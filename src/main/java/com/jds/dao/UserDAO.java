@@ -100,7 +100,7 @@ public class UserDAO {
         if (list.size() > 0) {
             return list.get(0);
         }
-        return null;
+        return new UserSetting();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
