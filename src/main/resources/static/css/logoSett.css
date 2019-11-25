@@ -166,7 +166,7 @@ tr:hover {
     max-width: 1300px;
     margin: 0 auto;
     position: relative;
-    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    //font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     text-decoration: none;
     color: #000000;
     //border-top: 1px solid #C0C0C0;
@@ -235,7 +235,7 @@ tr:hover {
     padding-top: 5px;
     padding-bottom: 10px;
     text-decoration: none;
-    color: #000000;
+    color: #343a40;
     border-bottom: solid 1px #A9A9A9;
     margin: 5px;
 
@@ -249,8 +249,8 @@ tr:hover {
     padding-top: 5px;
     padding-bottom: 10px;
     text-decoration: none;
-    color: #000000;
-    background-color: #DCDCDC;
+    color: #fff;
+    background-color: #343a40;
     border-bottom: solid 1px #A9A9A9;
     margin: 5px;
 

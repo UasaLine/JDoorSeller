@@ -5,6 +5,7 @@ import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class DoorEntity {
     @Transient
     private RestrictionOfSelectionFields template;
 
-    public DoorEntity initializeGlassAndFurnitureKit(){
+    public DoorEntity initializeGlassAndFurnitureKit() {
 
         if (furnitureKit == null) {
             furnitureKit = new FurnitureKit();
@@ -578,11 +579,12 @@ public class DoorEntity {
         return this;
     }
 
-    public DoorEntity setPriceOfDoorType(){
+    public DoorEntity setPriceOfDoorType(@NonNull int discount,
+                                         @NonNull int RetailMargin) {
 
-            setPrice((int)doorType.getRetailPrice());
-            setDiscountPrice(price - ((int) (price * 0.25)));
-            setPriceWithMarkup(discountPrice + ((int) (discountPrice * 1.25)));
+        setPrice((int) doorType.getRetailPrice());
+        setDiscountPrice(price - ((int) ((price * discount) / 100)));
+        setPriceWithMarkup(discountPrice + ((int) ((discountPrice * RetailMargin) / 100)));
 
         return this;
     }
@@ -590,16 +592,16 @@ public class DoorEntity {
     public DoorEntity costToPrice() {
 
 
-            double summMarkUp = 0;
-            if (isDoorGlass == 1) {
-                summMarkUp = doorType.getMarkUpGlassPackage() * costList.getTotalCost() / 100;
-            } else {
-                summMarkUp = doorType.getMarkUp() * costList.getTotalCost() / 100;
-            }
+        double summMarkUp = 0;
+        if (isDoorGlass == 1) {
+            summMarkUp = doorType.getMarkUpGlassPackage() * costList.getTotalCost() / 100;
+        } else {
+            summMarkUp = doorType.getMarkUp() * costList.getTotalCost() / 100;
+        }
 
-            setPrice(costList.getTotalCost() + (int) summMarkUp);
-            setDiscountPrice(price - ((int) (price * 0.25)));
-            setPriceWithMarkup(discountPrice + ((int) (discountPrice * 1.25)));
+        setPrice(costList.getTotalCost() + (int) summMarkUp);
+        setDiscountPrice(price - ((int) (price * 0.25)));
+        setPriceWithMarkup(discountPrice + ((int) (discountPrice * 1.25)));
 
         return this;
 
@@ -987,6 +989,7 @@ public class DoorEntity {
     public void addAvailableDoorClass(DoorClass doorClass) {
         this.availableDoorClass.add(doorClass);
     }
+
     public void addAvailableDoorClass(List<DoorClass> doorClassList) {
         for (DoorClass doorClass : doorClassList) {
             addAvailableDoorClass(doorClass.clearNonSerializingFields());

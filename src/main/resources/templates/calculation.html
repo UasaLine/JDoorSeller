@@ -22,43 +22,40 @@
         <a th:href="@{/}" class="logo_text">door seller</a>
     </div>
     <div class="header_home" >
-        <span class="head_button" id="buttonCalculate">рассчитать</span>
+        <a th:href="@{/orders}" class="logo_home">Заказы</a>
     </div>
     <div class="header_home" >
-        <span class="head_button" id="buttonSaveDoor" >сохранить</span>
+        <a th:href="@{/usersetting}" class="logo_home">Настройки</a>
     </div>
     <div class="header_home" >
-        <span class="head_button" id="buttonGetCutteig" >показать расчет</span>
+        <a th:href="@{/logout}" class="logo_home">Выйти</a>
     </div>
 </div>
 <br>
 
+<div class="container_main_order">
+    <button type="button" class="btn btn-dark" id="buttonCalculate">рассчитать</button>
+    <button type="button" class="btn btn-dark" id="buttonSaveDoor">сохранить</button>
+    <button type="button" class="btn btn-dark" id="buttonGetCutteig">показать расчет</button>
+</div>
+
 <div class="additional_data" show="ghost_lement">
-
     <div class="data_L">
-
     </div>
-
     <div class="data_R" id = "calculateResultDiv">
-
     </div>
-
 </div>
 
 <div class="container_main">
 
     <div class="daughter_container1" id="doorDiv1">
-        <div class="to_calculate">
-            <span class="price"> Цена без скидки:</span>
-            <span class="price" id="price" ></span>
-            <span class="priceghost" show="ghost_lement">Цена со скидкой: 25%</span>
-            <span class="priceghost" id="discountPrice" show="ghost_lement"></span>
-            <span class="priceghost" show="ghost_lement">Цена с наценкой: 25%</span>
-            <span class="priceghost" id="priceWithMarkup" show="ghost_lement"></span>
-        </div>
+
+        <h1 class="display-4" id="price">Цена:</h1>
+
         <div class="nameDoor">
             <span class="nameDoor_span"></span>
         </div>
+
         <span id = "orderId" th:text="${orderId}" show="ghost_lement"></span>
         <span id = "id" th:text="${id}" show="ghost_lement"></span>
         <span id = "typid" th:text="${typid}" show="ghost_lement"></span>
@@ -79,7 +76,7 @@
                     <a  class="vertical_menu_button_left"  id="namemetal" available="no" href="#"> МЕТАЛЛ</a>
                 </div>
                 <div align="right" class="right_cell">
-                    <a class="vertical_menu_button_rigtht"  id="metalShow"  href="#"><strong></strong></a>
+                    <a class="vertical_menu_button_rigtht"  available="yes" id="metalShow"  href="#"><strong></strong></a>
                 </div>
             </div>
             <div  class="vertical_menu_button" id="widthDoor"  >

@@ -164,6 +164,15 @@ public class MainController {
         return "creatTemplate";
     }
 
+    @GetMapping(value = "/specification")
+    public String getSpecification(@RequestParam(required = false) String typeId,
+                                   Model model) throws Exception {
+
+
+
+        model.addAttribute("spec",service.getMaterialFormulas() );
+        return "specification";
+    }
 
     @GetMapping(value = "/metal")
     public String getMetal( Model model) throws Exception {
@@ -171,16 +180,6 @@ public class MainController {
         List<Metal> list = service.getMetals();
         model.addAttribute("accountInfos", list);
         return "settingPage_metal";
-    }
-
-
-    @GetMapping(value = "/calculationSelect")
-    public String calculationSelect(Model model,
-                                    @RequestParam(required = false) String orderId,
-                                    @RequestParam(required = false) String id) throws Exception {
-        model.addAttribute("orderId", orderId);
-        model.addAttribute("id", id);
-        return "doorGroupSelection";
     }
 
 

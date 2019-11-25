@@ -43,16 +43,10 @@ public class DoorController {
                 Integer.parseInt(typid));
     }
 
-    @GetMapping(value = "/doorlimit", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public RestrictionOfSelectionFields getRestrictionOfSelectionFields(@RequestParam String idDoorType) throws Exception {
-
-        return maineService.getTemplateFromLimits(idDoorType);
-    }
 
     @PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity calculateTheDoor(Model model, @RequestBody DoorEntity door) throws Exception {
+    public DoorEntity calculateTheDoor(@RequestBody DoorEntity door) throws Exception {
 
         return service.calculateTheDoor(door);
 

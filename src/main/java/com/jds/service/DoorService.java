@@ -25,19 +25,29 @@ public class DoorService {
     private OrderService orderService;
     @Autowired
     private MaineService maineService;
+    @Autowired
+    private UserService userService;
 
 
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
+
+
         if (door.getDoorType().getPriceList() == 1) {
-            return recalculateTheDoorByPriceList(door);
+
+            return recalculateTheDoorByPriceList(door,
+                    userService.getCurrentUser().getDiscount(),
+                    userService.getUserSetting().getRetailMargin());
         } else {
             return recalculateTheDoorCompletely(door);
         }
     }
 
-    public DoorEntity recalculateTheDoorByPriceList(DoorEntity doorEntity) {
-        return doorEntity.setPriceOfDoorType()
-                .createName();
+    public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
+                                                    @NonNull int discount,
+                                                    @NonNull int RetailMargin) {
+        return doorEntity
+                 .setPriceOfDoorType(discount,RetailMargin)
+                 .createName();
     }
 
     public DoorEntity recalculateTheDoorCompletely(DoorEntity door) {
@@ -95,10 +105,10 @@ public class DoorService {
 
         DoorEntity door;
 
-        if (id > 0) {
+        if (id > 0 && typid == 0) {
             door = dAO.getDoor(id);
-        } else if (id == 0 && typid > 0) {
-            door = createNewDoorByTemplate(typid);
+        } else if (typid > 0) {
+            door = createNewDoorByTemplate(typid,id);
         } else {
             door = createNewDoorWithAvailableDoorClass();
         }
@@ -120,12 +130,13 @@ public class DoorService {
         return door;
     }
 
-    public DoorEntity createNewDoorByTemplate(@NonNull int typeId) {
+    public DoorEntity createNewDoorByTemplate(@NonNull int typeId,@NonNull int id) {
 
         RestrictionOfSelectionFields template = maineService.getTemplateFromLimits(String.valueOf(typeId));
         DoorType doorType = dAO.getDoorType(typeId);
 
         DoorEntity doorEntity = new DoorEntity();
+        doorEntity.setId(id);
         doorEntity.addAvailableDoorClass(dAO.getAvailableDoorClass());
 
         doorEntity.setDoorType(doorType);
@@ -158,6 +169,7 @@ public class DoorService {
         //priceWithMarkup
         doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
 
+        doorEntity.setFurnitureKit(FurnitureKit.instanceKit(template));
         /*
         isDoorGlass
         furnitureKit

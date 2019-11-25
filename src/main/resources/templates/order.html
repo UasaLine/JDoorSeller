@@ -18,108 +18,111 @@
 		<a th:href="@{/}" class="logo_text">door seller</a>
 	</div>
 	<div class="header_home" >
-		<span class="head_button" id="saveOrderAndShutDown">сохранить и закрыть</span>
+		<a th:href="@{/orders}" class="logo_home">Заказы</a>
 	</div>
 	<div class="header_home" >
-		<span class="head_button" id="saveOrder">сохранить</span>
+		<a th:href="@{/usersetting}" class="logo_home">Настройки</a>
 	</div>
 	<div class="header_home" >
-		<span class="head_button" id="deleteOrder">удалить</span>
-	</div>
-	<div class="header_home">
-		<span  class="head_button" id ="print">печать заказа</span>
-	</div>
-	<div class="header_home">
-		<span  class="head_button" id ="printDoors">печать дверей</span>
+		<a th:href="@{/logout}" class="logo_home">Выйти</a>
 	</div>
 </div>
 
-
-	<h1 class="display-4">заказ</h1>
-	<!--<div class="linebottom"></div><br>-->
-
-
 <div class="container_main_order">
 
-	<span >№:</span>
-	<span   id="order_id" th:text="${orderId}"></span>
-	<!--
-	<span id="username">admin</span>
-	-->
-	<div class="order_header">
-		<div class="row ">
-			<div class="col-md-6 mb-3">
-				<label for="state">статус заказа</label>
-				<select class="custom-select d-block w-100" id="state" required="">
-					<option value="">расчет</option>
-					<option>ждет оплату</option>
-					<option>в работу</option>
-				</select>
-			</div>
-		</div>
-		<div class="row ">
+	<h1 class="display-4" id ="orderIdName">Заказ</h1>
+    <span class="ghost" id="order_id" th:text="${orderId}"></span>
 
-			<div class="col-md-6 mb-3">
-				<label for="partner">контрагент:</label>
-				<input type="text" class="form-control" id="partner" placeholder="контрагент" value="" required="">
-			</div>
-			<div class="col-md-6 mb-3">
-				<label for="company">организация:</label>
-				<input type="text" class="form-control" id="company" placeholder="организация" value="" required="">
-			</div>
-			<div class="col-md-6 mb-3">
-				<label for="releasDate">дата готовности:</label>
-				<input type="date" class="form-control" id="releasDate" placeholder="" value="" required="">
-			</div>
-			<div class="col-md-6 mb-3">
-				<label for="data">дата заказа:</label>
-				<input type="date" class="form-control" id="data" placeholder="" value="" required="">
-			</div>
 
+	<div class="container_main_order">
+
+		<div class="order_button_div">
+			<button type="button" class="btn btn-dark" id="saveOrderAndShutDown" >Cохранить и закрыть</button>
+			<button type="button" class="btn btn-dark" id="saveOrder" >Cохранить</button>
+			<button type="button" class="btn btn-dark" id="deleteOrder" >Удалить</button>
+			<button type="button" class="btn btn-dark" id="print" >Печать заказа</button>
+			<button type="button" class="btn btn-dark" id="printDoors">Печать дверей</button>
+			<button type="button" class="btn btn-dark" id="factoryOder">Заказ на завод</button>
 		</div>
 
-	</div>
-
-	<div class="top_head">
-		<div class="header_home">
-			<span class="head_button" id="addDoor">+ новая дверь</span>
+		<div class="ghost orderToFactory_button_div" >
+			<button type="button" class="btn btn-warning" id="goToWork" >Запустить в производство!</button>
+			<button type="button" class="btn btn-dark" id="backToOrder" >Вернутся к закзау</button>
 		</div>
-		<div class="header_home">
-			<span class="head_button" id="toChange">изменить</span>
-		</div>
-		<div class="header_home">
-			<span class="head_button" id="delete">удалить</span>
-		</div>
-	</div>
 
-	<div class="data-Table">
-		<table class="Table">
-			<tr>
-				<th>id</th>
-				<th>наименование</th>
-				<th>тип двери</th>
-				<th>металл</th>
-				<th>цвет</th>
-				<th>цена</th>
-			</tr>
-			<tr th:each="accountInfo : ${accountInfos}">
-				<td th:utext="${accountInfo.id}">..</td>
-				<td th:utext="${accountInfo.name}">..</td>
-				<td th:utext="${accountInfo.doorType}">..</td>
-				<td th:utext="${accountInfo.metal}">..</td>
-				<td th:utext="${accountInfo.doorColor}">..</td>
-				<td th:utext="${accountInfo.price}">..</td>
-			</tr>
+		<div class="order_header">
+			<div class="row ">
+				<div class="col-md-6 mb-3">
+					<label for="state">статус заказа</label>
+					<select class="custom-select d-block w-100" id="state" required="">
+						<option value="">расчет</option>
+						<option>ждет оплату</option>
+						<option>в работу</option>
+					</select>
+				</div>
+				<div class="col">
+					<label for="releasDate">дата готовности:</label>
+					<input type="date" class="form-control" id="releasDate" placeholder="" value="" required="">
+				</div>
+				<div class="col">
+					<label for="data">дата заказа:</label>
+					<input type="date" class="form-control" id="data" placeholder="" value="" required="">
+				</div>
+			</div>
+			<div class="row ">
 
-		</table>
-	</div>
-	<div class="totalOrder">
-		<span>ИТОГО:</span>
-        <span id="total"></span>
-	</div>
-	<div class="mb-3">
-		<label for="comment">комменткрий: </label>
-		<input type="text" class="form-control" id="comment" placeholder="комментарий">
+				<div class="col">
+					<label for="partner">контрагент:</label>
+					<input type="text" class="form-control" id="partner" placeholder="контрагент" value="" required="">
+				</div>
+				<div class="col">
+					<label for="company">организация:</label>
+					<input type="text" class="form-control" id="company" placeholder="организация" value="" required="">
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="order_button_div">
+			<button type="button" class="btn btn-primary" id="addDoor">Добавить</button>
+			<button type="button" class="btn btn-primary" id="toChange">Изменить</button>
+			<button type="button" class="btn btn-primary" id="delete">удалить</button>
+        </div>
+
+		<div class="data-Table">
+			<table class="Table">
+				<tr>
+					<th>id</th>
+					<th>Наименование</th>
+					<th>Тип двери</th>
+					<th>Металл</th>
+					<th>Цвет</th>
+					<th>Цена</th>
+				</tr>
+				<tr th:each="accountInfo : ${accountInfos}">
+					<td th:utext="${accountInfo.id}">..</td>
+					<td th:utext="${accountInfo.name}">..</td>
+					<td th:utext="${accountInfo.doorType}">..</td>
+					<td th:utext="${accountInfo.metal}">..</td>
+					<td th:utext="${accountInfo.doorColor}">..</td>
+					<td th:utext="${accountInfo.priceWithMarkup}">..</td>
+				</tr>
+
+			</table>
+		</div>
+
+		<div class="totalOrder">
+			<span>ИТОГО:</span>
+			<span id="total"></span>
+			<span class="orderToFactory_button_div"> profit:</span>
+			<span class="ghost" id="totalProfit"></span>
+		</div>
+
+		<div class="mb-3">
+			<label for="comment">комменткрий: </label>
+			<input type="text" class="form-control" id="comment" placeholder="комментарий">
+		</div>
 	</div>
 </div>
 

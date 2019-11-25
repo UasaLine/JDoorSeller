@@ -468,6 +468,26 @@ public class MainDAO {
 
     }
 
+    public List<MaterialFormula> getMaterialFormula() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from material_formula ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(MaterialFormula.class);
+        List<MaterialFormula> materialFormulas = query.list();
+
+        session.close();
+
+        if (materialFormulas.size() > 0) {
+            return materialFormulas;
+        }
+        return null;
+
+    }
+
+
     public int getRawMaterialsById(String id) {
 
         Session session = sessionFactory.openSession();

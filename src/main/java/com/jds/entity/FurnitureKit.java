@@ -2,8 +2,12 @@ package com.jds.entity;
 
 import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorFurniture;
+import com.jds.model.RestrictionOfSelectionFields;
+import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -78,6 +82,28 @@ public class FurnitureKit {
             return true;
         }
         return false;
+    }
+
+    public static FurnitureKit instanceKit(@NonNull RestrictionOfSelectionFields template){
+        FurnitureKit kit = new FurnitureKit();
+        kit.setTopLock(getDefFurniture(template.getTopLock()));
+        kit.setLowerLock(getDefFurniture(template.getLowerLock()));
+        kit.setHandle(getDefFurniture(template.getHandle()));
+        return kit;
+    }
+
+    public static DoorFurniture getDefFurniture(@NonNull List<LimitationDoor> listLim){
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+
+            return new DoorFurniture(defList.get(0));
+        }
+
+        return null;
     }
 
     public FurnitureKit clearNonSerializingFields(){

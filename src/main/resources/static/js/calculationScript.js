@@ -25,6 +25,7 @@ jQuery('document').ready(function () {
 
     function FillOutForm(data) {
         door = data;
+        id = door.id;
         displayObject(door);
         displayDoorClass2();
         displayPrice();
@@ -176,7 +177,7 @@ jQuery('document').ready(function () {
                 }
                 else if ($(this).attr("item") == "topDoorTrim") {
                     if ($(this).is(':checked')) {
-                        setDoorField($(this).attr('Item'), $(this).attr('data'));
+                        setDoorField($(this).attr('Item'), 1);
                         $('[Item="doorTrim"]').prop('checked', true);
                     }
                     else {
@@ -186,7 +187,7 @@ jQuery('document').ready(function () {
                 }
                 else if ($(this).attr("item") == "leftDoorTrim") {
                     if ($(this).is(':checked')) {
-                        setDoorField($(this).attr('Item'), $(this).attr('data'));
+                        setDoorField($(this).attr('Item'), 1);
                         $('[Item="doorTrim"]').prop('checked', true);
                     }
                     else {
@@ -197,7 +198,7 @@ jQuery('document').ready(function () {
                 else if ($(this).attr("item") == "rightDoorTrim") {
                     if ($(this).is(':checked')) {
                         $('[Item="doorTrim"]').prop('checked', true);
-                        setDoorField($(this).attr('Item'), $(this).attr('data'));
+                        setDoorField($(this).attr('Item'), 1);
                     }
                     else {
                         setDoorField($(this).attr('Item'), 0);
@@ -667,9 +668,7 @@ jQuery('document').ready(function () {
 
     function displayPrice() {
 
-        $('#price').text(door.price);
-        $('#discountPrice').text(door.discountPrice);
-        $('#priceWithMarkup').text(door.priceWithMarkup);
+        $('#price').text('Цена: '+door.priceWithMarkup);
 
         $('.decryption').remove();
 

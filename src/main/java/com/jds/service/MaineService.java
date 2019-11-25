@@ -95,6 +95,10 @@ public class MaineService {
         }
     }
 
+    public List<MaterialFormula> getMaterialFormulas(){
+        return dAO.getMaterialFormula();
+    }
+
     public List<Metal> getMetals() {
         return dAO.getMetals();
     }
@@ -118,14 +122,14 @@ public class MaineService {
 
                 .stuffColors(dAO.getDoorColors())
 
-                .addTopLock(dAO.getFurnitureByType(TypeOfFurniture.TOP_LOCK, idType))
-                .addLowerLock(dAO.getFurnitureByType(TypeOfFurniture.LOWER_LOCK, idType))
-                .addHendle(dAO.getFurnitureByType(TypeOfFurniture.HANDLE, idType))
-                .addLockCylinder(dAO.getFurnitureByType(TypeOfFurniture.LOCK_CYLINDER, idType))
+                .addTopLock(dAO.getFurniture(TypeOfFurniture.TOP_LOCK))
+                .addLowerLock(dAO.getFurniture(TypeOfFurniture.LOWER_LOCK))
+                .addHendle(dAO.getFurniture(TypeOfFurniture.HANDLE))
+                .addLockCylinder(dAO.getFurniture(TypeOfFurniture.LOCK_CYLINDER))
                 .addCloser(dAO.getFurniture(TypeOfFurniture.CLOSER))
                 .addEndDoorLock(dAO.getFurniture(TypeOfFurniture.END_DOOR_LOCK))
 
-                .addGlass(dAO.getFurnitureByType(TypeOfFurniture.TYPE_GLASS, idType))
+                .addGlass(dAO.getFurniture(TypeOfFurniture.TYPE_GLASS))
                 .addToning(dAO.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
                 .addArmor(dAO.getFurniture(TypeOfFurniture.ARMOR_GLASS_PELLICLE))
 

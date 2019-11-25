@@ -4,6 +4,7 @@ package com.jds.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.LimiItem;
 import com.jds.model.modelEnum.TypeOfFurniture;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -122,7 +123,15 @@ public class DoorFurniture implements LimiItem {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "endDoorLock")
     private List<DoorFurniture> endDoorLock;
 
+    public DoorFurniture (){
 
+    }
+
+    public DoorFurniture (@NonNull LimitationDoor lim){
+        this.id = lim.getItemId();
+        this.name = lim.getFirstItem();
+        this.picturePathFirst = lim.getPicturePath();
+    }
 
     public DoorFurniture setNuulLazyFild(){
         setDoorType(null);

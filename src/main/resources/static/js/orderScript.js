@@ -1,18 +1,13 @@
 jQuery('document').ready(function(){
 
-
-
     //getInstans order
     var orderId=$('#order_id').text();
-    var mode = "loc";
     var currentDoorId = 0;
     var order;
 
-    if (mode == "no"){
-        order = new Object();
-    }
-    else{
-        $.ajax({
+    setOrderId('Заказ');
+
+    $.ajax({
             url: 'getOrder',
             data: {orderId: orderId},
             dataType: 'json',
@@ -24,8 +19,6 @@ jQuery('document').ready(function(){
                 alert('error:' + data);
             }
         });
-    }
-
 
     $('#saveOrder').on('click',function(){
         saveOrder(0,0);
@@ -65,6 +58,26 @@ jQuery('document').ready(function(){
         printDoors();
     });
 
+    $('#factoryOder').on('click',function(){
+
+        $(".order_button_div").addClass("ghost");
+        $(".orderToFactory_button_div").removeClass("ghost");
+        $("#totalProfit").removeClass("ghost");
+        setOrderId('Заказ на завод');
+        fillOutOfTheObjectToFactory();
+
+    });
+    $('#backToOrder').on('click',function(){
+
+        $(".order_button_div").removeClass("ghost");
+        $(".orderToFactory_button_div").addClass("ghost");
+        $("#totalProfit").addClass("ghost");
+        setOrderId('Заказ');
+        fillOutOfTheObject();
+
+    });
+
+
     $('tbody').on('click','tr',function(){
 
         currentDoorId = $(this).children('.id').text();
@@ -96,7 +109,6 @@ jQuery('document').ready(function(){
         $('#data').val(order.data);
         $('#releasDate').val(order.releasDate);
         $('#productionStart').val(order.productionStart);
-        //order.seller  = $('#seller').val();
         $('#comment').val(order.comment);
         $('#total').text(order.totalAmount);
 
@@ -119,6 +131,36 @@ jQuery('document').ready(function(){
                 +doors[j].doorColor+'</td><td>'
                 +doors[j].priceWithMarkup+'</td></tr>');
         }
+
+    }
+    function fillOutOfTheObjectToFactory(){
+
+        $('tr').remove();
+        $('.Table > tbody').append('<tr><th>' +
+            'id</th><th>' +
+            'Наименование</th><th>' +
+            'Кол-во</th><th>' +
+            'Цена завода</th><th>' +
+            'Наценка</th><th>' +
+            'Цена с наценкой</th></tr>');
+
+        var doors = order.doors;
+        var totalAmount =0;
+        var totalProfit =0;
+        for(var j=0; j<doors.length; ++j) {
+            totalAmount = totalAmount + doors[j].discountPrice;
+            totalProfit = totalProfit + (doors[j].priceWithMarkup - doors[j].discountPrice);
+            $('.Table > tbody').append('<tr><td class="id">'
+                +doors[j].id+'</td><td>'
+                +doors[j].name+'</td><td>'
+                +1+'</td><td>'
+                +doors[j].discountPrice+'</td><td>'
+                +(doors[j].priceWithMarkup - doors[j].discountPrice)+'</td><td>'
+                +doors[j].priceWithMarkup+'</td></tr>');
+        }
+
+        $('#total').text(totalAmount);
+        $('#totalProfit').text(totalProfit);
 
     }
     function addDoor(orderId){
@@ -207,4 +249,7 @@ jQuery('document').ready(function(){
         location.href = 'doorsprint?orderId='+orderId;
 
     };
+    function setOrderId(name){
+        $('#orderIdName').text(name+' №: '+orderId);
+    }
 });
