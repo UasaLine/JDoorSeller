@@ -4,7 +4,7 @@
 <head>
     <title>door seller</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/creattemplate.js"></script>
+    <script type="text/javascript" src="js/specification.js"></script>
     <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
     <!-- Подключаем Bootstrap CSS -->
@@ -33,9 +33,10 @@
         <!--<div class="linebottom"></div>-->
 
         <div class="row">
-            <div class="col-md-2 mb-3">
-                <button type="button" class="btn btn-primary" id="saveTemplate">сохранить</button>
-                <button type="button" class="btn btn-primary" id="delete">удалить</button>
+            <div class="col">
+                <button type="button" class="btn btn-primary" id="addLine" >Добавить</button>
+                <button type="button" class="btn btn-primary" >Удалить</button>
+                <button type="button" class="btn btn-primary" id="saveSpec">Сохранить</button>
             </div>
             <div class="col-md-1 mb-3">
                 <label  for="doorclassselect">класс двери:</label>
@@ -51,23 +52,21 @@
             </div>
         </div>
 
-
-            <table class="Table">
-                <tr>
+        <table class="Table">
+            <tr>
                     <th>id</th>
                     <th>Наименование</th>
                     <th>Значение</th>
                     <th>Формула</th>
                 </tr>
-                <tr th:each="s : ${spec}">
-                    <td th:utext="${s.id}">..</td>
-                    <td th:utext="${s.name}">..</td>
-                    <td th:utext="${s.condition1}">..</td>
-                    <td th:utext="${s.calculationFormula1}">..</td>
+            <tr th:each="s : ${spec}">
+                    <td  th:utext="${s.id}">..</td>
+                    <td class="vary_field text_select"  th:utext="${s.name}">..</td>
+                    <td class="vary_field text_input" th:utext="${s.condition1}">..</td>
+                    <td class="vary_field text_input" th:utext="${s.calculationFormula1}">..</td>
 
                 </tr>
-
-            </table>
+        </table>
 
 
 

@@ -165,14 +165,19 @@ public class MainController {
     }
 
     @GetMapping(value = "/specification")
+    public String  getSpecificationPage(Model model) throws Exception {
+        return "specification";
+    }
+
+    @GetMapping(value = "/specificationbyid", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public String getSpecification(@RequestParam(required = false) String typeId,
                                    Model model) throws Exception {
 
 
-
-        model.addAttribute("spec",service.getMaterialFormulas() );
         return "specification";
     }
+
 
     @GetMapping(value = "/metal")
     public String getMetal( Model model) throws Exception {
