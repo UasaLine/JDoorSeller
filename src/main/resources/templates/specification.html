@@ -34,9 +34,9 @@
 
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-primary" id="addLine" >Добавить</button>
-                <button type="button" class="btn btn-primary" >Удалить</button>
-                <button type="button" class="btn btn-primary" id="saveSpec">Сохранить</button>
+                <button type="button" class="btn btn-primary disabled" id="addLine" >Добавить</button>
+                <button type="button" class="btn btn-primary disabled" id="deletLine">Удалить</button>
+                <button type="button" class="btn btn-primary disabled" id="saveSpec">Сохранить</button>
             </div>
             <div class="col-md-1 mb-3">
                 <label  for="doorclassselect">класс двери:</label>
@@ -54,12 +54,14 @@
 
         <table class="Table">
             <tr>
+                    <th>#</th>
                     <th>id</th>
                     <th>Наименование</th>
                     <th>Значение</th>
                     <th>Формула</th>
                 </tr>
             <tr th:each="s : ${spec}">
+                    <td>#</td>
                     <td  th:utext="${s.id}">..</td>
                     <td class="vary_field text_select"  th:utext="${s.name}">..</td>
                     <td class="vary_field text_input" th:utext="${s.condition1}">..</td>
@@ -67,7 +69,6 @@
 
                 </tr>
         </table>
-
 
 
     </div>

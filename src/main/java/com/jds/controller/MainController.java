@@ -3,6 +3,7 @@ package com.jds.controller;
 import com.jds.entity.*;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.model.Specification;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -171,12 +172,20 @@ public class MainController {
 
     @GetMapping(value = "/specificationbyid", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getSpecification(@RequestParam(required = false) String typeId,
-                                   Model model) throws Exception {
+    public Specification getSpecification(@RequestParam(required = false) String typeId,
+                                          Model model) throws Exception {
 
-
-        return "specification";
+        return service.getSpecification(typeId);
     }
+
+    @PostMapping(value = "/specification", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<LineSpecification> saveSpecification(@RequestBody Specification templateJSON) throws Exception {
+
+        return service.saveSpecification(templateJSON);
+
+    }
+
 
 
     @GetMapping(value = "/metal")

@@ -268,6 +268,16 @@ public class MainDAO {
         return limit;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public LineSpecification  saveLineSpecification(LineSpecification lineSpec){
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(lineSpec);
+
+        return lineSpec;
+
+    }
+
     public Map<TypeOfSalaryConst, Double> getSalaryConstantsMap() {
 
         Session session = sessionFactory.openSession();
@@ -507,6 +517,23 @@ public class MainDAO {
         return 0;
 
     }
+
+    public List<RawMaterials> getRawMaterials() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from raw_materials ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(RawMaterials.class);
+        List<RawMaterials> rawMaterialsList = query.list();
+
+        session.close();
+
+        return rawMaterialsList;
+
+    }
+
 
     public List<DoorFurniture> getFurnitureByType(TypeOfFurniture type, int idType) {
 
@@ -856,5 +883,26 @@ public class MainDAO {
             limitList = list;
         }
         return limitList;
+    }
+
+    public List<LineSpecification> getLineSpecification(int id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from line_specification where doorType_id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(LineSpecification.class)
+                .setParameter("id", id);
+        List<LineSpecification> list = query.list();
+
+        session.close();
+
+        return list;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteLineSpecification(LineSpecification lineSpecification){
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(lineSpecification);
     }
 }

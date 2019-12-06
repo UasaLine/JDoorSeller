@@ -6,23 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-
 
 @Entity
-@Table(name = "specification")
+@Table(name = "line_specification")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Specification {
-
+public class LineSpecification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     int id;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "doorType_id")
     DoorType doorType;
 
@@ -38,7 +35,12 @@ public class Specification {
     @Column(name = "formula")
     String formula;
 
-    @Transient
-    List<RawMaterials> availableValues;
+    @Column(name = "independent_name")
+    String independentName;
 
+    @Column(name = "release_operation")
+    String releaseOperation;
+
+    @Column(name = "write_off_operation")
+    String writeOffOperation;
 }
