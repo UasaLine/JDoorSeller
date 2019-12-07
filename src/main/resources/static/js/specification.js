@@ -338,8 +338,11 @@ jQuery('document').ready(function(){
             '<td class="vary_field text_input" id="formula'+Position+'" >'+newformula+'</td>' +
             '</tr>');
 
-        var elementPosition = $("#line"+Position).offset().top;
-        $('body,html').animate({scrollTop: elementPosition}, 500);
+        if (id==''){
+            var elementPosition = $("#line"+Position).offset().top;
+            $('body,html').animate({scrollTop: elementPosition}, 500);
+        }
+
     }
     function displayComponentVisibility() {
         if(availableValues!=null) {

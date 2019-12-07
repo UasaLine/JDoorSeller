@@ -3,6 +3,7 @@ package com.jds.service;
 import com.jds.dao.OrderDAO;
 import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorsОrder;
+import com.jds.entity.UserEntity;
 import com.jds.model.PrintAppToTheOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,16 @@ public class OrderService {
 
     public List<DoorsОrder> getOrders() {
 
-        List<DoorsОrder> orders = dAO.getOrdersByUser(userService.getCurrentUser());
+        UserEntity user = userService.getCurrentUser();
+        List<DoorsОrder> orders;
+
+        if (user.isAdmin()){
+            orders = dAO.getOrders();
+        }
+        else {
+            orders = dAO.getOrdersByUser(user);
+        }
+
         for (DoorsОrder order : orders) {
             clearNonSerializingFields(order);
         }

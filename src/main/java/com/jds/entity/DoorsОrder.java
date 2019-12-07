@@ -34,8 +34,8 @@ public class DoorsОrder {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "doors_orders",
-            joinColumns = { @JoinColumn(name = "order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "door_id") }
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "door_id")}
     )
     private List<DoorEntity> doors;
 
@@ -55,19 +55,19 @@ public class DoorsОrder {
     @Column(name = "totalQuantity")
     private int totalQuantity;
 
-    public DoorsОrder()throws Exception {
+    public DoorsОrder() throws Exception {
         doors = new ArrayList<>();
 
 
-
-        data = new java.sql.Date(new Date().getTime());;
+        data = new java.sql.Date(new Date().getTime());
+        ;
     }
 
 
-    public int deleteDoor(int id){
+    public int deleteDoor(int id) {
 
-        for (int i=0; i<doors.size(); i++){
-            if (doors.get(i).getId()==id){
+        for (int i = 0; i < doors.size(); i++) {
+            if (doors.get(i).getId() == id) {
                 doors.remove(i);
                 return 1;
             }
@@ -75,17 +75,17 @@ public class DoorsОrder {
         return 0;
     }
 
-    public DoorsОrder calculateTotal(){
+    public DoorsОrder calculateTotal() {
 
-        totalAmount=0;
-        totalTax=0;
-        totalQuantity=0;
+        totalAmount = 0;
+        totalTax = 0;
+        totalQuantity = 0;
         int tax = 20;
 
-        for (DoorEntity door:doors){
-            totalQuantity+=1;
-            totalAmount+=door.getPriceWithMarkup();
-            totalTax+=(door.getPriceWithMarkup()*tax)/(100+tax);
+        for (DoorEntity door : doors) {
+            totalQuantity += 1;
+            totalAmount += door.getPriceWithMarkup();
+            totalTax += (door.getPriceWithMarkup() * tax) / (100 + tax);
         }
 
 
@@ -181,7 +181,7 @@ public class DoorsОrder {
         this.totalTax = totalTax;
     }
 
-    public void addDoor(DoorEntity door){
+    public void addDoor(DoorEntity door) {
         this.doors.add(door);
     }
 

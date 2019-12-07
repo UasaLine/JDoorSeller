@@ -29,27 +29,36 @@
 <div class="container_main_order">
 
     <h1 class="display-4">Заказы</h1>
+    <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
+
 
     <div class="row ">
         <div class="col-md-2 mb-3">
             <button type="button" class="btn btn-primary" id="addOrder">создать</button>
             <button type="button" class="btn btn-primary" id="buttonDeleteOrder">удалить</button>
         </div>
-        <div class="col-md-1 mb-3">
+        <div class="col accessAdmin ghost">
+            <label  for="doorclassselect">user:</label>
+        </div>
+        <div class="col accessAdmin ghost">
+            <select class="form-control" id="userselect">
+            </select>
+        </div>
+        <div class="col">
             <label  for="doorclassselect">контрагент:</label>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col">
             <select class="form-control" id="doorclassselect">
             </select>
         </div>
 
-        <div class="col-md-1 mb-3">
+        <div class="col">
             <label  for="doorclassselect">дата:</label>
         </div>
-        <div class="col-md-2 mb-3">
+        <div class="col">
             <input type="date" class="form-control" id="data1" placeholder="" value="" required="">
         </div>
-        <div class="col-md-2 mb-3">
+        <div class="col">
             <input type="date" class="form-control" id="data2" placeholder="" value="" required="">
         </div>
     </div>
@@ -59,11 +68,11 @@
         <table class="Table">
             <tr >
                 <th>№</th>
+                <th>Статус</th>
                 <th>Организация</th>
                 <th>Контрагент</th>
                 <th>Дата</th>
                 <th>Дата готов-ти</th>
-                <th>Статус</th>
                 <th>Менеджер</th>
                 <th>Комментарий</th>
                 <th>Кол-во</th>
@@ -73,11 +82,11 @@
 
             <tr th:each="accountInfo : ${accountInfos}">
                 <td class="id"  th:utext="${accountInfo.id}">..</td>
+                <td >расчет</td>
                 <td th:utext="${accountInfo.company}">..</td>
                 <td th:utext="${accountInfo.partner}">..</td>
                 <td th:utext="${accountInfo.data}">..</td>
                 <td th:utext="${accountInfo.releasDate}">..</td>
-                <td th:utext="${accountInfo.productionStart}">..</td>
                 <td th:utext="${accountInfo.seller.username}">..</td>
                 <td th:utext="${accountInfo.comment}">..</td>
                 <td th:utext="${accountInfo.totalQuantity}">..</td>

@@ -29,6 +29,7 @@ public class OrderController {
     public String getOrdersPage(Model model) throws Exception {
         List<DoorsОrder> list = orderService.getOrders();
         model.addAttribute("accountInfos", list);
+        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
         return "orders";
     }
 

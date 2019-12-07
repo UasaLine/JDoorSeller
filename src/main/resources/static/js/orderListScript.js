@@ -1,7 +1,11 @@
 jQuery('document').ready(function(){
 	
 	 var curreiId = 0;
-	
+
+	 displayAdminField();
+
+
+
 	$('tr').on('dblclick',function(){
 					
 		getOrder($(this).children('.id').text());		
@@ -57,5 +61,13 @@ jQuery('document').ready(function(){
         }
         $(item).attr('pickOut','on');
     }
-
+    function displayAdminField() {
+        var isAdmin = $('#isAdmin').text();
+        if (isAdmin=='true'){
+          var  accessElem = $('.accessAdmin');
+          for (var i=0;i<accessElem.length;i++){
+              $(accessElem[i]).removeClass('ghost');
+          }
+        }
+    };
 });
