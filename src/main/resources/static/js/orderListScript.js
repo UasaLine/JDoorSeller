@@ -4,8 +4,6 @@ jQuery('document').ready(function(){
 
 	 displayAdminField();
 
-
-
 	$('tr').on('dblclick',function(){
 					
 		getOrder($(this).children('.id').text());		

@@ -27,7 +27,7 @@ jQuery('document').ready(function () {
         door = data;
         id = door.id;
         displayObject(door);
-        displayDoorClass2();
+        displayDoorClass3();
         displayPrice();
         fillInTheFieldsToTheTemplate(data.template);
         $('.select_door_class').attr('show', 'is_alive_lement');
@@ -755,6 +755,43 @@ jQuery('document').ready(function () {
                     .text(doorTypes[j].name)
                     .appendTo('#card-body' + divId + j);
             }
+        }
+    };
+
+    function displayDoorClass3() {
+
+        $('.class_card').remove();
+
+        for (var i = 0; i < door.availableDoorClass.length; ++i) {
+
+            var divName = door.availableDoorClass[i].name;
+            var divId = door.availableDoorClass[i].id;
+
+
+
+                $('<div>')
+                    .attr('class', 'card text-white bg-dark class_card')
+                    .attr('id', 'doorClass' + divId)
+                    .appendTo('.select_door_class');
+
+                $('<img>')
+                    .attr('class', 'images_door_class card-img-top')
+                    .attr('data', divId)
+                    .attr('dataName', divName)
+                    .attr('src', door.availableDoorClass[i].description)
+                    .attr('Item', 'doorClass')
+                    .appendTo('#doorClass' + divId);
+
+                $('<div>')
+                    .attr('class', 'card-body')
+                    .attr('id', 'card-body' + divId)
+                    .appendTo('#doorClass' + divId);
+
+                    $('<p>')
+                        .attr('class', 'card-text')
+                        .text(divName)
+                        .appendTo('#card-body' + divId);
+
         }
     };
 
