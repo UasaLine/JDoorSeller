@@ -38,6 +38,12 @@ jQuery('document').ready(function () {
     //--------------------------------------
 
     $('.select_door_class').on('click', '.images_door_class', function () {
+
+        fillInType($(this).attr('data'));
+        $('.select_door_class').attr('show', 'ghost_lement');
+        $('.select_door_type').attr('show', 'is_alive_lement');
+        return;
+
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
         setDoorField("doorLeaf", doorLeaf);
         setDoorField($(this).attr('Item'), getDoorTypeFromAvailable($(this).attr('data')));
@@ -1498,4 +1504,29 @@ jQuery('document').ready(function () {
             $('#'+name+'_checkbox').prop('checked', false);
         }
     };
+
+    function fillInType(idDoorClass){
+
+        $('.typeLine').remove();
+
+        for (var i = 0; i < door.availableDoorClass.length; ++i) {
+
+
+           if (door.availableDoorClass[i].id == idDoorClass){
+               var doorTypes = door.availableDoorClass[i].doorTypes;
+               for (var j = 0; j < doorTypes.length; ++j) {
+
+                   $('<li>')
+                       .attr('class', 'typeLine list-group-item')
+                       .attr('id', 'doorType' + doorTypes[j].id)
+                       .attr('data', doorTypes[j].id)
+                       .text(doorTypes[j].name)
+                       .attr('Item', 'doorType')
+                       .appendTo('.select_door_type');
+               };
+            }
+        }
+
+
+    }
 });
