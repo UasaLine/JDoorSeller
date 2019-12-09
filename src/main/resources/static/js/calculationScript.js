@@ -21,16 +21,19 @@ jQuery('document').ready(function () {
     var sizeMax = 0;
 
 
-    getNewDoorInstans();
+    getNewDoorInstans(true);
 
-    function FillOutForm(data) {
+    function FillOutForm(data,updateClassDiv) {
         door = data;
         id = door.id;
         displayObject(door);
-        displayDoorClass3();
+        if(updateClassDiv){
+            displayDoorClass3();
+            $('.select_door_class').attr('show', 'is_alive_lement');
+        }
         displayPrice();
         fillInTheFieldsToTheTemplate(data.template);
-        $('.select_door_class').attr('show', 'is_alive_lement');
+
     }
 
     //--------------------------------------
@@ -42,16 +45,29 @@ jQuery('document').ready(function () {
         fillInType($(this).attr('data'));
         $('.select_door_class').attr('show', 'ghost_lement');
         $('.select_door_type').attr('show', 'is_alive_lement');
-        return;
+
+    });
+
+    $('.select_door_type').on('click', '.typeLine', function () {
 
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
         setDoorField("doorLeaf", doorLeaf);
         setDoorField($(this).attr('Item'), getDoorTypeFromAvailable($(this).attr('data')));
-        representationField($(this).attr('dataName'));
+        //representationField($(this).attr('dataName'));
         pickOut(this);
         //getListOfSelectionFields();
-        getNewDoorInstans();
+        getNewDoorInstans(false);
     });
+    $('.select_door_type').on('mouseenter', '.typeLine', function (){
+        var id = $(this).attr('data');
+        $('#doorTypeDaughter'+id).removeClass('ghost');
+
+    });
+    $('.select_door_type').on('mouseleave', '.typeLine', function (){
+        var id = $(this).attr('data');
+        $('#doorTypeDaughter'+id).addClass('ghost');
+    });
+
 
     $('.list-group-item-action').on('click', function () {
         alert($(this).text());
@@ -359,15 +375,6 @@ jQuery('document').ready(function () {
             $('.priceghost').attr('show', 'ghost_lement');
         });
 
-    $('.select_door_type').on('mouseenter', '.typeLine', function (){
-        var id = $(this).attr('data');
-        $('#doorTypeDaughter'+id).removeClass('ghost');
-
-    });
-    $('.select_door_type').on('mouseleave', '.typeLine', function (){
-        var id = $(this).attr('data');
-        $('#doorTypeDaughter'+id).addClass('ghost');
-    });
 
     //select namber
 
@@ -920,7 +927,7 @@ jQuery('document').ready(function () {
         }
         else {
             $('.select_door_class').attr('show', 'ghost_lement');
-            $('.select_door_type').attr('show', 'ghost_lement');
+            $('.select_door_type').addClass('ghost');
         }
 
         if (currentItem == "metal") {
@@ -1475,7 +1482,7 @@ jQuery('document').ready(function () {
         return 0;
     }
 
-    function getNewDoorInstans() {
+    function getNewDoorInstans(updateClassDiv) {
 
         var typid = 0;
         if (door != null) {
@@ -1487,7 +1494,7 @@ jQuery('document').ready(function () {
             data: {id: id, orderId: orderId, typid: typid},
             dataType: 'json',
             success: function (data) {
-                FillOutForm(data);
+                FillOutForm(data,updateClassDiv);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -1545,7 +1552,7 @@ jQuery('document').ready(function () {
                        .attr('data', doorTypes[j].id)
                        .text(doorTypes[j].name)
                        .attr('Item', 'doorType')
-                       .appendTo('.select_door_type');
+                       .appendTo('.select_door_type_list');
 
                        $('<div>')
                            .attr('class', 'typeLineDaughter ghost')

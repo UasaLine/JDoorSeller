@@ -53,7 +53,7 @@
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     color: #373a3c;
     text-decoration: none;
-    cursor: pointer;
+    cursor: url(/images/Fable_Sword.gif), pointer;;
     border-bottom: 1px solid #373a3c;
 }
 
@@ -255,7 +255,6 @@ tr:hover {
     border-bottom: solid 1px #A9A9A9;
     margin: 5px;
     cursor: url(/images/Fable_Sword.gif), pointer;
-
 }
 
 .select_metal {
@@ -426,7 +425,7 @@ tr:hover {
     padding: 10px 0px 0px 10px;
     left: 5px;
     top: 9px;
-    cursor: pointer;
+    cursor: url(/images/Fable_Sword.gif), pointer;;
     z-index: 12;
 }
 
@@ -460,7 +459,7 @@ tr:hover {
     position: absolute;
     left: 158px;
     top: 9px;
-    cursor: pointer;
+    cursor: url(/images/Fable_Sword.gif), pointer;;
     z-index: 12;
 }
 
@@ -531,7 +530,7 @@ tr:hover {
 }
 
 .button_cap_menu:hover {
-    cursor: pointer;
+    cursor: url(/images/Fable_Sword.gif), pointer;;
     text-decoration: none;
     font-size: 20px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
@@ -591,7 +590,7 @@ tr:hover {
 }
 
 .pag:hover {
-    cursor: pointer;
+    cursor: url(/images/Fable_Sword.gif), pointer;;
 }
 
 .headerLine {
