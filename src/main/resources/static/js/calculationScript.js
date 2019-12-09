@@ -927,7 +927,7 @@ jQuery('document').ready(function () {
         }
         else {
             $('.select_door_class').attr('show', 'ghost_lement');
-            $('.select_door_type').addClass('ghost');
+            $('.select_door_type').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "metal") {
