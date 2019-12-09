@@ -148,6 +148,7 @@ tr:hover {
 .navigation_panel_div {
     padding: 8.7px 0px 0px 0px;
     height: 30px;
+    display: inline-block;
 }
 
 .navigation_panel {
@@ -253,6 +254,7 @@ tr:hover {
     background-color: #343a40;
     border-bottom: solid 1px #A9A9A9;
     margin: 5px;
+    cursor: url(/images/Fable_Sword.gif), pointer;
 
 }
 
@@ -334,17 +336,6 @@ tr:hover {
 [check ='checkbox'] {
 / / border: 2 px dashed #696969;
     background-color: #696969;
-}
-
-.images_door_class:hover {
-/ / border: 2 px dashed #696969;
-    background-color: #696969;
-}
-
-.images_door_class {
-    padding: 5px 5px 5px 5px;
-    cursor: pointer;
-/ / display: block-lile;
 }
 
 .description_images_door_class {
@@ -642,8 +633,39 @@ tr:hover {
     margin-bottom: 5px;
 }
 
+/* ------------------------------------------------- */
+/* card */
+/* ------------------------------------------------- */
+
 .card{
     float:left;
-    width: 47%;
+    width: 98%;
     margin-left:3px;
+    margin-bottom:3px;
+}
+
+.images_door_class {
+    padding: 5px 5px 5px 5px;
+    width:30%;
+    margin-top:1px;
+    vertical-align: top;
+}
+
+.card:hover {
+    border:1px solid white;
+    cursor: url(/images/Fable_Sword.gif), pointer;
+}
+
+.images_door_class_p{
+    width:60%;
+    display: inline-block;
+    font-size: 21px;
+    text-align:center;
+}
+.card-body{
+    font-size: 15px;
+}
+
+.typeLine:hover{
+    cursor: url(/images/Fable_Sword.gif), pointer;
 }

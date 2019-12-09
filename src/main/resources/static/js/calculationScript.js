@@ -37,7 +37,7 @@ jQuery('document').ready(function () {
     //select
     //--------------------------------------
 
-    $('.select_door_class').on('click', '.images_door_class', function () {
+    $('.select_door_class').on('click', '.class_card', function () {
 
         fillInType($(this).attr('data'));
         $('.select_door_class').attr('show', 'ghost_lement');
@@ -358,6 +358,16 @@ jQuery('document').ready(function () {
         function () {
             $('.priceghost').attr('show', 'ghost_lement');
         });
+
+    $('.select_door_type').on('mouseenter', '.typeLine', function (){
+        var id = $(this).attr('data');
+        $('#doorTypeDaughter'+id).removeClass('ghost');
+
+    });
+    $('.select_door_type').on('mouseleave', '.typeLine', function (){
+        var id = $(this).attr('data');
+        $('#doorTypeDaughter'+id).addClass('ghost');
+    });
 
     //select namber
 
@@ -773,20 +783,32 @@ jQuery('document').ready(function () {
             var divName = door.availableDoorClass[i].name;
             var divId = door.availableDoorClass[i].id;
 
-
-
                 $('<div>')
                     .attr('class', 'card text-white bg-dark class_card')
+                    .attr('data', divId)
                     .attr('id', 'doorClass' + divId)
                     .appendTo('.select_door_class');
 
-                $('<img>')
-                    .attr('class', 'images_door_class card-img-top')
-                    .attr('data', divId)
-                    .attr('dataName', divName)
-                    .attr('src', door.availableDoorClass[i].description)
-                    .attr('Item', 'doorClass')
-                    .appendTo('#doorClass' + divId);
+                    $('<div>')
+                        .attr('class', 'images_door_class_div')
+                        .attr('id', 'doorClassDiv' + divId)
+                        .appendTo('#doorClass' + divId);
+
+                        $('<img>')
+                            .attr('class', 'images_door_class')
+                            .attr('dataName', divName)
+                            .attr('src', door.availableDoorClass[i].description)
+                            .attr('Item', 'doorClass')
+                            .appendTo('#doorClassDiv' + divId);
+
+                            $('<div>')
+                                .attr('class', 'images_door_class_p')
+                                .attr('id', 'doorClassDivP' + divId)
+                                .appendTo('#doorClassDiv' + divId);
+
+                                $('<p>')
+                                    .text(divName)
+                                    .appendTo('#doorClassDivP' + divId);
 
                 $('<div>')
                     .attr('class', 'card-body')
@@ -795,7 +817,7 @@ jQuery('document').ready(function () {
 
                     $('<p>')
                         .attr('class', 'card-text')
-                        .text(divName)
+                        .text(door.availableDoorClass[i].description)
                         .appendTo('#card-body' + divId);
 
         }
@@ -898,6 +920,7 @@ jQuery('document').ready(function () {
         }
         else {
             $('.select_door_class').attr('show', 'ghost_lement');
+            $('.select_door_type').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "metal") {
@@ -1523,6 +1546,23 @@ jQuery('document').ready(function () {
                        .text(doorTypes[j].name)
                        .attr('Item', 'doorType')
                        .appendTo('.select_door_type');
+
+                       $('<div>')
+                           .attr('class', 'typeLineDaughter ghost')
+                           .attr('id', 'doorTypeDaughter' + doorTypes[j].id)
+                           .appendTo('#doorType' + doorTypes[j].id);
+
+                           $('<img>')
+                               .attr('class', 'images_door_class')
+                               .attr('src', doorTypes[j].namePicture)
+                               .appendTo('#doorTypeDaughter' + doorTypes[j].id);
+
+                   $('#doorType' + doorTypes[j].id).on('hover',function(){
+                       var id = $(this).attr('data');
+                       alert(id);
+                       $('#doorType' + doorTypes[j].id).removeClass('ghost');
+
+                   });
                };
             }
         }
