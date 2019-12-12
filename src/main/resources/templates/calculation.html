@@ -34,11 +34,22 @@
 <br>
 
 <div class="container_main_order">
-    <button type="button" class="btn btn-dark" id="buttonCalculate">рассчитать</button>
-    <button type="button" class="btn btn-dark" id="buttonSaveDoor">сохранить</button>
-    <button type="button" class="btn btn-dark" id="buttonGetCutteig">показать расчет</button>
-    <div class="navigation_panel_div">
 
+    <div class="row">
+        <div class="col-8 ">
+            <button type="button" class="btn btn-dark" id="buttonCalculate">рассчитать</button>
+            <button type="button" class="btn btn-dark" id="buttonSaveDoor">сохранить</button>
+            <button type="button" class="btn btn-dark" id="buttonGetCutteig">показать расчет</button>
+            <div class="navigation_panel_div ghost">
+            </div>
+        </div>
+
+        <div class="col-2 ">
+            <div class="btn-group small_indent" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
+                <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -214,7 +225,6 @@
             <h1 class="display-3 font-italic">начни создавать дверь с выбора класса</h1>
         </div>
 
-
         <!--door_class-->
         <div class="select_door_class" show="ghost_lement">
         </div>
@@ -280,16 +290,8 @@
         <div class="select_widthDoor"     show="ghost_lement" >
 
             <div class="input_div" id="widthDoorDiv"  >
-                <!--
-				<div class="left_cell_checkbox">
-                    <span>Ширина (L):</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputWidthDoor" type="text" value="" size="4" placeholder="0">
-                </div>
-				-->
                 <div>
-                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                    <button type="button" class="btn btn-dark btn-lg btn-block select_size"
                             id="inputWidthDoor"
                             name="Ширина (L):"
                             data="0">Ширина (L):</button>
@@ -307,16 +309,9 @@
             </div>
 
             <div class="input_div" id="ActivDoorLeafWidthDiv" DoorLeaf="2" show="ghost_lement" >
-                <!--
-                <div class="left_cell_checkbox">
-                    <span>Ширина активной створки(I):</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputActivDoorLeafWidth" type="text" value="" size="4" placeholder="0">
-                </div>
-                -->
+
                 <div >
-                    <button type="button" class="btn btn-secondary btn-lg select_size"
+                    <button type="button" class="btn btn-dark btn-lg select_size"
                             id="inputActivDoorLeafWidth"
                             name="Ширина активной створки(I):"
                             data="0">Ширина активной створки(I):</button>
@@ -332,16 +327,9 @@
         <div class="select_heightDoor"    show="ghost_lement" >
 
             <div class="input_div" id="heightDoorDiv" >
-                <!--
-                <div class="left_cell_checkbox">
-                    <span>Высота (H):</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputHeightDoor" type="text" value="" size="4" placeholder="0">
-                </div>
-                -->
+
                 <div >
-                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                    <button type="button" class="btn btn-dark btn-lg btn-block select_size"
                             id="inputHeightDoor"
                             name="Высота (H):"
                             data="0">Высота (H):</button>
@@ -371,16 +359,9 @@
             </div>
 
             <div class="input_div" id = "fanlightHeightDiv"fanlight="1"  show="ghost_lement">
-                <!--
-                <div class="left_cell_checkbox">
-                    <span>Высота фрамуги (k):</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <input class="input_size" id="inputHeightFanlight" type="text" value="" size="4" placeholder="0">
-                </div>
-                -->
+
                 <div >
-                    <button type="button" class="btn btn-secondary btn-lg btn-block select_size"
+                    <button type="button" class="btn btn-dark btn-lg btn-block select_size"
                             id="inputHeightFanlight"
                             name="Высота фрамуги (k):"
                             data="0">Высота фрамуги (k):</button>
@@ -396,6 +377,7 @@
                 <img class="images_widthDoor"  src="images/annotate note/Transom height2.jpg">
                 <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах. </div>
             </div>
+
         </div>
 
         <!--deepnessDoor-->

@@ -20,6 +20,8 @@ jQuery('document').ready(function () {
     var sizeMin = 0;
     var sizeMax = 0;
 
+    var historyList = new Array();
+    var currentHisPoint = 0;
 
     getNewDoorInstans(true);
 
@@ -29,7 +31,8 @@ jQuery('document').ready(function () {
         displayObject(door);
         if(updateClassDiv){
             displayDoorClass3();
-            $('.select_door_class').attr('show', 'is_alive_lement');
+            currentItem = 'doorClass';
+            hideShowField(true);
         }
         displayPrice();
         fillInTheFieldsToTheTemplate(data.template);
@@ -43,8 +46,14 @@ jQuery('document').ready(function () {
     $('.select_door_class').on('click', '.class_card', function () {
 
         fillInType($(this).attr('data'));
-        $('.select_door_class').attr('show', 'ghost_lement');
-        $('.select_door_type').attr('show', 'is_alive_lement');
+
+        currentItem = 'doorType';
+        currentItemForDisplay = $(this).html();
+        currentItemDaughterForDisplay = "";
+        currentItemForDisplayId = currentItem;
+        failureToSetValue = false;
+
+        hideShowField(true);
 
     });
 
@@ -69,13 +78,7 @@ jQuery('document').ready(function () {
     });
 
 
-    $('.list-group-item-action').on('click', function () {
-        alert($(this).text());
-    });
-
     $('.vertical_menu_button').on('click', function () {
-
-        $('.arrow_explanations').attr('show', 'ghost_lement');
 
         if ($('#name' + $(this).attr('id') + '').attr('available') === "yes") {
             assignPreviouValue();
@@ -446,6 +449,12 @@ jQuery('document').ready(function () {
 
     });
 
+    $('#backHis').on('click',function (){
+            backHistoryList();
+    });
+    $('#nextHis').on('click',function (){
+        nextHistoryList();
+    });
 
     //--------------------------------------
     //setter
@@ -922,226 +931,7 @@ jQuery('document').ready(function () {
         currentItemForDisplayId = currentItem;
         failureToSetValue = false;
 
-        if (currentItem == "doorClass") {
-            $('.select_door_class').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_door_class').attr('show', 'ghost_lement');
-            $('.select_door_type').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "metal") {
-            $('.select_metal').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_metal').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "widthDoor") {
-            $('.select_widthDoor').attr('show', 'is_alive_lement');
-            if (door != null && door.widthDoor != null && door.widthDoor != 0) {
-                $('#inputWidthDoor').attr('value', door.widthDoor);
-            }
-            if (doorLeaf == 1) {
-                $('[DoorLeaf="1"]').attr('show', 'is_alive_lement');
-                $('[DoorLeaf="2"]').attr('show', 'ghost_lement');
-            }
-            else {
-                $('[DoorLeaf="1"]').attr('show', 'ghost_lement');
-                $('[DoorLeaf="2"]').attr('show', 'is_alive_lement');
-            }
-        }
-        else {
-            $('.select_widthDoor').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "heightDoor") {
-
-            $('.select_heightDoor').attr('show', 'is_alive_lement');
-            if (door != null && door.heightDoor != null && door.heightDoor != 0) {
-                $('#inputHeightDoor').attr('value', door.heightDoor);
-            }
-
-
-            if (doorLeaf == 1) {
-                $('[DoorLeaf="1"]').attr('show', 'is_alive_lement');
-                $('[DoorLeaf="2"]').attr('show', 'ghost_lement');
-            }
-            else {
-                $('[DoorLeaf="1"]').attr('show', 'ghost_lement');
-                $('[DoorLeaf="2"]').attr('show', 'is_alive_lement');
-            }
-
-            if (fanlight == 1) {
-                $('[fanlight="1"]').attr('show', 'is_alive_lement');
-                $('[doorLeaf="' + doorLeaf + '"][fanlight="1"]').attr('show', 'ghost_lement');
-            }
-            else {
-                $('[fanlight="1"]').attr('show', 'ghost_lement');
-            }
-
-        }
-        else {
-            $('.select_heightDoor').attr('show', 'ghost_lement');
-
-        }
-
-        if (currentItem == "deepnessDoor") {
-            $('.select_deepnessDoor').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_deepnessDoor').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "thicknessDoorLeaf") {
-            $('.select_thicknessDoorLeaf').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_thicknessDoorLeaf').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "sideDoorOpen") {
-            $('.select_sideDoorOpen').attr('show', 'is_alive_lement');
-            displaySideDoorOpen();
-        }
-        else {
-            $('.select_sideDoorOpen').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "additionalDoorSettings") {
-            $('.select_additionalDoorSettings').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_additionalDoorSettings').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "doorColor") {
-            $('.select_doorColor').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_doorColor').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "doorGlass") {
-            $('.select_doorGlass').attr('show', 'is_alive_lement');
-            displayGlass();
-        }
-        else {
-            $('.select_doorGlass').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "typeDoorGlass") {
-
-            $('.select_typeDoorGlass').attr('show', 'is_alive_lement');
-
-            currentItemForDisplay = $('#namedoorGlass').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'doorGlass';
-        }
-        else {
-            $('.select_typeDoorGlass').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "toning") {
-
-            $('.select_toning').attr('show', 'is_alive_lement');
-
-            currentItemForDisplay = $('#namedoorGlass').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'doorGlass';
-        }
-        else {
-            $('.select_toning').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "armor") {
-            $('.select_armor').attr('show', 'is_alive_lement');
-
-            currentItemForDisplay = $('#namedoorGlass').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'doorGlass';
-        }
-        else {
-            $('.select_armor').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "topLockkit") {
-            $('.select_topLockkit').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_topLockkit').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "topLock") {
-            $('.select_topLock').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#nametopLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'topLockkit';
-        }
-        else {
-            $('.select_topLock').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "lowerLockkit") {
-            $('.select_lowerLockkit').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_lowerLockkit').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "lowerLock") {
-            $('.select_lowerLock').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#namelowerLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'lowerLockkit';
-        }
-        else {
-            $('.select_lowerLock').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "handle") {
-            $('.select_handle').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_handle').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "additionally") {
-            $('.select_additionally').attr('show', 'is_alive_lement');
-        }
-        else {
-            $('.select_additionally').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "closer") {
-            $('.select_closer').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#nameadditionally').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'additionally';
-        }
-        else {
-            $('.select_closer').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "endDoorLock") {
-            $('.select_endDoorLock').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#nameadditionally').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'additionally';
-        }
-        else {
-            $('.select_endDoorLock').attr('show', 'ghost_lement');
-        }
-
-        if (currentItem == "lowerlockCylinder") {
-            $('.select_lowerlockCylinder').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#namelowerLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'lowerLockkit';
-        }
-        else {
-            $('.select_lowerlockCylinder').attr('show', 'ghost_lement');
-        }
+        hideShowField(true);
         addNavigation();
 
     };
@@ -1575,5 +1365,273 @@ jQuery('document').ready(function () {
         }
 
 
+    }
+
+    function hideShowField(addHistory) {
+
+        if (addHistory){
+            addToTheHistoryList(currentItem);
+        }
+
+
+        if (currentItem == "doorClass") {
+            $('.select_door_class').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_door_class').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "doorType") {
+
+            $('.select_door_type').attr('show', 'is_alive_lement');
+        }
+        else {
+
+            $('.select_door_type').attr('show', 'ghost_lement');
+        }
+
+
+        if (currentItem == "metal") {
+            $('.select_metal').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_metal').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "widthDoor") {
+            $('.select_widthDoor').attr('show', 'is_alive_lement');
+            if (door != null && door.widthDoor != null && door.widthDoor != 0) {
+                $('#inputWidthDoor').attr('value', door.widthDoor);
+            }
+            if (doorLeaf == 1) {
+                $('[DoorLeaf="1"]').attr('show', 'is_alive_lement');
+                $('[DoorLeaf="2"]').attr('show', 'ghost_lement');
+            }
+            else {
+                $('[DoorLeaf="1"]').attr('show', 'ghost_lement');
+                $('[DoorLeaf="2"]').attr('show', 'is_alive_lement');
+            }
+        }
+        else {
+            $('.select_widthDoor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "heightDoor") {
+
+            $('.select_heightDoor').attr('show', 'is_alive_lement');
+            if (door != null && door.heightDoor != null && door.heightDoor != 0) {
+                $('#inputHeightDoor').attr('value', door.heightDoor);
+            }
+
+
+            if (doorLeaf == 1) {
+                $('[DoorLeaf="1"]').attr('show', 'is_alive_lement');
+                $('[DoorLeaf="2"]').attr('show', 'ghost_lement');
+            }
+            else {
+                $('[DoorLeaf="1"]').attr('show', 'ghost_lement');
+                $('[DoorLeaf="2"]').attr('show', 'is_alive_lement');
+            }
+
+            if (fanlight == 1) {
+                $('[fanlight="1"]').attr('show', 'is_alive_lement');
+                $('[doorLeaf="' + doorLeaf + '"][fanlight="1"]').attr('show', 'ghost_lement');
+            }
+            else {
+                $('[fanlight="1"]').attr('show', 'ghost_lement');
+            }
+
+        }
+        else {
+            $('.select_heightDoor').attr('show', 'ghost_lement');
+
+        }
+
+        if (currentItem == "deepnessDoor") {
+            $('.select_deepnessDoor').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_deepnessDoor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "thicknessDoorLeaf") {
+            $('.select_thicknessDoorLeaf').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_thicknessDoorLeaf').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "sideDoorOpen") {
+            $('.select_sideDoorOpen').attr('show', 'is_alive_lement');
+            displaySideDoorOpen();
+        }
+        else {
+            $('.select_sideDoorOpen').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "additionalDoorSettings") {
+            $('.select_additionalDoorSettings').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_additionalDoorSettings').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "doorColor") {
+            $('.select_doorColor').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_doorColor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "doorGlass") {
+            $('.select_doorGlass').attr('show', 'is_alive_lement');
+            displayGlass();
+        }
+        else {
+            $('.select_doorGlass').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "typeDoorGlass") {
+
+            $('.select_typeDoorGlass').attr('show', 'is_alive_lement');
+
+            currentItemForDisplay = $('#namedoorGlass').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'doorGlass';
+        }
+        else {
+            $('.select_typeDoorGlass').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "toning") {
+
+            $('.select_toning').attr('show', 'is_alive_lement');
+
+            currentItemForDisplay = $('#namedoorGlass').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'doorGlass';
+        }
+        else {
+            $('.select_toning').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "armor") {
+            $('.select_armor').attr('show', 'is_alive_lement');
+
+            currentItemForDisplay = $('#namedoorGlass').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'doorGlass';
+        }
+        else {
+            $('.select_armor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "topLockkit") {
+            $('.select_topLockkit').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_topLockkit').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "topLock") {
+            $('.select_topLock').attr('show', 'is_alive_lement');
+            currentItemForDisplay = $('#nametopLockkit').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'topLockkit';
+        }
+        else {
+            $('.select_topLock').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "lowerLockkit") {
+            $('.select_lowerLockkit').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_lowerLockkit').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "lowerLock") {
+            $('.select_lowerLock').attr('show', 'is_alive_lement');
+            currentItemForDisplay = $('#namelowerLockkit').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'lowerLockkit';
+        }
+        else {
+            $('.select_lowerLock').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "handle") {
+            $('.select_handle').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_handle').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "additionally") {
+            $('.select_additionally').attr('show', 'is_alive_lement');
+        }
+        else {
+            $('.select_additionally').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "closer") {
+            $('.select_closer').attr('show', 'is_alive_lement');
+            currentItemForDisplay = $('#nameadditionally').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'additionally';
+        }
+        else {
+            $('.select_closer').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "endDoorLock") {
+            $('.select_endDoorLock').attr('show', 'is_alive_lement');
+            currentItemForDisplay = $('#nameadditionally').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'additionally';
+        }
+        else {
+            $('.select_endDoorLock').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "lowerlockCylinder") {
+            $('.select_lowerlockCylinder').attr('show', 'is_alive_lement');
+            currentItemForDisplay = $('#namelowerLockkit').html();
+            currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'lowerLockkit';
+        }
+        else {
+            $('.select_lowerlockCylinder').attr('show', 'ghost_lement');
+        }
+    }
+    
+    function addToTheHistoryList(val) {
+        historyList[currentHisPoint] = val;
+        currentHisPoint++;
+    }
+
+    function backHistoryList() {
+        if (historyList==null){
+            return;
+        }
+        var sizeHis = historyList.length;
+        var index = currentHisPoint-2;
+        if (sizeHis > 0 && index < sizeHis && !(index < 0)){
+            currentItem = historyList[index];
+            hideShowField(false);
+            currentHisPoint--;
+        }
+    }
+    function nextHistoryList() {
+        if (historyList==null){
+            return;
+        }
+        var sizeHis = historyList.length;
+        var index = currentHisPoint;
+        if (sizeHis > 0 && index < sizeHis && !(index < 0)){
+            currentItem = historyList[index];
+            hideShowField(false);
+            currentHisPoint++;
+        }
     }
 });
