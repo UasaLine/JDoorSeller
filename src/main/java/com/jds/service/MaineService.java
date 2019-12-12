@@ -25,13 +25,14 @@ public class MaineService {
     private MainDAO dAO;
 
     public void saveOrUpdateDoorClass(String classId, String name, String description,
-                                      boolean fireproofcheckbox, boolean hotcheckbox) {
+                                      boolean fireproofcheckbox, boolean hotcheckbox,String namePicture) {
 
         dAO.saveOrUpdateDoorClassById(new DoorClass(Integer.parseInt(classId)
                 , name
                 , description
                 , dooltranslateIntoInt(fireproofcheckbox)
-                , dooltranslateIntoInt(hotcheckbox)));
+                , dooltranslateIntoInt(hotcheckbox)
+                , namePicture));
 
     }
 
@@ -45,7 +46,7 @@ public class MaineService {
                 .collect(Collectors.toList());
     }
 
-    public DoorClass getDoorClass(String calassId) {
+    public DoorClass getDoorClass(@NonNull String calassId) {
         return dAO.getDoorClass(Integer.parseInt(calassId));
     }
 

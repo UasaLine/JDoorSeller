@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Door_Colors")
 public class DoorColors implements LimiItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

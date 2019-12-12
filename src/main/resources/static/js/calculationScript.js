@@ -719,77 +719,6 @@ jQuery('document').ready(function () {
         }
     };
 
-    function displayDoorClass() {
-
-        for (var i = 0; i < door.availableDoorClass.length; ++i) {
-
-            var divName = door.availableDoorClass[i].name;
-            var divId = door.availableDoorClass[i].id;
-
-            $('<div>')
-                .attr('class', 'images_div')
-                .attr('id', 'doorClass' + divId)
-                .appendTo('.select_door_class');
-
-            var doorTypes = door.availableDoorClass[i].doorTypes;
-            for (var j = 0; j < doorTypes.length; ++j) {
-                $('<img>')
-                    .attr('class', 'images_door_class')
-                    .attr('data', doorTypes[j].id)
-                    .attr('dataName', divName)
-                    .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
-                    .attr('src', doorTypes[j].namePicture)
-                    .attr('Item', 'doorType')
-                    .appendTo('#doorClass' + divId);
-            }
-            $('<div>')
-                .attr('class', 'description_images_door_class')
-                .text(door.availableDoorClass[i].description)
-                .appendTo('#doorClass' + divId);
-        }
-
-    };
-
-    function displayDoorClass2() {
-
-
-        $('.class_card').remove();
-
-        for (var i = 0; i < door.availableDoorClass.length; ++i) {
-
-            var divName = door.availableDoorClass[i].name;
-            var divId = door.availableDoorClass[i].id;
-
-            var doorTypes = door.availableDoorClass[i].doorTypes;
-            for (var j = 0; j < doorTypes.length; ++j) {
-
-                $('<div>')
-                    .attr('class', 'card class_card')
-                    .attr('id', 'doorClass' + divId)
-                    .appendTo('.select_door_class');
-
-                $('<img>')
-                    .attr('class', 'images_door_class card-img-top')
-                    .attr('data', doorTypes[j].id)
-                    .attr('dataName', divName)
-                    .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
-                    .attr('src', doorTypes[j].namePicture)
-                    .attr('Item', 'doorType')
-                    .appendTo('#doorClass' + divId);
-
-                $('<div>')
-                    .attr('class', 'card-body')
-                    .attr('id', 'card-body' + divId + j)
-                    .appendTo('#doorClass' + divId);
-
-                $('<p>')
-                    .attr('class', 'card-text')
-                    .text(doorTypes[j].name)
-                    .appendTo('#card-body' + divId + j);
-            }
-        }
-    };
-
     function displayDoorClass3() {
 
         $('.class_card').remove();
@@ -800,7 +729,7 @@ jQuery('document').ready(function () {
             var divId = door.availableDoorClass[i].id;
 
                 $('<div>')
-                    .attr('class', 'card text-white bg-dark class_card')
+                    .attr('class', 'card text-dark border-dark class_card')
                     .attr('data', divId)
                     .attr('id', 'doorClass' + divId)
                     .appendTo('.select_door_class');
@@ -813,7 +742,7 @@ jQuery('document').ready(function () {
                         $('<img>')
                             .attr('class', 'images_door_class')
                             .attr('dataName', divName)
-                            .attr('src', door.availableDoorClass[i].description)
+                            .attr('src', door.availableDoorClass[i].namePicture)
                             .attr('Item', 'doorClass')
                             .appendTo('#doorClassDiv' + divId);
 
@@ -838,7 +767,6 @@ jQuery('document').ready(function () {
 
         }
     };
-
 
     function displayMetal(data) {
 

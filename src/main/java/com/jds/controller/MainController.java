@@ -28,7 +28,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity principal = (UserEntity) authentication.getPrincipal();
 
-        if (principal.isAdmin()){
+        if (principal.isAdmin()) {
             return "minePageBootstr";
         }
         return "redirect:orders";
@@ -71,6 +71,7 @@ public class MainController {
         model.addAttribute("description", doorClass.getDescription());
         model.addAttribute("fireproof", doorClass.getFireproof());
         model.addAttribute("hot", doorClass.getHot());
+        model.addAttribute("namePicture",doorClass.getNamePicture());
 
         return "doorClass";
     }
@@ -81,10 +82,11 @@ public class MainController {
                                 @RequestParam(required = false) String description,
                                 @RequestParam(required = false) boolean fireproofcheckbox,
                                 @RequestParam(required = false) boolean hotcheckbox,
+                                @RequestParam(required = false) String namePicture,
                                 Model model) throws Exception {
 
         service.saveOrUpdateDoorClass(classId, name, description,
-                fireproofcheckbox, hotcheckbox);
+                fireproofcheckbox, hotcheckbox, namePicture);
 
         List<DoorClass> list = service.getDoorClass();
         model.addAttribute("accountInfos", list);
@@ -150,8 +152,8 @@ public class MainController {
                         namePicture, doorLeaf,
                         nameForPrint, nameForPrintInternalOpening,
                         daysToRelease, markUp, markUpGlassPackage,
-                        priceList,retailPrice,
-                        wholesalePriceFromStock1,wholesalePriceFromStock2,wholesalePriceFromOrder)));
+                        priceList, retailPrice,
+                        wholesalePriceFromStock1, wholesalePriceFromStock2, wholesalePriceFromOrder)));
 
         return "doorType";
     }
@@ -166,7 +168,7 @@ public class MainController {
     }
 
     @GetMapping(value = "/specification")
-    public String  getSpecificationPage(Model model) throws Exception {
+    public String getSpecificationPage(Model model) throws Exception {
         return "specification";
     }
 
@@ -187,9 +189,8 @@ public class MainController {
     }
 
 
-
     @GetMapping(value = "/metal")
-    public String getMetal( Model model) throws Exception {
+    public String getMetal(Model model) throws Exception {
 
         List<Metal> list = service.getMetals();
         model.addAttribute("accountInfos", list);
@@ -204,15 +205,14 @@ public class MainController {
 
         return service.getDoorTemplate(idDoorType);
     }
+
     @PostMapping(value = "/saveTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public void saveTemplate(Model model,@RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
+    public void saveTemplate(Model model, @RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
 
         service.saveDoorTemplate(templateJSON);
 
     }
-
-
 
 
     @GetMapping(value = "/availableGroups")

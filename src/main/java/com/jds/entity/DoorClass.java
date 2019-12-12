@@ -30,8 +30,8 @@ public class DoorClass {
     @Column(name = "hot", nullable = false)
     private int hot;
 
-    //@Column(name = "valid", nullable = false)
-    //private int valid;
+    @Column(name = "namePicture")
+    private String namePicture;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass")
     private List<DoorType> doorTypes;
@@ -48,11 +48,12 @@ public class DoorClass {
     public DoorClass() {
     }
 
-    public DoorClass(int id,String name, String description, int fireproof,int hot) {
+    public DoorClass(int id,String name, String description, int fireproof,int hot,String namePicture) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.fireproof = fireproof;
         this.hot = hot;
+        this.namePicture = namePicture;
     }
 }
