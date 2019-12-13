@@ -11,5 +11,6 @@ CREATE TABLE orders
   comment         CHARACTER VARYING(100),
   totalAmount     int,
   totalTax        int,
-  totalQuantity   int
+  totalQuantity   int,
+  status          CHARACTER VARYING(100)
 );

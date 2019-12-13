@@ -71,7 +71,7 @@
                 <th>Статус</th>
                 <th>Организация</th>
                 <th>Контрагент</th>
-                <th>Дата</th>
+                <th>Дата создания</th>
                 <th>Дата готов-ти</th>
                 <th>Менеджер</th>
                 <th>Комментарий</th>
@@ -80,18 +80,18 @@
                 <th>Сумма НДС</th>
             </tr>
 
-            <tr th:each="accountInfo : ${accountInfos}">
-                <td class="id"  th:utext="${accountInfo.id}">..</td>
-                <td >расчет</td>
-                <td th:utext="${accountInfo.company}">..</td>
-                <td th:utext="${accountInfo.partner}">..</td>
-                <td th:utext="${accountInfo.data}">..</td>
-                <td th:utext="${accountInfo.releasDate}">..</td>
-                <td th:utext="${accountInfo.seller.username}">..</td>
-                <td th:utext="${accountInfo.comment}">..</td>
-                <td th:utext="${accountInfo.totalQuantity}">..</td>
-                <td th:utext="${accountInfo.totalAmount}">..</td>
-                <td th:utext="${accountInfo.totalTax}">..</td>
+            <tr th:each="order : ${accountInfos}">
+                <td class="id"  th:utext="${order.id}">..</td>
+                <td th:utext="${order.status}">..</td>
+                <td th:utext="${order.company}">..</td>
+                <td th:utext="${order.partner}">..</td>
+                <td th:utext="${order.data}">..</td>
+                <td th:utext="${order.releasDate}">..</td>
+                <td th:utext="${order.seller.username}">..</td>
+                <td th:utext="${order.comment}">..</td>
+                <td th:utext="${order.totalQuantity}">..</td>
+                <td th:utext="${order.totalAmount}">..</td>
+                <td th:utext="${order.totalTax}">..</td>
             </tr>
         </table>
     </div>

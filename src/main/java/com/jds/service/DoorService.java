@@ -217,9 +217,9 @@ public class DoorService {
 
     }
 
-    public DoorsОrder deleteDoorFromOrder(String id, String orderId) {
+    public DoorsОrder deleteDoorFromOrder(@NonNull String id,@NonNull  String orderId) {
 
-        if (orderId != null && !orderId.isEmpty() && !orderId.equals("0") && id != null && !id.isEmpty() && !id.equals("0")) {
+        if (!orderId.isEmpty() && !orderId.equals("0") && !id.isEmpty() && !id.equals("0")) {
             DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {

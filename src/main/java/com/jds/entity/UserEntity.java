@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import java.util.List;
 @Table(name = "users")
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity implements UserDetails {
 
@@ -55,7 +55,12 @@ public class UserEntity implements UserDetails {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
-    List<DoorsОrder> orders;
+    private List<DoorsОrder> orders;
+
+    public UserEntity() {
+        authorities = new ArrayList<>();
+        authorities.add(Role.USER);
+    }
 
     public boolean isAdmin(){
 

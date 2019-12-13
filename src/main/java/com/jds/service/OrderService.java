@@ -47,7 +47,7 @@ public class OrderService {
             return new DoorsОrder();
         }
         DoorsОrder order =  dAO.getOrder(intId);
-        order.setSeller(null);
+
         return clearNonSerializingFields(order);
     }
 
@@ -66,6 +66,9 @@ public class OrderService {
     }
 
     public static DoorsОrder clearNonSerializingFields(DoorsОrder order) {
+
+        order.getSeller().setOrders(null);
+
 
         List<DoorEntity> doors = order.getDoors();
         for (DoorEntity door : doors) {

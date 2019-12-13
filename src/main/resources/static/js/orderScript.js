@@ -77,6 +77,9 @@ jQuery('document').ready(function(){
 
     });
 
+    $('#status').change(function () {
+        order.status = $(this).val();
+    });
 
     $('tbody').on('click','tr',function(){
 
@@ -111,6 +114,8 @@ jQuery('document').ready(function(){
         $('#productionStart').val(order.productionStart);
         $('#comment').val(order.comment);
         $('#total').text(order.totalAmount);
+
+        fillStatus();
 
         $('tr').remove();
         $('.Table > tbody').append('<tr><th>' +
@@ -174,7 +179,7 @@ jQuery('document').ready(function(){
 
         $.ajax({
             type: 'POST',
-            url: 'saveOrder',
+            url: 'order',
             contentType: "application/json",
             data: strJSON,
             dataType: 'json',
@@ -220,7 +225,7 @@ jQuery('document').ready(function(){
                 fillOutOfTheObject();
             },
             error: function (data) {
-                alert('delete error:' + data);
+                //alert('delete error:' + data);
             }
         });
 
@@ -251,5 +256,25 @@ jQuery('document').ready(function(){
     };
     function setOrderId(name){
         $('#orderIdName').text(name+' №: '+orderId);
+    }
+    function fillStatus() {
+        if(order.statusList==null){
+            return;
+        }
+        $('#status').empty();
+        for(var i=0; i< order.statusList.length;i++){
+            $('#status').append(
+                $('<option value=' + order.statusList[i] + '>' + order.statusList[i] + '</option>')
+            );
+        }
+        setValueInSelectInt('#status',order.status)
+    }
+    function setValueInSelectInt(jqSelect,value){
+        var opt = $(jqSelect+' > option');
+        opt.each(function(indx, element){
+            if ( $(this).val() == value ) {
+                $(this).attr("selected", "selected");
+            }
+        });
     }
 });

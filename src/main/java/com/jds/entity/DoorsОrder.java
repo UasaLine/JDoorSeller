@@ -1,5 +1,7 @@
 package com.jds.entity;
 
+import com.jds.model.modelEnum.OrderStatus;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,14 +57,21 @@ public class DoorsОrder {
     @Column(name = "totalQuantity")
     private int totalQuantity;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    @Transient
+    private List<OrderStatus> statusList;
+
     public DoorsОrder() throws Exception {
+
         doors = new ArrayList<>();
-
-
         data = new java.sql.Date(new Date().getTime());
-        ;
+        status = OrderStatus.CALC;
+        statusList = new ArrayList<>();
+        this.addAllStatus();
     }
-
 
     public int deleteDoor(int id) {
 
@@ -91,7 +100,6 @@ public class DoorsОrder {
 
         return this;
     }
-
 
     public int getId() {
         return order_id;
@@ -199,5 +207,30 @@ public class DoorsОrder {
 
     public void setTotalQuantity(int totalQuantity) {
         this.totalQuantity = totalQuantity;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public List<OrderStatus> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<OrderStatus> statusList) {
+        this.statusList = statusList;
+    }
+
+    public void addStatusList(OrderStatus status) {
+        this.statusList.add(status);
+    }
+    public void addAllStatus() {
+        this.addStatusList(OrderStatus.CALC);
+        this.addStatusList(OrderStatus.TO_WORK);
+        this.addStatusList(OrderStatus.CLOSED);
     }
 }

@@ -50,7 +50,7 @@ public class OrderController {
         return orderService.getOrder(orderId);
     }
 
-    @PostMapping(value = "/saveOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public DoorsОrder saveOrder(@RequestBody DoorsОrder order) throws Exception {
 
