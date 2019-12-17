@@ -80,7 +80,7 @@ jQuery('document').ready(function(){
             return;
         }
 
-        addLine('','newName',0,'');
+        addLine('','newName',0,'','','','');
 
     });
 
@@ -323,11 +323,15 @@ jQuery('document').ready(function(){
             addLine(lineSpecifications[i].id,
                 lineSpecifications[i].name,
                 lineSpecifications[i].value,
-                lineSpecifications[i].formula);
+                lineSpecifications[i].formula,
+                lineSpecifications[i].independentName,
+                lineSpecifications[i].releaseOperation,
+                lineSpecifications[i].writeOffOperation);
         }
 
     };
-    function addLine(id,newName,newValue,newformula) {
+    function addLine(id,newName,newValue,newformula,
+                     independentName,releaseOperation,writeOffOperation) {
         var Position = getNextPosition();
 
         $('.Table > tbody').append('<tr class="line newLine" id="line'+Position+'">' +
@@ -336,6 +340,9 @@ jQuery('document').ready(function(){
             '<td class="vary_field text_select" id="name'+Position+'">'+newName+'</td>' +
             '<td class="vary_field text_input" id="value'+Position+'">'+newValue+'</td>' +
             '<td class="vary_field text_input" id="formula'+Position+'" >'+newformula+'</td>' +
+            '<td class="vary_field text_input" id="independentName'+Position+'" >'+independentName+'</td>' +
+            '<td class="vary_field text_input" id="releaseOperation'+Position+'" >'+releaseOperation+'</td>' +
+            '<td class="vary_field text_input" id="writeOffOperation'+Position+'" >'+writeOffOperation+'</td>' +
             '</tr>');
 
         if (id==''){

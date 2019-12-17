@@ -5,6 +5,7 @@ import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorsОrder;
 import com.jds.entity.UserEntity;
 import com.jds.model.PrintAppToTheOrder;
+import com.jds.model.modelEnum.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -21,13 +22,18 @@ public class OrderService {
     private UserService userService;
 
 
-    public List<DoorsОrder> getOrders() {
+
+
+    public List<DoorsОrder> getOrders(OrderStatus status) {
 
         UserEntity user = userService.getCurrentUser();
         List<DoorsОrder> orders;
 
-        if (user.isAdmin()){
+        if (user.isAdmin() && status==null){
             orders = dAO.getOrders();
+        }
+        else if (user.isAdmin() && status!=null){
+            orders = dAO.getOrdersByStatus(status.name());
         }
         else {
             orders = dAO.getOrdersByUser(user);
@@ -38,6 +44,8 @@ public class OrderService {
         }
         return orders;
     }
+
+
 
     public DoorsОrder getOrder(String id) throws Exception{
 

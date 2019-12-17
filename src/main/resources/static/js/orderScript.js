@@ -95,6 +95,11 @@ jQuery('document').ready(function(){
 
     });
 
+    $('#goToWork').on('click',function () {
+        order.status = 'TO_WORK';
+        fillStatus();
+    });
+
     function fillObject(){
 
         order.order_id = $('#order_id').html();

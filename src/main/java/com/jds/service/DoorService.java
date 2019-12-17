@@ -252,5 +252,6 @@ public class DoorService {
         order.addDoor(door);
         orderDAO.saveOrder(order.calculateTotal());
         return door;
+
     }
 }

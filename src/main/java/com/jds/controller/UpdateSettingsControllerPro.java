@@ -164,12 +164,7 @@ public class UpdateSettingsControllerPro {
         return "jr";
     }
 
-    @PostMapping(value = "/loading/orders", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<DoorsОrder> getOrders() throws Exception {
 
-        return orderService.getOrders();
-    }
 
     @PostMapping(value = "/update/specificationsetting", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

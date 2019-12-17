@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.entity.DoorsОrder;
 import com.jds.entity.UserEntity;
+import com.jds.model.modelEnum.OrderStatus;
 import com.jds.service.MaineService;
 import com.jds.service.OrderService;
 import com.jds.service.UserService;
@@ -27,7 +28,7 @@ public class OrderController {
 
     @GetMapping(value = "/orders")
     public String getOrdersPage(Model model) throws Exception {
-        List<DoorsОrder> list = orderService.getOrders();
+        List<DoorsОrder> list = orderService.getOrders(null);
         model.addAttribute("accountInfos", list);
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
         return "orders";
@@ -64,5 +65,11 @@ public class OrderController {
         return orderService.deleteOrder(orderId);
     }
 
+    @PostMapping(value = "/loading/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<DoorsОrder> getOrders() throws Exception {
+
+        return orderService.getOrders(OrderStatus.TO_WORK);
+    }
 
 }

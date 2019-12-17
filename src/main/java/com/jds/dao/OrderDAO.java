@@ -34,6 +34,23 @@ public class OrderDAO {
         return list;
     }
 
+    public List<DoorsОrder> getOrdersByStatus(String status){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from orders where status like :status";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorsОrder.class)
+                .setParameter("status", status);
+
+        List<DoorsОrder> list = query.list();
+
+        session.close();
+
+        return list;
+
+    }
+
     public List<DoorsОrder> getOrdersByUser(UserEntity user) {
 
         Session session = sessionFactory.openSession();
