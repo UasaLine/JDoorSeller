@@ -233,4 +233,6 @@ public class DoorsОrder {
         this.addStatusList(OrderStatus.TO_WORK);
         this.addStatusList(OrderStatus.CLOSED);
     }
+
+
 }

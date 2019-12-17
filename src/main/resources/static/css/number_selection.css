@@ -12,7 +12,8 @@
 	z-index:2001;
 	background:white;
 	box-shadow: 0 0 5px 2px black;
-
+	border-radius: 5px;
+	border:2px solid rgb(52, 58, 64);
 }
 
 .android_counter{	
@@ -22,20 +23,20 @@
 
 .android_hader{
 	height:50px;
-	border-bottom:2px solid #373a3c;
+	border-bottom:2px solid rgb(52, 58, 64);
 	padding:10px;
 }
 .android_basement{
 	bottom:0px;
 	position:absolute;
-	border-top:1px solid #D3D3D3;
+	border-top:1px solid rgb(52, 58, 64);
 	height:50px;
 	width:100%;
 }
 .android_basementL{
 	position:absolute;
 	display:inline-block;
-	border-right:1px solid #D3D3D3;
+	border-right:1px solid rgb(52, 58, 64);
 	height:100%;
 	width:50%;
 	text-align: center;	

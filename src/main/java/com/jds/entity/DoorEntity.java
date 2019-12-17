@@ -151,6 +151,9 @@ public class DoorEntity {
     @Transient
     private RestrictionOfSelectionFields template;
 
+    @Transient
+    private int orderHolder;
+
     public DoorEntity initializeGlassAndFurnitureKit() {
 
         if (furnitureKit == null) {
@@ -1120,4 +1123,14 @@ public class DoorEntity {
     public void setTemplate(RestrictionOfSelectionFields template) {
         this.template = template;
     }
+
+    public int getOrderHolder() {
+        return orderHolder;
+    }
+
+    public void setOrderHolder(int orderHolder) {
+        this.orderHolder = orderHolder;
+    }
+
+
 }

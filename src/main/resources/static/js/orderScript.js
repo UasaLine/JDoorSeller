@@ -67,6 +67,7 @@ jQuery('document').ready(function(){
         fillOutOfTheObjectToFactory();
 
     });
+
     $('#backToOrder').on('click',function(){
 
         $(".order_button_div").removeClass("ghost");
@@ -107,6 +108,7 @@ jQuery('document').ready(function(){
 
     }
     function fillOutOfTheObject(){
+
         $('#company').val(order.company);
         $('#partner').val(order.partner);
         $('#data').val(order.data);
@@ -118,8 +120,9 @@ jQuery('document').ready(function(){
         fillStatus();
 
         $('tr').remove();
-        $('.Table > tbody').append('<tr><th>' +
-            'id</th><th>' +
+        $('.Table > tbody').append('<tr>' +
+            '<th>#</th>' +
+            '<th>id</th><th>' +
             'наименование</th><th>' +
             'кол-во</th><th>' +
             'металл</th><th>' +
@@ -127,14 +130,18 @@ jQuery('document').ready(function(){
             'цена</th></tr>');
 
         var doors = order.doors;
+        var position = 1;
         for(var j=0; j<doors.length; ++j) {
-            $('.Table > tbody').append('<tr><td class="id">'
-                +doors[j].id+'</td><td>'
-                +doors[j].name+'</td><td>'
-                +1+'</td><td>'
-                +doors[j].metal+'</td><td>'
-                +doors[j].doorColor+'</td><td>'
-                +doors[j].priceWithMarkup+'</td></tr>');
+            $('.Table > tbody').append('<tr>' +
+                '<td class="position">'+position+'</td>' +
+                '<td class="id">'+doors[j].id+'</td>' +
+                '<td>'+doors[j].name+'</td>' +
+                '<td>'+1+'</td>' +
+                '<td>'+doors[j].metal+'</td>' +
+                '<td>'+doors[j].doorColor+'</td>' +
+                '<td>'+doors[j].priceWithMarkup+'</td>' +
+                '</tr>');
+            position++;
         }
 
     }

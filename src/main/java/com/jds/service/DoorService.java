@@ -45,9 +45,12 @@ public class DoorService {
     public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
                                                     @NonNull int discount,
                                                     @NonNull int RetailMargin) {
-        return doorEntity
-                 .setPriceOfDoorType(discount,RetailMargin)
-                 .createName();
+
+
+        return addDooToOrder(doorEntity
+                .setPriceOfDoorType(discount, RetailMargin)
+                .createName()
+        );
     }
 
     public DoorEntity recalculateTheDoorCompletely(DoorEntity door) {
@@ -108,15 +111,13 @@ public class DoorService {
         if (id > 0 && typid == 0) {
             door = dAO.getDoor(id);
         } else if (typid > 0) {
-            door = createNewDoorByTemplate(typid,id);
+            door = createNewDoorByTemplate(typid, id);
         } else {
             door = createNewDoorWithAvailableDoorClass();
         }
 
         if (orderId != 0 && door.getId() == 0) {
-            DoorsОrder order = orderDAO.getOrder(orderId);
-            order.addDoor(door);
-            orderDAO.saveOrder(order);
+            door.setOrderHolder(orderId);
         }
 
         return door.clearNonSerializingFields();
@@ -130,7 +131,7 @@ public class DoorService {
         return door;
     }
 
-    public DoorEntity createNewDoorByTemplate(@NonNull int typeId,@NonNull int id) {
+    public DoorEntity createNewDoorByTemplate(@NonNull int typeId, @NonNull int id) {
 
         RestrictionOfSelectionFields template = maineService.getTemplateFromLimits(String.valueOf(typeId));
         DoorType doorType = dAO.getDoorType(typeId);
@@ -211,19 +212,19 @@ public class DoorService {
     }
 
 
-    public DoorEntity saveDoor(DoorEntity door) {
+    public DoorEntity saveDoor(@NonNull DoorEntity door) {
 
-        return dAO.saveDoor(door.clearEmptyLinks());
+        return addDooToOrder(dAO.saveDoor(door.clearEmptyLinks()));
 
     }
 
-    public DoorsОrder deleteDoorFromOrder(@NonNull String id,@NonNull  String orderId) {
+    public DoorsОrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
 
         if (!orderId.isEmpty() && !orderId.equals("0") && !id.isEmpty() && !id.equals("0")) {
             DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
-                orderDAO.saveOrder(order);
+                orderDAO.saveOrder(order.calculateTotal());
                 return orderService.clearNonSerializingFields(order);
             }
 
@@ -233,4 +234,23 @@ public class DoorService {
     }
 
 
+    public DoorEntity addDooToOrder(@NonNull DoorEntity door) {
+
+        if (door.getOrderHolder() == 0) {
+            return door;
+        }
+
+        DoorsОrder order = orderDAO.getOrder(door.getOrderHolder());
+
+        List<DoorEntity> doors = order.getDoors();
+        for (int i = 0; i < doors.size(); i++) {
+            if (doors.get(i).getId() == door.getId()) {
+                return door;
+            }
+        }
+
+        order.addDoor(door);
+        orderDAO.saveOrder(order.calculateTotal());
+        return door;
+    }
 }
