@@ -456,6 +456,12 @@ jQuery('document').ready(function () {
         nextHistoryList();
     });
 
+    $(document).keyup(function(e){
+       if(e.which==50){
+           $('.line').text(5);
+       }
+    });
+
     //--------------------------------------
     //setter
     //--------------------------------------
