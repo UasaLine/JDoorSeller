@@ -350,8 +350,12 @@ jQuery('document').ready(function () {
 
     $('#buttonGetCutteig').on('click', function () {
 
-        drawCutting();
+        //drawCutting();
+
+
+        getSpecAndDraw();
         showAdditional_data();
+
     });
 
     $('#buttonSaveDoor').on('click', function () {
@@ -1649,5 +1653,30 @@ jQuery('document').ready(function () {
         closeSelect();
         selectSizeOpen = false;
         assignPreviouValue();
+    }
+
+    function getSpecAndDraw() {
+        $.ajax({
+            url: 'doorSpec',
+            data: {doorId: id},
+            dataType: 'json',
+            success: function (data) {
+
+                if(data==null){
+                    return;
+                }
+
+                for(var i=0;i<data.length;i++){
+                    $('<span>')
+                        .attr('class', 'line_spec')
+                        .text(data[i].name+'  -  '+data[i].value)
+                        .appendTo('.additional_data');
+                }
+
+            },
+            error: function (data) {
+                alert('error: doorSpec ' + data);
+            }
+        });
     }
 });

@@ -666,3 +666,7 @@ tr:hover {
 .notAvailable{
     color: grey;
 }
+.line_spec{
+    margin-left:15px;
+    display:block;
+}

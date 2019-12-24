@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorsОrder;
+import com.jds.entity.LineSpecification;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.service.DoorService;
 import com.jds.service.MaineService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 
 @Controller
 public class DoorController {
@@ -69,4 +71,10 @@ public class DoorController {
         return service.deleteDoorFromOrder(id, orderId);
     }
 
+    @GetMapping(value = "/doorSpec", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) throws Exception {
+
+        return service.getSpecificationByDoorId(doorId);
+    }
 }

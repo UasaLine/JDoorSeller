@@ -11,6 +11,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,7 @@ public class DoorService {
             return recalculateTheDoorByPriceList(door,
                     userService.getCurrentUser().getDiscount(),
                     userService.getUserSetting().getRetailMargin());
+
         } else {
             return recalculateTheDoorCompletely(door);
         }
@@ -211,7 +213,6 @@ public class DoorService {
         return "";
     }
 
-
     public DoorEntity saveDoor(@NonNull DoorEntity door) {
 
         return addDooToOrder(dAO.saveDoor(door.clearEmptyLinks()));
@@ -233,7 +234,6 @@ public class DoorService {
         return null;
     }
 
-
     public DoorEntity addDooToOrder(@NonNull DoorEntity door) {
 
         if (door.getOrderHolder() == 0) {
@@ -252,6 +252,80 @@ public class DoorService {
         order.addDoor(door);
         orderDAO.saveOrder(order.calculateTotal());
         return door;
+
+    }
+
+    public List<LineSpecification> getSpecificationByDoorId(@NonNull String doorId){
+
+        DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
+
+        List<LineSpecification> lineSpec = addFurKitToLineSpec(dAO.getLineSpecification(doorEntity.getDoorType().getId()),
+                                                                                                           doorEntity.getFurnitureKit(),
+                                                                                                          doorEntity.getDoorType());
+
+        lineSpec.stream().forEach((lin)->lin.getDoorType().clearNonSerializingFields());
+
+        return lineSpec;
+
+    }
+
+    public List<LineSpecification> addFurKitToLineSpec(List<LineSpecification> lineSpec,
+                                                       FurnitureKit furnitureKit,
+                                                       DoorType doorType){
+
+        if (furnitureKit.getHandle()!=null){
+            addfurniture(lineSpec,furnitureKit.getHandle(),doorType);
+        }
+
+        if (furnitureKit.getTopLock()!=null){
+            addfurniture(lineSpec,furnitureKit.getTopLock(),doorType);
+        }
+        if (furnitureKit.getToplockCylinder()!=null){
+            addfurniture(lineSpec,furnitureKit.getToplockCylinder(),doorType);
+        }
+        if (furnitureKit.getTopinternaLockDecoration()!=null){
+            addfurniture(lineSpec,furnitureKit.getTopinternaLockDecoration(),doorType);
+        }
+        if (furnitureKit.getTopouterLockDecoration()!=null){
+            addfurniture(lineSpec,furnitureKit.getTopouterLockDecoration(),doorType);
+        }
+        if (furnitureKit.getLowerLock()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerLock(),doorType);
+        }
+
+        if (furnitureKit.getLowerLock()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerLock(),doorType);
+        }
+        if (furnitureKit.getLowerlockCylinder()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerlockCylinder(),doorType);
+        }
+        if (furnitureKit.getLowerinternaLockDecoration()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerinternaLockDecoration(),doorType);
+        }
+        if (furnitureKit.getLowerouterLockDecoration()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerouterLockDecoration(),doorType);
+        }
+
+        if (furnitureKit.getCloser()!=null){
+            addfurniture(lineSpec,furnitureKit.getCloser(),doorType);
+        }
+        if (furnitureKit.getEndDoorLock()!=null){
+            addfurniture(lineSpec,furnitureKit.getEndDoorLock(),doorType);
+        }
+
+
+        return lineSpec;
+    }
+
+    public void addfurniture(List<LineSpecification> lineSpec,DoorFurniture furniture,DoorType doorType){
+
+        lineSpec.add(LineSpecification.builder()
+                .name(furniture.getName())
+                .value(1)
+                .materialId(furniture.getIdManufacturerProgram())
+                .doorType(doorType)
+                .build());
+
 
     }
 }
