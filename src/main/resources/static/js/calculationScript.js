@@ -20,6 +20,9 @@ jQuery('document').ready(function () {
     var sizeMin = 0;
     var sizeMax = 0;
 
+    var selectSizeOpen = false;
+    var firstPress = true;
+
     var historyList = new Array();
     var currentHisPoint = 0;
 
@@ -382,18 +385,7 @@ jQuery('document').ready(function () {
     //select namber
 
     $('#select_set').on('click', function () {
-
-        var number = prepareTheNumber($('.counter_line.numberL.line').text(),
-            $('.counter_line.numberR.line').text());
-        var idElement = $('#nameSelectForm').attr('data');
-
-        $('#' + idElement).attr('data', number);
-        $('#' + idElement).text('' + $('#' + idElement).attr('name') + ' ' + $('#' + idElement).attr('data'));
-
-        closeSelect();
-
-        assignPreviouValue();
-
+        setSize();
     });
 
     $('#select_cancel').on('click', function () {
@@ -413,6 +405,8 @@ jQuery('document').ready(function () {
             sizeMin,
             sizeMax);
 
+        selectSizeOpen = true;
+        firstPress = true;
     });
 
     $('#addL').on('click', function () {
@@ -457,9 +451,13 @@ jQuery('document').ready(function () {
     });
 
     $(document).keyup(function(e){
-       if(e.which==50){
-           $('.line').text(5);
-       }
+
+        if(!selectSizeOpen){
+            return;
+        }
+        handleKeystroke(e);
+        checkForLimits();
+
     });
 
     //--------------------------------------
@@ -1556,6 +1554,7 @@ jQuery('document').ready(function () {
             currentHisPoint--;
         }
     }
+
     function nextHistoryList() {
         if (historyList==null){
             return;
@@ -1567,5 +1566,88 @@ jQuery('document').ready(function () {
             hideShowField(false);
             currentHisPoint++;
         }
+    }
+
+    function addNumberToSize(umber){
+        var currentNamber = $('.line').text();
+        if (firstPress) {
+            currentNamber = '';
+        }
+        $('.line').text(currentNamber+umber);
+        firstPress = false;
+    }
+
+    function deleteLastNumberInSize(){
+        var currentNamber = $('.line').text();
+        var length = currentNamber.length;
+        var newNamber = currentNamber.slice(0, length-1);
+        $('.line').text(newNamber);
+        firstPress = false;
+    }
+
+    function handleKeystroke(e){
+        if(e.which==48){
+            addNumberToSize(0);
+        }
+        else if(e.which==49){
+            addNumberToSize(1);
+        }
+        else if(e.which==50){
+            addNumberToSize(2);
+        }
+        else if(e.which==51){
+            addNumberToSize(3);
+        }
+        else if(e.which==52){
+            addNumberToSize(4);
+        }
+        else if(e.which==53){
+            addNumberToSize(5);
+        }
+        else if(e.which==54){
+            addNumberToSize(6);
+        }
+        else if(e.which==55){
+            addNumberToSize(7);
+        }
+        else if(e.which==56){
+            addNumberToSize(8);
+        }
+        else if(e.which==57){
+            addNumberToSize(9);
+        }
+        else if(e.which==8){
+            deleteLastNumberInSize();//backspace
+        }
+    }
+
+    function checkForLimits(){
+        var namber = parseInt($('.line').text());
+        if (namber < sizeMin || namber > sizeMax){
+            $('.line').addClass('redColor');
+            $('#select_set').addClass('notAvailable');
+        }
+        else {
+            $('.line').removeClass('redColor');
+            $('#select_set').removeClass('notAvailable');
+        }
+    };
+
+    function setSize(){
+
+        if ($('#select_set').hasClass('notAvailable')){
+            return;
+        }
+
+        var number = prepareTheNumber($('.counter_line.numberL.line').text(),
+            $('.counter_line.numberR.line').text());
+        var idElement = $('#nameSelectForm').attr('data');
+
+        $('#' + idElement).attr('data', number);
+        $('#' + idElement).text('' + $('#' + idElement).attr('name') + ' ' + $('#' + idElement).attr('data'));
+
+        closeSelect();
+        selectSizeOpen = false;
+        assignPreviouValue();
     }
 });

@@ -28,6 +28,7 @@
 		$('.android_main_contener').attr('show', 'no');
 		$('.wall_of_darkness').attr('show', 'no');
 
+
 	};
 
 	function add (side,n,firstValue,
@@ -132,4 +133,5 @@
 
 
 	}
+
 

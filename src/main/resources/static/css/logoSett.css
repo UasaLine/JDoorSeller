@@ -53,7 +53,7 @@
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     color: #373a3c;
     text-decoration: none;
-    cursor: url(/images/Fable_Sword.gif), pointer;;
+    cursor: url(/images/Fable_Sword.gif), pointer;
     border-bottom: 1px solid #373a3c;
 }
 
@@ -658,4 +658,11 @@ tr:hover {
 }
 .small_indent{
     margin-left:18px;
+}
+
+.redColor{
+    color: red;
+}
+.notAvailable{
+    color: grey;
 }
