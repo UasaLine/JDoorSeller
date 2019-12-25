@@ -26,6 +26,9 @@ jQuery('document').ready(function () {
     var historyList = new Array();
     var currentHisPoint = 0;
 
+    var audio = $("#mySoundClip")[0];
+
+
     getNewDoorInstans(true);
 
     function FillOutForm(data,updateClassDiv) {
@@ -57,6 +60,7 @@ jQuery('document').ready(function () {
         failureToSetValue = false;
 
         hideShowField(true);
+
 
     });
 
@@ -345,7 +349,7 @@ jQuery('document').ready(function () {
             });
 
         }
-
+        audio.play();
     });
 
     $('#buttonGetCutteig').on('click', function () {
@@ -375,6 +379,7 @@ jQuery('document').ready(function () {
                 alert('error:' + data);
             }
         });
+
     });
 
     $('.to_calculate').hover(
