@@ -17,23 +17,25 @@
 </head>
 <body>
 
-<div class="top_head">
-    <div class="header_logo" >
-        <a th:href="@{/}" class="logo_text">Asgard</a>
+    <div class="container-fluid sword-cursor" id="intro-dm">
+        <a th:href="@{/}"><img src="images/Header_widht_1300_002 ltl.jpg"></a>
     </div>
-    <div class="header_home" >
-        <a th:href="@{/orders}" class="logo_home">Заказы</a>
-    </div>
-    <div class="header_home" >
-        <a th:href="@{/usersetting}" class="logo_home">Настройки</a>
-    </div>
-    <div class="header_home" >
-        <a th:href="@{/logout}" class="logo_home">Выйти</a>
-    </div>
-</div>
-<br>
 
-<div class="container_main_order">
+    <div class="top_head sword-cursor">
+
+        <div class="header_home" >
+            <a th:href="@{/orders}" class="logo_home">Заказы</a>
+        </div>
+        <div class="header_home" >
+            <a th:href="@{/usersetting}" class="logo_home">Настройки</a>
+        </div>
+        <div class="header_home" >
+            <a th:href="@{/logout}" class="logo_home">Выйти</a>
+        </div>
+    </div>
+
+
+<div class="container_main_order sword-cursor">
     <div class="row">
         <div class="col-8 ">
             <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
@@ -52,14 +54,14 @@
     </div>
 </div>
 
-<div class="additional_data" show="ghost_lement">
+<div class="additional_data sword-cursor" show="ghost_lement">
     <div class="data_L">
     </div>
     <div class="data_R" id = "calculateResultDiv">
     </div>
 </div>
 
-<div class="container_main">
+<div class="container_main sword-cursor">
 
     <div class="daughter_container1" id="doorDiv1">
 
@@ -1246,7 +1248,7 @@
 
 
 <!--number_selection-->
-<div class="android_main_contener" show="ghost_lement">
+<div class="android_main_contener sword-cursor" show="ghost_lement">
     <div class="android_hader">
         <span id="nameSelectForm" data="">ширина</span>
     </div >
@@ -1283,7 +1285,7 @@
         </div>
     </div>
 </div>
-<div class="wall_of_darkness" show="ghost_lement">
+<div class="wall_of_darkness sword-cursor" show="ghost_lement">
 </div>
 
 <audio id="mySoundClip">

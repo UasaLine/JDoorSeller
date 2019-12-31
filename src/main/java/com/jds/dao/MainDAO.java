@@ -490,10 +490,7 @@ public class MainDAO {
 
         session.close();
 
-        if (materialFormulas.size() > 0) {
-            return materialFormulas;
-        }
-        return null;
+        return materialFormulas;
 
     }
 

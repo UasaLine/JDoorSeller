@@ -29,7 +29,7 @@ public class MainController {
         UserEntity principal = (UserEntity) authentication.getPrincipal();
 
         if (principal.isAdmin()) {
-            return "minePageBootstr";
+            return "setting";
         }
         return "redirect:orders";
     }
@@ -200,15 +200,13 @@ public class MainController {
 
     @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorTemplate getTemplate(Model model,
-                                    @RequestParam String idDoorType) throws Exception {
-
+    public DoorTemplate getTemplate(@RequestParam String idDoorType) throws Exception {
         return service.getDoorTemplate(idDoorType);
     }
 
     @PostMapping(value = "/saveTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public void saveTemplate(Model model, @RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
+    public void saveTemplate(@RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
 
         service.saveDoorTemplate(templateJSON);
 
@@ -217,10 +215,21 @@ public class MainController {
 
     @GetMapping(value = "/availableGroups")
     @ResponseBody
-    public List<DoorClass> getAavailableDoorClass(Model model) throws Exception {
+    public List<DoorClass> getAavailableDoorClass() throws Exception {
 
         return service.getDoorClass();
 
+    }
+
+    @GetMapping(value = "/materials")
+    public String getMaterialPage(){
+        return "materials";
+    }
+
+    @GetMapping(value = "/materialsList")
+    @ResponseBody
+    public List<RawMaterials> getAllMaterials(){
+        return service.getAllMaterials();
     }
 
 }

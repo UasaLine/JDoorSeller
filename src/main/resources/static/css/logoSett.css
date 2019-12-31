@@ -2,6 +2,10 @@
 /* top */
 /* ------------------------------------------------ */
 
+body{
+    cursor: url(/images/Fable_Sword.gif), pointer;
+}
+
 .top_head {
     width: 100%;
     height: 50px;
@@ -669,4 +673,18 @@ tr:hover {
 .line_spec{
     margin-left:15px;
     display:block;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sword-cursor{
+    cursor: url(/images/Fable_Sword.gif), pointer;
 }

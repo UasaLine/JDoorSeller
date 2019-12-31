@@ -453,4 +453,8 @@ public class MaineService {
 
         return lineSpecification;
     }
+
+    public List<RawMaterials> getAllMaterials(){
+        return dAO.getRawMaterials();
+    }
 }
