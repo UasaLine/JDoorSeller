@@ -32,10 +32,12 @@
 <div class="container_main_order">
 
     <h1 class="display-4">Заказы</h1>
+
     <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
+    <span class="ghost" id="report" th:utext="${report}"></span>
 
+    <div class="row " id="buttonbar">
 
-    <div class="row ">
         <div class="col-md-2 mb-3">
             <button type="button" class="btn btn-primary" id="addOrder">создать</button>
             <button type="button" class="btn btn-primary" id="buttonDeleteOrder">удалить</button>
@@ -85,7 +87,7 @@
 
             <tr th:each="order : ${accountInfos}">
                 <td class="id"  th:utext="${order.id}">..</td>
-                <td th:utext="${order.status}">..</td>
+                <td class="colorFlag" th:utext="${order.status}">..</td>
                 <td th:utext="${order.company}">..</td>
                 <td th:utext="${order.partner}">..</td>
                 <td th:utext="${order.data}">..</td>

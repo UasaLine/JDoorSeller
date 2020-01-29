@@ -1,7 +1,7 @@
 jQuery('document').ready(function () {
 
 
-    if($('#priceListInt').val()==1){
+    if ($('#priceListInt').val() == 1) {
         $('#priceList').prop('checked', true);
         drawSettingPrice('#priceList');
     }

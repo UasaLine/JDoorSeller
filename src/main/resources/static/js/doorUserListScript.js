@@ -1,14 +1,14 @@
-jQuery('document').ready(function(){
-	
-	 var curreiId = 0;
-	
-	$('tr').on('dblclick',function(){
+jQuery('document').ready(function () {
+
+    var curreiId = 0;
+
+    $('tr').on('dblclick', function () {
 
         getUser($(this).children('.id').text());
-		
-	});
 
-    $('tr').on('click',function(){
+    });
+
+    $('tr').on('click', function () {
 
         curreiId = $(this).children('.id').text();
         oneEnableAllDisable(this);
@@ -22,9 +22,9 @@ jQuery('document').ready(function(){
 
     });
 
-    $('#buttonDelete').on('click',function(){
+    $('#buttonDelete').on('click', function () {
 
-        if (curreiId != 0 ){
+        if (curreiId != 0) {
             deletClass();
         }
         else {
@@ -33,26 +33,28 @@ jQuery('document').ready(function(){
 
     });
 
-	function getUser(userId){
-        location.href="user?userId="+userId;
-	};
-    function oneEnableAllDisable (item){
+    function getUser(userId) {
+        location.href = "user?userId=" + userId;
+    };
+
+    function oneEnableAllDisable(item) {
 
         var elems = $('tr[pickOut="on"]');
         var elemsTotal = elems.length;
 
-        for(var i=0; i<elemsTotal; ++i){
-            $(elems[i]).attr('pickOut','off');
+        for (var i = 0; i < elemsTotal; ++i) {
+            $(elems[i]).attr('pickOut', 'off');
         }
-        $(item).attr('pickOut','on');
+        $(item).attr('pickOut', 'on');
     }
-    function deletClass(){
+
+    function deletClass() {
         $.ajax({
             type: 'DELETE',
-            url: 'doorclass?classId='+curreiId,
+            url: 'doorclass?classId=' + curreiId,
             success: function (data) {
-                alert("delete completed"+ data);
-                location.href="doorclasslist";
+                alert("delete completed" + data);
+                location.href = "doorclasslist";
             },
             error: function (data) {
                 alert('delete error:' + data);

@@ -31,11 +31,11 @@ jQuery('document').ready(function () {
 
     getNewDoorInstans(true);
 
-    function FillOutForm(data,updateClassDiv) {
+    function FillOutForm(data, updateClassDiv) {
         door = data;
         id = door.id;
         displayObject(door);
-        if(updateClassDiv){
+        if (updateClassDiv) {
             displayDoorClass3();
             currentItem = 'doorClass';
             hideShowField(true);
@@ -74,14 +74,14 @@ jQuery('document').ready(function () {
         //getListOfSelectionFields();
         getNewDoorInstans(false);
     });
-    $('.select_door_type').on('mouseenter', '.typeLine', function (){
+    $('.select_door_type').on('mouseenter', '.typeLine', function () {
         var id = $(this).attr('data');
-        $('#doorTypeDaughter'+id).removeClass('ghost');
+        $('#doorTypeDaughter' + id).removeClass('ghost');
 
     });
-    $('.select_door_type').on('mouseleave', '.typeLine', function (){
+    $('.select_door_type').on('mouseleave', '.typeLine', function () {
         var id = $(this).attr('data');
-        $('#doorTypeDaughter'+id).addClass('ghost');
+        $('#doorTypeDaughter' + id).addClass('ghost');
     });
 
 
@@ -452,16 +452,16 @@ jQuery('document').ready(function () {
 
     });
 
-    $('#backHis').on('click',function (){
-            backHistoryList();
+    $('#backHis').on('click', function () {
+        backHistoryList();
     });
-    $('#nextHis').on('click',function (){
+    $('#nextHis').on('click', function () {
         nextHistoryList();
     });
 
-    $(document).keyup(function(e){
+    $(document).keyup(function (e) {
 
-        if(!selectSizeOpen){
+        if (!selectSizeOpen) {
             return;
         }
         handleKeystroke(e);
@@ -585,19 +585,19 @@ jQuery('document').ready(function () {
                 showValue = getFurniture(value, 'handle');
             }
             //doorstep//DoorTrim
-            else if(currentItem == "doorstep"
+            else if (currentItem == "doorstep"
                 || currentItem == "stainlessSteelDoorstep"
                 || currentItem == "topDoorTrim"
                 || currentItem == "leftDoorTrim"
-                || currentItem == "rightDoorTrim"){
+                || currentItem == "rightDoorTrim") {
 
-                fillCheckbox(currentItem,value);
+                fillCheckbox(currentItem, value);
             }
-            else if(currentItem == "firstSealingLine"
+            else if (currentItem == "firstSealingLine"
                 || currentItem == "secondSealingLine"
-                || currentItem == "thirdSealingLine"){
+                || currentItem == "thirdSealingLine") {
 
-                fillCheckbox(currentItem+'_'+value,1);
+                fillCheckbox(currentItem + '_' + value, 1);
             }
             else {
                 if (value != 0 || value != "0") {
@@ -713,7 +713,7 @@ jQuery('document').ready(function () {
 
     function displayPrice() {
 
-        $('#price').text('Цена: '+door.priceWithMarkup);
+        $('#price').text('Цена: ' + door.priceWithMarkup);
 
         $('.decryption').remove();
 
@@ -741,42 +741,42 @@ jQuery('document').ready(function () {
             var divName = door.availableDoorClass[i].name;
             var divId = door.availableDoorClass[i].id;
 
-                $('<div>')
-                    .attr('class', 'card text-dark border-dark class_card')
-                    .attr('data', divId)
-                    .attr('id', 'doorClass' + divId)
-                    .appendTo('.select_door_class');
+            $('<div>')
+                .attr('class', 'card text-dark border-dark class_card')
+                .attr('data', divId)
+                .attr('id', 'doorClass' + divId)
+                .appendTo('.select_door_class');
 
-                    $('<div>')
-                        .attr('class', 'images_door_class_div')
-                        .attr('id', 'doorClassDiv' + divId)
-                        .appendTo('#doorClass' + divId);
+            $('<div>')
+                .attr('class', 'images_door_class_div')
+                .attr('id', 'doorClassDiv' + divId)
+                .appendTo('#doorClass' + divId);
 
-                        $('<img>')
-                            .attr('class', 'images_door_class')
-                            .attr('dataName', divName)
-                            .attr('src', door.availableDoorClass[i].namePicture)
-                            .attr('Item', 'doorClass')
-                            .appendTo('#doorClassDiv' + divId);
+            $('<img>')
+                .attr('class', 'images_door_class')
+                .attr('dataName', divName)
+                .attr('src', door.availableDoorClass[i].namePicture)
+                .attr('Item', 'doorClass')
+                .appendTo('#doorClassDiv' + divId);
 
-                            $('<div>')
-                                .attr('class', 'images_door_class_p')
-                                .attr('id', 'doorClassDivP' + divId)
-                                .appendTo('#doorClassDiv' + divId);
+            $('<div>')
+                .attr('class', 'images_door_class_p')
+                .attr('id', 'doorClassDivP' + divId)
+                .appendTo('#doorClassDiv' + divId);
 
-                                $('<p>')
-                                    .text(divName)
-                                    .appendTo('#doorClassDivP' + divId);
+            $('<p>')
+                .text(divName)
+                .appendTo('#doorClassDivP' + divId);
 
-                $('<div>')
-                    .attr('class', 'card-body')
-                    .attr('id', 'card-body' + divId)
-                    .appendTo('#doorClass' + divId);
+            $('<div>')
+                .attr('class', 'card-body')
+                .attr('id', 'card-body' + divId)
+                .appendTo('#doorClass' + divId);
 
-                    $('<p>')
-                        .attr('class', 'card-text')
-                        .text(door.availableDoorClass[i].description)
-                        .appendTo('#card-body' + divId);
+            $('<p>')
+                .attr('class', 'card-text')
+                .text(door.availableDoorClass[i].description)
+                .appendTo('#card-body' + divId);
 
         }
     };
@@ -818,14 +818,14 @@ jQuery('document').ready(function () {
 
         allDisable('deepnessDoor_checkbox');
         writeInCheckbox('deepnessDoor', data.deepnessDoor);
-        if(data.deepnessDoor.length>1){
+        if (data.deepnessDoor.length > 1) {
             $('#namedeepnessDoor').attr('available', "yes");
         }
 
 
         allDisable('thicknessDoorLeaf_checkbox');
         writeInCheckbox('thicknessDoorLeaf', data.thicknessDoorLeaf);
-        if(data.thicknessDoorLeaf.length>1) {
+        if (data.thicknessDoorLeaf.length > 1) {
             $('#namethicknessDoorLeaf').attr('available', "yes");
         }
 
@@ -998,10 +998,10 @@ jQuery('document').ready(function () {
         var tab = data[name];
         var tabSize = tab.length;
 
-        if(tabSize>1){
+        if (tabSize > 1) {
             for (var i = 0; i < tabSize; i++) {
 
-                var lineName = name+'_'+tab[i].startRestriction;
+                var lineName = name + '_' + tab[i].startRestriction;
 
                 $('#name' + lineName).attr('available', 'yes');
                 $('#' + lineName + '_checkbox').attr('available', 'yes');
@@ -1225,7 +1225,7 @@ jQuery('document').ready(function () {
             data: {id: id, orderId: orderId, typid: typid},
             dataType: 'json',
             success: function (data) {
-                FillOutForm(data,updateClassDiv);
+                FillOutForm(data, updateClassDiv);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -1257,51 +1257,52 @@ jQuery('document').ready(function () {
         }
     };
 
-    function fillCheckbox(name,value) {
-        if (value==1){
-            $('#'+name+'_checkbox').prop('checked', true);
+    function fillCheckbox(name, value) {
+        if (value == 1) {
+            $('#' + name + '_checkbox').prop('checked', true);
         }
         else {
-            $('#'+name+'_checkbox').prop('checked', false);
+            $('#' + name + '_checkbox').prop('checked', false);
         }
     };
 
-    function fillInType(idDoorClass){
+    function fillInType(idDoorClass) {
 
         $('.typeLine').remove();
 
         for (var i = 0; i < door.availableDoorClass.length; ++i) {
 
 
-           if (door.availableDoorClass[i].id == idDoorClass){
-               var doorTypes = door.availableDoorClass[i].doorTypes;
-               for (var j = 0; j < doorTypes.length; ++j) {
+            if (door.availableDoorClass[i].id == idDoorClass) {
+                var doorTypes = door.availableDoorClass[i].doorTypes;
+                for (var j = 0; j < doorTypes.length; ++j) {
 
-                   $('<li>')
-                       .attr('class', 'typeLine list-group-item')
-                       .attr('id', 'doorType' + doorTypes[j].id)
-                       .attr('data', doorTypes[j].id)
-                       .text(doorTypes[j].name)
-                       .attr('Item', 'doorType')
-                       .appendTo('.select_door_type_list');
+                    $('<li>')
+                        .attr('class', 'typeLine list-group-item')
+                        .attr('id', 'doorType' + doorTypes[j].id)
+                        .attr('data', doorTypes[j].id)
+                        .text(doorTypes[j].name)
+                        .attr('Item', 'doorType')
+                        .appendTo('.select_door_type_list');
 
-                       $('<div>')
-                           .attr('class', 'typeLineDaughter ghost')
-                           .attr('id', 'doorTypeDaughter' + doorTypes[j].id)
-                           .appendTo('#doorType' + doorTypes[j].id);
+                    $('<div>')
+                        .attr('class', 'typeLineDaughter ghost')
+                        .attr('id', 'doorTypeDaughter' + doorTypes[j].id)
+                        .appendTo('#doorType' + doorTypes[j].id);
 
-                           $('<img>')
-                               .attr('class', 'images_door_class')
-                               .attr('src', doorTypes[j].namePicture)
-                               .appendTo('#doorTypeDaughter' + doorTypes[j].id);
+                    $('<img>')
+                        .attr('class', 'images_door_class')
+                        .attr('src', doorTypes[j].namePicture)
+                        .appendTo('#doorTypeDaughter' + doorTypes[j].id);
 
-                   $('#doorType' + doorTypes[j].id).on('hover',function(){
-                       var id = $(this).attr('data');
-                       alert(id);
-                       $('#doorType' + doorTypes[j].id).removeClass('ghost');
+                    $('#doorType' + doorTypes[j].id).on('hover', function () {
+                        var id = $(this).attr('data');
+                        alert(id);
+                        $('#doorType' + doorTypes[j].id).removeClass('ghost');
 
-                   });
-               };
+                    });
+                }
+                ;
             }
         }
 
@@ -1310,7 +1311,7 @@ jQuery('document').ready(function () {
 
     function hideShowField(addHistory) {
 
-        if (addHistory){
+        if (addHistory) {
             addToTheHistoryList(currentItem);
         }
 
@@ -1545,19 +1546,19 @@ jQuery('document').ready(function () {
             $('.select_lowerlockCylinder').attr('show', 'ghost_lement');
         }
     }
-    
+
     function addToTheHistoryList(val) {
         historyList[currentHisPoint] = val;
         currentHisPoint++;
     }
 
     function backHistoryList() {
-        if (historyList==null){
+        if (historyList == null) {
             return;
         }
         var sizeHis = historyList.length;
-        var index = currentHisPoint-2;
-        if (sizeHis > 0 && index < sizeHis && !(index < 0)){
+        var index = currentHisPoint - 2;
+        if (sizeHis > 0 && index < sizeHis && !(index < 0)) {
             currentItem = historyList[index];
             hideShowField(false);
             currentHisPoint--;
@@ -1565,74 +1566,74 @@ jQuery('document').ready(function () {
     }
 
     function nextHistoryList() {
-        if (historyList==null){
+        if (historyList == null) {
             return;
         }
         var sizeHis = historyList.length;
         var index = currentHisPoint;
-        if (sizeHis > 0 && index < sizeHis && !(index < 0)){
+        if (sizeHis > 0 && index < sizeHis && !(index < 0)) {
             currentItem = historyList[index];
             hideShowField(false);
             currentHisPoint++;
         }
     }
 
-    function addNumberToSize(umber){
+    function addNumberToSize(umber) {
         var currentNamber = $('.line').text();
         if (firstPress) {
             currentNamber = '';
         }
-        $('.line').text(currentNamber+umber);
+        $('.line').text(currentNamber + umber);
         firstPress = false;
     }
 
-    function deleteLastNumberInSize(){
+    function deleteLastNumberInSize() {
         var currentNamber = $('.line').text();
         var length = currentNamber.length;
-        var newNamber = currentNamber.slice(0, length-1);
+        var newNamber = currentNamber.slice(0, length - 1);
         $('.line').text(newNamber);
         firstPress = false;
     }
 
-    function handleKeystroke(e){
-        if(e.which==48){
+    function handleKeystroke(e) {
+        if (e.which == 48) {
             addNumberToSize(0);
         }
-        else if(e.which==49){
+        else if (e.which == 49) {
             addNumberToSize(1);
         }
-        else if(e.which==50){
+        else if (e.which == 50) {
             addNumberToSize(2);
         }
-        else if(e.which==51){
+        else if (e.which == 51) {
             addNumberToSize(3);
         }
-        else if(e.which==52){
+        else if (e.which == 52) {
             addNumberToSize(4);
         }
-        else if(e.which==53){
+        else if (e.which == 53) {
             addNumberToSize(5);
         }
-        else if(e.which==54){
+        else if (e.which == 54) {
             addNumberToSize(6);
         }
-        else if(e.which==55){
+        else if (e.which == 55) {
             addNumberToSize(7);
         }
-        else if(e.which==56){
+        else if (e.which == 56) {
             addNumberToSize(8);
         }
-        else if(e.which==57){
+        else if (e.which == 57) {
             addNumberToSize(9);
         }
-        else if(e.which==8){
+        else if (e.which == 8) {
             deleteLastNumberInSize();//backspace
         }
     }
 
-    function checkForLimits(){
+    function checkForLimits() {
         var namber = parseInt($('.line').text());
-        if (namber < sizeMin || namber > sizeMax){
+        if (namber < sizeMin || namber > sizeMax) {
             $('.line').addClass('redColor');
             $('#select_set').addClass('notAvailable');
         }
@@ -1642,9 +1643,9 @@ jQuery('document').ready(function () {
         }
     };
 
-    function setSize(){
+    function setSize() {
 
-        if ($('#select_set').hasClass('notAvailable')){
+        if ($('#select_set').hasClass('notAvailable')) {
             return;
         }
 
@@ -1667,14 +1668,14 @@ jQuery('document').ready(function () {
             dataType: 'json',
             success: function (data) {
 
-                if(data==null){
+                if (data == null) {
                     return;
                 }
 
-                for(var i=0;i<data.length;i++){
+                for (var i = 0; i < data.length; i++) {
                     $('<span>')
                         .attr('class', 'line_spec')
-                        .text(data[i].name+'  -  '+data[i].value)
+                        .text(data[i].name + '  -  ' + data[i].value)
                         .appendTo('.additional_data');
                 }
 

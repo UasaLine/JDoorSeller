@@ -689,3 +689,10 @@ tr:hover {
 .sword-cursor{
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
+.textComit{
+    color: grey;
+}
+.greenFlag{
+    //color: forestgreen;
+    background-color: lawngreen;
+}

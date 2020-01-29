@@ -3,13 +3,10 @@ package com.jds.controller;
 import com.jds.entity.DoorsОrder;
 import com.jds.entity.UserEntity;
 import com.jds.model.modelEnum.OrderStatus;
-import com.jds.service.MaineService;
 import com.jds.service.OrderService;
-import com.jds.service.UserService;
+import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +18,29 @@ public class OrderController {
 
 
     @Autowired
-    private UserService userService;
+    private UserServ userService;
     @Autowired
     private OrderService orderService;
 
 
     @GetMapping(value = "/orders")
-    public String getOrdersPage(Model model) throws Exception {
-        List<DoorsОrder> list = orderService.getOrders(null);
+    public String getOrdersPage(Model model,
+                                @RequestParam(required = false,defaultValue = "0") String userId) throws Exception {
+
+        List<DoorsОrder> list;
+        boolean report = false;
+        if (!"0".equals(userId)){
+            list = orderService.getOrders(userId);
+            report = true;
+        }
+        else {
+            list = orderService.getOrders();
+        }
+
+        model.addAttribute("report", report);
         model.addAttribute("accountInfos", list);
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
+
         return "orders";
     }
 
@@ -55,7 +65,7 @@ public class OrderController {
     @ResponseBody
     public DoorsОrder saveOrder(@RequestBody DoorsОrder order) throws Exception {
 
-        return orderService.saveOrder(order);
+        return orderService.setCurrentUserAndSaveOrder(order);
     }
 
     @DeleteMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,6 +80,14 @@ public class OrderController {
     public List<DoorsОrder> getOrders() throws Exception {
 
         return orderService.getOrders(OrderStatus.TO_WORK);
+    }
+
+    @PostMapping(value = "/order/status")
+    public void setOrdersStatus(@RequestParam(required = false) String orderId,
+                                @RequestParam(required = false) String status) throws Exception {
+
+        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId),status);
+
     }
 
 }

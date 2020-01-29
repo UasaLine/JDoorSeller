@@ -30,12 +30,13 @@ jQuery('document').ready(function () {
             }
         });
     }
+
     function installFromTemplatAfterSelectingType() {
 
-        installFromTemplateSize('widthDoor',true);
-        installFromTemplateSize('heightDoor',true);
-        installFromTemplateSize('deepnessDoor',false);
-        installFromTemplateSize('thicknessDoorLeaf',false);
+        installFromTemplateSize('widthDoor', true);
+        installFromTemplateSize('heightDoor', true);
+        installFromTemplateSize('deepnessDoor', false);
+        installFromTemplateSize('thicknessDoorLeaf', false);
         installFromTemplateMetal();
         installFromTemplateColor();
 
@@ -68,6 +69,7 @@ jQuery('document').ready(function () {
         installFromTemplateFurnitur('armor');
 
     }
+
     function fillInAlLSelectAfterSelectingType() {
 
         fillInMetal();
@@ -122,7 +124,7 @@ jQuery('document').ready(function () {
         fillInMetal();
 
     });
-    $('#metalDiv').on('click','.metalLineCheckbox', function () {
+    $('#metalDiv').on('click', '.metalLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('metal');
             $(this).prop('checked', true);
@@ -138,10 +140,10 @@ jQuery('document').ready(function () {
         saveInJavaObjectSize('widthDoor');
         if (allFieldsAreFilled('.widthDoorInput')) {
             //addInputField('widthDoorInput', 'widthDoorDiv');
-            addField('widthDoor','input');
+            addField('widthDoor', 'input');
         }
     });
-    $('#widthDoorDiv').on('click','.widthDoorLineCheckbox', function () {
+    $('#widthDoorDiv').on('click', '.widthDoorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('widthDoor');
             $(this).prop('checked', true);
@@ -161,7 +163,7 @@ jQuery('document').ready(function () {
             addInputField('heightDoorInput', 'heightDoorDiv');
         }
     });
-    $('#heightDoorDiv').on('click','.heightDoorLineCheckbox', function () {
+    $('#heightDoorDiv').on('click', '.heightDoorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('heightDoor');
             $(this).prop('checked', true);
@@ -178,10 +180,10 @@ jQuery('document').ready(function () {
         saveInJavaObjectSize('deepnessDoor');
         if (allFieldsAreFilled('.deepnessDoorInput')) {
             //addInputField('deepnessDoorInput', 'deepnessDoorDiv');
-            addField('deepnessDoor','input','Input');
+            addField('deepnessDoor', 'input', 'Input');
         }
     });
-    $('#deepnessDoorDiv').on('click','.deepnessDoorLineCheckbox', function () {
+    $('#deepnessDoorDiv').on('click', '.deepnessDoorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('deepnessDoor');
             $(this).prop('checked', true);
@@ -195,10 +197,10 @@ jQuery('document').ready(function () {
         saveInJavaObjectSize('thicknessDoorLeaf');
         if (allFieldsAreFilled('.thicknessDoorLeafInput')) {
             //addInputField('thicknessDoorLeafInput', 'thicknessDoorLeafDiv');
-            addField('thicknessDoorLeaf','input','Input');
+            addField('thicknessDoorLeaf', 'input', 'Input');
         }
     });
-    $('#thicknessDoorLeafDiv').on('click','.thicknessDoorLeafLineCheckbox', function () {
+    $('#thicknessDoorLeafDiv').on('click', '.thicknessDoorLeafLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('thicknessDoorLeaf');
             $(this).prop('checked', true);
@@ -214,11 +216,11 @@ jQuery('document').ready(function () {
         saveInJavaObjectColorAndFurnitur('colors');
         if (allFieldsAreFilled('.colorsSelect')) {
             //addSelectField('colors');
-            addField('colors','select','Select');
+            addField('colors', 'select', 'Select');
         }
         fillInColor();
     });
-    $('#colorsDiv').on('click','.colorsLineCheckbox', function () {
+    $('#colorsDiv').on('click', '.colorsLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('colors');
             $(this).prop('checked', true);
@@ -234,11 +236,11 @@ jQuery('document').ready(function () {
 
         saveInJavaObjectforRestrictionValue('doorstep');
         if (allFieldsAreFilled('.doorstepSelect')) {
-            addField('doorstep','select','Select');
+            addField('doorstep', 'select', 'Select');
         }
         fillInSelector('.doorstepSelect', 'doorstep');
     });
-    $('#doorstepDiv').on('click','.doorstepLineCheckbox', function () {
+    $('#doorstepDiv').on('click', '.doorstepLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('doorstep');
             $(this).prop('checked', true);
@@ -252,11 +254,11 @@ jQuery('document').ready(function () {
     $('#stainlessSteelDoorstepDiv').change('.stainlessSteelDoorstepSelect', function () {
         saveInJavaObjectforRestrictionValue('stainlessSteelDoorstep');
         if (allFieldsAreFilled('.stainlessSteelDoorstepSelect')) {
-            addField('stainlessSteelDoorstep','select','Select');
+            addField('stainlessSteelDoorstep', 'select', 'Select');
         }
         fillInSelector('.stainlessSteelDoorstepSelect', 'stainlessSteelDoorstep');
     });
-    $('#stainlessSteelDoorstepDiv').on('click','.stainlessSteelDoorstepLineCheckbox', function () {
+    $('#stainlessSteelDoorstepDiv').on('click', '.stainlessSteelDoorstepLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('stainlessSteelDoorstep');
             $(this).prop('checked', true);
@@ -271,7 +273,7 @@ jQuery('document').ready(function () {
     $('#firstSealingLineDiv').change('.firstSealingLineSelect', function () {
         addNewFieldAndfillInforSealingLine('firstSealingLine');
     });
-    $('#firstSealingLineDiv').on('click','.firstSealingLineLineCheckbox', function () {
+    $('#firstSealingLineDiv').on('click', '.firstSealingLineLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('firstSealingLine');
             $(this).prop('checked', true);
@@ -285,7 +287,7 @@ jQuery('document').ready(function () {
     $('#secondSealingLineDiv').change('.secondSealingLineSelect', function () {
         addNewFieldAndfillInforSealingLine('secondSealingLine');
     });
-    $('#secondSealingLineDiv').on('click','.secondSealingLineLineCheckbox', function () {
+    $('#secondSealingLineDiv').on('click', '.secondSealingLineLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('secondSealingLine');
             $(this).prop('checked', true);
@@ -299,7 +301,7 @@ jQuery('document').ready(function () {
     $('#thirdSealingLineDiv').change('.thirdSealingLineSelect', function () {
         addNewFieldAndfillInforSealingLine('thirdSealingLine');
     });
-    $('#thirdSealingLineDiv').on('click','.thirdSealingLineLineCheckbox', function () {
+    $('#thirdSealingLineDiv').on('click', '.thirdSealingLineLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('thirdSealingLine');
             $(this).prop('checked', true);
@@ -315,11 +317,11 @@ jQuery('document').ready(function () {
 
         saveInJavaObjectforRestrictionValue('topDoorTrim');
         if (allFieldsAreFilled('.topDoorTrimSelect')) {
-            addField('topDoorTrim','select','Select');
+            addField('topDoorTrim', 'select', 'Select');
         }
         fillInSelector('.topDoorTrimSelect', 'topDoorTrim');
     });
-    $('#topDoorTrimDiv').on('click','.topDoorTrimLineCheckbox', function () {
+    $('#topDoorTrimDiv').on('click', '.topDoorTrimLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('topDoorTrim');
             $(this).prop('checked', true);
@@ -335,11 +337,11 @@ jQuery('document').ready(function () {
 
         saveInJavaObjectforRestrictionValue('leftDoorTrim');
         if (allFieldsAreFilled('.leftDoorTrimSelect')) {
-            addField('leftDoorTrim','select','Select');
+            addField('leftDoorTrim', 'select', 'Select');
         }
         fillInSelector('.leftDoorTrimSelect', 'leftDoorTrim');
     });
-    $('#leftDoorTrimDiv').on('click','.leftDoorTrimCheckbox', function () {
+    $('#leftDoorTrimDiv').on('click', '.leftDoorTrimCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('leftDoorTrim');
             $(this).prop('checked', true);
@@ -355,11 +357,11 @@ jQuery('document').ready(function () {
 
         saveInJavaObjectforRestrictionValue('rightDoorTrim');
         if (allFieldsAreFilled('.rightDoorTrimSelect')) {
-            addField('rightDoorTrim','select','Select');
+            addField('rightDoorTrim', 'select', 'Select');
         }
         fillInSelector('.rightDoorTrimSelect', 'rightDoorTrim');
     });
-    $('#rightDoorTrimDiv').on('click','.rightDoorTrimLineCheckbox', function () {
+    $('#rightDoorTrimDiv').on('click', '.rightDoorTrimLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('rightDoorTrim');
             $(this).prop('checked', true);
@@ -375,7 +377,7 @@ jQuery('document').ready(function () {
     $('#topLockDiv').change('.topLockSelect', function () {
         addNewFieldAndfillInforFurnitur('topLock');//nameJavaObject
     });
-    $('#topLockDiv').on('click','.topLockLineCheckbox', function () {
+    $('#topLockDiv').on('click', '.topLockLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('topLock');
             $(this).prop('checked', true);
@@ -389,7 +391,7 @@ jQuery('document').ready(function () {
     $('#lowerLockDiv').change('.lowerLockSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerLock');//nameJavaObject
     });
-    $('#lowerLockDiv').on('click','.lowerLockLineCheckbox', function () {
+    $('#lowerLockDiv').on('click', '.lowerLockLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('lowerLock');
             $(this).prop('checked', true);
@@ -402,7 +404,7 @@ jQuery('document').ready(function () {
     $('#handleDiv').change('.handleSelect', function () {
         addNewFieldAndfillInforFurnitur('handle');//nameJavaObject
     });
-    $('#handleDiv').on('click','.handleLineCheckbox', function () {
+    $('#handleDiv').on('click', '.handleLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('handle');
             $(this).prop('checked', true);
@@ -415,7 +417,7 @@ jQuery('document').ready(function () {
     $('#lowerlockCylinderDiv').change('.lowerlockCylinderSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerlockCylinder');//nameJavaObject
     });
-    $('#lowerlockCylinderDiv').on('click','.lowerlockCylinderLineCheckbox', function () {
+    $('#lowerlockCylinderDiv').on('click', '.lowerlockCylinderLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('lowerlockCylinder');
             $(this).prop('checked', true);
@@ -428,7 +430,7 @@ jQuery('document').ready(function () {
     $('#toplockCylinderDiv').change('.toplockCylinderSelect', function () {
         addNewFieldAndfillInforFurnitur('toplockCylinder');//nameJavaObject
     });
-    $('#toplockCylinderDiv').on('click','.toplockCylinderLineCheckbox', function () {
+    $('#toplockCylinderDiv').on('click', '.toplockCylinderLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('toplockCylinder');
             $(this).prop('checked', true);
@@ -441,7 +443,7 @@ jQuery('document').ready(function () {
     $('#topInLockDecorDiv').change('.topInLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('topInLockDecor');//nameJavaObject
     });
-    $('#topInLockDecorDiv').on('click','.topInLockDecorLineCheckbox', function () {
+    $('#topInLockDecorDiv').on('click', '.topInLockDecorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('topInLockDecor');
             $(this).prop('checked', true);
@@ -454,7 +456,7 @@ jQuery('document').ready(function () {
     $('#topOutLockDecorDiv').change('.topOutLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('topOutLockDecor');//nameJavaObject
     });
-    $('#topOutLockDecorDiv').on('click','.topOutLockDecorLineCheckbox', function () {
+    $('#topOutLockDecorDiv').on('click', '.topOutLockDecorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('topOutLockDecor');
             $(this).prop('checked', true);
@@ -467,7 +469,7 @@ jQuery('document').ready(function () {
     $('#lowerInLockDecorDiv').change('.lowerInLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerInLockDecor');//nameJavaObject
     });
-    $('#lowerInLockDecorDiv').on('click','.lowerInLockDecorLineCheckbox', function () {
+    $('#lowerInLockDecorDiv').on('click', '.lowerInLockDecorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('lowerInLockDecor');
             $(this).prop('checked', true);
@@ -480,7 +482,7 @@ jQuery('document').ready(function () {
     $('#lowerOutLockDecorDiv').change('.lowerOutLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerOutLockDecor');
     });
-    $('#lowerOutLockDecorDiv').on('click','.lowerOutLockDecorLineCheckbox', function () {
+    $('#lowerOutLockDecorDiv').on('click', '.lowerOutLockDecorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('lowerOutLockDecor');
             $(this).prop('checked', true);
@@ -496,7 +498,7 @@ jQuery('document').ready(function () {
     $('#closerDiv').change('.closerSelect', function () {
         addNewFieldAndfillInforFurnitur('closer');//nameJavaObject
     });
-    $('#closerDiv').on('click','.closerLineCheckbox', function () {
+    $('#closerDiv').on('click', '.closerLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('closer');
             $(this).prop('checked', true);
@@ -509,7 +511,7 @@ jQuery('document').ready(function () {
     $('#endDoorLockDiv').change('.endDoorLockSelect', function () {
         addNewFieldAndfillInforFurnitur('endDoorLock');//nameJavaObject
     });
-    $('#endDoorLockDiv').on('click','.endDoorLockLineCheckbox', function () {
+    $('#endDoorLockDiv').on('click', '.endDoorLockLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('endDoorLock');
             $(this).prop('checked', true);
@@ -526,7 +528,7 @@ jQuery('document').ready(function () {
     $('#typeDoorGlassDiv').change('.typeDoorGlassSelect', function () {
         addNewFieldAndfillInforFurnitur('typeDoorGlass');//nameJavaObject
     });
-    $('#typeDoorGlassDiv').on('click','.typeDoorGlassLineCheckbox', function () {
+    $('#typeDoorGlassDiv').on('click', '.typeDoorGlassLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('typeDoorGlass');
             $(this).prop('checked', true);
@@ -539,7 +541,7 @@ jQuery('document').ready(function () {
     $('#toningDiv').change('.toningSelect', function () {
         addNewFieldAndfillInforFurnitur('toning');//nameJavaObject
     });
-    $('#toningDiv').on('click','.toningLineCheckbox', function () {
+    $('#toningDiv').on('click', '.toningLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('toning');
             $(this).prop('checked', true);
@@ -552,7 +554,7 @@ jQuery('document').ready(function () {
     $('#armorDiv').change('.armorSelect', function () {
         addNewFieldAndfillInforFurnitur('armor');//nameJavaObject
     });
-    $('#armorDiv').on('click','.armorLineCheckbox', function () {
+    $('#armorDiv').on('click', '.armorLineCheckbox', function () {
         if ($(this).is(':checked')) {
             switchOffAll('armor');
             $(this).prop('checked', true);
@@ -597,16 +599,16 @@ jQuery('document').ready(function () {
     });
 
     function switchSize(nameJavaObject) {
-        if ($('#'+nameJavaObject+'Checkbox').is(':checked')){
+        if ($('#' + nameJavaObject + 'Checkbox').is(':checked')) {
 
-            $('#'+nameJavaObject+'Period').addClass('ghost');
-            $('#'+nameJavaObject+'Div').removeClass('ghost');
+            $('#' + nameJavaObject + 'Period').addClass('ghost');
+            $('#' + nameJavaObject + 'Div').removeClass('ghost');
             clearPeriod(nameJavaObject);
         }
         else {
 
-            $('#'+nameJavaObject+'Period').removeClass('ghost');
-            $('#'+nameJavaObject+'Div').addClass('ghost');
+            $('#' + nameJavaObject + 'Period').removeClass('ghost');
+            $('#' + nameJavaObject + 'Div').addClass('ghost');
             clearSize(nameJavaObject);
         }
     }
@@ -674,29 +676,28 @@ jQuery('document').ready(function () {
     }
 
 
-
     function installPairOfValues(nameJavaObject, min, max) {
         $('#' + nameJavaObject + 'Min').val(min);
         $('#' + nameJavaObject + 'Max').val(max);
     }
 
-    function installOneValue(nameJavaObject, val,defaultValue) {
+    function installOneValue(nameJavaObject, val, defaultValue) {
         var selector = '.' + nameJavaObject + 'Input';
         if (allFieldsAreFilled(selector)) {
             //addSizeField(nameJavaObject);
-            addField(nameJavaObject,'input','Input');
+            addField(nameJavaObject, 'input', 'Input');
         }
         elem = getNotCompletedFields(selector);
         $(elem).val(val);
-        setSwitchDefaultVal(elem,nameJavaObject,defaultValue);
+        setSwitchDefaultVal(elem, nameJavaObject, defaultValue);
 
         if (allFieldsAreFilled(selector)) {
             //addSizeField(nameJavaObject);
-            addField(nameJavaObject,'input','Input');
+            addField(nameJavaObject, 'input', 'Input');
         }
     }
 
-    function installFromTemplateSize(nameJavaObject,twoInputOptions) {
+    function installFromTemplateSize(nameJavaObject, twoInputOptions) {
 
         var table = template[nameJavaObject];
         var length = table.length;
@@ -708,12 +709,12 @@ jQuery('document').ready(function () {
             }
             else {
                 check = true;
-                installOneValue(nameJavaObject, table[i].startRestriction,table[i].defaultValue);
+                installOneValue(nameJavaObject, table[i].startRestriction, table[i].defaultValue);
             }
 
         }
-        if(twoInputOptions && check){
-            $('#'+nameJavaObject+'Checkbox').prop('checked', true);
+        if (twoInputOptions && check) {
+            $('#' + nameJavaObject + 'Checkbox').prop('checked', true);
             switchSize(nameJavaObject);
         }
     }
@@ -732,8 +733,8 @@ jQuery('document').ready(function () {
 
             elem = getNotCompletedFields(selector);
             fillInFieldFromLimit('#' + $(elem).attr('id'), restriction.metal);
-            setValueInSelect('#' + $(elem).attr('id'),table[i].firstItem);
-            setSwitchDefaultVal(elem,'metal',table[i].defaultValue);
+            setValueInSelect('#' + $(elem).attr('id'), table[i].firstItem);
+            setSwitchDefaultVal(elem, 'metal', table[i].defaultValue);
 
             if (allFieldsAreFilled(selector)) {
                 addMetalField();
@@ -751,17 +752,17 @@ jQuery('document').ready(function () {
         for (var i = 0; i < length; ++i) {
             if (allFieldsAreFilled(selector)) {
                 //addSelectField('colors');
-                addField('colors','select','Select');
+                addField('colors', 'select', 'Select');
             }
 
             elem = getNotCompletedFields(selector);
             fillInFieldFromColor('#' + $(elem).attr('id'), restriction.colors);
-            setValueInSelectInt('#' + $(elem).attr('id'),table[i].itemId);
-            setSwitchDefaultVal(elem,'colors',table[i].defaultValue);
+            setValueInSelectInt('#' + $(elem).attr('id'), table[i].itemId);
+            setSwitchDefaultVal(elem, 'colors', table[i].defaultValue);
 
             if (allFieldsAreFilled(selector)) {
                 //addSelectField('colors');
-                addField('colors','select','Select');
+                addField('colors', 'select', 'Select');
             }
 
         }
@@ -776,15 +777,15 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < length; ++i) {
             if (allFieldsAreFilled(selector)) {
-                addField(nameJavaObject,'select','Select');
+                addField(nameJavaObject, 'select', 'Select');
             }
             elem = getNotCompletedFields(selector);
             fillInFieldFromLimiBoolToInt('#' + $(elem).attr('id'), restriction[nameJavaObject]);
-            setValueInSelectInt('#' + $(elem).attr('id'),table[i].startRestriction);
-            setSwitchDefaultVal(elem,nameJavaObject,table[i].defaultValue);
+            setValueInSelectInt('#' + $(elem).attr('id'), table[i].startRestriction);
+            setSwitchDefaultVal(elem, nameJavaObject, table[i].defaultValue);
 
             if (allFieldsAreFilled(selector)) {
-                addField(nameJavaObject,'select','Select');
+                addField(nameJavaObject, 'select', 'Select');
             }
 
         }
@@ -799,17 +800,17 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < length; ++i) {
             if (allFieldsAreFilled(selector)) {
-                addField(nameJavaObject,'select','Select');
+                addField(nameJavaObject, 'select', 'Select');
             }
 
             elem = getNotCompletedFields(selector);
             fillInFieldFromLimiSealingLine('#' + $(elem).attr('id'), restriction[nameJavaObject]);
-            setValueInSelectInt('#' + $(elem).attr('id'),table[i].startRestriction);
-            setSwitchDefaultVal(elem,nameJavaObject,table[i].defaultValue);
+            setValueInSelectInt('#' + $(elem).attr('id'), table[i].startRestriction);
+            setSwitchDefaultVal(elem, nameJavaObject, table[i].defaultValue);
 
             if (allFieldsAreFilled(selector)) {
 
-                addField(nameJavaObject,'select','Select');
+                addField(nameJavaObject, 'select', 'Select');
             }
         }
     }
@@ -825,16 +826,16 @@ jQuery('document').ready(function () {
 
             for (var i = 0; i < length; ++i) {
                 if (allFieldsAreFilled(selector)) {
-                    addField(nameJavaObject,'select','Select');
+                    addField(nameJavaObject, 'select', 'Select');
                 }
 
                 elem = getNotCompletedFields(selector);
                 fillInFieldFromLimiForFurnitur('#' + $(elem).attr('id'), restriction[nameJavaObject]);
-                setValueInSelectInt('#' + $(elem).attr('id'),table[i].itemId);
-                setSwitchDefaultVal(elem,nameJavaObject,table[i].defaultValue);
+                setValueInSelectInt('#' + $(elem).attr('id'), table[i].itemId);
+                setSwitchDefaultVal(elem, nameJavaObject, table[i].defaultValue);
 
                 if (allFieldsAreFilled(selector)) {
-                    addField(nameJavaObject,'select','Select');
+                    addField(nameJavaObject, 'select', 'Select');
                 }
             }
         }
@@ -976,68 +977,68 @@ jQuery('document').ready(function () {
             .attr('id', 'metalLineDiv' + data)
             .appendTo('#metalDiv');
 
-            $('<div>').attr('class', 'col-md-6 mb-3')
-                .attr('id', 'metalLineSelect' + data)
-                .appendTo('#metalLineDiv' + data);
+        $('<div>').attr('class', 'col-md-6 mb-3')
+            .attr('id', 'metalLineSelect' + data)
+            .appendTo('#metalLineDiv' + data);
 
-                $('<select>').attr('class', 'form-control metalSelect')
-                    .attr('id', 'metalSelect' + data)
-                    .attr('data', data)
-                    .appendTo('#metalLineSelect' + data);
+        $('<select>').attr('class', 'form-control metalSelect')
+            .attr('id', 'metalSelect' + data)
+            .attr('data', data)
+            .appendTo('#metalLineSelect' + data);
 
-            $('<div>').attr('class', 'custom-control custom-switch')
-                .attr('id', 'metalLineSwitch' + data)
-                .appendTo('#metalLineDiv' + data);
+        $('<div>').attr('class', 'custom-control custom-switch')
+            .attr('id', 'metalLineSwitch' + data)
+            .appendTo('#metalLineDiv' + data);
 
-                $('<input>').attr('class', 'custom-control-input metalLineCheckbox')
-                    .attr('id', 'metalLineCheckbox' + data)
-                    .attr('type', 'checkbox')
-                    .attr('data', data)
-                    .appendTo('#metalLineSwitch' + data);
+        $('<input>').attr('class', 'custom-control-input metalLineCheckbox')
+            .attr('id', 'metalLineCheckbox' + data)
+            .attr('type', 'checkbox')
+            .attr('data', data)
+            .appendTo('#metalLineSwitch' + data);
 
-                $('<label>').attr('class', 'custom-control-label')
-                    .attr('for', 'metalLineCheckbox' + data)
-                    .text('default')
-                    .appendTo('#metalLineSwitch' + data);
+        $('<label>').attr('class', 'custom-control-label')
+            .attr('for', 'metalLineCheckbox' + data)
+            .text('default')
+            .appendTo('#metalLineSwitch' + data);
 
         return '#metalSelect' + data;
 
     }
 
-    function addField(nameJavaObject,activField,typField) {
+    function addField(nameJavaObject, activField, typField) {
 
 
-        var data = lastElemNumber('.'+nameJavaObject+typField) + 1;
+        var data = lastElemNumber('.' + nameJavaObject + typField) + 1;
 
         $('<div>').attr('class', 'row')
-            .attr('id', ''+nameJavaObject+'LineDiv' + data)
-            .appendTo('#'+nameJavaObject+'Div');
+            .attr('id', '' + nameJavaObject + 'LineDiv' + data)
+            .appendTo('#' + nameJavaObject + 'Div');
 
-            $('<div>').attr('class', 'col-md-6 mb-3')
-                .attr('id', ''+nameJavaObject+'LineSelect' + data)
-                .appendTo('#'+nameJavaObject+'LineDiv' + data);
+        $('<div>').attr('class', 'col-md-6 mb-3')
+            .attr('id', '' + nameJavaObject + 'LineSelect' + data)
+            .appendTo('#' + nameJavaObject + 'LineDiv' + data);
 
-                $('<'+activField+'>').attr('class', 'form-control '+nameJavaObject + typField)
-                    .attr('id', ''+nameJavaObject + typField + data)
-                    .attr('data', data)
-                    .appendTo('#'+nameJavaObject+'LineSelect' + data);
+        $('<' + activField + '>').attr('class', 'form-control ' + nameJavaObject + typField)
+            .attr('id', '' + nameJavaObject + typField + data)
+            .attr('data', data)
+            .appendTo('#' + nameJavaObject + 'LineSelect' + data);
 
-            $('<div>').attr('class', 'custom-control custom-switch')
-                .attr('id', ''+nameJavaObject+'LineSwitch' + data)
-                .appendTo('#'+nameJavaObject+'LineDiv' + data);
+        $('<div>').attr('class', 'custom-control custom-switch')
+            .attr('id', '' + nameJavaObject + 'LineSwitch' + data)
+            .appendTo('#' + nameJavaObject + 'LineDiv' + data);
 
-                $('<input>').attr('class', 'custom-control-input '+nameJavaObject+'LineCheckbox')
-                    .attr('id', ''+nameJavaObject+'LineCheckbox' + data)
-                    .attr('type', 'checkbox')
-                    .attr('data', data)
-                    .appendTo('#'+nameJavaObject+'LineSwitch' + data);
+        $('<input>').attr('class', 'custom-control-input ' + nameJavaObject + 'LineCheckbox')
+            .attr('id', '' + nameJavaObject + 'LineCheckbox' + data)
+            .attr('type', 'checkbox')
+            .attr('data', data)
+            .appendTo('#' + nameJavaObject + 'LineSwitch' + data);
 
-                $('<label>').attr('class', 'custom-control-label')
-                    .attr('for', ''+nameJavaObject+'LineCheckbox' + data)
-                    .text('default')
-                    .appendTo('#'+nameJavaObject+'LineSwitch' + data);
+        $('<label>').attr('class', 'custom-control-label')
+            .attr('for', '' + nameJavaObject + 'LineCheckbox' + data)
+            .text('default')
+            .appendTo('#' + nameJavaObject + 'LineSwitch' + data);
 
-        return '#'+nameJavaObject+'Select' + data;
+        return '#' + nameJavaObject + 'Select' + data;
 
     }
 
@@ -1100,7 +1101,7 @@ jQuery('document').ready(function () {
     function addNewFieldAndfillInforFurnitur(nameJavaObject) {
         saveInJavaObjectColorAndFurnitur(nameJavaObject);
         if (allFieldsAreFilled('.' + nameJavaObject + 'Select')) {
-                addField(nameJavaObject,'select','Select');
+            addField(nameJavaObject, 'select', 'Select');
         }
         fillInFurnitur(nameJavaObject);
     }
@@ -1109,7 +1110,7 @@ jQuery('document').ready(function () {
         saveInJavaObjectforRestrictionValue(nameJavaObject);
         if (allFieldsAreFilled('.' + nameJavaObject + 'Select')) {
             //addSelectField(nameJavaObject);
-            addField(nameJavaObject,'select','Select');
+            addField(nameJavaObject, 'select', 'Select');
         }
         fillInSealingLine(nameJavaObject);
     }
@@ -1126,16 +1127,16 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
-                template[nameFieldJavaObject].push(findInRestriction($(elem[i]).val(), nameFieldJavaObject,defaultVal));
+                var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                template[nameFieldJavaObject].push(findInRestriction($(elem[i]).val(), nameFieldJavaObject, defaultVal));
             }
         }
     }
 
-    function getDefVal(elem,nameFieldJavaObject){
+    function getDefVal(elem, nameFieldJavaObject) {
         var dataVal = $(elem).attr('data');
 
-        if ($('#'+nameFieldJavaObject+'LineCheckbox'+dataVal).is(':checked')){
+        if ($('#' + nameFieldJavaObject + 'LineCheckbox' + dataVal).is(':checked')) {
             return 1;
         } else {
             return 0;
@@ -1144,7 +1145,7 @@ jQuery('document').ready(function () {
         return 0;
     }
 
-    function findInRestriction(val, nameFieldJavaObject,defaultVal) {
+    function findInRestriction(val, nameFieldJavaObject, defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].startRestriction == val) {
@@ -1154,7 +1155,8 @@ jQuery('document').ready(function () {
             }
         }
     }
-    function findInFirstItem(val, nameFieldJavaObject,defaultVal) {
+
+    function findInFirstItem(val, nameFieldJavaObject, defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].firstItem == val) {
@@ -1176,24 +1178,24 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
+                var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
                 template[nameFieldJavaObject].push(newInstansLim($(elem[i]).val(),
-                                                                 0,0,0,defaultVal));
+                    0, 0, 0, defaultVal));
             }
         }
         //for pairOfValues = 1
-        if($('#' + nameFieldJavaObject + 'Min').val() ||
-            $('#' + nameFieldJavaObject + 'Max').val() || $('#' + nameFieldJavaObject + 'Step').val()){
+        if ($('#' + nameFieldJavaObject + 'Min').val() ||
+            $('#' + nameFieldJavaObject + 'Max').val() || $('#' + nameFieldJavaObject + 'Step').val()) {
 
             template[nameFieldJavaObject].push(newInstansLim($('#' + nameFieldJavaObject + 'Min').val(),
                 $('#' + nameFieldJavaObject + 'Max').val(),
                 $('#' + nameFieldJavaObject + 'Step').val(),
-                1,0));
+                1, 0));
         }
 
     }
 
-    function newInstansLim(min, max, step,pairVal,defaultVal) {
+    function newInstansLim(min, max, step, pairVal, defaultVal) {
         var lim = new function () {
             this.startRestriction = min;
             this.stopRestriction = max;
@@ -1204,7 +1206,7 @@ jQuery('document').ready(function () {
         return lim;
     }
 
-    function saveInJavaObjectColorAndFurnitur(nameFieldJavaObject){
+    function saveInJavaObjectColorAndFurnitur(nameFieldJavaObject) {
         //delete all
         var size = template[nameFieldJavaObject].length;
         template[nameFieldJavaObject].splice(0, size);
@@ -1213,15 +1215,16 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                var defaultVal = getDefVal(elem[i],nameFieldJavaObject);
-                template[nameFieldJavaObject].push(findInRestrByItemId($(elem[i]).val(), nameFieldJavaObject,defaultVal));
+                var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                template[nameFieldJavaObject].push(findInRestrByItemId($(elem[i]).val(), nameFieldJavaObject, defaultVal));
             }
         }
     }
-    function findInRestrByItemId(val, nameFieldJavaObject,defaultVal) {
+
+    function findInRestrByItemId(val, nameFieldJavaObject, defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
-            if (tab[i].itemId == val){
+            if (tab[i].itemId == val) {
                 var lim = tab[i];
                 lim.defaultValue = defaultVal;
                 return lim;
@@ -1229,7 +1232,7 @@ jQuery('document').ready(function () {
         }
     }
 
-    function saveInJavaObjectSelect(nameFieldJavaObject){
+    function saveInJavaObjectSelect(nameFieldJavaObject) {
         //delete all
         var size = template[nameFieldJavaObject].length;
         template[nameFieldJavaObject].splice(0, size);
@@ -1242,6 +1245,7 @@ jQuery('document').ready(function () {
             }
         }
     }
+
     function newInstansBool(val) {
         var lim = new function () {
             this.startRestriction = val;
@@ -1252,7 +1256,7 @@ jQuery('document').ready(function () {
         return lim;
     }
 
-    function saveInJavaObjectFurnitur(nameFieldJavaObject){
+    function saveInJavaObjectFurnitur(nameFieldJavaObject) {
         //delete all
         var size = template[nameFieldJavaObject].length;
         template[nameFieldJavaObject].splice(0, size);
@@ -1261,53 +1265,54 @@ jQuery('document').ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                template[nameFieldJavaObject].push(findInRestrForFurnitur($(elem[i]).val(),nameFieldJavaObject));
+                template[nameFieldJavaObject].push(findInRestrForFurnitur($(elem[i]).val(), nameFieldJavaObject));
             }
         }
     }
+
     function findInRestrForFurnitur(val, nameFieldJavaObject) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
-            if (tab[i].id == val){
+            if (tab[i].id == val) {
                 return tab[i];
             }
         }
     }
 
-    function setValueInSelect(jqSelect,value){
-        var opt = $(jqSelect+' > option');
-        opt.each(function(indx, element){
-            if ( $(this).text().toLowerCase() == value.toLowerCase() ) {
+    function setValueInSelect(jqSelect, value) {
+        var opt = $(jqSelect + ' > option');
+        opt.each(function (indx, element) {
+            if ($(this).text().toLowerCase() == value.toLowerCase()) {
                 $(this).attr("selected", "selected");
             }
         });
     }
 
-    function setValueInSelectInt(jqSelect,value){
-        var opt = $(jqSelect+' > option');
-        opt.each(function(indx, element){
-            if ( $(this).val() == value ) {
+    function setValueInSelectInt(jqSelect, value) {
+        var opt = $(jqSelect + ' > option');
+        opt.each(function (indx, element) {
+            if ($(this).val() == value) {
                 $(this).attr("selected", "selected");
             }
         });
     }
 
     function clearPeriod(nameJavaObject) {
-        $('#'+nameJavaObject+'Min').val('');
-        $('#'+nameJavaObject+'Max').val('');
-        $('#'+nameJavaObject+'Step').val('');
+        $('#' + nameJavaObject + 'Min').val('');
+        $('#' + nameJavaObject + 'Max').val('');
+        $('#' + nameJavaObject + 'Step').val('');
     }
 
-    function clearSize(nameJavaObject){
-        var elems = $('.'+nameJavaObject+'Input');
-        for(var i=0; i <elems.length;++i){
+    function clearSize(nameJavaObject) {
+        var elems = $('.' + nameJavaObject + 'Input');
+        for (var i = 0; i < elems.length; ++i) {
 
-            if($(elems[i]).attr('data')=='0'){
+            if ($(elems[i]).attr('data') == '0') {
                 $(elems[i]).empty();
             }
             else {
                 $(elems[i]).remove();
-                $('#'+nameJavaObject+'LineDiv'+i).remove();
+                $('#' + nameJavaObject + 'LineDiv' + i).remove();
             }
 
         }
@@ -1315,18 +1320,18 @@ jQuery('document').ready(function () {
 
     function switchOffAll(nameJavaObject) {
 
-        var elems = $('.' + nameJavaObject+'LineCheckbox');
+        var elems = $('.' + nameJavaObject + 'LineCheckbox');
         for (var i = 0; i < elems.length; ++i) {
             $(elems[i]).prop('checked', false);
         }
     };
 
-    function setSwitchDefaultVal(elem,nameJavaObject,defaultValue){
+    function setSwitchDefaultVal(elem, nameJavaObject, defaultValue) {
 
         var dataVal = $(elem).attr('data');
-        var defSwitch = $('#'+nameJavaObject+'LineCheckbox'+dataVal);
+        var defSwitch = $('#' + nameJavaObject + 'LineCheckbox' + dataVal);
 
-        if (defaultValue==1){
+        if (defaultValue == 1) {
             $(defSwitch).prop('checked', true);
         }
         else {

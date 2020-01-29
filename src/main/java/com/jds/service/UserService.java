@@ -1,7 +1,9 @@
 package com.jds.service;
 
 
+import com.jds.dao.OrderDAO;
 import com.jds.dao.UserDAO;
+import com.jds.entity.DoorsОrder;
 import com.jds.entity.UserEntity;
 import com.jds.entity.UserSetting;
 import com.jds.model.Role;
@@ -21,10 +23,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, UserServ {
 
     @Autowired
     private UserDAO dAO;
+    @Autowired
+    private OrderDAO OrderdAO;
     @Autowired
     private MaineService maineService;
 
@@ -56,7 +60,7 @@ public class UserService implements UserDetailsService {
         }
 
         UserEntity user = dAO.getUserByName(username);
-        if (user != null){
+        if (user != null) {
             List<Role> roleList = new ArrayList<>();
             roleList.add(Role.USER);
 
@@ -71,11 +75,18 @@ public class UserService implements UserDetailsService {
 
     public List<UserEntity> getUsers() {
 
+        return setUpUsersForView(dAO.getUsers());
+
+    }
+
+    private List<UserEntity> setUpUsersForView(List<UserEntity> list) {
+
         List<Role> roleList = new ArrayList<>();
         roleList.add(Role.USER);
 
-        List<UserEntity> list = dAO.getUsers();
-        list.stream().peek((user)->setEnabledAndRole(user,roleList))
+        list.stream()
+                .peek((user) -> setEnabledAndRole(user, roleList))
+                .peek((user) -> setOrderСounters(user))
                 .collect(Collectors.toList());
 
         list.add(userHoldder("admin"));
@@ -83,7 +94,21 @@ public class UserService implements UserDetailsService {
         return list;
     }
 
-    public void saveUser(@NonNull String userId, @NonNull String username, @NonNull String password,int discount, boolean enabledСheckbox) {
+    private void setOrderСounters(UserEntity user) {
+        List<DoorsОrder> orders = OrderdAO.getOrdersByUser(user);
+
+
+        user.setOrderCounter((int) orders.stream()
+                .count()
+        );
+
+        user.setWorkOrderCounter((int) orders.stream()
+                .filter(order -> order.isWorking())
+                .count()
+        );
+    }
+
+    public void saveUser(@NonNull String userId, @NonNull String username, @NonNull String password, int discount, boolean enabledСheckbox) {
 
         if (username == "" || password == "") {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
@@ -107,56 +132,57 @@ public class UserService implements UserDetailsService {
                 .build());
     }
 
-    public String insertPassword(String pass){
-        if (pass =="") {
-           return getCurrentUser().getPassword();
-        }
-        else {
+    public String insertPassword(String pass) {
+        if (pass == "") {
+            return getCurrentUser().getPassword();
+        } else {
             return new BCryptPasswordEncoder().encode(pass);
         }
     }
 
-    public UserEntity getUser(String userId){
+    public UserEntity getUser(@NonNull String userId) {
 
         int idInt = Integer.parseInt(userId);
 
 
-        if (idInt==9300){
+        if (idInt == 9300) {
             return userHoldder("admin");
-        }
-
-        else if (idInt==0){
+        } else if (idInt == 0) {
             return UserEntity.builder()
                     .username("newUser")
                     .build();
         }
 
-        return dAO.getUser(idInt);
+        UserEntity user = dAO.getUser(idInt);
+        setOrderСounters(user);
+
+        return user;
 
     }
 
-    public void setEnabledAndRole(UserEntity user,List<Role> roleList){
+    public void setEnabledAndRole(UserEntity user, List<Role> roleList) {
         user.setAuthorities(roleList);
         user.setEnabled(true);
     }
 
-    public UserEntity getCurrentUser(){
+    @Override
+    public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return  (UserEntity) authentication.getPrincipal();
+        return (UserEntity) authentication.getPrincipal();
     }
 
-    public UserSetting getUserSetting(){
-        return  dAO.getUserSetting(getCurrentUser().getId());
+    public UserSetting getUserSetting() {
+        return dAO.getUserSetting(getCurrentUser().getId());
     }
 
-    public void saveUserSetting(int retailMargin,int salesTax,boolean includesTax){
+    public void saveUserSetting(int retailMargin, int salesTax, boolean includesTax) {
         dAO.saveUserSetting(
                 UserSetting.builder()
-                .id(getCurrentUser().getId())
-                .retailMargin(retailMargin)
-                .salesTax(salesTax)
-                .includesTax(maineService.booleanToInt(includesTax))
-                .build()
+                        .id(getCurrentUser().getId())
+                        .retailMargin(retailMargin)
+                        .salesTax(salesTax)
+                        .includesTax(maineService.booleanToInt(includesTax))
+                        .build()
         );
     }
 }

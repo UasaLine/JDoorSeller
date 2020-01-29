@@ -57,6 +57,12 @@ public class UserEntity implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
     private List<DoorsОrder> orders;
 
+    @Transient
+    int orderCounter;
+
+    @Transient
+    int workOrderCounter;
+
     public UserEntity() {
         authorities = new ArrayList<>();
         authorities.add(Role.USER);

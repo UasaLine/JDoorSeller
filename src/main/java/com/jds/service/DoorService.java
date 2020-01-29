@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DoorService {
+public class DoorService implements DoorServ {
 
     @Autowired
     private MainDAO dAO;
@@ -29,7 +29,7 @@ public class DoorService {
     @Autowired
     private UserService userService;
 
-
+    @Override
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
 
 
@@ -106,6 +106,7 @@ public class DoorService {
 
     }
 
+    @Override
     public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
 
         DoorEntity door;
@@ -213,12 +214,13 @@ public class DoorService {
         return "";
     }
 
+    @Override
     public DoorEntity saveDoor(@NonNull DoorEntity door) {
 
         return addDooToOrder(dAO.saveDoor(door.clearEmptyLinks()));
 
     }
-
+    @Override
     public DoorsОrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
 
         if (!orderId.isEmpty() && !orderId.equals("0") && !id.isEmpty() && !id.equals("0")) {
@@ -255,23 +257,25 @@ public class DoorService {
 
     }
 
+    @Override
     public List<LineSpecification> getSpecificationByDoorId(@NonNull String doorId){
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = addFurKitToLineSpec(dAO.getLineSpecification(doorEntity.getDoorType().getId()),
-                                                                                                           doorEntity.getFurnitureKit(),
-                                                                                                          doorEntity.getDoorType());
+        List<LineSpecification> lineSpec = dAO.getLineSpecification(doorEntity.getDoorType().getId());
 
-        lineSpec.stream().forEach((lin)->lin.getDoorType().clearNonSerializingFields());
+        lineSpec.stream()
+                .peek((lin)->addFurKitToLineSpec(lineSpec,doorEntity))
+                .forEach((lin)->lin.getDoorType().clearNonSerializingFields());
 
         return lineSpec;
 
     }
 
-    public List<LineSpecification> addFurKitToLineSpec(List<LineSpecification> lineSpec,
-                                                       FurnitureKit furnitureKit,
-                                                       DoorType doorType){
+    public List<LineSpecification> addFurKitToLineSpec(List<LineSpecification> lineSpec,DoorEntity doorEntity){
+
+        FurnitureKit furnitureKit = doorEntity.getFurnitureKit();
+        DoorType doorType = doorEntity.getDoorType();
 
         if (furnitureKit.getHandle()!=null){
             addfurniture(lineSpec,furnitureKit.getHandle(),doorType);

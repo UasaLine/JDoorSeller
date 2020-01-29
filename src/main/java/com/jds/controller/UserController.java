@@ -26,10 +26,15 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public String getUser(Model model,@RequestParam(required = false) String userId) throws Exception {
+    public String getUser(Model model,@RequestParam(defaultValue = "0") String userId) throws Exception {
 
-        model.addAttribute("userId", (userId == null) ? "0" : userId);
-        model.addAttribute("user",service.getUser((userId == null) ? "0" : userId));
+        UserEntity user = service.getUser(userId);
+        model.addAttribute("userId", userId);
+
+        if (user!=null){
+            model.addAttribute("user",user);
+        }
+
         return "user";
 
     }

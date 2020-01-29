@@ -19,7 +19,9 @@
 </div>
 
 	<div class="top_head">
-
+		<div class="header_home" >
+			<a th:href="@{/}" class="logo_home">setting</a>
+		</div>
 		<div class="header_home" >
 			<a th:href="@{/doorclasslist}" class="logo_home">door class</a>
 		</div>
@@ -33,52 +35,67 @@
 
 		<span id = "enabled" th:text="${user.enabled}" show="ghost_lement"></span>
 
-
 		<form th:action="@{/user}" method="post">
 
+			<div class="form-group">
 
-		<div class="form-group">
-
-			    <input type="text" name="userId" th:value="${user.id}" show="ghost_lement">
+			    <input class="ghost" type="text" name="userId" id="userId" th:value="${user.id}" show="ghost_lement">
 
 				<h1 class="display-4">Пользователь</h1>
-				<div class="linebottom"></div><br>					
+
+				<div class="col">
+					<button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
+					<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>
+					<button type="button" class="btn btn-primary btn-lg " id="userorder">заказы пользователя</button>
+				</div>
+
+				<div class="col">
+					<div class="row">
+						<div class="col-2">
+							<h1 class="display-1" th:text="${user.orderCounter}"></h1>
+							<p class="textComit">заказы:</p>
+						</div>
+						<div class="col-2">
+							<h1 class="display-1" th:text="${user.workOrderCounter}"></h1>
+							<p class="textComit">заказы в работе:</p>
+						</div>
+					</div>
+				</div>
+
+
 
 				<div class="col-md-6 mb-3">
 					<label for="username">имя:</label>
 					<input type="text" class="form-control" name="username" id="username" placeholder="имя" th:value="${user.username}" >
 				</div>
 
-
 				<div class="col-md-6 mb-3">
 					<label for="password">new password:</label>
 					<input type="text" class="form-control" name="password" id="password" placeholder="password" >
 				</div>
 
+				<div class="col-md-6 mb-3">
+					<label for="discount">Скидка,%:</label>
+					<input type="number" class="form-control" name="discount" id="discount" placeholder="%" th:value="${user.discount}" >
+					<p class="textComit">скидка от цен завода. это значение доступно только сдесь и больше ни где не отображается</p>
+				</div>
 
 				<div class="col-md-6 mb-3">
-					<label for="discount">Скидка от розничных цен завода,%:</label>
-					<input type="number" class="form-control" name="discount" id="discount" placeholder="%" th:value="${user.discount}" >
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" name="enabledСheckbox" id="enabledСheckbox">
+						<label class="custom-control-label" for="enabledСheckbox">enabled</label>
+						<p class="textComit">Выключить пользователя. доступ для пользователя будет закрыть.</p>
+					</div>
 				</div>
-
-
-				<div class="custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" name="enabledСheckbox" id="enabledСheckbox">
-					<label class="custom-control-label" for="enabledСheckbox">enabled</label>
-				</div>
-
-
-				<div class="linebottom"></div><br>
-			    <button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
-				<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>
 
 				<!--
 				disabled
 				-->
 				
 			</div>
+
 		</form>
-		</div>
+	</div>
 
 
 </body>

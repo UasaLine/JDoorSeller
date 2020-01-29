@@ -21,6 +21,9 @@
 
 <div class="top_head">
 	<div class="header_home" >
+		<a th:href="@{/}" class="logo_home">setting</a>
+	</div>
+	<div class="header_home" >
 		<a th:href="@{/doorclasslist}" class="logo_home">door class</a>
 	</div>
 	<div class="header_home" >
@@ -37,16 +40,18 @@
 			<tr>
 				<th>id</th>
 				<th>username</th>
-				<th>password</th>
 				<th>authorities</th>
 				<th>enabled</th>
+				<th>кол.зааказов</th>
+				<th>кол.заказов в работе</th>
 			</tr>
 			<tr th:each="user : ${users}">
 				<td class="id" th:utext="${user.id}">..</td>
 				<td th:utext="${user.username}">..</td>
-				<td th:utext="${user.password}">..</td>
 				<td th:utext="${user.authorities}">..</td>
 				<td th:utext="${user.enabled}">..</td>
+				<td th:utext="${user.orderCounter}">..</td>
+				<td th:utext="${user.workOrderCounter}">..</td>
 			</tr>
 
 		</table>

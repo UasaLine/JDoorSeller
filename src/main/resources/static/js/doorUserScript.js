@@ -1,6 +1,6 @@
-jQuery('document').ready(function(){
+jQuery('document').ready(function () {
 
-    if($('#enabled').text()=="1"){
+    if ($('#enabled').text() == "1") {
         $('#enabledcheckbox').prop('checked', true);
     }
     else {
@@ -8,8 +8,13 @@ jQuery('document').ready(function(){
     }
 
 
-    $('#close').on('click',function() {
-        location.href="users";
+    $('#close').on('click', function () {
+        location.href = "users";
+    });
+
+    $('#userorder').on('click', function () {
+        var userId = $('#userId').val();
+        location.href = "orders?userId="+userId;
     });
 
 });

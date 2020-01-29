@@ -64,6 +64,16 @@ public class DoorsОrder {
     @Transient
     private List<OrderStatus> statusList;
 
+    public boolean isWorking(){
+
+        if((this.getStatus() == OrderStatus.IN_WORK)
+                ||(this.getStatus() == OrderStatus.READY)){
+            return true;
+        }
+
+        return false;
+    };
+
     public DoorsОrder() throws Exception {
 
         doors = new ArrayList<>();
@@ -228,6 +238,7 @@ public class DoorsОrder {
     public void addStatusList(OrderStatus status) {
         this.statusList.add(status);
     }
+
     public void addAllStatus() {
         this.addStatusList(OrderStatus.CALC);
         this.addStatusList(OrderStatus.TO_WORK);

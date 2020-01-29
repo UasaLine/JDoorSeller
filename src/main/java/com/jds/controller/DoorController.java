@@ -4,6 +4,7 @@ import com.jds.entity.DoorEntity;
 import com.jds.entity.DoorsОrder;
 import com.jds.entity.LineSpecification;
 import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.service.DoorServ;
 import com.jds.service.DoorService;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.List;
 public class DoorController {
 
     @Autowired
-    private DoorService service;
+    private DoorServ service;
     @Autowired
     private MaineService maineService;
 
@@ -71,10 +72,11 @@ public class DoorController {
         return service.deleteDoorFromOrder(id, orderId);
     }
 
-    @GetMapping(value = "/doorSpec", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/doorSpec", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) throws Exception {
 
         return service.getSpecificationByDoorId(doorId);
     }
+
 }

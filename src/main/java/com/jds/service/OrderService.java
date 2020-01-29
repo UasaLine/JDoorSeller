@@ -6,10 +6,12 @@ import com.jds.entity.DoorsОrder;
 import com.jds.entity.UserEntity;
 import com.jds.model.PrintAppToTheOrder;
 import com.jds.model.modelEnum.OrderStatus;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -22,29 +24,62 @@ public class OrderService {
     private UserService userService;
 
 
+    public List<DoorsОrder> getOrders() {
 
+        UserEntity user = userService.getCurrentUser();
+        List<DoorsОrder> orders;
+
+        if (user.isAdmin()){
+            orders = dAO.getOrders();
+        }
+        else {
+            orders = dAO.getOrdersByUser(user);
+        }
+
+        orders.stream()
+                .peek((order)->clearNonSerializingFields(order))
+                .collect(Collectors.toList());
+
+        return orders;
+    }
 
     public List<DoorsОrder> getOrders(OrderStatus status) {
 
         UserEntity user = userService.getCurrentUser();
         List<DoorsОrder> orders;
 
-        if (user.isAdmin() && status==null){
-            orders = dAO.getOrders();
-        }
-        else if (user.isAdmin() && status!=null){
+
+        if (user.isAdmin() && status!=null){
             orders = dAO.getOrdersByStatus(status.name());
         }
         else {
             orders = dAO.getOrdersByUser(user);
         }
 
-        for (DoorsОrder order : orders) {
-            clearNonSerializingFields(order);
-        }
+        orders.stream()
+                .peek((order)->clearNonSerializingFields(order))
+                .collect(Collectors.toList());
+
         return orders;
     }
 
+    public List<DoorsОrder> getOrders(@NonNull String userId) {
+
+        UserEntity user = userService.getUser(userId);
+        List<DoorsОrder> orders;
+
+        if (user!=null){
+            orders = dAO.getOrdersByUser(user);
+            orders.stream()
+                    .peek((order)->clearNonSerializingFields(order))
+                    .collect(Collectors.toList());
+        }
+        else {
+            orders = new ArrayList<>();
+        }
+
+        return orders;
+    }
 
 
     public DoorsОrder getOrder(String id) throws Exception{
@@ -59,12 +94,16 @@ public class OrderService {
         return clearNonSerializingFields(order);
     }
 
-    public DoorsОrder saveOrder(DoorsОrder order) {
-
+    public DoorsОrder setCurrentUserAndSaveOrder(DoorsОrder order){
         order.setSeller(userService.getCurrentUser());
-        order = dAO.saveOrder(order.calculateTotal());
+        return saveOrder(order);
+    }
 
+    private DoorsОrder saveOrder(DoorsОrder order) {
+
+        order = dAO.saveOrder(order.calculateTotal());
         return order;
+
     }
 
     public String deleteOrder(String orderId) {
@@ -98,6 +137,26 @@ public class OrderService {
 
         return printAppList;
 
+    }
+
+    public void setStatusAndSaveOrder(@NonNull int id, @NonNull String status){
+
+       OrderStatus orderStatus = validationOrderStatus(status);
+       if (orderStatus!=null){
+           DoorsОrder order = dAO.getOrder(id);
+           order.setStatus(orderStatus);
+           saveOrder(order);
+       }
+    }
+
+    private OrderStatus validationOrderStatus(@NonNull String status){
+        if ("IN_WORK".equals(status)){
+            return OrderStatus.IN_WORK;
+        }
+        else if ("READY".equals(status)){
+            return OrderStatus.READY;
+        }
+        return null;
     }
 
 }
