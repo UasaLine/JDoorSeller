@@ -5,6 +5,7 @@ import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.Specification;
 import com.jds.service.MaineService;
+import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -21,7 +22,8 @@ public class MainController {
 
     @Autowired
     private MaineService service;
-
+    @Autowired
+    private UserServ userService;
 
     @GetMapping(value = "/")
     public String updateDoorClass() throws Exception {
@@ -160,12 +162,20 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/creattemplate")
+    @GetMapping(value = "/create-template")
     public String getTemplate(@RequestParam(required = false) String typeId,
                               @RequestParam(required = false) String classId,
                               Model model) throws Exception {
 
         return "creatTemplate";
+    }
+    @GetMapping(value = "/templates")
+    public String getTemplateList(Model model)  {
+
+
+        model.addAttribute("accountInfos", service.getTemplateList());
+        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
+        return "templateList";
     }
 
     @GetMapping(value = "/specification")

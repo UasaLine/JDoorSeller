@@ -9,17 +9,16 @@
     <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
     <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/orderListScript.js"></script>
+    <script type="text/javascript" src="js/templateList.js"></script>
 
 </head>
 <body>
 
 <div class="top_head">
-<div class="container-fluid" id="intro-dm">
+    <div class="container-fluid" id="intro-dm">
     <a th:href="@{/}"><img src="images/Header_widht_1300_002 ltl.jpg"></a>
 </div>
 </div>
-
 
 <div class="top_head">
     <div class="row">
@@ -39,46 +38,46 @@
                         </a>
                     </li>
                     <!-- настройки -->
-                    <h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted accessAdmin ghost">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>настройки:</span>
                     </h6>
 
-                    <li class="nav-item accessAdmin ghost" id="templates">
+                    <li class="nav-item" id="templates">
                         <a class="nav-link active" th:href="@{/templates}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             шаблоны <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="specification">
+                    <li class="nav-item" id="specification">
                         <a class="nav-link active" th:href="@{/specification}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             Спецификации
                         </a>
                     </li>
                     <!-- справочники: -->
-                    <h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted accessAdmin ghost">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>справочники:</span>
                     </h6>
 
-                    <li class="nav-item accessAdmin ghost" id="doorclasslist">
+                    <li class="nav-item" id="doorclasslist">
                         <a class="nav-link active" th:href="@{/doorclasslist}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             Классы
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="doortypelist">
+                    <li class="nav-item" id="doortypelist">
                         <a class="nav-link active" th:href="@{/doortypelist}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             Модели
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="materials">
+                    <li class="nav-item" id="materials">
                         <a class="nav-link active" th:href="@{/materials}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             Материалы
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="furniture">
+                    <li class="nav-item" id="furniture">
                         <a class="nav-link active" th:href="@{/furniture}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             Фурнитура
@@ -89,7 +88,7 @@
                         <span>прочее:</span>
                     </h6>
 
-                    <li class="nav-item accessAdmin ghost" id="users">
+                    <li class="nav-item" id="users">
                         <a class="nav-link active" th:href="@{/users}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             Пользователи
@@ -113,53 +112,31 @@
 
         <div class="col">
 
-            <h1 class="display-4">Заказы</h1>
+            <h1 class="display-4">Шаблоны дверей</h1>
 
             <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
-            <span class="ghost" id="report" th:utext="${report}"></span>
 
             <div class="row " id="buttonbar">
 
-                <div class="col-md-3 mb-3">
-                    <button type="button" class="btn btn-primary" id="addOrder">создать</button>
-                    <button type="button" class="btn btn-primary" id="buttonDeleteOrder">удалить</button>
+                <div class="col mb-3">
+                    <button type="button" class="btn btn-primary" id="addTemplate">создать</button>
+                    <button type="button" class="btn btn-primary" id="buttonDeleteTemplate">удалить</button>
                 </div>
-                <div class="col accessAdmin ghost">
-                    <select class="form-control" id="userselect">
-                    </select>
-                </div>
-                <div class="col">
-                    <select class="form-control" id="doorclassselect">
-                    </select>
-                </div>
-                <div class="col">
-                    <input type="date" class="form-control" id="data1" placeholder="" value="" required="">
-                </div>
-                <div class="col">
-                    <input type="date" class="form-control" id="data2" placeholder="" value="" required="">
-                </div>
+
             </div>
 
             <div class="order-Table">
                 <table class="Table">
                     <tr >
                         <th>№</th>
-                        <th>Статус</th>
-                        <th>Контрагент</th>
-                        <th>Дата создания</th>
-                        <th>Дата готов-ти</th>
-                        <th>Кол-во</th>
-                        <th>Сумма</th>
+                        <th>doorType</th>
+                        <th>Модель</th>
                     </tr>
 
-                    <tr th:each="order : ${accountInfos}">
-                        <td class="id"  th:utext="${order.id}">..</td>
-                        <td class="colorFlag" th:utext="${order.status}">..</td>
-                        <td th:utext="${order.partner}">..</td>
-                        <td th:utext="${order.data}">..</td>
-                        <td th:utext="${order.releasDate}">..</td>
-                        <td th:utext="${order.totalQuantity}">..</td>
-                        <td th:utext="${order.totalAmount}">..</td>
+                    <tr th:each="teamp : ${accountInfos}">
+                        <td th:utext="${teamp.doorTypeId}">..</td>
+                        <td th:utext="${teamp.className}">..</td>
+                        <td th:utext="${teamp.typeName}">..</td>
 
                     </tr>
                 </table>

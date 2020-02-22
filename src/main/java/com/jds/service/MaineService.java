@@ -457,4 +457,12 @@ public class MaineService {
     public List<RawMaterials> getAllMaterials(){
         return dAO.getRawMaterials();
     }
+
+    public List<ShortTemplate> getTemplateList(){
+
+        List<DoorType> list = dAO.getDoorTypeListFromLimitTable();
+        return list.stream()
+                .map(type ->new ShortTemplate(type))
+                .collect(Collectors.toList());
+    }
 }

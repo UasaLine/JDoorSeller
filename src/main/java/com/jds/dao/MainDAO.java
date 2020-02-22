@@ -882,6 +882,27 @@ public class MainDAO {
         return limitList;
     }
 
+    public List<DoorType> getDoorTypeListFromLimitTable (){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select DISTINCT  door_type.* from door_type" +
+                " inner join limitation_door on door_type.id = limitation_door.doortype_id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorType.class);
+        List<DoorType> list = query.list();
+
+        session.close();
+
+        List<DoorType> limitList = new ArrayList<>();
+        if (list.size() > 0) {
+            limitList = list;
+        }
+        return limitList;
+
+    }
+
+
     public List<LineSpecification> getLineSpecification(int id){
 
         Session session = sessionFactory.openSession();
