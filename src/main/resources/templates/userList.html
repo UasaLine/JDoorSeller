@@ -3,13 +3,15 @@
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 	<title>door seller</title>
+	<!-- Подключаем Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+	<!-- your personal CSS -->
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/doorUserListScript.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
 	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
 
-	<!-- Подключаем Bootstrap CSS -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+
 </head>
 <body>
 
@@ -19,18 +21,6 @@
 	</div>
 </div>
 
-<div class="top_head">
-	<div class="header_home" >
-		<a th:href="@{/}" class="logo_home">setting</a>
-	</div>
-	<div class="header_home" >
-		<a th:href="@{/doorclasslist}" class="logo_home">door class</a>
-	</div>
-	<div class="header_home" >
-		<a th:href="@{/doortypelist}" class="logo_home">door type</a>
-	</div>
-</div>
-<br>
 <div class="conten_body">
 
 	<h1 class="display-4">пользователи</h1>
