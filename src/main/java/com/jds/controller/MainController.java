@@ -164,14 +164,14 @@ public class MainController {
 
     @GetMapping(value = "/create-template")
     public String getTemplate(@RequestParam(required = false) String typeId,
-                              @RequestParam(required = false) String classId,
                               Model model) throws Exception {
 
-        return "creatTemplate";
+        model.addAttribute("accountInfos", service.getTemplateList());
+        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
+        return "template";
     }
     @GetMapping(value = "/templates")
     public String getTemplateList(Model model)  {
-
 
         model.addAttribute("accountInfos", service.getTemplateList());
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
