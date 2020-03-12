@@ -26,7 +26,7 @@ public class MainController {
     private UserServ userService;
 
     @GetMapping(value = "/")
-    public String updateDoorClass() throws Exception {
+    public String updateDoorClass() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity principal = (UserEntity) authentication.getPrincipal();
@@ -180,6 +180,7 @@ public class MainController {
 
     @GetMapping(value = "/specification")
     public String getSpecificationPage(Model model) throws Exception {
+        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
         return "specification";
     }
 
