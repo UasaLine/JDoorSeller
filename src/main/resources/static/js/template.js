@@ -621,7 +621,7 @@ jQuery('document').ready(function () {
             success: function (data) {
                 doorClassList = data;
                 fillInDoorClass(doorClassList);
-
+                setCurrentClassById();
             },
             error: function (data) {
                 alert('!ERROR: данные о классах получить не удалось:');
@@ -640,7 +640,6 @@ jQuery('document').ready(function () {
         for (var i = 0; i < listClass.length; ++i) {
             $('#doorclassselect').append($('<option value=' + listClass[i].id + '>' + listClass[i].name + '</option>'));
         }
-
     }
 
     function fillInDoorType(doorClass) {
@@ -1336,6 +1335,24 @@ jQuery('document').ready(function () {
         }
         else {
             $(defSwitch).prop('checked', false);
+        }
+    }
+
+    function setCurrentClassById() {
+
+        var classId = $('#classId').text();
+        if(classId!="0"){
+            setValueInSelectInt('#doorclassselect', classId);
+
+
+            fillInDoorType(getDoorClassbyId($('#doorclassselect').val()));
+
+            var typeId = $('#typeId').text();
+            if(typeId!="0"){
+                setValueInSelectInt('#doortypeselect', typeId);
+            }
+
+            getDoorTemplate();
         }
     }
 

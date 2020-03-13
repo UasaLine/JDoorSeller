@@ -465,4 +465,20 @@ public class MaineService {
                 .map(type ->new ShortTemplate(type))
                 .collect(Collectors.toList());
     }
+
+    public String getClassId(@NonNull String typeId){
+
+        if(typeId=="0"){
+            return "0";
+        }
+
+        DoorType type = dAO.getDoorType(Integer.parseInt(typeId));
+
+        String response = "0";
+        if(type.getId()>0) {
+            response = String.valueOf(type.getDoorClass().getId());
+        }
+
+        return response;
+    }
 }

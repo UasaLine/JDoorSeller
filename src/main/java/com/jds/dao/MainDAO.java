@@ -700,6 +700,7 @@ public class MainDAO {
 
     }
 
+
     public List<DoorClass> getAvailableDoorClass() {
 
         Session session = sessionFactory.openSession();
