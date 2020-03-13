@@ -104,7 +104,6 @@ public class MaineService {
         return dAO.getMetals();
     }
 
-
     public DoorColors saveDoorColors(DoorColors doorColors) {
         doorColors.setPicturePath("images/Door/AColor1/" + doorColors.getPicturePath() + ".jpg");
         return dAO.saveDoorColors(doorColors);
@@ -480,5 +479,10 @@ public class MaineService {
         }
 
         return response;
+    }
+
+    public List<DoorFurniture> getFurnitureList(){
+
+        return dAO.getFurniture();
     }
 }

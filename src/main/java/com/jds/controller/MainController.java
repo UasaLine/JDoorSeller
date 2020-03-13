@@ -101,7 +101,6 @@ public class MainController {
     public int deleteDoorclass(Model model, @RequestParam(required = false) String classId) throws Exception {
 
         service.deleteDoorClass(classId);
-
         return 1;
     }
 
@@ -245,4 +244,10 @@ public class MainController {
         return service.getAllMaterials();
     }
 
+    @GetMapping(value = "/furniture")
+    public String getFurniturePage(Model model){
+
+        model.addAttribute("furnitureList", service.getFurnitureList());
+        return "furnitureList";
+    }
 }
