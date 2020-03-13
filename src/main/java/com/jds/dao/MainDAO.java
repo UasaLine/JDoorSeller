@@ -565,6 +565,21 @@ public class MainDAO {
         return doorFurnitureList;
     }
 
+    public List<DoorFurniture> getFurniture() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_furniture ";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorFurniture.class);
+        List<DoorFurniture> doorFurnitureList = query.list();
+
+        session.close();
+
+        return doorFurnitureList;
+    }
+
     public int getDoorColorsId(String id) {
 
         Session session = sessionFactory.openSession();
@@ -699,6 +714,7 @@ public class MainDAO {
         return doorClass;
 
     }
+
 
     public List<DoorClass> getAvailableDoorClass() {
 

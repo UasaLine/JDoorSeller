@@ -8,7 +8,7 @@ jQuery('document').ready(function () {
 
     $('tr').on('dblclick', function () {
 
-        getOrder($(this).children('.id').text());
+        getTemplate($(this).children('.id').text());
 
     });
 
@@ -34,8 +34,8 @@ jQuery('document').ready(function () {
         location.href = "create-template";
     });
 
-    function getOrder(orderId) {
-        location.href = "order?orderId=" + orderId;
+    function getTemplate(typeId) {
+        location.href = "create-template?typeId=" + typeId;
     };
 
     function deletOrder() {

@@ -104,7 +104,6 @@ public class MaineService {
         return dAO.getMetals();
     }
 
-
     public DoorColors saveDoorColors(DoorColors doorColors) {
         doorColors.setPicturePath("images/Door/AColor1/" + doorColors.getPicturePath() + ".jpg");
         return dAO.saveDoorColors(doorColors);
@@ -464,5 +463,26 @@ public class MaineService {
         return list.stream()
                 .map(type ->new ShortTemplate(type))
                 .collect(Collectors.toList());
+    }
+
+    public String getClassId(@NonNull String typeId){
+
+        if(typeId=="0"){
+            return "0";
+        }
+
+        DoorType type = dAO.getDoorType(Integer.parseInt(typeId));
+
+        String response = "0";
+        if(type.getId()>0) {
+            response = String.valueOf(type.getDoorClass().getId());
+        }
+
+        return response;
+    }
+
+    public List<DoorFurniture> getFurnitureList(){
+
+        return dAO.getFurniture();
     }
 }

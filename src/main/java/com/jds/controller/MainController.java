@@ -101,7 +101,6 @@ public class MainController {
     public int deleteDoorclass(Model model, @RequestParam(required = false) String classId) throws Exception {
 
         service.deleteDoorClass(classId);
-
         return 1;
     }
 
@@ -163,15 +162,16 @@ public class MainController {
 
 
     @GetMapping(value = "/create-template")
-    public String getTemplate(@RequestParam(required = false) String typeId,
-                              @RequestParam(required = false) String classId,
+    public String getTemplate(@RequestParam(defaultValue = "0") String typeId,
                               Model model) throws Exception {
 
-        return "creatTemplate";
+        model.addAttribute("typeId", typeId);
+        model.addAttribute("classId", service.getClassId(typeId));
+
+        return "template";
     }
     @GetMapping(value = "/templates")
     public String getTemplateList(Model model)  {
-
 
         model.addAttribute("accountInfos", service.getTemplateList());
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
@@ -244,4 +244,10 @@ public class MainController {
         return service.getAllMaterials();
     }
 
+    @GetMapping(value = "/furniture")
+    public String getFurniturePage(Model model){
+
+        model.addAttribute("furnitureList", service.getFurnitureList());
+        return "furnitureList";
+    }
 }
