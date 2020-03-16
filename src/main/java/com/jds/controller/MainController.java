@@ -245,9 +245,15 @@ public class MainController {
     }
 
     @GetMapping(value = "/furniture")
-    public String getFurniturePage(Model model){
+    public String getFurnitureListPage(Model model){
 
         model.addAttribute("furnitureList", service.getFurnitureList());
         return "furnitureList";
+    }
+
+    @GetMapping(value = "/furniture/{id}")
+    public String getFurniturePage(@PathVariable String id, Model model){
+
+        return "furniture";
     }
 }

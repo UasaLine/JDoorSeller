@@ -7,7 +7,7 @@
         <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
         <!-- your personal CSS -->
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="js/furniture.js"></script>
+        <script type="text/javascript" src="js/furnitureList.js"></script>
         <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
         <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
 
@@ -138,7 +138,7 @@
                         </tr>
                         <tr th:each="furniture : ${furnitureList}">
                             <td>#</td>
-                            <td  th:utext="${furniture.id}">..</td>
+                            <td class="id" th:utext="${furniture.id}">..</td>
                             <td  th:utext="${furniture.name}">..</td>
                             <td  th:utext="${furniture.typeOfFurniture}">..</td>
                             <td  th:utext="${furniture.price}">..</td>
