@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Door")
-public class DoorEntity {
+public class DoorEntity implements SerializingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

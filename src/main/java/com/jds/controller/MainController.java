@@ -74,7 +74,7 @@ public class MainController {
         model.addAttribute("description", doorClass.getDescription());
         model.addAttribute("fireproof", doorClass.getFireproof());
         model.addAttribute("hot", doorClass.getHot());
-        model.addAttribute("namePicture",doorClass.getNamePicture());
+        model.addAttribute("namePicture", doorClass.getNamePicture());
 
         return "doorClass";
     }
@@ -170,8 +170,9 @@ public class MainController {
 
         return "template";
     }
+
     @GetMapping(value = "/templates")
-    public String getTemplateList(Model model)  {
+    public String getTemplateList(Model model) {
 
         model.addAttribute("accountInfos", service.getTemplateList());
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
@@ -234,20 +235,15 @@ public class MainController {
     }
 
     @GetMapping(value = "/materials")
-    public String getMaterialPage(){
+    public String getMaterialPage() {
         return "materials";
     }
 
     @GetMapping(value = "/materialsList")
     @ResponseBody
-    public List<RawMaterials> getAllMaterials(){
+    public List<RawMaterials> getAllMaterials() {
         return service.getAllMaterials();
     }
 
-    @GetMapping(value = "/furniture")
-    public String getFurniturePage(Model model){
 
-        model.addAttribute("furnitureList", service.getFurnitureList());
-        return "furnitureList";
-    }
 }
