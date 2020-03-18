@@ -127,7 +127,22 @@ public class DoorFurniture implements LimiItem, SerializingFields {
     private List<DoorFurniture> endDoorLock;
 
     public DoorFurniture() {
-
+        idManufacturerProgram="";
+        quantity = 0;
+        itCylinderLock = 0;
+        isTwoSectionLock = 0;
+        comment = "";
+        longKey = 0;
+        bugelHandle = 0;
+        armorLock = 0;
+        picturePathFirst = "";
+        picturePathSecond = "";
+        sketchPathFirst = "";
+        sketchPathSecond = "";
+        forWarmDoors = 0;
+        numberOfDoorLeaves = 0;
+        price = 0;
+        priceComit = "";
     }
 
     public DoorFurniture(@NonNull LimitationDoor lim) {
@@ -158,7 +173,7 @@ public class DoorFurniture implements LimiItem, SerializingFields {
         return this;
     }
 
-    public DoorFurniture clearNonSerializingFields(){
+    public DoorFurniture clearNonSerializingFields() {
         return setNuulLazyFild();
     }
 

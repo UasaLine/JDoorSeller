@@ -7,8 +7,73 @@ jQuery('document').ready(function () {
     //new instans
     getFurnitureJavaObject();
 
+    $('#idManufacturFurniture').change(function () {
+
+        setField('idManufacturFurniture',$('#idManufacturFurniture').val());
+
+    });
+
+    $('#nameFurniture').change(function () {
+
+        setField('name',$('#nameFurniture').val());
+
+    });
+
+    $('#typeOfFurniture').change(function () {
+
+        setField('typeOfFurniture',$('#typeOfFurniture').val());
+
+    });
+
+    $('#comment').change(function () {
+
+        setField('comment',$('#comment').val());
+
+    });
+
+    $('#picturePathFirst').change(function () {
+
+        setField('picturePathFirst',$('#picturePathFirst').val());
+
+    });
+
+    $('#sketchPathFirst').change(function () {
+
+        setField('sketchPathFirst',$('#sketchPathFirst').val());
+
+    });
+
+    $('#price').change(function () {
+
+        setField('price',$('#price').val());
+
+    });
+
+    $('#priceComit').change(function () {
+
+        setField('priceComit',$('#priceComit').val());
+
+    });
+
+
     $('#save').on('click', function () {
 
+        var furniture = JSON.stringify(furnitureJavaObject);
+
+        $.ajax({
+            url: 'item',
+            method: "PUT",
+            dataType: 'json',
+            contentType: "application/json",
+            data: furniture,
+            success: function (data) {
+                alert(data.status);
+                toFurnirure();
+            },
+            error: function (data) {
+                alert('!ERROR: елемнет записать не удалось:');
+            }
+        });
     });
 
     $('#close').on('click', function () {
@@ -31,6 +96,7 @@ jQuery('document').ready(function () {
         });
 
     });
+
 
     function toFurnirure() {
         location.pathname = "furniture";
@@ -81,7 +147,7 @@ jQuery('document').ready(function () {
             $('#picturePathFirst').val(furnitureJavaObject.picturePathFirst);
             $('#sketchPathFirst').val(furnitureJavaObject.sketchPathFirst);
             $('#price').val(furnitureJavaObject.price);
-            $('#priceComit').val(furnitureJavaObject.price);
+            $('#priceComit').val(furnitureJavaObject.priceComit);
         }
     }
 
@@ -108,5 +174,9 @@ jQuery('document').ready(function () {
                 $(this).attr("selected", "selected");
             }
         });
+    }
+
+    function setField(fieldName,value){
+        furnitureJavaObject[fieldName]=value;
     }
 });

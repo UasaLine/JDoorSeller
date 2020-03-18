@@ -59,4 +59,10 @@ public class FurnitureRepository {
         session.delete(furniture);
         return "ok";
     }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String saveFurniture(DoorFurniture furniture) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(furniture);
+        return "ok";
+    }
 }

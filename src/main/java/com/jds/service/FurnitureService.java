@@ -22,6 +22,10 @@ public class FurnitureService {
     }
 
     public DoorFurniture getDoorFurniture(@NonNull String id) {
+        if ("0".equals(id)){
+            return new DoorFurniture();
+        }
+
         DoorFurniture furniture = repository.getFurnitureById(Integer.parseInt(id));
         return furniture.clearNonSerializingFields();
     }
@@ -33,5 +37,10 @@ public class FurnitureService {
     public String deleteFurniture(@NonNull String id) {
         DoorFurniture furniture = repository.getFurnitureById(Integer.parseInt(id));
         return repository.deleteFurniture(furniture);
+    }
+
+    public String saveFurniture(@NonNull DoorFurniture furniture) {
+
+        return repository.saveFurniture(furniture);
     }
 }

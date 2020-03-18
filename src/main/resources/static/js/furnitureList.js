@@ -31,8 +31,8 @@ jQuery('document').ready(function () {
 
     });
 
-    $('#addOrder').on('click', function () {
-        location.href = "order";
+    $('#addfurniture').on('click', function () {
+        location.pathname = "/furniture/0";
     });
 
     function getFurniture(orderId) {

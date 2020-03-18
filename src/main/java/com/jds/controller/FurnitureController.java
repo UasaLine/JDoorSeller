@@ -41,9 +41,9 @@ public class FurnitureController {
 
     @PutMapping(value = "/furniture/item")
     @ResponseBody
-    public DoorFurniture addFurniture(@PathVariable String id) {
+    public ResponseAction saveFurniture(@RequestBody DoorFurniture furniture) {
 
-        return service.getDoorFurniture(id);
+        return new ResponseAction(service.saveFurniture(furniture));
 
     }
 
