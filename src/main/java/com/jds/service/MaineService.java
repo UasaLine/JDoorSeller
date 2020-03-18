@@ -25,7 +25,7 @@ public class MaineService {
     private MainDAO dAO;
 
     public void saveOrUpdateDoorClass(String classId, String name, String description,
-                                      boolean fireproofcheckbox, boolean hotcheckbox,String namePicture) {
+                                      boolean fireproofcheckbox, boolean hotcheckbox, String namePicture) {
 
         dAO.saveOrUpdateDoorClassById(new DoorClass(Integer.parseInt(classId)
                 , name
@@ -96,7 +96,7 @@ public class MaineService {
         }
     }
 
-    public List<MaterialFormula> getMaterialFormulas(){
+    public List<MaterialFormula> getMaterialFormulas() {
         return dAO.getMaterialFormula();
     }
 
@@ -399,7 +399,7 @@ public class MaineService {
         }
     }
 
-    public Specification getSpecification(@NonNull String typeId){
+    public Specification getSpecification(@NonNull String typeId) {
         DoorType doorType = dAO.getDoorType(Integer.parseInt(typeId)).clearNonSerializingFields();
         return Specification.builder()
                 .doorType(doorType)
@@ -408,33 +408,33 @@ public class MaineService {
                 .build();
     }
 
-    public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId){
+    public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
 
         List<LineSpecification> lineSpecificationList = dAO.getLineSpecification(DoorTypeId);
-        lineSpecificationList.stream().forEach((lin)->lin.getDoorType().clearNonSerializingFields());
+        lineSpecificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
         return lineSpecificationList;
 
     }
 
-    public List<LineSpecification> saveSpecification(@NonNull Specification specification){
+    public List<LineSpecification> saveSpecification(@NonNull Specification specification) {
 
 
         List<LineSpecification> lineSpecInBase = dAO.getLineSpecification(specification.getDoorType().getId());
 
         List<LineSpecification> lineSpecifications = specification.getLineSpecifications();
         lineSpecifications.stream()
-                .peek((lineSpec)->setIdLineSpecification(lineSpec,lineSpecInBase,specification.getAvailableValues()))
-                .forEach((lineSpec)->dAO.saveLineSpecification(lineSpec));
+                .peek((lineSpec) -> setIdLineSpecification(lineSpec, lineSpecInBase, specification.getAvailableValues()))
+                .forEach((lineSpec) -> dAO.saveLineSpecification(lineSpec));
 
         lineSpecInBase.stream()
-                .forEach((lineSpec)->dAO.deleteLineSpecification(lineSpec));
+                .forEach((lineSpec) -> dAO.deleteLineSpecification(lineSpec));
 
         return lineSpecifications;
     }
 
     public LineSpecification setIdLineSpecification(@NonNull LineSpecification lineSpecification,
                                                     @NonNull List<LineSpecification> oldLimitList,
-                                                    @NonNull List<RawMaterials> materials){
+                                                    @NonNull List<RawMaterials> materials) {
 
         int newId = 0;
         if (oldLimitList.size() > 0) {
@@ -442,8 +442,8 @@ public class MaineService {
             oldLimitList.remove(0);
         }
 
-        for (RawMaterials material:materials){
-            if (material.getName().equals(lineSpecification.getName())){
+        for (RawMaterials material : materials) {
+            if (material.getName().equals(lineSpecification.getName())) {
                 lineSpecification.setMaterialId(material.getIdManufacturerProgram());
             }
         }
@@ -453,36 +453,33 @@ public class MaineService {
         return lineSpecification;
     }
 
-    public List<RawMaterials> getAllMaterials(){
+    public List<RawMaterials> getAllMaterials() {
         return dAO.getRawMaterials();
     }
 
-    public List<ShortTemplate> getTemplateList(){
+    public List<ShortTemplate> getTemplateList() {
 
         List<DoorType> list = dAO.getDoorTypeListFromLimitTable();
         return list.stream()
-                .map(type ->new ShortTemplate(type))
+                .map(type -> new ShortTemplate(type))
                 .collect(Collectors.toList());
     }
 
-    public String getClassId(@NonNull String typeId){
+    public String getClassId(@NonNull String typeId) {
 
-        if(typeId=="0"){
+        if (typeId == "0") {
             return "0";
         }
 
         DoorType type = dAO.getDoorType(Integer.parseInt(typeId));
 
         String response = "0";
-        if(type.getId()>0) {
+        if (type.getId() > 0) {
             response = String.valueOf(type.getDoorClass().getId());
         }
 
         return response;
     }
 
-    public List<DoorFurniture> getFurnitureList(){
 
-        return dAO.getFurniture();
-    }
 }

@@ -164,8 +164,6 @@ public class UpdateSettingsControllerPro {
         return "jr";
     }
 
-
-
     @PostMapping(value = "/update/specificationsetting", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String updateSpecificationSetting(@RequestParam(required = false) String dataJson) throws Exception {

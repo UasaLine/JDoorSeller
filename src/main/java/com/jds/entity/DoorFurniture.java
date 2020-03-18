@@ -1,17 +1,20 @@
 package com.jds.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.LimiItem;
+import com.jds.model.SerializingFields;
 import com.jds.model.modelEnum.TypeOfFurniture;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Door_Furniture")
-public class DoorFurniture implements LimiItem {
+public class DoorFurniture implements LimiItem, SerializingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,215 +126,49 @@ public class DoorFurniture implements LimiItem {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "endDoorLock")
     private List<DoorFurniture> endDoorLock;
 
-    public DoorFurniture (){
+    public DoorFurniture() {
 
     }
 
-    public DoorFurniture (@NonNull LimitationDoor lim){
+    public DoorFurniture(@NonNull LimitationDoor lim) {
         this.id = lim.getItemId();
         this.name = lim.getFirstItem();
         this.picturePathFirst = lim.getPicturePath();
     }
 
-    public DoorFurniture setNuulLazyFild(){
+    public DoorFurniture setNuulLazyFild() {
+
         setDoorType(null);
+
         setToning(null);
         setArmors(null);
         setTypeDoorGlass(null);
+
+        setTopLock(null);
+        setTopinternaLockDecoration(null);
+        setTopouterLockDecoration(null);
+        setToplockCylinder(null);
+        setLowerLock(null);
+        setLowerinternaLockDecoration(null);
+        setLowerouterLockDecoration(null);
+        setLowerlockCylinder(null);
+        setHandle(null);
+        setCloser(null);
+        setEndDoorLock(null);
         return this;
     }
 
-    public void makeRightNamePictureDoorType(){
+    public DoorFurniture clearNonSerializingFields(){
+        return setNuulLazyFild();
+    }
 
-        picturePathFirst = picturePathFirst.replace("CalculationDoorsAutonomous","images");
+    public void makeRightNamePictureDoorType() {
+
+        picturePathFirst = picturePathFirst.replace("CalculationDoorsAutonomous", "images");
         picturePathFirst = picturePathFirst + ".jpg";
 
-        sketchPathFirst = sketchPathFirst.replace("CalculationDoorsAutonomous","images");
-        sketchPathSecond = sketchPathSecond.replace("CalculationDoorsAutonomous","images");
+        sketchPathFirst = sketchPathFirst.replace("CalculationDoorsAutonomous", "images");
+        sketchPathSecond = sketchPathSecond.replace("CalculationDoorsAutonomous", "images");
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getIdManufacturerProgram() {
-        return idManufacturerProgram;
-    }
-
-    public void setIdManufacturerProgram(String idManufacturerProgram) {
-        this.idManufacturerProgram = idManufacturerProgram;
-    }
-
-    public TypeOfFurniture getTypeOfFurniture() {
-        return typeOfFurniture;
-    }
-
-    public void setTypeOfFurniture(TypeOfFurniture typeOfFurniture) {
-        this.typeOfFurniture = typeOfFurniture;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getItCylinderLock() {
-        return itCylinderLock;
-    }
-
-    public void setItCylinderLock(int itCylinderLock) {
-        this.itCylinderLock = itCylinderLock;
-    }
-
-    public int getIsTwoSectionLock() {
-        return isTwoSectionLock;
-    }
-
-    public void setIsTwoSectionLock(int isTwoSectionLock) {
-        this.isTwoSectionLock = isTwoSectionLock;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public int getLongKey() {
-        return longKey;
-    }
-
-    public void setLongKey(int longKey) {
-        this.longKey = longKey;
-    }
-
-    public int getBugelHandle() {
-        return bugelHandle;
-    }
-
-    public void setBugelHandle(int bugelHandle) {
-        this.bugelHandle = bugelHandle;
-    }
-
-    public int getArmorLock() {
-        return armorLock;
-    }
-
-    public void setArmorLock(int armorLock) {
-        this.armorLock = armorLock;
-    }
-
-    public String getPicturePathFirst() {
-        return picturePathFirst;
-    }
-
-    public void setPicturePathFirst(String picturePathFirst) {
-        this.picturePathFirst = picturePathFirst;
-    }
-
-    public String getPicturePathSecond() {
-        return picturePathSecond;
-    }
-
-    public void setPicturePathSecond(String picturePathSecond) {
-        this.picturePathSecond = picturePathSecond;
-    }
-
-    public String getSketchPathFirst() {
-        return sketchPathFirst;
-    }
-
-    public void setSketchPathFirst(String sketchPathFirst) {
-        this.sketchPathFirst = sketchPathFirst;
-    }
-
-    public String getSketchPathSecond() {
-        return sketchPathSecond;
-    }
-
-    public void setSketchPathSecond(String sketchPathSecond) {
-        this.sketchPathSecond = sketchPathSecond;
-    }
-
-    public int getForWarmDoors() {
-        return forWarmDoors;
-    }
-
-    public void setForWarmDoors(int forWarmDoors) {
-        this.forWarmDoors = forWarmDoors;
-    }
-
-    public int getNumberOfDoorLeaves() {
-        return numberOfDoorLeaves;
-    }
-
-    public void setNumberOfDoorLeaves(int numberOfDoorLeaves) {
-        this.numberOfDoorLeaves = numberOfDoorLeaves;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public DoorType getDoorType() {
-        return doorType;
-    }
-
-    public void setDoorType(DoorType doorType) {
-        this.doorType = doorType;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getPriceComit() {
-        return priceComit;
-    }
-
-    public void setPriceComit(String priceComit) {
-        this.priceComit = priceComit;
-    }
-
-
-    public List<DoorGlass> getTypeDoorGlass() {
-        return typeDoorGlass;
-    }
-
-    public void setTypeDoorGlass(List<DoorGlass> typeDoorGlass) {
-        this.typeDoorGlass = typeDoorGlass;
-    }
-
-    public List<DoorGlass> getToning() {
-        return toning;
-    }
-
-    public void setToning(List<DoorGlass> toning) {
-        this.toning = toning;
-    }
-
-    public List<DoorGlass> getArmors() {
-        return armors;
-    }
-
-    public void setArmors(List<DoorGlass> armors) {
-        this.armors = armors;
-    }
 }
