@@ -130,11 +130,11 @@ jQuery('document').ready(function () {
             var line = $(elems[i]).parent();
 
             if (filtrValue === '') {
-                $(line).removeClass()('ghost');
+                $(line).removeClass('ghost');
             } else if ($(elems[i]).text() !== filtrValue) {
                 $(line).addClass('ghost');
             } else {
-                $(line).removeClass()('ghost');
+                $(line).removeClass('ghost');
             }
         }
 
