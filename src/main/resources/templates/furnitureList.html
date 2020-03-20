@@ -117,13 +117,13 @@
                     <div class="row">
                         <div class="col">
                             <button type="button" class="btn btn-primary" id="addfurniture" >Добавить</button>
-                            <button type="button" class="btn btn-primary disabled" id="deletLine">Удалить</button>
+                            <button type="button" class="btn btn-primary" id="deletLine">Удалить</button>
                         </div>
                         <div class="col-md-1 mb-3">
-                            <label  for="furnitureselect">Тип фурнитуры:</label>
+                            <label  for="typeOfFurniture">Тип фурнитуры:</label>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <select class="form-control" id="furnitureselect"></select>
+                            <select class="form-control" id="typeOfFurniture"></select>
                         </div>
                     </div>
 
@@ -135,11 +135,11 @@
                             <th>Тип фурнитуры</th>
                             <th>Цена</th>
                         </tr>
-                        <tr th:each="furniture : ${furnitureList}">
+                        <tr class="line" th:each="furniture : ${furnitureList}">
                             <td>#</td>
                             <td class="id" th:utext="${furniture.id}">..</td>
                             <td  th:utext="${furniture.name}">..</td>
-                            <td  th:utext="${furniture.typeOfFurniture}">..</td>
+                            <td class="type-line"  th:utext="${furniture.typeOfFurniture}">..</td>
                             <td  th:utext="${furniture.price}">..</td>
                         </tr>
                     </table>

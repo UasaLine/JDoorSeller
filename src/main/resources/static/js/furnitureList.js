@@ -2,10 +2,9 @@ jQuery('document').ready(function () {
 
 
     var curreiId = 0;
+    var types;
 
-    displayAdminaAndUserField();
-
-    colorizeTheLines();
+    getFilterList();
 
     $('tr').on('dblclick', function () {
 
@@ -20,12 +19,17 @@ jQuery('document').ready(function () {
 
     });
 
+    $('#typeOfFurniture').change(function () {
+
+        filterOut();
+
+    });
+
     $('#buttonDeleteOrder').on('click', function () {
 
         if (curreiId != 0) {
             deletOrder();
-        }
-        else {
+        } else {
             alert("!выбери заказ");
         }
 
@@ -33,6 +37,27 @@ jQuery('document').ready(function () {
 
     $('#addfurniture').on('click', function () {
         location.pathname = "/furniture/0";
+    });
+
+    $('#deletLine').on('click', function () {
+
+        if (curreiId !== 0) {
+
+            $.ajax({
+                url: 'furniture/' + curreiId,
+                method: "DELETE",
+                dataType: 'json',
+                success: function (data) {
+                    location.pathname = "/furniture";
+                },
+                error: function (data) {
+                    alert('!ERROR: елемнет удалить не удалось:');
+                }
+            });
+
+        } else {
+            alert('select lines');
+        }
     });
 
     function getFurniture(orderId) {
@@ -65,29 +90,51 @@ jQuery('document').ready(function () {
         $(item).attr('pickOut', 'on');
     }
 
-    function displayAdminaAndUserField() {
-        var isAdmin = $('#isAdmin').text();
-        if (isAdmin == 'true') {
-            var accessElem = $('.accessAdmin');
-            for (var i = 0; i < accessElem.length; i++) {
-                $(accessElem[i]).removeClass('ghost');
+    function getFilterList() {
+        $.ajax({
+            url: 'furniture/types',
+            dataType: 'json',
+            success: function (data) {
+                types = data;
+                fillInTypes();
+            },
+            error: function (data) {
+                alert('!ERROR: типы фурнитуры получить не удалось:');
+            }
+        });
+    }
+
+    function fillInTypes() {
+        if (types != null) {
+
+            $('#typeOfFurniture').empty();
+
+            $('#typeOfFurniture').append(
+                $('<option></option>')
+            );
+
+            for (var i = 0; i < types.length; ++i) {
+                $('#typeOfFurniture').append($('<option value=' + types[i] + '>' + types[i] + '</option>'));
             }
         }
+    }
 
-        var report = $('#report').text();
-        if (report == 'true') {
-            $(buttonbar).addClass('ghost');
-            $(buttonbar).removeClass('row');
-        }
-    };
+    function filterOut() {
+        var filtrValue = $('#typeOfFurniture').val();
 
-    function colorizeTheLines(){
+        var elems = $('.type-line');
+        var elemsTotal = elems.length;
 
-        var colorFlag = $('.colorFlag');
-        for (var i = 0; i < colorFlag.length; i++) {
-            if(('READY'== $(colorFlag[i]).text())
-                ||('IN_WORK'== $(colorFlag[i]).text())){
-                $(colorFlag[i]).addClass('greenFlag');
+        for (var i = 0; i < elemsTotal; ++i) {
+
+            var line = $(elems[i]).parent();
+
+            if (filtrValue === '') {
+                $(line).removeClass()('ghost');
+            } else if ($(elems[i]).text() !== filtrValue) {
+                $(line).addClass('ghost');
+            } else {
+                $(line).removeClass()('ghost');
             }
         }
 
