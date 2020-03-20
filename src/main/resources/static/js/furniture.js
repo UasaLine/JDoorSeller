@@ -9,65 +9,62 @@ jQuery('document').ready(function () {
 
     $('#idManufacturFurniture').change(function () {
 
-        setField('idManufacturFurniture',$('#idManufacturFurniture').val());
+        setField('idManufacturFurniture', $('#idManufacturFurniture').val());
 
     });
 
     $('#nameFurniture').change(function () {
 
-        setField('name',$('#nameFurniture').val());
+        setField('name', $('#nameFurniture').val());
 
     });
 
     $('#typeOfFurniture').change(function () {
 
-        setField('typeOfFurniture',$('#typeOfFurniture').val());
+        setField('typeOfFurniture', $('#typeOfFurniture').val());
 
     });
 
     $('#itCylinderLock').on('click', function () {
 
-        if ($(this).is(':checked')){
-            setField('itCylinderLock',1);
-        }
-        else {
-            setField('itCylinderLock',0);
+        if ($(this).is(':checked')) {
+            setField('itCylinderLock', 1);
+        } else {
+            setField('itCylinderLock', 0);
         }
 
     });
 
 
-
     $('#comment').change(function () {
 
-        setField('comment',$('#comment').val());
+        setField('comment', $('#comment').val());
 
     });
 
     $('#picturePathFirst').change(function () {
 
-        setField('picturePathFirst',$('#picturePathFirst').val());
+        setField('picturePathFirst', $('#picturePathFirst').val());
 
     });
 
     $('#sketchPathFirst').change(function () {
 
-        setField('sketchPathFirst',$('#sketchPathFirst').val());
+        setField('sketchPathFirst', $('#sketchPathFirst').val());
 
     });
 
     $('#price').change(function () {
 
-        setField('price',$('#price').val());
+        setField('price', $('#price').val());
 
     });
 
     $('#priceComit').change(function () {
 
-        setField('priceComit',$('#priceComit').val());
+        setField('priceComit', $('#priceComit').val());
 
     });
-
 
 
     $('#save').on('click', function () {
@@ -110,8 +107,6 @@ jQuery('document').ready(function () {
         });
 
     });
-
-
 
 
     function toFurnirure() {
@@ -159,7 +154,7 @@ jQuery('document').ready(function () {
             $('#idManufacturFurniture').val(furnitureJavaObject.idManufacturerProgram);
             $('#nameFurniture').val(furnitureJavaObject.name);
             setValueInSelect('#typeOfFurniture', furnitureJavaObject.typeOfFurniture);
-            setCheckBox('#itCylinderLock',furnitureJavaObject.itCylinderLock);
+            setCheckBox('#itCylinderLock', furnitureJavaObject.itCylinderLock);
             $('#comment').val(furnitureJavaObject.comment);
             $('#picturePathFirst').val(furnitureJavaObject.picturePathFirst);
             $('#sketchPathFirst').val(furnitureJavaObject.sketchPathFirst);
@@ -193,12 +188,12 @@ jQuery('document').ready(function () {
         });
     }
 
-    function setField(fieldName,value){
-        furnitureJavaObject[fieldName]=value;
+    function setField(fieldName, value) {
+        furnitureJavaObject[fieldName] = value;
     }
 
-    function setCheckBox(name,value){
-        if(value==1){
+    function setCheckBox(name, value) {
+        if (value == 1) {
             $(name).prop('checked', true);
         }
     }
