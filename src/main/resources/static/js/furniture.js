@@ -25,6 +25,19 @@ jQuery('document').ready(function () {
 
     });
 
+    $('#itCylinderLock').on('click', function () {
+
+        if ($(this).is(':checked')){
+            setField('itCylinderLock',1);
+        }
+        else {
+            setField('itCylinderLock',0);
+        }
+
+    });
+
+
+
     $('#comment').change(function () {
 
         setField('comment',$('#comment').val());
@@ -54,6 +67,7 @@ jQuery('document').ready(function () {
         setField('priceComit',$('#priceComit').val());
 
     });
+
 
 
     $('#save').on('click', function () {
@@ -96,6 +110,8 @@ jQuery('document').ready(function () {
         });
 
     });
+
+
 
 
     function toFurnirure() {
@@ -143,6 +159,7 @@ jQuery('document').ready(function () {
             $('#idManufacturFurniture').val(furnitureJavaObject.idManufacturerProgram);
             $('#nameFurniture').val(furnitureJavaObject.name);
             setValueInSelect('#typeOfFurniture', furnitureJavaObject.typeOfFurniture);
+            setCheckBox('#itCylinderLock',furnitureJavaObject.itCylinderLock);
             $('#comment').val(furnitureJavaObject.comment);
             $('#picturePathFirst').val(furnitureJavaObject.picturePathFirst);
             $('#sketchPathFirst').val(furnitureJavaObject.sketchPathFirst);
@@ -178,5 +195,11 @@ jQuery('document').ready(function () {
 
     function setField(fieldName,value){
         furnitureJavaObject[fieldName]=value;
+    }
+
+    function setCheckBox(name,value){
+        if(value==1){
+            $(name).prop('checked', true);
+        }
     }
 });

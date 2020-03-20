@@ -76,6 +76,15 @@
                     <small id="typeHelp" class="form-text text-muted">тип фурнитуры.</small>
                 </div>
 
+                <!--cylinder_lock-->
+                <div class="col-md-6 mb-3">
+                    <div class="custom-control custom-switch" id="itCylinderLockSwitch">
+                        <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="itCylinderLock" >
+                        <label class="custom-control-label" for="itCylinderLock">Цилиндровый замок</label>
+                    </div>
+                    <small id="itCylinderLockHelp" class="form-text text-muted">добовляет возможность выбрать цилиндр</small>
+                </div>
+
                 <!--comment-->
                 <div class="col-md-6 mb-3">
                     <label for="comment">Комментарий:</label>
@@ -124,13 +133,6 @@
                 <label for="quantity">Количество:</label>
                 <input type="email" class="form-control" id="quantity" aria-describedby="quantityHelp" placeholder="Enter type">
                 <small id="quantityHelp" class="form-text text-muted">Количество для списания.</small>
-            </div>
-
-            <!--cylinder_lock-->
-            <div class="form-group ghost">
-                <label for="itCylinderLock">Цилиндровый замок:</label>
-                <input type="email" class="form-control" id="itCylinderLock" aria-describedby="itCylinderLockHelp" placeholder="Enter CylinderLock">
-                <small id="itCylinderLockHelp" class="form-text text-muted">Цилиндровый (для замков), признак для расчетов и отборов .</small>
             </div>
 
             <!--is-Two-Section-Lock-->
