@@ -1,5 +1,6 @@
 package com.jds.service;
 
+import com.jds.dao.ColorRepository;
 import com.jds.dao.MainDAO;
 import com.jds.dao.MetalRepository;
 import com.jds.dao.OrderDAO;
@@ -7,12 +8,10 @@ import com.jds.entity.*;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +30,8 @@ public class DoorService implements DoorServ {
     private UserService userService;
     @Autowired
     private MetalRepository metalDao;
+    @Autowired
+    private ColorRepository colorDao;
 
     @Override
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
@@ -64,7 +65,7 @@ public class DoorService implements DoorServ {
         PayrollSettings paySettings = new PayrollSettings();
         paySettings.setBendSetting(dAO.getbendSettingId(door.getDoorType().getId(), door.getMetal(), door.getSealingLine()));
         paySettings.setConstMap(dAO.getSalaryConstantsMap());
-        paySettings.setDoorColors(dAO.getDoorColor(door.getDoorColor()));
+        paySettings.setDoorColors(colorDao.getDoorColorByName(door.getDoorColor()));
         paySettings.setDoorType(dAO.getDoorType(door.getDoorType().getId()));
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 

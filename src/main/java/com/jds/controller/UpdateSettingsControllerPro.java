@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jds.dao.MainDAO;
 import com.jds.dao.MetalRepository;
 import com.jds.entity.*;
+import com.jds.service.ColorService;
 import com.jds.service.MaineService;
+import com.jds.service.MetalService;
 import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,16 +23,19 @@ import java.util.List;
 public class UpdateSettingsControllerPro {
 
     @Autowired
-    MainDAO mainDAO;
+    private MainDAO mainDAO;
 
     @Autowired
-    MaineService service;
+    private MaineService service;
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @Autowired
-    MetalRepository metalDAO;
+    private MetalRepository metalDAO;
+
+    @Autowired
+    private ColorService colorService;
 
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -119,8 +124,7 @@ public class UpdateSettingsControllerPro {
         ObjectMapper mapper = new ObjectMapper();
 
         DoorColors doorColors = mapper.readValue(reader, DoorColors.class);
-        service.saveDoorColors(doorColors);
-
+        colorService.saveColor(doorColors);
 
         return "jr";
     }
