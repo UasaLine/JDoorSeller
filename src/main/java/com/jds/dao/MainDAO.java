@@ -790,21 +790,6 @@ public class MainDAO {
         return list;
     }
 
-    public List<Metal> getMetals() {
-
-        Session session = sessionFactory.openSession();
-
-        String sql = "select * from metal";
-        Query query = session.createSQLQuery(sql).addEntity(Metal.class);
-
-        List<Metal> list = query.list();
-
-        session.close();
-
-        return list;
-
-    }
-
 
     public SalarySetting getSalarySetting(double metal) {
 

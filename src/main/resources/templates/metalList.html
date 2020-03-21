@@ -134,12 +134,12 @@
 							<th>nameDisplayed</th>
 							<th>isUsed</th>
 						</tr>
-						<tr th:each="accountInfo : ${accountInfos}">
-							<td th:utext="${accountInfo.id}">..</td>
-							<td th:utext="${accountInfo.idManufacturerProgram}">..</td>
-							<td th:utext="${accountInfo.name}">..</td>
-							<td th:utext="${accountInfo.nameDisplayed}">..</td>
-							<td th:utext="${accountInfo.isUsed}">..</td>
+						<tr th:each="metal : ${metalList}">
+							<td th:utext="${metal.id}">..</td>
+							<td th:utext="${metal.idManufacturerProgram}">..</td>
+							<td th:utext="${metal.name}">..</td>
+							<td th:utext="${metal.nameDisplayed}">..</td>
+							<td th:utext="${metal.isUsed}">..</td>
 						</tr>
 
 					</table>

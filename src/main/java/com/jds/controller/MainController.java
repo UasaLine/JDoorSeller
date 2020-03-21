@@ -202,13 +202,7 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/metal")
-    public String getMetal(Model model) throws Exception {
 
-        List<Metal> list = service.getMetals();
-        model.addAttribute("accountInfos", list);
-        return "metalList";
-    }
 
 
     @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
