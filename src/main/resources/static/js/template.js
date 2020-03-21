@@ -575,16 +575,18 @@ jQuery('document').ready(function () {
             url: 'saveTemplate',
             contentType: "application/json",
             data: templateJSON,
-            //dataType: 'json',
             success: function (data) {
-                alert('request it OK');
+                toList();
             },
             error: function (data) {
-                alert('error: request');
+                alert('error: объект сохранить не удалось!');
             }
         });
     });
 
+    $('#close').on('click', function () {
+        toList();
+    });
 
     $('#widthDoorCheckbox').on('click', function () {
 
@@ -1356,4 +1358,7 @@ jQuery('document').ready(function () {
         }
     }
 
+    function toList() {
+        location.pathname = "templates";
+    }
 });
