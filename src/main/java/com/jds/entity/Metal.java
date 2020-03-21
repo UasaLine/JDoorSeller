@@ -1,7 +1,12 @@
 package com.jds.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Metal")
 public class Metal {
@@ -30,62 +35,6 @@ public class Metal {
     private int price;
 
     public Metal() {
-        //empty constructor
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getIdManufacturerProgram() {
-        return idManufacturerProgram;
-    }
-
-    public void setIdManufacturerProgram(String idManufacturerProgram) {
-        this.idManufacturerProgram = idManufacturerProgram;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getNameDisplayed() {
-        return nameDisplayed;
-    }
-
-    public void setNameDisplayed(double nameDisplayed) {
-        this.nameDisplayed = nameDisplayed;
-    }
-
-    public int getIndexHeft() {
-        return indexHeft;
-    }
-
-    public void setIndexHeft(int indexHeft) {
-        this.indexHeft = indexHeft;
-    }
-
-    public int getIsUsed() {
-        return isUsed;
-    }
-
-    public void setIsUsed(int isUsed) {
-        this.isUsed = isUsed;
+        isUsed = 1;
     }
 }

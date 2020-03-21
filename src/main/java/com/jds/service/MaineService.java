@@ -1,6 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.MainDAO;
+import com.jds.dao.MetalRepository;
 import com.jds.entity.*;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
@@ -23,6 +24,9 @@ public class MaineService {
 
     @Autowired
     private MainDAO dAO;
+
+    @Autowired
+    private MetalRepository metalDao;
 
     public void saveOrUpdateDoorClass(String classId, String name, String description,
                                       boolean fireproofcheckbox, boolean hotcheckbox, String namePicture) {
@@ -100,9 +104,7 @@ public class MaineService {
         return dAO.getMaterialFormula();
     }
 
-    public List<Metal> getMetals() {
-        return dAO.getMetals();
-    }
+
 
     public DoorColors saveDoorColors(DoorColors doorColors) {
         doorColors.setPicturePath("images/Door/AColor1/" + doorColors.getPicturePath() + ".jpg");
@@ -118,7 +120,7 @@ public class MaineService {
                 .widthDoor(generateSizeDoor(TypeOfLimitionDoor.HEIGHT))
                 .heightDoor(generateSizeDoor(TypeOfLimitionDoor.WIDTH))
 
-                .stuffMetal(dAO.getMetals())
+                .stuffMetal(metalDao.getMetals())
 
                 .stuffColors(dAO.getDoorColors())
 

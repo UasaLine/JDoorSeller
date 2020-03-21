@@ -1,24 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
 <head>
-    <title>door seller</title>
-    <!-- Подключаем Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
-    <!-- your personal CSS -->
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/templateList.js"></script>
-
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-
-    <div class="top_head">
-        <div class="container-fluid" id="intro-dm">
-            <a th:href="@{/}"><img src="images/Header_widht_1300_002 ltl.jpg"></a>
-        </div>
-    </div>
 
     <div class="top_head">
         <div class="row">
@@ -116,39 +102,7 @@
                 </div>
             </nav>
 
-            <div class="col">
-
-                <h1 class="display-4">Шаблоны дверей</h1>
-
-                <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
-
-                <div class="row " id="buttonbar">
-
-                    <div class="col mb-3">
-                        <button type="button" class="btn btn-primary" id="addTemplate">создать</button>
-                        <button type="button" class="btn btn-primary" id="buttonDeleteTemplate">удалить</button>
-                    </div>
-
-                </div>
-
-                <div class="order-Table">
-                    <table class="Table">
-                        <tr >
-                            <th>№</th>
-                            <th>doorType</th>
-                            <th>Модель</th>
-                        </tr>
-
-                        <tr th:each="teamp : ${accountInfos}">
-                            <td class="id" th:utext="${teamp.doorTypeId}">..</td>
-                            <td th:utext="${teamp.className}">..</td>
-                            <td th:utext="${teamp.typeName}">..</td>
-
-                        </tr>
-                    </table>
-                </div>
-
-            </div>
+            <!--content-->
 
         </div>
     </div>

@@ -202,13 +202,7 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/metal")
-    public String getMetal(Model model) throws Exception {
 
-        List<Metal> list = service.getMetals();
-        model.addAttribute("accountInfos", list);
-        return "settingPage_metal";
-    }
 
 
     @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -236,7 +230,7 @@ public class MainController {
 
     @GetMapping(value = "/materials")
     public String getMaterialPage() {
-        return "materials";
+        return "materialList";
     }
 
     @GetMapping(value = "/materialsList")
