@@ -18,7 +18,7 @@ jQuery('document').ready(function () {
 
 
     $('#addLine').on('click', function () {
-        location.pathname = "/metal/0";
+        location.pathname = "/color/0";
     });
 
     $('#deletLine').on('click', function () {
@@ -26,11 +26,11 @@ jQuery('document').ready(function () {
         if (curreiId !== 0) {
 
             $.ajax({
-                url: 'metal/' + curreiId,
+                url: 'color/' + curreiId,
                 method: "DELETE",
                 dataType: 'json',
                 success: function (data) {
-                    location.pathname = "/metal";
+                    location.pathname = "/color";
                 },
                 error: function (data) {
                     alert('!ERROR: елемнет удалить не удалось:');
@@ -43,7 +43,7 @@ jQuery('document').ready(function () {
     });
 
     function getItem(id) {
-        location.href = "metal/" + id;
+        location.href = "color/" + id;
     };
 
     function oneEnableAllDisable(item) {

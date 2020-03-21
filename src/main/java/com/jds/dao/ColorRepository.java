@@ -79,9 +79,9 @@ public class ColorRepository {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from metal where id = :id";
+        sql = "select * from door_colors where id = :id";
         Query query = session.createSQLQuery(sql)
-                .addEntity(Metal.class)
+                .addEntity(DoorColors.class)
                 .setParameter("id", id);
         List<DoorColors> list = query.list();
 
