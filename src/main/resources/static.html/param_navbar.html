@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
 <head>
-    <title>door seller</title>
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
-    <!-- Подключаем Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-    <!-- header -->
-    <div class="top_head">
-        <div class="container-fluid" id="intro-dm">
-        <a th:href="@{/}"><img src="images/Header_widht_1300_002 ltl.jpg"></a>
-        </div>
-    </div>
 
     <div class="top_head">
-        <div class="container-fluid">
+        <div class="row">
 
             <nav class="col-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
@@ -34,55 +24,49 @@
                             </a>
                         </li>
                         <!-- настройки -->
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted accessAdmin ghost">
                             <span>настройки:</span>
                         </h6>
 
-                        <li class="nav-item" id="templates">
+                        <li class="nav-item accessAdmin ghost" id="templates">
                             <a class="nav-link active" th:href="@{/templates}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                                 Шаблоны <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item" id="specification">
+                        <li class="nav-item accessAdmin ghost" id="specification">
                             <a class="nav-link active" th:href="@{/specification}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                                 Спецификации
                             </a>
                         </li>
                         <!-- справочники: -->
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted accessAdmin ghost">
                             <span>справочники:</span>
                         </h6>
 
-                        <li class="nav-item" id="doorclasslist">
+                        <li class="nav-item accessAdmin ghost" id="doorclasslist">
                             <a class="nav-link active" th:href="@{/doorclasslist}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                                 Классы
                             </a>
                         </li>
-                        <li class="nav-item" id="doortypelist">
+                        <li class="nav-item accessAdmin ghost" id="doortypelist">
                             <a class="nav-link active" th:href="@{/doortypelist}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                                 Модели
                             </a>
                         </li>
-                        <li class="nav-item" id="materials">
+                        <li class="nav-item accessAdmin ghost" id="materials">
                             <a class="nav-link active" th:href="@{/materials}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                                 Материалы
                             </a>
                         </li>
-                        <li class="nav-item" id="furniture">
+                        <li class="nav-item accessAdmin ghost" id="furniture">
                             <a class="nav-link active" th:href="@{/furniture}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                                 Фурнитура
-                            </a>
-                        </li>
-                        <li class="nav-item" id="metalList">
-                            <a class="nav-link active" th:href="@{/metal}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                                Металл
                             </a>
                         </li>
                         <!-- прочее -->
@@ -90,7 +74,7 @@
                             <span>прочее:</span>
                         </h6>
 
-                        <li class="nav-item" id="users">
+                        <li class="nav-item accessAdmin ghost" id="users">
                             <a class="nav-link active" th:href="@{/users}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                 Пользователи
@@ -111,6 +95,8 @@
                     </ul>
                 </div>
             </nav>
+
+            <!--content-->
 
         </div>
     </div>

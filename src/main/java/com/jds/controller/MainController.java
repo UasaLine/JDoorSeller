@@ -207,7 +207,7 @@ public class MainController {
 
         List<Metal> list = service.getMetals();
         model.addAttribute("accountInfos", list);
-        return "settingPage_metal";
+        return "metalList";
     }
 
 
