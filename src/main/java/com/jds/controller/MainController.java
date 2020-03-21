@@ -1,8 +1,6 @@
 package com.jds.controller;
 
 import com.jds.entity.*;
-import com.jds.model.DoorTemplate;
-import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.Specification;
 import com.jds.service.MaineService;
 import com.jds.service.UserServ;
@@ -59,7 +57,7 @@ public class MainController {
         return "doorClassList";
     }
 
-    @GetMapping(value = "/doorclassis", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/class/list", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<DoorClass> getDoorClassis(Model model) throws Exception {
         return service.getDoorClass();
@@ -161,24 +159,6 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/create-template")
-    public String getTemplate(@RequestParam(defaultValue = "0") String typeId,
-                              Model model) throws Exception {
-
-        model.addAttribute("typeId", typeId);
-        model.addAttribute("classId", service.getClassId(typeId));
-
-        return "template";
-    }
-
-    @GetMapping(value = "/templates")
-    public String getTemplateList(Model model) {
-
-        model.addAttribute("accountInfos", service.getTemplateList());
-        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
-        return "templateList";
-    }
-
     @GetMapping(value = "/specification")
     public String getSpecificationPage(Model model) throws Exception {
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
@@ -200,25 +180,6 @@ public class MainController {
         return service.saveSpecification(templateJSON);
 
     }
-
-
-
-
-
-    @GetMapping(value = "/getTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public DoorTemplate getTemplate(@RequestParam String idDoorType) throws Exception {
-        return service.getDoorTemplate(idDoorType);
-    }
-
-    @PostMapping(value = "/saveTemplate", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public void saveTemplate(@RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
-
-        service.saveDoorTemplate(templateJSON);
-
-    }
-
 
     @GetMapping(value = "/availableGroups")
     @ResponseBody

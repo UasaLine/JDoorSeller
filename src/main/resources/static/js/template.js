@@ -10,11 +10,10 @@ jQuery('document').ready(function () {
     //new Template instans
     function getDoorTemplate() {
 
-        var doorTypeId = $('#doortypeselect').val();
+
 
         $.ajax({
-            url: 'getTemplate',
-            data: {idDoorType: doorTypeId},
+            url: 'item/'+getIdFromUrl(),
             dataType: 'json',
             success: function (data) {
 
@@ -572,7 +571,7 @@ jQuery('document').ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: 'saveTemplate',
+            url: 'item',
             contentType: "application/json",
             data: templateJSON,
             success: function (data) {
@@ -618,7 +617,7 @@ jQuery('document').ready(function () {
     function grtListDoorClassToSelect() {
 
         $.ajax({
-            url: 'doorclassis',
+            url: location.origin+'/class/list',
             dataType: 'json',
             success: function (data) {
                 doorClassList = data;
@@ -1360,5 +1359,10 @@ jQuery('document').ready(function () {
 
     function toList() {
         location.pathname = "templates";
+    }
+    function getIdFromUrl() {
+        var url = location.href;
+        var id = url.substring(url.lastIndexOf('/') + 1);
+        return id;
     }
 });
