@@ -1,8 +1,8 @@
 package com.jds.service;
 
-import com.jds.dao.MainDAO;
 import com.jds.dao.MetalRepository;
 import com.jds.entity.Metal;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +18,22 @@ public class MetalService {
         return dAO.getMetals();
     }
 
+    public Metal getMetal(@NonNull String id) {
+
+        if("0".equals(id)){
+            return new Metal();
+        }
+
+        return dAO.getMetalById(Integer.parseInt(id));
+    }
+
+    public String saveMetal(@NonNull Metal metal) {
+        dAO.saveMetal(metal);
+        return "ok";
+    }
+
+    public String deleteMetal(@NonNull String id) {
+        Metal metal = getMetal(id);
+        return dAO.deleteMetal(metal);
+    }
 }

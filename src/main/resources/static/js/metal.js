@@ -1,78 +1,61 @@
 jQuery('document').ready(function () {
 
-    var furnitureJavaObject;
-    var types;
-
+    var JavaObject;
 
     //new instans
-    //getMetalJavaObject();
+    getJavaObject();
 
-    $('#idManufacturFurniture').change(function () {
+    $('#idManufacturerProgram').change(function () {
 
-        setField('idManufacturFurniture',$('#idManufacturFurniture').val());
-
-    });
-
-    $('#nameFurniture').change(function () {
-
-        setField('name',$('#nameFurniture').val());
+        setField('idManufacturerProgram', $('#idManufacturerProgram').val());
 
     });
 
-    $('#typeOfFurniture').change(function () {
+    $('#name').change(function () {
 
-        setField('typeOfFurniture',$('#typeOfFurniture').val());
+        setField('name', $('#name').val());
 
     });
 
-    $('#itCylinderLock').on('click', function () {
+    $('#nameDisplayed').change(function () {
 
-        if ($(this).is(':checked')){
-            setField('itCylinderLock',1);
+        setField('nameDisplayed', $('#nameDisplayed').val());
+
+    });
+
+    $('#indexHeft').change(function () {
+
+        setField('indexHeft', $('#indexHeft').val());
+
+    });
+
+    $('#isUsed').change(function () {
+
+
+        if ($(this).is(':checked')) {
+            setField('isUsed', 1);
+        } else {
+            setField('isUsed', 0);
         }
-        else {
-            setField('itCylinderLock',0);
-        }
 
     });
-
-
 
     $('#comment').change(function () {
 
-        setField('comment',$('#comment').val());
-
-    });
-
-    $('#picturePathFirst').change(function () {
-
-        setField('picturePathFirst',$('#picturePathFirst').val());
-
-    });
-
-    $('#sketchPathFirst').change(function () {
-
-        setField('sketchPathFirst',$('#sketchPathFirst').val());
+        setField('comment', $('#comment').val());
 
     });
 
     $('#price').change(function () {
 
-        setField('price',$('#price').val());
+        setField('price', $('#price').val());
 
     });
-
-    $('#priceComit').change(function () {
-
-        setField('priceComit',$('#priceComit').val());
-
-    });
-
 
 
     $('#save').on('click', function () {
 
-        var furniture = JSON.stringify(furnitureJavaObject);
+        var furniture = JSON.stringify(JavaObject);
 
         $.ajax({
             url: 'item',
@@ -82,7 +65,7 @@ jQuery('document').ready(function () {
             data: furniture,
             success: function (data) {
                 alert(data.status);
-                toFurnirure();
+                toList();
             },
             error: function (data) {
                 alert('!ERROR: елемнет записать не удалось:');
@@ -91,7 +74,7 @@ jQuery('document').ready(function () {
     });
 
     $('#close').on('click', function () {
-        toFurnirure();
+        toList();
     });
 
     $('#delete').on('click', function () {
@@ -102,7 +85,7 @@ jQuery('document').ready(function () {
             dataType: 'json',
             success: function (data) {
                 alert(data.status);
-                toFurnirure();
+                toList();
             },
             error: function (data) {
                 alert('!ERROR: елемнет удалить не удалось:');
@@ -112,38 +95,23 @@ jQuery('document').ready(function () {
     });
 
 
-
-
-    function toFurnirure() {
-        location.pathname = "furniture";
+    function toList() {
+        location.pathname = "metal";
     }
 
-    function getMetalJavaObject() {
-
-        $.ajax({
-            url: 'types',
-            dataType: 'json',
-            success: function (data) {
-                types = data;
-                fillInTypes();
-            },
-            error: function (data) {
-                alert('!ERROR: типы фурнитуры получить не удалось:');
-            }
-        });
+    function getJavaObject() {
 
         $.ajax({
             url: 'item/' + getIdFromUrl(),
             dataType: 'json',
             success: function (data) {
-                furnitureJavaObject = data;
-                fillInFurniture();
+                JavaObject = data;
+                fillByOject();
             },
             error: function (data) {
                 alert('!ERROR: елемнет фурнитуры получить не удалось:');
             }
         });
-
 
     }
 
@@ -153,52 +121,24 @@ jQuery('document').ready(function () {
         return id;
     }
 
-    function fillInFurniture() {
-        if (furnitureJavaObject != null) {
-            $('#idFurniture').val(furnitureJavaObject.id);
-            $('#idManufacturFurniture').val(furnitureJavaObject.idManufacturerProgram);
-            $('#nameFurniture').val(furnitureJavaObject.name);
-            setValueInSelect('#typeOfFurniture', furnitureJavaObject.typeOfFurniture);
-            setCheckBox('#itCylinderLock',furnitureJavaObject.itCylinderLock);
-            $('#comment').val(furnitureJavaObject.comment);
-            $('#picturePathFirst').val(furnitureJavaObject.picturePathFirst);
-            $('#sketchPathFirst').val(furnitureJavaObject.sketchPathFirst);
-            $('#price').val(furnitureJavaObject.price);
-            $('#priceComit').val(furnitureJavaObject.priceComit);
+    function fillByOject() {
+        if (JavaObject != null) {
+            $('#idMetal').val(JavaObject.id);
+            $('#idManufacturerProgram').val(JavaObject.idManufacturerProgram);
+            $('#name').val(JavaObject.name);
+            $('#nameDisplayed').val(JavaObject.nameDisplayed);
+            $('#indexHeft').val(JavaObject.indexHeft);
+            setCheckBox('#isUsed', JavaObject.isUsed);
+            $('#price').val(JavaObject.price);
         }
     }
 
-    function fillInTypes() {
-
-        if (types != null) {
-
-            $('#typeOfFurniture').empty();
-
-            $('#typeOfFurniture').append(
-                $('<option></option>')
-            );
-
-            for (var i = 0; i < types.length; ++i) {
-                $('#typeOfFurniture').append($('<option value=' + types[i] + '>' + types[i] + '</option>'));
-            }
-        }
+    function setField(fieldName, value) {
+        JavaObject[fieldName] = value;
     }
 
-    function setValueInSelect(jqSelect, value) {
-        var opt = $(jqSelect + ' > option');
-        opt.each(function (indx, element) {
-            if ($(this).val() == value) {
-                $(this).attr("selected", "selected");
-            }
-        });
-    }
-
-    function setField(fieldName,value){
-        furnitureJavaObject[fieldName]=value;
-    }
-
-    function setCheckBox(name,value){
-        if(value==1){
+    function setCheckBox(name, value) {
+        if (value == 1) {
             $(name).prop('checked', true);
         }
     }

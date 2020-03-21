@@ -64,19 +64,6 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void saveMetal(Metal metal) {
-
-        int id = getMetalId(metal.getIdManufacturerProgram());//check exists
-        if (id > 0) {
-            metal.setId(id);
-        }
-
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(metal);
-
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
     public int saveOrUpdateDoorType(DoorType doorType) {
 
         doorType.makeRightNamePictureDoorType();
@@ -376,45 +363,6 @@ public class MainDAO {
 
     }
 
-    public int getMetalId(String id) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from metal where id_manufacturer_program like :log";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(Metal.class)
-                .setParameter("log", id);
-        List<Metal> metalList = query.list();
-
-        session.close();
-
-        if (metalList.size() > 0) {
-            return metalList.get(0).getId();
-        }
-        return 0;
-
-    }
-
-    public Metal getMetal(double val) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from metal where name_displayed = :log";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(Metal.class)
-                .setParameter("log", val);
-        List<Metal> metalList = query.list();
-
-        session.close();
-
-        if (metalList.size() > 0) {
-            return metalList.get(0);
-        }
-        return null;
-
-    }
 
     public int getDoorFurnitureId(String id, int idDoorType) {
 

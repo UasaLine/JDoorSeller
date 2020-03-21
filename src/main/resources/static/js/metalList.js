@@ -5,7 +5,7 @@ jQuery('document').ready(function () {
 
     $('tr').on('dblclick', function () {
 
-        getFurniture($(this).children('.id').text());
+        getItem($(this).children('.id').text());
 
     });
 
@@ -42,8 +42,8 @@ jQuery('document').ready(function () {
         }
     });
 
-    function getFurniture(orderId) {
-        location.href = "furniture/" + orderId;
+    function getItem(id) {
+        location.href = "metal/" + id;
     };
 
     function oneEnableAllDisable(item) {

@@ -1,6 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.MainDAO;
+import com.jds.dao.MetalRepository;
 import com.jds.dao.OrderDAO;
 import com.jds.entity.*;
 import com.jds.model.*;
@@ -28,6 +29,8 @@ public class DoorService implements DoorServ {
     private MaineService maineService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MetalRepository metalDao;
 
     @Override
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
@@ -91,7 +94,7 @@ public class DoorService implements DoorServ {
         sheetCutting.CompleteCutting();
         sheetCutting.clearHardCalculationData();
 
-        Metal metal = dAO.getMetal(door.getMetal());
+        Metal metal = metalDao.getMetal(door.getMetal());
 
         door.setSheets(sheetCutting.getSheets());
         door.calculateWeigh(metal);

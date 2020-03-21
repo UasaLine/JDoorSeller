@@ -43,17 +43,17 @@
             <div class="row">
                 <!--id-->
                 <div class="col disabled">
-                    <label for="idFurniture">Номер:</label>
-                    <input type="text" class="form-control" id="idFurniture" aria-describedby="idHelp"
+                    <label for="idMetal">Номер:</label>
+                    <input type="text" class="form-control" id="idMetal" aria-describedby="idHelp"
                            placeholder="Enter id">
                     <small id="idHelp" class="form-text text-muted">id фурнитуры, уникальный номер фурнитуры.</small>
                 </div>
                 <!--id-manufacturer-program-->
                 <div class="col">
-                    <label for="idManufacturFurniture">Номер производителя:</label>
-                    <input type="text" class="form-control" id="idManufacturFurniture" aria-describedby="idManHelp"
+                    <label for="idManufacturerProgram">Номер производителя:</label>
+                    <input type="text" class="form-control" id="idManufacturerProgram" aria-describedby="idManHelp"
                            placeholder="Enter id">
-                    <small id="idManHelp" class="form-text text-muted">id фурнитуры, уникальный номер фурнитуры в
+                    <small id="idManufacturerProgramHelp" class="form-text text-muted">id фурнитуры, уникальный номер фурнитуры в
                         программе завода.</small>
                 </div>
             </div>
@@ -65,41 +65,44 @@
         <div class="form-group">
 
             <!--name-->
-            <div class="col-md-6 mb-3">
-                <label for="nameFurniture">Наименование:</label>
-                <input type="text" class="form-control" id="nameFurniture" aria-describedby="nameHelp"
-                       placeholder="Enter name">
-                <small id="nameHelp" class="form-text text-muted">Наименование фурнитуры.</small>
-            </div>
+            <div class="row">
+                <!--name-->
+                <div class="col-md-6 mb-3">
+                    <label for="name">Наименование:</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                           placeholder="Enter name">
+                    <small id="nameHelp" class="form-text text-muted">Наименование в виде толщины листа метала.</small>
+                </div>
 
-            <!--nameDisplayed-->
-            <div class="col-md-6 mb-3">
-                <label for="nameFurniture">Наименование:</label>
-                <input type="text" class="form-control" id="nameDisplayed" aria-describedby="nameHelp"
-                       placeholder="Enter name">
-                <small id="nameDisplayedHelp" class="form-text text-muted">Отображается для клиента при создании двери и
-                    в заказе.</small>
+                <!--nameDisplayed-->
+                <div class="col-md-6 mb-3">
+                    <label for="nameDisplayed">Наименование для клиентов:</label>
+                    <input type="number" class="form-control" id="nameDisplayed" aria-describedby="nameHelp"
+                           placeholder="Enter 1,1.2,1.5">
+                    <small id="nameDisplayedHelp" class="form-text text-muted">Отображается для клиента при создании двери и
+                        в заказе. Толшина листа числом</small>
+                </div>
             </div>
 
             <!--indexHeft-->
             <div class="col-md-6 mb-3">
-                <label for="indexHeft">Наименование:</label>
+                <label for="indexHeft">Коэфициент веса:</label>
                 <input type="number" class="form-control" id="indexHeft" aria-describedby="nameHelp"
                        placeholder="Enter index">
-                <small id="indexHeftHelp" class="form-text text-muted">коэфициент веса.</small>
+                <small id="indexHeftHelp" class="form-text text-muted">для расчета стоимости металла.</small>
             </div>
 
             <!--isUsed-->
             <div class="col-md-6 mb-3">
                 <div class="custom-control custom-switch" id="isUsedSwitch">
                     <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="isUsed">
-                    <label class="custom-control-label" for="isUsed">доступен для выбора в шаблоне</label>
+                    <label class="custom-control-label" for="isUsed">Активен</label>
                 </div>
-                <small id="isUsedHelp" class="form-text text-muted">добовляет возможность выбрать цилиндр</small>
+                <small id="isUsedHelp" class="form-text text-muted">делает доступным/скрывает для выбора в шаблоне</small>
             </div>
 
             <!--comment-->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 ghost">
                 <label for="comment">Комментарий:</label>
                 <input type="text" class="form-control" id="comment" aria-describedby="commentHelp"
                        placeholder="Enter comment">
@@ -117,7 +120,7 @@
                 <label for="price">Цена:</label>
                 <input type="number" class="form-control" id="price" aria-describedby="priceHelp"
                        placeholder="Enter price">
-                <small id="priceHelp" class="form-text text-muted">Цена.</small>
+                <small id="priceHelp" class="form-text text-muted">Цена за килограмм.</small>
             </div>
         </div>
 

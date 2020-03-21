@@ -131,17 +131,17 @@
 					<table class="Table">
 						<tr>
 							<th>id</th>
-							<th>idManufacturerProgram</th>
 							<th>name</th>
 							<th>nameDisplayed</th>
 							<th>isUsed</th>
+							<th>idManufacturerProgram</th>
 						</tr>
 						<tr th:each="metal : ${metalList}">
-							<td th:utext="${metal.id}">..</td>
-							<td th:utext="${metal.idManufacturerProgram}">..</td>
+							<td class="id" th:utext="${metal.id}">..</td>
 							<td th:utext="${metal.name}">..</td>
 							<td th:utext="${metal.nameDisplayed}">..</td>
 							<td th:utext="${metal.isUsed}">..</td>
+							<td th:utext="${metal.idManufacturerProgram}">..</td>
 						</tr>
 
 					</table>

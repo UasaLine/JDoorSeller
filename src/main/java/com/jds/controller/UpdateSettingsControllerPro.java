@@ -3,6 +3,7 @@ package com.jds.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jds.dao.MainDAO;
+import com.jds.dao.MetalRepository;
 import com.jds.entity.*;
 import com.jds.service.MaineService;
 import com.jds.service.OrderService;
@@ -27,6 +28,9 @@ public class UpdateSettingsControllerPro {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    MetalRepository metalDAO;
 
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -87,7 +91,7 @@ public class UpdateSettingsControllerPro {
         ObjectMapper mapper = new ObjectMapper();
 
         Metal metal = mapper.readValue(reader, Metal.class);
-        mainDAO.saveMetal(metal);
+        metalDAO.saveMetal(metal);
 
         return "jr";
     }
