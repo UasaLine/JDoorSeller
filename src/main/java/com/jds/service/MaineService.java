@@ -1,11 +1,10 @@
 package com.jds.service;
 
+import com.jds.dao.ColorRepository;
 import com.jds.dao.MainDAO;
 import com.jds.dao.MetalRepository;
 import com.jds.entity.*;
 import com.jds.model.*;
-import com.jds.model.cutting.Sheet;
-import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.NonNull;
@@ -27,6 +26,8 @@ public class MaineService {
 
     @Autowired
     private MetalRepository metalDao;
+    @Autowired
+    private ColorRepository colorDao;
 
     public void saveOrUpdateDoorClass(String classId, String name, String description,
                                       boolean fireproofcheckbox, boolean hotcheckbox, String namePicture) {
@@ -104,13 +105,6 @@ public class MaineService {
         return dAO.getMaterialFormula();
     }
 
-
-
-    public DoorColors saveDoorColors(DoorColors doorColors) {
-        doorColors.setPicturePath("images/Door/AColor1/" + doorColors.getPicturePath() + ".jpg");
-        return dAO.saveDoorColors(doorColors);
-    }
-
     public RestrictionOfSelectionFields getRestrictionOfSelectionFields(String idDoorType) {
 
         int idType = Integer.parseInt(idDoorType);
@@ -122,7 +116,7 @@ public class MaineService {
 
                 .stuffMetal(metalDao.getMetals())
 
-                .stuffColors(dAO.getDoorColors())
+                .stuffColors(colorDao.getColors())
 
                 .addTopLock(dAO.getFurniture(TypeOfFurniture.TOP_LOCK))
                 .addLowerLock(dAO.getFurniture(TypeOfFurniture.LOWER_LOCK))

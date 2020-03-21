@@ -7,7 +7,7 @@
 	<link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
 	<!-- your personal CSS -->
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="js/metalList.js"></script>
+	<script type="text/javascript" src="js/colorList.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
 	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
 </head>
@@ -124,7 +124,7 @@
 
 			<div class="col">
 
-				<h1 class="display-4">Металл</h1>
+				<h1 class="display-4">Цвета</h1>
 
 				<div class="row">
 					<div class="col">
@@ -137,24 +137,23 @@
 					<table class="Table">
 						<tr>
 							<th>id</th>
-							<th>name</th>
-							<th>nameDisplayed</th>
-							<th>isUsed</th>
-							<th>idManufacturerProgram</th>
+							<th>наименование</th>
+							<th>картинка</th>
+							<th>цена</th>
+							<th>id завода</th>
 						</tr>
-						<tr th:each="metal : ${metalList}">
-							<td class="id" th:utext="${metal.id}">..</td>
-							<td th:utext="${metal.name}">..</td>
-							<td th:utext="${metal.nameDisplayed}">..</td>
-							<td th:utext="${metal.isUsed}">..</td>
-							<td th:utext="${metal.idManufacturerProgram}">..</td>
+						<tr th:each="color : ${List}">
+							<td class="id" th:utext="${color.id}">..</td>
+							<td th:utext="${color.name}">..</td>
+							<td th:utext="${color.picturePath}">..</td>
+							<td th:utext="${color.pricePaintingMeterOfSpace}">..</td>
+							<td th:utext="${color.idManufacturerProgram}">..</td>
 						</tr>
 
 					</table>
 				</div>
 
 			</div>
-
 
 		</div>
 	</div>
