@@ -135,15 +135,14 @@
                     <table class="Table">
                         <tr >
                             <th>№</th>
-                            <th>doorType</th>
                             <th>Модель</th>
+                            <th>Класс</th>
                         </tr>
 
                         <tr th:each="teamp : ${accountInfos}">
                             <td class="id" th:utext="${teamp.doorTypeId}">..</td>
-                            <td th:utext="${teamp.className}">..</td>
                             <td th:utext="${teamp.typeName}">..</td>
-
+                            <td th:utext="${teamp.className}">..</td>
                         </tr>
                     </table>
                 </div>
