@@ -230,7 +230,7 @@ public class MainController {
 
     @GetMapping(value = "/materials")
     public String getMaterialPage() {
-        return "materials";
+        return "materialList";
     }
 
     @GetMapping(value = "/materialsList")
