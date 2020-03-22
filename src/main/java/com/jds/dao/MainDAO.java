@@ -485,22 +485,6 @@ public class MainDAO {
         return doorFurnitureList;
     }
 
-    public List<DoorFurniture> getFurniture(TypeOfFurniture type) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from door_furniture where typeoffurniture like :typefurniture";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(DoorFurniture.class)
-                .setParameter("typefurniture", type.toString());
-        List<DoorFurniture> doorFurnitureList = query.list();
-
-        session.close();
-
-        return doorFurnitureList;
-    }
-
 
     public int getSizeOfDoorPartsId(String name, int doortype) {
 

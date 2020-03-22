@@ -2,9 +2,7 @@ jQuery('document').ready(function () {
 
     var curreiId = 0;
 
-    displayAdminaAndUserField();
 
-    colorizeTheLines();
 
     $('tr').on('dblclick', function () {
 
@@ -19,38 +17,14 @@ jQuery('document').ready(function () {
 
     });
 
-    $('#buttonDeleteOrder').on('click', function () {
 
-        if (curreiId != 0) {
-            deletOrder();
-        }
-        else {
-            alert("!выбери заказ");
-        }
 
-    });
-
-    $('#addTemplate').on('click', function () {
-        location.href = "create-template";
+    $('#addLine').on('click', function () {
+        location.href = "templates/0";
     });
 
     function getTemplate(typeId) {
-        location.href = "create-template?typeId=" + typeId;
-    };
-
-    function deletOrder() {
-        $.ajax({
-            type: 'DELETE',
-            url: 'order?orderId=' + curreiId,
-            dataType: 'json',
-            success: function (data) {
-                alert("delete completed" + data);
-                location.href = "orders";
-            },
-            error: function (data) {
-                alert('delete error:' + data);
-            }
-        });
+        location.href = "templates/" + typeId;
     };
 
     function oneEnableAllDisable(item) {
@@ -64,31 +38,4 @@ jQuery('document').ready(function () {
         $(item).attr('pickOut', 'on');
     }
 
-    function displayAdminaAndUserField() {
-        var isAdmin = $('#isAdmin').text();
-        if (isAdmin == 'true') {
-            var accessElem = $('.accessAdmin');
-            for (var i = 0; i < accessElem.length; i++) {
-                $(accessElem[i]).removeClass('ghost');
-            }
-        }
-
-        var report = $('#report').text();
-        if (report == 'true') {
-            $(buttonbar).addClass('ghost');
-            $(buttonbar).removeClass('row');
-        }
-    };
-
-    function colorizeTheLines(){
-
-            var colorFlag = $('.colorFlag');
-            for (var i = 0; i < colorFlag.length; i++) {
-                if(('READY'== $(colorFlag[i]).text())
-                    ||('IN_WORK'== $(colorFlag[i]).text())){
-                    $(colorFlag[i]).addClass('greenFlag');
-                }
-            }
-
-    }
 });

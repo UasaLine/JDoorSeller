@@ -18,18 +18,9 @@
 	</div>
 </div>
 
-	<div class="top_head">
-		<div class="header_home" >
-			<a th:href="@{/doorclasslist}" class="logo_home">door class</a>
-		</div>
-		<div class="header_home" >
-			<a th:href="@{/doortypelist}" class="logo_home">door type</a>
-		</div>
-	</div>
 
 	
 	<div class="top_head">
-
 
 
 		<form th:action="@{/doortype}" method="post">
@@ -37,13 +28,11 @@
 
 		<div class="form-group">
 
-			    <input type="text" name="typeId" th:value="${typeId}" show="ghost_lement">
-			    <input type="text" name="classId" th:value="${classId}" show="ghost_lement">
+			<input type="text" name="typeId" th:value="${typeId}" show="ghost_lement">
+			<input type="text" name="classId" th:value="${classId}" show="ghost_lement">
 
 
 			<h1 class="display-4">тип двери</h1>
-
-
 
 				<button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
 				<button type="submit" class="btn btn-primary btn-lg " id="saveClass">сохранить</button>

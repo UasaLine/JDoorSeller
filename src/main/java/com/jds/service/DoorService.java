@@ -1,9 +1,6 @@
 package com.jds.service;
 
-import com.jds.dao.ColorRepository;
-import com.jds.dao.MainDAO;
-import com.jds.dao.MetalRepository;
-import com.jds.dao.OrderDAO;
+import com.jds.dao.*;
 import com.jds.entity.*;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
@@ -32,6 +29,8 @@ public class DoorService implements DoorServ {
     private MetalRepository metalDao;
     @Autowired
     private ColorRepository colorDao;
+    @Autowired
+    private TemplateService templateService;
 
     @Override
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
@@ -140,7 +139,7 @@ public class DoorService implements DoorServ {
 
     public DoorEntity createNewDoorByTemplate(@NonNull int typeId, @NonNull int id) {
 
-        RestrictionOfSelectionFields template = maineService.getTemplateFromLimits(String.valueOf(typeId));
+        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(typeId));
         DoorType doorType = dAO.getDoorType(typeId);
 
         DoorEntity doorEntity = new DoorEntity();
