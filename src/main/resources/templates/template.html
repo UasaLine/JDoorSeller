@@ -71,21 +71,37 @@
                 <label class="custom-control-label" for="widthDoorCheckbox">ширина списком</label>
             </div>
             <br>
-            <div class="col-md-6 mb-3" id="widthDoorPeriod" >
-                <label for="widthSizMaxMinDiv">ширина двери: (интервал)</label>
-                <div class="row" id="widthSizMaxMinDiv">
-                    <div class="col">
-                        <input type="number" class="form-control" id="widthDoorMin" placeholder="min">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" id="widthDoorMax" placeholder="max">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" id="widthDoorStep" placeholder="step">
+                <!--Period-->
+                <div class="col-md-6 mb-3" id="widthDoorPeriod" >
+                    <label for="widthSizMaxMinDiv">ширина двери: (интервал)</label>
+                    <div class="row" id="widthSizMaxMinDiv">
+                        <div class="col">
+                            <input type="number" class="form-control" id="widthDoorMin" placeholder="min">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="widthDoorMax" placeholder="max">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="widthDoorStep" placeholder="step">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="ghost" id="widthDoorDiv">
+                <div class="col-md-6 mb-3" id="widthDoorLeafPeriod" >
+                    <label for="widthSizMaxMinDiv">ширина активной створки: (интервал)</label>
+                    <div class="row" id="widthLeafSizMaxMinDiv">
+                        <div class="col">
+                            <input type="number" class="form-control" id="widthDoorLeafMin" placeholder="min">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="widthDoorLeafMax" placeholder="max">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="widthDoorLeafStep" placeholder="step">
+                        </div>
+                    </div>
+                </div>
+                <!--line-->
+                <div class="ghost" id="widthDoorDiv">
             <label for="widthDoorInput0">ширина двери:</label>
                 <div class="row" id="widthDoorLineDiv0">
                     <div class="col-md-6 mb-3"id="widthDoorLineSelect0" >
@@ -104,21 +120,37 @@
                 <label class="custom-control-label" for="heightDoorCheckbox">высота списком</label>
             </div>
             <br>
-            <div class="col-md-6 mb-3" id="heightDoorPeriod">
-                <label for="heightSizMaxMinDiv">высота двери: (интервал)</label>
-                <div class="row" id="heightSizMaxMinDiv">
+                <!--Period-->
+                <div class="col-md-6 mb-3" id="heightDoorPeriod">
+                    <label for="heightSizMaxMinDiv">высота двери: (интервал)</label>
+                    <div class="row" id="heightSizMaxMinDiv">
+                        <div class="col">
+                            <input type="number" class="form-control" id="heightDoorMin" placeholder="min">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="heightDoorMax" placeholder="max">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="heightDoorStep" placeholder="step">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3" id="heightDoorFanlightPeriod">
+                <label for="heightSizMaxMinDiv">высота фрамуги: (интервал)</label>
+                <div class="row" id="heightFanlightSizMaxMinDiv">
                     <div class="col">
-                        <input type="number" class="form-control" id="heightDoorMin" placeholder="min">
+                        <input type="number" class="form-control" id="heightDoorFanlightMin" placeholder="min">
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" id="heightDoorMax" placeholder="max">
+                        <input type="number" class="form-control" id="heightDoorFanlightMax" placeholder="max">
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" id="heightDoorStep" placeholder="step">
+                        <input type="number" class="form-control" id="heightDoorFanlightStep" placeholder="step">
                     </div>
                 </div>
             </div>
-            <div class="ghost" id="heightDoorDiv">
+                <!--line-->
+                <div class="ghost" id="heightDoorDiv">
             <label for="heightDoorInput0">высота двери:</label>
                 <div class="row" id="heightDoorLineDiv0">
                     <div class="col-md-6 mb-3"id="heightDoorLineSelect0" >
@@ -223,8 +255,8 @@
                         </select>
                     </div>
                     <div class="custom-control custom-switch" id="lockCylinderLineSwitch0">
-                        <input type="checkbox" class="custom-control-input lowerlockCylinderLineCheckbox" id="lowerlockCylinderLineCheckbox0" >
-                        <label class="custom-control-label" for="lowerlockCylinderLineCheckbox0">default</label>
+                        <input type="checkbox" class="custom-control-input lockCylinderLineCheckbox" id="lockCylinderLineCheckbox0" >
+                        <label class="custom-control-label" for="lockCylinderLineCheckbox0">default</label>
                     </div>
                 </div>
             </div>
