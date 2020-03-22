@@ -53,8 +53,8 @@ jQuery('document').ready(function () {
         installFromTemplateFurnitur('topLock');
         installFromTemplateFurnitur('lowerLock');
         installFromTemplateFurnitur('handle');
-        installFromTemplateFurnitur('lockCylinder');
         installFromTemplateFurnitur('toplockCylinder');
+        installFromTemplateFurnitur('lockCylinder');
         installFromTemplateFurnitur('topInLockDecor');
         installFromTemplateFurnitur('topOutLockDecor');
         installFromTemplateFurnitur('lowerInLockDecor');
@@ -85,21 +85,22 @@ jQuery('document').ready(function () {
         fillInSelector('.leftDoorTrimSelect', 'leftDoorTrim');
         fillInSelector('.rightDoorTrimSelect', 'rightDoorTrim');
 
-        fillInFurnitur('topLock');
-        fillInFurnitur('lowerLock');
-        fillInFurnitur('handle');
-        fillInFurnitur('lowerlockCylinder');
-        fillInFurnitur('toplockCylinder');
-        fillInFurnitur('topInLockDecor');
-        fillInFurnitur('topOutLockDecor');
-        fillInFurnitur('lowerInLockDecor');
-        fillInFurnitur('lowerOutLockDecor');
-        fillInFurnitur('closer');
-        fillInFurnitur('endDoorLock');
+        fillInFurniture('topLock');
+        fillInFurniture('lowerLock');
+        fillInFurniture('lockCylinder');
 
-        fillInFurnitur('typeDoorGlass');
-        fillInFurnitur('toning');
-        fillInFurnitur('armor');
+        fillInFurniture('handle');
+
+        fillInFurniture('topInLockDecor');
+        fillInFurniture('topOutLockDecor');
+        fillInFurniture('lowerInLockDecor');
+        fillInFurniture('lowerOutLockDecor');
+        fillInFurniture('closer');
+        fillInFurniture('endDoorLock');
+
+        fillInFurniture('typeDoorGlass');
+        fillInFurniture('toning');
+        fillInFurniture('armor');
     }
 
 
@@ -386,7 +387,6 @@ jQuery('document').ready(function () {
             saveInJavaObjectColorAndFurnitur('topLock');
         }
     });
-
     $('#lowerLockDiv').change('.lowerLockSelect', function () {
         addNewFieldAndfillInforFurnitur('lowerLock');//nameJavaObject
     });
@@ -400,6 +400,7 @@ jQuery('document').ready(function () {
             saveInJavaObjectColorAndFurnitur('lowerLock');
         }
     });
+
     $('#handleDiv').change('.handleSelect', function () {
         addNewFieldAndfillInforFurnitur('handle');//nameJavaObject
     });
@@ -413,32 +414,22 @@ jQuery('document').ready(function () {
             saveInJavaObjectColorAndFurnitur('handle');
         }
     });
-    $('#lowerlockCylinderDiv').change('.lowerlockCylinderSelect', function () {
-        addNewFieldAndfillInforFurnitur('lowerlockCylinder');//nameJavaObject
+
+    $('#lockCylinderDiv').change('.lockCylinderSelect', function () {
+        addNewFieldAndfillInforFurnitur('lockCylinder');//nameJavaObject
     });
-    $('#lowerlockCylinderDiv').on('click', '.lowerlockCylinderLineCheckbox', function () {
+    $('#lockCylinderDiv').on('click', '.lockCylinderLineCheckbox', function () {
         if ($(this).is(':checked')) {
-            switchOffAll('lowerlockCylinder');
+            switchOffAll('lockCylinder');
             $(this).prop('checked', true);
-            saveInJavaObjectColorAndFurnitur('lowerlockCylinder');
+            saveInJavaObjectColorAndFurnitur('lockCylinder');
         }
         else {
-            saveInJavaObjectColorAndFurnitur('lowerlockCylinder');
+            saveInJavaObjectColorAndFurnitur('lockCylinder');
         }
     });
-    $('#toplockCylinderDiv').change('.toplockCylinderSelect', function () {
-        addNewFieldAndfillInforFurnitur('toplockCylinder');//nameJavaObject
-    });
-    $('#toplockCylinderDiv').on('click', '.toplockCylinderLineCheckbox', function () {
-        if ($(this).is(':checked')) {
-            switchOffAll('toplockCylinder');
-            $(this).prop('checked', true);
-            saveInJavaObjectColorAndFurnitur('toplockCylinder');
-        }
-        else {
-            saveInJavaObjectColorAndFurnitur('toplockCylinder');
-        }
-    });
+
+
     $('#topInLockDecorDiv').change('.topInLockDecorSelect', function () {
         addNewFieldAndfillInforFurnitur('topInLockDecor');//nameJavaObject
     });
@@ -886,7 +877,7 @@ jQuery('document').ready(function () {
         }
     }
 
-    function fillInFurnitur(nameJavaObject) {
+    function fillInFurniture(nameJavaObject) {
 
         var elem = $('.' + nameJavaObject + 'Select');
         for (var i = 0; i < elem.length; ++i) {
@@ -1103,7 +1094,7 @@ jQuery('document').ready(function () {
         if (allFieldsAreFilled('.' + nameJavaObject + 'Select')) {
             addField(nameJavaObject, 'select', 'Select');
         }
-        fillInFurnitur(nameJavaObject);
+        fillInFurniture(nameJavaObject);
     }
 
     function addNewFieldAndfillInforSealingLine(nameJavaObject) {
