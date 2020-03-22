@@ -24,7 +24,7 @@
 .android_hader{
 	height:50px;
 	border-bottom:2px solid rgb(52, 58, 64);
-	padding:10px;
+	padding:5px;
 }
 .android_basement{
 	bottom:0px;
@@ -97,8 +97,8 @@
 	position:absolute;
 	top:0px;
 	left:0px;
-	width:20000px;
-	height:20000px;
+	width:1500px;
+	height:1200px;
 	background:black;
 	opacity: 0.7;
 	z-index:1000;

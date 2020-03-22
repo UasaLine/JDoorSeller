@@ -1283,6 +1283,7 @@ jQuery('document').ready(function () {
                         .attr('data', doorTypes[j].id)
                         .text(doorTypes[j].name)
                         .attr('Item', 'doorType')
+                        .attr('data-LeafDoorLeaf',doorTypes[j].doorLeaf)
                         .appendTo('.select_door_type_list');
 
                     $('<div>')
