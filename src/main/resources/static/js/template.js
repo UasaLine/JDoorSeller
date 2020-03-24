@@ -9,9 +9,6 @@ jQuery('document').ready(function () {
 
     //new Template instans
     function getDoorTemplate() {
-
-
-
         $.ajax({
             url: 'item/'+getIdFromUrl(),
             dataType: 'json',
@@ -34,8 +31,13 @@ jQuery('document').ready(function () {
 
         installFromTemplateSize('widthDoor', true);
         installFromTemplateSize('heightDoor', true);
+
+        installFromTemplateSize('widthDoorLeaf', true);
+        installFromTemplateSize('heightDoorFanlight', true);
+
         installFromTemplateSize('deepnessDoor', false);
         installFromTemplateSize('thicknessDoorLeaf', false);
+
         installFromTemplateMetal();
         installFromTemplateColor();
 
@@ -135,6 +137,7 @@ jQuery('document').ready(function () {
         }
     });
 
+    // main size
 
     $('#widthDoorDiv').change('.widthDoorInput', function () {
         saveInJavaObjectSize('widthDoor');
@@ -176,6 +179,18 @@ jQuery('document').ready(function () {
     $('#heightSizMaxMinDiv').change(function () {
         saveInJavaObjectSize('heightDoor');
     });
+
+    // subordinateSize
+
+
+    $('#widthLeafSizMaxMinDiv').change(function () {
+        saveInJavaObjectSize('widthDoorLeaf');
+    });
+    $('#heightFanlightSizMaxMinDiv').change(function () {
+        saveInJavaObjectSize('heightDoorFanlight');
+    });
+
+
     $('#deepnessDoorDiv').change('.deepnessDoorInput', function () {
         saveInJavaObjectSize('deepnessDoor');
         if (allFieldsAreFilled('.deepnessDoorInput')) {
@@ -556,6 +571,7 @@ jQuery('document').ready(function () {
     });
 
 
+
     $('#saveTemplate').on('click', function () {
 
         var templateJSON = JSON.stringify(template);
@@ -583,10 +599,23 @@ jQuery('document').ready(function () {
         switchSize('widthDoor');
 
     });
-
     $('#heightDoorCheckbox').on('click', function () {
 
         switchSize('heightDoor');
+
+    });
+    $('#heightDoorFanlightCheckbox').on('click', function () {
+
+        if ($(this).is(':checked')) {
+
+            $('#heightDoorFanlightPeriod').removeClass('ghost');
+
+        }
+        else {
+
+            $('#heightDoorFanlightPeriod').addClass('ghost');
+            clearPeriod('heightDoorFanlight');
+        }
 
     });
 
