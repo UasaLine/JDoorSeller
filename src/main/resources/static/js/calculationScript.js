@@ -1170,8 +1170,17 @@ jQuery('document').ready(function () {
             }
             return 0;
         }
+        else if (elemId == 'inputActivDoorLeafWidth') {
+            var tab = RestrictionOfSelectionFields['widthDoorLeaf'];
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
+                    return tab[i].startRestriction;
+                }
+            }
+
+        }
         else if (elemId == 'inputHeightFanlight') {
-            var tab = RestrictionOfSelectionFields['heightFanlight'];
+            var tab = RestrictionOfSelectionFields['heightDoorFanlight'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
                     return tab[i].startRestriction;
@@ -1201,8 +1210,17 @@ jQuery('document').ready(function () {
             }
             return 5000;
         }
+        else if (elemId == 'inputActivDoorLeafWidth') {
+            var tab = RestrictionOfSelectionFields['widthDoorLeaf'];
+            for (var i = 0; i < tab.length; i++) {
+                if (tab[i].pairOfValues == 1) {
+                    return tab[i].stopRestriction;
+                }
+            }
+            return 800;
+        }
         else if (elemId == 'inputHeightFanlight') {
-            var tab = RestrictionOfSelectionFields['heightFanlight'];
+            var tab = RestrictionOfSelectionFields['heightDoorFanlight'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
                     return tab[i].stopRestriction;

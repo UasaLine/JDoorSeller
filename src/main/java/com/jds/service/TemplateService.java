@@ -57,6 +57,9 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DEPTH, restriction.getDeepnessDoor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LEAF_THICKNESS, restriction.getThicknessDoorLeaf(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.WIDTH_ACTIVE_LEAF, restriction.getWidthDoorLeaf(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HEIGHT_FANLIGHT, restriction.getHeightDoorFanlight(), limitList);
+
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.COLOR_DOOR, restriction.getColors(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DOORSTEP, restriction.getDoorstep(), limitList);
@@ -154,10 +157,17 @@ public class TemplateService {
 
         if (TypeOfLimitionDoor.METAL_THICKNESS == lim.getTypeSettings()) {
             restriction.addMetal(lim);
+
         } else if (TypeOfLimitionDoor.WIDTH == lim.getTypeSettings()) {
             restriction.addWidthDoor(lim);
         } else if (TypeOfLimitionDoor.HEIGHT == lim.getTypeSettings()) {
             restriction.addHeightDoor(lim);
+
+        } else if (TypeOfLimitionDoor.WIDTH_ACTIVE_LEAF == lim.getTypeSettings()) {
+            restriction.addWidthDoorLeaf(lim);
+        } else if (TypeOfLimitionDoor.HEIGHT_FANLIGHT == lim.getTypeSettings()) {
+            restriction.addHeightDoorFanlight(lim);
+
         } else if (TypeOfLimitionDoor.DEPTH == lim.getTypeSettings()) {
             restriction.addDeepnessDoor(lim);
         } else if (TypeOfLimitionDoor.LEAF_THICKNESS == lim.getTypeSettings()) {

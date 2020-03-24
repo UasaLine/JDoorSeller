@@ -20,6 +20,8 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> metal = new ArrayList<>();
     private List<LimitationDoor> widthDoor = new ArrayList<>();
     private List<LimitationDoor> heightDoor = new ArrayList<>();
+    private List<LimitationDoor> widthDoorLeaf = new ArrayList<>();
+    private List<LimitationDoor> heightDoorFanlight = new ArrayList<>();
     private List<LimitationDoor> deepnessDoor = new ArrayList<>();
     private List<LimitationDoor> thicknessDoorLeaf = new ArrayList<>();
     private List<LimitationDoor> colors = new ArrayList<>();
@@ -114,6 +116,14 @@ public class RestrictionOfSelectionFields {
 
     public void addWidthDoor(@NonNull LimitationDoor limit) {
         this.widthDoor.add(limit.setNuulLazyFild());
+    }
+
+    public void addWidthDoorLeaf(@NonNull LimitationDoor limit) {
+        this.widthDoorLeaf.add(limit.setNuulLazyFild());
+    }
+
+    public void addHeightDoorFanlight(@NonNull LimitationDoor limit) {
+        this.heightDoorFanlight.add(limit.setNuulLazyFild());
     }
 
     public RestrictionOfSelectionFields heightDoor(@NonNull List<LimitationDoor> heightDoor) {

@@ -3,12 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>door seller</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
+
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/template.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="../css/displayCss.css"/>
-    <!-- Подключаем Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
+
 </head>
 <body>
 
@@ -62,12 +64,12 @@
                 </div>
             </div>
 
-            <h4 class="chapter">размеры</h4>
-            <br>
+        <h4 class="chapter">размеры</h4>
+        <br>
 
             <!--width-->
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="widthDoorCheckbox">
+                <input type="checkbox" class="custom-control-input disabled" id="widthDoorCheckbox">
                 <label class="custom-control-label" for="widthDoorCheckbox">ширина списком</label>
             </div>
             <br>
@@ -87,20 +89,36 @@
             </div>
             <div class="ghost" id="widthDoorDiv">
             <label for="widthDoorInput0">ширина двери:</label>
-                <div class="row" id="widthDoorLineDiv0">
-                    <div class="col-md-6 mb-3"id="widthDoorLineSelect0" >
-                         <input type="number" class="form-control widthDoorInput" id="widthDoorInput0" data="0" placeholder="ширина">
+            <div class="row" id="widthDoorLineDiv0">
+                <div class="col-md-6 mb-3"id="widthDoorLineSelect0" >
+                     <input type="number" class="form-control widthDoorInput" id="widthDoorInput0" data="0" placeholder="ширина">
+                </div>
+                <div class="custom-control custom-switch" id="widthDoorLineSwitch0">
+                    <input type="checkbox" class="custom-control-input widthDoorLineCheckbox" id="widthDoorLineCheckbox0" >
+                    <label class="custom-control-label" for="widthDoorLineCheckbox0">default</label>
+                </div>
+            </div>
+        </div>
+
+            <!--widthLeaf-->
+            <div class="col-md-6 mb-3" id="widthDoorLeafPeriod" >
+                <label for="widthLeafSizMaxMinDiv">ширина активной створки: (интервал)</label>
+                <div class="row" id="widthLeafSizMaxMinDiv">
+                    <div class="col">
+                        <input type="number" class="form-control" id="widthDoorLeafMin" placeholder="min">
                     </div>
-                    <div class="custom-control custom-switch" id="widthDoorLineSwitch0">
-                        <input type="checkbox" class="custom-control-input widthDoorLineCheckbox" id="widthDoorLineCheckbox0" >
-                        <label class="custom-control-label" for="widthDoorLineCheckbox0">default</label>
+                    <div class="col">
+                        <input type="number" class="form-control" id="widthDoorLeafMax" placeholder="max">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" id="widthDoorLeafStep" placeholder="step">
                     </div>
                 </div>
             </div>
 
             <!--height-->
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="heightDoorCheckbox">
+                <input type="checkbox" class="custom-control-input disabled" id="heightDoorCheckbox">
                 <label class="custom-control-label" for="heightDoorCheckbox">высота списком</label>
             </div>
             <br>
@@ -119,15 +137,36 @@
                 </div>
             </div>
             <div class="ghost" id="heightDoorDiv">
-            <label for="heightDoorInput0">высота двери:</label>
-                <div class="row" id="heightDoorLineDiv0">
-                    <div class="col-md-6 mb-3"id="heightDoorLineSelect0" >
-                            <input type="number" class="form-control heightDoorInput" id="heightDoorInput0" data="0"
-                            placeholder="ширина">
+        <label for="heightDoorInput0">высота двери:</label>
+            <div class="row" id="heightDoorLineDiv0">
+                <div class="col-md-6 mb-3"id="heightDoorLineSelect0" >
+                        <input type="number" class="form-control heightDoorInput" id="heightDoorInput0" data="0"
+                        placeholder="ширина">
+                </div>
+                <div class="custom-control custom-switch" id="heightDoorLineSwitch0">
+                    <input type="checkbox" class="custom-control-input heightDoorLineCheckbox" id="heightDoorLineCheckbox0" >
+                    <label class="custom-control-label" for="heightDoorLineCheckbox0">default</label>
+                </div>
+            </div>
+        </div>
+
+            <!--heightDoorFanlight-->
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="heightDoorFanlightCheckbox">
+                <label class="custom-control-label" for="heightDoorFanlightCheckbox">Фрамуга</label>
+            </div>
+            <br>
+            <div class="col-md-6 mb-3 ghost" id="heightDoorFanlightPeriod">
+                <label for="heightFanlightSizMaxMinDiv">высота фрамуги: (интервал)</label>
+                <div class="row" id="heightFanlightSizMaxMinDiv">
+                    <div class="col">
+                        <input type="number" class="form-control" id="heightDoorFanlightMin" placeholder="min">
                     </div>
-                    <div class="custom-control custom-switch" id="heightDoorLineSwitch0">
-                        <input type="checkbox" class="custom-control-input heightDoorLineCheckbox" id="heightDoorLineCheckbox0" >
-                        <label class="custom-control-label" for="heightDoorLineCheckbox0">default</label>
+                    <div class="col">
+                        <input type="number" class="form-control" id="heightDoorFanlightMax" placeholder="max">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" id="heightDoorFanlightStep" placeholder="step">
                     </div>
                 </div>
             </div>
@@ -161,8 +200,8 @@
                 </div>
             </div>
 
-            <h4 class="chapter">цвета</h4>
-            <br>
+        <h4 class="chapter">цвета</h4>
+        <br>
 
             <!--COLOR-->
             <div id="colorsDiv">
@@ -179,8 +218,137 @@
                 </div>
             </div>
 
-            <h4 class="chapter">дополнительные настройки</h4>
-            <br>
+
+        <h4 class="chapter">фурнитура</h4>
+        <br>
+
+            <!--topLock-->
+            <div id="topLockDiv">
+                <label for="topLockSelect0">веерхний замок:</label>
+                <div class="row" id="topLockLineDiv0">
+                    <div class="col-md-6 mb-3"id="topLockLineSelect0" >
+                        <select class="form-control topLockSelect" id="topLockSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="topLockLineSwitch0">
+                        <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="topLockLineCheckbox0" >
+                        <label class="custom-control-label" for="topLockLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--lowerLock-->
+            <div id="lowerLockDiv">
+                <label for="lowerLockSelect0">нижний замок:</label>
+                <div class="row" id="lowerLockLineDiv0">
+                    <div class="col-md-6 mb-3"id="lowerLockLineSelect0" >
+                        <select class="form-control lowerLockSelect" id="lowerLockSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="lowerLockLineSwitch0">
+                        <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="lowerLockLineCheckbox0" >
+                        <label class="custom-control-label" for="lowerLockLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--lockCylinder-->
+            <div id="lockCylinderDiv">
+                <label for="lockCylinderSelect0">цилиндр замка:</label>
+                <div class="row" id="lockCylinderLineDiv0">
+                    <div class="col-md-6 mb-3"id="lockCylinderLineSelect0" >
+                        <select class="form-control lockCylinderSelect" id="lockCylinderSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="lockCylinderLineSwitch0">
+                        <input type="checkbox" class="custom-control-input lockCylinderLineCheckbox" id="lockCylinderLineCheckbox0" >
+                        <label class="custom-control-label" for="lockCylinderLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--handle-->
+            <div  id="handleDiv">
+                <label for="handleSelect0">ручка:</label>
+                <div class="row" id="handleLineDiv0">
+                    <div class="col-md-6 mb-3"id="handleLineSelect0" >
+                        <select class="form-control handleSelect" id="handleSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="handleLineSwitch0">
+                        <input type="checkbox" class="custom-control-input handleLineCheckbox" id="handleLineCheckbox0" >
+                        <label class="custom-control-label" for="handleLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--topInLockDecor-->
+            <div  id="topInLockDecorDiv">
+                <label for="topInLockDecorSelect0">внутреная накладка верхнего замка:</label>
+                <div class="row" id="topInLockDecorLineDiv0">
+                    <div class="col-md-6 mb-3"id="topInLockDecorLineSelect0" >
+                        <select class="form-control topInLockDecorSelect" id="topInLockDecorSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="topInLockDecorLineSwitch0">
+                        <input type="checkbox" class="custom-control-input topInLockDecorLineCheckbox" id="topInLockDecorLineCheckbox0" >
+                        <label class="custom-control-label" for="topInLockDecorLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--topOutLockDecor-->
+            <div  id="topOutLockDecorDiv">
+                <label for="topOutLockDecorSelect0">внешная накладка верхнего замка:</label>
+                <div class="row" id="topOutLockDecorLineDiv0">
+                    <div class="col-md-6 mb-3"id="topOutLockDecorLineSelect0" >
+                        <select class="form-control topOutLockDecorSelect" id="topOutLockDecorSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="topOutLockDecorLineSwitch0">
+                        <input type="checkbox" class="custom-control-input topOutLockDecorLineCheckbox" id="topOutLockDecorLineCheckbox0" >
+                        <label class="custom-control-label" for="topOutLockDecorLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--lowerInLockDecor-->
+            <div  id="lowerInLockDecorDiv">
+                <label for="lowerInLockDecorSelect0">внешная накладка нижнего замка:</label>
+                <div class="row" id="lowerInLockDecorLineDiv0">
+                    <div class="col-md-6 mb-3"id="lowerInLockDecorLineSelect0" >
+                        <select class="form-control lowerInLockDecorSelect" id="lowerInLockDecorSelect0"
+                                data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="lowerInLockDecorLineSwitch0">
+                        <input type="checkbox" class="custom-control-input lowerInLockDecorLineCheckbox" id="lowerInLockDecorLineCheckbox0" >
+                        <label class="custom-control-label" for="lowerInLockDecorLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--lowerOutLockDecor-->
+            <div  id="lowerOutLockDecorDiv">
+                <label for="lowerOutLockDecorSelect0">внутреная накладка нижнего замка:</label>
+                <div class="row" id="lowerOutLockDecorLineDiv0">
+                    <div class="col-md-6 mb-3"id="lowerOutLockDecorLineSelect0" >
+                        <select class="form-control lowerOutLockDecorSelect" id="lowerOutLockDecorSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="lowerOutLockDecorLineSwitch0">
+                        <input type="checkbox" class="custom-control-input lowerOutLockDecorLineCheckbox" id="lowerOutLockDecorLineCheckbox0" >
+                        <label class="custom-control-label" for="lowerOutLockDecorLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+
+        <h4 class="chapter">дополнительные настройки</h4>
+        <br>
 
             <div id="doorstepDiv">
             <label for="doorstepSelect0">порог:</label>
@@ -289,150 +457,8 @@
                 </div>
             </div>
 
-
-            <h4 class="chapter">фурнитура</h4>
-            <br>
-
-            <!--topLock-->
-            <div id="topLockDiv">
-            <label for="topLockSelect0">веерхний замок:</label>
-                <div class="row" id="topLockLineDiv0">
-                    <div class="col-md-6 mb-3"id="topLockLineSelect0" >
-
-                        <select class="form-control topLockSelect" id="topLockSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="topLockLineSwitch0">
-                        <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="topLockLineCheckbox0" >
-                        <label class="custom-control-label" for="topLockLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--lowerLock-->
-            <div id="lowerLockDiv">
-            <label for="lowerLockSelect0">нижний замок:</label>
-                <div class="row" id="lowerLockLineDiv0">
-                    <div class="col-md-6 mb-3"id="lowerLockLineSelect0" >
-                        <select class="form-control lowerLockSelect" id="lowerLockSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="lowerLockLineSwitch0">
-                        <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="lowerLockLineCheckbox0" >
-                        <label class="custom-control-label" for="lowerLockLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--handle-->
-            <div  id="handleDiv">
-            <label for="handleSelect0">ручка:</label>
-                <div class="row" id="handleLineDiv0">
-                    <div class="col-md-6 mb-3"id="handleLineSelect0" >
-                        <select class="form-control handleSelect" id="handleSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="handleLineSwitch0">
-                        <input type="checkbox" class="custom-control-input handleLineCheckbox" id="handleLineCheckbox0" >
-                        <label class="custom-control-label" for="handleLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--lowerlockCylinder-->
-            <div id="lowerlockCylinderDiv">
-            <label for="lowerlockCylinderSelect0">цилиндр нижнего замка:</label>
-                <div class="row" id="lowerlockCylinderLineDiv0">
-                    <div class="col-md-6 mb-3"id="lowerlockCylinderLineSelect0" >
-                        <select class="form-control lowerlockCylinderSelect" id="lowerlockCylinderSelect0" data="0">
-                    </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="lowerlockCylinderLineSwitch0">
-                        <input type="checkbox" class="custom-control-input lowerlockCylinderLineCheckbox" id="lowerlockCylinderLineCheckbox0" >
-                        <label class="custom-control-label" for="lowerlockCylinderLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--toplockCylinder-->
-            <div id="toplockCylinderDiv">
-            <label for="toplockCylinderSelect0">цилиндр верхнего замка:</label>
-                <div class="row" id="toplockCylinderLineDiv0">
-                    <div class="col-md-6 mb-3"id="toplockCylinderLineSelect0" >
-                        <select class="form-control toplockCylinder" id="toplockCylinderSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="toplockCylinderLineSwitch0">
-                        <input type="checkbox" class="custom-control-input toplockCylinderLineCheckbox" id="toplockCylinderLineCheckbox0" >
-                        <label class="custom-control-label" for="toplockCylinderLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--topInLockDecor-->
-            <div  id="topInLockDecorDiv">
-            <label for="topInLockDecorSelect0">внутреная накладка верхнего замка:</label>
-                <div class="row" id="topInLockDecorLineDiv0">
-                    <div class="col-md-6 mb-3"id="topInLockDecorLineSelect0" >
-                        <select class="form-control topInLockDecorSelect" id="topInLockDecorSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="topInLockDecorLineSwitch0">
-                        <input type="checkbox" class="custom-control-input topInLockDecorLineCheckbox" id="topInLockDecorLineCheckbox0" >
-                        <label class="custom-control-label" for="topInLockDecorLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--topOutLockDecor-->
-            <div  id="topOutLockDecorDiv">
-            <label for="topOutLockDecorSelect0">внешная накладка верхнего замка:</label>
-                <div class="row" id="topOutLockDecorLineDiv0">
-                    <div class="col-md-6 mb-3"id="topOutLockDecorLineSelect0" >
-                        <select class="form-control topOutLockDecorSelect" id="topOutLockDecorSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="topOutLockDecorLineSwitch0">
-                        <input type="checkbox" class="custom-control-input topOutLockDecorLineCheckbox" id="topOutLockDecorLineCheckbox0" >
-                        <label class="custom-control-label" for="topOutLockDecorLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--lowerInLockDecor-->
-            <div  id="lowerInLockDecorDiv">
-            <label for="lowerInLockDecorSelect0">внешная накладка нижнего замка:</label>
-                <div class="row" id="lowerInLockDecorLineDiv0">
-                    <div class="col-md-6 mb-3"id="lowerInLockDecorLineSelect0" >
-                        <select class="form-control lowerInLockDecorSelect" id="lowerInLockDecorSelect0"
-                        data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="lowerInLockDecorLineSwitch0">
-                        <input type="checkbox" class="custom-control-input lowerInLockDecorLineCheckbox" id="lowerInLockDecorLineCheckbox0" >
-                        <label class="custom-control-label" for="lowerInLockDecorLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-            <!--lowerOutLockDecor-->
-            <div  id="lowerOutLockDecorDiv">
-            <label for="lowerOutLockDecorSelect0">внутреная накладка нижнего замка:</label>
-                <div class="row" id="lowerOutLockDecorLineDiv0">
-                    <div class="col-md-6 mb-3"id="lowerOutLockDecorLineSelect0" >
-                        <select class="form-control lowerOutLockDecorSelect" id="lowerOutLockDecorSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="lowerOutLockDecorLineSwitch0">
-                        <input type="checkbox" class="custom-control-input lowerOutLockDecorLineCheckbox" id="lowerOutLockDecorLineCheckbox0" >
-                        <label class="custom-control-label" for="lowerOutLockDecorLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <h4 class="chapter">дополнительная фурнитура</h4>
-            <br>
+        <h4 class="chapter">дополнительная фурнитура</h4>
+        <br>
 
             <!--closer-->
             <div  id="closerDiv">
