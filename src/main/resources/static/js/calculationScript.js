@@ -814,6 +814,17 @@ jQuery('document').ready(function () {
 
     };
 
+    function displayheightDoorFanlight(data) {
+        if (data.heightDoorFanlight.length>0){
+            if(data.heightDoorFanlight.tartRestriction ==0 && data.heightDoorFanlight.stopRestriction ==0){
+                $('#fanlightCheckboxDiv').addClass("ghost");
+            }
+        }
+        else {
+            $('#fanlightCheckboxDiv').addClass("ghost");
+        }
+    }
+
     function displayDeepnessDoorAndThicknessDoorLeaf(data) {
 
         allDisable('deepnessDoor_checkbox');
@@ -1257,6 +1268,7 @@ jQuery('document').ready(function () {
         if (data != null) {
             displayMetal(data);
             displayWidthDoorAndHeightDoor(data);
+            displayheightDoorFanlight(data);
             displayDeepnessDoorAndThicknessDoorLeaf(data);
             colors = data.colors;
             displayColor(0);
