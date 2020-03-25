@@ -39,7 +39,7 @@ jQuery('document').ready(function () {
         installFromTemplateSize('thicknessDoorLeaf', false);
 
         installFromTemplateMetal();
-        installFromTemplateColor();
+        installFromTemplateColor(template.colors);
 
         installFromTemplateSelect('doorstep');
         installFromTemplateSelect('stainlessSteelDoorstep');
@@ -230,7 +230,8 @@ jQuery('document').ready(function () {
     $('#colorsDiv').change('.colorsSelect', function () {
 
         if(checkForAllSelect('colors')){
-            deleteEmptyFields('colors');
+            deleteFields('colors');
+            installFromTemplateColor(restriction.colors);
         }
         else {
             saveInJavaObjectColorAndFurnitur('colors');
@@ -769,9 +770,8 @@ jQuery('document').ready(function () {
         }
     }
 
-    function installFromTemplateColor() {
+    function installFromTemplateColor(table) {
 
-        var table = template.colors;
         var length = table.length;
         var selector = '.colorsSelect';
         var elem = null;
@@ -1407,14 +1407,17 @@ jQuery('document').ready(function () {
         return false;
     }
 
-    function deleteEmptyFields(nameObject){
+    function deleteFields(nameObject){
 
         var elems = $('.'+nameObject+'Select');
 
         for (var i = 0; i < elems.length; ++i) {
             var data = $(elems[i]).attr('data');
             if (data>0){
-            $('#'+nameObject+'LineDiv'+data).remove();
+                $('#'+nameObject+'LineDiv'+data).remove();
+            }
+            else {
+                $('#'+nameObject+'LineDiv'+data).empty() ;
             }
         }
     }
