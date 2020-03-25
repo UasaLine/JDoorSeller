@@ -228,12 +228,19 @@ jQuery('document').ready(function () {
 
 
     $('#colorsDiv').change('.colorsSelect', function () {
-        saveInJavaObjectColorAndFurnitur('colors');
-        if (allFieldsAreFilled('.colorsSelect')) {
-            //addSelectField('colors');
-            addField('colors', 'select', 'Select');
+
+        if(checkForAllSelect('colors')){
+            deleteEmptyFields('colors');
         }
-        fillInColor();
+        else {
+            saveInJavaObjectColorAndFurnitur('colors');
+            if (allFieldsAreFilled('.colorsSelect')) {
+                //addSelectField('colors');
+                addField('colors', 'select', 'Select');
+            }
+            fillInColor();
+        }
+
     });
     $('#colorsDiv').on('click', '.colorsLineCheckbox', function () {
         if ($(this).is(':checked')) {
@@ -978,8 +985,11 @@ jQuery('document').ready(function () {
 
         $(selector).empty();
 
-        $(selector).append($('<option ></option>'));
         <!--empty line-->
+        $(selector).append($('<option ></option>'));
+        <!--all select line-->
+        $(selector).append($('<option value=all>select all</option>'));
+
 
         for (var i = 0; i < table.length; ++i) {
             $(selector).append(
@@ -1380,9 +1390,32 @@ jQuery('document').ready(function () {
     function toList() {
         location.pathname = "templates";
     }
+
     function getIdFromUrl() {
         var url = location.href;
         var id = url.substring(url.lastIndexOf('/') + 1);
         return id;
+    }
+
+    function checkForAllSelect(nameObject) {
+        var elems = $('.'+nameObject+'Select');
+        for (var i = 0; i < elems.length; ++i) {
+            if($(elems[i]).val()=='all'){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function deleteEmptyFields(nameObject){
+
+        var elems = $('.'+nameObject+'Select');
+
+        for (var i = 0; i < elems.length; ++i) {
+            var data = $(elems[i]).attr('data');
+            if (data>0){
+            $('#'+nameObject+'LineDiv'+data).remove();
+            }
+        }
     }
 });
