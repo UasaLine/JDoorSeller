@@ -32,8 +32,7 @@ jQuery('document').ready(function () {
     getNewDoorInstans(true);
 
     function FillOutForm(data, updateClassDiv) {
-        door = data;
-        id = door.id;
+
         displayObject(door);
         if (updateClassDiv) {
             displayDoorClass3();
@@ -125,7 +124,7 @@ jQuery('document').ready(function () {
 
     $('.div_images_furniture').on('click', function () {
         setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
-        representationField($(this).children('span').html());
+        FillOutForm(door, false);
         pickOut(this);
 
     });
@@ -531,7 +530,6 @@ jQuery('document').ready(function () {
     };
 
     function representationField(value) {
-
         if (!failureToSetValue) {
 
             var showValue = "";
@@ -683,7 +681,6 @@ jQuery('document').ready(function () {
             representationField(elem[key]);
         }
     }
-
     function drawCutting() {
 
         //delete
@@ -784,7 +781,6 @@ jQuery('document').ready(function () {
     function displayMetal(data) {
 
         allDisable('metal_checkbox');
-
 
         for (var i = 0; i < data.metal.length; ++i) {
             $('#metal' + i).attr('show', 'is_alive_lement');
@@ -1054,18 +1050,20 @@ jQuery('document').ready(function () {
 
             $('.color_pages').attr('data', bias);
 
+
             for (var i = 0; i < amountElements; ++i) {
+                var sel = '#' + nameTab ;
                 if ((i + biasInt) < tabSize) {
-                    $('#' + nameTab + 'Div' + i).attr('show', 'is_alive_lement');
-                    $('#' + nameTab + 'Div' + i).attr('data', tab[i + biasInt].id);
-                    $('#' + nameTab + 'Img' + i).attr('src', tab[i + biasInt].picturePathFirst);
-                    $('#' + nameTab + 'Span' + i).text(tab[i + biasInt].name);
+                    $(sel+ 'Div' + i).attr('show', 'is_alive_lement');
+                    $(sel+ 'Div' + i).attr('data', tab[i + biasInt].id);
+                    $(sel+'Img'+i).attr('src', tab[i + biasInt].picturePath);
+                    $(sel+'Span'+i).text(tab[i + biasInt].firstItem);
                 }
                 else {
-                    $('#topLockDiv' + i).attr('show', 'ghost_lement');
-                    $('#topLockDiv' + i).attr('data', "");
-                    $('#topLockImg' + i).attr('src', "");
-                    $('#topLockSpan' + i).text("");
+                    $(sel+ 'Div' + i).attr('show', 'ghost_lement');
+                    $(sel+ 'Div' + i).attr('data', "");
+                    $(sel+'Img'+i).attr('src', "");
+                    $(sel+'Span'+i).text("");
                 }
             }
 
@@ -1254,7 +1252,9 @@ jQuery('document').ready(function () {
             data: {id: id, orderId: orderId, typid: typid},
             dataType: 'json',
             success: function (data) {
-                FillOutForm(data, updateClassDiv);
+                door = data;
+                id = door.id;
+                FillOutForm(door, updateClassDiv);
             },
             error: function (data) {
                 alert('error:' + data);
@@ -1509,7 +1509,7 @@ jQuery('document').ready(function () {
         if (currentItem == "topLock") {
             $('.select_topLock').attr('show', 'is_alive_lement');
             currentItemForDisplay = $('#nametopLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'topLockkit';
         }
         else {
@@ -1526,7 +1526,7 @@ jQuery('document').ready(function () {
         if (currentItem == "lowerLock") {
             $('.select_lowerLock').attr('show', 'is_alive_lement');
             currentItemForDisplay = $('#namelowerLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'lowerLockkit';
         }
         else {
