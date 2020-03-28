@@ -302,8 +302,8 @@ public class DoorService implements DoorServ {
         if (furnitureKit.getTopLock()!=null){
             addfurniture(lineSpec,furnitureKit.getTopLock(),doorType);
         }
-        if (furnitureKit.getToplockCylinder()!=null){
-            addfurniture(lineSpec,furnitureKit.getToplockCylinder(),doorType);
+        if (furnitureKit.getTopLockCylinder()!=null){
+            addfurniture(lineSpec,furnitureKit.getTopLockCylinder(),doorType);
         }
         if (furnitureKit.getTopinternaLockDecoration()!=null){
             addfurniture(lineSpec,furnitureKit.getTopinternaLockDecoration(),doorType);
@@ -318,8 +318,8 @@ public class DoorService implements DoorServ {
         if (furnitureKit.getLowerLock()!=null){
             addfurniture(lineSpec,furnitureKit.getLowerLock(),doorType);
         }
-        if (furnitureKit.getLowerlockCylinder()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerlockCylinder(),doorType);
+        if (furnitureKit.getLowerLockCylinder()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerLockCylinder(),doorType);
         }
         if (furnitureKit.getLowerinternaLockDecoration()!=null){
             addfurniture(lineSpec,furnitureKit.getLowerinternaLockDecoration(),doorType);

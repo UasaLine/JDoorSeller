@@ -632,11 +632,11 @@ public class DoorEntity implements SerializingFields {
                     (int) furnitureKit.getTopouterLockDecoration().getPrice());
         }
 
-        if (furnitureKit.getToplockCylinder() != null) {
+        if (furnitureKit.getTopLockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
                     4,
                     false,
-                    (int) furnitureKit.getToplockCylinder().getPrice());
+                    (int) furnitureKit.getTopLockCylinder().getPrice());
         }
 
         //LowerLock
@@ -658,11 +658,11 @@ public class DoorEntity implements SerializingFields {
                     false,
                     (int) furnitureKit.getLowerouterLockDecoration().getPrice());
         }
-        if (furnitureKit.getLowerlockCylinder() != null) {
+        if (furnitureKit.getLowerLockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
                     4,
                     false,
-                    (int) furnitureKit.getLowerlockCylinder().getPrice());
+                    (int) furnitureKit.getLowerLockCylinder().getPrice());
         }
 
 

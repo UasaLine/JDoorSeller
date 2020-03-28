@@ -33,7 +33,7 @@ public class FurnitureKit implements SerializingFields {
 
     @ManyToOne()
     @JoinColumn(name = "toplockCylinder")
-    private DoorFurniture toplockCylinder;
+    private DoorFurniture topLockCylinder;
 
     @ManyToOne()
     @JoinColumn(name = "lowerLock")
@@ -49,7 +49,7 @@ public class FurnitureKit implements SerializingFields {
 
     @ManyToOne()
     @JoinColumn(name = "lowerlockCylinder")
-    private DoorFurniture lowerlockCylinder;
+    private DoorFurniture lowerLockCylinder;
 
     @ManyToOne()
     @JoinColumn(name = "handle")
@@ -135,8 +135,8 @@ public class FurnitureKit implements SerializingFields {
             topouterLockDecoration.setNuulLazyFild();
         }
 
-        if(toplockCylinder!=null){
-            toplockCylinder.setNuulLazyFild();
+        if(topLockCylinder !=null){
+            topLockCylinder.setNuulLazyFild();
         }
 
 
@@ -152,8 +152,8 @@ public class FurnitureKit implements SerializingFields {
             lowerouterLockDecoration.setNuulLazyFild();
         }
 
-        if(lowerlockCylinder!=null){
-            lowerlockCylinder.setNuulLazyFild();
+        if(lowerLockCylinder !=null){
+            lowerLockCylinder.setNuulLazyFild();
         }
 
         if(handle!=null){
@@ -232,20 +232,20 @@ public class FurnitureKit implements SerializingFields {
         this.topouterLockDecoration = topouterLockDecoration;
     }
 
-    public DoorFurniture getToplockCylinder() {
-        return toplockCylinder;
+    public DoorFurniture getTopLockCylinder() {
+        return topLockCylinder;
     }
 
-    public void setToplockCylinder(DoorFurniture toplockCylinder) {
-        this.toplockCylinder = toplockCylinder;
+    public void setTopLockCylinder(DoorFurniture topLockCylinder) {
+        this.topLockCylinder = topLockCylinder;
     }
 
-    public DoorFurniture getLowerlockCylinder() {
-        return lowerlockCylinder;
+    public DoorFurniture getLowerLockCylinder() {
+        return lowerLockCylinder;
     }
 
-    public void setLowerlockCylinder(DoorFurniture lowerlockCylinder) {
-        this.lowerlockCylinder = lowerlockCylinder;
+    public void setLowerLockCylinder(DoorFurniture lowerLockCylinder) {
+        this.lowerLockCylinder = lowerLockCylinder;
     }
 
     public int getNightLock() {

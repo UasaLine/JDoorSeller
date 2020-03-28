@@ -1,6 +1,8 @@
+
 jQuery('document').ready(function () {
 
     var currentItem = "";
+    var goTo;
     var currentItemForDisplay = "";
     var currentItemDaughterForDisplay = "";
     var currentItemForDisplayId = "";
@@ -128,7 +130,10 @@ jQuery('document').ready(function () {
         setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
         displayObject(door);
         pickOut(this);
-
+        if (goTo!="") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
     });
 
     $('.ios-toggle').on('click', function () {
@@ -473,6 +478,9 @@ jQuery('document').ready(function () {
     }
 
     function findObject(name, value) {
+        if(name=='lowerLockCylinder'||name=='topLockCylinder'){
+            name =  'lockCylinder';
+        }
         var sizeRest = availableFurnitureList[name].length;
         var tab = availableFurnitureList[name];
         for (var i = 0; i < sizeRest; ++i) {
@@ -1242,7 +1250,8 @@ jQuery('document').ready(function () {
             displayListOfItems('topLock', availableFurnitureList.topLock, 0, 'kit');
             displayListOfItems('lowerLock', availableFurnitureList.lowerLock, 0, 'kit');
             displayListOfItems('handle', availableFurnitureList.handle, 0, '');
-            displayListOfItems('lowerlockCylinder', availableFurnitureList.lowerlockCylinder, 0, '');
+            displayListOfItems('lowerLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+            displayListOfItems('topLockCylinder', availableFurnitureList.lockCylinder, 0, '');
             displayListOfItems('closer', availableFurnitureList.closer, 0, '');
             displayListOfItems('endDoorLock', availableFurnitureList.endDoorLock, 0, '');
             displayListOfItems('typeDoorGlass', availableFurnitureList.typeDoorGlass, 0, '');
@@ -1307,6 +1316,8 @@ jQuery('document').ready(function () {
     }
 
     function hideShowField(addHistory) {
+
+        goTo="";
 
         if (addHistory) {
             addToTheHistoryList(currentItem);
@@ -1456,7 +1467,9 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "topLock") {
+            setСurrentItem('topLock');
             $('.select_topLock').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
             currentItemForDisplay = $('#nametopLockkit').html();
             //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'topLockkit';
@@ -1472,7 +1485,9 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "lowerLock") {
+            setСurrentItem('lowerLock');
             $('.select_lowerLock').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
             currentItemForDisplay = $('#namelowerLockkit').html();
             //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'lowerLockkit';
@@ -1481,6 +1496,7 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "handle") {
+            setСurrentItem('handle')
             $('.select_handle').attr('show', 'is_alive_lement');
         } else {
             $('.select_handle').attr('show', 'ghost_lement');
@@ -1510,13 +1526,23 @@ jQuery('document').ready(function () {
             $('.select_endDoorLock').attr('show', 'ghost_lement');
         }
 
-        if (currentItem == "lowerlockCylinder") {
-            $('.select_lowerlockCylinder').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#namelowerLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'lowerLockkit';
+        if (currentItem == "topLockCylinder") {
+
+            $('.select_topLockCylinder').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
+            currentItemForDisplay = $('#nametopLockkit').html();
+
         } else {
-            $('.select_lowerlockCylinder').attr('show', 'ghost_lement');
+            $('.select_topLockCylinder').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "lowerLockCylinder") {
+            $('.select_lowerLockCylinder').attr('show', 'is_alive_lement');
+            goTo = 'lowerLockkit';
+            currentItemForDisplay = $('#namelowerLockkit').html();
+
+        } else {
+            $('.select_lowerLockCylinder').attr('show', 'ghost_lement');
         }
     }
 
@@ -1654,33 +1680,59 @@ jQuery('document').ready(function () {
         var val = $('#' + grupName + 'Show').html();
         $('#' + name + 'Show').html(val);
 
-        //show Cylinder
+        //show
         var javaFurniture = door.furnitureKit[name];
+        var cylinder = door.furnitureKit[name+'Cylinder'];
+
         if (javaFurniture != null && (javaFurniture.typeOfFurniture == 'TOP_LOCK' ||
             javaFurniture.typeOfFurniture == 'LOWER_LOCK')) {
+            //Cylinder
+            showCylinderLock(name, javaFurniture.itCylinderLock,cylinder);
+            //Decoration
+            availableLockDecoration(name, true);
 
-            showCylinderLock(name,javaFurniture.itCylinderLock);
-            availableLockDecoration(name,true);
+        } else {
+            showCylinderLock(name, false);
+            availableLockDecoration(name, false);
+        }
+    };
+
+    function showCylinderLock(name, itCylinderLock,cylinder) {
+        // if (itCylinderLock) {
+        //     $('#' + name + 'Cylinder').removeClass('ghost');
+        // } else {
+        //     $('#' + name + 'Cylinder').addClass('ghost');
+        // }
+        if(cylinder instanceof Object){
+            $('#' + name + 'CylinderShow').text(cylinder.name);
         }
         else {
-            showCylinderLock(name,false);
-            availableLockDecoration(name,false);
+            $('#' + name + 'CylinderShow').text("");
         }
-    };
-    function showCylinderLock(name,itCylinderLock){
-        if (itCylinderLock) {
-            $('#' + name + 'Cylinder').removeClass('ghost');
-        } else {
-            $('#' + name + 'Cylinder').addClass('ghost');
-        }
+
     };
 
-    function availableLockDecoration(name,show) {
+    function availableLockDecoration(name, show) {
         var value = 'no';
-        if (show){
+        if (show) {
             value = 'yes';
         }
-        $('#nameinterna'+name+'Decoration').attr('available',value);
-        $('#nameouter'+name+'Decoration').attr('available',value);
+        $('#nameinterna' + name + 'Decoration').attr('available', value);
+        $('#nameouter' + name + 'Decoration').attr('available', value);
+        $('#name' + name + 'Cylinder').attr('available', value);
+        $('#name' + name + 'Cylinder').attr('available', value);
     };
+
+    function setСurrentItem(name) {
+        var elem = $(".div_images_furniture[Item=" + name + "]");
+        var furnitureItem = door.furnitureKit[name];
+        var id = 0;
+        if (furnitureItem != null) {
+            id = furnitureItem.id;
+        }
+        elem.filter(function (index) {
+            return $(this).attr('data') == id;
+        }).attr('check', 'checkbox');
+    };
+
 });
