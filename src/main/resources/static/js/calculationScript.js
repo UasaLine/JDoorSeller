@@ -1487,7 +1487,7 @@ jQuery('document').ready(function () {
         if (currentItem == "lowerLock") {
             setСurrentItem('lowerLock');
             $('.select_lowerLock').attr('show', 'is_alive_lement');
-            goTo = 'lowerLockkit';
+            goTo = 'topLockkit';
             currentItemForDisplay = $('#namelowerLockkit').html();
             //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'lowerLockkit';
@@ -1698,11 +1698,11 @@ jQuery('document').ready(function () {
     };
 
     function showCylinderLock(name, itCylinderLock,cylinder) {
-        if (itCylinderLock) {
-            $('#' + name + 'Cylinder').removeClass('ghost');
-        } else {
-            $('#' + name + 'Cylinder').addClass('ghost');
-        }
+        // if (itCylinderLock) {
+        //     $('#' + name + 'Cylinder').removeClass('ghost');
+        // } else {
+        //     $('#' + name + 'Cylinder').addClass('ghost');
+        // }
         if(cylinder instanceof Object){
             $('#' + name + 'CylinderShow').text(cylinder.name);
         }
@@ -1719,6 +1719,8 @@ jQuery('document').ready(function () {
         }
         $('#nameinterna' + name + 'Decoration').attr('available', value);
         $('#nameouter' + name + 'Decoration').attr('available', value);
+        $('#name' + name + 'Cylinder').attr('available', value);
+        $('#name' + name + 'Cylinder').attr('available', value);
     };
 
     function setСurrentItem(name) {
