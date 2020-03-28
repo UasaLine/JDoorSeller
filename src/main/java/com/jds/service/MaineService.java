@@ -24,11 +24,6 @@ public class MaineService {
     @Autowired
     private MainDAO dAO;
 
-    @Autowired
-    private MetalRepository metalDao;
-    @Autowired
-    private ColorRepository colorDao;
-
     public void saveOrUpdateDoorClass(String classId, String name, String description,
                                       boolean fireproofcheckbox, boolean hotcheckbox, String namePicture) {
 

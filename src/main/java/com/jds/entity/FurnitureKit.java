@@ -1,8 +1,8 @@
 package com.jds.entity;
 
-import com.jds.entity.DoorEntity;
-import com.jds.entity.DoorFurniture;
+import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.model.SerializingFields;
 import lombok.NonNull;
 
 import javax.persistence.*;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "FurnitureKit")
-public class FurnitureKit {
+public class FurnitureKit implements SerializingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,13 +86,28 @@ public class FurnitureKit {
 
     public static FurnitureKit instanceKit(@NonNull RestrictionOfSelectionFields template){
         FurnitureKit kit = new FurnitureKit();
-        kit.setTopLock(getDefFurniture(template.getTopLock()));
-        kit.setLowerLock(getDefFurniture(template.getLowerLock()));
-        kit.setHandle(getDefFurniture(template.getHandle()));
+        kit.setTopLock(convertLimToShortFurniture(template.getTopLock()));
+        kit.setLowerLock(convertLimToShortFurniture(template.getLowerLock()));
+        kit.setHandle(convertLimToShortFurniture(template.getHandle()));
         return kit;
     }
 
-    public static DoorFurniture getDefFurniture(@NonNull List<LimitationDoor> listLim){
+    public static FurnitureKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields){
+        FurnitureKit kit = new FurnitureKit();
+        kit.setTopLock(getFirst(AvailableFields.getTopLock()));
+        kit.setLowerLock(getFirst(AvailableFields.getLowerLock()));
+        kit.setHandle(getFirst(AvailableFields.getHandle()));
+        return kit;
+    }
+
+    private static DoorFurniture getFirst(List<DoorFurniture> furnitureList){
+        if(furnitureList.size()>0){
+            return furnitureList.get(0);
+        }
+        return null;
+    }
+
+    public static DoorFurniture convertLimToShortFurniture(@NonNull List<LimitationDoor> listLim){
 
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())

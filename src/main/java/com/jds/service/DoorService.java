@@ -22,7 +22,7 @@ public class DoorService implements DoorServ {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private MaineService maineService;
+    private FurnitureService furnitureService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -45,6 +45,26 @@ public class DoorService implements DoorServ {
         } else {
             return recalculateTheDoorCompletely(door);
         }
+    }
+
+    @Override
+    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
+
+        DoorEntity door;
+
+        if (id > 0 && typid == 0) {
+            door = dAO.getDoor(id);
+        } else if (typid > 0) {
+            door = createNewDoorByTemplate(typid, id);
+        } else {
+            door = createNewDoorWithAvailableDoorClass();
+        }
+
+        if (orderId != 0 && door.getId() == 0) {
+            door.setOrderHolder(orderId);
+        }
+
+        return door.clearNonSerializingFields();
     }
 
     public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
@@ -109,25 +129,6 @@ public class DoorService implements DoorServ {
 
     }
 
-    @Override
-    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
-
-        DoorEntity door;
-
-        if (id > 0 && typid == 0) {
-            door = dAO.getDoor(id);
-        } else if (typid > 0) {
-            door = createNewDoorByTemplate(typid, id);
-        } else {
-            door = createNewDoorWithAvailableDoorClass();
-        }
-
-        if (orderId != 0 && door.getId() == 0) {
-            door.setOrderHolder(orderId);
-        }
-
-        return door.clearNonSerializingFields();
-    }
 
     public DoorEntity createNewDoorWithAvailableDoorClass() {
 
@@ -139,7 +140,7 @@ public class DoorService implements DoorServ {
 
     public DoorEntity createNewDoorByTemplate(@NonNull int typeId, @NonNull int id) {
 
-        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(typeId));
+
         DoorType doorType = dAO.getDoorType(typeId);
 
         DoorEntity doorEntity = new DoorEntity();
@@ -148,6 +149,7 @@ public class DoorService implements DoorServ {
 
         doorEntity.setDoorType(doorType);
 
+        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(typeId));
         doorEntity.setTemplate(template);
 
         doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
@@ -176,7 +178,13 @@ public class DoorService implements DoorServ {
         //priceWithMarkup
         doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
 
-        doorEntity.setFurnitureKit(FurnitureKit.instanceKit(template));
+        AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
+                .topLock(defaultAndConvert(template.getTopLock()))
+                .lowerLock(defaultAndConvert(template.getLowerLock()))
+                .lockCylinder(defaultAndConvert(template.getLowerLock()))
+                .handle(defaultAndConvert(template.getHandle()))
+                .build();
+        doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         /*
         isDoorGlass
         furnitureKit
@@ -189,6 +197,13 @@ public class DoorService implements DoorServ {
 
         return doorEntity;
 
+    }
+
+    private List<DoorFurniture> defaultAndConvert(List<LimitationDoor> listLim) {
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+        return furnitureService.ConvertToFurniture(defList);
     }
 
     public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {

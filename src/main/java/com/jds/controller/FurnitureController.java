@@ -1,6 +1,7 @@
 package com.jds.controller;
 
 import com.jds.entity.DoorFurniture;
+import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.ResponseAction;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.service.FurnitureService;
@@ -53,6 +54,14 @@ public class FurnitureController {
     public List<TypeOfFurniture> getTypes() {
 
         return service.getTypesFurniture();
+
+    }
+
+    @GetMapping(value = "/furniture/available-fields/{door_type_id}")
+    @ResponseBody
+    public AvailableFieldsForSelection getAvailableFields(@PathVariable String door_type_id) {
+
+        return service.getAvailableFields(door_type_id);
 
     }
 
