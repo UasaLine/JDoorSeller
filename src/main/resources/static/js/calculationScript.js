@@ -1,6 +1,8 @@
+
 jQuery('document').ready(function () {
 
     var currentItem = "";
+    var goTo;
     var currentItemForDisplay = "";
     var currentItemDaughterForDisplay = "";
     var currentItemForDisplayId = "";
@@ -10,12 +12,15 @@ jQuery('document').ready(function () {
 
     var door;
     var failureToSetValue = false;
+    var classList;
 
     var colors;
     var RestrictionOfSelectionFields;
+    var availableFurnitureList;
 
     var id = $('#id').text();
     var orderId = $('#orderId').text();
+    var typeId = 0;
 
     var sizeMin = 0;
     var sizeMax = 0;
@@ -28,21 +33,22 @@ jQuery('document').ready(function () {
 
     var audio = $("#mySoundClip")[0];
 
+    if (id > 0) {
+        getNewDoorInstans(false);
+    } else {
+        getClassList();
+    }
 
-    getNewDoorInstans(true);
 
     function FillOutForm(data, updateClassDiv) {
-        door = data;
-        id = door.id;
-        displayObject(door);
+
+        displayObject(data);
         if (updateClassDiv) {
-            displayDoorClass3();
+            displayDoorClass3(door.availableDoorClass);
             currentItem = 'doorClass';
             hideShowField(true);
         }
         displayPrice();
-        fillInTheFieldsToTheTemplate(data.template);
-
     }
 
     //--------------------------------------
@@ -51,7 +57,7 @@ jQuery('document').ready(function () {
 
     $('.select_door_class').on('click', '.class_card', function () {
 
-        fillInType($(this).attr('data'));
+        fillInType($(this).attr('data'), classList);
 
         currentItem = 'doorType';
         currentItemForDisplay = $(this).html();
@@ -60,18 +66,15 @@ jQuery('document').ready(function () {
         failureToSetValue = false;
 
         hideShowField(true);
-
-
     });
 
     $('.select_door_type').on('click', '.typeLine', function () {
 
         doorLeaf = $(this).attr('data-LeafDoorLeaf');
-        setDoorField("doorLeaf", doorLeaf);
-        setDoorField($(this).attr('Item'), getDoorTypeFromAvailable($(this).attr('data')));
-        //representationField($(this).attr('dataName'));
+        typeId = $(this).attr('data');
+
         pickOut(this);
-        //getListOfSelectionFields();
+
         getNewDoorInstans(false);
     });
     $('.select_door_type').on('mouseenter', '.typeLine', function () {
@@ -94,6 +97,7 @@ jQuery('document').ready(function () {
 
     });
 
+
     $('.navigation_panel_div').on('click', '.navigation_panel', function () {
 
         processItemSelection(this);
@@ -104,8 +108,7 @@ jQuery('document').ready(function () {
         if ($(this).attr('data') == ">") {
             var val = Number.parseInt($('.color_pages').attr('data'));
             displayColor(val + 1);
-        }
-        else {
+        } else {
             displayColor($(this).attr('data'));
         }
 
@@ -125,9 +128,12 @@ jQuery('document').ready(function () {
 
     $('.div_images_furniture').on('click', function () {
         setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
-        representationField($(this).children('span').html());
+        displayObject(door);
         pickOut(this);
-
+        if (goTo!="") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
     });
 
     $('.ios-toggle').on('click', function () {
@@ -137,42 +143,35 @@ jQuery('document').ready(function () {
         if (currentItem == "metal") {
             oneEnableAllDisable("metal", this);
             setDoorField($(this).attr('Item'), $(this).attr('data'));
-        }
-        else if (currentItem == "heightDoor") {
+        } else if (currentItem == "heightDoor") {
             if ($(this).is(':checked')) {
                 fanlight = 1;
                 $('[fanlight="1"]').attr('show', 'is_alive_lement');
                 $('[doorLeaf="' + doorLeaf + '"][fanlight="1"]').attr('show', 'ghost_lement');
-            }
-            else {
+            } else {
                 fanlight = 0;
                 setDoorField('doorFanlightHeight', 0);
                 $('[fanlight="1"]').attr('show', 'ghost_lement');
             }
-        }
-        else if (currentItem == "deepnessDoor") {
+        } else if (currentItem == "deepnessDoor") {
             if ($(this).is(':checked')) {
                 oneEnableAllDisable("deepnessDoor", this);
                 setDoorField($(this).attr('Item'), $(this).attr('data'));
             }
-        }
-        else if (currentItem == "thicknessDoorLeaf") {
+        } else if (currentItem == "thicknessDoorLeaf") {
             if ($(this).is(':checked')) {
                 oneEnableAllDisable("thicknessDoorLeaf", this);
                 setDoorField($(this).attr('Item'), $(this).attr('data'));
             }
-        }
-        else if (currentItem == "sideDoorOpen") {
+        } else if (currentItem == "sideDoorOpen") {
             if ($(this).is(':checked')) {
                 oneEnableAllDisable($(this).attr('Item'), this);
                 setDoorField($(this).attr('Item'), $(this).attr('data'));
-            }
-            else {
+            } else {
                 setDoorField($(this).attr('Item'), "");
             }
 
-        }
-        else if (currentItem == "additionalDoorSettings") {
+        } else if (currentItem == "additionalDoorSettings") {
 
             if ($(this).attr("available") == 'yes') {
                 if ($(this).attr("item") == "doorstep") {
@@ -180,141 +179,113 @@ jQuery('document').ready(function () {
                         $('#stainlessSteelDoorstep_checkbox').prop('checked', false);
                         setDoorField($(this).attr('Item'), 0);
                         setDoorField($('#stainlessSteelDoorstep_checkbox').attr('Item'), 0);
-                    }
-                    else {
+                    } else {
                         setDoorField($(this).attr('Item'), $(this).attr('data'));
                     }
-                }
-                else if ($(this).attr("item") == "stainlessSteelDoorstep") {
+                } else if ($(this).attr("item") == "stainlessSteelDoorstep") {
                     if ($(this).is(':checked') & !($('#doorstepcheckbox').is(':checked'))) {
                         $('#doorstepcheckbox').prop('checked', true);
                         setDoorField($(this).attr('Item'), $(this).attr('data'));
                         setDoorField($('#doorstepcheckbox').attr('Item'), $(this).attr('data'));
-                    }
-                    else {
+                    } else {
                         setDoorField($(this).attr('Item'), 0);
                     }
-                }
-                else if ($(this).attr("item") == "doorTrim") {
+                } else if ($(this).attr("item") == "doorTrim") {
                     if ($(this).is(':checked')) {
                         $('[Item="topDoorTrim"]').prop('checked', true);
                         $('[Item="leftDoorTrim"]').prop('checked', true);
                         $('[Item="rightDoorTrim"]').prop('checked', true);
-                    }
-                    else {
+                    } else {
                         $('[Item="topDoorTrim"]').prop('checked', false);
                         $('[Item="leftDoorTrim"]').prop('checked', false);
                         $('[Item="rightDoorTrim"]').prop('checked', false);
                     }
-                }
-                else if ($(this).attr("item") == "topDoorTrim") {
+                } else if ($(this).attr("item") == "topDoorTrim") {
                     if ($(this).is(':checked')) {
                         setDoorField($(this).attr('Item'), 1);
                         $('[Item="doorTrim"]').prop('checked', true);
-                    }
-                    else {
+                    } else {
                         setDoorField($(this).attr('Item'), 0);
                         maybeTurnItOffDoorTrim();
                     }
-                }
-                else if ($(this).attr("item") == "leftDoorTrim") {
+                } else if ($(this).attr("item") == "leftDoorTrim") {
                     if ($(this).is(':checked')) {
                         setDoorField($(this).attr('Item'), 1);
                         $('[Item="doorTrim"]').prop('checked', true);
-                    }
-                    else {
+                    } else {
                         setDoorField($(this).attr('Item'), 0);
                         maybeTurnItOffDoorTrim();
                     }
-                }
-                else if ($(this).attr("item") == "rightDoorTrim") {
+                } else if ($(this).attr("item") == "rightDoorTrim") {
                     if ($(this).is(':checked')) {
                         $('[Item="doorTrim"]').prop('checked', true);
                         setDoorField($(this).attr('Item'), 1);
-                    }
-                    else {
+                    } else {
                         setDoorField($(this).attr('Item'), 0);
                         maybeTurnItOffDoorTrim();
                     }
 
-                }
-                else if ($(this).attr("item") == "firstSealingLine") {
+                } else if ($(this).attr("item") == "firstSealingLine") {
                     oneEnableAllDisable("firstSealingLine", this);
                     setDoorField($(this).attr('Item'), $(this).attr('data'));
-                }
-                else if ($(this).attr("item") == "secondSealingLine") {
+                } else if ($(this).attr("item") == "secondSealingLine") {
                     oneEnableAllDisable("secondSealingLine", this);
                     setDoorField($(this).attr('Item'), $(this).attr('data'));
-                }
-                else if ($(this).attr("item") == "thirdSealingLine") {
+                } else if ($(this).attr("item") == "thirdSealingLine") {
                     if ($(this).is(':checked')) {
                         oneEnableAllDisable("thirdSealingLine", this);
                         setDoorField($(this).attr('Item'), $(this).attr('data'));
                         setDoorField('sealingLine', 3);
-                    }
-                    else {
+                    } else {
                         setDoorField($(this).attr('Item'), 0);
                         setDoorField('sealingLine', 2);
                     }
 
-                }
-                else if ($(this).attr("item") == "filler") {
+                } else if ($(this).attr("item") == "filler") {
                     oneEnableAllDisable("filler", this);
                 }
-            }
-            else {
+            } else {
                 if ($(this).is(':checked')) {
                     $(this).prop('checked', false);
-                }
-                else {
+                } else {
                     $(this).prop('checked', true);
                 }
             }
 
-        }
-        else if (currentItem == "doorGlass") {
+        } else if (currentItem == "doorGlass") {
             if ($(this).is(':checked')) {
                 $('.input_doorGlass_div').attr('show', 'is_alive_lement');
                 setDoorField('isDoorGlass', 1);
                 isRepRun = false;
-            }
-            else {
+            } else {
                 $('.input_doorGlass_div').attr('show', 'ghost_lement');
                 setDoorField('isDoorGlass', 0);
             }
-        }
-        else if (currentItem == 'additionally') {
+        } else if (currentItem == 'additionally') {
             if ($(this).attr("available") == 'yes') {
                 if ($(this).attr("item") == "nightLock") {
                     if ($(this).is(':checked')) {
                         setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
-                    }
-                    else {
+                    } else {
                         setDoorFurniture($(this).attr('Item'), 0);
                     }
-                }
-                else if ($(this).attr("item") == "peephole") {
+                } else if ($(this).attr("item") == "peephole") {
                     if ($(this).is(':checked')) {
                         setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
-                    }
-                    else {
+                    } else {
                         setDoorFurniture($(this).attr('Item'), 0);
                     }
-                }
-                else if ($(this).attr("item") == "amplifierCloser") {
+                } else if ($(this).attr("item") == "amplifierCloser") {
                     if ($(this).is(':checked')) {
                         setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
-                    }
-                    else {
+                    } else {
                         setDoorFurniture($(this).attr('Item'), 0);
                     }
                 }
-            }
-            else {
+            } else {
                 if ($(this).is(':checked')) {
                     $(this).prop('checked', false);
-                }
-                else {
+                } else {
                     $(this).prop('checked', true);
                 }
             }
@@ -487,8 +458,7 @@ jQuery('document').ready(function () {
         if (checkInstallationAvailability(fieldName, value)) {
             door[fieldName] = value;
             failureToSetValue = false;
-        }
-        else {
+        } else {
             failureToSetValue = true;
         }
     }
@@ -505,25 +475,20 @@ jQuery('document').ready(function () {
     function setDoorFurniture(fieldName, value) {
         var furn = findObject(fieldName, value);
         door.furnitureKit[fieldName] = furn;
-        if (currentItem == 'lowerLock') {
-            if (furn.itCylinderLock == 1) {
-                $('#namelowerlockCylinder').attr('available', 'yes');
-            }
-            else {
-                $('#namelowerlockCylinder').attr('available', 'no');
-            }
-        }
     }
 
     function findObject(name, value) {
-        var sizeRest = RestrictionOfSelectionFields[name].length;
-        var tab = RestrictionOfSelectionFields[name];
+        if(name=='lowerLockCylinder'||name=='topLockCylinder'){
+            name =  'lockCylinder';
+        }
+        var sizeRest = availableFurnitureList[name].length;
+        var tab = availableFurnitureList[name];
         for (var i = 0; i < sizeRest; ++i) {
             if (tab[i].id == value) {
                 return tab[i];
             }
         }
-        return new Object();
+        return null;
     }
 
     function checkInstallationAvailability(fieldName, value) {
@@ -540,8 +505,7 @@ jQuery('document').ready(function () {
             if (currentItem == "widthDoor") {
                 if (door.activeDoorLeafWidth != 0) {
                     showValue = "" + door.widthDoor + " [" + door.activeDoorLeafWidth + "]";
-                }
-                else if (door.widthDoor && door.widthDoor != 0) {
+                } else if (door.widthDoor && door.widthDoor != 0) {
                     showValue = "" + door.widthDoor;
                 }
             }
@@ -549,8 +513,7 @@ jQuery('document').ready(function () {
             else if (currentItem == "heightDoor") {
                 if (door.doorFanlightHeight != 0) {
                     showValue = "" + door.heightDoor + " [" + door.doorFanlightHeight + "]";
-                }
-                else if (door.heightDoor && door.heightDoor != 0) {
+                } else if (door.heightDoor && door.heightDoor != 0) {
                     showValue = "" + door.heightDoor;
                 }
             }
@@ -558,8 +521,7 @@ jQuery('document').ready(function () {
             else if (currentItem == "sideDoorOpen") {
                 if (door.innerDoorOpen && door.innerDoorOpen != 0) {
                     showValue = "" + door.sideDoorOpen + " [внутренняя]";
-                }
-                else if (door.sideDoorOpen && door.sideDoorOpen != 0) {
+                } else if (door.sideDoorOpen && door.sideDoorOpen != 0) {
                     showValue = "" + door.sideDoorOpen;
                 }
             }
@@ -592,14 +554,12 @@ jQuery('document').ready(function () {
                 || currentItem == "rightDoorTrim") {
 
                 fillCheckbox(currentItem, value);
-            }
-            else if (currentItem == "firstSealingLine"
+            } else if (currentItem == "firstSealingLine"
                 || currentItem == "secondSealingLine"
                 || currentItem == "thirdSealingLine") {
 
                 fillCheckbox(currentItem + '_' + value, 1);
-            }
-            else {
+            } else {
                 if (value != 0 || value != "0") {
                     showValue = value;
                 }
@@ -608,6 +568,7 @@ jQuery('document').ready(function () {
             set(showValue);
             drawObject(door, 1);
         }
+
     }
 
     function pickOut(item) {
@@ -635,8 +596,7 @@ jQuery('document').ready(function () {
         for (var i = 0; i < elemsTotal; ++i) {
             if ($(thisItem).attr('id') == $(elems[i]).attr('id')) {
 
-            }
-            else {
+            } else {
                 $(elems[i]).prop('checked', false);
             }
         }
@@ -732,14 +692,14 @@ jQuery('document').ready(function () {
         }
     };
 
-    function displayDoorClass3() {
+    function displayDoorClass3(classListParam) {
 
         $('.class_card').remove();
 
-        for (var i = 0; i < door.availableDoorClass.length; ++i) {
+        for (var i = 0; i < classListParam.length; ++i) {
 
-            var divName = door.availableDoorClass[i].name;
-            var divId = door.availableDoorClass[i].id;
+            var divName = classListParam[i].name;
+            var divId = classListParam[i].id;
 
             $('<div>')
                 .attr('class', 'card text-dark border-dark class_card')
@@ -755,7 +715,7 @@ jQuery('document').ready(function () {
             $('<img>')
                 .attr('class', 'images_door_class')
                 .attr('dataName', divName)
-                .attr('src', door.availableDoorClass[i].namePicture)
+                .attr('src', classListParam[i].namePicture)
                 .attr('Item', 'doorClass')
                 .appendTo('#doorClassDiv' + divId);
 
@@ -775,7 +735,7 @@ jQuery('document').ready(function () {
 
             $('<p>')
                 .attr('class', 'card-text')
-                .text(door.availableDoorClass[i].description)
+                .text(classListParam[i].description)
                 .appendTo('#card-body' + divId);
 
         }
@@ -784,7 +744,6 @@ jQuery('document').ready(function () {
     function displayMetal(data) {
 
         allDisable('metal_checkbox');
-
 
         for (var i = 0; i < data.metal.length; ++i) {
             $('#metal' + i).attr('show', 'is_alive_lement');
@@ -800,7 +759,7 @@ jQuery('document').ready(function () {
         $('#namemetal').attr('available', "yes");
 
 
-    };
+    };3
 
     function displayWidthDoorAndHeightDoor(data) {
 
@@ -815,12 +774,11 @@ jQuery('document').ready(function () {
     };
 
     function displayheightDoorFanlight(data) {
-        if (data.heightDoorFanlight.length>0){
-            if(data.heightDoorFanlight.tartRestriction ==0 && data.heightDoorFanlight.stopRestriction ==0){
+        if (data.heightDoorFanlight.length > 0) {
+            if (data.heightDoorFanlight.tartRestriction == 0 && data.heightDoorFanlight.stopRestriction == 0) {
                 $('#fanlightCheckboxDiv').addClass("ghost");
             }
-        }
-        else {
+        } else {
             $('#fanlightCheckboxDiv').addClass("ghost");
         }
     }
@@ -893,14 +851,12 @@ jQuery('document').ready(function () {
         if (currentItem == "widthDoor") {
             setDoorField("widthDoor", $('#inputWidthDoor').attr('data'));
             setDoorField("activDoorLeafWidth", $('#inputActivDoorLeafWidth').attr('data'));
-        }
-        else if (currentItem == "heightDoor") {
+        } else if (currentItem == "heightDoor") {
             setDoorField("heightDoor", $('#inputHeightDoor').attr('data'));
             if (fanlight == 1) {
                 setDoorField("doorFanlightHeight", $('#inputHeightFanlight').attr('data'));
             }
-        }
-        else if (currentItem == "doorGlass") {
+        } else if (currentItem == "doorGlass") {
             setDoorGlassField("glassWidth", $('#inputWidthDoorGlass').attr('data'));
             setDoorGlassField("glassHeight", $('#inputHeightDoorGlass').attr('data'));
             setDoorGlassField("leftGlassPosition", $('#inputleftDoorGlass').attr('data'));
@@ -915,8 +871,7 @@ jQuery('document').ready(function () {
 
         if (value instanceof Object) {
             return value.name;
-        }
-        else {
+        } else {
             for (var i = 0; i < door.availableDoorClass.length; ++i) {
                 var type = door.availableDoorClass[i].doorTypes;
                 for (var j = 0; j < type.length; ++j) {
@@ -929,9 +884,9 @@ jQuery('document').ready(function () {
         return ""
     };
 
-    function getDoorTypeFromAvailable(value) {
-        for (var i = 0; i < door.availableDoorClass.length; ++i) {
-            var type = door.availableDoorClass[i].doorTypes;
+    function getTypeFromClassList(value, classListParam) {
+        for (var i = 0; i < classListParam.length; ++i) {
+            var type = classListParam[i].doorTypes;
             for (var j = 0; j < type.length; ++j) {
                 if (type[j].id == value) {
                     return type[j];
@@ -970,8 +925,7 @@ jQuery('document').ready(function () {
                 $('#imagesdoorColorDiv' + i).attr('data', colors[i + biasInt].firstItem);
                 $('#imagesdoorColorImg' + i).attr('src', colors[i + biasInt].picturePath);
                 $('#imagesdoorColorSpan' + i).text(colors[i + biasInt].firstItem);
-            }
-            else {
+            } else {
                 $('#imagesdoorColorDiv' + i).attr('show', 'ghost_lement');
                 $('#imagesdoorColorDiv' + i).attr('data', "");
                 $('#imagesdoorColorImg' + i).attr('src', "");
@@ -1022,7 +976,6 @@ jQuery('document').ready(function () {
 
     };
 
-
     function displayListOfItems(nameTab, tab, bias, postfixName) {
 
         if (tab != null) {
@@ -1033,8 +986,7 @@ jQuery('document').ready(function () {
 
             if (tabSize > 0) {
                 $('#name' + nameTab + postfixName).attr('available', 'yes');
-            }
-            else {
+            } else {
                 $('#name' + nameTab + postfixName).attr('available', 'no');
             }
 
@@ -1054,22 +1006,24 @@ jQuery('document').ready(function () {
 
             $('.color_pages').attr('data', bias);
 
+
             for (var i = 0; i < amountElements; ++i) {
+                var sel = '#' + nameTab;
                 if ((i + biasInt) < tabSize) {
-                    $('#' + nameTab + 'Div' + i).attr('show', 'is_alive_lement');
-                    $('#' + nameTab + 'Div' + i).attr('data', tab[i + biasInt].id);
-                    $('#' + nameTab + 'Img' + i).attr('src', tab[i + biasInt].picturePathFirst);
-                    $('#' + nameTab + 'Span' + i).text(tab[i + biasInt].name);
-                }
-                else {
-                    $('#topLockDiv' + i).attr('show', 'ghost_lement');
-                    $('#topLockDiv' + i).attr('data', "");
-                    $('#topLockImg' + i).attr('src', "");
-                    $('#topLockSpan' + i).text("");
+                    $(sel + 'Div' + i).attr('show', 'is_alive_lement');
+                    $(sel + 'Div' + i).attr('data', tab[i + biasInt].id);
+                    $(sel + 'Img' + i).attr('src', tab[i + biasInt].picturePathFirst);
+                    $(sel + 'Span' + i).text(tab[i + biasInt].name);
+                } else {
+                    $(sel + 'Div' + i).attr('show', 'ghost_lement');
+                    $(sel + 'Div' + i).attr('data', "");
+                    $(sel + 'Img' + i).attr('src', "");
+                    $(sel + 'Span' + i).text("");
                 }
             }
 
         }
+
     }
 
     function getNameGlass(value) {
@@ -1148,8 +1102,7 @@ jQuery('document').ready(function () {
     function showAdditional_data() {
         if ($('.additional_data').attr('show') == 'ghost_lement') {
             $('.additional_data').attr('show', 'yas');
-        }
-        else {
+        } else {
             $('.additional_data').attr('show', 'ghost_lement');
         }
     }
@@ -1171,8 +1124,7 @@ jQuery('document').ready(function () {
                 }
             }
             return 0;
-        }
-        else if (elemId == 'inputHeightDoor') {
+        } else if (elemId == 'inputHeightDoor') {
             var tab = RestrictionOfSelectionFields['heightDoor'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
@@ -1180,8 +1132,7 @@ jQuery('document').ready(function () {
                 }
             }
             return 0;
-        }
-        else if (elemId == 'inputActivDoorLeafWidth') {
+        } else if (elemId == 'inputActivDoorLeafWidth') {
             var tab = RestrictionOfSelectionFields['widthDoorLeaf'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
@@ -1189,8 +1140,7 @@ jQuery('document').ready(function () {
                 }
             }
 
-        }
-        else if (elemId == 'inputHeightFanlight') {
+        } else if (elemId == 'inputHeightFanlight') {
             var tab = RestrictionOfSelectionFields['heightDoorFanlight'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
@@ -1211,8 +1161,7 @@ jQuery('document').ready(function () {
                 }
             }
             return 5000;
-        }
-        else if (elemId == 'inputHeightDoor') {
+        } else if (elemId == 'inputHeightDoor') {
             var tab = RestrictionOfSelectionFields['heightDoor'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
@@ -1220,8 +1169,7 @@ jQuery('document').ready(function () {
                 }
             }
             return 5000;
-        }
-        else if (elemId == 'inputActivDoorLeafWidth') {
+        } else if (elemId == 'inputActivDoorLeafWidth') {
             var tab = RestrictionOfSelectionFields['widthDoorLeaf'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
@@ -1229,8 +1177,7 @@ jQuery('document').ready(function () {
                 }
             }
             return 800;
-        }
-        else if (elemId == 'inputHeightFanlight') {
+        } else if (elemId == 'inputHeightFanlight') {
             var tab = RestrictionOfSelectionFields['heightDoorFanlight'];
             for (var i = 0; i < tab.length; i++) {
                 if (tab[i].pairOfValues == 1) {
@@ -1244,23 +1191,50 @@ jQuery('document').ready(function () {
 
     function getNewDoorInstans(updateClassDiv) {
 
-        var typid = 0;
-        if (door != null) {
-            typid = door.doorType.id;
-        }
-
         $.ajax({
             url: 'door',
-            data: {id: id, orderId: orderId, typid: typid},
+            data: {id: id, orderId: orderId, typid: typeId},
             dataType: 'json',
             success: function (data) {
-                FillOutForm(data, updateClassDiv);
+                door = data;
+                id = door.id;
+                FillOutForm(door, updateClassDiv);
+                getFurnitureAvailableFields();
+            },
+            error: function (data) {
+                alert('error: getting the door failed !');
+            }
+        });
+    };
+
+    function getFurnitureAvailableFields() {
+        $.ajax({
+            url: 'furniture/available-fields/' + typeId,
+            dataType: 'json',
+            success: function (data) {
+                availableFurnitureList = data;
+                fillInTheFieldsToTheTemplate(door.template);
+            },
+            error: function (data) {
+                alert('error: getting furniture available-fields failed !' + data);
+            }
+        });
+    }
+
+    function getClassList() {
+        $.ajax({
+            url: 'class/list',
+            dataType: 'json',
+            success: function (data) {
+                classList = data;
+                displayDoorClass3(classList);
+                currentItem = 'doorClass';
+                hideShowField(true);
             },
             error: function (data) {
                 alert('error:' + data);
             }
         });
-
     };
 
     function fillInTheFieldsToTheTemplate(data) {
@@ -1273,38 +1247,39 @@ jQuery('document').ready(function () {
             colors = data.colors;
             displayColor(0);
             displayadditionalDoorSettings(data);
-            displayListOfItems('topLock', data.topLock, 0, 'kit');
-            displayListOfItems('lowerLock', data.lowerLock, 0, 'kit');
-            displayListOfItems('handle', data.handle, 0, '');
-            displayListOfItems('lowerlockCylinder', data.lowerlockCylinder, 0, '');
-            displayListOfItems('closer', data.closer, 0, '');
-            displayListOfItems('endDoorLock', data.endDoorLock, 0, '');
-            displayListOfItems('typeDoorGlass', data.typeDoorGlass, 0, '');
-            displayListOfItems('toning', data.toning, 0, '');
-            displayListOfItems('armor', data.armor, 0, '');
+            displayListOfItems('topLock', availableFurnitureList.topLock, 0, 'kit');
+            displayListOfItems('lowerLock', availableFurnitureList.lowerLock, 0, 'kit');
+            displayListOfItems('handle', availableFurnitureList.handle, 0, '');
+            displayListOfItems('lowerLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+            displayListOfItems('topLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+            displayListOfItems('closer', availableFurnitureList.closer, 0, '');
+            displayListOfItems('endDoorLock', availableFurnitureList.endDoorLock, 0, '');
+            displayListOfItems('typeDoorGlass', availableFurnitureList.typeDoorGlass, 0, '');
+            displayListOfItems('toning', availableFurnitureList.toning, 0, '');
+            displayListOfItems('armor', availableFurnitureList.armor, 0, '');
             RestrictionOfSelectionFields = data;
 
         }
+
     };
 
     function fillCheckbox(name, value) {
         if (value == 1) {
             $('#' + name + '_checkbox').prop('checked', true);
-        }
-        else {
+        } else {
             $('#' + name + '_checkbox').prop('checked', false);
         }
     };
 
-    function fillInType(idDoorClass) {
+    function fillInType(idDoorClass, classListParam) {
 
         $('.typeLine').remove();
 
-        for (var i = 0; i < door.availableDoorClass.length; ++i) {
+        for (var i = 0; i < classListParam.length; ++i) {
 
 
-            if (door.availableDoorClass[i].id == idDoorClass) {
-                var doorTypes = door.availableDoorClass[i].doorTypes;
+            if (classListParam[i].id == idDoorClass) {
+                var doorTypes = classListParam[i].doorTypes;
                 for (var j = 0; j < doorTypes.length; ++j) {
 
                     $('<li>')
@@ -1313,7 +1288,7 @@ jQuery('document').ready(function () {
                         .attr('data', doorTypes[j].id)
                         .text(doorTypes[j].name)
                         .attr('Item', 'doorType')
-                        .attr('data-LeafDoorLeaf',doorTypes[j].doorLeaf)
+                        .attr('data-LeafDoorLeaf', doorTypes[j].doorLeaf)
                         .appendTo('.select_door_type_list');
 
                     $('<div>')
@@ -1342,23 +1317,22 @@ jQuery('document').ready(function () {
 
     function hideShowField(addHistory) {
 
+        goTo="";
+
         if (addHistory) {
             addToTheHistoryList(currentItem);
         }
 
-
         if (currentItem == "doorClass") {
             $('.select_door_class').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_door_class').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "doorType") {
 
             $('.select_door_type').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
 
             $('.select_door_type').attr('show', 'ghost_lement');
         }
@@ -1366,8 +1340,7 @@ jQuery('document').ready(function () {
 
         if (currentItem == "metal") {
             $('.select_metal').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_metal').attr('show', 'ghost_lement');
         }
 
@@ -1379,13 +1352,11 @@ jQuery('document').ready(function () {
             if (doorLeaf == 1) {
                 $('[DoorLeaf="1"]').attr('show', 'is_alive_lement');
                 $('[DoorLeaf="2"]').attr('show', 'ghost_lement');
-            }
-            else {
+            } else {
                 $('[DoorLeaf="1"]').attr('show', 'ghost_lement');
                 $('[DoorLeaf="2"]').attr('show', 'is_alive_lement');
             }
-        }
-        else {
+        } else {
             $('.select_widthDoor').attr('show', 'ghost_lement');
         }
 
@@ -1400,8 +1371,7 @@ jQuery('document').ready(function () {
             if (doorLeaf == 1) {
                 $('[DoorLeaf="1"]').attr('show', 'is_alive_lement');
                 $('[DoorLeaf="2"]').attr('show', 'ghost_lement');
-            }
-            else {
+            } else {
                 $('[DoorLeaf="1"]').attr('show', 'ghost_lement');
                 $('[DoorLeaf="2"]').attr('show', 'is_alive_lement');
             }
@@ -1409,58 +1379,50 @@ jQuery('document').ready(function () {
             if (fanlight == 1) {
                 $('[fanlight="1"]').attr('show', 'is_alive_lement');
                 $('[doorLeaf="' + doorLeaf + '"][fanlight="1"]').attr('show', 'ghost_lement');
-            }
-            else {
+            } else {
                 $('[fanlight="1"]').attr('show', 'ghost_lement');
             }
 
-        }
-        else {
+        } else {
             $('.select_heightDoor').attr('show', 'ghost_lement');
 
         }
 
         if (currentItem == "deepnessDoor") {
             $('.select_deepnessDoor').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_deepnessDoor').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "thicknessDoorLeaf") {
             $('.select_thicknessDoorLeaf').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_thicknessDoorLeaf').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "sideDoorOpen") {
             $('.select_sideDoorOpen').attr('show', 'is_alive_lement');
             displaySideDoorOpen();
-        }
-        else {
+        } else {
             $('.select_sideDoorOpen').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "additionalDoorSettings") {
             $('.select_additionalDoorSettings').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_additionalDoorSettings').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "doorColor") {
             $('.select_doorColor').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_doorColor').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "doorGlass") {
             $('.select_doorGlass').attr('show', 'is_alive_lement');
             displayGlass();
-        }
-        else {
+        } else {
             $('.select_doorGlass').attr('show', 'ghost_lement');
         }
 
@@ -1471,8 +1433,7 @@ jQuery('document').ready(function () {
             currentItemForDisplay = $('#namedoorGlass').html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'doorGlass';
-        }
-        else {
+        } else {
             $('.select_typeDoorGlass').attr('show', 'ghost_lement');
         }
 
@@ -1483,8 +1444,7 @@ jQuery('document').ready(function () {
             currentItemForDisplay = $('#namedoorGlass').html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'doorGlass';
-        }
-        else {
+        } else {
             $('.select_toning').attr('show', 'ghost_lement');
         }
 
@@ -1494,56 +1454,57 @@ jQuery('document').ready(function () {
             currentItemForDisplay = $('#namedoorGlass').html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'doorGlass';
-        }
-        else {
+        } else {
             $('.select_armor').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "topLockkit") {
+            fillChildBlock('topLockkit', 'topLock');
             $('.select_topLockkit').attr('show', 'is_alive_lement');
-        }
-        else {
+
+        } else {
             $('.select_topLockkit').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "topLock") {
+            setСurrentItem('topLock');
             $('.select_topLock').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
             currentItemForDisplay = $('#nametopLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'topLockkit';
-        }
-        else {
+        } else {
             $('.select_topLock').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "lowerLockkit") {
+            fillChildBlock('lowerLockkit', 'lowerLock');
             $('.select_lowerLockkit').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_lowerLockkit').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "lowerLock") {
+            setСurrentItem('lowerLock');
             $('.select_lowerLock').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
             currentItemForDisplay = $('#namelowerLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'lowerLockkit';
-        }
-        else {
+        } else {
             $('.select_lowerLock').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "handle") {
+            setСurrentItem('handle')
             $('.select_handle').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_handle').attr('show', 'ghost_lement');
         }
 
         if (currentItem == "additionally") {
             $('.select_additionally').attr('show', 'is_alive_lement');
-        }
-        else {
+        } else {
             $('.select_additionally').attr('show', 'ghost_lement');
         }
 
@@ -1552,8 +1513,7 @@ jQuery('document').ready(function () {
             currentItemForDisplay = $('#nameadditionally').html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'additionally';
-        }
-        else {
+        } else {
             $('.select_closer').attr('show', 'ghost_lement');
         }
 
@@ -1562,19 +1522,27 @@ jQuery('document').ready(function () {
             currentItemForDisplay = $('#nameadditionally').html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = 'additionally';
-        }
-        else {
+        } else {
             $('.select_endDoorLock').attr('show', 'ghost_lement');
         }
 
-        if (currentItem == "lowerlockCylinder") {
-            $('.select_lowerlockCylinder').attr('show', 'is_alive_lement');
-            currentItemForDisplay = $('#namelowerLockkit').html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = 'lowerLockkit';
+        if (currentItem == "topLockCylinder") {
+
+            $('.select_topLockCylinder').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
+            currentItemForDisplay = $('#nametopLockkit').html();
+
+        } else {
+            $('.select_topLockCylinder').attr('show', 'ghost_lement');
         }
-        else {
-            $('.select_lowerlockCylinder').attr('show', 'ghost_lement');
+
+        if (currentItem == "lowerLockCylinder") {
+            $('.select_lowerLockCylinder').attr('show', 'is_alive_lement');
+            goTo = 'lowerLockkit';
+            currentItemForDisplay = $('#namelowerLockkit').html();
+
+        } else {
+            $('.select_lowerLockCylinder').attr('show', 'ghost_lement');
         }
     }
 
@@ -1629,35 +1597,25 @@ jQuery('document').ready(function () {
     function handleKeystroke(e) {
         if (e.which == 48) {
             addNumberToSize(0);
-        }
-        else if (e.which == 49) {
+        } else if (e.which == 49) {
             addNumberToSize(1);
-        }
-        else if (e.which == 50) {
+        } else if (e.which == 50) {
             addNumberToSize(2);
-        }
-        else if (e.which == 51) {
+        } else if (e.which == 51) {
             addNumberToSize(3);
-        }
-        else if (e.which == 52) {
+        } else if (e.which == 52) {
             addNumberToSize(4);
-        }
-        else if (e.which == 53) {
+        } else if (e.which == 53) {
             addNumberToSize(5);
-        }
-        else if (e.which == 54) {
+        } else if (e.which == 54) {
             addNumberToSize(6);
-        }
-        else if (e.which == 55) {
+        } else if (e.which == 55) {
             addNumberToSize(7);
-        }
-        else if (e.which == 56) {
+        } else if (e.which == 56) {
             addNumberToSize(8);
-        }
-        else if (e.which == 57) {
+        } else if (e.which == 57) {
             addNumberToSize(9);
-        }
-        else if (e.which == 8) {
+        } else if (e.which == 8) {
             deleteLastNumberInSize();//backspace
         }
     }
@@ -1667,8 +1625,7 @@ jQuery('document').ready(function () {
         if (namber < sizeMin || namber > sizeMax) {
             $('.line').addClass('redColor');
             $('#select_set').addClass('notAvailable');
-        }
-        else {
+        } else {
             $('.line').removeClass('redColor');
             $('#select_set').removeClass('notAvailable');
         }
@@ -1716,4 +1673,66 @@ jQuery('document').ready(function () {
             }
         });
     }
+
+    function fillChildBlock(grupName, name) {
+
+        //set Child field
+        var val = $('#' + grupName + 'Show').html();
+        $('#' + name + 'Show').html(val);
+
+        //show
+        var javaFurniture = door.furnitureKit[name];
+        var cylinder = door.furnitureKit[name+'Cylinder'];
+
+        if (javaFurniture != null && (javaFurniture.typeOfFurniture == 'TOP_LOCK' ||
+            javaFurniture.typeOfFurniture == 'LOWER_LOCK')) {
+            //Cylinder
+            showCylinderLock(name, javaFurniture.itCylinderLock,cylinder);
+            //Decoration
+            availableLockDecoration(name, true);
+
+        } else {
+            showCylinderLock(name, false);
+            availableLockDecoration(name, false);
+        }
+    };
+
+    function showCylinderLock(name, itCylinderLock,cylinder) {
+        // if (itCylinderLock) {
+        //     $('#' + name + 'Cylinder').removeClass('ghost');
+        // } else {
+        //     $('#' + name + 'Cylinder').addClass('ghost');
+        // }
+        if(cylinder instanceof Object){
+            $('#' + name + 'CylinderShow').text(cylinder.name);
+        }
+        else {
+            $('#' + name + 'CylinderShow').text("");
+        }
+
+    };
+
+    function availableLockDecoration(name, show) {
+        var value = 'no';
+        if (show) {
+            value = 'yes';
+        }
+        $('#nameinterna' + name + 'Decoration').attr('available', value);
+        $('#nameouter' + name + 'Decoration').attr('available', value);
+        $('#name' + name + 'Cylinder').attr('available', value);
+        $('#name' + name + 'Cylinder').attr('available', value);
+    };
+
+    function setСurrentItem(name) {
+        var elem = $(".div_images_furniture[Item=" + name + "]");
+        var furnitureItem = door.furnitureKit[name];
+        var id = 0;
+        if (furnitureItem != null) {
+            id = furnitureItem.id;
+        }
+        elem.filter(function (index) {
+            return $(this).attr('data') == id;
+        }).attr('check', 'checkbox');
+    };
+
 });
