@@ -1,6 +1,6 @@
 package com.jds.dao;
 
-import com.jds.dao.entity.DoorColors;
+import com.jds.dao.entity.ColorEntity;
 import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,9 +26,9 @@ public class ColorRepository {
         String sql;
         sql = "select * from door_colors where idManufacturerProgram like :log";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorColors.class)
+                .addEntity(ColorEntity.class)
                 .setParameter("log", id);
-        List<DoorColors> doorColorsList = query.list();
+        List<ColorEntity> doorColorsList = query.list();
 
         session.close();
 
@@ -39,16 +39,16 @@ public class ColorRepository {
 
     }
 
-    public DoorColors getDoorColorByName(String name) {
+    public ColorEntity getDoorColorByName(String name) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_colors where name like :log";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorColors.class)
+                .addEntity(ColorEntity.class)
                 .setParameter("log", name);
-        List<DoorColors> doorColorsList = query.list();
+        List<ColorEntity> doorColorsList = query.list();
 
         session.close();
 
@@ -59,41 +59,41 @@ public class ColorRepository {
 
     }
 
-    public List<DoorColors> getColors() {
+    public List<ColorEntity> getColors() {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_colors ";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorColors.class);
-        List<DoorColors> doorColorsList = query.list();
+                .addEntity(ColorEntity.class);
+        List<ColorEntity> doorColorsList = query.list();
 
         session.close();
 
         return doorColorsList;
     }
 
-    public DoorColors getColorById(@NonNull int id) {
+    public ColorEntity getColorById(@NonNull int id) {
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from door_colors where id = :id";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorColors.class)
+                .addEntity(ColorEntity.class)
                 .setParameter("id", id);
-        List<DoorColors> list = query.list();
+        List<ColorEntity> list = query.list();
 
         session.close();
 
         if (list.size() > 0) {
             return list.get(0);
         }
-        return new DoorColors();
+        return new ColorEntity();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public DoorColors saveColors(DoorColors doorColors) {
+    public ColorEntity saveColors(ColorEntity doorColors) {
 
         int id = getColorsIdByManufacturerId(doorColors.getIdManufacturerProgram());//check exists
         if (id > 0) {
@@ -107,7 +107,7 @@ public class ColorRepository {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public String deleteColor(@NonNull DoorColors colors) {
+    public String deleteColor(@NonNull ColorEntity colors) {
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(colors);

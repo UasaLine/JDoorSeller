@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Door_Colors")
-public class DoorColors implements LimiItem {
+public class ColorEntity implements LimiItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,13 +36,13 @@ public class DoorColors implements LimiItem {
         this.pricePaintingMeterOfSpace = pricePaintingMeterOfSpace;
     }
 
-    public DoorColors(String name, String picturePath, int price) {
+    public ColorEntity(String name, String picturePath, int price) {
         this.name = name;
         this.picturePath = picturePath;
         this.pricePaintingMeterOfSpace = price;
     }
 
-    public DoorColors() {
+    public ColorEntity() {
     }
 
     public int getId() {

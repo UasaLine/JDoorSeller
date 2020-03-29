@@ -1,6 +1,6 @@
 package com.jds.model;
 
-import com.jds.dao.entity.DoorColors;
+import com.jds.dao.entity.ColorEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
@@ -164,13 +164,13 @@ public class RestrictionOfSelectionFields {
         this.thirdSealingLine.add(lim.setNuulLazyFild());
     }
 
-    public RestrictionOfSelectionFields stuffColors(@NonNull List<DoorColors> colors) {
+    public RestrictionOfSelectionFields stuffColors(@NonNull List<ColorEntity> colors) {
 
         colors.stream().forEach((color)->addColors(color));
         return this;
     }
 
-    public void addColors(@NonNull DoorColors color) {
+    public void addColors(@NonNull ColorEntity color) {
         if (color != null) {
             this.colors.add(LimitationDoor.builder()
                             .typeSettings(TypeOfLimitionDoor.COLOR_DOOR)
