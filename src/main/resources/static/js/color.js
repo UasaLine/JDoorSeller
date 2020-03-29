@@ -1,9 +1,13 @@
 jQuery('document').ready(function () {
 
     var JavaObject;
+    var typeImageList;
+    var typeDoorColorList;
 
     //new instans
+    getTypeList();
     getJavaObject();
+
 
     $('#idManufacturerProgram').change(function () {
 
@@ -16,6 +20,19 @@ jQuery('document').ready(function () {
         setField('name', $('#name').val());
 
     });
+
+    $('#typeOfImage').change(function () {
+
+        setField('typeOfImage',$('#typeOfImage').val());
+
+    });
+
+    $('#typeOfDoorColor').change(function () {
+
+        setField('typeOfDoorColor',$('#typeOfDoorColor').val());
+
+    });
+
 
     $('#smooth').change(function () {
 
@@ -117,6 +134,8 @@ jQuery('document').ready(function () {
             setCheckBox('#smooth', JavaObject.smooth);
             $('#picturePath').val(JavaObject.picturePath);
             $('#pricePaintingMeterOfSpace').val(JavaObject.pricePaintingMeterOfSpace);
+            setValueInSelect('#typeOfImage', JavaObject.typeOfImage);
+            setValueInSelect('#typeOfDoorColor', JavaObject.typeOfDoorColor);
         }
     }
 
@@ -128,5 +147,55 @@ jQuery('document').ready(function () {
         if (value == 1) {
             $(name).prop('checked', true);
         }
+    }
+
+    function getTypeList() {
+
+        $.ajax({
+            url: location.origin+'/image/types',
+            dataType: 'json',
+            success: function (data) {
+                typeImageList = data;
+                fillInTypes('#typeOfImage',typeImageList);
+            },
+            error: function (data) {
+                alert('!ERROR: типы изображений получить не удалось:');
+            }
+        });
+        $.ajax({
+            url: location.origin+'/door-color/types',
+            dataType: 'json',
+            success: function (data) {
+                typeDoorColorList = data;
+                fillInTypes('#typeOfDoorColor',typeDoorColorList);
+            },
+            error: function (data) {
+                alert('!ERROR: типы дверных цветов получить не удалось:');
+            }
+        });
+    }
+
+    function fillInTypes(selectNmae,types) {
+        if (types != null) {
+
+            $(selectNmae).empty();
+
+            $(selectNmae).append(
+                $('<option></option>')
+            );
+
+            for (var i = 0; i < types.length; ++i) {
+                $(selectNmae).append($('<option value=' + types[i] + '>' + types[i] + '</option>'));
+            }
+        }
+    }
+
+    function setValueInSelect(jqSelect, value) {
+        var opt = $(jqSelect + ' > option');
+        opt.each(function (indx, element) {
+            if ($(this).val() == value) {
+                $(this).attr("selected", "selected");
+            }
+        });
     }
 });

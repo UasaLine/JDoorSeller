@@ -19,6 +19,11 @@ jQuery('document').ready(function () {
 
     });
 
+    $('#typeOfImage').change(function () {
+
+        filterOut();
+
+    });
 
     $('#addLine').on('click', function () {
         location.pathname = "/color/0";
@@ -87,5 +92,26 @@ jQuery('document').ready(function () {
                 $('#typeOfImage').append($('<option value=' + types[i] + '>' + types[i] + '</option>'));
             }
         }
+    }
+
+    function filterOut() {
+        var filtrValue = $('#typeOfImage').val();
+
+        var elems = $('.type-line');
+        var elemsTotal = elems.length;
+
+        for (var i = 0; i < elemsTotal; ++i) {
+
+            var line = $(elems[i]).parent();
+
+            if (filtrValue === '') {
+                $(line).removeClass('ghost');
+            } else if ($(elems[i]).text() !== filtrValue) {
+                $(line).addClass('ghost');
+            } else {
+                $(line).removeClass('ghost');
+            }
+        }
+
     }
 });

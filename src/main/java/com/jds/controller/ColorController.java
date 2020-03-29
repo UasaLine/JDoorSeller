@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
 import com.jds.model.ResponseAction;
+import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class ColorController {
 
     }
 
-    @PutMapping(value = "/image/types")
+    @GetMapping(value = "/image/types")
     @ResponseBody
     public EnumSet<TypeOfImage> getImageTypeList() {
 
@@ -62,4 +63,11 @@ public class ColorController {
 
     }
 
+    @GetMapping(value = "/door-color/types")
+    @ResponseBody
+    public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
+
+        return service.getImageTypeDoorColor();
+
+    }
 }

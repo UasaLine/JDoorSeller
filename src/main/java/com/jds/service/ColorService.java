@@ -2,6 +2,7 @@ package com.jds.service;
 
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
+import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,9 @@ public class ColorService {
 
     public EnumSet<TypeOfImage> getImageTypeList() {
         return EnumSet.allOf( TypeOfImage.class );
+    }
+
+    public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
+        return EnumSet.allOf( TypeOfDoorColor.class );
     }
 }

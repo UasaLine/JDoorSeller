@@ -147,6 +147,8 @@
 							<th>картинка</th>
 							<th>цена</th>
 							<th>id завода</th>
+							<th>тип изобр-ния</th>
+							<th>тип цвета двери</th>
 						</tr>
 						<tr th:each="color : ${List}">
 							<td class="id" th:utext="${color.id}">..</td>
@@ -154,6 +156,8 @@
 							<td th:utext="${color.picturePath}">..</td>
 							<td th:utext="${color.pricePaintingMeterOfSpace}">..</td>
 							<td th:utext="${color.idManufacturerProgram}">..</td>
+							<td class="type-line"  th:utext="${color.typeOfImage}">..</td>
+							<td th:utext="${color.typeOfDoorColor}">..</td>
 						</tr>
 
 					</table>
