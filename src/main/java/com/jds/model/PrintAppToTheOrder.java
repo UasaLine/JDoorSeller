@@ -1,10 +1,9 @@
 package com.jds.model;
 
-import com.jds.entity.DoorEntity;
-import com.jds.entity.DoorsОrder;
+import com.jds.dao.entity.DoorEntity;
+import com.jds.dao.entity.DoorsОrder;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PrintAppToTheOrder {

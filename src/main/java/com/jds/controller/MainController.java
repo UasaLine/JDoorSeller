@@ -1,6 +1,6 @@
 package com.jds.controller;
 
-import com.jds.entity.*;
+import com.jds.dao.entity.*;
 import com.jds.model.Specification;
 import com.jds.service.MaineService;
 import com.jds.service.UserServ;

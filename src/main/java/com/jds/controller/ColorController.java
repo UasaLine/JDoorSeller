@@ -1,10 +1,8 @@
 package com.jds.controller;
 
-import com.jds.entity.DoorColors;
-import com.jds.entity.Metal;
+import com.jds.dao.entity.DoorColors;
 import com.jds.model.ResponseAction;
 import com.jds.service.ColorService;
-import com.jds.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

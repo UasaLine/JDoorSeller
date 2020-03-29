@@ -1,9 +1,9 @@
 package com.jds.model;
 
-import com.jds.entity.DoorColors;
-import com.jds.entity.DoorFurniture;
-import com.jds.entity.LimitationDoor;
-import com.jds.entity.Metal;
+import com.jds.dao.entity.DoorColors;
+import com.jds.dao.entity.DoorFurniture;
+import com.jds.dao.entity.LimitationDoor;
+import com.jds.dao.entity.Metal;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.*;
 

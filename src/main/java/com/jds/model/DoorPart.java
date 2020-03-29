@@ -1,11 +1,10 @@
 package com.jds.model;
 
-import com.jds.entity.DoorEntity;
-import com.jds.entity.Metal;
-import com.jds.entity.SizeOfDoorParts;
+import com.jds.dao.entity.DoorEntity;
+import com.jds.dao.entity.Metal;
+import com.jds.dao.entity.SizeOfDoorParts;
 import com.udojava.evalex.Expression;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

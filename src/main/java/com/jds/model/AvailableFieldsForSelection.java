@@ -1,7 +1,6 @@
 package com.jds.model;
 
-import com.jds.entity.DoorFurniture;
-import com.jds.entity.LimitationDoor;
+import com.jds.dao.entity.DoorFurniture;
 import lombok.*;
 
 import java.util.ArrayList;

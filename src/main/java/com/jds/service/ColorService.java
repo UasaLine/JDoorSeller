@@ -1,7 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.ColorRepository;
-import com.jds.entity.DoorColors;
+import com.jds.dao.entity.DoorColors;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

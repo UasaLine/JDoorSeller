@@ -1,8 +1,8 @@
 package com.jds.model;
 
-import com.jds.entity.DoorType;
-import com.jds.entity.LineSpecification;
-import com.jds.entity.RawMaterials;
+import com.jds.dao.entity.DoorType;
+import com.jds.dao.entity.LineSpecification;
+import com.jds.dao.entity.RawMaterials;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

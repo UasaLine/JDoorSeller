@@ -1,7 +1,6 @@
 package com.jds.dao;
 
-import com.jds.entity.DoorColors;
-import com.jds.entity.Metal;
+import com.jds.dao.entity.DoorColors;
 import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

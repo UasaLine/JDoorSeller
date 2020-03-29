@@ -1,6 +1,6 @@
 package com.jds.controller;
 
-import com.jds.entity.Metal;
+import com.jds.dao.entity.Metal;
 import com.jds.model.ResponseAction;
 import com.jds.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;

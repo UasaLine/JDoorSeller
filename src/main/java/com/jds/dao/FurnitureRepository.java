@@ -1,7 +1,6 @@
 package com.jds.dao;
 
-import com.jds.entity.DoorFurniture;
-import com.jds.entity.LimitationDoor;
+import com.jds.dao.entity.DoorFurniture;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

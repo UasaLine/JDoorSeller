@@ -1,7 +1,7 @@
 package com.jds.dao;
 
-import com.jds.entity.DoorsОrder;
-import com.jds.entity.UserEntity;
+import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

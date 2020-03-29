@@ -1,10 +1,8 @@
-package com.jds.entity;
+package com.jds.dao.entity;
 
 import com.jds.model.modelEnum.OrderStatus;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity

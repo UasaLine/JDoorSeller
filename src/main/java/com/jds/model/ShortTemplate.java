@@ -1,5 +1,5 @@
 package com.jds.model;
-import com.jds.entity.DoorType;
+import com.jds.dao.entity.DoorType;
 import lombok.*;
 
 @Setter

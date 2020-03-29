@@ -1,14 +1,12 @@
-package com.jds.entity;
+package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.Role;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity

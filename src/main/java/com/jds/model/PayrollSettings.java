@@ -1,9 +1,9 @@
 package com.jds.model;
 
-import com.jds.entity.BendSetting;
-import com.jds.entity.DoorColors;
-import com.jds.entity.DoorType;
-import com.jds.entity.SalarySetting;
+import com.jds.dao.entity.BendSetting;
+import com.jds.dao.entity.DoorColors;
+import com.jds.dao.entity.DoorType;
+import com.jds.dao.entity.SalarySetting;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 
 import java.util.Map;

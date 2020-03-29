@@ -1,8 +1,8 @@
 package com.jds.dao;
 
 
-import com.jds.entity.UserEntity;
-import com.jds.entity.UserSetting;
+import com.jds.dao.entity.UserEntity;
+import com.jds.dao.entity.UserSetting;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

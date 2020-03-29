@@ -1,6 +1,6 @@
 package com.jds.dao;
 
-import com.jds.entity.*;
+import com.jds.dao.entity.*;
 import com.jds.model.FireproofDoor;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;

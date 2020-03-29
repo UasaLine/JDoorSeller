@@ -1,4 +1,4 @@
-package com.jds.entity;
+package com.jds.dao.entity;
 
 import lombok.Getter;
 import lombok.Setter;

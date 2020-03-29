@@ -1,4 +1,4 @@
-package com.jds.entity;
+package com.jds.dao.entity;
 
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;

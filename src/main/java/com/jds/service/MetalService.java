@@ -1,7 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.MetalRepository;
-import com.jds.entity.Metal;
+import com.jds.dao.entity.Metal;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

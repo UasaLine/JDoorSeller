@@ -1,4 +1,4 @@
-package com.jds.entity;
+package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;

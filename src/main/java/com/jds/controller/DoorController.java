@@ -1,11 +1,9 @@
 package com.jds.controller;
 
-import com.jds.entity.DoorEntity;
-import com.jds.entity.DoorsОrder;
-import com.jds.entity.LineSpecification;
-import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.dao.entity.DoorEntity;
+import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.LineSpecification;
 import com.jds.service.DoorServ;
-import com.jds.service.DoorService;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Controller

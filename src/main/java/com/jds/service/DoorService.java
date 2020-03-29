@@ -1,7 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.*;
-import com.jds.entity.*;
+import com.jds.dao.entity.*;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
