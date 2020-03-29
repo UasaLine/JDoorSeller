@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.dao.MetalRepository;
+import com.jds.dao.repository.MetalRepository;
 import com.jds.dao.entity.Metal;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

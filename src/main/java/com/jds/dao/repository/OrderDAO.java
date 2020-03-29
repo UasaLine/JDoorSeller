@@ -1,4 +1,4 @@
-package com.jds.dao;
+package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.UserEntity;

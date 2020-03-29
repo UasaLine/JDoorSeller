@@ -1,4 +1,4 @@
-package com.jds.dao;
+package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.model.modelEnum.TypeOfFurniture;

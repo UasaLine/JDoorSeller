@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.dao.ColorRepository;
+import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ColorEntity;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

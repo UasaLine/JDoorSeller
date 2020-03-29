@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.dao.MainDAO;
+import com.jds.dao.repository.MainDAO;
 import com.jds.dao.entity.*;
 import com.jds.model.*;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;

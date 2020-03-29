@@ -2,8 +2,8 @@ package com.jds.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jds.dao.MainDAO;
-import com.jds.dao.MetalRepository;
+import com.jds.dao.repository.MainDAO;
+import com.jds.dao.repository.MetalRepository;
 import com.jds.dao.entity.*;
 import com.jds.service.ColorService;
 import com.jds.service.MaineService;

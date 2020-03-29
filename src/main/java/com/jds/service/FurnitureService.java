@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.dao.FurnitureRepository;
+import com.jds.dao.repository.FurnitureRepository;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.model.AvailableFieldsForSelection;

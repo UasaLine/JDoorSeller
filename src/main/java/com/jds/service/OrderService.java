@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.dao.OrderDAO;
+import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.UserEntity;

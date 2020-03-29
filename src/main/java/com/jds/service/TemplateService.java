@@ -1,8 +1,8 @@
 package com.jds.service;
 
-import com.jds.dao.*;
 import com.jds.dao.entity.DoorType;
 import com.jds.dao.entity.LimitationDoor;
+import com.jds.dao.repository.*;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.ShortTemplate;
