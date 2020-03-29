@@ -49,8 +49,8 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> closer = new ArrayList<>();
     private List<LimitationDoor> endDoorLock = new ArrayList<>();
 
-    private List<LimitationDoor> ShieldColor = new ArrayList<>();
-    private List<LimitationDoor> ShieldDesign = new ArrayList<>();
+    private List<LimitationDoor> shieldColor = new ArrayList<>();
+    private List<LimitationDoor> shieldDesign = new ArrayList<>();
 
     private List<LimitationDoor> typeDoorGlass = new ArrayList<>();
     private List<LimitationDoor> toning = new ArrayList<>();

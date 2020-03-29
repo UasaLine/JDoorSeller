@@ -69,6 +69,9 @@ jQuery('document').ready(function () {
         installFromTemplateFurnitur('toning');
         installFromTemplateFurnitur('armor');
 
+        installFromTemplateFurnitur('shieldColor');
+        installFromTemplateFurnitur('shieldDesign');
+
     }
 
     function fillInAlLSelectAfterSelectingType() {
@@ -103,6 +106,9 @@ jQuery('document').ready(function () {
         fillInFurniture('typeDoorGlass');
         fillInFurniture('toning');
         fillInFurniture('armor');
+
+        fillInFurniture('shieldColor');
+        fillInFurniture('shieldDesign');
     }
 
 

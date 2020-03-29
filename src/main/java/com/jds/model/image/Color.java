@@ -2,7 +2,7 @@ package com.jds.model.image;
 
 import lombok.*;
 
-@Builder
+
 @Getter
 @Setter
 @AllArgsConstructor
