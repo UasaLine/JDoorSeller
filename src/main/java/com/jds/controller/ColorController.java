@@ -2,12 +2,14 @@ package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
 import com.jds.model.ResponseAction;
+import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.EnumSet;
 import java.util.List;
 
 @Controller
@@ -51,4 +53,13 @@ public class ColorController {
         return new ResponseAction(service.deleteColor(id));
 
     }
+
+    @PutMapping(value = "/image/types")
+    @ResponseBody
+    public EnumSet<TypeOfImage> getImageTypeList() {
+
+        return service.getImageTypeList();
+
+    }
+
 }

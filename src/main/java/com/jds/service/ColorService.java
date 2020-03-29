@@ -2,10 +2,11 @@ package com.jds.service;
 
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
+import com.jds.model.image.TypeOfImage;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.EnumSet;
 import java.util.List;
 
 @Service
@@ -38,4 +39,7 @@ public class ColorService {
         return dAO.deleteColor(color);
     }
 
+    public EnumSet<TypeOfImage> getImageTypeList() {
+        return EnumSet.allOf( TypeOfImage.class );
+    }
 }

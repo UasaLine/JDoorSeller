@@ -2,6 +2,9 @@ jQuery('document').ready(function () {
 
 
     var curreiId = 0;
+    var types;
+
+    getFilterList();
 
     $('tr').on('dblclick', function () {
 
@@ -57,5 +60,32 @@ jQuery('document').ready(function () {
         $(item).attr('pickOut', 'on');
     }
 
+    function getFilterList() {
+        $.ajax({
+            url: 'image/types',
+            dataType: 'json',
+            success: function (data) {
+                types = data;
+                fillInTypes();
+            },
+            error: function (data) {
+                alert('!ERROR: типы фурнитуры получить не удалось:');
+            }
+        });
+    }
 
+    function fillInTypes() {
+        if (types != null) {
+
+            $('#typeOfImage').empty();
+
+            $('#typeOfImage').append(
+                $('<option></option>')
+            );
+
+            for (var i = 0; i < types.length; ++i) {
+                $('#typeOfImage').append($('<option value=' + types[i] + '>' + types[i] + '</option>'));
+            }
+        }
+    }
 });

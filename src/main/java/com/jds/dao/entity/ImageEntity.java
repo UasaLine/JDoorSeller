@@ -1,6 +1,8 @@
 package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
+import com.jds.model.image.TypeOfDoorColor;
+import com.jds.model.image.TypeOfImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,5 +37,13 @@ public class ImageEntity implements LimiItem {
 
     @Column(name = "smooth")
     private int smooth;
+
+    @Column(name = "typeOfImage")
+    @Enumerated(EnumType.STRING)
+    private TypeOfImage typeOfImage;
+
+    @Column(name = "typeOfDoorColor")
+    @Enumerated(EnumType.STRING)
+    private TypeOfDoorColor typeOfDoorColor;
 
 }
