@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.util.List;
 
 @Controller
@@ -17,6 +18,7 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
 
     @GetMapping(value = "/users")
     public String getUsers(Model model) throws Exception {
@@ -58,6 +60,7 @@ public class UserController {
     public String getUsersSettingPage(Model model) throws Exception {
 
         model.addAttribute("setting", service.getUserSetting());
+        model.addAttribute("isAdnin", service.getCurrentUser().isAdmin());
         return "userSetting";
     }
 

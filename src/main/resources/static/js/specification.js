@@ -201,7 +201,7 @@ jQuery('document').ready(function () {
     function grtListDoorClassToSelect() {
 
         $.ajax({
-            url: 'doorclassis',
+            url: 'class/list',
             dataType: 'json',
             success: function (data) {
                 doorClassList = data;
