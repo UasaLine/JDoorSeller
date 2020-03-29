@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "Door_Colors")
-public class ColorEntity implements LimiItem {
+public class ImageEntity implements LimiItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

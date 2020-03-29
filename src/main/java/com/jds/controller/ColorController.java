@@ -1,6 +1,6 @@
 package com.jds.controller;
 
-import com.jds.dao.entity.ColorEntity;
+import com.jds.dao.entity.ImageEntity;
 import com.jds.model.ResponseAction;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class ColorController {
     @GetMapping(value = "/color")
     public String getMetalListPage(Model model) throws Exception {
 
-        List<ColorEntity> list = service.getColors();
+        List<ImageEntity> list = service.getColors();
         model.addAttribute("List", list);
         return "colorList";
     }
@@ -30,7 +30,7 @@ public class ColorController {
 
     @GetMapping(value = "/color/item/{id}")
     @ResponseBody
-    public ColorEntity getFurniture(@PathVariable String id) {
+    public ImageEntity getFurniture(@PathVariable String id) {
 
         return service.getColor(id);
 
@@ -38,7 +38,7 @@ public class ColorController {
 
     @PutMapping(value = "/color/item")
     @ResponseBody
-    public ResponseAction saveMetal(@RequestBody ColorEntity color) {
+    public ResponseAction saveMetal(@RequestBody ImageEntity color) {
 
         return new ResponseAction(service.saveColor(color));
 

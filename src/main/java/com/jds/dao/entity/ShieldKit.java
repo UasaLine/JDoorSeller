@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ShieldKit {
     private int id;
-    private ColorEntity ShieldColor;
-    private ColorEntity ShieldDesign;
+    private ImageEntity ShieldColor;
+    private ImageEntity ShieldDesign;
     private DoorEntity door;
 }

@@ -244,7 +244,7 @@ public class DoorEntity implements SerializingFields {
                 , costMetal);
     }
 
-    public DoorEntity calculateColorDoor(ColorEntity doorColors) {
+    public DoorEntity calculateColorDoor(ImageEntity doorColors) {
 
         double spaceColor = getSpace();//-S_ребер;?
         double costColor = (doorColors.getPricePaintingMeterOfSpace() * spaceColor) / 5;

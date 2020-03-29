@@ -120,7 +120,7 @@ public class UpdateSettingsControllerPro {
         StringReader reader = new StringReader(dataJson);
         ObjectMapper mapper = new ObjectMapper();
 
-        ColorEntity doorColors = mapper.readValue(reader, ColorEntity.class);
+        ImageEntity doorColors = mapper.readValue(reader, ImageEntity.class);
         colorService.saveColor(doorColors);
 
         return "jr";

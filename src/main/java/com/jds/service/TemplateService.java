@@ -118,7 +118,7 @@ public class TemplateService {
 
                 .stuffMetal(metalDao.getMetals())
 
-                .stuffColors(colorDao.getColors())
+                .stuffColors(colorDao.getDoorColors())
 
                 .addTopLock(furnitureDao.getFurniture(TypeOfFurniture.TOP_LOCK))
                 .addLowerLock(furnitureDao.getFurniture(TypeOfFurniture.LOWER_LOCK))

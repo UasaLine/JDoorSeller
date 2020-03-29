@@ -1,7 +1,7 @@
 package com.jds.model;
 
 import com.jds.dao.entity.BendSetting;
-import com.jds.dao.entity.ColorEntity;
+import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorType;
 import com.jds.dao.entity.SalarySetting;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class PayrollSettings {
 
-    private ColorEntity doorColors;
+    private ImageEntity doorColors;
     private BendSetting bendSetting;
     private DoorType doorType;
     private SalarySetting salarySetting;
@@ -19,11 +19,11 @@ public class PayrollSettings {
     public PayrollSettings() {
     }
 
-    public ColorEntity getDoorColors() {
+    public ImageEntity getDoorColors() {
         return doorColors;
     }
 
-    public void setDoorColors(ColorEntity doorColors) {
+    public void setDoorColors(ImageEntity doorColors) {
         this.doorColors = doorColors;
     }
 
