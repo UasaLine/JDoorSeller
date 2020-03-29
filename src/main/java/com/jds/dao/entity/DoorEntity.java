@@ -112,6 +112,9 @@ public class DoorEntity implements SerializingFields {
     private FurnitureKit furnitureKit;
 
     @Transient
+    private ShieldKit shieldKit;
+
+    @Transient
     private CostList costList;
 
     @Transient
@@ -1132,5 +1135,11 @@ public class DoorEntity implements SerializingFields {
         this.orderHolder = orderHolder;
     }
 
+    public ShieldKit getShieldKit() {
+        return shieldKit;
+    }
 
+    public void setShieldKit(ShieldKit shieldKit) {
+        this.shieldKit = shieldKit;
+    }
 }

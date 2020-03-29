@@ -1,9 +1,17 @@
 package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Door_Colors")
 public class ColorEntity implements LimiItem {
@@ -28,60 +36,4 @@ public class ColorEntity implements LimiItem {
     @Column(name = "smooth")
     private int smooth;
 
-    public int getPricePaintingMeterOfSpace() {
-        return pricePaintingMeterOfSpace;
-    }
-
-    public void setPricePaintingMeterOfSpace(int pricePaintingMeterOfSpace) {
-        this.pricePaintingMeterOfSpace = pricePaintingMeterOfSpace;
-    }
-
-    public ColorEntity(String name, String picturePath, int price) {
-        this.name = name;
-        this.picturePath = picturePath;
-        this.pricePaintingMeterOfSpace = price;
-    }
-
-    public ColorEntity() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getIdManufacturerProgram() {
-        return idManufacturerProgram;
-    }
-
-    public void setIdManufacturerProgram(String idManufacturerProgram) {
-        this.idManufacturerProgram = idManufacturerProgram;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPicturePath() {
-        return picturePath;
-    }
-
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
-
-    public int getSmooth() {
-        return smooth;
-    }
-
-    public void setSmooth(int smooth) {
-        this.smooth = smooth;
-    }
 }
