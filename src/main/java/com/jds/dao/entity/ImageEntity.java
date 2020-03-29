@@ -23,7 +23,7 @@ public class ImageEntity implements LimiItem {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "idManufacturerProgram", nullable = false)
+    @Column(name = "idManufacturerProgram")
     private String idManufacturerProgram;
 
     @Column(name = "name")
