@@ -61,6 +61,8 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HEIGHT_FANLIGHT, restriction.getHeightDoorFanlight(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.COLOR_DOOR, restriction.getColors(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_COLOR, restriction.getShieldColor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_DESIGN, restriction.getShieldDesign(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DOORSTEP, restriction.getDoorstep(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP, restriction.getStainlessSteelDoorstep(), limitList);
@@ -196,6 +198,10 @@ public class TemplateService {
 
         } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
             restriction.addColors(lim);
+        } else if (TypeOfLimitionDoor.SHIELD_COLOR == lim.getTypeSettings()) {
+            restriction.addShieldColor(lim);
+        } else if (TypeOfLimitionDoor.SHIELD_DESIGN == lim.getTypeSettings()) {
+            restriction.addShieldDesign(lim);
 
         } else if (TypeOfLimitionDoor.TOP_LOCK == lim.getTypeSettings()) {
             restriction.addTopLock(lim);
