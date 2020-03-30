@@ -12,7 +12,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "Door_Colors")
@@ -46,4 +45,8 @@ public class ImageEntity implements LimiItem {
     @Enumerated(EnumType.STRING)
     private TypeOfDoorColor typeOfDoorColor;
 
+    public ImageEntity() {
+        pricePaintingMeterOfSpace = 0;
+        smooth = 0;
+    }
 }

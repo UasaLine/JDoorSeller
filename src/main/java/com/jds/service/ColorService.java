@@ -30,7 +30,9 @@ public class ColorService {
     }
 
     public String saveColor(@NonNull ImageEntity colors) {
-        colors.setPicturePath("images/Door/AColor1/" + colors.getPicturePath() + ".jpg");
+        if (colors.getPicturePath()!=null){
+            colors.setPicturePath("images/Door/AColor1/" + colors.getPicturePath() + ".jpg");
+        }
         dAO.saveColors(colors);
         return "ok";
     }
