@@ -33,7 +33,7 @@ public class ColorController {
 
     @GetMapping(value = "/color/item/{id}")
     @ResponseBody
-    public ImageEntity getFurniture(@PathVariable String id) {
+    public ImageEntity getColor(@PathVariable String id) {
 
         return service.getColor(id);
 
@@ -41,7 +41,7 @@ public class ColorController {
 
     @PutMapping(value = "/color/item")
     @ResponseBody
-    public ResponseAction saveMetal(@RequestBody ImageEntity color) {
+    public ResponseAction saveColor(@RequestBody ImageEntity color) {
 
         return new ResponseAction(service.saveColor(color));
 
@@ -49,7 +49,7 @@ public class ColorController {
 
     @DeleteMapping(value = "/color/{id}")
     @ResponseBody
-    public ResponseAction deleteFurniture(@PathVariable String id) {
+    public ResponseAction deleteColor(@PathVariable String id) {
 
         return new ResponseAction(service.deleteColor(id));
 

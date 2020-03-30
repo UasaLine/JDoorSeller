@@ -190,6 +190,52 @@ public class RestrictionOfSelectionFields {
 
     }
 
+    public RestrictionOfSelectionFields stuffShieldColor(@NonNull List<ImageEntity> colors) {
+
+        colors.stream().forEach((color) -> addShieldColor(color));
+        return this;
+    }
+
+    public void addShieldColor(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.shieldColor.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.SHIELD_COLOR)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
+    }
+
+    public void addShieldColor(@NonNull LimitationDoor color) {
+
+        this.shieldColor.add(color.setNuulLazyFild());
+
+    }
+
+    public RestrictionOfSelectionFields stuffShieldDesign(@NonNull List<ImageEntity> colors) {
+
+        colors.stream().forEach((color) -> addShieldDesign(color));
+        return this;
+    }
+
+    public void addShieldDesign(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.shieldDesign.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.SHIELD_DESIGN)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
+    }
+
+    public void addShieldDesign(@NonNull LimitationDoor color) {
+
+        this.shieldDesign.add(color.setNuulLazyFild());
+
+    }
+
     public RestrictionOfSelectionFields addTopLock(@NonNull List<DoorFurniture> furnitures) {
         topLock = new ArrayList<>();
         for (DoorFurniture furniture : furnitures) {

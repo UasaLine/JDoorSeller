@@ -260,6 +260,60 @@ jQuery('document').ready(function () {
         }
     });
 
+    $('#shieldColorDiv').change('.shieldColorSelect', function () {
+
+        if(checkForAllSelect('shieldColor')){
+            deleteFields('shieldColor');
+            installFromTemplateColor(restriction.shieldColor);
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('colors');
+            if (allFieldsAreFilled('.colorsSelect')) {
+                //addSelectField('colors');
+                addField('colors', 'select', 'Select');
+            }
+            fillInColor();
+        }
+
+    });
+    $('#shieldColorDiv').on('click', '.shieldColorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('shieldColor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('shieldColor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldColor');
+        }
+    });
+
+    $('#shieldDesignDiv').change('.shieldDesignSelect', function () {
+
+        if(checkForAllSelect('shieldDesign')){
+            deleteFields('shieldDesign');
+            installFromTemplateColor(restriction.shieldDesign);
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldDesign');
+            if (allFieldsAreFilled('.shieldDesignSelect')) {
+                //addSelectField('colors');
+                addField('colors', 'select', 'Select');
+            }
+            fillInColor();
+        }
+
+    });
+    $('#shieldDesignDiv').on('click', '.shieldDesignLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('shieldDesign');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('shieldDesign');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldDesign');
+        }
+    });
+
 
     $('#doorstepDiv').change('.doorstepSelect', function () {
 

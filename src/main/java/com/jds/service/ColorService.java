@@ -17,7 +17,7 @@ public class ColorService {
     private ColorRepository dAO;
 
     public List<ImageEntity> getColors() {
-        return dAO.getDoorColors();
+        return dAO.getImages();
     }
 
     public ImageEntity getColor(@NonNull String id) {

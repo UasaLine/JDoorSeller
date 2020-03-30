@@ -7,6 +7,6 @@ create table Door_Colors
     picturePathFirst      CHARACTER VARYING(100),
     price                 int,
     smooth                int,
-    typeOfImage           CHARACTER VARYING(12)  NOT NULL,
+    typeOfImage           CHARACTER VARYING(20)  NOT NULL,
     typeOfDoorColor       CHARACTER VARYING(12)
 );
