@@ -1,21 +1,22 @@
 package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
+import com.jds.model.SerializingFields;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Entity
 @Table(name = "Door_Colors")
-public class ImageEntity implements LimiItem {
+public class ImageEntity implements LimiItem, SerializingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +46,22 @@ public class ImageEntity implements LimiItem {
     @Enumerated(EnumType.STRING)
     private TypeOfDoorColor typeOfDoorColor;
 
+
+    // kit
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
+    private List<ImageEntity> shieldColor;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
+    private List<ImageEntity> shieldDesign;
+
     public ImageEntity() {
         pricePaintingMeterOfSpace = 0;
         smooth = 0;
+    }
+
+    public ImageEntity clearNonSerializingFields(){
+        this.setShieldColor(null);
+        this.setShieldDesign(null);
+        return this;
     }
 }

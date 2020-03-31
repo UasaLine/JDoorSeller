@@ -111,7 +111,8 @@ public class DoorEntity implements SerializingFields {
     @JoinColumn(name = "furniture_id", referencedColumnName = "id")
     private FurnitureKit furnitureKit;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shield_id", referencedColumnName = "id")
     private ShieldKit shieldKit;
 
     @Transient
@@ -208,6 +209,9 @@ public class DoorEntity implements SerializingFields {
         }
         if (getFurnitureKit() != null) {
             getFurnitureKit().clearNonSerializingFields();
+        }
+        if (getShieldKit() != null) {
+            getShieldKit().clearNonSerializingFields();
         }
         if (doorType != null) {
             doorType.clearNonSerializingFields();

@@ -3,16 +3,30 @@ package com.jds.dao.entity;
 import com.jds.model.AvailableFieldsForSelection;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "ShieldKit")
 public class ShieldKit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @ManyToOne()
+    @JoinColumn(name = "shieldColor")
     private ImageEntity shieldColor;
+
+    @ManyToOne()
+    @JoinColumn(name = "shieldDesign")
     private ImageEntity shieldDesign;
+
+    @OneToOne(mappedBy = "shieldKit",fetch = FetchType.LAZY)
     private DoorEntity door;
 
     public static ShieldKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields) {
@@ -34,5 +48,12 @@ public class ShieldKit {
             return false;
         }
         return true;
+    }
+
+    public ShieldKit clearNonSerializingFields() {
+        door = null;
+        shieldColor.clearNonSerializingFields();
+        shieldDesign.clearNonSerializingFields();
+        return this;
     }
 }
