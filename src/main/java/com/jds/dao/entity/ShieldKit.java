@@ -1,9 +1,9 @@
 package com.jds.dao.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.jds.model.AvailableFieldsForSelection;
+import lombok.*;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -14,4 +14,25 @@ public class ShieldKit {
     private ImageEntity shieldColor;
     private ImageEntity shieldDesign;
     private DoorEntity door;
+
+    public static ShieldKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields) {
+        ShieldKit kit = new ShieldKit();
+        kit.setShieldColor(getFirst(AvailableFields.getShieldColor()));
+        kit.setShieldDesign(getFirst(AvailableFields.getShieldDesign()));
+        return kit;
+    }
+
+    private static ImageEntity getFirst(List<ImageEntity> list) {
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    public boolean exists() {
+        if (shieldColor == null && shieldDesign == null) {
+            return false;
+        }
+        return true;
+    }
 }

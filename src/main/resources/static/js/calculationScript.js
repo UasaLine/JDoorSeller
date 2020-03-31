@@ -126,7 +126,17 @@ jQuery('document').ready(function () {
     });
 
     $('.div_images_furniture').on('click', function () {
-        setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
+        setDoorFurniture($(this).attr('Item'), $(this).attr('data'),door.furnitureKit);
+        displayObject(door);
+        pickOut(this);
+        if (goTo!="") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
+    });
+
+    $('.div_images_Image').on('click', function () {
+        setDoorFurniture($(this).attr('Item'), $(this).attr('data'),door.shieldKit);
         displayObject(door);
         pickOut(this);
         if (goTo!="") {
@@ -471,15 +481,16 @@ jQuery('document').ready(function () {
         door.doorGlass[fieldName] = value;
     }
 
-    function setDoorFurniture(fieldName, value) {
+    function setDoorFurniture(fieldName, value,doorKit) {
         var furn = findObject(fieldName, value);
-        door.furnitureKit[fieldName] = furn;
+        doorKit[fieldName] = furn;
     }
 
     function findObject(name, value) {
         if(name=='lowerLockCylinder'||name=='topLockCylinder'){
             name =  'lockCylinder';
         }
+
         var sizeRest = availableFurnitureList[name].length;
         var tab = availableFurnitureList[name];
         for (var i = 0; i < sizeRest; ++i) {
@@ -959,7 +970,7 @@ jQuery('document').ready(function () {
         for (var i = 0; i < amountElements; ++i) {
             if ((i + biasInt) < tabSize) {
                 $('#images'+nameJava+'Div' + i).attr('show', 'is_alive_lement');
-                $('#images'+nameJava+'Div' + i).attr('data', tab[i + biasInt].firstItem);
+                $('#images'+nameJava+'Div' + i).attr('data', tab[i + biasInt].id);
                 $('#images'+nameJava+'Img' + i).attr('src', tab[i + biasInt].picturePath);
                 $('#images'+nameJava+'Span' + i).text(tab[i + biasInt].name);
             } else {
@@ -1243,6 +1254,7 @@ jQuery('document').ready(function () {
                 alert('error: getting the door failed !');
             }
         });
+
     };
 
     function getFurnitureAvailableFields() {
@@ -1503,7 +1515,7 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "topLockkit") {
-            fillChildBlock('topLockkit', 'topLock');
+            fillChildBlockFurniture('topLockkit', 'topLock');
             $('.select_topLockkit').attr('show', 'is_alive_lement');
 
         } else {
@@ -1522,7 +1534,7 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "lowerLockkit") {
-            fillChildBlock('lowerLockkit', 'lowerLock');
+            fillChildBlockFurniture('lowerLockkit', 'lowerLock');
             $('.select_lowerLockkit').attr('show', 'is_alive_lement');
         } else {
             $('.select_lowerLockkit').attr('show', 'ghost_lement');
@@ -1589,8 +1601,11 @@ jQuery('document').ready(function () {
             $('.select_lowerLockCylinder').attr('show', 'ghost_lement');
         }
 
-        if (currentItem == "shieldKit") {
+        //shield
 
+        if (currentItem == "shieldKit") {
+            fillChildBlockShield('shieldColor');
+            fillChildBlockShield( 'shieldDesign');
             $('.select_shieldKit').attr('show', 'is_alive_lement');
         } else {
             $('.select_shieldKit').attr('show', 'ghost_lement');
@@ -1747,7 +1762,7 @@ jQuery('document').ready(function () {
         });
     }
 
-    function fillChildBlock(grupName, name) {
+    function fillChildBlockFurniture(grupName, name) {
 
         //set Child field
         var val = $('#' + grupName + 'Show').html();
@@ -1767,6 +1782,14 @@ jQuery('document').ready(function () {
         } else {
             showCylinderLock(name, false);
             availableLockDecoration(name, false);
+        }
+    };
+
+    function fillChildBlockShield( name) {
+        //set Child field
+        var jObject = door.shieldKit[name]
+        if(jObject!=null){
+            $('#' + name + 'Show').html(jObject.name);
         }
     };
 
@@ -1805,5 +1828,6 @@ jQuery('document').ready(function () {
             return $(this).attr('data') == id;
         }).attr('check', 'checkbox');
     };
+
 
 });

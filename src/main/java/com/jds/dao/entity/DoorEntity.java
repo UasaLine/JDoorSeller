@@ -157,13 +157,16 @@ public class DoorEntity implements SerializingFields {
     @Transient
     private int orderHolder;
 
-    public DoorEntity initializeGlassAndFurnitureKit() {
+    public DoorEntity initKitFields() {
 
         if (furnitureKit == null) {
             furnitureKit = new FurnitureKit();
         }
         if (doorGlass == null) {
             doorGlass = new DoorGlass();
+        }
+        if (shieldKit == null) {
+            shieldKit = new ShieldKit();
         }
         return this;
     }
@@ -191,6 +194,9 @@ public class DoorEntity implements SerializingFields {
         }
         if (furnitureKit != null && !furnitureKit.exists()) {
             furnitureKit = null;
+        }
+        if (shieldKit != null && !shieldKit.exists()) {
+            shieldKit = null;
         }
         return this;
     }

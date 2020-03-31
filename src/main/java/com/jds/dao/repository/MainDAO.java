@@ -522,7 +522,7 @@ public class MainDAO {
 
         DoorEntity door = null;
         if (doorsList.size() > 0) {
-            door = doorsList.get(0).initializeGlassAndFurnitureKit();
+            door = doorsList.get(0).initKitFields();
         }
         return door;
     }
