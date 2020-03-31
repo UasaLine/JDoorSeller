@@ -641,6 +641,9 @@ jQuery('document').ready(function () {
 
     $('#saveTemplate').on('click', function () {
 
+        if(template.doorTypeid == 0){
+            template.doorTypeid = $('#doortypeselect').val();
+        }
         var templateJSON = JSON.stringify(template);
 
         $.ajax({
