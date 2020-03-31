@@ -1256,6 +1256,9 @@ jQuery('document').ready(function () {
             displayListOfItems('typeDoorGlass', availableFurnitureList.typeDoorGlass, 0, '');
             displayListOfItems('toning', availableFurnitureList.toning, 0, '');
             displayListOfItems('armor', availableFurnitureList.armor, 0, '');
+
+            displayListOfItems('shieldColor', availableFurnitureList.shieldColor, 0, 'kit');
+            displayListOfItems('shieldDesign', availableFurnitureList.shieldDesign, 0, 'kit');
             RestrictionOfSelectionFields = data;
 
         }
@@ -1412,6 +1415,7 @@ jQuery('document').ready(function () {
             $('.select_additionalDoorSettings').attr('show', 'ghost_lement');
         }
 
+
         if (currentItem == "doorColor") {
             $('.select_doorColor').attr('show', 'is_alive_lement');
         } else {
@@ -1542,6 +1546,35 @@ jQuery('document').ready(function () {
 
         } else {
             $('.select_lowerLockCylinder').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "shieldKit") {
+
+            $('.select_shieldKit').attr('show', 'is_alive_lement');
+        } else {
+            $('.select_shieldKit').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "shieldColor") {
+
+            $('.select_shieldColor').attr('show', 'is_alive_lement');
+            goTo = 'shieldKit';
+            currentItemForDisplay = $('#nameshieldKit').html();
+
+            currentItemForDisplayId = 'shieldKit';
+        } else {
+            $('.select_shieldColor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "shieldDesign") {
+
+            $('.select_shieldDesign').attr('show', 'is_alive_lement');
+            goTo = 'shieldKit';
+            currentItemForDisplay = $('#nameshieldKit').html();
+
+            currentItemForDisplayId = 'shieldKit';
+        } else {
+            $('.select_shieldDesign').attr('show', 'ghost_lement');
         }
     }
 

@@ -206,7 +206,7 @@ public class DoorService implements DoorServ {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
                 .collect(Collectors.toList());
-        return furnitureService.ConvertToFurniture(defList);
+        return furnitureService.convertToFurniture(defList);
     }
 
     public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {

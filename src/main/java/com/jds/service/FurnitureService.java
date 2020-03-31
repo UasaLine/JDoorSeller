@@ -1,5 +1,7 @@
 package com.jds.service;
 
+import com.jds.dao.entity.ImageEntity;
+import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.repository.FurnitureRepository;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
@@ -20,6 +22,8 @@ public class FurnitureService {
 
     @Autowired
     private FurnitureRepository repository;
+    @Autowired
+    private ColorRepository colorRepository;
     @Autowired
     private TemplateService templateService;
 
@@ -53,19 +57,26 @@ public class FurnitureService {
     public AvailableFieldsForSelection getAvailableFields(String doorTypeId) {
         RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(doorTypeId));
         return AvailableFieldsForSelection.builder()
-                .topLock(ConvertToFurniture(template.getTopLock()))
-                .lowerLock(ConvertToFurniture(template.getLowerLock()))
-                .lockCylinder(ConvertToFurniture(template.getLockCylinder()))
-                .handle(ConvertToFurniture(template.getHandle()))
+                .topLock(convertToFurniture(template.getTopLock()))
+                .lowerLock(convertToFurniture(template.getLowerLock()))
+                .lockCylinder(convertToFurniture(template.getLockCylinder()))
+                .handle(convertToFurniture(template.getHandle()))
+                .shieldColor(convertToImage(template.getShieldColor()))
+                .shieldDesign(convertToImage(template.getShieldDesign()))
                 .build();
 
 
     }
 
-    public List<DoorFurniture> ConvertToFurniture(List<LimitationDoor> topLock) {
+    public List<DoorFurniture> convertToFurniture(List<LimitationDoor> topLock) {
         return topLock.stream()
                 .map(lim -> repository.getFurnitureById(lim.getItemId()))
                 .peek(furniture -> furniture.clearNonSerializingFields())
+                .collect(Collectors.toList());
+    }
+    public List<ImageEntity> convertToImage(List<LimitationDoor> topLock) {
+        return topLock.stream()
+                .map(lim -> colorRepository.getColorById(lim.getItemId()))
                 .collect(Collectors.toList());
     }
 }
