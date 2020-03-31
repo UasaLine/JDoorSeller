@@ -126,7 +126,17 @@ jQuery('document').ready(function () {
     });
 
     $('.div_images_furniture').on('click', function () {
-        setDoorFurniture($(this).attr('Item'), $(this).attr('data'));
+        setDoorFurniture($(this).attr('Item'), $(this).attr('data'),door.furnitureKit);
+        displayObject(door);
+        pickOut(this);
+        if (goTo!="") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
+    });
+
+    $('.div_images_Image').on('click', function () {
+        setDoorFurniture($(this).attr('Item'), $(this).attr('data'),door.shieldKit);
         displayObject(door);
         pickOut(this);
         if (goTo!="") {
@@ -471,15 +481,16 @@ jQuery('document').ready(function () {
         door.doorGlass[fieldName] = value;
     }
 
-    function setDoorFurniture(fieldName, value) {
+    function setDoorFurniture(fieldName, value,doorKit) {
         var furn = findObject(fieldName, value);
-        door.furnitureKit[fieldName] = furn;
+        doorKit[fieldName] = furn;
     }
 
     function findObject(name, value) {
         if(name=='lowerLockCylinder'||name=='topLockCylinder'){
             name =  'lockCylinder';
         }
+
         var sizeRest = availableFurnitureList[name].length;
         var tab = availableFurnitureList[name];
         for (var i = 0; i < sizeRest; ++i) {
@@ -895,9 +906,9 @@ jQuery('document').ready(function () {
         return ""
     };
 
-    function displayColor(bias) {
+    function displayColor(nameJava,tab,bias) {
 
-        var tabSize = colors.length;
+        var tabSize = tab.length;
         var amountElements = 15;
         var amountPag = (tabSize / amountElements).toFixed(0);
         var biasInt = Number.parseInt(bias) * amountElements;
@@ -920,18 +931,57 @@ jQuery('document').ready(function () {
 
         for (var i = 0; i < amountElements; ++i) {
             if ((i + biasInt) < tabSize) {
-                $('#imagesdoorColorDiv' + i).attr('show', 'is_alive_lement');
-                $('#imagesdoorColorDiv' + i).attr('data', colors[i + biasInt].firstItem);
-                $('#imagesdoorColorImg' + i).attr('src', colors[i + biasInt].picturePath);
-                $('#imagesdoorColorSpan' + i).text(colors[i + biasInt].firstItem);
+                $('#images'+nameJava+'Div' + i).attr('show', 'is_alive_lement');
+                $('#images'+nameJava+'Div' + i).attr('data', tab[i + biasInt].firstItem);
+                $('#images'+nameJava+'Img' + i).attr('src', tab[i + biasInt].picturePath);
+                $('#images'+nameJava+'Span' + i).text(tab[i + biasInt].firstItem);
             } else {
-                $('#imagesdoorColorDiv' + i).attr('show', 'ghost_lement');
-                $('#imagesdoorColorDiv' + i).attr('data', "");
-                $('#imagesdoorColorImg' + i).attr('src', "");
-                $('#imagesdoorColorSpan' + i).text("");
+                $('#images'+nameJava+'Div' + i).attr('show', 'ghost_lement');
+                $('#images'+nameJava+'Div' + i).attr('data', "");
+                $('#images'+nameJava+'Img' + i).attr('src', "");
+                $('#images'+nameJava+'Span' + i).text("");
             }
         }
     }
+
+    function displayImage(nameJava,tab,bias) {
+
+        var tabSize = tab.length;
+        var amountElements = 15;
+        var amountPag = (tabSize / amountElements).toFixed(0);
+        var biasInt = Number.parseInt(bias) * amountElements;
+
+        //delete
+        $('.pag').remove();
+
+        for (var i = 0; i < amountPag; ++i) {
+            $('<a>').attr('class', 'pag')
+                .attr('data', i)
+                .text('' + i + ' ')
+                .appendTo('.color_pages');
+        }
+        $('<a>').attr('class', 'pag')
+            .attr('data', '>')
+            .text(' > ')
+            .appendTo('.color_pages');
+
+        $('.color_pages').attr('data', bias);
+
+        for (var i = 0; i < amountElements; ++i) {
+            if ((i + biasInt) < tabSize) {
+                $('#images'+nameJava+'Div' + i).attr('show', 'is_alive_lement');
+                $('#images'+nameJava+'Div' + i).attr('data', tab[i + biasInt].id);
+                $('#images'+nameJava+'Img' + i).attr('src', tab[i + biasInt].picturePath);
+                $('#images'+nameJava+'Span' + i).text(tab[i + biasInt].name);
+            } else {
+                $('#images'+nameJava+'Div' + i).attr('show', 'ghost_lement');
+                $('#images'+nameJava+'Div' + i).attr('data', "");
+                $('#images'+nameJava+'Img' + i).attr('src', "");
+                $('#images'+nameJava+'Span' + i).text("");
+            }
+        }
+    }
+
 
     function displayadditionalDoorSettings(data) {
 
@@ -1204,6 +1254,7 @@ jQuery('document').ready(function () {
                 alert('error: getting the door failed !');
             }
         });
+
     };
 
     function getFurnitureAvailableFields() {
@@ -1243,8 +1294,12 @@ jQuery('document').ready(function () {
             displayWidthDoorAndHeightDoor(data);
             displayheightDoorFanlight(data);
             displayDeepnessDoorAndThicknessDoorLeaf(data);
+
             colors = data.colors;
-            displayColor(0);
+            displayColor('doorColor',data.colors,0);
+            displayImage('shieldColor',availableFurnitureList.shieldColor,0);
+            displayImage('shieldDesign',availableFurnitureList.shieldDesign,0);
+
             displayadditionalDoorSettings(data);
             displayListOfItems('topLock', availableFurnitureList.topLock, 0, 'kit');
             displayListOfItems('lowerLock', availableFurnitureList.lowerLock, 0, 'kit');
@@ -1256,6 +1311,7 @@ jQuery('document').ready(function () {
             displayListOfItems('typeDoorGlass', availableFurnitureList.typeDoorGlass, 0, '');
             displayListOfItems('toning', availableFurnitureList.toning, 0, '');
             displayListOfItems('armor', availableFurnitureList.armor, 0, '');
+
             RestrictionOfSelectionFields = data;
 
         }
@@ -1412,6 +1468,7 @@ jQuery('document').ready(function () {
             $('.select_additionalDoorSettings').attr('show', 'ghost_lement');
         }
 
+
         if (currentItem == "doorColor") {
             $('.select_doorColor').attr('show', 'is_alive_lement');
         } else {
@@ -1458,7 +1515,7 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "topLockkit") {
-            fillChildBlock('topLockkit', 'topLock');
+            fillChildBlockFurniture('topLockkit', 'topLock');
             $('.select_topLockkit').attr('show', 'is_alive_lement');
 
         } else {
@@ -1477,7 +1534,7 @@ jQuery('document').ready(function () {
         }
 
         if (currentItem == "lowerLockkit") {
-            fillChildBlock('lowerLockkit', 'lowerLock');
+            fillChildBlockFurniture('lowerLockkit', 'lowerLock');
             $('.select_lowerLockkit').attr('show', 'is_alive_lement');
         } else {
             $('.select_lowerLockkit').attr('show', 'ghost_lement');
@@ -1542,6 +1599,38 @@ jQuery('document').ready(function () {
 
         } else {
             $('.select_lowerLockCylinder').attr('show', 'ghost_lement');
+        }
+
+        //shield
+
+        if (currentItem == "shieldKit") {
+            fillChildBlockShield('shieldColor');
+            fillChildBlockShield( 'shieldDesign');
+            $('.select_shieldKit').attr('show', 'is_alive_lement');
+        } else {
+            $('.select_shieldKit').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "shieldColor") {
+
+            $('.select_shieldColor').attr('show', 'is_alive_lement');
+            goTo = 'shieldKit';
+            currentItemForDisplay = $('#nameshieldKit').html();
+
+            currentItemForDisplayId = 'shieldKit';
+        } else {
+            $('.select_shieldColor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "shieldDesign") {
+
+            $('.select_shieldDesign').attr('show', 'is_alive_lement');
+            goTo = 'shieldKit';
+            currentItemForDisplay = $('#nameshieldKit').html();
+
+            currentItemForDisplayId = 'shieldKit';
+        } else {
+            $('.select_shieldDesign').attr('show', 'ghost_lement');
         }
     }
 
@@ -1673,7 +1762,7 @@ jQuery('document').ready(function () {
         });
     }
 
-    function fillChildBlock(grupName, name) {
+    function fillChildBlockFurniture(grupName, name) {
 
         //set Child field
         var val = $('#' + grupName + 'Show').html();
@@ -1693,6 +1782,14 @@ jQuery('document').ready(function () {
         } else {
             showCylinderLock(name, false);
             availableLockDecoration(name, false);
+        }
+    };
+
+    function fillChildBlockShield( name) {
+        //set Child field
+        var jObject = door.shieldKit[name]
+        if(jObject!=null){
+            $('#' + name + 'Show').html(jObject.name);
         }
     };
 
@@ -1731,5 +1828,6 @@ jQuery('document').ready(function () {
             return $(this).attr('data') == id;
         }).attr('check', 'checkbox');
     };
+
 
 });

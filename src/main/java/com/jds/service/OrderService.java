@@ -1,9 +1,9 @@
 package com.jds.service;
 
-import com.jds.dao.OrderDAO;
-import com.jds.entity.DoorEntity;
-import com.jds.entity.DoorsОrder;
-import com.jds.entity.UserEntity;
+import com.jds.dao.repository.OrderDAO;
+import com.jds.dao.entity.DoorEntity;
+import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.UserEntity;
 import com.jds.model.PrintAppToTheOrder;
 import com.jds.model.modelEnum.OrderStatus;
 import lombok.NonNull;

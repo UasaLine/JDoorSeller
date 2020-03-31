@@ -1,7 +1,10 @@
 package com.jds.service;
 
-import com.jds.dao.*;
-import com.jds.entity.*;
+import com.jds.dao.entity.*;
+import com.jds.dao.repository.ColorRepository;
+import com.jds.dao.repository.MainDAO;
+import com.jds.dao.repository.MetalRepository;
+import com.jds.dao.repository.OrderDAO;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
@@ -179,15 +182,18 @@ public class DoorService implements DoorServ {
         doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
-                .topLock(defaultAndConvert(template.getTopLock()))
-                .lowerLock(defaultAndConvert(template.getLowerLock()))
-                .lockCylinder(defaultAndConvert(template.getLowerLock()))
-                .handle(defaultAndConvert(template.getHandle()))
+                .topLock(defaultAndConvertToFurniture(template.getTopLock()))
+                .lowerLock(defaultAndConvertToFurniture(template.getLowerLock()))
+                .lockCylinder(defaultAndConvertToFurniture(template.getLowerLock()))
+                .handle(defaultAndConvertToFurniture(template.getHandle()))
+                .shieldColor(defaultAndConvertToImage(template.getShieldColor()))
+                .shieldDesign(defaultAndConvertToImage(template.getShieldDesign()))
                 .build();
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
+        doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
+
         /*
         isDoorGlass
-        furnitureKit
         doorGlass
 
         additionallyHingeMain
@@ -199,11 +205,17 @@ public class DoorService implements DoorServ {
 
     }
 
-    private List<DoorFurniture> defaultAndConvert(List<LimitationDoor> listLim) {
+    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
                 .collect(Collectors.toList());
-        return furnitureService.ConvertToFurniture(defList);
+        return furnitureService.convertToFurniture(defList);
+    }
+    private List<ImageEntity> defaultAndConvertToImage(List<LimitationDoor> listLim) {
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+        return furnitureService.convertToImage(defList);
     }
 
     public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {

@@ -1,7 +1,7 @@
 package com.jds.model;
 
-import com.jds.entity.DoorFurniture;
-import com.jds.entity.LimitationDoor;
+import com.jds.dao.entity.DoorFurniture;
+import com.jds.dao.entity.ImageEntity;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -22,4 +22,6 @@ public class AvailableFieldsForSelection {
     private List<DoorFurniture> lowerInLockDecor = new ArrayList<>();
     private List<DoorFurniture> lowerOutLockDecor = new ArrayList<>();
     private List<DoorFurniture> closer = new ArrayList<>();
+    private List<ImageEntity> shieldColor = new ArrayList<>();
+    private List<ImageEntity> shieldDesign = new ArrayList<>();
 }

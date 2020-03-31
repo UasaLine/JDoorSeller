@@ -1,8 +1,8 @@
 package com.jds.service;
 
-import com.jds.entity.DoorEntity;
-import com.jds.entity.DoorsОrder;
-import com.jds.entity.LineSpecification;
+import com.jds.dao.entity.DoorEntity;
+import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.LineSpecification;
 import lombok.NonNull;
 
 import java.util.List;

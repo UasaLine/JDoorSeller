@@ -1,7 +1,7 @@
 package com.jds.controller;
 
-import com.jds.entity.DoorsОrder;
-import com.jds.entity.UserEntity;
+import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.UserEntity;
 import com.jds.model.modelEnum.OrderStatus;
 import com.jds.service.OrderService;
 import com.jds.service.UserServ;

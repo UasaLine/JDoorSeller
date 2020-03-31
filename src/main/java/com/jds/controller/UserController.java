@@ -1,6 +1,6 @@
 package com.jds.controller;
 
-import com.jds.entity.UserEntity;
+import com.jds.dao.entity.UserEntity;
 
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

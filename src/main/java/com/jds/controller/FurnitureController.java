@@ -1,6 +1,6 @@
 package com.jds.controller;
 
-import com.jds.entity.DoorFurniture;
+import com.jds.dao.entity.DoorFurniture;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.ResponseAction;
 import com.jds.model.modelEnum.TypeOfFurniture;

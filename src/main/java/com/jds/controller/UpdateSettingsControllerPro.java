@@ -2,21 +2,18 @@ package com.jds.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jds.dao.MainDAO;
-import com.jds.dao.MetalRepository;
-import com.jds.entity.*;
+import com.jds.dao.repository.MainDAO;
+import com.jds.dao.repository.MetalRepository;
+import com.jds.dao.entity.*;
 import com.jds.service.ColorService;
 import com.jds.service.MaineService;
-import com.jds.service.MetalService;
 import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.StringReader;
-import java.util.List;
 
 
 @Controller
@@ -123,7 +120,7 @@ public class UpdateSettingsControllerPro {
         StringReader reader = new StringReader(dataJson);
         ObjectMapper mapper = new ObjectMapper();
 
-        DoorColors doorColors = mapper.readValue(reader, DoorColors.class);
+        ImageEntity doorColors = mapper.readValue(reader, ImageEntity.class);
         colorService.saveColor(doorColors);
 
         return "jr";

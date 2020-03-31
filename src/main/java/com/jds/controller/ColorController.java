@@ -1,15 +1,16 @@
 package com.jds.controller;
 
-import com.jds.entity.DoorColors;
-import com.jds.entity.Metal;
+import com.jds.dao.entity.ImageEntity;
 import com.jds.model.ResponseAction;
+import com.jds.model.image.TypeOfDoorColor;
+import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
-import com.jds.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.EnumSet;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,7 @@ public class ColorController {
     @GetMapping(value = "/color")
     public String getMetalListPage(Model model) throws Exception {
 
-        List<DoorColors> list = service.getColors();
+        List<ImageEntity> list = service.getColors();
         model.addAttribute("List", list);
         return "colorList";
     }
@@ -32,7 +33,7 @@ public class ColorController {
 
     @GetMapping(value = "/color/item/{id}")
     @ResponseBody
-    public DoorColors getFurniture(@PathVariable String id) {
+    public ImageEntity getColor(@PathVariable String id) {
 
         return service.getColor(id);
 
@@ -40,7 +41,7 @@ public class ColorController {
 
     @PutMapping(value = "/color/item")
     @ResponseBody
-    public ResponseAction saveMetal(@RequestBody DoorColors color) {
+    public ResponseAction saveColor(@RequestBody ImageEntity color) {
 
         return new ResponseAction(service.saveColor(color));
 
@@ -48,9 +49,25 @@ public class ColorController {
 
     @DeleteMapping(value = "/color/{id}")
     @ResponseBody
-    public ResponseAction deleteFurniture(@PathVariable String id) {
+    public ResponseAction deleteColor(@PathVariable String id) {
 
         return new ResponseAction(service.deleteColor(id));
+
+    }
+
+    @GetMapping(value = "/image/types")
+    @ResponseBody
+    public EnumSet<TypeOfImage> getImageTypeList() {
+
+        return service.getImageTypeList();
+
+    }
+
+    @GetMapping(value = "/door-color/types")
+    @ResponseBody
+    public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
+
+        return service.getImageTypeDoorColor();
 
     }
 }

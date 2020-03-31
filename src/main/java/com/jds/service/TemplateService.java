@@ -1,8 +1,8 @@
 package com.jds.service;
 
-import com.jds.dao.*;
-import com.jds.entity.DoorType;
-import com.jds.entity.LimitationDoor;
+import com.jds.dao.entity.DoorType;
+import com.jds.dao.entity.LimitationDoor;
+import com.jds.dao.repository.*;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.ShortTemplate;
@@ -61,6 +61,8 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HEIGHT_FANLIGHT, restriction.getHeightDoorFanlight(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.COLOR_DOOR, restriction.getColors(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_COLOR, restriction.getShieldColor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_DESIGN, restriction.getShieldDesign(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DOORSTEP, restriction.getDoorstep(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP, restriction.getStainlessSteelDoorstep(), limitList);
@@ -118,7 +120,9 @@ public class TemplateService {
 
                 .stuffMetal(metalDao.getMetals())
 
-                .stuffColors(colorDao.getColors())
+                .stuffColors(colorDao.getDoorColors())
+                .stuffShieldColor(colorDao.getShieldColor())
+                .stuffShieldDesign(colorDao.getShieldDesign())
 
                 .addTopLock(furnitureDao.getFurniture(TypeOfFurniture.TOP_LOCK))
                 .addLowerLock(furnitureDao.getFurniture(TypeOfFurniture.LOWER_LOCK))
@@ -194,6 +198,10 @@ public class TemplateService {
 
         } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
             restriction.addColors(lim);
+        } else if (TypeOfLimitionDoor.SHIELD_COLOR == lim.getTypeSettings()) {
+            restriction.addShieldColor(lim);
+        } else if (TypeOfLimitionDoor.SHIELD_DESIGN == lim.getTypeSettings()) {
+            restriction.addShieldDesign(lim);
 
         } else if (TypeOfLimitionDoor.TOP_LOCK == lim.getTypeSettings()) {
             restriction.addTopLock(lim);

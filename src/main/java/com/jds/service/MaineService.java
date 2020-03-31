@@ -1,11 +1,8 @@
 package com.jds.service;
 
-import com.jds.dao.ColorRepository;
-import com.jds.dao.MainDAO;
-import com.jds.dao.MetalRepository;
-import com.jds.entity.*;
+import com.jds.dao.repository.MainDAO;
+import com.jds.dao.entity.*;
 import com.jds.model.*;
-import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

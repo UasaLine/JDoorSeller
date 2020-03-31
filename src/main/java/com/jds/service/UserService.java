@@ -1,11 +1,11 @@
 package com.jds.service;
 
 
-import com.jds.dao.OrderDAO;
-import com.jds.dao.UserDAO;
-import com.jds.entity.DoorsОrder;
-import com.jds.entity.UserEntity;
-import com.jds.entity.UserSetting;
+import com.jds.dao.repository.OrderDAO;
+import com.jds.dao.repository.UserDAO;
+import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.UserEntity;
+import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
 import lombok.NonNull;

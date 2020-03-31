@@ -47,5 +47,8 @@ public enum TypeOfLimitionDoor {
 
     TYPE_GLASS,
     TONING,
-    ARMOR
+    ARMOR,
+
+    SHIELD_COLOR,
+    SHIELD_DESIGN
 }

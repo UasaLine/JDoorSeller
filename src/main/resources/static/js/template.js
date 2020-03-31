@@ -39,7 +39,7 @@ jQuery('document').ready(function () {
         installFromTemplateSize('thicknessDoorLeaf', false);
 
         installFromTemplateMetal();
-        installFromTemplateColor(template.colors);
+        installFromTemplateColor(template.colors,'colors');
 
         installFromTemplateSelect('doorstep');
         installFromTemplateSelect('stainlessSteelDoorstep');
@@ -69,12 +69,15 @@ jQuery('document').ready(function () {
         installFromTemplateFurnitur('toning');
         installFromTemplateFurnitur('armor');
 
+        installFromTemplateFurnitur('shieldColor');
+        installFromTemplateFurnitur('shieldDesign');
+
     }
 
     function fillInAlLSelectAfterSelectingType() {
 
         fillInMetal();
-        fillInColor();
+        fillInColor('colors',restriction.colors);
 
         fillInSelector('.doorstepSelect', 'doorstep');
         fillInSelector('.stainlessSteelDoorstepSelect', 'stainlessSteelDoorstep');
@@ -103,6 +106,9 @@ jQuery('document').ready(function () {
         fillInFurniture('typeDoorGlass');
         fillInFurniture('toning');
         fillInFurniture('armor');
+
+        fillInFurniture('shieldColor');
+        fillInFurniture('shieldDesign');
     }
 
 
@@ -182,7 +188,6 @@ jQuery('document').ready(function () {
 
     // subordinateSize
 
-
     $('#widthLeafSizMaxMinDiv').change(function () {
         saveInJavaObjectSize('widthDoorLeaf');
     });
@@ -231,7 +236,7 @@ jQuery('document').ready(function () {
 
         if(checkForAllSelect('colors')){
             deleteFields('colors');
-            installFromTemplateColor(restriction.colors);
+            installFromTemplateColor(restriction.colors,'colors');
         }
         else {
             saveInJavaObjectColorAndFurnitur('colors');
@@ -239,7 +244,7 @@ jQuery('document').ready(function () {
                 //addSelectField('colors');
                 addField('colors', 'select', 'Select');
             }
-            fillInColor();
+            fillInColor('colors',restriction.colors);
         }
 
     });
@@ -251,6 +256,60 @@ jQuery('document').ready(function () {
         }
         else {
             saveInJavaObjectColorAndFurnitur('colors');
+        }
+    });
+
+    $('#shieldColorDiv').change('.shieldColorSelect', function () {
+
+        if(checkForAllSelect('shieldColor')){
+            deleteFields('shieldColor');
+            installFromTemplateColor(restriction.shieldColor,'shieldColor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldColor');
+            if (allFieldsAreFilled('.shieldColorSelect')) {
+                //addSelectField('colors');
+                addField('shieldColor', 'select', 'Select');
+            }
+            fillInFurniture('shieldColor');
+        }
+
+    });
+    $('#shieldColorDiv').on('click', '.shieldColorLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('shieldColor');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('shieldColor');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldColor');
+        }
+    });
+
+    $('#shieldDesignDiv').change('.shieldDesignSelect', function () {
+
+        if(checkForAllSelect('shieldDesign')){
+            deleteFields('shieldDesign');
+            installFromTemplateColor(restriction.shieldDesign,'shieldDesign');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldDesign');
+            if (allFieldsAreFilled('.shieldDesignSelect')) {
+                //addSelectField('colors');
+                addField('shieldDesign', 'select', 'Select');
+            }
+            fillInFurniture('shieldDesign');
+        }
+
+    });
+    $('#shieldDesignDiv').on('click', '.shieldDesignLineCheckbox', function () {
+        if ($(this).is(':checked')) {
+            switchOffAll('shieldDesign');
+            $(this).prop('checked', true);
+            saveInJavaObjectColorAndFurnitur('shieldDesign');
+        }
+        else {
+            saveInJavaObjectColorAndFurnitur('shieldDesign');
         }
     });
 
@@ -770,10 +829,10 @@ jQuery('document').ready(function () {
         }
     }
 
-    function installFromTemplateColor(table) {
+    function installFromTemplateColor(table,javaName) {
 
         var length = table.length;
-        var selector = '.colorsSelect';
+        var selector = '.'+javaName+'Select';
         var elem = null;
 
         for (var i = 0; i < length; ++i) {
@@ -783,13 +842,13 @@ jQuery('document').ready(function () {
             }
 
             elem = getNotCompletedFields(selector);
-            fillInFieldFromColor('#' + $(elem).attr('id'), restriction.colors);
+            fillInFieldFromColor('#' + $(elem).attr('id'), table);
             setValueInSelectInt('#' + $(elem).attr('id'), table[i].itemId);
-            setSwitchDefaultVal(elem, 'colors', table[i].defaultValue);
+            setSwitchDefaultVal(elem, javaName, table[i].defaultValue);
 
             if (allFieldsAreFilled(selector)) {
                 //addSelectField('colors');
-                addField('colors', 'select', 'Select');
+                addField(javaName, 'select', 'Select');
             }
 
         }
@@ -880,13 +939,13 @@ jQuery('document').ready(function () {
         }
     }
 
-    function fillInColor() {
+    function fillInColor(javaName,tabl) {
 
-        var colors = $('.colorsSelect');
+        var elems = $('.'+javaName+'Select');
 
-        for (var i = 0; i < colors.length; ++i) {
-            if (!$(colors[i]).val()) {
-                fillInFieldFromColor('#' + $(colors[i]).attr('id'), restriction.colors);
+        for (var i = 0; i < elems.length; ++i) {
+            if (!$(elems[i]).val()) {
+                fillInFieldFromColor('#' + $(elems[i]).attr('id'), tabl);
             }
         }
     }
@@ -971,8 +1030,13 @@ jQuery('document').ready(function () {
         $(selector).empty();
 
         if (table != null) {
-            $(selector).append($('<option ></option>'));
             <!--empty line-->
+            $(selector).append($('<option ></option>'));
+            if(selector=='colors'){
+                <!--all select line-->
+                $(selector).append($('<option value=all>select all</option>'));
+            }
+
             for (var i = 0; i < table.length; ++i) {
                 $(selector).append(
                     $('<option value=' + table[i].itemId + '>' + table[i].firstItem + '</option>')
