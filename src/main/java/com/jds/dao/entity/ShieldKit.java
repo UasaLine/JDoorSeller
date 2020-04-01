@@ -52,8 +52,12 @@ public class ShieldKit {
 
     public ShieldKit clearNonSerializingFields() {
         door = null;
-        shieldColor.clearNonSerializingFields();
-        shieldDesign.clearNonSerializingFields();
+        if (shieldColor!=null){
+            shieldColor.clearNonSerializingFields();
+        }
+        if (shieldDesign!=null){
+            shieldDesign.clearNonSerializingFields();
+        }
         return this;
     }
 }
