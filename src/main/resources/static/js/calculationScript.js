@@ -38,7 +38,6 @@ jQuery('document').ready(function () {
         getClassList();
     }
 
-
     function FillOutForm(data, updateClassDiv) {
 
         displayObject(data);
@@ -555,6 +554,19 @@ jQuery('document').ready(function () {
 
                 currentItem = 'handle';
                 showValue = getFurniture(value, 'handle');
+            }
+            //shieldKit
+            else if (currentItem == "shieldKit") {
+                if(door.shieldKit!=null){
+
+                    if(door.shieldKit.shieldColor!=null){
+                        showValue = door.shieldKit.shieldColor.name;
+                    }
+                    if(door.shieldKit.shieldColor!=null){
+                        showValue = showValue+' / '+door.shieldKit.shieldDesign.name;
+                    }
+
+                }
             }
             //doorstep//DoorTrim
             else if (currentItem == "doorstep"
