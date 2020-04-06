@@ -18,11 +18,11 @@
 </head>
 <body>
 
-<div class="container">
+<div class="top_head">
 
     <!--header-->
     <div class="sword-cursor" id="intro-dm">
-        <a th:href="@{/}"><img src="images/Header_widht_1221-85_001.jpg"></a>
+        <a th:href="@{/}"><img src="images/Header_widht_1300-85_001.jpg"></a>
     </div>
 
     <!--button-->
@@ -1457,54 +1457,52 @@
             <p>© jRim LTD 2020</p>
         </footer>
     </div>
-</div>
 
+    <!--number_selection-->
+    <div class="android_main_contener sword-cursor" show="ghost_lement">
+        <div class="android_hader">
+            <span id="nameSelectForm" data="">ширина</span>
+        </div>
 
-<!--number_selection-->
-<div class="android_main_contener sword-cursor" show="ghost_lement">
-    <div class="android_hader">
-        <span id="nameSelectForm" data="">ширина</span>
-    </div>
-
-    <div class="android_counter">
-        <div class="counter_column">
-            <span class="counter_line line1" id="addL">+</span>
-            <div class="counter_line_intL">
-                <span class="counter_line numberL">09</span>
-                <span class="counter_line numberL">08</span>
-                <span class="counter_line numberL">07</span>
+        <div class="android_counter">
+            <div class="counter_column">
+                <span class="counter_line line1" id="addL">+</span>
+                <div class="counter_line_intL">
+                    <span class="counter_line numberL">09</span>
+                    <span class="counter_line numberL">08</span>
+                    <span class="counter_line numberL">07</span>
+                </div>
+                <span class="counter_line line1" id="reduceL">-</span>
             </div>
-            <span class="counter_line line1" id="reduceL">-</span>
-        </div>
-        <!--
-        <div class="counter_column">
-            <span class="counter_line line1" id="addR">+</span>
-            <div class="counter_line_intR">
-                <span class="counter_line numberR">10</span>
-                <span class="counter_line numberR">20</span>
-                <span class="counter_line numberR">30</span>
+            <!--
+            <div class="counter_column">
+                <span class="counter_line line1" id="addR">+</span>
+                <div class="counter_line_intR">
+                    <span class="counter_line numberR">10</span>
+                    <span class="counter_line numberR">20</span>
+                    <span class="counter_line numberR">30</span>
+                </div>
+                <span class="counter_line line1" id="reduceR">-</span>
             </div>
-            <span class="counter_line line1" id="reduceR">-</span>
+            -->
         </div>
-        -->
+
+        <div class="android_basement">
+            <div class="android_basementL">
+                <span class='pass' id="select_cancel">отмена</span>
+            </div>
+            <div class="android_basementR">
+                <span class='pass' id="select_set">установить</span>
+            </div>
+        </div>
+    </div>
+    <div class="wall_of_darkness sword-cursor" show="ghost_lement">
     </div>
 
-    <div class="android_basement">
-        <div class="android_basementL">
-            <span class='pass' id="select_cancel">отмена</span>
-        </div>
-        <div class="android_basementR">
-            <span class='pass' id="select_set">установить</span>
-        </div>
-    </div>
+    <audio id="mySoundClip">
+        <source src="audio/sword_saund 2.mp3"></source>
+        Ваш браузер не поддерживает замечательный элемент audio.
+    </audio>
 </div>
-<div class="wall_of_darkness sword-cursor" show="ghost_lement">
-</div>
-
-<audio id="mySoundClip">
-    <source src="audio/sword_saund 2.mp3"></source>
-    Ваш браузер не поддерживает замечательный элемент audio.
-</audio>
-
 </body>
 </html>
