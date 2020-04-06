@@ -9,6 +9,7 @@
     <script type="text/javascript" src="js/calculationScript.js"></script>
     <link rel="stylesheet" type="text/css" href="css/drawDoor.css"/>
     <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/calcCss.css"/>
     <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
     <link rel="stylesheet" type="text/css" href="css/number_selection.css"/>
@@ -17,1459 +18,1446 @@
 </head>
 <body>
 
-<!--header-->
-<div class="top_head">
-    <div class="container-fluid sword-cursor" id="intro-dm">
-        <a th:href="@{/}"><img src="images/Header_widht_1300_002 ltl.jpg"></a>
-    </div>
-</div>
+<div class="container">
+    <!--header-->
 
-<!--nav-->
-<div class="top_head sword-cursor">
-    <div class="header_home">
-        <a th:href="@{/orders}" class="logo_home">Заказы</a>
+    <div class="sword-cursor" id="intro-dm">
+        <a th:href="@{/}"><img src="images/Header_widht_1300-85_001.jpg"></a>
     </div>
-    <div class="header_home">
-        <a th:href="@{/usersetting}" class="logo_home">Настройки</a>
-    </div>
-    <div class="header_home">
-        <a th:href="@{/logout}" class="logo_home">Выйти</a>
-    </div>
-</div>
 
-<!--button-->
-<div class="container_main_order sword-cursor">
-    <div class="row">
-        <div class="col-8 ">
-            <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
-            <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
-            <button type="button" class="btn btn-outline-dark" id="buttonGetCutteig">показать расчет</button>
-            <div class="navigation_panel_div ghost">
+    <!--button-->
+    <div class="container_main_order sword-cursor">
+        <div class="row">
+            <div class="col-8 ">
+                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonGetCutteig">показать расчет</button>
+                <div class="navigation_panel_div ghost">
+                </div>
             </div>
-        </div>
 
-        <div class="col-2 ">
-            <div class="btn-group small_indent" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
-                <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
+            <div class="col-2 ">
+                <div class="btn-group small_indent" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
+                    <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="additional_data sword-cursor" show="ghost_lement">
-    <div class="data_L">
-    </div>
-    <div class="data_R" id="calculateResultDiv">
-    </div>
-</div>
-
-<!--data-->
-<div class="container_main sword-cursor">
-
-    <div class="daughter_container1" id="doorDiv1">
-
-        <h1 class="display-4" id="price">Цена:</h1>
-
-        <div class="nameDoor">
-            <span class="nameDoor_span"></span>
+    <div class="additional_data sword-cursor" show="ghost_lement">
+        <div class="data_L">
         </div>
-
-        <span id="orderId" th:text="${orderId}" show="ghost_lement"></span>
-        <span id="id" th:text="${id}" show="ghost_lement"></span>
-        <span id="typid" th:text="${typid}" show="ghost_lement"></span>
-    </div>
-
-    <div class="daughter_container2">
-        <div class="vertical_menu">
-            <div class="vertical_menu_button" id="doorClass">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namedoorClass" available="yes">МОДЕЛЬ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="doorClassShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="metal">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namemetal" available="no"> МЕТАЛЛ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes" id="metalShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="widthDoor">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namewidthDoor" available="no"> ШИРИНА ПО КОРОБУ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="widthDoorShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="heightDoor">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameheightDoor" available="no"> ВЫСОТА ПО КОРОБУ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="heightDoorShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="deepnessDoor">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namedeepnessDoor" available="no"> ГЛУБИНА КОРОБА</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="deepnessDoorShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="thicknessDoorLeaf">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namethicknessDoorLeaf"
-                          available="no"> ТОЛЩИНА ПОЛОТНА</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="thicknessDoorLeafShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="sideDoorOpen">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namesideDoorOpen" available="yes"> ОТКРЫВАНИЕ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="sideDoorOpenShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="additionalDoorSettings">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="yes"> ДОПОЛНИТЕЛЬНО</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="additionalDoorSettingsShow"><strong></strong></span>
-                </div>
-            </div>
-
-            <div class="vertical_menu_button" id="doorColor">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namedoorColor" available="yes"> ЦВЕТ ДВЕРИ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"
-                          id="doorColorShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="shieldKit">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameshieldKit" available="yes">ЦВЕТ ПОНЕЛИ</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht"  id="shieldKitShow"available="yes"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button ghost">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" available="no"> НАРУЖНЯЯ МДФ НАКЛАДКА</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button ghost" id="doorGlass">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namedoorGlass"
-                          available="yes"> СТЕКЛО (СТЕКЛОПАКЕТ)</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="doorGlassShow"><strong></strong></span>
-                </div>
-            </div>
-
-            <div class="vertical_menu_button" id="topLockkit">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nametopLockkit" available="no"
-                          span> ВЕРХНИЙ ЗАМОК</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="topLockkitShow" span><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="lowerLockkit">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namelowerLockkit" available="no"> НИЖНИЙ ЗАМОК</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="lowerLockkitShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="handle">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namehandle" available="yes"> РУЧКА</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="handleShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button ghost" id="additionally">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameadditionally" available="yes"> ДОПОЛНИТЕЛЬНО</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
-                </div>
-            </div>
-
+        <div class="data_R" id="calculateResultDiv">
         </div>
     </div>
 
-    <div class="daughter_container3">
+    <!--data-->
+    <div class="container_main sword-cursor">
 
-        <!--arrow explanations-->
-        <div class="arrow_explanations" show="ghost_lement">
-            <img class="images_Color" src="images/arrow.png"><br>
-            <h1 class="display-3 font-italic">начни создавать дверь с выбора класса</h1>
+        <div class="daughter_container1" id="doorDiv1">
+
+            <h1 class="display-4" id="price">Цена:</h1>
+
+            <div class="nameDoor">
+                <span class="nameDoor_span"></span>
+            </div>
+
+            <span id="orderId" th:text="${orderId}" show="ghost_lement"></span>
+            <span id="id" th:text="${id}" show="ghost_lement"></span>
+            <span id="typid" th:text="${typid}" show="ghost_lement"></span>
         </div>
 
-        <!--door_class-->
-        <div class="select_door_class reduceAsAScroll" show="ghost_lement">
-        </div>
-
-        <!--door_type-->
-        <div class="select_door_type reduceAsAScroll" show="ghost_lement">
-            <div class="select_door_type_list list-group list-group-flush">
-
-            </div>
-        </div>
-
-        <!--metal-->
-        <div class="select_metal reduceAsAScroll" show="ghost_lement">
-
-            <div class="metal_checkbox vertical_menu_checkbox" id="metal0" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nememetal0"></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxmetal0" id="checkboxmetal0" Item="metal" data=""
-                               class="ios-toggle"/>
-                        <label for="checkboxmetal0" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="metal_checkbox vertical_menu_checkbox" id="metal1" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nememetal1"></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxmetal1" id="checkboxmetal1" Item="metal" data=""
-                               class="ios-toggle"/>
-                        <label for="checkboxmetal1" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="metal_checkbox vertical_menu_checkbox" id="metal2" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nememetal2"></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxmetal2" id="checkboxmetal2" Item="metal" data=""
-                               class="ios-toggle"/>
-                        <label for="checkboxmetal2" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="metal_checkbox vertical_menu_checkbox" id="metal3" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nememetal3"></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxmetal3" id="checkboxmetal3" Item="metal" data=""
-                               class="ios-toggle"/>
-                        <label for="checkboxmetal3" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!--widthDoor-->
-        <div class="select_widthDoor reduceAsAScroll" show="ghost_lement">
-
-            <div class="input_div" id="widthDoorDiv">
-                <div>
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputWidthDoor"
-                            name="Ширина (L):"
-                            data="0">Ширина (L):
-                    </button>
-                </div>
-            </div>
-            <!--DoorLeaf="1"-->
-            <div class="images_div" DoorLeaf="1" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Width1.jpg">
-                <div class="description_images_door_class"> Ширина двери по коробу в милиметрах.</div>
-            </div>
-            <!--DoorLeaf="2"-->
-            <div class="images_div" DoorLeaf="2" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Width2.jpg">
-                <div class="description_images_door_class"> Ширина двери по коробу в милиметрах.</div>
-            </div>
-
-            <div class="input_div" id="ActivDoorLeafWidthDiv" DoorLeaf="2" show="ghost_lement">
-
-                <div>
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputActivDoorLeafWidth"
-                            name="Ширина активной створки(I):"
-                            data="0">Ширина активной створки(I):
-                    </button>
-                </div>
-            </div>
-            <div class="images_div" DoorLeaf="2" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Width of main sash.jpg">
-                <div class="description_images_door_class"> Ширина активной створки в милиметрах.</div>
-            </div>
-        </div>
-
-        <!--heightDoor-->
-        <div class="select_heightDoor reduceAsAScroll" show="ghost_lement">
-
-            <div class="input_div" id="heightDoorDiv">
-
-                <div>
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputHeightDoor"
-                            name="Высота (H):"
-                            data="0">Высота (H):
-                    </button>
-                </div>
-            </div>
-            <!--DoorLeaf="1"-->
-            <div class="images_div" DoorLeaf="1" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Height1.jpg">
-                <div class="description_images_door_class"> Высота двери по коробу в милиметрах.</div>
-            </div>
-            <!--DoorLeaf="2"-->
-            <div class="images_div" DoorLeaf="2" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Height2.jpg">
-                <div class="description_images_door_class"> Высота двери по коробу в милиметрах.</div>
-            </div>
-
-            <div class="vertical_menu_checkbox" id="fanlightCheckboxDiv">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left"> Фрамуга</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="fanlightcheckboxname" id="fanlightcheckbox" data="1"
-                               class="ios-toggle"/>
-                        <label for="fanlightcheckbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="input_div" id="fanlightHeightDiv" fanlight="1" show="ghost_lement">
-
-                <div>
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputHeightFanlight"
-                            name="Высота фрамуги (k):"
-                            data="0">Высота фрамуги (k):
-                    </button>
-                </div>
-            </div>
-            <!--DoorLeaf="1"-->
-            <div class="images_div" DoorLeaf="2" fanlight="1" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Transom height1.jpg">
-                <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах.</div>
-            </div>
-            <!--DoorLeaf="2"-->
-            <div class="images_div" DoorLeaf="1" fanlight="1" show="ghost_lement">
-                <img class="images_widthDoor" src="images/annotate note/Transom height2.jpg">
-                <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах.</div>
-            </div>
-
-        </div>
-
-        <!--deepnessDoor-->
-        <div class="select_deepnessDoor reduceAsAScroll" show="ghost_lement">
-            <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor0" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemedeepnessDoor0" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxdeepnessDoor0" id="checkboxdeepnessDoor0"
-                               Item="deepnessDoor" data="" class="ios-toggle"/>
-                        <label for="checkboxdeepnessDoor0" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor1" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemedeepnessDoor1" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxdeepnessDoor1" id="checkboxdeepnessDoor1"
-                               Item="deepnessDoor" data="" class="ios-toggle"/>
-                        <label for="checkboxdeepnessDoor1" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor2" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemedeepnessDoor2" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxdeepnessDoor2" id="checkboxdeepnessDoor2"
-                               Item="deepnessDoor" data="" class="ios-toggle"/>
-                        <label for="checkboxdeepnessDoor2" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor3" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemedeepnessDoor3" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxdeepnessDoor3" id="checkboxdeepnessDoor3"
-                               Item="deepnessDoor" data="" class="ios-toggle"/>
-                        <label for="checkboxdeepnessDoor3" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--thicknessDoorLeaf-->
-        <div class="select_thicknessDoorLeaf reduceAsAScroll" show="ghost_lement">
-            <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf0" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf0" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxthicknessDoorLeaf0" id="checkboxthicknessDoorLeaf0"
-                               Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
-                        <label for="checkboxthicknessDoorLeaf0" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf1" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf1" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxthicknessDoorLeaf1" id="checkboxthicknessDoorLeaf1"
-                               Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
-                        <label for="checkboxthicknessDoorLeaf1" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf2" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf2" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxthicknessDoorLeaf2" id="checkboxthicknessDoorLeaf2"
-                               Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
-                        <label for="checkboxthicknessDoorLeaf2" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf3" show="ghost_lement">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf3" href="#"></a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxthicknessDoorLeaf3" id="checkboxthicknessDoorLeaf3"
-                               Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
-                        <label for="checkboxthicknessDoorLeaf3" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--sideDoorOpen-->
-        <div class="select_sideDoorOpen reduceAsAScroll" show="ghost_lement">
-            <div class="vertical_menu_checkbox">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left"> Левое</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkbox11" id="checkbox11" Item="sideDoorOpen" data="LEFT"
-                               class="ios-toggle"/>
-                        <label for="checkbox11" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical_menu_checkbox">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left"> Правое</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkbox12" id="checkbox12" Item="sideDoorOpen" data="RIGHT"
-                               class="ios-toggle"/>
-                        <label for="checkbox12" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical_menu_checkbox">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" href="#"> Внутреннее открывание</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkbox13" id="checkbox13" Item="innerDoorOpen" data="1"
-                               class="ios-toggle"/>
-                        <label for="checkbox13" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--select_additionalDoorSettings-->
-        <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
-
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost" id="additionalDoorSettings_doorstep">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" href="#" id="namedoorstep"
-                          available="no"> <Strong>Порог</Strong></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="doorstep_checkbox" id="doorstep_checkbox" Item="doorstep" data="1"
-                               available="no" class="ios-toggle"/>
-                        <label for="doorstep_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_stainlessSteelDoorstep">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namestainlessSteelDoorstep" available="no"> Порог из нержавеющий сталли</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="stainlessSteelDoorstep_checkbox"
-                               id="stainlessSteelDoorstep_checkbox" Item="stainlessSteelDoorstep" available="no"
-                               data="1" class="ios-toggle"/>
-                        <label for="stainlessSteelDoorstep_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left"> <Strong>Наличники</Strong></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkbox16" id="checkbox16" Item="doorTrim" data=""
-                               class="ios-toggle"/>
-                        <label for="checkbox16" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_topDoorTrim">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nametopDoorTrim" available="no"> Верхний наличник</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="topDoorTrim_checkbox" id="topDoorTrim_checkbox" Item="topDoorTrim"
-                               data="" class="ios-toggle"/>
-                        <label for="topDoorTrim_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox"
-                 id="additionalDoorSettings_leftDoorTrim">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nameleftDoorTrim" available="no"> Левый наличник</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="leftDoorTrim_checkbox" id="leftDoorTrim_checkbox"
-                               Item="leftDoorTrim" data="" class="ios-toggle"/>
-                        <label for="leftDoorTrim_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox"
-                 id="additionalDoorSettings_rightDoorTrim">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namerightDoorTrim"
-                          available="no"> Правый наличник</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="rightDoorTrim_checkbox" id="rightDoorTrim_checkbox"
-                               Item="rightDoorTrim" data="" class="ios-toggle"/>
-                        <label for="rightDoorTrim_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_additionallyHingeMain">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nemeadditionallyHingeMain" available="no"> <Strong>Доп.петля (основная створка)</Strong></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="additionallyHingeMain_checkbox" id="additionallyHingeMain_checkbox"
-                               Item="additionallyHingeMain" data="" class="ios-toggle"/>
-                        <label for="additionallyHingeMain_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_additionallyHingeNotMain">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nemeadditionallyHingeNotMain" available="no"> Доп.петля (НЕ основная створка)</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="additionallyHingeNotMain_checkbox"
-                               id="additionallyHingeNotMain_checkbox" Item="additionallyHingeNotMain" data=""
-                               class="ios-toggle"/>
-                        <label for="additionallyHingeNotMain_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_firstSealingLine_1">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namefirstSealingLine_1" available="no"> <Strong>Первый притвор тонкий уплотнитель </Strong></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="firstSealingLine_1_checkbox" id="firstSealingLine_1_checkbox"
-                               Item="firstSealingLine" data="1" class="ios-toggle"/>
-                        <label for="firstSealingLine_1_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_firstSealingLine_2">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namefirstSealingLine_2" available="no"> Первый притвор треугольный уплотнитель </span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="firstSealingLine_2_checkbox" id="firstSealingLine_2_checkbox"
-                               Item="firstSealingLine" data="2" class="ios-toggle"/>
-                        <label for="firstSealingLine_2_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_firstSealingLine_3">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namefirstSealingLine_3" available="no"> Первый притвор магнитный уплотнитель </span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="firstSealingLine_3_checkbox" id="firstSealingLine_3_checkbox"
-                               Item="firstSealingLine" data="3" class="ios-toggle"/>
-                        <label for="firstSealingLine_3_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_secondSealingLine_1">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namesecondSealingLine_1" available="no"> <Strong>Второй притвор тонкий уплотнитель </Strong></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="secondSealingLine_1_checkbox" id="secondSealingLine_1_checkbox"
-                               Item="secondSealingLine" data="1" class="ios-toggle"/>
-                        <label for="secondSealingLine_1_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_secondSealingLine_2">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namesecondSealingLine_2" available="no"> Второй притвор треугольный уплотнитель </span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="secondSealingLine_2_checkbox" id="secondSealingLine_2_checkbox"
-                               Item="secondSealingLine" data="2" class="ios-toggle"/>
-                        <label for="secondSealingLine_2_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_secondSealingLine_3">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namesecondSealingLine_3" available="no"> Второй притвор магнитный уплотнитель </span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="secondSealingLine_3_checkbox" id="secondSealingLine_3_checkbox"
-                               Item="secondSealingLine" data="3" class="ios-toggle"/>
-                        <label for="secondSealingLine_3_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_thirdSealingLine_1">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namethirdSealingLine_1" available="no"> <Strong>Третий притвор тонкий уплотнитель </Strong></span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="thirdSealingLine_1_checkbox" id="thirdSealingLine_1_checkbox"
-                               Item="thirdSealingLine" data="1" class="ios-toggle"/>
-                        <label for="thirdSealingLine_1_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_thirdSealingLine_2">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namethirdSealingLine_2" available="no"> Третий притвор треугольный уплотнитель </span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="thirdSealingLine_2_checkbox" id="thirdSealingLine_2_checkbox"
-                               Item="thirdSealingLine" data="2" class="ios-toggle"/>
-                        <label for="thirdSealingLine_2_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                 id="additionalDoorSettings_thirdSealingLine_3">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="namethirdSealingLine_3" available="no"> Третий притвор магнитный уплотнитель </span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="thirdSealingLine_3_checkbox" id="thirdSealingLine_3_checkbox"
-                               Item="thirdSealingLine" data="3" class="ios-toggle"/>
-                        <label for="thirdSealingLine_3_checkbox" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--doorColor-->
-        <div class="select_doorColor reduceAsAScroll" show="ghost_lement">
-
-            <div class="div_images_Color" id="imagesdoorColorDiv0" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg0" src=""><br>
-                <span id="imagesdoorColorSpan0"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv1" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg1" src=""><br>
-                <span id="imagesdoorColorSpan1"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv2" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg2" src=""><br>
-                <span id="imagesdoorColorSpan2"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv3" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg3" src=""><br>
-                <span id="imagesdoorColorSpan3"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv4" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg4" src=""><br>
-                <span id="imagesdoorColorSpan4"></span>
-            </div>
-
-            <div class="div_images_Color" id="imagesdoorColorDiv5" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg5" src=""><br>
-                <span id="imagesdoorColorSpan5"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv6" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg6" src=""><br>
-                <span id="imagesdoorColorSpan6"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv7" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg7" src=""><br>
-                <span id="imagesdoorColorSpan7"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv8" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg8" src=""><br>
-                <span id="imagesdoorColorSpan8"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv9" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg9" src=""><br>
-                <span id="imagesdoorColorSpan9"></span>
-            </div>
-
-            <div class="div_images_Color" id="imagesdoorColorDiv10" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg10" src=""><br>
-                <span id="imagesdoorColorSpan10"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv11" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg11" src=""><br>
-                <span id="imagesdoorColorSpan11"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv12" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg12" src=""><br>
-                <span id="imagesdoorColorSpan12"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv13" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg13" src=""><br>
-                <span id="imagesdoorColorSpan13"></span>
-            </div>
-            <div class="div_images_Color" id="imagesdoorColorDiv14" data="" Item="doorColor" show="ghost_lement">
-                <img class="images_Color" id="imagesdoorColorImg14" src=""><br>
-                <span id="imagesdoorColorSpan14"></span>
-            </div>
-
-            <div class="color_pages" data="0">
-                <a class="pag" data=">"> > </a>
-            </div>
-        </div>
-
-        <!--doorGlass-->
-        <div class="select_doorGlass reduceAsAScroll" show="ghost_lement">
-            <div class="vertical_menu_checkbox" id="doorGlass0">
-                <div class="left_cell_checkbox">
-                    <a class="vertical_menu_button_left" id="nemedoorGlass0" href="#">Стекло</a>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="checkboxdoorGlass0" id="checkboxdoorGlass0" Item="doorGlass"
-                               data="1" class="ios-toggle"/>
-                        <label for="checkboxdoorGlass0" class="checkbox-label"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="input_doorGlass_div" show="ghost_lement">
-
-                <div class="vertical_menu_button" id="typeDoorGlass">
+        <div class="daughter_container2">
+            <div class="vertical_menu">
+                <div class="vertical_menu_button" id="doorClass">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nametypeDoorGlass" available="yes">тип стекла</span>
+                        <span class="vertical_menu_button_left" id="namedoorClass" available="yes">МОДЕЛЬ</span>
                     </div>
                     <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" id="typeDoorGlassShow"><strong></strong></span>
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="doorClassShow"><strong></strong></span>
                     </div>
                 </div>
-                <div class="vertical_menu_button" id="toning">
+                <div class="vertical_menu_button" id="metal">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nametoning" available="yes"> тонировка</span>
+                        <span class="vertical_menu_button_left" id="namemetal" available="no"> МЕТАЛЛ</span>
                     </div>
                     <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" id="toningShow"><strong></strong></span>
+                        <span class="vertical_menu_button_rigtht" available="yes" id="metalShow"><strong></strong></span>
                     </div>
                 </div>
-                <div class="vertical_menu_button" id="armor">
+                <div class="vertical_menu_button" id="widthDoor">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namearmor" available="yes"> бронь</span>
+                        <span class="vertical_menu_button_left" id="namewidthDoor" available="no"> ШИРИНА ПО КОРОБУ</span>
                     </div>
                     <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" id="armorShow"><strong></strong></span>
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="widthDoorShow"><strong></strong></span>
                     </div>
                 </div>
-                <div class="input_div" id="widthDoorGlassDiv">
-
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputWidthDoorGlass"
-                            name="Ширина стекла (w):"
-                            data="0">Ширина стекла (w):
-                    </button>
+                <div class="vertical_menu_button" id="heightDoor">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameheightDoor" available="no"> ВЫСОТА ПО КОРОБУ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="heightDoorShow"><strong></strong></span>
+                    </div>
                 </div>
-                <div class="input_div" id="heightDoorGlassDiv">
-
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputHeightDoorGlass"
-                            name="Высота стекла (h):"
-                            data="0">Высота стекла (h):
-                    </button>
-
+                <div class="vertical_menu_button" id="deepnessDoor">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namedeepnessDoor" available="no"> ГЛУБИНА КОРОБА</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="deepnessDoorShow"><strong></strong></span>
+                    </div>
                 </div>
-                <div class="input_div" id="leftDoorGlassDiv">
-
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputleftDoorGlass"
-                            name="Левый отступ:"
-                            data="0">Левый отступ:
-                    </button>
+                <div class="vertical_menu_button" id="thicknessDoorLeaf">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namethicknessDoorLeaf"
+                              available="no"> ТОЛЩИНА ПОЛОТНА</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="thicknessDoorLeafShow"><strong></strong></span>
+                    </div>
                 </div>
-                <div class="input_div" id="bottomDoorGlassDiv">
+                <div class="vertical_menu_button" id="sideDoorOpen">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namesideDoorOpen" available="yes"> ОТКРЫВАНИЕ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="sideDoorOpenShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="additionalDoorSettings">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="yes"> ДОПОЛНИТЕЛЬНО</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="additionalDoorSettingsShow"><strong></strong></span>
+                    </div>
+                </div>
 
-                    <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                            id="inputbottomDoorGlass"
-                            name="Нижний отступ:"
-                            data="0">Нижний отступ:
-                    </button>
+                <div class="vertical_menu_button" id="doorColor">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namedoorColor" available="yes"> ЦВЕТ ДВЕРИ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="doorColorShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="shieldKit">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameshieldKit" available="yes">ЦВЕТ ПОНЕЛИ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht"  id="shieldKitShow"available="yes"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button ghost">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" available="no"> НАРУЖНЯЯ МДФ НАКЛАДКА</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button ghost" id="doorGlass">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namedoorGlass"
+                              available="yes"> СТЕКЛО (СТЕКЛОПАКЕТ)</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="doorGlassShow"><strong></strong></span>
+                    </div>
+                </div>
+
+                <div class="vertical_menu_button" id="topLockkit">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nametopLockkit" available="no"
+                              span> ВЕРХНИЙ ЗАМОК</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="topLockkitShow" span><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="lowerLockkit">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namelowerLockkit" available="no"> НИЖНИЙ ЗАМОК</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="lowerLockkitShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="handle">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namehandle" available="yes"> РУЧКА</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="handleShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button ghost" id="additionally">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameadditionally" available="yes"> ДОПОЛНИТЕЛЬНО</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
+                    </div>
                 </div>
 
             </div>
         </div>
 
-        <!--typeDoorGlass-->
-        <div class="select_typeDoorGlass reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_DoorGlass" data="нет" Item="typeDoorGlass">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
-            </div>
-            <div class="div_images_DoorGlass" id="typeDoorGlassDiv0" data="" Item="typeDoorGlass" show="ghost_lement">
-                <img class="images_Color" id="typeDoorGlassImg0" src=""><br>
-                <span id="typeDoorGlassSpan0"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="typeDoorGlassDiv1" data="" Item="typeDoorGlass" show="ghost_lement">
-                <img class="images_Color" id="typeDoorGlassImg1" src=""><br>
-                <span id="typeDoorGlassSpan1"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="typeDoorGlassDiv2" data="" Item="typeDoorGlass" show="ghost_lement">
-                <img class="images_Color" id="typeDoorGlassImg2" src=""><br>
-                <span id="typeDoorGlassSpan2"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="typeDoorGlassDiv3" data="" Item="typeDoorGlass" show="ghost_lement">
-                <img class="images_Color" id="typeDoorGlassImg3" src=""><br>
-                <span id="typeDoorGlassSpan3"></span>
-            </div>
-            <div class="typeDoorGlass_pages" data="0">
-                <a class="typeDoorGlasspag" data=">"> > </a>
-            </div>
-        </div>
+        <div class="daughter_container3">
 
-        <!--toning-->
-        <div class="select_toning reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_DoorGlass" data="нет" Item="toning">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
+            <!--arrow explanations-->
+            <div class="arrow_explanations" show="ghost_lement">
+                <img class="images_Color" src="images/arrow.png"><br>
+                <h1 class="display-3 font-italic">начни создавать дверь с выбора класса</h1>
             </div>
-            <div class="div_images_DoorGlass" id="toningDiv0" data="" Item="toning" show="ghost_lement">
-                <img class="images_Color" id="toningImg0" src=""><br>
-                <span id="toningSpan0"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="toningDiv1" data="" Item="toning" show="ghost_lement">
-                <img class="images_Color" id="toningImg1" src=""><br>
-                <span id="toningSpan1"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="toningDiv2" data="" Item="toning" show="ghost_lement">
-                <img class="images_Color" id="toningImg2" src=""><br>
-                <span id="toningSpan2"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="toningDiv3" data="" Item="toning" show="ghost_lement">
-                <img class="images_Color" id="toningImg3" src=""><br>
-                <span id="toningSpan3"></span>
-            </div>
-            <div class="toning_pages" data="0">
-                <a class="toningpag" data=">"> > </a>
-            </div>
-        </div>
 
-        <!--armor-->
-        <div class="select_armor reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_DoorGlass" data="нет" Item="armor">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
+            <!--door_class-->
+            <div class="select_door_class reduceAsAScroll" show="ghost_lement">
             </div>
-            <div class="div_images_DoorGlass" id="armorDiv0" data="" Item="armor" show="ghost_lement">
-                <img class="images_Color" id="armorImg0" src=""><br>
-                <span id="armorSpan0"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="armorDiv1" data="" Item="armor" show="ghost_lement">
-                <img class="images_Color" id="armorImg1" src=""><br>
-                <span id="armorSpan1"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="armorDiv2" data="" Item="armor" show="ghost_lement">
-                <img class="images_Color" id="armorImg2" src=""><br>
-                <span id="armorSpan2"></span>
-            </div>
-            <div class="div_images_DoorGlass" id="armorDiv3" data="" Item="armor" show="ghost_lement">
-                <img class="images_Color" id="armorImg3" src=""><br>
-                <span id="armorSpan3"></span>
-            </div>
-            <div class="armor_pages" data="0">
-                <a class="armorpag" data=">"> > </a>
-            </div>
-        </div>
 
-        <!--topLockkit-->
-        <div class="select_topLockkit reduceAsAScroll" show="ghost_lement">
-            <div class="vertical_menu_button" id="topLock">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nametopLock" available="yes">Замок</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="topLockShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="internatopLockDecoration">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameinternatopLockDecoration" available="no">внут.накладка</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="topinternaLockDecorationShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="outertopLockDecoration">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameoutertopLockDecoration" available="no">внеш.накладка</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="topouterLockDecorationShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button  ghost" id="topLockCylinder">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nametopLockCylinder" available="yes">цилиндр</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="topLockCylinderShow"><strong></strong></span>
-                </div>
-            </div>
-        </div>
+            <!--door_type-->
+            <div class="select_door_type reduceAsAScroll" show="ghost_lement">
+                <div class="select_door_type_list list-group list-group-flush">
 
-        <!--topLock-->
-        <div class="select_topLock reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_furniture" data="нет" Item="topLock">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
+                </div>
             </div>
-            <div class="div_images_furniture" id="topLockDiv0" data="" Item="topLock"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockImg0" src=""><br>
-                <span id="topLockSpan0"></span>
-            </div>
-            <div class="div_images_furniture" id="topLockDiv1" data="" Item="topLock"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockImg1" src=""><br>
-                <span id="topLockSpan1"></span>
-            </div>
-            <div class="div_images_furniture" id="topLockDiv2" data="" Item="topLock"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockImg2" src=""><br>
-                <span id="topLockSpan2"></span>
-            </div>
-            <div class="div_images_furniture" id="topLockDiv3" data="" Item="topLock"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockImg3" src=""><br>
-                <span id="topLockSpan3"></span>
-            </div>
-            <div class="topLock_pages" data="0">
-                <a class="topLockpag" data=">"> > </a>
-            </div>
-        </div>
 
-        <!--lowerLockkit-->
-        <div class="select_lowerLockkit reduceAsAScroll" show="ghost_lement">
-            <div class="vertical_menu_button" id="lowerLock">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namelowerLock" available="yes">Замок</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="lowerLockShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="internalowerLockDecoration">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameinternalowerLockDecoration" available="no">внут.накладка</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht"
-                          id="lowerinternaLockDecorationShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button" id="outerlowerLockDecoration">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameouterlowerLockDecoration" available="no">внеш.накладка</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht"
-                          id="lowerouterLockDecorationkShow"><strong></strong></span>
-                </div>
-            </div>
-            <div class="vertical_menu_button ghost" id="lowerLockCylinder">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namelowerLockCylinder" available="yes">цилиндр</span>
-                </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="lowerLockCylinderShow"><strong></strong></span>
-                </div>
-            </div>
-        </div>
+            <!--metal-->
+            <div class="select_metal reduceAsAScroll" show="ghost_lement">
 
-        <!--lowerLock-->
-        <div class="select_lowerLock reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_furniture" data="нет" Item="lowerLock">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockDiv0" data="" Item="lowerLock" show="ghost_lement">
-                <img class="images_Color" id="lowerLockImg0" src=""><br>
-                <span id="lowerLockSpan0"></span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockDiv1" data="" Item="lowerLock" show="ghost_lement">
-                <img class="images_Color" id="lowerLockImg1" src=""><br>
-                <span id="lowerLockSpan1"></span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockDiv2" data="" Item="lowerLock" show="ghost_lement">
-                <img class="images_Color" id="lowerLockImg2" src=""><br>
-                <span id="lowerLockSpan2"></span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockDiv3" data="" Item="lowerLock" show="ghost_lement">
-                <img class="images_Color" id="lowerLockImg3" src=""><br>
-                <span id="lowerLockSpan3"></span>
-            </div>
-            <div class="lowerLock_pages" data="0">
-                <span class="lowerLockpag" data=">"> > </span>
-            </div>
-        </div>
-
-        <!--topLockCylinder-->
-        <div class="select_topLockCylinder reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_furniture" data="нет" Item="topLockCylinder">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
-            </div>
-            <div class="div_images_furniture" id="topLockCylinderDiv0" data="" Item="topLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockCylinderImg0" src=""><br>
-                <span id="topLockCylinderSpan0"></span>
-            </div>
-            <div class="div_images_furniture" id="topLockCylinderDiv1" data="" Item="topLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockCylinderImg1" src=""><br>
-                <span id="topLockCylinderSpan1"></span>
-            </div>
-            <div class="div_images_furniture" id="topLockCylinderDiv2" data="" Item="topLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockCylinderImg2" src=""><br>
-                <span id="topLockCylinderSpan2"></span>
-            </div>
-            <div class="div_images_furniture" id="topLockCylinderDiv3" data="" Item="topLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="topLockCylinderImg3" src=""><br>
-                <span id="topLockCylinderSpan3"></span>
-            </div>
-            <div class="lowerlockCylinder_pages" data="0">
-                <span class="lowerlockCylinderpag" data=">"> > </span>
-            </div>
-        </div>
-
-        <!--lowerLockCylinder-->
-        <div class="select_lowerLockCylinder reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_furniture" data="нет" Item="lowerlockCylinder">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockCylinderDiv0" data="" Item="lowerLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="lowerLockCylinderImg0" src=""><br>
-                <span id="lowerLockCylinderSpan0"></span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockCylinderDiv1" data="" Item="lowerLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="lowerLockCylinderImg1" src=""><br>
-                <span id="lowerLockCylinderSpan1"></span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockCylinderDiv2" data="" Item="lowerLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="lowerLockCylinderImg2" src=""><br>
-                <span id="lowerLockCylinderSpan2"></span>
-            </div>
-            <div class="div_images_furniture" id="lowerLockCylinderDiv3" data="" Item="lowerLockCylinder"
-                 show="ghost_lement">
-                <img class="images_Color" id="lowerLockCylinderImg3" src=""><br>
-                <span id="lowerLockCylinderSpan3"></span>
-            </div>
-            <div class="lowerLockCylinder_pages" data="0">
-                <span class="lowerLockCylinderpag" data=">"> > </span>
-            </div>
-        </div>
-
-
-        <!--handle-->
-        <div class="select_handle reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_furniture" data="нет" Item="handle">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
-            </div>
-            <div class="div_images_furniture" id="handleDiv0" data="" Item="handle" show="ghost_lement">
-                <img class="images_Color" id="handleImg0" src=""><br>
-                <span id="handleSpan0"></span>
-            </div>
-            <div class="div_images_furniture" id="handleDiv1" data="" Item="handle" show="ghost_lement">
-                <img class="images_Color" id="handleImg1" src=""><br>
-                <span id="handleSpan1"></span>
-            </div>
-            <div class="div_images_furniture" id="handleDiv2" data="" Item="handle" show="ghost_lement">
-                <img class="images_Color" id="handleImg2" src=""><br>
-                <span id="handleSpan2"></span>
-            </div>
-            <div class="div_images_furniture" id="handleDiv3" data="" Item="handle" show="ghost_lement">
-                <img class="images_Color" id="handleImg3" src=""><br>
-                <span id="handleSpan3"></span>
-            </div>
-            <div class="handle_pages" data="0">
-                <span class="handlepag" data=">"> > </span>
-            </div>
-        </div>
-
-        <!--additionally-->
-        <div class="select_additionally reduceAsAScroll" show="ghost_lement">
-            <div class="vertical_menu_checkbox" id="additionally_nightLock">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nemenightLock" available="no">Ночная задвижка</span>
+                <div class="metal_checkbox vertical_menu_checkbox" id="metal0" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nememetal0"></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxmetal0" id="checkboxmetal0" Item="metal" data=""
+                                   class="ios-toggle"/>
+                            <label for="checkboxmetal0" class="checkbox-label"></label>
+                        </div>
+                    </div>
                 </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="nightLock_checkbox" id="nightLock_checkbox" Item="nightLock"
-                               data="1" class="ios-toggle"/>
-                        <label for="nightLock_checkbox" class="checkbox-label"></label>
+                <div class="metal_checkbox vertical_menu_checkbox" id="metal1" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nememetal1"></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxmetal1" id="checkboxmetal1" Item="metal" data=""
+                                   class="ios-toggle"/>
+                            <label for="checkboxmetal1" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="metal_checkbox vertical_menu_checkbox" id="metal2" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nememetal2"></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxmetal2" id="checkboxmetal2" Item="metal" data=""
+                                   class="ios-toggle"/>
+                            <label for="checkboxmetal2" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="metal_checkbox vertical_menu_checkbox" id="metal3" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nememetal3"></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxmetal3" id="checkboxmetal3" Item="metal" data=""
+                                   class="ios-toggle"/>
+                            <label for="checkboxmetal3" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--widthDoor-->
+            <div class="select_widthDoor reduceAsAScroll" show="ghost_lement">
+
+                <div class="input_div" id="widthDoorDiv">
+                    <div>
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputWidthDoor"
+                                name="Ширина (L):"
+                                data="0">Ширина (L):
+                        </button>
+                    </div>
+                </div>
+                <!--DoorLeaf="1"-->
+                <div class="images_div" DoorLeaf="1" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Width1.jpg">
+                    <div class="description_images_door_class"> Ширина двери по коробу в милиметрах.</div>
+                </div>
+                <!--DoorLeaf="2"-->
+                <div class="images_div" DoorLeaf="2" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Width2.jpg">
+                    <div class="description_images_door_class"> Ширина двери по коробу в милиметрах.</div>
+                </div>
+
+                <div class="input_div" id="ActivDoorLeafWidthDiv" DoorLeaf="2" show="ghost_lement">
+
+                    <div>
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputActivDoorLeafWidth"
+                                name="Ширина активной створки(I):"
+                                data="0">Ширина активной створки(I):
+                        </button>
+                    </div>
+                </div>
+                <div class="images_div" DoorLeaf="2" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Width of main sash.jpg">
+                    <div class="description_images_door_class"> Ширина активной створки в милиметрах.</div>
+                </div>
+            </div>
+
+            <!--heightDoor-->
+            <div class="select_heightDoor reduceAsAScroll" show="ghost_lement">
+
+                <div class="input_div" id="heightDoorDiv">
+
+                    <div>
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputHeightDoor"
+                                name="Высота (H):"
+                                data="0">Высота (H):
+                        </button>
+                    </div>
+                </div>
+                <!--DoorLeaf="1"-->
+                <div class="images_div" DoorLeaf="1" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Height1.jpg">
+                    <div class="description_images_door_class"> Высота двери по коробу в милиметрах.</div>
+                </div>
+                <!--DoorLeaf="2"-->
+                <div class="images_div" DoorLeaf="2" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Height2.jpg">
+                    <div class="description_images_door_class"> Высота двери по коробу в милиметрах.</div>
+                </div>
+
+                <div class="vertical_menu_checkbox" id="fanlightCheckboxDiv">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left"> Фрамуга</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="fanlightcheckboxname" id="fanlightcheckbox" data="1"
+                                   class="ios-toggle"/>
+                            <label for="fanlightcheckbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input_div" id="fanlightHeightDiv" fanlight="1" show="ghost_lement">
+
+                    <div>
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputHeightFanlight"
+                                name="Высота фрамуги (k):"
+                                data="0">Высота фрамуги (k):
+                        </button>
+                    </div>
+                </div>
+                <!--DoorLeaf="1"-->
+                <div class="images_div" DoorLeaf="2" fanlight="1" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Transom height1.jpg">
+                    <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах.</div>
+                </div>
+                <!--DoorLeaf="2"-->
+                <div class="images_div" DoorLeaf="1" fanlight="1" show="ghost_lement">
+                    <img class="images_widthDoor" src="images/annotate note/Transom height2.jpg">
+                    <div class="description_images_door_class"> Высота фрамуги по коробу в милиметрах.</div>
+                </div>
+
+            </div>
+
+            <!--deepnessDoor-->
+            <div class="select_deepnessDoor reduceAsAScroll" show="ghost_lement">
+                <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor0" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemedeepnessDoor0" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxdeepnessDoor0" id="checkboxdeepnessDoor0"
+                                   Item="deepnessDoor" data="" class="ios-toggle"/>
+                            <label for="checkboxdeepnessDoor0" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor1" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemedeepnessDoor1" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxdeepnessDoor1" id="checkboxdeepnessDoor1"
+                                   Item="deepnessDoor" data="" class="ios-toggle"/>
+                            <label for="checkboxdeepnessDoor1" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor2" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemedeepnessDoor2" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxdeepnessDoor2" id="checkboxdeepnessDoor2"
+                                   Item="deepnessDoor" data="" class="ios-toggle"/>
+                            <label for="checkboxdeepnessDoor2" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="deepnessDoor_checkbox vertical_menu_checkbox" id="deepnessDoor3" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemedeepnessDoor3" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxdeepnessDoor3" id="checkboxdeepnessDoor3"
+                                   Item="deepnessDoor" data="" class="ios-toggle"/>
+                            <label for="checkboxdeepnessDoor3" class="checkbox-label"></label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="vertical_menu_checkbox" id="additionally_peephole">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nemepeephole" available="no">Глазок</span>
+
+            <!--thicknessDoorLeaf-->
+            <div class="select_thicknessDoorLeaf reduceAsAScroll" show="ghost_lement">
+                <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf0" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf0" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxthicknessDoorLeaf0" id="checkboxthicknessDoorLeaf0"
+                                   Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
+                            <label for="checkboxthicknessDoorLeaf0" class="checkbox-label"></label>
+                        </div>
+                    </div>
                 </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="peephole_checkbox" id="peephole_checkbox" Item="peephole" data="1"
-                               class="ios-toggle"/>
-                        <label for="peephole_checkbox" class="checkbox-label"></label>
+                <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf1" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf1" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxthicknessDoorLeaf1" id="checkboxthicknessDoorLeaf1"
+                                   Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
+                            <label for="checkboxthicknessDoorLeaf1" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf2" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf2" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxthicknessDoorLeaf2" id="checkboxthicknessDoorLeaf2"
+                                   Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
+                            <label for="checkboxthicknessDoorLeaf2" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="thicknessDoorLeaf_checkbox vertical_menu_checkbox" id="thicknessDoorLeaf3" show="ghost_lement">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemethicknessDoorLeaf3" href="#"></a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxthicknessDoorLeaf3" id="checkboxthicknessDoorLeaf3"
+                                   Item="thicknessDoorLeaf" data="" class="ios-toggle"/>
+                            <label for="checkboxthicknessDoorLeaf3" class="checkbox-label"></label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="vertical_menu_button" id="closer">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="namecloser" available="yes">Доводчик</span>
+
+            <!--sideDoorOpen-->
+            <div class="select_sideDoorOpen reduceAsAScroll" show="ghost_lement">
+                <div class="vertical_menu_checkbox">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left"> Левое</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkbox11" id="checkbox11" Item="sideDoorOpen" data="LEFT"
+                                   class="ios-toggle"/>
+                            <label for="checkbox11" class="checkbox-label"></label>
+                        </div>
+                    </div>
                 </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="closerShow"><strong></strong></span>
+                <div class="vertical_menu_checkbox">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left"> Правое</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkbox12" id="checkbox12" Item="sideDoorOpen" data="RIGHT"
+                                   class="ios-toggle"/>
+                            <label for="checkbox12" class="checkbox-label"></label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="vertical_menu_checkbox" id="additionally_amplifierCloser">
-                <div class="left_cell_checkbox">
-                    <span class="vertical_menu_button_left" id="nemeamplifierCloser" available="no">Пластина под доводчик</span>
-                </div>
-                <div align="right" class="right_cell_checkbox">
-                    <div class="toggles">
-                        <input type="checkbox" name="amplifierCloser_checkbox" id="amplifierCloser_checkbox"
-                               Item="amplifierCloser" data="1" class="ios-toggle"/>
-                        <label for="amplifierCloser_checkbox" class="checkbox-label"></label>
+                <div class="vertical_menu_checkbox">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" href="#"> Внутреннее открывание</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkbox13" id="checkbox13" Item="innerDoorOpen" data="1"
+                                   class="ios-toggle"/>
+                            <label for="checkbox13" class="checkbox-label"></label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!--closer-->
-        <div class="select_closer reduceAsAScroll" show="ghost_lement">
-            <div class="div_images_furniture" data="нет" Item="closer">
-                <img class="images_Color" src="images/null.png"><br>
-                <span>нет</span>
-            </div>
-            <div class="div_images_furniture" id="closerDiv0" data="" Item="closer" show="ghost_lement">
-                <img class="images_Color" id="closerImg0" src=""><br>
-                <span id="closerSpan0"></span>
-            </div>
-            <div class="div_images_furniture" id="closerDiv1" data="" Item="closer" show="ghost_lement">
-                <img class="images_Color" id="closerImg1" src=""><br>
-                <span id="closerSpan1"></span>
-            </div>
-            <div class="div_images_furniture" id="closerDiv2" data="" Item="closer" show="ghost_lement">
-                <img class="images_Color" id="closerImg2" src=""><br>
-                <span id="closerSpan2"></span>
-            </div>
-            <div class="div_images_furniture" id="closerDiv3" data="" Item="closer" show="ghost_lement">
-                <img class="images_Color" id="closerImg3" src=""><br>
-                <span id="closerSpan3"></span>
-            </div>
-            <div class="closer_pages" data="0">
-                <span class="closerpag" data=">"> > </span>
-            </div>
-        </div>
+            <!--select_additionalDoorSettings-->
+            <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
 
-
-        <!--shieldKit-->
-        <div class="select_shieldKit reduceAsAScroll" show="ghost_lement">
-            <div class="vertical_menu_button" id="shieldColor">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameshieldColor" available="yes">Цвет</span>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost" id="additionalDoorSettings_doorstep">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" href="#" id="namedoorstep"
+                              available="no"> <Strong>Порог</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="doorstep_checkbox" id="doorstep_checkbox" Item="doorstep" data="1"
+                                   available="no" class="ios-toggle"/>
+                            <label for="doorstep_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
                 </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="shieldColorShow"><strong></strong></span>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_stainlessSteelDoorstep">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namestainlessSteelDoorstep" available="no"> Порог из нержавеющий сталли</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="stainlessSteelDoorstep_checkbox"
+                                   id="stainlessSteelDoorstep_checkbox" Item="stainlessSteelDoorstep" available="no"
+                                   data="1" class="ios-toggle"/>
+                            <label for="stainlessSteelDoorstep_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left"> <Strong>Наличники</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkbox16" id="checkbox16" Item="doorTrim" data=""
+                                   class="ios-toggle"/>
+                            <label for="checkbox16" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_topDoorTrim">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nametopDoorTrim" available="no"> Верхний наличник</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="topDoorTrim_checkbox" id="topDoorTrim_checkbox" Item="topDoorTrim"
+                                   data="" class="ios-toggle"/>
+                            <label for="topDoorTrim_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox"
+                     id="additionalDoorSettings_leftDoorTrim">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nameleftDoorTrim" available="no"> Левый наличник</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="leftDoorTrim_checkbox" id="leftDoorTrim_checkbox"
+                                   Item="leftDoorTrim" data="" class="ios-toggle"/>
+                            <label for="leftDoorTrim_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox"
+                     id="additionalDoorSettings_rightDoorTrim">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namerightDoorTrim"
+                              available="no"> Правый наличник</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="rightDoorTrim_checkbox" id="rightDoorTrim_checkbox"
+                                   Item="rightDoorTrim" data="" class="ios-toggle"/>
+                            <label for="rightDoorTrim_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_additionallyHingeMain">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nemeadditionallyHingeMain" available="no"> <Strong>Доп.петля (основная створка)</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="additionallyHingeMain_checkbox" id="additionallyHingeMain_checkbox"
+                                   Item="additionallyHingeMain" data="" class="ios-toggle"/>
+                            <label for="additionallyHingeMain_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_additionallyHingeNotMain">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nemeadditionallyHingeNotMain" available="no"> Доп.петля (НЕ основная створка)</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="additionallyHingeNotMain_checkbox"
+                                   id="additionallyHingeNotMain_checkbox" Item="additionallyHingeNotMain" data=""
+                                   class="ios-toggle"/>
+                            <label for="additionallyHingeNotMain_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_firstSealingLine_1">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namefirstSealingLine_1" available="no"> <Strong>Первый притвор тонкий уплотнитель </Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="firstSealingLine_1_checkbox" id="firstSealingLine_1_checkbox"
+                                   Item="firstSealingLine" data="1" class="ios-toggle"/>
+                            <label for="firstSealingLine_1_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_firstSealingLine_2">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namefirstSealingLine_2" available="no"> Первый притвор треугольный уплотнитель </span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="firstSealingLine_2_checkbox" id="firstSealingLine_2_checkbox"
+                                   Item="firstSealingLine" data="2" class="ios-toggle"/>
+                            <label for="firstSealingLine_2_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_firstSealingLine_3">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namefirstSealingLine_3" available="no"> Первый притвор магнитный уплотнитель </span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="firstSealingLine_3_checkbox" id="firstSealingLine_3_checkbox"
+                                   Item="firstSealingLine" data="3" class="ios-toggle"/>
+                            <label for="firstSealingLine_3_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_secondSealingLine_1">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namesecondSealingLine_1" available="no"> <Strong>Второй притвор тонкий уплотнитель </Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="secondSealingLine_1_checkbox" id="secondSealingLine_1_checkbox"
+                                   Item="secondSealingLine" data="1" class="ios-toggle"/>
+                            <label for="secondSealingLine_1_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_secondSealingLine_2">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namesecondSealingLine_2" available="no"> Второй притвор треугольный уплотнитель </span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="secondSealingLine_2_checkbox" id="secondSealingLine_2_checkbox"
+                                   Item="secondSealingLine" data="2" class="ios-toggle"/>
+                            <label for="secondSealingLine_2_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_secondSealingLine_3">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namesecondSealingLine_3" available="no"> Второй притвор магнитный уплотнитель </span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="secondSealingLine_3_checkbox" id="secondSealingLine_3_checkbox"
+                                   Item="secondSealingLine" data="3" class="ios-toggle"/>
+                            <label for="secondSealingLine_3_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_thirdSealingLine_1">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namethirdSealingLine_1" available="no"> <Strong>Третий притвор тонкий уплотнитель </Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="thirdSealingLine_1_checkbox" id="thirdSealingLine_1_checkbox"
+                                   Item="thirdSealingLine" data="1" class="ios-toggle"/>
+                            <label for="thirdSealingLine_1_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_thirdSealingLine_2">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namethirdSealingLine_2" available="no"> Третий притвор треугольный уплотнитель </span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="thirdSealingLine_2_checkbox" id="thirdSealingLine_2_checkbox"
+                                   Item="thirdSealingLine" data="2" class="ios-toggle"/>
+                            <label for="thirdSealingLine_2_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_thirdSealingLine_3">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namethirdSealingLine_3" available="no"> Третий притвор магнитный уплотнитель </span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="thirdSealingLine_3_checkbox" id="thirdSealingLine_3_checkbox"
+                                   Item="thirdSealingLine" data="3" class="ios-toggle"/>
+                            <label for="thirdSealingLine_3_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="vertical_menu_button" id="shieldDesign">
-                <div class="left_cell">
-                    <span class="vertical_menu_button_left" id="nameshieldDesign" available="yes">Дизайн</span>
+
+            <!--doorColor-->
+            <div class="select_doorColor reduceAsAScroll" show="ghost_lement">
+
+                <div class="div_images_Color" id="imagesdoorColorDiv0" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg0" src=""><br>
+                    <span id="imagesdoorColorSpan0"></span>
                 </div>
-                <div align="right" class="right_cell">
-                    <span class="vertical_menu_button_rigtht" id="shieldDesignShow"><strong></strong></span>
+                <div class="div_images_Color" id="imagesdoorColorDiv1" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg1" src=""><br>
+                    <span id="imagesdoorColorSpan1"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv2" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg2" src=""><br>
+                    <span id="imagesdoorColorSpan2"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv3" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg3" src=""><br>
+                    <span id="imagesdoorColorSpan3"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv4" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg4" src=""><br>
+                    <span id="imagesdoorColorSpan4"></span>
+                </div>
+
+                <div class="div_images_Color" id="imagesdoorColorDiv5" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg5" src=""><br>
+                    <span id="imagesdoorColorSpan5"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv6" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg6" src=""><br>
+                    <span id="imagesdoorColorSpan6"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv7" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg7" src=""><br>
+                    <span id="imagesdoorColorSpan7"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv8" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg8" src=""><br>
+                    <span id="imagesdoorColorSpan8"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv9" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg9" src=""><br>
+                    <span id="imagesdoorColorSpan9"></span>
+                </div>
+
+                <div class="div_images_Color" id="imagesdoorColorDiv10" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg10" src=""><br>
+                    <span id="imagesdoorColorSpan10"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv11" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg11" src=""><br>
+                    <span id="imagesdoorColorSpan11"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv12" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg12" src=""><br>
+                    <span id="imagesdoorColorSpan12"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv13" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg13" src=""><br>
+                    <span id="imagesdoorColorSpan13"></span>
+                </div>
+                <div class="div_images_Color" id="imagesdoorColorDiv14" data="" Item="doorColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesdoorColorImg14" src=""><br>
+                    <span id="imagesdoorColorSpan14"></span>
+                </div>
+
+                <div class="color_pages" data="0">
+                    <a class="pag" data=">"> > </a>
                 </div>
             </div>
+
+            <!--doorGlass-->
+            <div class="select_doorGlass reduceAsAScroll" show="ghost_lement">
+                <div class="vertical_menu_checkbox" id="doorGlass0">
+                    <div class="left_cell_checkbox">
+                        <a class="vertical_menu_button_left" id="nemedoorGlass0" href="#">Стекло</a>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkboxdoorGlass0" id="checkboxdoorGlass0" Item="doorGlass"
+                                   data="1" class="ios-toggle"/>
+                            <label for="checkboxdoorGlass0" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input_doorGlass_div" show="ghost_lement">
+
+                    <div class="vertical_menu_button" id="typeDoorGlass">
+                        <div class="left_cell">
+                            <span class="vertical_menu_button_left" id="nametypeDoorGlass" available="yes">тип стекла</span>
+                        </div>
+                        <div align="right" class="right_cell">
+                            <span class="vertical_menu_button_rigtht" id="typeDoorGlassShow"><strong></strong></span>
+                        </div>
+                    </div>
+                    <div class="vertical_menu_button" id="toning">
+                        <div class="left_cell">
+                            <span class="vertical_menu_button_left" id="nametoning" available="yes"> тонировка</span>
+                        </div>
+                        <div align="right" class="right_cell">
+                            <span class="vertical_menu_button_rigtht" id="toningShow"><strong></strong></span>
+                        </div>
+                    </div>
+                    <div class="vertical_menu_button" id="armor">
+                        <div class="left_cell">
+                            <span class="vertical_menu_button_left" id="namearmor" available="yes"> бронь</span>
+                        </div>
+                        <div align="right" class="right_cell">
+                            <span class="vertical_menu_button_rigtht" id="armorShow"><strong></strong></span>
+                        </div>
+                    </div>
+                    <div class="input_div" id="widthDoorGlassDiv">
+
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputWidthDoorGlass"
+                                name="Ширина стекла (w):"
+                                data="0">Ширина стекла (w):
+                        </button>
+                    </div>
+                    <div class="input_div" id="heightDoorGlassDiv">
+
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputHeightDoorGlass"
+                                name="Высота стекла (h):"
+                                data="0">Высота стекла (h):
+                        </button>
+
+                    </div>
+                    <div class="input_div" id="leftDoorGlassDiv">
+
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputleftDoorGlass"
+                                name="Левый отступ:"
+                                data="0">Левый отступ:
+                        </button>
+                    </div>
+                    <div class="input_div" id="bottomDoorGlassDiv">
+
+                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
+                                id="inputbottomDoorGlass"
+                                name="Нижний отступ:"
+                                data="0">Нижний отступ:
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--typeDoorGlass-->
+            <div class="select_typeDoorGlass reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_DoorGlass" data="нет" Item="typeDoorGlass">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_DoorGlass" id="typeDoorGlassDiv0" data="" Item="typeDoorGlass" show="ghost_lement">
+                    <img class="images_Color" id="typeDoorGlassImg0" src=""><br>
+                    <span id="typeDoorGlassSpan0"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="typeDoorGlassDiv1" data="" Item="typeDoorGlass" show="ghost_lement">
+                    <img class="images_Color" id="typeDoorGlassImg1" src=""><br>
+                    <span id="typeDoorGlassSpan1"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="typeDoorGlassDiv2" data="" Item="typeDoorGlass" show="ghost_lement">
+                    <img class="images_Color" id="typeDoorGlassImg2" src=""><br>
+                    <span id="typeDoorGlassSpan2"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="typeDoorGlassDiv3" data="" Item="typeDoorGlass" show="ghost_lement">
+                    <img class="images_Color" id="typeDoorGlassImg3" src=""><br>
+                    <span id="typeDoorGlassSpan3"></span>
+                </div>
+                <div class="typeDoorGlass_pages" data="0">
+                    <a class="typeDoorGlasspag" data=">"> > </a>
+                </div>
+            </div>
+
+            <!--toning-->
+            <div class="select_toning reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_DoorGlass" data="нет" Item="toning">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_DoorGlass" id="toningDiv0" data="" Item="toning" show="ghost_lement">
+                    <img class="images_Color" id="toningImg0" src=""><br>
+                    <span id="toningSpan0"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="toningDiv1" data="" Item="toning" show="ghost_lement">
+                    <img class="images_Color" id="toningImg1" src=""><br>
+                    <span id="toningSpan1"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="toningDiv2" data="" Item="toning" show="ghost_lement">
+                    <img class="images_Color" id="toningImg2" src=""><br>
+                    <span id="toningSpan2"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="toningDiv3" data="" Item="toning" show="ghost_lement">
+                    <img class="images_Color" id="toningImg3" src=""><br>
+                    <span id="toningSpan3"></span>
+                </div>
+                <div class="toning_pages" data="0">
+                    <a class="toningpag" data=">"> > </a>
+                </div>
+            </div>
+
+            <!--armor-->
+            <div class="select_armor reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_DoorGlass" data="нет" Item="armor">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_DoorGlass" id="armorDiv0" data="" Item="armor" show="ghost_lement">
+                    <img class="images_Color" id="armorImg0" src=""><br>
+                    <span id="armorSpan0"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="armorDiv1" data="" Item="armor" show="ghost_lement">
+                    <img class="images_Color" id="armorImg1" src=""><br>
+                    <span id="armorSpan1"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="armorDiv2" data="" Item="armor" show="ghost_lement">
+                    <img class="images_Color" id="armorImg2" src=""><br>
+                    <span id="armorSpan2"></span>
+                </div>
+                <div class="div_images_DoorGlass" id="armorDiv3" data="" Item="armor" show="ghost_lement">
+                    <img class="images_Color" id="armorImg3" src=""><br>
+                    <span id="armorSpan3"></span>
+                </div>
+                <div class="armor_pages" data="0">
+                    <a class="armorpag" data=">"> > </a>
+                </div>
+            </div>
+
+            <!--topLockkit-->
+            <div class="select_topLockkit reduceAsAScroll" show="ghost_lement">
+                <div class="vertical_menu_button" id="topLock">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nametopLock" available="yes">Замок</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="topLockShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="internatopLockDecoration">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameinternatopLockDecoration" available="no">внут.накладка</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="topinternaLockDecorationShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="outertopLockDecoration">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameoutertopLockDecoration" available="no">внеш.накладка</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="topouterLockDecorationShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button  ghost" id="topLockCylinder">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nametopLockCylinder" available="yes">цилиндр</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="topLockCylinderShow"><strong></strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!--topLock-->
+            <div class="select_topLock reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" data="нет" Item="topLock">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_furniture" id="topLockDiv0" data="" Item="topLock"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockImg0" src=""><br>
+                    <span id="topLockSpan0"></span>
+                </div>
+                <div class="div_images_furniture" id="topLockDiv1" data="" Item="topLock"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockImg1" src=""><br>
+                    <span id="topLockSpan1"></span>
+                </div>
+                <div class="div_images_furniture" id="topLockDiv2" data="" Item="topLock"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockImg2" src=""><br>
+                    <span id="topLockSpan2"></span>
+                </div>
+                <div class="div_images_furniture" id="topLockDiv3" data="" Item="topLock"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockImg3" src=""><br>
+                    <span id="topLockSpan3"></span>
+                </div>
+                <div class="topLock_pages" data="0">
+                    <a class="topLockpag" data=">"> > </a>
+                </div>
+            </div>
+
+            <!--lowerLockkit-->
+            <div class="select_lowerLockkit reduceAsAScroll" show="ghost_lement">
+                <div class="vertical_menu_button" id="lowerLock">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namelowerLock" available="yes">Замок</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="lowerLockShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="internalowerLockDecoration">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameinternalowerLockDecoration" available="no">внут.накладка</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht"
+                              id="lowerinternaLockDecorationShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="outerlowerLockDecoration">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameouterlowerLockDecoration" available="no">внеш.накладка</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht"
+                              id="lowerouterLockDecorationkShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button ghost" id="lowerLockCylinder">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namelowerLockCylinder" available="yes">цилиндр</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="lowerLockCylinderShow"><strong></strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!--lowerLock-->
+            <div class="select_lowerLock reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" data="нет" Item="lowerLock">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockDiv0" data="" Item="lowerLock" show="ghost_lement">
+                    <img class="images_Color" id="lowerLockImg0" src=""><br>
+                    <span id="lowerLockSpan0"></span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockDiv1" data="" Item="lowerLock" show="ghost_lement">
+                    <img class="images_Color" id="lowerLockImg1" src=""><br>
+                    <span id="lowerLockSpan1"></span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockDiv2" data="" Item="lowerLock" show="ghost_lement">
+                    <img class="images_Color" id="lowerLockImg2" src=""><br>
+                    <span id="lowerLockSpan2"></span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockDiv3" data="" Item="lowerLock" show="ghost_lement">
+                    <img class="images_Color" id="lowerLockImg3" src=""><br>
+                    <span id="lowerLockSpan3"></span>
+                </div>
+                <div class="lowerLock_pages" data="0">
+                    <span class="lowerLockpag" data=">"> > </span>
+                </div>
+            </div>
+
+            <!--topLockCylinder-->
+            <div class="select_topLockCylinder reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" data="нет" Item="topLockCylinder">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_furniture" id="topLockCylinderDiv0" data="" Item="topLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockCylinderImg0" src=""><br>
+                    <span id="topLockCylinderSpan0"></span>
+                </div>
+                <div class="div_images_furniture" id="topLockCylinderDiv1" data="" Item="topLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockCylinderImg1" src=""><br>
+                    <span id="topLockCylinderSpan1"></span>
+                </div>
+                <div class="div_images_furniture" id="topLockCylinderDiv2" data="" Item="topLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockCylinderImg2" src=""><br>
+                    <span id="topLockCylinderSpan2"></span>
+                </div>
+                <div class="div_images_furniture" id="topLockCylinderDiv3" data="" Item="topLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="topLockCylinderImg3" src=""><br>
+                    <span id="topLockCylinderSpan3"></span>
+                </div>
+                <div class="lowerlockCylinder_pages" data="0">
+                    <span class="lowerlockCylinderpag" data=">"> > </span>
+                </div>
+            </div>
+
+            <!--lowerLockCylinder-->
+            <div class="select_lowerLockCylinder reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" data="нет" Item="lowerlockCylinder">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockCylinderDiv0" data="" Item="lowerLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="lowerLockCylinderImg0" src=""><br>
+                    <span id="lowerLockCylinderSpan0"></span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockCylinderDiv1" data="" Item="lowerLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="lowerLockCylinderImg1" src=""><br>
+                    <span id="lowerLockCylinderSpan1"></span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockCylinderDiv2" data="" Item="lowerLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="lowerLockCylinderImg2" src=""><br>
+                    <span id="lowerLockCylinderSpan2"></span>
+                </div>
+                <div class="div_images_furniture" id="lowerLockCylinderDiv3" data="" Item="lowerLockCylinder"
+                     show="ghost_lement">
+                    <img class="images_Color" id="lowerLockCylinderImg3" src=""><br>
+                    <span id="lowerLockCylinderSpan3"></span>
+                </div>
+                <div class="lowerLockCylinder_pages" data="0">
+                    <span class="lowerLockCylinderpag" data=">"> > </span>
+                </div>
+            </div>
+
+
+            <!--handle-->
+            <div class="select_handle reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" data="нет" Item="handle">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_furniture" id="handleDiv0" data="" Item="handle" show="ghost_lement">
+                    <img class="images_Color" id="handleImg0" src=""><br>
+                    <span id="handleSpan0"></span>
+                </div>
+                <div class="div_images_furniture" id="handleDiv1" data="" Item="handle" show="ghost_lement">
+                    <img class="images_Color" id="handleImg1" src=""><br>
+                    <span id="handleSpan1"></span>
+                </div>
+                <div class="div_images_furniture" id="handleDiv2" data="" Item="handle" show="ghost_lement">
+                    <img class="images_Color" id="handleImg2" src=""><br>
+                    <span id="handleSpan2"></span>
+                </div>
+                <div class="div_images_furniture" id="handleDiv3" data="" Item="handle" show="ghost_lement">
+                    <img class="images_Color" id="handleImg3" src=""><br>
+                    <span id="handleSpan3"></span>
+                </div>
+                <div class="handle_pages" data="0">
+                    <span class="handlepag" data=">"> > </span>
+                </div>
+            </div>
+
+            <!--additionally-->
+            <div class="select_additionally reduceAsAScroll" show="ghost_lement">
+                <div class="vertical_menu_checkbox" id="additionally_nightLock">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nemenightLock" available="no">Ночная задвижка</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="nightLock_checkbox" id="nightLock_checkbox" Item="nightLock"
+                                   data="1" class="ios-toggle"/>
+                            <label for="nightLock_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="vertical_menu_checkbox" id="additionally_peephole">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nemepeephole" available="no">Глазок</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="peephole_checkbox" id="peephole_checkbox" Item="peephole" data="1"
+                                   class="ios-toggle"/>
+                            <label for="peephole_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="closer">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namecloser" available="yes">Доводчик</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="closerShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_checkbox" id="additionally_amplifierCloser">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="nemeamplifierCloser" available="no">Пластина под доводчик</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="amplifierCloser_checkbox" id="amplifierCloser_checkbox"
+                                   Item="amplifierCloser" data="1" class="ios-toggle"/>
+                            <label for="amplifierCloser_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--closer-->
+            <div class="select_closer reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" data="нет" Item="closer">
+                    <img class="images_Color" src="images/null.png"><br>
+                    <span>нет</span>
+                </div>
+                <div class="div_images_furniture" id="closerDiv0" data="" Item="closer" show="ghost_lement">
+                    <img class="images_Color" id="closerImg0" src=""><br>
+                    <span id="closerSpan0"></span>
+                </div>
+                <div class="div_images_furniture" id="closerDiv1" data="" Item="closer" show="ghost_lement">
+                    <img class="images_Color" id="closerImg1" src=""><br>
+                    <span id="closerSpan1"></span>
+                </div>
+                <div class="div_images_furniture" id="closerDiv2" data="" Item="closer" show="ghost_lement">
+                    <img class="images_Color" id="closerImg2" src=""><br>
+                    <span id="closerSpan2"></span>
+                </div>
+                <div class="div_images_furniture" id="closerDiv3" data="" Item="closer" show="ghost_lement">
+                    <img class="images_Color" id="closerImg3" src=""><br>
+                    <span id="closerSpan3"></span>
+                </div>
+                <div class="closer_pages" data="0">
+                    <span class="closerpag" data=">"> > </span>
+                </div>
+            </div>
+
+
+            <!--shieldKit-->
+            <div class="select_shieldKit reduceAsAScroll" show="ghost_lement">
+                <div class="vertical_menu_button" id="shieldColor">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameshieldColor" available="yes">Цвет</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="shieldColorShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="shieldDesign">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameshieldDesign" available="yes">Дизайн</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="shieldDesignShow"><strong></strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!--shieldColor-->
+            <div class="select_shieldColor reduceAsAScroll" show="ghost_lement">
+
+                <div class="div_images_Image" id="imagesshieldColorDiv0" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg0" src=""><br>
+                    <span id="imagesshieldColorSpan0"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv1" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg1" src=""><br>
+                    <span id="imagesshieldColorSpan1"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv2" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg2" src=""><br>
+                    <span id="imagesshieldColorSpan2"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv3" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg3" src=""><br>
+                    <span id="imagesshieldColorSpan3"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv4" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg4" src=""><br>
+                    <span id="imagesshieldColorSpan4"></span>
+                </div>
+
+                <div class="div_images_Image" id="imagesshieldColorDiv5" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg5" src=""><br>
+                    <span id="imagesshieldColorSpan5"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv6" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg6" src=""><br>
+                    <span id="imagesshieldColorSpan6"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv7" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg7" src=""><br>
+                    <span id="imagesshieldColorSpan7"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv8" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg8" src=""><br>
+                    <span id="imagesshieldColorSpan8"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv9" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg9" src=""><br>
+                    <span id="imagesshieldColorSpan9"></span>
+                </div>
+
+                <div class="div_images_Image" id="imagesshieldColorDiv10" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg10" src=""><br>
+                    <span id="imagesshieldColorSpan10"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv11" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg11" src=""><br>
+                    <span id="imagesshieldColorSpan11"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv12" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg12" src=""><br>
+                    <span id="imagesshieldColorSpan12"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv13" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg13" src=""><br>
+                    <span id="imagesshieldColorSpan13"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldColorDiv14" data="" Item="shieldColor" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldColorImg14" src=""><br>
+                    <span id="imagesshieldColorSpan14"></span>
+                </div>
+
+                <div class="color_pages" data="0">
+                    <a class="pag" data=">"> > </a>
+                </div>
+            </div>
+
+            <!--shieldDesign-->
+            <div class="select_shieldDesign reduceAsAScroll" show="ghost_lement">
+
+                <div class="div_images_Image" id="imagesshieldDesignDiv0" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg0" src=""><br>
+                    <span id="imagesshieldDesignSpan0"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv1" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg1" src=""><br>
+                    <span id="imagesshieldDesignSpan1"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv2" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg2" src=""><br>
+                    <span id="imagesshieldDesignSpan2"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv3" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg3" src=""><br>
+                    <span id="imagesshieldDesignSpan3"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv4" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg4" src=""><br>
+                    <span id="imagesshieldDesignSpan4"></span>
+                </div>
+
+                <div class="div_images_Image" id="imagesshieldDesignDiv5" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg5" src=""><br>
+                    <span id="imagesshieldDesignSpan5"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv6" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg6" src=""><br>
+                    <span id="imagesshieldDesignSpan6"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv7" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg7" src=""><br>
+                    <span id="imagesshieldDesignSpan7"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv8" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg8" src=""><br>
+                    <span id="imagesshieldDesignSpan8"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv9" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg9" src=""><br>
+                    <span id="imagesshieldDesignSpan9"></span>
+                </div>
+
+                <div class="div_images_Image" id="imagesshieldDesignDiv10" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg10" src=""><br>
+                    <span id="imagesshieldDesignSpan10"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv11" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg11" src=""><br>
+                    <span id="imagesshieldDesignSpan11"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv12" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg12" src=""><br>
+                    <span id="imagesshieldDesignSpan12"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv13" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg13" src=""><br>
+                    <span id="imagesshieldDesignSpan13"></span>
+                </div>
+                <div class="div_images_Image" id="imagesshieldDesignDiv14" data="" Item="shieldDesign" show="ghost_lement">
+                    <img class="images_Color" id="imagesshieldDesignImg14" src=""><br>
+                    <span id="imagesshieldDesignSpan14"></span>
+                </div>
+
+                <div class="color_pages" data="0">
+                    <a class="pag" data=">"> > </a>
+                </div>
+            </div>
+
+
         </div>
 
-        <!--shieldColor-->
-        <div class="select_shieldColor reduceAsAScroll" show="ghost_lement">
-
-            <div class="div_images_Image" id="imagesshieldColorDiv0" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg0" src=""><br>
-                <span id="imagesshieldColorSpan0"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv1" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg1" src=""><br>
-                <span id="imagesshieldColorSpan1"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv2" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg2" src=""><br>
-                <span id="imagesshieldColorSpan2"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv3" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg3" src=""><br>
-                <span id="imagesshieldColorSpan3"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv4" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg4" src=""><br>
-                <span id="imagesshieldColorSpan4"></span>
-            </div>
-
-            <div class="div_images_Image" id="imagesshieldColorDiv5" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg5" src=""><br>
-                <span id="imagesshieldColorSpan5"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv6" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg6" src=""><br>
-                <span id="imagesshieldColorSpan6"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv7" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg7" src=""><br>
-                <span id="imagesshieldColorSpan7"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv8" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg8" src=""><br>
-                <span id="imagesshieldColorSpan8"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv9" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg9" src=""><br>
-                <span id="imagesshieldColorSpan9"></span>
-            </div>
-
-            <div class="div_images_Image" id="imagesshieldColorDiv10" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg10" src=""><br>
-                <span id="imagesshieldColorSpan10"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv11" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg11" src=""><br>
-                <span id="imagesshieldColorSpan11"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv12" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg12" src=""><br>
-                <span id="imagesshieldColorSpan12"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv13" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg13" src=""><br>
-                <span id="imagesshieldColorSpan13"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldColorDiv14" data="" Item="shieldColor" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldColorImg14" src=""><br>
-                <span id="imagesshieldColorSpan14"></span>
-            </div>
-
-            <div class="color_pages" data="0">
-                <a class="pag" data=">"> > </a>
-            </div>
-        </div>
-
-        <!--shieldDesign-->
-        <div class="select_shieldDesign reduceAsAScroll" show="ghost_lement">
-
-            <div class="div_images_Image" id="imagesshieldDesignDiv0" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg0" src=""><br>
-                <span id="imagesshieldDesignSpan0"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv1" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg1" src=""><br>
-                <span id="imagesshieldDesignSpan1"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv2" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg2" src=""><br>
-                <span id="imagesshieldDesignSpan2"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv3" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg3" src=""><br>
-                <span id="imagesshieldDesignSpan3"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv4" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg4" src=""><br>
-                <span id="imagesshieldDesignSpan4"></span>
-            </div>
-
-            <div class="div_images_Image" id="imagesshieldDesignDiv5" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg5" src=""><br>
-                <span id="imagesshieldDesignSpan5"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv6" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg6" src=""><br>
-                <span id="imagesshieldDesignSpan6"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv7" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg7" src=""><br>
-                <span id="imagesshieldDesignSpan7"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv8" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg8" src=""><br>
-                <span id="imagesshieldDesignSpan8"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv9" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg9" src=""><br>
-                <span id="imagesshieldDesignSpan9"></span>
-            </div>
-
-            <div class="div_images_Image" id="imagesshieldDesignDiv10" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg10" src=""><br>
-                <span id="imagesshieldDesignSpan10"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv11" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg11" src=""><br>
-                <span id="imagesshieldDesignSpan11"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv12" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg12" src=""><br>
-                <span id="imagesshieldDesignSpan12"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv13" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg13" src=""><br>
-                <span id="imagesshieldDesignSpan13"></span>
-            </div>
-            <div class="div_images_Image" id="imagesshieldDesignDiv14" data="" Item="shieldDesign" show="ghost_lement">
-                <img class="images_Color" id="imagesshieldDesignImg14" src=""><br>
-                <span id="imagesshieldDesignSpan14"></span>
-            </div>
-
-            <div class="color_pages" data="0">
-                <a class="pag" data=">"> > </a>
-            </div>
-        </div>
-
-
+        <footer>
+            <p>© jRim LTD 2020</p>
+        </footer>
     </div>
-
-    <footer>
-        <p>© jRim LTD 2020</p>
-    </footer>
 </div>
-
 
 <!--number_selection-->
 <div class="android_main_contener sword-cursor" show="ghost_lement">
