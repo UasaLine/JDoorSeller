@@ -13,8 +13,6 @@ body{
     position: relative;
 }
 
-
-
 .header_logo {
     padding: 3px 50px 3px 50px;
     display: inline-block;
@@ -186,29 +184,6 @@ tr:hover {
     color: #000000;
 }
 
-.daughter_container1 {
-    display: inline-block;
-    height: 800px;
-    width: 39%;
-    vertical-align: top;
-    border-right: 1px solid #C0C0C0;
-}
-
-.daughter_container2 {
-    display: inline-block;
-    height: 800px;
-    width: 30%;
-    border-right: 1px solid #C0C0C0;
-}
-
-.daughter_container3 {
-    display: inline-block;
-    height: 800px;
-    width: 30%;
-    margin: auto;
-    vertical-align: top;
-    overflow-y: auto;
-}
 
 .reduceAsAScroll{
     width:99%;
@@ -235,37 +210,8 @@ tr:hover {
 
 }
 
-.vertical_menu_button {
-
-    text-align-last: justify;
-    display: block;
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    text-decoration: none;
-    color: #343a40;
-    border-bottom: solid 1px #A9A9A9;
-    margin: 5px;
-
-}
-
-.vertical_menu_button:hover {
-    color: #fff;
-    background-color: #343a40;
-    border-radius: 3px;
-    cursor: url(/images/Fable_Sword.gif), pointer;
-}
-
 .select_metal {
     text-align-last: justify;
-}
-
-.vertical_menu_button_left {
-    text-decoration: none;
-}
-
-.vertical_menu_button_rigtht {
-    text-decoration: none;
 }
 
 .vertical_menu_space {
@@ -280,16 +226,6 @@ tr:hover {
 
 }
 
-.vertical_menu_button_rigth_panel {
-
-    display: block;
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    text-decoration: none;
-    color: #000000;
-    margin: 5px;
-}
 
 .right_cell {
     display: inline-block;
