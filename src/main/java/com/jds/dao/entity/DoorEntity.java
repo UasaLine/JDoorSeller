@@ -115,6 +115,9 @@ public class DoorEntity implements SerializingFields {
     @JoinColumn(name = "shield_id", referencedColumnName = "id")
     private ShieldKit shieldKit;
 
+    @Column(name = "comment")
+    private String comment;
+
     @Transient
     private CostList costList;
 
@@ -1151,5 +1154,13 @@ public class DoorEntity implements SerializingFields {
 
     public void setShieldKit(ShieldKit shieldKit) {
         this.shieldKit = shieldKit;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

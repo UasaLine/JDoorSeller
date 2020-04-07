@@ -144,6 +144,11 @@ jQuery('document').ready(function () {
         }
     });
 
+    $('#commentTextarea').change(function () {
+        setDoorField('comment', $(this).val());
+        displayObject(door);
+    });
+
     $('.ios-toggle').on('click', function () {
 
         var isRepRun = true;
@@ -557,6 +562,9 @@ jQuery('document').ready(function () {
                     }
 
                 }
+            }
+            else if (currentItem == "comment") {
+                showValue = value.slice(0, 20)+'..'
             }
             //doorstep//DoorTrim
             else if (currentItem == "doorstep"
@@ -1573,11 +1581,12 @@ jQuery('document').ready(function () {
             $('.select_shieldDesign').attr('show', 'ghost_lement');
         }
 
-        if (currentItem == "comment") {
 
+        if (currentItem == "comment") {
+            $('.select_comment').attr('show', 'is_alive_lement');
 
         } else {
-
+            $('.select_comment').attr('show', 'ghost_lement');
         }
 
     }

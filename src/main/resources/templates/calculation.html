@@ -211,7 +211,7 @@
                         <span class="vertical_menu_button_left" id="namecomment" available="yes"> КОММЕНТАРИЙ</span>
                     </div>
                     <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
+                        <span class="vertical_menu_button_rigtht" available="yes" id="commentShow"><strong></strong></span>
                     </div>
                 </div>
 
@@ -1459,7 +1459,13 @@
                 </div>
             </div>
 
-
+            <!--comment-->
+            <div class="select_comment reduceAsAScroll" show="ghost_lement">
+                <div class="form-group">
+                    <label for="commentTextarea">комментарий:</label>
+                    <textarea class="form-control" id="commentTextarea" rows="10"></textarea>
+                </div>
+            </div>
         </div>
 
         <footer>

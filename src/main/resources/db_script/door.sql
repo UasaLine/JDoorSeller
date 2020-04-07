@@ -26,5 +26,6 @@ CREATE TABLE door
     glass_id               int,
     isDoorGlass            int,
     furniture_id           int,
-    shield_id              int
+    shield_id              int,
+    comment                CHARACTER VARYING(500)
 );
