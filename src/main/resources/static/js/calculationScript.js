@@ -564,7 +564,9 @@ jQuery('document').ready(function () {
                 }
             }
             else if (currentItem == "comment") {
-                showValue = value.slice(0, 20)+'..'
+                if (value!=null && value.length>20){
+                    showValue = value.slice(0, 20)+'..';
+                }
             }
             //doorstep//DoorTrim
             else if (currentItem == "doorstep"
