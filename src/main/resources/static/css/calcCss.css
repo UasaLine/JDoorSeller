@@ -1,8 +1,12 @@
 
+:root {
+    --main-height-block: 565px;
+}
+
 .daughter_container1 {
 
     display: inline-block;
-    height: 530px;
+    height: var(--main-height-block);
     width: 39%;
     vertical-align: top;
     border-right: 1px solid #C0C0C0;
@@ -10,14 +14,14 @@
 
 .daughter_container2 {
     display: inline-block;
-    height: 530px;
+    height: var(--main-height-block);
     width: 30%;
     border-right: 1px solid #C0C0C0;
 }
 
 .daughter_container3 {
     display: inline-block;
-    height: 530px;
+    height: var(--main-height-block);
     width: 30%;
     margin: auto;
     vertical-align: top;
@@ -62,4 +66,9 @@
     text-decoration: none;
     color: #000000;
     margin: 5px;
+}
+
+.small_indent {
+    margin-left: 2px;
+    margin-bottom: 4px;
 }

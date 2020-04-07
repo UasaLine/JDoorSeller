@@ -18,32 +18,21 @@
 </head>
 <body>
 
-<div class="container">
+<div class="top_head">
 
     <!--header-->
     <div class="sword-cursor" id="intro-dm">
-        <a th:href="@{/}"><img src="images/Header_widht_1221-85_001.jpg"></a>
+        <a th:href="@{/}"><img src="images/Header_widht_1300-85_001.jpg"></a>
     </div>
 
     <!--button-->
-    <div class="container_main_order sword-cursor">
-        <div class="row">
-            <div class="col-8 ">
-                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
-                <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
-                <button type="button" class="btn btn-outline-dark" id="buttonGetCutteig">показать расчет</button>
-                <div class="navigation_panel_div ghost">
-                </div>
-            </div>
 
-            <div class="col-2 ">
-                <div class="btn-group small_indent" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
-                    <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
-                </div>
-            </div>
+        <div class="row  sword-cursor">
+
+
+
         </div>
-    </div>
+
 
     <div class="additional_data sword-cursor" show="ghost_lement">
         <div class="data_L">
@@ -56,6 +45,12 @@
     <div class="container_main sword-cursor">
 
         <div class="daughter_container1" id="doorDiv1">
+            <!--button-->
+            <div class="sword-cursor">
+                <button type="button" class="btn btn-outline-dark" id="toСlose">закрыть</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
+            </div>
 
             <h1 class="display-4" id="price">Цена:</h1>
 
@@ -211,11 +206,25 @@
                         <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
                     </div>
                 </div>
+                <div class="vertical_menu_button" id="comment">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namecomment" available="yes"> КОММЕНТАРИЙ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes" id="commentShow"><strong></strong></span>
+                    </div>
+                </div>
 
             </div>
         </div>
 
         <div class="daughter_container3">
+
+            <!--button-->
+            <div class="btn-group small_indent" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
+                <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
+            </div>
 
             <!--arrow explanations-->
             <div class="arrow_explanations" show="ghost_lement">
@@ -1450,61 +1459,65 @@
                 </div>
             </div>
 
-
+            <!--comment-->
+            <div class="select_comment reduceAsAScroll" show="ghost_lement">
+                <div class="form-group">
+                    <label for="commentTextarea">комментарий:</label>
+                    <textarea class="form-control" id="commentTextarea" rows="10"></textarea>
+                </div>
+            </div>
         </div>
 
         <footer>
             <p>© jRim LTD 2020</p>
         </footer>
     </div>
-</div>
 
+    <!--number_selection-->
+    <div class="android_main_contener sword-cursor" show="ghost_lement">
+        <div class="android_hader">
+            <span id="nameSelectForm" data="">ширина</span>
+        </div>
 
-<!--number_selection-->
-<div class="android_main_contener sword-cursor" show="ghost_lement">
-    <div class="android_hader">
-        <span id="nameSelectForm" data="">ширина</span>
-    </div>
-
-    <div class="android_counter">
-        <div class="counter_column">
-            <span class="counter_line line1" id="addL">+</span>
-            <div class="counter_line_intL">
-                <span class="counter_line numberL">09</span>
-                <span class="counter_line numberL">08</span>
-                <span class="counter_line numberL">07</span>
+        <div class="android_counter">
+            <div class="counter_column">
+                <span class="counter_line line1" id="addL">+</span>
+                <div class="counter_line_intL">
+                    <span class="counter_line numberL">09</span>
+                    <span class="counter_line numberL">08</span>
+                    <span class="counter_line numberL">07</span>
+                </div>
+                <span class="counter_line line1" id="reduceL">-</span>
             </div>
-            <span class="counter_line line1" id="reduceL">-</span>
-        </div>
-        <!--
-        <div class="counter_column">
-            <span class="counter_line line1" id="addR">+</span>
-            <div class="counter_line_intR">
-                <span class="counter_line numberR">10</span>
-                <span class="counter_line numberR">20</span>
-                <span class="counter_line numberR">30</span>
+            <!--
+            <div class="counter_column">
+                <span class="counter_line line1" id="addR">+</span>
+                <div class="counter_line_intR">
+                    <span class="counter_line numberR">10</span>
+                    <span class="counter_line numberR">20</span>
+                    <span class="counter_line numberR">30</span>
+                </div>
+                <span class="counter_line line1" id="reduceR">-</span>
             </div>
-            <span class="counter_line line1" id="reduceR">-</span>
+            -->
         </div>
-        -->
+
+        <div class="android_basement">
+            <div class="android_basementL">
+                <span class='pass' id="select_cancel">отмена</span>
+            </div>
+            <div class="android_basementR">
+                <span class='pass' id="select_set">установить</span>
+            </div>
+        </div>
+    </div>
+    <div class="wall_of_darkness sword-cursor" show="ghost_lement">
     </div>
 
-    <div class="android_basement">
-        <div class="android_basementL">
-            <span class='pass' id="select_cancel">отмена</span>
-        </div>
-        <div class="android_basementR">
-            <span class='pass' id="select_set">установить</span>
-        </div>
-    </div>
+    <audio id="mySoundClip">
+        <source src="audio/sword_saund 2.mp3"></source>
+        Ваш браузер не поддерживает замечательный элемент audio.
+    </audio>
 </div>
-<div class="wall_of_darkness sword-cursor" show="ghost_lement">
-</div>
-
-<audio id="mySoundClip">
-    <source src="audio/sword_saund 2.mp3"></source>
-    Ваш браузер не поддерживает замечательный элемент audio.
-</audio>
-
 </body>
 </html>

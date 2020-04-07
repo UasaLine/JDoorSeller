@@ -596,9 +596,6 @@ tr:hover {
 .typeLine:hover{
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
-.small_indent{
-    margin-left:18px;
-}
 
 .redColor{
     color: red;
