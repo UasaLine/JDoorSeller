@@ -1253,9 +1253,15 @@ jQuery('document').ready(function () {
             displayadditionalDoorSettings(data);
             displayListOfItems('topLock', availableFurnitureList.topLock, 0, 'kit');
             displayListOfItems('lowerLock', availableFurnitureList.lowerLock, 0, 'kit');
+
             displayListOfItems('handle', availableFurnitureList.handle, 0, '');
+
             displayListOfItems('lowerLockCylinder', availableFurnitureList.lockCylinder, 0, '');
             displayListOfItems('topLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+
+            displayListOfItems('lowerLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+            displayListOfItems('topLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+
             displayListOfItems('closer', availableFurnitureList.closer, 0, '');
             displayListOfItems('endDoorLock', availableFurnitureList.endDoorLock, 0, '');
             displayListOfItems('typeDoorGlass', availableFurnitureList.typeDoorGlass, 0, '');

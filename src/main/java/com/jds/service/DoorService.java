@@ -317,11 +317,11 @@ public class DoorService implements DoorServ {
         if (furnitureKit.getTopLockCylinder()!=null){
             addfurniture(lineSpec,furnitureKit.getTopLockCylinder(),doorType);
         }
-        if (furnitureKit.getTopinternaLockDecoration()!=null){
-            addfurniture(lineSpec,furnitureKit.getTopinternaLockDecoration(),doorType);
+        if (furnitureKit.getTopInLockDecor()!=null){
+            addfurniture(lineSpec,furnitureKit.getTopInLockDecor(),doorType);
         }
-        if (furnitureKit.getTopouterLockDecoration()!=null){
-            addfurniture(lineSpec,furnitureKit.getTopouterLockDecoration(),doorType);
+        if (furnitureKit.getTopOutLockDecor()!=null){
+            addfurniture(lineSpec,furnitureKit.getTopOutLockDecor(),doorType);
         }
         if (furnitureKit.getLowerLock()!=null){
             addfurniture(lineSpec,furnitureKit.getLowerLock(),doorType);
@@ -333,11 +333,11 @@ public class DoorService implements DoorServ {
         if (furnitureKit.getLowerLockCylinder()!=null){
             addfurniture(lineSpec,furnitureKit.getLowerLockCylinder(),doorType);
         }
-        if (furnitureKit.getLowerinternaLockDecoration()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerinternaLockDecoration(),doorType);
+        if (furnitureKit.getLowerInLockDecor()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerInLockDecor(),doorType);
         }
-        if (furnitureKit.getLowerouterLockDecoration()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerouterLockDecoration(),doorType);
+        if (furnitureKit.getLowerOutLockDecor()!=null){
+            addfurniture(lineSpec,furnitureKit.getLowerOutLockDecor(),doorType);
         }
 
         if (furnitureKit.getCloser()!=null){

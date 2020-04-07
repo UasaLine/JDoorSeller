@@ -635,17 +635,17 @@ public class DoorEntity implements SerializingFields {
                     false,
                     (int) furnitureKit.getTopLock().getPrice());
         }
-        if (furnitureKit.getTopinternaLockDecoration() != null) {
+        if (furnitureKit.getTopInLockDecor()!= null) {
             costList.addLine("Фурнитура: накладка верх. внутреняя ",
                     4,
                     false,
-                    (int) furnitureKit.getTopinternaLockDecoration().getPrice());
+                    (int) furnitureKit.getTopInLockDecor().getPrice());
         }
-        if (furnitureKit.getTopouterLockDecoration() != null) {
+        if (furnitureKit.getTopOutLockDecor() != null) {
             costList.addLine("Фурнитура: накладка верх. внешняя ",
                     4,
                     false,
-                    (int) furnitureKit.getTopouterLockDecoration().getPrice());
+                    (int) furnitureKit.getTopOutLockDecor().getPrice());
         }
 
         if (furnitureKit.getTopLockCylinder() != null) {
@@ -662,17 +662,17 @@ public class DoorEntity implements SerializingFields {
                     false,
                     (int) furnitureKit.getLowerLock().getPrice());
         }
-        if (furnitureKit.getLowerinternaLockDecoration() != null) {
+        if (furnitureKit.getLowerInLockDecor() != null) {
             costList.addLine("Фурнитура: накладка низ. внутренняя",
                     4,
                     false,
-                    (int) furnitureKit.getLowerinternaLockDecoration().getPrice());
+                    (int) furnitureKit.getLowerInLockDecor().getPrice());
         }
-        if (furnitureKit.getLowerouterLockDecoration() != null) {
+        if (furnitureKit.getLowerOutLockDecor() != null) {
             costList.addLine("Фурнитура: накладка низ. внешняя",
                     4,
                     false,
-                    (int) furnitureKit.getLowerouterLockDecoration().getPrice());
+                    (int) furnitureKit.getLowerOutLockDecor().getPrice());
         }
         if (furnitureKit.getLowerLockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
