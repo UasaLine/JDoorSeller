@@ -26,24 +26,13 @@
     </div>
 
     <!--button-->
-    <div class="container_main_order sword-cursor">
-        <div class="row">
-            <div class="col-8 ">
-                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
-                <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
-                <button type="button" class="btn btn-outline-dark" id="buttonGetCutteig">показать расчет</button>
-                <div class="navigation_panel_div ghost">
-                </div>
-            </div>
 
-            <div class="col-2 ">
-                <div class="btn-group small_indent" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
-                    <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
-                </div>
-            </div>
+        <div class="row  sword-cursor">
+
+
+
         </div>
-    </div>
+
 
     <div class="additional_data sword-cursor" show="ghost_lement">
         <div class="data_L">
@@ -56,6 +45,12 @@
     <div class="container_main sword-cursor">
 
         <div class="daughter_container1" id="doorDiv1">
+            <!--button-->
+            <div class="sword-cursor">
+                <button type="button" class="btn btn-outline-dark" id="toСlose">закрыть</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
+            </div>
 
             <h1 class="display-4" id="price">Цена:</h1>
 
@@ -211,11 +206,25 @@
                         <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
                     </div>
                 </div>
+                <div class="vertical_menu_button" id="comment">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namecomment" available="yes"> КОММЕНТАРИЙ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
+                    </div>
+                </div>
 
             </div>
         </div>
 
         <div class="daughter_container3">
+
+            <!--button-->
+            <div class="btn-group small_indent" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-dark" id="backHis"><</button>
+                <button type="button" class="btn btn-outline-dark" id="nextHis">></button>
+            </div>
 
             <!--arrow explanations-->
             <div class="arrow_explanations" show="ghost_lement">

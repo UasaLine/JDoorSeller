@@ -331,16 +331,6 @@ jQuery('document').ready(function () {
         audio.play();
     });
 
-    $('#buttonGetCutteig').on('click', function () {
-
-        //drawCutting();
-
-
-        getSpecAndDraw();
-        showAdditional_data();
-
-    });
-
     $('#buttonSaveDoor').on('click', function () {
 
         var strJSON = JSON.stringify(door);
@@ -666,29 +656,6 @@ jQuery('document').ready(function () {
         }
     }
 
-    function drawCutting() {
-
-        //delete
-        $('.Sheet').remove();
-        var k = 0.186;
-        var sheet = door.sheets;
-
-        for (var i = 0; i < sheet.length; ++i) {
-
-            $('<div>').attr('class', 'Sheet')
-                .attr('style', 'width:' + sheet[i].width * k + 'px; height:' + sheet[i].height * k + 'px;')
-                .appendTo('.data_L');
-
-            var doorParts = sheet[i].containsParts;
-            for (var j = 0; j < doorParts.length; ++j) {
-                $('<div>')
-                    .attr('class', 'doorPart')
-                    .attr('style', 'width:' + doorParts[j].height * k + 'px; height:' + doorParts[j].width * k + 'px;top:' + doorParts[j].positioningTop * k + 'px;left:' + doorParts[j].positioningLeft * k + 'px;')
-                    .appendTo('.Sheet');
-            }
-        }
-    }
-
     function toOrder() {
         location.href = "order?orderId=" + orderId;
     };
@@ -836,25 +803,6 @@ jQuery('document').ready(function () {
         }
     }
 
-    function getListOfSelectionFields() {
-
-        if (door.doorType != null) {
-            $.ajax({
-                url: 'door',
-                data: {id: id, typid: door.doorType.id, orderId: orderId},
-                dataType: 'json',
-                success: function (data) {
-                    //alert('success: ' + data);
-                    FillOutForm(data);
-                    fillInTheFieldsToTheTemplate(data.template);
-                },
-                error: function (data) {
-                    alert('error:' + data);
-                }
-            });
-        }
-    };
-
     function processItemSelection(item) {
 
         currentItem = $(item).attr('id');
@@ -900,18 +848,6 @@ jQuery('document').ready(function () {
                     if (type[j].id === value) {
                         return door.availableDoorClass[i].name;
                     }
-                }
-            }
-        }
-        return ""
-    };
-
-    function getTypeFromClassList(value, classListParam) {
-        for (var i = 0; i < classListParam.length; ++i) {
-            var type = classListParam[i].doorTypes;
-            for (var j = 0; j < type.length; ++j) {
-                if (type[j].id == value) {
-                    return type[j];
                 }
             }
         }
@@ -1158,14 +1094,6 @@ jQuery('document').ready(function () {
             return false;
         }
         return true;
-    }
-
-    function showAdditional_data() {
-        if ($('.additional_data').attr('show') == 'ghost_lement') {
-            $('.additional_data').attr('show', 'yas');
-        } else {
-            $('.additional_data').attr('show', 'ghost_lement');
-        }
     }
 
     function maybeTurnItOffDoorTrim() {
@@ -1644,6 +1572,14 @@ jQuery('document').ready(function () {
         } else {
             $('.select_shieldDesign').attr('show', 'ghost_lement');
         }
+
+        if (currentItem == "comment") {
+
+
+        } else {
+
+        }
+
     }
 
     function addToTheHistoryList(val) {
@@ -1749,31 +1685,6 @@ jQuery('document').ready(function () {
         assignPreviouValue();
     }
 
-    function getSpecAndDraw() {
-        $.ajax({
-            url: 'doorSpec',
-            data: {doorId: id},
-            dataType: 'json',
-            success: function (data) {
-
-                if (data == null) {
-                    return;
-                }
-
-                for (var i = 0; i < data.length; i++) {
-                    $('<span>')
-                        .attr('class', 'line_spec')
-                        .text(data[i].name + '  -  ' + data[i].value)
-                        .appendTo('.additional_data');
-                }
-
-            },
-            error: function (data) {
-                alert('error: doorSpec ' + data);
-            }
-        });
-    }
-
     function fillChildBlockFurniture(grupName, name) {
 
         //set Child field
@@ -1840,6 +1751,5 @@ jQuery('document').ready(function () {
             return $(this).attr('data') == id;
         }).attr('check', 'checkbox');
     };
-
 
 });
