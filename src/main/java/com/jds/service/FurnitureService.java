@@ -59,8 +59,16 @@ public class FurnitureService {
         return AvailableFieldsForSelection.builder()
                 .topLock(convertToFurniture(template.getTopLock()))
                 .lowerLock(convertToFurniture(template.getLowerLock()))
+
                 .lockCylinder(convertToFurniture(template.getLockCylinder()))
+
+                .topInLockDecor(convertToFurniture(template.getTopInLockDecor()))
+                .topOutLockDecor(convertToFurniture(template.getTopOutLockDecor()))
+                .lowerInLockDecor(convertToFurniture(template.getLowerInLockDecor()))
+                .lowerOutLockDecor(convertToFurniture(template.getLowerInLockDecor()))
+
                 .handle(convertToFurniture(template.getHandle()))
+
                 .shieldColor(convertToImage(template.getShieldColor()))
                 .shieldDesign(convertToImage(template.getShieldDesign()))
                 .build();

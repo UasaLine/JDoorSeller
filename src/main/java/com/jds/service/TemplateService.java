@@ -211,6 +211,7 @@ public class TemplateService {
             restriction.addHandle(lim);
         } else if (TypeOfLimitionDoor.LOCK_CYLINDER == lim.getTypeSettings()) {
             restriction.addLockCylinder(lim);
+
         } else if (TypeOfLimitionDoor.TOP_IN_LOCK_DECOR == lim.getTypeSettings()) {
             restriction.addTopInLockDecor(lim);
         } else if (TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR == lim.getTypeSettings()) {
@@ -219,6 +220,7 @@ public class TemplateService {
             restriction.addLowerInLockDecor(lim);
         } else if (TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR == lim.getTypeSettings()) {
             restriction.addLowerOutLockDecor(lim);
+
         } else if (TypeOfLimitionDoor.CLOSER == lim.getTypeSettings()) {
             restriction.addCloser(lim);
         } else if (TypeOfLimitionDoor.END_DOOR_LOCK == lim.getTypeSettings()) {

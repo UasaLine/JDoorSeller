@@ -25,11 +25,11 @@ public class FurnitureKit implements SerializingFields {
 
     @ManyToOne()
     @JoinColumn(name = "topinternaLockDecoration")
-    private DoorFurniture topinternaLockDecoration;
+    private DoorFurniture topInLockDecor;
 
     @ManyToOne()
     @JoinColumn(name = "topouterLockDecoration")
-    private DoorFurniture topouterLockDecoration;
+    private DoorFurniture topOutLockDecor;
 
     @ManyToOne()
     @JoinColumn(name = "toplockCylinder")
@@ -41,11 +41,11 @@ public class FurnitureKit implements SerializingFields {
 
     @ManyToOne()
     @JoinColumn(name = "lowerinternaLockDecoration")
-    private DoorFurniture lowerinternaLockDecoration;
+    private DoorFurniture lowerInLockDecor;
 
     @ManyToOne()
     @JoinColumn(name = "lowerouterLockDecoration")
-    private DoorFurniture lowerouterLockDecoration;
+    private DoorFurniture lowerOutLockDecor;
 
     @ManyToOne()
     @JoinColumn(name = "lowerlockCylinder")
@@ -128,11 +128,11 @@ public class FurnitureKit implements SerializingFields {
         if(topLock!=null){
             topLock.setNuulLazyFild();
         }
-        if(topinternaLockDecoration!=null){
-            topinternaLockDecoration.setNuulLazyFild();
+        if(topInLockDecor!=null){
+            topInLockDecor.setNuulLazyFild();
         }
-        if(topouterLockDecoration!=null){
-            topouterLockDecoration.setNuulLazyFild();
+        if(topOutLockDecor !=null){
+            topOutLockDecor.setNuulLazyFild();
         }
 
         if(topLockCylinder !=null){
@@ -145,11 +145,11 @@ public class FurnitureKit implements SerializingFields {
             lowerLock.setNuulLazyFild();
         }
 
-        if(lowerinternaLockDecoration!=null){
-            lowerinternaLockDecoration.setNuulLazyFild();
+        if(lowerInLockDecor !=null){
+            lowerInLockDecor.setNuulLazyFild();
         }
-        if(lowerouterLockDecoration!=null){
-            lowerouterLockDecoration.setNuulLazyFild();
+        if(lowerOutLockDecor !=null){
+            lowerOutLockDecor.setNuulLazyFild();
         }
 
         if(lowerLockCylinder !=null){
@@ -200,36 +200,28 @@ public class FurnitureKit implements SerializingFields {
         this.handle = handle;
     }
 
-    public DoorFurniture getLowerinternaLockDecoration() {
-        return lowerinternaLockDecoration;
+    public DoorFurniture getLowerInLockDecor() {
+        return lowerInLockDecor;
     }
 
-    public void setLowerinternaLockDecoration(DoorFurniture lowerinternaLockDecoration) {
-        this.lowerinternaLockDecoration = lowerinternaLockDecoration;
+    public void setLowerInLockDecor(DoorFurniture lowerInLockDecor) {
+        this.lowerInLockDecor = lowerInLockDecor;
     }
 
-    public DoorFurniture getLowerouterLockDecoration() {
-        return lowerouterLockDecoration;
+    public DoorFurniture getLowerOutLockDecor() {
+        return lowerOutLockDecor;
     }
 
-    public void setLowerouterLockDecoration(DoorFurniture lowerouterLockDecoration) {
-        this.lowerouterLockDecoration = lowerouterLockDecoration;
+    public void setLowerOutLockDecor(DoorFurniture lowerOutLockDecor) {
+        this.lowerOutLockDecor = lowerOutLockDecor;
     }
 
-    public DoorFurniture getTopinternaLockDecoration() {
-        return topinternaLockDecoration;
+    public DoorFurniture getTopOutLockDecor() {
+        return topOutLockDecor;
     }
 
-    public void setTopinternaLockDecoration(DoorFurniture topinternaLockDecoration) {
-        this.topinternaLockDecoration = topinternaLockDecoration;
-    }
-
-    public DoorFurniture getTopouterLockDecoration() {
-        return topouterLockDecoration;
-    }
-
-    public void setTopouterLockDecoration(DoorFurniture topouterLockDecoration) {
-        this.topouterLockDecoration = topouterLockDecoration;
+    public void setTopOutLockDecor(DoorFurniture topOutLockDecor) {
+        this.topOutLockDecor = topOutLockDecor;
     }
 
     public DoorFurniture getTopLockCylinder() {
@@ -294,5 +286,13 @@ public class FurnitureKit implements SerializingFields {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public DoorFurniture getTopInLockDecor() {
+        return topInLockDecor;
+    }
+
+    public void setTopInLockDecor(DoorFurniture topInLockDecor) {
+        this.topInLockDecor = topInLockDecor;
     }
 }

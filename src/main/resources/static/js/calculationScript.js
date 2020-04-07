@@ -1253,9 +1253,17 @@ jQuery('document').ready(function () {
             displayadditionalDoorSettings(data);
             displayListOfItems('topLock', availableFurnitureList.topLock, 0, 'kit');
             displayListOfItems('lowerLock', availableFurnitureList.lowerLock, 0, 'kit');
+
             displayListOfItems('handle', availableFurnitureList.handle, 0, '');
+
             displayListOfItems('lowerLockCylinder', availableFurnitureList.lockCylinder, 0, '');
             displayListOfItems('topLockCylinder', availableFurnitureList.lockCylinder, 0, '');
+
+            displayListOfItems('topInLockDecor', availableFurnitureList.topInLockDecor, 0, '');
+            displayListOfItems('topOutLockDecor', availableFurnitureList.topOutLockDecor, 0, '');
+            displayListOfItems('lowerInLockDecor', availableFurnitureList.lowerInLockDecor, 0, '');
+            displayListOfItems('lowerOutLockDecor', availableFurnitureList.lowerOutLockDecor, 0, '');
+
             displayListOfItems('closer', availableFurnitureList.closer, 0, '');
             displayListOfItems('endDoorLock', availableFurnitureList.endDoorLock, 0, '');
             displayListOfItems('typeDoorGlass', availableFurnitureList.typeDoorGlass, 0, '');
@@ -1464,8 +1472,9 @@ jQuery('document').ready(function () {
             $('.select_armor').attr('show', 'ghost_lement');
         }
 
+
         if (currentItem == "topLockkit") {
-            fillChildBlockFurniture('topLockkit', 'topLock');
+            fillChildBlockFurniture('topLockkit', 'topLock','top');
             $('.select_topLockkit').attr('show', 'is_alive_lement');
 
         } else {
@@ -1483,8 +1492,31 @@ jQuery('document').ready(function () {
             $('.select_topLock').attr('show', 'ghost_lement');
         }
 
+        if (currentItem == "topInLockDecor") {
+
+            $('.select_topInLockDecor').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
+            currentItemForDisplay = $('#nametopLockkit').html();
+            //currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'topLockkit';
+        } else {
+            $('.select_topInLockDecor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "topOutLockDecor") {
+
+            $('.select_topOutLockDecor').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
+            currentItemForDisplay = $('#nametopLockkit').html();
+            //currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'topLockkit';
+        } else {
+            $('.select_topOutLockDecor').attr('show', 'ghost_lement');
+        }
+
+
         if (currentItem == "lowerLockkit") {
-            fillChildBlockFurniture('lowerLockkit', 'lowerLock');
+            fillChildBlockFurniture('lowerLockkit', 'lowerLock','lower');
             $('.select_lowerLockkit').attr('show', 'is_alive_lement');
         } else {
             $('.select_lowerLockkit').attr('show', 'ghost_lement');
@@ -1500,6 +1532,29 @@ jQuery('document').ready(function () {
         } else {
             $('.select_lowerLock').attr('show', 'ghost_lement');
         }
+
+        if (currentItem == "lowerInLockDecor") {
+
+            $('.select_lowerInLockDecor').attr('show', 'is_alive_lement');
+            goTo = 'lowerLockkit';
+            currentItemForDisplay = $('#namelowerLockkit').html();
+            //currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'lowerLockkit';
+        } else {
+            $('.select_lowerInLockDecor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "lowerOutLockDecor") {
+
+            $('.select_topOutLockDecor').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
+            currentItemForDisplay = $('#nametopLockkit').html();
+            //currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'topLockkit';
+        } else {
+            $('.select_topOutLockDecor').attr('show', 'ghost_lement');
+        }
+
 
         if (currentItem == "handle") {
             setСurrentItem('handle')
@@ -1696,7 +1751,7 @@ jQuery('document').ready(function () {
         assignPreviouValue();
     }
 
-    function fillChildBlockFurniture(grupName, name) {
+    function fillChildBlockFurniture(grupName, name, position) {
 
         //set Child field
         var val = $('#' + grupName + 'Show').html();
@@ -1705,17 +1760,19 @@ jQuery('document').ready(function () {
         //show
         var javaFurniture = door.furnitureKit[name];
         var cylinder = door.furnitureKit[name+'Cylinder'];
+        var inLockDecor = door.furnitureKit[position+'InLockDecor'];
+        var outLockDecor = door.furnitureKit[position+'OutLockDecor'];
 
-        if (javaFurniture != null && (javaFurniture.typeOfFurniture == 'TOP_LOCK' ||
-            javaFurniture.typeOfFurniture == 'LOWER_LOCK')) {
+        if (javaFurniture != null) {
             //Cylinder
             showCylinderLock(name, javaFurniture.itCylinderLock,cylinder);
             //Decoration
-            availableLockDecoration(name, true);
-
+            availableLockDecoration(position, 'In',inLockDecor,true);
+            availableLockDecoration(position, 'Out',outLockDecor,true);
         } else {
             showCylinderLock(name, false);
-            availableLockDecoration(name, false);
+            availableLockDecoration(position, 'In',inLockDecor,false);
+            availableLockDecoration(position, 'Out',outLockDecor,false);
         }
     };
 
@@ -1742,13 +1799,25 @@ jQuery('document').ready(function () {
 
     };
 
-    function availableLockDecoration(name, show) {
+    function showDecorationLock(position,side,decor) {
+
+        if(decor instanceof Object){
+            $('#' + position + side + 'LockDecorShow').text(decor.name);
+        }
+        else {
+            $('#' + position + side + 'LockDecorShow').text("");
+        }
+
+    };
+
+    function availableLockDecoration(position, side, decor, show) {
         var value = 'no';
         if (show) {
             value = 'yes';
+            showDecorationLock(position,side,decor);
         }
-        $('#nameinterna' + name + 'Decoration').attr('available', value);
-        $('#nameouter' + name + 'Decoration').attr('available', value);
+        $('#name'+ position + side+'LockDecor').attr('available', value);
+        $('#name'+ position + side+'LockDecor').attr('available', value);
     };
 
     function setСurrentItem(name) {
