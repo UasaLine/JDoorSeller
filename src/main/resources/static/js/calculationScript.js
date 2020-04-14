@@ -1462,6 +1462,7 @@ jQuery("document").ready(function () {
       $(".select_armor").attr("show", "ghost_lement");
     }
 
+
     if (currentItem == "topLockkit") {
       fillChildBlockFurniture("topLockkit", "topLock", "top");
       $(".select_topLockkit").attr("show", "is_alive_lement");
@@ -1500,6 +1501,7 @@ jQuery("document").ready(function () {
       $(".select_topOutLockDecor").attr("show", "ghost_lement");
     }
 
+
     if (currentItem == "lowerLockkit") {
       fillChildBlockFurniture("lowerLockkit", "lowerLock", "lower");
       $(".select_lowerLockkit").attr("show", "is_alive_lement");
@@ -1522,21 +1524,20 @@ jQuery("document").ready(function () {
       $(".select_lowerInLockDecor").attr("show", "is_alive_lement");
       goTo = "lowerLockkit";
       currentItemForDisplay = $("#namelowerLockkit").html();
-      //currentItemDaughterForDisplay = $(item).html();
       currentItemForDisplayId = "lowerLockkit";
     } else {
       $(".select_lowerInLockDecor").attr("show", "ghost_lement");
     }
 
     if (currentItem == "lowerOutLockDecor") {
-      $(".select_topOutLockDecor").attr("show", "is_alive_lement");
-      goTo = "topLockkit";
-      currentItemForDisplay = $("#nametopLockkit").html();
-      //currentItemDaughterForDisplay = $(item).html();
-      currentItemForDisplayId = "topLockkit";
+      $(".select_lowerOutLockDecor").attr("show", "is_alive_lement");
+      goTo = "lowerLockkit";
+      currentItemForDisplay = $("#namelowerLockkit").html();
+      currentItemForDisplayId = "lowerLockkit";
     } else {
-      $(".select_topOutLockDecor").attr("show", "ghost_lement");
+      $(".select_lowerOutLockDecor").attr("show", "ghost_lement");
     }
+
 
     if (currentItem == "handle") {
       setСurrentItem("handle");
@@ -1568,6 +1569,7 @@ jQuery("document").ready(function () {
     } else {
       $(".select_endDoorLock").attr("show", "ghost_lement");
     }
+
 
     if (currentItem == "topLockCylinder") {
       $(".select_topLockCylinder").attr("show", "is_alive_lement");
