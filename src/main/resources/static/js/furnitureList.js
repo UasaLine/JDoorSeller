@@ -1,143 +1,125 @@
-jQuery('document').ready(function () {
+jQuery("document").ready(function () {
+  var curreiId = 0;
+  var types;
 
+  getFilterList();
 
-    var curreiId = 0;
-    var types;
+  $("tr").on("dblclick", function () {
+    getFurniture($(this).children(".id").text());
+  });
 
-    getFilterList();
+  $("tr").on("click", function () {
+    curreiId = $(this).children(".id").text();
+    oneEnableAllDisable(this);
+  });
 
-    $('tr').on('dblclick', function () {
+  $("#typeOfFurniture").change(function () {
+    filterOut();
+  });
 
-        getFurniture($(this).children('.id').text());
-
-    });
-
-    $('tr').on('click', function () {
-
-        curreiId = $(this).children('.id').text();
-        oneEnableAllDisable(this);
-
-    });
-
-    $('#typeOfFurniture').change(function () {
-
-        filterOut();
-
-    });
-
-    $('#buttonDeleteOrder').on('click', function () {
-
-        if (curreiId != 0) {
-            deletOrder();
-        } else {
-            alert("!выбери заказ");
-        }
-
-    });
-
-    $('#addfurniture').on('click', function () {
-        location.pathname = "/furniture/0";
-    });
-
-    $('#deletLine').on('click', function () {
-
-        if (curreiId !== 0) {
-
-            $.ajax({
-                url: 'furniture/' + curreiId,
-                method: "DELETE",
-                dataType: 'json',
-                success: function (data) {
-                    location.pathname = "/furniture";
-                },
-                error: function (data) {
-                    alert('!ERROR: елемнет удалить не удалось:');
-                }
-            });
-
-        } else {
-            alert('select lines');
-        }
-    });
-
-    function getFurniture(orderId) {
-        location.href = "furniture/" + orderId;
-    };
-
-    function deletOrder() {
-        $.ajax({
-            type: 'DELETE',
-            url: 'order?orderId=' + curreiId,
-            dataType: 'json',
-            success: function (data) {
-                alert("delete completed" + data);
-                location.href = "orders";
-            },
-            error: function (data) {
-                alert('delete error:' + data);
-            }
-        });
-    };
-
-    function oneEnableAllDisable(item) {
-
-        var elems = $('tr[pickOut="on"]');
-        var elemsTotal = elems.length;
-
-        for (var i = 0; i < elemsTotal; ++i) {
-            $(elems[i]).attr('pickOut', 'off');
-        }
-        $(item).attr('pickOut', 'on');
+  $("#buttonDeleteOrder").on("click", function () {
+    if (curreiId != 0) {
+      deletOrder();
+    } else {
+      alert("!выбери заказ");
     }
+  });
 
-    function getFilterList() {
-        $.ajax({
-            url: 'furniture/types',
-            dataType: 'json',
-            success: function (data) {
-                types = data;
-                fillInTypes();
-            },
-            error: function (data) {
-                alert('!ERROR: типы фурнитуры получить не удалось:');
-            }
-        });
+  $("#addfurniture").on("click", function () {
+    location.pathname = "/furniture/0";
+  });
+
+  $("#deletLine").on("click", function () {
+    if (curreiId !== 0) {
+      $.ajax({
+        url: "furniture/" + curreiId,
+        method: "DELETE",
+        dataType: "json",
+        success: function (data) {
+          location.pathname = "/furniture";
+        },
+        error: function (data) {
+          alert("!ERROR: елемнет удалить не удалось:");
+        },
+      });
+    } else {
+      alert("select lines");
     }
+  });
 
-    function fillInTypes() {
-        if (types != null) {
+  function getFurniture(orderId) {
+    location.href = "furniture/" + orderId;
+  }
 
-            $('#typeOfFurniture').empty();
+  function deletOrder() {
+    $.ajax({
+      type: "DELETE",
+      url: "order?orderId=" + curreiId,
+      dataType: "json",
+      success: function (data) {
+        alert("delete completed" + data);
+        location.href = "orders";
+      },
+      error: function (data) {
+        alert("delete error:" + data);
+      },
+    });
+  }
 
-            $('#typeOfFurniture').append(
-                $('<option></option>')
-            );
+  function oneEnableAllDisable(item) {
+    var elems = $('tr[pickOut="on"]');
+    var elemsTotal = elems.length;
 
-            for (var i = 0; i < types.length; ++i) {
-                $('#typeOfFurniture').append($('<option value=' + types[i] + '>' + types[i] + '</option>'));
-            }
-        }
+    for (var i = 0; i < elemsTotal; ++i) {
+      $(elems[i]).attr("pickOut", "off");
     }
+    $(item).attr("pickOut", "on");
+  }
 
-    function filterOut() {
-        var filtrValue = $('#typeOfFurniture').val();
+  function getFilterList() {
+    $.ajax({
+      url: "furniture/types",
+      dataType: "json",
+      success: function (data) {
+        types = data;
+        fillInTypes();
+      },
+      error: function (data) {
+        alert("!ERROR: типы фурнитуры получить не удалось:");
+      },
+    });
+  }
 
-        var elems = $('.type-line');
-        var elemsTotal = elems.length;
+  function fillInTypes() {
+    if (types != null) {
+      $("#typeOfFurniture").empty();
 
-        for (var i = 0; i < elemsTotal; ++i) {
+      $("#typeOfFurniture").append($("<option></option>"));
 
-            var line = $(elems[i]).parent();
-
-            if (filtrValue === '') {
-                $(line).removeClass('ghost');
-            } else if ($(elems[i]).text() !== filtrValue) {
-                $(line).addClass('ghost');
-            } else {
-                $(line).removeClass('ghost');
-            }
-        }
-
+      for (var i = 0; i < types.length; ++i) {
+        $("#typeOfFurniture").append(
+          $("<option value=" + types[i] + ">" + types[i] + "</option>")
+        );
+      }
     }
+  }
 
+  function filterOut() {
+    var filtrValue = $("#typeOfFurniture").val();
+
+    var elems = $(".type-line");
+    var elemsTotal = elems.length;
+
+    for (var i = 0; i < elemsTotal; ++i) {
+      var line = $(elems[i]).parent();
+
+      if (filtrValue === "") {
+        $(line).removeClass("ghost");
+      } else if ($(elems[i]).text() !== filtrValue) {
+        $(line).addClass("ghost");
+      } else {
+        $(line).removeClass("ghost");
+      }
+    }
+  }
 });

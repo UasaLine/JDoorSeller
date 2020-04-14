@@ -26,7 +26,7 @@ public class ColorService {
             return new ImageEntity();
         }
 
-        return dAO.getColorById(Integer.parseInt(id));
+        return dAO.getColorById(Integer.parseInt(id)).clearNonSerializingFields();
     }
 
     public String saveColor(@NonNull ImageEntity colors) {

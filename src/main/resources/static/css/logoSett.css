@@ -24,7 +24,6 @@ body{
 .header_home {
     padding: 12px 10px 0px 10px;
     display: inline-block;
-/ / border-left: solid 1 px #191970;
     height: 35px;
     vertical-align: top;
 }
@@ -95,7 +94,6 @@ body{
 
 .basement {
     background-color: #245882;
-/ / padding: 3 px 3 px 3 px 50 px;
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
