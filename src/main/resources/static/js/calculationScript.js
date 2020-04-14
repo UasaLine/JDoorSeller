@@ -346,6 +346,10 @@ jQuery("document").ready(function () {
     });
   });
 
+  $("#toСlose").on("click", function () {
+    toOrder();
+  });
+
   $(".to_calculate").hover(
     function () {
       $(".priceghost").attr("show", "is_alive_lement");
@@ -1420,6 +1424,7 @@ jQuery("document").ready(function () {
     }
 
     if (currentItem == "doorColor") {
+        setСurrentColor();
       $(".select_doorColor").attr("show", "is_alive_lement");
     } else {
       $(".select_doorColor").attr("show", "ghost_lement");
@@ -1831,4 +1836,19 @@ jQuery("document").ready(function () {
       })
       .attr("check", "checkbox");
   }
+
+    function setСurrentColor() {
+        var elem = $(".div_images_Color");
+        var furnitureItem = door.doorColor;
+        var id = 0;
+        if (furnitureItem != null) {
+            id = furnitureItem;
+        }
+        elem
+            .filter(function (index) {
+                return $(this).attr("data") == id;
+            })
+            .attr("check", "checkbox");
+    }
+
 });
