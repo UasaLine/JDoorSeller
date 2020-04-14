@@ -1539,7 +1539,27 @@ jQuery("document").ready(function () {
     }
 
 
-    if (currentItem == "handle") {
+    if (currentItem == "lowerInLockDecor") {
+
+            $('.select_lowerInLockDecor').attr('show', 'is_alive_lement');
+            goTo = 'lowerLockkit';
+            currentItemForDisplay = $('#namelowerLockkit').html();
+            //currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'lowerLockkit';
+        } else {
+            $('.select_lowerInLockDecor').attr('show', 'ghost_lement');
+        }
+
+        if (currentItem == "lowerOutLockDecor") {
+
+            $('.select_topOutLockDecor').attr('show', 'is_alive_lement');
+            goTo = 'topLockkit';
+            currentItemForDisplay = $('#nametopLockkit').html();
+            //currentItemDaughterForDisplay = $(item).html();
+            currentItemForDisplayId = 'topLockkit';
+        } else {
+            $('.select_topOutLockDecor').attr('show', 'ghost_lement');
+        }if (currentItem == "handle") {
       setСurrentItem("handle");
       $(".select_handle").attr("show", "is_alive_lement");
     } else {
@@ -1743,6 +1763,8 @@ jQuery("document").ready(function () {
     var cylinder = door.furnitureKit[name + "Cylinder"];
     var inLockDecor = door.furnitureKit[position + "InLockDecor"];
     var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
+        var inLockDecor = door.furnitureKit[position+'InLockDecor'];
+        var outLockDecor = door.furnitureKit[position+'OutLockDecor'];
 
     if (javaFurniture != null) {
       //Cylinder
