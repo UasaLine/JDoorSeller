@@ -1,32 +1,29 @@
-jQuery('document').ready(function () {
+jQuery("document").ready(function () {
+  displayAdminaAndUserField();
 
-    displayAdminaAndUserField();
+  if ($("#includesTaxInt").val() == 1) {
+    $("#includesTax").prop("checked", true);
+  } else {
+    $("#includesTax").prop("checked", false);
+  }
 
-    if ($('#includesTaxInt').val() == 1) {
-        $('#includesTax').prop('checked', true);
+  $("#close").on("click", function () {
+    location.href = "/";
+  });
+
+  function displayAdminaAndUserField() {
+    var isAdmin = $("#isAdmin").text();
+    if (isAdmin == "true") {
+      var accessElem = $(".accessAdmin");
+      for (var i = 0; i < accessElem.length; i++) {
+        $(accessElem[i]).removeClass("ghost");
+      }
     }
-    else {
-        $('#includesTax').prop('checked', false);
+
+    var report = $("#report").text();
+    if (report == "true") {
+      $(buttonbar).addClass("ghost");
+      $(buttonbar).removeClass("row");
     }
-
-    $('#close').on('click', function () {
-        location.href = "/";
-    });
-
-    function displayAdminaAndUserField() {
-        var isAdmin = $('#isAdmin').text();
-        if (isAdmin == 'true') {
-            var accessElem = $('.accessAdmin');
-            for (var i = 0; i < accessElem.length; i++) {
-                $(accessElem[i]).removeClass('ghost');
-            }
-        }
-
-        var report = $('#report').text();
-        if (report == 'true') {
-            $(buttonbar).addClass('ghost');
-            $(buttonbar).removeClass('row');
-        }
-    };
-
+  }
 });
