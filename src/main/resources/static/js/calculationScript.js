@@ -1849,7 +1849,7 @@ jQuery("document").ready(function () {
             .filter(function (index) {
                 return $(this).attr("data") == id;
             })
-            .attr("check", "checkbox");
-    }
 
+      .attr("check", "checkbox");
+    }
 });
