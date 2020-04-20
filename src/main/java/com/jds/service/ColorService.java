@@ -7,6 +7,7 @@ import com.jds.model.image.TypeOfImage;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.EnumSet;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ColorService {
 
     public ImageEntity getColor(@NonNull String id) {
 
-        if("0".equals(id)){
+        if ("0".equals(id)) {
             return new ImageEntity();
         }
 
@@ -30,8 +31,9 @@ public class ColorService {
     }
 
     public String saveColor(@NonNull ImageEntity colors) {
-        if (colors.getPicturePath()!=null){
-            colors.setPicturePath("images/Door/AColor1/" + colors.getPicturePath() + ".jpg");
+        String colorPath = colors.getPicturePath();
+        if (colorPath != null && !colorPath.contains("images/Door/AColor1/")) {
+            colors.setPicturePath("images/Door/AColor1/" + addFileExtension(colorPath, ".jpg"));
         }
         dAO.saveColors(colors);
         return "ok";
@@ -43,10 +45,19 @@ public class ColorService {
     }
 
     public EnumSet<TypeOfImage> getImageTypeList() {
-        return EnumSet.allOf( TypeOfImage.class );
+        return EnumSet.allOf(TypeOfImage.class);
     }
 
     public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
-        return EnumSet.allOf( TypeOfDoorColor.class );
+        return EnumSet.allOf(TypeOfDoorColor.class);
+    }
+
+    public String addFileExtension(@NonNull String colorPath, @NonNull String extension) {
+
+        if (colorPath.contains(extension)) {
+            return colorPath;
+        }
+
+        return colorPath + extension;
     }
 }

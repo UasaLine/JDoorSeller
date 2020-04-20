@@ -719,7 +719,7 @@ jQuery("document").ready(function () {
     }
     $("#namemetal").attr("available", "yes");
   }
-  3;
+
 
   function displayWidthDoorAndHeightDoor(data) {
     if (data.widthDoor.length > 0) {
@@ -831,41 +831,21 @@ jQuery("document").ready(function () {
   }
 
   function displayColor(nameJava, tab, bias) {
-    var tabSize = tab.length;
-    var amountElements = 15;
-    var amountPag = (tabSize / amountElements).toFixed(0);
-    var biasInt = Number.parseInt(bias) * amountElements;
 
-    //delete
-    $(".pag").remove();
+    var offsetTab = generatePageToolbar(tab,bias);
 
-    for (var i = 0; i < amountPag; ++i) {
-      $("<a>")
-        .attr("class", "pag")
-        .attr("data", i)
-        .text("" + i + " ")
-        .appendTo(".color_pages");
-    }
-    $("<a>")
-      .attr("class", "pag")
-      .attr("data", ">")
-      .text(" > ")
-      .appendTo(".color_pages");
-
-    $(".color_pages").attr("data", bias);
-
-    for (var i = 0; i < amountElements; ++i) {
-      if (i + biasInt < tabSize) {
+    for (var i = 0; i < offsetTab.amountElements; ++i) {
+      if (i + offsetTab.biasInt < offsetTab.tabSize) {
         $("#images" + nameJava + "Div" + i).attr("show", "is_alive_lement");
         $("#images" + nameJava + "Div" + i).attr(
           "data",
-          tab[i + biasInt].firstItem
+          tab[i + offsetTab.biasInt].firstItem
         );
         $("#images" + nameJava + "Img" + i).attr(
           "src",
-          tab[i + biasInt].picturePath
+          tab[i + offsetTab.biasInt].picturePath
         );
-        $("#images" + nameJava + "Span" + i).text(tab[i + biasInt].firstItem);
+        $("#images" + nameJava + "Span" + i).text(tab[i + offsetTab.biasInt].firstItem);
       } else {
         $("#images" + nameJava + "Div" + i).attr("show", "ghost_lement");
         $("#images" + nameJava + "Div" + i).attr("data", "");
@@ -875,6 +855,25 @@ jQuery("document").ready(function () {
     }
   }
 
+  function generatePageToolbar(tab,bias) {
+
+    var offsetTab = {};
+    offsetTab.tabSize = tab.length;
+    offsetTab.amountElements = 15;
+    offsetTab.amountPag = (offsetTab.tabSize / offsetTab.amountElements).toFixed(0);
+    offsetTab.biasInt = Number.parseInt(bias) * offsetTab.amountElements;
+
+    if (offsetTab.amountPag>0){
+      for (var i = 0; i < offsetTab.amountPag; ++i) {
+        $("<button>")
+            .attr("type", "button")
+            .attr("class", 'btn btn-outline-dark')
+            .text(i+1)
+            .appendTo("#toolbarPage");
+      }
+    }
+    return offsetTab;
+  }
   function displayImage(nameJava, tab, bias) {
     var tabSize = tab.length;
     var amountElements = 15;
@@ -1426,8 +1425,10 @@ jQuery("document").ready(function () {
     if (currentItem == "doorColor") {
         setСurrentColor();
       $(".select_doorColor").attr("show", "is_alive_lement");
+      $("#toolbarPageDiv").removeClass("ghost");
     } else {
       $(".select_doorColor").attr("show", "ghost_lement");
+      $("#toolbarPageDiv").addClass("ghost");
     }
 
     if (currentItem == "doorGlass") {
@@ -1555,7 +1556,7 @@ jQuery("document").ready(function () {
             $('.select_lowerInLockDecor').attr('show', 'ghost_lement');
         }
 
-        if (currentItem == "lowerOutLockDecor") {
+    if (currentItem == "lowerOutLockDecor") {
 
             $('.select_topOutLockDecor').attr('show', 'is_alive_lement');
             goTo = 'topLockkit';
