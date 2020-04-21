@@ -6,13 +6,15 @@
     <!-- Подключаем Bootstrap CSS -->
     <link type="text/css" rel="stylesheet"  href="../css/bootstrap-4.3.1css/bootstrap.min.css">
     <!-- Подключаем CSS,js -->
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/drawDoorScript.js"></script>
-    <script type="text/javascript" src="js/number_selection.js"></script>
-    <script type="text/javascript" src="js/calculationScript.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/calc/door-utils.class.js"></script>
+    <script type="text/javascript" src="../js/calc/draw-door.script.js"></script>
+    <script type="text/javascript" src="../js/number_selection.js"></script>
+    <script type="text/javascript" src="../js/calc/trim.class.js"></script>
+    <script type="text/javascript" src="../js/calc/calculation.script.js"></script>
     <link rel="stylesheet" type="text/css" href="css/drawDoor.css"/>
     <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/calcCss.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/calcCss.css"/>
     <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
     <link rel="stylesheet" type="text/css" href="css/number_selection.css"/>
@@ -577,7 +579,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="checkbox16" id="doorTrim_checkbox" Item="doorTrim" data=""
-                                   class="ios-toggle2"/>
+                                   class="ios-toggle trims"/>
                             <label for="doorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -589,7 +591,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="topDoorTrim_checkbox" id="topDoorTrim_checkbox" Item="topDoorTrim"
-                                   data="" class="ios-toggle"/>
+                                   data="" class="ios-toggle trims"/>
                             <label for="topDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -602,7 +604,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="leftDoorTrim_checkbox" id="leftDoorTrim_checkbox"
-                                   Item="leftDoorTrim" data="" class="ios-toggle"/>
+                                   Item="leftDoorTrim" data="" class="ios-toggle trims"/>
                             <label for="leftDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -616,7 +618,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="rightDoorTrim_checkbox" id="rightDoorTrim_checkbox"
-                                   Item="rightDoorTrim" data="" class="ios-toggle"/>
+                                   Item="rightDoorTrim" data="" class="ios-toggle trims"/>
                             <label for="rightDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
