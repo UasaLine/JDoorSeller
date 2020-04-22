@@ -47,11 +47,11 @@ handle
 }
 .left_side_handle {
   top: 50%;
-  left: 10%;
+  left: 12%;
 }
 .rigth_side_handle {
   top: 50%;
-  right: 10%;
+  right: 12%;
 }
 
 /*
@@ -121,4 +121,63 @@ stainlessSteelDoorstep
   top: 0px;
   right: 0px;
   border-left: 2px dashed #373a3c;
+}
+
+.mirrorX {
+  transform: scale(-1, 1);
+}
+
+.logo_brand_images_L{
+  position: absolute;
+  top: 22px;
+  left: 24px;
+}
+.logo_brand_images_R{
+  position: absolute;
+  top: 22px;
+  right: 24px;
+}
+
+.hinge_images_R{
+   position: absolute;
+   left: 9.5%;
+ }
+.hinge_images_L{
+  position: absolute;
+  right: 9.5%;
+}
+.upper_hinge{
+  top: 10%;
+}
+.middle_hinge{
+  top: 30%;
+}
+.lower_hinge{
+  top: 80%;
+}
+
+.night_lock_images_R{
+  position: absolute;
+  left: 13%;
+  top: 45%;
+}
+.night_lock_images_L{
+  position: absolute;
+  right: 13%;
+  top: 45%;
+}
+
+.lock_decor_R{
+  position: absolute;
+  left: 12%;
+}
+.lock_decor_L{
+  position: absolute;
+  right: 12%;
+}
+.top_lock_decor{
+  top: 38%;
+}
+.lower_lock_decor{
+  top: 57%;
 }
