@@ -27,8 +27,10 @@
     <!--header-->
     <div class="sword-cursor" id="intro-dm">
         <a th:href="@{/}"><img src="images/Header_widht_1300-85_001.jpg"></a>
+        <span id="orderId" th:text="${orderId}" show="ghost_lement"></span>
+        <span id="id" th:text="${id}" show="ghost_lement"></span>
+        <span id="typid" th:text="${typid}" show="ghost_lement"></span>
     </div>
-
 
     <div class="additional_data sword-cursor" show="ghost_lement">
         <div class="data_L">
@@ -48,15 +50,12 @@
                 <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
             </div>
 
-            <h1 class="display-4" id="price">Цена:</h1>
+            <h1 class="display-2" id="price">Цена:</h1>
 
             <div class="nameDoor">
                 <span class="nameDoor_span"></span>
             </div>
 
-            <span id="orderId" th:text="${orderId}" show="ghost_lement"></span>
-            <span id="id" th:text="${id}" show="ghost_lement"></span>
-            <span id="typid" th:text="${typid}" show="ghost_lement"></span>
         </div>
 
         <div class="daughter_container2">

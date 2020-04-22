@@ -11,7 +11,6 @@ jQuery("document").ready(function () {
   var doorLeaf = 1;
   var fanlight = 0;
 
-
   var classList;
 
   var colors;
