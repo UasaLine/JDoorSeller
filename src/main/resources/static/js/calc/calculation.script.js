@@ -1,5 +1,5 @@
-var door;
-var failureToSetValue = false;
+let door;
+let failureToSetValue = false;
 
 jQuery("document").ready(function () {
   var currentItem = "";
@@ -42,7 +42,7 @@ jQuery("document").ready(function () {
   function FillOutForm(data, updateClassDiv) {
     displayObject(data);
     if (updateClassDiv) {
-      displayDoorClass3(door.availableDoorClass);
+      ClassCardBlock.display(door.availableDoorClass);
       currentItem = "doorClass";
       hideShowField(true);
     }
@@ -54,7 +54,7 @@ jQuery("document").ready(function () {
   //--------------------------------------
 
   $(".select_door_class").on("click", ".class_card", function () {
-    fillInType($(this).attr("data"), classList);
+    TypeCardBlock.display($(this).attr("data"), classList);
 
     currentItem = "doorType";
     currentItemForDisplay = $(this).html();
@@ -184,85 +184,7 @@ jQuery("document").ready(function () {
         setDoorField($(this).attr("Item"), "");
       }
     } else if (currentItem == "additionalDoorSettings") {
-      if ($(this).attr("available") == "yes") {
-        if ($(this).attr("item") == "doorstep") {
-          if (!$(this).is(":checked")) {
-            $("#stainlessSteelDoorstep_checkbox").prop("checked", false);
-            setDoorField($(this).attr("Item"), 0);
-            setDoorField($("#stainlessSteelDoorstep_checkbox").attr("Item"), 0);
-          } else {
-            setDoorField($(this).attr("Item"), $(this).attr("data"));
-          }
-        } else if ($(this).attr("item") == "stainlessSteelDoorstep") {
-          if ($(this).is(":checked") & !$("#doorstepcheckbox").is(":checked")) {
-            $("#doorstepcheckbox").prop("checked", true);
-            setDoorField($(this).attr("Item"), $(this).attr("data"));
-            setDoorField(
-              $("#doorstepcheckbox").attr("Item"),
-              $(this).attr("data")
-            );
-          } else {
-            setDoorField($(this).attr("Item"), 0);
-          }
-        } else if ($(this).attr("item") == "doorTrim") {
-          // if ($(this).is(":checked")) {
-          //   $('[Item="topDoorTrim"]').prop("checked", true);
-          //   $('[Item="leftDoorTrim"]').prop("checked", true);
-          //   $('[Item="rightDoorTrim"]').prop("checked", true);
-          // } else {
-          //   $('[Item="topDoorTrim"]').prop("checked", false);
-          //   $('[Item="leftDoorTrim"]').prop("checked", false);
-          //   $('[Item="rightDoorTrim"]').prop("checked", false);
-          // }
-        } else if ($(this).attr("item") == "topDoorTrim") {
-          // if ($(this).is(":checked")) {
-          //   setDoorField($(this).attr("Item"), 1);
-          //   $('[Item="doorTrim"]').prop("checked", true);
-          // } else {
-          //   setDoorField($(this).attr("Item"), 0);
-          //   maybeTurnItOffDoorTrim();
-          // }
-        } else if ($(this).attr("item") == "leftDoorTrim") {
-          // if ($(this).is(":checked")) {
-          //   setDoorField($(this).attr("Item"), 1);
-          //   $('[Item="doorTrim"]').prop("checked", true);
-          // } else {
-          //   setDoorField($(this).attr("Item"), 0);
-          //   maybeTurnItOffDoorTrim();
-          // }
-        } else if ($(this).attr("item") == "rightDoorTrim") {
-          // if ($(this).is(":checked")) {
-          //   $('[Item="doorTrim"]').prop("checked", true);
-          //   setDoorField($(this).attr("Item"), 1);
-          // } else {
-          //   setDoorField($(this).attr("Item"), 0);
-          //   maybeTurnItOffDoorTrim();
-          // }
-        } else if ($(this).attr("item") == "firstSealingLine") {
-          oneEnableAllDisable("firstSealingLine", this);
-          setDoorField($(this).attr("Item"), $(this).attr("data"));
-        } else if ($(this).attr("item") == "secondSealingLine") {
-          oneEnableAllDisable("secondSealingLine", this);
-          setDoorField($(this).attr("Item"), $(this).attr("data"));
-        } else if ($(this).attr("item") == "thirdSealingLine") {
-          if ($(this).is(":checked")) {
-            oneEnableAllDisable("thirdSealingLine", this);
-            setDoorField($(this).attr("Item"), $(this).attr("data"));
-            setDoorField("sealingLine", 3);
-          } else {
-            setDoorField($(this).attr("Item"), 0);
-            setDoorField("sealingLine", 2);
-          }
-        } else if ($(this).attr("item") == "filler") {
-          oneEnableAllDisable("filler", this);
-        }
-      } else {
-        if ($(this).is(":checked")) {
-          $(this).prop("checked", false);
-        } else {
-          $(this).prop("checked", true);
-        }
-      }
+      isRepRun = false;
     } else if (currentItem == "doorGlass") {
       if ($(this).is(":checked")) {
         $(".input_doorGlass_div").attr("show", "is_alive_lement");
@@ -550,7 +472,7 @@ jQuery("document").ready(function () {
       }
 
       set(showValue);
-      drawObject(door, 1);
+      Door.draw(door, 1);
     }
   }
 
@@ -648,52 +570,6 @@ jQuery("document").ready(function () {
     }
   }
 
-  function displayDoorClass3(classListParam) {
-    $(".class_card").remove();
-
-    for (var i = 0; i < classListParam.length; ++i) {
-      var divName = classListParam[i].name;
-      var divId = classListParam[i].id;
-
-      $("<div>")
-        .attr("class", "card text-dark border-dark class_card")
-        .attr("data", divId)
-        .attr("id", "doorClass" + divId)
-        .appendTo(".select_door_class");
-
-      $("<div>")
-        .attr("class", "images_door_class_div")
-        .attr("id", "doorClassDiv" + divId)
-        .appendTo("#doorClass" + divId);
-
-      $("<img>")
-        .attr("class", "images_door_class")
-        .attr("dataName", divName)
-        .attr("src", classListParam[i].namePicture)
-        .attr("Item", "doorClass")
-        .appendTo("#doorClassDiv" + divId);
-
-      $("<div>")
-        .attr("class", "images_door_class_p")
-        .attr("id", "doorClassDivP" + divId)
-        .appendTo("#doorClassDiv" + divId);
-
-      $("<p>")
-        .text(divName)
-        .appendTo("#doorClassDivP" + divId);
-
-      $("<div>")
-        .attr("class", "card-body")
-        .attr("id", "card-body" + divId)
-        .appendTo("#doorClass" + divId);
-
-      $("<p>")
-        .attr("class", "card-text")
-        .text(classListParam[i].description)
-        .appendTo("#card-body" + divId);
-    }
-  }
-
   function displayMetal(data) {
     allDisable("metal_checkbox");
 
@@ -713,7 +589,6 @@ jQuery("document").ready(function () {
     }
     $("#namemetal").attr("available", "yes");
   }
-
 
   function displayWidthDoorAndHeightDoor(data) {
     if (data.widthDoor.length > 0) {
@@ -1186,7 +1061,7 @@ jQuery("document").ready(function () {
       dataType: "json",
       success: function (data) {
         classList = data;
-        displayDoorClass3(classList);
+        ClassCardBlock.display(classList);
         currentItem = "doorClass";
         hideShowField(true);
       },
@@ -1282,42 +1157,6 @@ jQuery("document").ready(function () {
       $("#" + name + "_checkbox").prop("checked", true);
     } else {
       $("#" + name + "_checkbox").prop("checked", false);
-    }
-  }
-
-  function fillInType(idDoorClass, classListParam) {
-    $(".typeLine").remove();
-
-    for (var i = 0; i < classListParam.length; ++i) {
-      if (classListParam[i].id == idDoorClass) {
-        var doorTypes = classListParam[i].doorTypes;
-        for (var j = 0; j < doorTypes.length; ++j) {
-          $("<li>")
-            .attr("class", "typeLine list-group-item")
-            .attr("id", "doorType" + doorTypes[j].id)
-            .attr("data", doorTypes[j].id)
-            .text(doorTypes[j].name)
-            .attr("Item", "doorType")
-            .attr("data-LeafDoorLeaf", doorTypes[j].doorLeaf)
-            .appendTo(".select_door_type_list");
-
-          $("<div>")
-            .attr("class", "typeLineDaughter ghost")
-            .attr("id", "doorTypeDaughter" + doorTypes[j].id)
-            .appendTo("#doorType" + doorTypes[j].id);
-
-          $("<img>")
-            .attr("class", "images_door_class")
-            .attr("src", doorTypes[j].namePicture)
-            .appendTo("#doorTypeDaughter" + doorTypes[j].id);
-
-          $("#doorType" + doorTypes[j].id).on("hover", function () {
-            var id = $(this).attr("data");
-            alert(id);
-            $("#doorType" + doorTypes[j].id).removeClass("ghost");
-          });
-        }
-      }
     }
   }
 

@@ -20,14 +20,16 @@ class Trim {
 
             if(elem_id =='doorTrim_checkbox'){
                 Trim.turnOffAll(val);
-                DoorUtils.set('topDoorTrim',val?1:0);
-                DoorUtils.set('leftDoorTrim',val?1:0);
-                DoorUtils.set('rightDoorTrim',val?1:0);
+                Door.set('topDoorTrim',val?1:0);
+                Door.set('leftDoorTrim',val?1:0);
+                Door.set('rightDoorTrim',val?1:0);
             }
             else {
                 Trim.turnOffMain(val);
-                DoorUtils.set($(this).attr("Item"),val?1:0);
+                Door.set($(this).attr("Item"),val?1:0);
             }
+
+            Door.draw(door,1);
         }
         else {
             Trim.turnOff(this)
