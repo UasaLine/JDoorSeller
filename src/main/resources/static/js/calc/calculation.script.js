@@ -1063,6 +1063,7 @@ jQuery("document").ready(function () {
             success: function (data) {
                 availableFurnitureList = data;
                 fillInTheFieldsToTheTemplate(door.template);
+
             },
             error: function (data) {
                 alert("error: getting furniture available-fields failed !" + data);
@@ -1086,6 +1087,10 @@ jQuery("document").ready(function () {
     }
 
     function fillInTheFieldsToTheTemplate(data) {
+
+        const makeAvailable = new AvailableManager(data,availableFurnitureList);
+        makeAvailable.makeFieldsAvailable();
+
         if (data != null) {
             displayMetal(data);
             displayWidthDoorAndHeightDoor(data);
