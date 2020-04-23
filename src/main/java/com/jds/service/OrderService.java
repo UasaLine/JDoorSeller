@@ -81,14 +81,19 @@ public class OrderService {
         return orders;
     }
 
-    public DoorsОrder getOrder(String id) throws Exception{
+    public DoorsОrder getOrder(String id) {
 
         int intId = Integer.parseInt(id);
+        return getOrder(intId);
 
-        if (intId == 0) {
+    }
+
+    public DoorsОrder getOrder(int id) {
+
+        if (id == 0) {
             return new DoorsОrder();
         }
-        DoorsОrder order =  dAO.getOrder(intId);
+        DoorsОrder order =  dAO.getOrder(id);
 
         return clearNonSerializingFields(order);
     }
