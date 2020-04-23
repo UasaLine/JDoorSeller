@@ -261,6 +261,23 @@ jQuery("document").ready(function () {
       data: strJSON,
       dataType: "json",
       success: function (data) {
+      },
+      error: function (data) {
+        alert("error:" + data);
+      },
+    });
+  });
+
+  $("#SaveAndСlose").on("click", function () {
+    var strJSON = JSON.stringify(door);
+
+    $.ajax({
+      type: "POST",
+      url: "saveDoor",
+      contentType: "application/json",
+      data: strJSON,
+      dataType: "json",
+      success: function (data) {
         toOrder();
       },
       error: function (data) {
