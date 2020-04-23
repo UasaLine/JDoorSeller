@@ -32,8 +32,9 @@ public class ColorService {
 
     public String saveColor(@NonNull ImageEntity colors) {
         String colorPath = colors.getPicturePath();
-        if (colorPath != null && !colorPath.contains("images/Door/AColor1/")) {
-            colors.setPicturePath("images/Door/AColor1/" + addFileExtension(colorPath, ".jpg"));
+        String colorDirectory = getPathDirectoryByImageType(colors.getTypeOfImage());
+        if (colorPath != null && !colorPath.contains(colorDirectory)) {
+            colors.setPicturePath(colorDirectory + addFileExtension(colorPath, FileExtensionByImageType(colors.getTypeOfImage())));
         }
         dAO.saveColors(colors);
         return "ok";
@@ -59,5 +60,22 @@ public class ColorService {
         }
 
         return colorPath + extension;
+    }
+
+    private String FileExtensionByImageType(@NonNull TypeOfImage type){
+        if (TypeOfImage.DOOR_COLOR == type || TypeOfImage.SHIELD_COLOR == type)
+            return ".jpg";
+        else if (TypeOfImage.SHIELD_DESIGN == type)
+            return ".png";
+        return "";
+    }
+    private String getPathDirectoryByImageType(@NonNull TypeOfImage type) {
+        if (TypeOfImage.DOOR_COLOR == type)
+            return "images/Door/AColor1/";
+        else if (TypeOfImage.SHIELD_COLOR == type)
+            return "images/shield sketch/";
+        else if (TypeOfImage.SHIELD_DESIGN == type)
+            return "images/shield sketch/design/";
+        return "";
     }
 }

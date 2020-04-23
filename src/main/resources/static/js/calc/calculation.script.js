@@ -440,7 +440,7 @@ jQuery("document").ready(function () {
           if (door.shieldKit.shieldColor != null) {
             showValue = door.shieldKit.shieldColor.name;
           }
-          if (door.shieldKit.shieldColor != null) {
+          if (door.shieldKit.shieldDesign != null) {
             showValue = showValue + " / " + door.shieldKit.shieldDesign.name;
           }
         }

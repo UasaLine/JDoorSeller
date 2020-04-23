@@ -75,6 +75,8 @@ class Door {
             Door.createNightLock(containerLeafR,door);
             Door.createTopInLockDecor(containerLeafR,door);
             Door.createLowerInLockDecor(containerLeafR,door);
+            Door.createShieldColor(containerLeafR,door);
+            Door.createShieldDesign(containerLeafR,door);
         }
 
     }
@@ -308,6 +310,7 @@ class Door {
             .attr("src", "images/findings/night_lock.png")
             .appendTo(containerLeaf);
     }
+
     static createTopInLockDecor(containerLeaf,door){
 
         let side = "R"
@@ -355,5 +358,22 @@ class Door {
             .attr("class", "lower_lock_decor lock_decor_"+side)
             .attr("src", "images/findings/zamokIn.png")
             .appendTo(containerLeaf);
+    }
+
+    static createShieldColor(containerLeaf,door){
+        if(door.shieldKit!=null && door.shieldKit.shieldColor!=null){
+            $("<img>")
+                .attr("class", "shield_color")
+                .attr("src", door.shieldKit.shieldColor.picturePath)
+                .appendTo(containerLeaf);
+        }
+    }
+    static createShieldDesign(containerLeaf,door){
+        if(door.shieldKit!=null && door.shieldKit.shieldDesign!=null){
+            $("<img>")
+                .attr("class", "shield_design")
+                .attr("src", door.shieldKit.shieldDesign.picturePath)
+                .appendTo(containerLeaf);
+        }
     }
 }

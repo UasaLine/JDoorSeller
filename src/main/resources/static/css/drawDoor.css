@@ -16,6 +16,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  z-index: 150;
 }
 
 .fanlight {
@@ -36,6 +37,7 @@ handle
   position: absolute;
   height: 40px;
   width: 40px;
+  z-index: 200;
 }
 .left_side2_handle {
   top: 50%;
@@ -131,20 +133,24 @@ stainlessSteelDoorstep
   position: absolute;
   top: 22px;
   left: 24px;
+  z-index: 200;
 }
 .logo_brand_images_R{
   position: absolute;
   top: 22px;
   right: 24px;
+  z-index: 200;
 }
 
 .hinge_images_R{
    position: absolute;
    left: 9.5%;
+  z-index: 200;
  }
 .hinge_images_L{
   position: absolute;
   right: 9.5%;
+  z-index: 200;
 }
 .upper_hinge{
   top: 10%;
@@ -160,11 +166,13 @@ stainlessSteelDoorstep
   position: absolute;
   left: 13%;
   top: 45%;
+  z-index: 200;
 }
 .night_lock_images_L{
   position: absolute;
   right: 13%;
   top: 45%;
+  z-index: 200;
 }
 
 .lock_decor_R{
@@ -177,7 +185,26 @@ stainlessSteelDoorstep
 }
 .top_lock_decor{
   top: 38%;
+  z-index: 200;
 }
 .lower_lock_decor{
   top: 57%;
+  z-index: 200;
+}
+
+.shield_color{
+  top: 3.5%;
+  left: 9%;
+  height: 92.5%;
+  width: 82.5%;
+  position: absolute;
+  z-index: 100;
+}
+.shield_design{
+  top: 3.5%;
+  left: 9%;
+  height: 92.5%;
+  width: 82.5%;
+  position: absolute;
+  z-index: 101;
 }
