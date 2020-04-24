@@ -75,13 +75,17 @@ jQuery("document").ready(function () {
     order.status = $(this).val();
   });
 
+  LineEditor.init();
+
   $("tbody").on("click", "tr", function () {
     currentDoorId = $(this).children(".id").text();
     oneEnableAllDisable(this);
   });
 
-  $("tbody").on("dblclick", "tr", function () {
-    changeDoor();
+  $("tbody").on("dblclick", "td", function () {
+    if (!$(this).hasClass("vary_field")){
+      changeDoor();
+    }
   });
 
   $("#goToWork").on("click", function () {
@@ -137,7 +141,7 @@ jQuery("document").ready(function () {
           "<td>" +
           doors[j].name +
           "</td>" +
-          "<td>" +
+          '<td class="vary_field text_input">' +
           1 +
           "</td>" +
           "<td>" +

@@ -8,6 +8,7 @@ import com.jds.dao.repository.OrderDAO;
 import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
+import com.jds.model.modelEnum.OrderStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,12 +52,13 @@ public class DoorService implements DoorServ {
     }
 
     @Override
-    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
+    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid)   {
 
         DoorEntity door;
 
-        if (id > 0 && typid == 0) {
+        if (id > 0) {
             door = dAO.getDoor(id);
+            door = allowEditing(door,orderId);
         } else if (typid > 0) {
             door = createNewDoorByTemplate(typid, id);
         } else {
@@ -68,6 +70,14 @@ public class DoorService implements DoorServ {
         }
 
         return door.clearNonSerializingFields();
+    }
+
+    private DoorEntity allowEditing(DoorEntity door, int orderId)  {
+        DoorsОrder doorsОrder = orderService.getOrder(orderId);
+        if(doorsОrder.getStatus()== OrderStatus.CALC) {
+            door.setTemplate(templateService.getTemplateFromLimits(String.valueOf(door.getDoorType().getId())));
+        }
+        return door;
     }
 
     public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
