@@ -98,16 +98,19 @@ public class OrderService {
         return clearNonSerializingFields(order);
     }
 
-    public DoorsОrder setCurrentUserAndSaveOrder(DoorsОrder order){
-        order.setSeller(userService.getCurrentUser());
-        return saveOrder(order);
+    public DoorsОrder checkAndSave(@NonNull DoorsОrder order){
+        OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getId());
+        if(OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus){
+            order.setSeller(userService.getCurrentUser());
+            return saveOrder(order);
+        }
+        else {
+            return null;
+        }
     }
 
-    private DoorsОrder saveOrder(DoorsОrder order) {
-
-        order = dAO.saveOrder(order.calculateTotal());
-        return order;
-
+    private DoorsОrder saveOrder(@NonNull DoorsОrder order) {
+        return dAO.saveOrder(order.calculateTotal());
     }
 
     public String deleteOrder(String orderId) {
@@ -163,4 +166,8 @@ public class OrderService {
         return null;
     }
 
+    private OrderStatus statusOrderBaseByOrderId(@NonNull int id){
+        DoorsОrder orderInBase = dAO.getOrder(id);
+        return orderInBase.getStatus();
+    }
 }

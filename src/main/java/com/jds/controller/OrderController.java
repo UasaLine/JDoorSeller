@@ -25,15 +25,14 @@ public class OrderController {
 
     @GetMapping(value = "/orders")
     public String getOrdersPage(Model model,
-                                @RequestParam(required = false,defaultValue = "0") String userId) throws Exception {
+                                @RequestParam(required = false, defaultValue = "0") String userId) throws Exception {
 
         List<DoorsОrder> list;
         boolean report = false;
-        if (!"0".equals(userId)){
+        if (!"0".equals(userId)) {
             list = orderService.getOrders(userId);
             report = true;
-        }
-        else {
+        } else {
             list = orderService.getOrders();
         }
 
@@ -56,7 +55,7 @@ public class OrderController {
 
     @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorsОrder getOrderObject(@RequestParam(required = false) String orderId) throws Exception {
+    public DoorsОrder getOrder(@RequestParam(required = false) String orderId) throws Exception {
 
         return orderService.getOrder(orderId);
     }
@@ -65,7 +64,7 @@ public class OrderController {
     @ResponseBody
     public DoorsОrder saveOrder(@RequestBody DoorsОrder order) throws Exception {
 
-        return orderService.setCurrentUserAndSaveOrder(order);
+        return orderService.checkAndSave(order);
     }
 
     @DeleteMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,7 +85,7 @@ public class OrderController {
     public void setOrdersStatus(@RequestParam(required = false) String orderId,
                                 @RequestParam(required = false) String status) throws Exception {
 
-        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId),status);
+        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId), status);
 
     }
 
