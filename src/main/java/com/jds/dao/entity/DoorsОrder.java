@@ -72,7 +72,7 @@ public class DoorsОrder {
         return false;
     };
 
-    public DoorsОrder() throws Exception {
+    public DoorsОrder()  {
 
         doors = new ArrayList<>();
         data = new java.sql.Date(new Date().getTime());

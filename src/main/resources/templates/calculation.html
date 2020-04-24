@@ -10,6 +10,7 @@
     <script type="text/javascript" src="../js/calc/door.class.js"></script>
     <script type="text/javascript" src="../js/calc/class-card-block.class.js"></script>
     <script type="text/javascript" src="../js/calc/type-card-block.class.js"></script>
+    <script type="text/javascript" src="../js/calc/available-manager.class.js"></script>
     <script type="text/javascript" src="../js/calc/number_selection.js"></script>
     <script type="text/javascript" src="../js/calc/trim.class.js"></script>
     <script type="text/javascript" src="../js/calc/calculation.script.js"></script>
@@ -46,8 +47,10 @@
             <!--button-->
             <div class="sword-cursor">
                 <button type="button" class="btn btn-outline-dark" id="toСlose">закрыть</button>
-                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
+                <button type="button" class="btn btn-outline-dark" id="SaveAndСlose">сохранить и закрыть</button>
                 <button type="button" class="btn btn-outline-dark" id="buttonSaveDoor">сохранить</button>
+                <button type="button" class="btn btn-outline-dark" id="buttonCalculate">рассчитать</button>
+
             </div>
 
             <h1 class="display-2" id="price">Цена:</h1>
@@ -116,7 +119,7 @@
                 </div>
                 <div class="vertical_menu_button" id="sideDoorOpen">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namesideDoorOpen" available="yes"> ОТКРЫВАНИЕ</span>
+                        <span class="vertical_menu_button_left" id="namesideDoorOpen" available="no"> ОТКРЫВАНИЕ</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" available="yes"
@@ -125,7 +128,7 @@
                 </div>
                 <div class="vertical_menu_button" id="additionalDoorSettings">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="yes"> ДОПОЛНИТЕЛЬНО</span>
+                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="no"> ДОПОЛНИТЕЛЬНО</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" available="yes"
@@ -135,7 +138,7 @@
 
                 <div class="vertical_menu_button" id="doorColor">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namedoorColor" available="yes"> ЦВЕТ ДВЕРИ</span>
+                        <span class="vertical_menu_button_left" id="namedoorColor" available="no"> ЦВЕТ ДВЕРИ</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" available="yes"
@@ -144,7 +147,7 @@
                 </div>
                 <div class="vertical_menu_button" id="shieldKit">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nameshieldKit" available="yes">ЦВЕТ ПОНЕЛИ</span>
+                        <span class="vertical_menu_button_left" id="nameshieldKit" available="no">ЦВЕТ ПОНЕЛИ</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht"  id="shieldKitShow"available="yes"><strong></strong></span>
@@ -187,7 +190,7 @@
                 </div>
                 <div class="vertical_menu_button" id="handle">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namehandle" available="yes"> РУЧКА</span>
+                        <span class="vertical_menu_button_left" id="namehandle" available="no"> РУЧКА</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" id="handleShow"><strong></strong></span>
@@ -203,7 +206,7 @@
                 </div>
                 <div class="vertical_menu_button" id="comment">
                     <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namecomment" available="yes"> КОММЕНТАРИЙ</span>
+                        <span class="vertical_menu_button_left" id="namecomment" available="no"> КОММЕНТАРИЙ</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" available="yes" id="commentShow"><strong></strong></span>
