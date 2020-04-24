@@ -1,4 +1,4 @@
-let changed = false;
+
 jQuery("document").ready(function () {
   var materialsList;
 
@@ -213,7 +213,7 @@ jQuery("document").ready(function () {
       $("#addLine").removeClass("disabled");
       $("#deletLine").removeClass("disabled");
     }
-    if (changed) {
+    if (LineEditor.changed) {
       $("#saveSpec").removeClass("disabled");
     }
   }
