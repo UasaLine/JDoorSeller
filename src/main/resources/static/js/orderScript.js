@@ -155,8 +155,8 @@ jQuery("document").ready(function () {
           "<td>" +
           doors[j].name +
           "</td>" +
-          '<td class="vary_field text_input">' +
-          1 +
+          '<td class="vary_field text_input quantity_line" id='+doors[j].id+'>' +
+          doors[j].quantity +
           "</td>" +
           "<td>" +
           doors[j].metal +

@@ -120,7 +120,7 @@ class LineEditor {
     static countTotal() {
         let tab_total = 0;
         $('.edit_line').each(function () {
-            let quantity = $(this).children('.quantity_field').text();
+            let quantity = $(this).children('.quantity_line').text();
             let price = $(this).children('.price_line').text();
             let totalItem = $(this).children('.total_line');
             let total = quantity * price;
