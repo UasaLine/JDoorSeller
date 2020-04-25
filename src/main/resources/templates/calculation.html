@@ -10,7 +10,9 @@
     <script type="text/javascript" src="../js/calc/door.class.js"></script>
     <script type="text/javascript" src="../js/calc/class-card-block.class.js"></script>
     <script type="text/javascript" src="../js/calc/type-card-block.class.js"></script>
+    <script type="text/javascript" src="../js/calc/opening.classes.js"></script>
     <script type="text/javascript" src="../js/calc/available-manager.class.js"></script>
+    <script type="text/javascript" src="../js/calc/representation-manager.class.js"></script>
     <script type="text/javascript" src="../js/calc/number_selection.js"></script>
     <script type="text/javascript" src="../js/calc/trim.class.js"></script>
     <script type="text/javascript" src="../js/calc/calculation.script.js"></script>
@@ -513,7 +515,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="checkbox11" id="checkbox11" Item="sideDoorOpen" data="LEFT"
-                                   class="ios-toggle"/>
+                                   class="ios-toggle openCheckbox"/>
                             <label for="checkbox11" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -525,55 +527,44 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="checkbox12" id="checkbox12" Item="sideDoorOpen" data="RIGHT"
-                                   class="ios-toggle"/>
+                                   class="ios-toggle openCheckbox"/>
                             <label for="checkbox12" class="checkbox-label"></label>
                         </div>
                     </div>
                 </div>
-                <div class="vertical_menu_checkbox">
+                <div class="vertical_menu_checkbox" id="innerOpenDiv">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" href="#"> Внутреннее открывание</span>
                     </div>
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
-                            <input type="checkbox" name="checkbox13" id="checkbox13" Item="innerDoorOpen" data="1"
-                                   class="ios-toggle"/>
-                            <label for="checkbox13" class="checkbox-label"></label>
+                            <input type="checkbox" name="checkbox13" id="innerOpenCheckboxId" Item="innerOpen" data="1"
+                                   class="ios-toggle innerOpenCheckbox"/>
+                            <label for="innerOpenCheckboxId" class="checkbox-label"></label>
                         </div>
                     </div>
+                </div>
+
+                <div class="div_images_innerOpen innerOpen_L ghost"  data="1" Item="innerOpen" >
+                    <img class="images_innerOpen" src="images/shield sketch/береза.jpg"><br>
+                    <span class="small_font" ></span>
+                </div>
+                <div class="div_images_innerOpen innerOpen_L ghost"  data="2" Item="innerOpen" >
+                    <img class="images_innerOpen"  src="images/shield sketch/береза.jpg"><br>
+                    <span class="small_font" ></span>
+                </div>
+                <div class="div_images_innerOpen innerOpen_R ghost"  data="3" Item="innerOpen" >
+                    <img class="images_innerOpen"  src="images/shield sketch/Венге.jpg"><br>
+                    <span class="small_font" ></span>
+                </div>
+                <div class="div_images_innerOpen innerOpen_R ghost"  data="4" Item="innerOpen" >
+                    <img class="images_innerOpen"  src="images/shield sketch/Венге.jpg"><br>
+                    <span class="small_font " ></span>
                 </div>
             </div>
 
             <!--select_additionalDoorSettings-->
             <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
-
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost" id="additionalDoorSettings_doorstep">
-                    <div class="left_cell_checkbox">
-                        <span class="vertical_menu_button_left" href="#" id="namedoorstep"
-                              available="no"> <Strong>Порог</Strong></span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <div class="toggles">
-                            <input type="checkbox" name="doorstep_checkbox" id="doorstep_checkbox" Item="doorstep" data="1"
-                                   available="no" class="ios-toggle"/>
-                            <label for="doorstep_checkbox" class="checkbox-label"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                     id="additionalDoorSettings_stainlessSteelDoorstep">
-                    <div class="left_cell_checkbox">
-                        <span class="vertical_menu_button_left" id="namestainlessSteelDoorstep" available="no"> Порог из нержавеющий сталли</span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <div class="toggles">
-                            <input type="checkbox" name="stainlessSteelDoorstep_checkbox"
-                                   id="stainlessSteelDoorstep_checkbox" Item="stainlessSteelDoorstep" available="no"
-                                   data="1" class="ios-toggle"/>
-                            <label for="stainlessSteelDoorstep_checkbox" class="checkbox-label"></label>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_doorTrim">
                     <div class="left_cell_checkbox">
@@ -599,8 +590,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox"
-                     id="additionalDoorSettings_leftDoorTrim">
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_leftDoorTrim">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="nameleftDoorTrim" available="no"> Левый наличник</span>
                     </div>
@@ -612,8 +602,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox"
-                     id="additionalDoorSettings_rightDoorTrim">
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_rightDoorTrim">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="namerightDoorTrim"
                               available="no"> Правый наличник</span>
@@ -623,6 +612,35 @@
                             <input type="checkbox" name="rightDoorTrim_checkbox" id="rightDoorTrim_checkbox"
                                    Item="rightDoorTrim" data="" class="ios-toggle trims"/>
                             <label for="rightDoorTrim_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_doorstep">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" href="#" id="namedoorstep"
+                              available="no"> <Strong>Порог</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="doorstep_checkbox" id="doorstep_checkbox" Item="doorstep" data="1"
+                                   available="no" class="ios-toggle"/>
+                            <label for="doorstep_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_stainlessSteelDoorstep">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namestainlessSteelDoorstep" available="no"> Порог из нержавеющий сталли</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="stainlessSteelDoorstep_checkbox"
+                                   id="stainlessSteelDoorstep_checkbox" Item="stainlessSteelDoorstep" available="no"
+                                   data="1" class="ios-toggle"/>
+                            <label for="stainlessSteelDoorstep_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
                 </div>

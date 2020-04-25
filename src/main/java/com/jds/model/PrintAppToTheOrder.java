@@ -37,7 +37,7 @@ public class PrintAppToTheOrder {
         sizes.add(new ParamApp("Глубина:", String.valueOf(door.getDeepnessDoor())));
         sizes.add(new ParamApp("Толщина полотна:", String.valueOf(door.getThicknessDoorLeaf())));
         sizes.add(new ParamApp("Открывание:", String.valueOf(door.getSideDoorOpen())));
-        sizes.add(new ParamApp("Внутреннее открывание:", String.valueOf(door.getInnerDoorOpen())));
+        sizes.add(new ParamApp("Внутреннее открывание:", String.valueOf(door.getInnerOpen())));
         sizes.add(new ParamApp("Ширина активной створки:", String.valueOf(door.getActiveDoorLeafWidth())));
         sizes.add(new ParamApp("Высота фрамуги:", String.valueOf(door.getDoorFanlightHeight())));
 
