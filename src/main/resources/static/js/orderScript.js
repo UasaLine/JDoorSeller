@@ -155,8 +155,8 @@ jQuery("document").ready(function () {
           "<td>" +
           doors[j].name +
           "</td>" +
-          '<td class="vary_field text_input quantity_field" id='+doors[j].id+'>' +
-          doors[j].quantity +
+          '<td class="vary_field text_input">' +
+          1 +
           "</td>" +
           "<td>" +
           doors[j].metal +
@@ -335,15 +335,4 @@ jQuery("document").ready(function () {
       }
     });
   }
-
-
 });
-
-function countTotalLine(){
-  $('tr').each(function () {
-    let quantity = $(this).children('.vary_field').text();
-    let price = $(this).children('.price_line').text();
-    let total = $(this).children('.total_line');
-    $(total).text(quantity*price);
-  })
-}
