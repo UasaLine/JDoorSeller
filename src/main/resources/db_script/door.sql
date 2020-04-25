@@ -22,6 +22,7 @@ CREATE TABLE door
     price                  int,
     discountPrice          int,
     priceWithMarkup        int,
+    quantity               int,
     doorColor              CHARACTER VARYING(100),
     glass_id               int,
     isDoorGlass            int,

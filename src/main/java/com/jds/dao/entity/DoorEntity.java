@@ -5,7 +5,9 @@ import com.jds.model.*;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "Door")
+@Getter
+@Setter
 public class DoorEntity implements SerializingFields {
 
     @Id
@@ -86,6 +90,9 @@ public class DoorEntity implements SerializingFields {
 
     @Column(name = "doorColor")
     private String doorColor;
+
+    @Column(name = "quantity")
+    private int quantity;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "doors", fetch = FetchType.LAZY)
@@ -304,38 +311,6 @@ public class DoorEntity implements SerializingFields {
         return this;
     }
 
-    public int getDoorLeaf() {
-        return doorLeaf;
-    }
-
-    public void setDoorLeaf(int doorLeaf) {
-        this.doorLeaf = doorLeaf;
-    }
-
-    public double getSpace() {
-        return space;
-    }
-
-    public void setSpace(double space) {
-        this.space = space;
-    }
-
-    public CostList getCostList() {
-        return costList;
-    }
-
-    public void setCostList(CostList costList) {
-        this.costList = costList;
-    }
-
-    public double getWeigh() {
-        return weigh;
-    }
-
-    public void setWeigh(double weigh) {
-        this.weigh = weigh;
-    }
-
     public DoorEntity createName() {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -357,165 +332,6 @@ public class DoorEntity implements SerializingFields {
         doorLeaf = 1;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public DoorType getDoorType() {
-        return doorType;
-    }
-
-    public void setDoorType(DoorType doorType) {
-        this.doorType = doorType;
-    }
-
-    public int getWidthDoor() {
-        return widthDoor;
-    }
-
-    public void setWidthDoor(int widthDoor) {
-        this.widthDoor = widthDoor;
-    }
-
-    public int getHeightDoor() {
-        return heightDoor;
-    }
-
-    public void setHeightDoor(int heightDoor) {
-        this.heightDoor = heightDoor;
-    }
-
-    public int getActiveDoorLeafWidth() {
-        return activeDoorLeafWidth;
-    }
-
-    public void setActiveDoorLeafWidth(int activeDoorLeafWidth) {
-        this.activeDoorLeafWidth = activeDoorLeafWidth;
-    }
-
-    public int getDoorFanlightHeight() {
-        return doorFanlightHeight;
-    }
-
-    public void setDoorFanlightHeight(int doorFanlightheight) {
-        this.doorFanlightHeight = doorFanlightheight;
-    }
-
-    public double getMetal() {
-        return metal;
-    }
-
-    public void setMetal(double metal) {
-        this.metal = metal;
-    }
-
-    public int getDeepnessDoor() {
-        return deepnessDoor;
-    }
-
-    public void setDeepnessDoor(int deepnessDoor) {
-        this.deepnessDoor = deepnessDoor;
-    }
-
-    public int getThicknessDoorLeaf() {
-        return thicknessDoorLeaf;
-    }
-
-    public void setThicknessDoorLeaf(int thicknessDoorLeaf) {
-        this.thicknessDoorLeaf = thicknessDoorLeaf;
-    }
-
-    public String getSideDoorOpen() {
-        return sideDoorOpen;
-    }
-
-    public void setSideDoorOpen(String sideDoorOpen) {
-        this.sideDoorOpen = sideDoorOpen;
-    }
-
-    public int getInnerOpen() {
-        return innerOpen;
-    }
-
-    public void setInnerOpen(int innerOpen) {
-        this.innerOpen = innerOpen;
-    }
-
-    public int getDoorstep() {
-        return doorstep;
-    }
-
-    public void setDoorstep(int doorstep) {
-        this.doorstep = doorstep;
-    }
-
-    public int getStainlessSteelDoorstep() {
-        return stainlessSteelDoorstep;
-    }
-
-    public void setStainlessSteelDoorstep(int stainlessSteelDoorstep) {
-        this.stainlessSteelDoorstep = stainlessSteelDoorstep;
-    }
-
-    public int getTopDoorTrim() {
-        return topDoorTrim;
-    }
-
-    public void setTopDoorTrim(int topDoorTrim) {
-        this.topDoorTrim = topDoorTrim;
-    }
-
-    public int getLeftDoorTrim() {
-        return leftDoorTrim;
-    }
-
-    public void setLeftDoorTrim(int leftDoorTrim) {
-        this.leftDoorTrim = leftDoorTrim;
-    }
-
-    public int getRightDoorTrim() {
-        return rightDoorTrim;
-    }
-
-    public void setRightDoorTrim(int rightDoorTrim) {
-        this.rightDoorTrim = rightDoorTrim;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public List<DoorsОrder> getОrders() {
-        return orders;
-    }
-
-    public void setОrders(List<DoorsОrder> оrders) {
-        this.orders = оrders;
-    }
-
-    public void addOrder(DoorsОrder door) {
-        this.orders.add(door);
-    }
-
-    public String getDoorColor() {
-        return doorColor;
-    }
 
     public DoorEntity calculateSalary(PayrollSettings paySet) {
 
@@ -969,42 +785,6 @@ public class DoorEntity implements SerializingFields {
 
     }
 
-    public void setDoorColor(String doorColor) {
-        this.doorColor = doorColor;
-    }
-
-    public List<Sheet> getSheets() {
-        return sheets;
-    }
-
-    public void setSheets(List<Sheet> sheets) {
-        this.sheets = sheets;
-    }
-
-    public int getIsDoorGlass() {
-        return isDoorGlass;
-    }
-
-    public void setIsDoorGlass(int isDoorGlass) {
-        this.isDoorGlass = isDoorGlass;
-    }
-
-    public DoorGlass getDoorGlass() {
-        return doorGlass;
-    }
-
-    public void setDoorGlass(DoorGlass doorGlass) {
-        this.doorGlass = doorGlass;
-    }
-
-    public List<DoorClass> getAvailableDoorClass() {
-        return availableDoorClass;
-    }
-
-    public void setAvailableDoorClass(List<DoorClass> availableDoorClass) {
-        this.availableDoorClass = availableDoorClass;
-    }
-
     public void addAvailableDoorClass(DoorClass doorClass) {
         this.availableDoorClass.add(doorClass);
     }
@@ -1013,22 +793,6 @@ public class DoorEntity implements SerializingFields {
         for (DoorClass doorClass : doorClassList) {
             addAvailableDoorClass(doorClass.clearNonSerializingFields());
         }
-    }
-
-    public int getDiscountPrice() {
-        return discountPrice;
-    }
-
-    public void setDiscountPrice(int discountPrice) {
-        this.discountPrice = discountPrice;
-    }
-
-    public int getPriceWithMarkup() {
-        return priceWithMarkup;
-    }
-
-    public void setPriceWithMarkup(int priceWithMarkup) {
-        this.priceWithMarkup = priceWithMarkup;
     }
 
     public int getSealingLine() {
@@ -1040,127 +804,4 @@ public class DoorEntity implements SerializingFields {
         return sealingLine;
     }
 
-    public void setSealingLine(int sealingLine) {
-        this.sealingLine = sealingLine;
-    }
-
-    public int getFirstSealingLine() {
-        return firstSealingLine;
-    }
-
-    public void setFirstSealingLine(int firstSealingLine) {
-        this.firstSealingLine = firstSealingLine;
-    }
-
-    public int getSecondSealingLine() {
-        return secondSealingLine;
-    }
-
-    public void setSecondSealingLine(int secondSealingLine) {
-        this.secondSealingLine = secondSealingLine;
-    }
-
-    public int getThirdSealingLine() {
-        return thirdSealingLine;
-    }
-
-    public void setThirdSealingLine(int thirdSealingLine) {
-        this.thirdSealingLine = thirdSealingLine;
-    }
-
-    public int getMDF() {
-        return MDF;
-    }
-
-    public void setMDF(int MDF) {
-        this.MDF = MDF;
-    }
-
-    public int getAdditionallyHingeMain() {
-        return additionallyHingeMain;
-    }
-
-    public void setAdditionallyHingeMain(int additionallyHingeMain) {
-        this.additionallyHingeMain = additionallyHingeMain;
-    }
-
-    public int getAdditionallyHingeNotMain() {
-        return additionallyHingeNotMain;
-    }
-
-    public void setAdditionallyHingeNotMain(int additionallyHingeNotMain) {
-        this.additionallyHingeNotMain = additionallyHingeNotMain;
-    }
-
-    public List<DoorsОrder> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<DoorsОrder> orders) {
-        this.orders = orders;
-    }
-
-    public int getAmplifierCloser() {
-        return amplifierCloser;
-    }
-
-    public void setAmplifierCloser(int amplifierCloser) {
-        this.amplifierCloser = amplifierCloser;
-    }
-
-    public FurnitureKit getFurnitureKit() {
-        return furnitureKit;
-    }
-
-    public void setFurnitureKit(FurnitureKit furnitureKit) {
-        this.furnitureKit = furnitureKit;
-    }
-
-    public int getIsDoorFanlightGlass() {
-        return isDoorFanlightGlass;
-    }
-
-    public void setIsDoorFanlightGlass(int isDoorFanlightGlass) {
-        this.isDoorFanlightGlass = isDoorFanlightGlass;
-    }
-
-    public int getFilling() {
-        return filling;
-    }
-
-    public void setFilling(int filling) {
-        this.filling = filling;
-    }
-
-    public RestrictionOfSelectionFields getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(RestrictionOfSelectionFields template) {
-        this.template = template;
-    }
-
-    public int getOrderHolder() {
-        return orderHolder;
-    }
-
-    public void setOrderHolder(int orderHolder) {
-        this.orderHolder = orderHolder;
-    }
-
-    public ShieldKit getShieldKit() {
-        return shieldKit;
-    }
-
-    public void setShieldKit(ShieldKit shieldKit) {
-        this.shieldKit = shieldKit;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }

@@ -110,6 +110,11 @@ jQuery("document").ready(function () {
     order.productionStart = $("#productionStart").val();
     //order.seller  = $('#seller').val();
     order.comment = $("#comment").val();
+
+    order.doors.forEach(function (item, i, arr) {
+      item.quantity = $("#"+item.id).text();
+    })
+
   }
 
   function fillOutOfTheObject() {
@@ -149,8 +154,8 @@ jQuery("document").ready(function () {
           "<td>" +
           doors[j].name +
           "</td>" +
-          '<td class="vary_field text_input">' +
-          1 +
+          '<td class="vary_field text_input" id='+doors[j].id+'>' +
+          doors[j].quantity +
           "</td>" +
           "<td>" +
           doors[j].metal +
