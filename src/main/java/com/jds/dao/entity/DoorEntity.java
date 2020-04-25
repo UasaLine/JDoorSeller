@@ -55,7 +55,7 @@ public class DoorEntity implements SerializingFields {
     private String sideDoorOpen;
 
     @Column(name = "innerDoorOpen")
-    private int innerDoorOpen;
+    private int innerOpen;
 
     //doorstep
     @Column(name = "doorstep")
@@ -445,12 +445,12 @@ public class DoorEntity implements SerializingFields {
         this.sideDoorOpen = sideDoorOpen;
     }
 
-    public int getInnerDoorOpen() {
-        return innerDoorOpen;
+    public int getInnerOpen() {
+        return innerOpen;
     }
 
-    public void setInnerDoorOpen(int innerDoorOpen) {
-        this.innerDoorOpen = innerDoorOpen;
+    public void setInnerOpen(int innerOpen) {
+        this.innerOpen = innerOpen;
     }
 
     public int getDoorstep() {

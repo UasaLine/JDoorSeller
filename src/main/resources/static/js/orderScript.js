@@ -1,10 +1,12 @@
 jQuery("document").ready(function () {
+
   //getInstans order
   var orderId = $("#order_id").text();
   var currentDoorId = 0;
   var order;
-
+  let buttonsManager = new ButtonsManager('different_availability','CALC');
   setOrderId("Заказ");
+
 
   $.ajax({
     url: "getOrder",
@@ -13,6 +15,8 @@ jQuery("document").ready(function () {
     success: function (data) {
       order = data;
       fillOutOfTheObject();
+
+      buttonsManager.disabled(order.status);
     },
     error: function (data) {
       alert("error:" + data);
@@ -21,6 +25,10 @@ jQuery("document").ready(function () {
 
   $("#saveOrder").on("click", function () {
     saveOrder(0, 0);
+  });
+
+  $("#toСlose").on("click", function () {
+    toClose();
   });
 
   $("#saveOrderAndShutDown").on("click", function () {
@@ -221,13 +229,17 @@ jQuery("document").ready(function () {
           addDoor(orderId);
         }
         if (close == 1) {
-          location.href = "orders";
+          toClose();
         }
       },
       error: function (data) {
-        alert("error:" + data);
+        alert("error: даписать не удалось:(");
       },
     });
+  }
+
+  function toClose() {
+    location.href = "orders";
   }
 
   function oneEnableAllDisable(item) {

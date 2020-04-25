@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
 	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/buttons-utils/buttons-manager.class.js"></script>
 	<script type="text/javascript" src="js/line-utils/line-editor.class.js"></script>
 	<script type="text/javascript" src="js/orderScript.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/ios_checkbox.css" />
@@ -20,18 +21,6 @@
 </div>
 </div>
 
-<div class="top_head">
-	<div class="header_home" >
-		<a th:href="@{/orders}" class="logo_home">Заказы</a>
-	</div>
-	<div class="header_home" >
-		<a th:href="@{/usersetting}" class="logo_home">Настройки</a>
-	</div>
-	<div class="header_home" >
-		<a th:href="@{/logout}" class="logo_home">Выйти</a>
-	</div>
-</div>
-
 <div class="container_main_order">
 
 	<h1 class="display-4" id ="orderIdName">Заказ</h1>
@@ -41,9 +30,10 @@
 	<div class="container_main_order">
 
 		<div class="order_button_div">
-			<button type="button" class="btn btn-dark" id="saveOrderAndShutDown" >Cохранить и закрыть</button>
-			<button type="button" class="btn btn-dark" id="saveOrder" >Cохранить</button>
-			<button type="button" class="btn btn-dark" id="deleteOrder" >Удалить</button>
+			<button type="button" class="btn btn-dark" id="toСlose" >Закрыть</button>
+			<button type="button" class="btn btn-dark different_availability" id="saveOrderAndShutDown" >Cохранить и закрыть</button>
+			<button type="button" class="btn btn-dark different_availability" id="saveOrder" >Cохранить</button>
+			<button type="button" class="btn btn-dark different_availability" id="deleteOrder" >Удалить</button>
 			<button type="button" class="btn btn-dark" id="print" >Печать заказа</button>
 			<button type="button" class="btn btn-dark" id="printDoors">Печать дверей</button>
 			<button type="button" class="btn btn-dark" id="factoryOder">Заказ на завод</button>
@@ -90,28 +80,18 @@
 		</div>
 
 		<div class="order_button_div">
-			<button type="button" class="btn btn-primary" id="addDoor">Добавить</button>
-			<button type="button" class="btn btn-primary" id="toChange">Изменить</button>
-			<button type="button" class="btn btn-primary" id="delete">удалить</button>
+			<button type="button" class="btn btn-primary different_availability" id="addDoor">Добавить</button>
+			<button type="button" class="btn btn-primary " id="toChange">Изменить</button>
+			<button type="button" class="btn btn-primary different_availability" id="delete">удалить</button>
         </div>
 
 		<div class="data-Table">
 			<table class="Table">
 				<tr>
-					<th>id</th>
-					<th>Наименование</th>
-					<th>Тип двери</th>
-					<th>Металл</th>
-					<th>Цвет</th>
-					<th>Цена</th>
+
 				</tr>
-				<tr th:each="accountInfo : ${accountInfos}">
-					<td th:utext="${accountInfo.id}">..</td>
-					<td th:utext="${accountInfo.name}">..</td>
-					<td th:utext="${accountInfo.doorType}">..</td>
-					<td th:utext="${accountInfo.metal}">..</td>
-					<td th:utext="${accountInfo.doorColor}">..</td>
-					<td th:utext="${accountInfo.priceWithMarkup}">..</td>
+				<tr >
+
 				</tr>
 			</table>
 		</div>

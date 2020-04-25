@@ -72,3 +72,11 @@
   font-size: 9px;
 }
 
+.div_images_innerOpen{
+  display: inline-block;
+}
+.images_innerOpen{
+  width: 150px;
+}
+
+
