@@ -1,19 +1,20 @@
 class LineEditor {
 
-    static init(){
+    static init() {
 
         LineEditor.changed = false;
 
-        $("tbody").on("dblclick", ".vary_field",LineEditor.dblclick);
+        $("tbody").on("dblclick", ".vary_field", LineEditor.dblclick);
 
         $(window).keydown(function (event) {
             if (event.keyCode == 13) {
                 $("#edit").blur();
+                LineEditor.countTotal();
             }
         });
     }
 
-    static dblclick(e){
+    static dblclick(e) {
         var t = e.target || e.srcElement;
 
         var elm_name = t.tagName.toLowerCase();
@@ -35,6 +36,7 @@ class LineEditor {
                 var val = $(this).val();
                 var name = LineEditor.getNameSelectedValue(val);
                 $(this).parent().empty().text(name).attr("val", val);
+                LineEditor.countTotal();
             });
         } else if ($(jsOb).hasClass("text_input")) {
             LineEditor.addInput(jsOb);
@@ -42,6 +44,7 @@ class LineEditor {
             $("#edit").blur(function () {
                 var val = $(this).val();
                 $(this).parent().empty().text(val);
+                LineEditor.countTotal();
             });
         }
     }
@@ -112,5 +115,18 @@ class LineEditor {
         }
 
         return "";
+    }
+
+    static countTotal() {
+        let tab_total = 0;
+        $('.edit_line').each(function () {
+            let quantity = $(this).children('.quantity_line').text();
+            let price = $(this).children('.price_line').text();
+            let totalItem = $(this).children('.total_line');
+            let total = quantity * price;
+            $(totalItem).text(total);
+            tab_total = tab_total + total;
+        })
+        $('#total').text(tab_total);
     }
 }

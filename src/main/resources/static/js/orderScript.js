@@ -137,14 +137,15 @@ jQuery("document").ready(function () {
         "кол-во</th><th>" +
         "металл</th><th>" +
         "цвет</th><th>" +
-        "цена</th></tr>"
+        "цена</th><th>"+
+        "сумма</th></tr>"
     );
 
     var doors = order.doors;
     var position = 1;
     for (var j = 0; j < doors.length; ++j) {
       $(".Table > tbody").append(
-        "<tr>" +
+        "<tr class='edit_line'>" +
           '<td class="position">' +
           position +
           "</td>" +
@@ -154,7 +155,7 @@ jQuery("document").ready(function () {
           "<td>" +
           doors[j].name +
           "</td>" +
-          '<td class="vary_field text_input" id='+doors[j].id+'>' +
+          '<td class="vary_field text_input quantity_line" id='+doors[j].id+'>' +
           doors[j].quantity +
           "</td>" +
           "<td>" +
@@ -163,8 +164,11 @@ jQuery("document").ready(function () {
           "<td>" +
           doors[j].doorColor +
           "</td>" +
-          "<td>" +
+          '<td class="price_line">' +
           doors[j].priceWithMarkup +
+          "</td>" +
+          '<td class="total_line">' +
+          (doors[j].priceWithMarkup * doors[j].quantity) +
           "</td>" +
           "</tr>"
       );
