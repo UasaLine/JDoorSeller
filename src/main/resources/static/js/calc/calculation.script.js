@@ -793,10 +793,6 @@ jQuery("document").ready(function () {
     }
   }
 
-  function displaySideDoorOpen() {
-    $("[data = " + door.sideDoorOpen + "]").prop("checked", true);
-  }
-
   function checkThCompletedFields() {
     if (door.widthDoor == 0 && door.heightDoor == 0) {
       alert("please select door dimensions!");
@@ -1112,7 +1108,8 @@ jQuery("document").ready(function () {
 
     if (currentItem == "sideDoorOpen") {
       $(".select_sideDoorOpen").attr("show", "is_alive_lement");
-      displaySideDoorOpen();
+      InnerOpen.updateView();
+      SideOpen.updateView();
     } else {
       $(".select_sideDoorOpen").attr("show", "ghost_lement");
     }
