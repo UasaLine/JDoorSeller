@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
 
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="../js/template.js"></script>
+    <script type="text/javascript" src="../js/template/template.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="../css/displayCss.css"/>
 
@@ -379,79 +379,20 @@
             </div>
 
 
-
-        <h4 class="chapter">дополнительные настройки</h4>
+        <h4 class="chapter">Наличники</h4>
         <br>
 
-            <div id="doorstepDiv">
-            <label for="doorstepSelect0">порог:</label>
-                <div class="row" id="doorstepLineDiv0">
-                    <div class="col-md-6 mb-3"id="doorstepLineSelect0" >
-                        <select class="form-control doorstepSelect" id="doorstepSelect0" data="0">
-                        </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="doorstepLineSwitch0">
-                        <input type="checkbox" class="custom-control-input doorstepLineCheckbox" id="doorstepLineCheckbox0" >
-                        <label class="custom-control-label" for="doorstepLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-            <div id="stainlessSteelDoorstepDiv">
-            <label for="stainlessSteelDoorstepSelect0">порог нержавейка:</label>
-                <div class="row" id="stainlessSteelDoorstepLineDiv0">
-                    <div class="col-md-6 mb-3"id="stainlessSteelDoorstepLineSelect0" >
-                        <select class="form-control stainlessSteelDoorstepSelect" id="stainlessSteelDoorstepSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="stainlessSteelDoorstepLineSwitch0">
-                        <input type="checkbox" class="custom-control-input stainlessSteelDoorstepLineCheckbox" id="stainlessSteelDoorstepLineCheckbox0" >
-                        <label class="custom-control-label" for="stainlessSteelDoorstepLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-            <div id="firstSealingLineDiv">
-            <label for="firstSealingLineSelect0">первая линия уплотнения:</label>
-                <div class="row" id="firstSealingLineLineDiv0">
-                    <div class="col-md-6 mb-3" id="firstSealingLineLineSelect0" >
-                        <select class="form-control firstSealingLineSelect" id="firstSealingLineSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="firstSealingLineLineSwitch0">
-                        <input type="checkbox" class="custom-control-input firstSealingLineLineCheckbox" id="firstSealingLineLineCheckbox0" >
-                        <label class="custom-control-label" for="firstSealingLineLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-            <div id="secondSealingLineDiv">
-            <label for="secondSealingLineSelect0">вторая линия уплотнения:</label>
-                <div class="row" id="secondSealingLineLineDiv0">
-                    <div class="col-md-6 mb-3"id="secondSealingLineLineSelect0" >
-                        <select class="form-control secondSealingLineSelect" id="secondSealingLineSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="secondSealingLineLineSwitch0">
-                        <input type="checkbox" class="custom-control-input secondSealingLineLineCheckbox" id="secondSealingLineLineCheckbox0" >
-                        <label class="custom-control-label" for="secondSealingLineLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-            <div id="thirdSealingLineDiv">
-            <label for="thirdSealingLineSelect0">третья линия уплотнения:</label>
-                <div class="row" id="thirdSealingLineLineDiv0">
-                    <div class="col-md-6 mb-3"id="thirdSealingLineLineSelect0" >
-                     <select class="form-control thirdSealingLineSelect" id="thirdSealingLineSelect0" data="0">
-                </select>
-                    </div>
-                    <div class="custom-control custom-switch" id="thirdSealingLineLineSwitch0">
-                        <input type="checkbox" class="custom-control-input thirdSealingLineLineCheckbox" id="thirdSealingLineLineCheckbox0" >
-                        <label class="custom-control-label" for="thirdSealingLineLineCheckbox0">default</label>
-                    </div>
-                </div>
-            </div>
-
-
             <div id="leftDoorTrimDiv">
-            <label for="leftDoorTrimSelect0">наличник левый:</label>
+                <label for="leftDoorTrimSelect0">левый (интервал):</label>
+                <div class="row" id="leftDoorTrimSizeMaxMinDiv">
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="leftDoorTrimSizeMin" placeholder="min">
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="leftDoorTrimSizeMax" placeholder="max">
+                    </div>
+                </div>
+                <label for="leftDoorTrimSelect0">левый:</label>
                 <div class="row" id="leftDoorTrimLineDiv0">
                     <div class="col-md-6 mb-3"id="leftDoorTrimLineSelect0" >
                         <select class="form-control leftDoorTrimSelect" id="leftDoorTrimSelect0" data="0">
@@ -464,7 +405,16 @@
                 </div>
             </div>
             <div id="rightDoorTrimDiv">
-            <label for="rightDoorTrimSelect0">наличник правый:</label>
+                <label for="rightDoorTrimSelect0">правый (интервал):</label>
+                <div class="row" id="rightDoorTrimSizeMaxMinDiv">
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="rightDoorTrimSizeMin" placeholder="min">
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="rightDoorTrimSizeMax" placeholder="max">
+                    </div>
+                </div>
+                <label for="rightDoorTrimSelect0">правый:</label>
                 <div class="row" id="rightDoorTrimLineDiv0">
                     <div class="col-md-6 mb-3"id="rightDoorTrimLineSelect0" >
                         <select class="form-control rightDoorTrimSelect" id="rightDoorTrimSelect0" data="0">
@@ -477,8 +427,17 @@
                 </div>
             </div>
             <div id="topDoorTrimDiv">
-            <label for="topDoorTrimSelect0">наличник правый:</label>
-            <div class="row" id="topDoorTrimLineDiv0">
+                <label for="topDoorTrimSelect0">верхний (интервал):</label>
+                <div class="row" id="topDoorTrimSizeMaxMinDiv">
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="topDoorTrimSizeMin" placeholder="min">
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="topDoorTrimSizeMax" placeholder="max">
+                    </div>
+                </div>
+                <label for="topDoorTrimSelect0">верхний:</label>
+                <div class="row" id="topDoorTrimLineDiv0">
                     <div class="col-md-6 mb-3"id="topDoorTrimLineSelect0" >
                         <select class="form-control topDoorTrimSelect" id="topDoorTrimSelect0" data="0">
                         </select>
@@ -486,6 +445,75 @@
                     <div class="custom-control custom-switch" id="topDoorTrimLineSwitch0">
                         <input type="checkbox" class="custom-control-input topDoorTrimLineCheckbox" id="topDoorTrimLineCheckbox0" >
                         <label class="custom-control-label" for="topDoorTrimLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+
+        <h4 class="chapter">дополнительные настройки</h4>
+        <br>
+
+            <div id="doorstepDiv">
+                <label for="doorstepSelect0">порог:</label>
+                <div class="row" id="doorstepLineDiv0">
+                    <div class="col-md-6 mb-3"id="doorstepLineSelect0" >
+                        <select class="form-control doorstepSelect" id="doorstepSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="doorstepLineSwitch0">
+                        <input type="checkbox" class="custom-control-input doorstepLineCheckbox" id="doorstepLineCheckbox0" >
+                        <label class="custom-control-label" for="doorstepLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+            <div id="stainlessSteelDoorstepDiv">
+                <label for="stainlessSteelDoorstepSelect0">порог нержавейка:</label>
+                <div class="row" id="stainlessSteelDoorstepLineDiv0">
+                    <div class="col-md-6 mb-3"id="stainlessSteelDoorstepLineSelect0" >
+                        <select class="form-control stainlessSteelDoorstepSelect" id="stainlessSteelDoorstepSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="stainlessSteelDoorstepLineSwitch0">
+                        <input type="checkbox" class="custom-control-input stainlessSteelDoorstepLineCheckbox" id="stainlessSteelDoorstepLineCheckbox0" >
+                        <label class="custom-control-label" for="stainlessSteelDoorstepLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+            <div id="firstSealingLineDiv">
+                <label for="firstSealingLineSelect0">первая линия уплотнения:</label>
+                <div class="row" id="firstSealingLineLineDiv0">
+                    <div class="col-md-6 mb-3" id="firstSealingLineLineSelect0" >
+                        <select class="form-control firstSealingLineSelect" id="firstSealingLineSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="firstSealingLineLineSwitch0">
+                        <input type="checkbox" class="custom-control-input firstSealingLineLineCheckbox" id="firstSealingLineLineCheckbox0" >
+                        <label class="custom-control-label" for="firstSealingLineLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+            <div id="secondSealingLineDiv">
+                <label for="secondSealingLineSelect0">вторая линия уплотнения:</label>
+                <div class="row" id="secondSealingLineLineDiv0">
+                    <div class="col-md-6 mb-3"id="secondSealingLineLineSelect0" >
+                        <select class="form-control secondSealingLineSelect" id="secondSealingLineSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="secondSealingLineLineSwitch0">
+                        <input type="checkbox" class="custom-control-input secondSealingLineLineCheckbox" id="secondSealingLineLineCheckbox0" >
+                        <label class="custom-control-label" for="secondSealingLineLineCheckbox0">default</label>
+                    </div>
+                </div>
+            </div>
+            <div id="thirdSealingLineDiv">
+                <label for="thirdSealingLineSelect0">третья линия уплотнения:</label>
+                <div class="row" id="thirdSealingLineLineDiv0">
+                    <div class="col-md-6 mb-3"id="thirdSealingLineLineSelect0" >
+                        <select class="form-control thirdSealingLineSelect" id="thirdSealingLineSelect0" data="0">
+                        </select>
+                    </div>
+                    <div class="custom-control custom-switch" id="thirdSealingLineLineSwitch0">
+                        <input type="checkbox" class="custom-control-input thirdSealingLineLineCheckbox" id="thirdSealingLineLineCheckbox0" >
+                        <label class="custom-control-label" for="thirdSealingLineLineCheckbox0">default</label>
                     </div>
                 </div>
             </div>

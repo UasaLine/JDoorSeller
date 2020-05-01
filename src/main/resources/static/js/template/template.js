@@ -48,6 +48,10 @@ jQuery("document").ready(function () {
     installFromTemplateSelect("rightDoorTrim");
     installFromTemplateSelect("topDoorTrim");
 
+    installFromTemplateSize("leftDoorTrimSize",true);
+    installFromTemplateSize("rightDoorTrimSize",true);
+    installFromTemplateSize("topDoorTrimSize",true);
+
     installFromTemplateFurnitur("topLock");
     installFromTemplateFurnitur("lowerLock");
     installFromTemplateFurnitur("handle");
@@ -378,6 +382,9 @@ jQuery("document").ready(function () {
     }
   );
 
+  $("#topDoorTrimSizeMaxMinDiv").change(function () {
+    saveInJavaObjectSize("topDoorTrimSize");
+  });
   $("#topDoorTrimDiv").change(".topDoorTrimSelect", function () {
     saveInJavaObjectforRestrictionValue("topDoorTrim");
     if (allFieldsAreFilled(".topDoorTrimSelect")) {
@@ -395,6 +402,9 @@ jQuery("document").ready(function () {
     }
   });
 
+  $("#leftDoorTrimSizeMaxMinDiv").change(function () {
+    saveInJavaObjectSize("leftDoorTrimSize");
+  });
   $("#leftDoorTrimDiv").change(".leftDoorTrimSelect", function () {
     saveInJavaObjectforRestrictionValue("leftDoorTrim");
     if (allFieldsAreFilled(".leftDoorTrimSelect")) {
@@ -412,6 +422,9 @@ jQuery("document").ready(function () {
     }
   });
 
+  $("#rightDoorTrimSizeMaxMinDiv").change(function () {
+    saveInJavaObjectSize("rightDoorTrimSize");
+  });
   $("#rightDoorTrimDiv").change(".rightDoorTrimSelect", function () {
     saveInJavaObjectforRestrictionValue("rightDoorTrim");
     if (allFieldsAreFilled(".rightDoorTrimSelect")) {
