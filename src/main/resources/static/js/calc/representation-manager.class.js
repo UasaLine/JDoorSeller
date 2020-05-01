@@ -85,13 +85,17 @@ class Container2fields {
             //doorstep//DoorTrim
             else if (
                 currentItem == "doorstep" ||
-                currentItem == "stainlessSteelDoorstep" ||
+                currentItem == "stainlessSteelDoorstep"
+            ) {
+                Container2fields.fillCheckbox(currentItem, value);
+            }
+            else if (
                 currentItem == "topDoorTrim" ||
                 currentItem == "leftDoorTrim" ||
                 currentItem == "rightDoorTrim"
             ) {
-                Container2fields.fillCheckbox(currentItem, value);
-            } else if (
+                Trim.turnOn(currentItem, value);
+            }else if (
                 currentItem == "firstSealingLine" ||
                 currentItem == "secondSealingLine" ||
                 currentItem == "thirdSealingLine"
