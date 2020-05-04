@@ -11,6 +11,7 @@ class RepresentationManager {
     static showFieldValue(val) {
         let buildVal = Container2fields.buildValue(val);
         Container2fields.setValueToField(buildVal);
+        Container3fields.setSizeValueToButton(currentItem);
     }
 
     
@@ -159,5 +160,16 @@ class Container2fields {
         } else {
             $("#" + name + "_checkbox").prop("checked", false);
         }
+    }
+}
+
+class Container3fields {
+    static setSizeValueToButton(fieldName){
+        let value = door[fieldName];
+        let item = $('#input_'+fieldName);
+        let buttonText = $(item).attr('name');
+        $(item).text(buttonText+' '+value);
+        $(item).attr('data',value);
+        $(item).attr('value',value);
     }
 }

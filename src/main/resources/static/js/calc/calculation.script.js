@@ -1,6 +1,8 @@
 let door;
 let failureToSetValue = false;
 let currentItem = "";
+let RestrictionOfSelectionFields;
+let selectSizeOpen = false;
 
 jQuery("document").ready(function () {
 
@@ -15,7 +17,7 @@ jQuery("document").ready(function () {
   var classList;
 
   var colors;
-  var RestrictionOfSelectionFields;
+
   var availableFurnitureList;
 
   var id = $("#id").text();
@@ -25,7 +27,7 @@ jQuery("document").ready(function () {
   var sizeMin = 0;
   var sizeMax = 0;
 
-  var selectSizeOpen = false;
+
   var firstPress = true;
 
   var historyList = new Array();
@@ -76,7 +78,6 @@ jQuery("document").ready(function () {
 
   $(".vertical_menu_button").on("click", function () {
     if ($("#name" + $(this).attr("id") + "").attr("available") === "yes") {
-      assignPreviouValue();
       processItemSelection(this);
     }
   });
@@ -297,9 +298,8 @@ jQuery("document").ready(function () {
   );
 
   //select namber
-
   $("#select_set").on("click", function () {
-    setSize();
+    SizingDrum.setSize();
   });
 
   $("#select_cancel").on("click", function () {
@@ -307,8 +307,8 @@ jQuery("document").ready(function () {
   });
 
   $(".select_size").on("click", function () {
-    sizeMin = sizeLimMin($(this).attr("id"));
-    sizeMax = sizeLimMax($(this).attr("id"));
+    sizeMin = SizingDrum.sizeLimMin($(this).attr("id"));
+    sizeMax = SizingDrum.sizeLimMax($(this).attr("id"));
 
     select_introduction(
       $(this).attr("data"),
@@ -356,13 +356,6 @@ jQuery("document").ready(function () {
   //--------------------------------------
   //setter
   //--------------------------------------
-
-  function prepareTheNumber(number1, number2) {
-    if (number2.length == 1) {
-      number2 = "0" + number2;
-    }
-    return "" + number1 + number2;
-  }
 
   function setDoorField(fieldName, value) {
     door[fieldName] = value;
@@ -560,37 +553,6 @@ jQuery("document").ready(function () {
 
     hideShowField(true);
     addNavigation();
-  }
-
-  function assignPreviouValue() {
-    if (currentItem == "widthDoor") {
-      setDoorField("widthDoor", $("#inputWidthDoor").attr("data"));
-      setDoorField(
-        "activDoorLeafWidth",
-        $("#inputActivDoorLeafWidth").attr("data")
-      );
-    } else if (currentItem == "heightDoor") {
-      setDoorField("heightDoor", $("#inputHeightDoor").attr("data"));
-      if (fanlight == 1) {
-        setDoorField(
-          "doorFanlightHeight",
-          $("#inputHeightFanlight").attr("data")
-        );
-      }
-    } else if (currentItem == "doorGlass") {
-      setDoorGlassField("glassWidth", $("#inputWidthDoorGlass").attr("data"));
-      setDoorGlassField("glassHeight", $("#inputHeightDoorGlass").attr("data"));
-      setDoorGlassField(
-        "leftGlassPosition",
-        $("#inputleftDoorGlass").attr("data")
-      );
-      setDoorGlassField(
-        "bottomGlassPosition",
-        $("#inputbottomDoorGlass").attr("data")
-      );
-    }
-
-    RepresentationManager.showFieldValue();
   }
 
   function displayColor(nameJava, tab, bias) {
@@ -1426,30 +1388,6 @@ jQuery("document").ready(function () {
       $(".line").removeClass("redColor");
       $("#select_set").removeClass("notAvailable");
     }
-  }
-
-  function setSize() {
-    if ($("#select_set").hasClass("notAvailable")) {
-      return;
-    }
-
-    var number = prepareTheNumber(
-      $(".counter_line.numberL.line").text(),
-      $(".counter_line.numberR.line").text()
-    );
-    var idElement = $("#nameSelectForm").attr("data");
-
-    $("#" + idElement).attr("data", number);
-    $("#" + idElement).text(
-      "" +
-        $("#" + idElement).attr("name") +
-        " " +
-        $("#" + idElement).attr("data")
-    );
-
-    closeSelect();
-    selectSizeOpen = false;
-    assignPreviouValue();
   }
 
   function fillChildBlockFurniture(grupName, name, position) {

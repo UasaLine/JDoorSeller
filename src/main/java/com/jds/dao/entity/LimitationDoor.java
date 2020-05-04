@@ -118,7 +118,7 @@ public class LimitationDoor {
     }
 
     public boolean isDefault(){
-        if (this.defaultValue == 1){
+        if (this.defaultValue > 0){
             return true;
         }
         return false;
