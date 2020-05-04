@@ -73,17 +73,20 @@
                 <label class="custom-control-label" for="widthDoorCheckbox">ширина списком</label>
             </div>
             <br>
-            <div class="col-md-6 mb-3" id="widthDoorPeriod" >
+            <div class="mb-3" id="widthDoorPeriod" >
                 <label for="widthSizMaxMinDiv">ширина двери: (интервал)</label>
                 <div class="row" id="widthSizMaxMinDiv">
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="widthDoorMin" placeholder="min">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="widthDoorMax" placeholder="max">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="widthDoorStep" placeholder="step">
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control btn-outline-primary" id="widthDoorSizeDefault" placeholder="default">
                     </div>
                 </div>
             </div>
@@ -101,17 +104,20 @@
         </div>
 
             <!--widthLeaf-->
-            <div class="col-md-6 mb-3" id="widthDoorLeafPeriod" >
+            <div class="mb-3" id="widthDoorLeafPeriod" >
                 <label for="widthLeafSizMaxMinDiv">ширина активной створки: (интервал)</label>
                 <div class="row" id="widthLeafSizMaxMinDiv">
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="widthDoorLeafMin" placeholder="min">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="widthDoorLeafMax" placeholder="max">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="widthDoorLeafStep" placeholder="step">
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control btn-outline-primary" id="widthDoorLeafSizeDefault" placeholder="default">
                     </div>
                 </div>
             </div>
@@ -122,17 +128,20 @@
                 <label class="custom-control-label" for="heightDoorCheckbox">высота списком</label>
             </div>
             <br>
-            <div class="col-md-6 mb-3" id="heightDoorPeriod">
+            <div class="mb-3" id="heightDoorPeriod">
                 <label for="heightSizMaxMinDiv">высота двери: (интервал)</label>
                 <div class="row" id="heightSizMaxMinDiv">
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="heightDoorMin" placeholder="min">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="heightDoorMax" placeholder="max">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="heightDoorStep" placeholder="step">
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control btn-outline-primary" id="heightDoorSizeDefault" placeholder="default">
                     </div>
                 </div>
             </div>
@@ -156,16 +165,16 @@
                 <label class="custom-control-label" for="heightDoorFanlightCheckbox">Фрамуга</label>
             </div>
             <br>
-            <div class="col-md-6 mb-3 ghost" id="heightDoorFanlightPeriod">
+            <div class="mb-3 ghost" id="heightDoorFanlightPeriod">
                 <label for="heightFanlightSizMaxMinDiv">высота фрамуги: (интервал)</label>
                 <div class="row" id="heightFanlightSizMaxMinDiv">
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="heightDoorFanlightMin" placeholder="min">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="heightDoorFanlightMax" placeholder="max">
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <input type="number" class="form-control" id="heightDoorFanlightStep" placeholder="step">
                     </div>
                 </div>
@@ -391,6 +400,9 @@
                     <div class="col-3">
                         <input type="number" class="form-control" id="leftDoorTrimSizeMax" placeholder="max">
                     </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control btn-outline-primary" id="leftDoorTrimSizeDefault" placeholder="default">
+                    </div>
                 </div>
                 <label for="leftDoorTrimSelect0">левый:</label>
                 <div class="row" id="leftDoorTrimLineDiv0">
@@ -413,6 +425,9 @@
                     <div class="col-3">
                         <input type="number" class="form-control" id="rightDoorTrimSizeMax" placeholder="max">
                     </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control btn-outline-primary" id="rightDoorTrimSizeDefault" placeholder="default">
+                    </div>
                 </div>
                 <label for="rightDoorTrimSelect0">правый:</label>
                 <div class="row" id="rightDoorTrimLineDiv0">
@@ -434,6 +449,9 @@
                     </div>
                     <div class="col-3">
                         <input type="number" class="form-control" id="topDoorTrimSizeMax" placeholder="max">
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control btn-outline-primary" id="topDoorTrimSizeDefault" placeholder="default">
                     </div>
                 </div>
                 <label for="topDoorTrimSelect0">верхний:</label>
