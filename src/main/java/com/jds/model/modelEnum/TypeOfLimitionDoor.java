@@ -28,6 +28,10 @@ public enum TypeOfLimitionDoor {
     LEFT_DOOR_TRIM,
     RIGHT_DOOR_TRIM,
 
+    TOP_DOOR_TRIM_SIZE,
+    LEFT_DOOR_TRIM_SIZE,
+    RIGHT_DOOR_TRIM_SIZE,
+
     STYROFOAM,
 
     TOP_LOCK,

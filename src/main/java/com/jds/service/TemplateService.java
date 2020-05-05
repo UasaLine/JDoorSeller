@@ -75,6 +75,10 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LEFT_DOOR_TRIM, restriction.getLeftDoorTrim(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.RIGHT_DOOR_TRIM, restriction.getRightDoorTrim(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_DOOR_TRIM_SIZE, restriction.getTopDoorTrimSize(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LEFT_DOOR_TRIM_SIZE, restriction.getLeftDoorTrimSize(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.RIGHT_DOOR_TRIM_SIZE, restriction.getRightDoorTrimSize(), limitList);
+
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_LOCK, restriction.getTopLock(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_LOCK, restriction.getLowerLock(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HANDLE, restriction.getHandle(), limitList);
@@ -195,6 +199,13 @@ public class TemplateService {
             restriction.addLeftDoorTrim(lim);
         } else if (TypeOfLimitionDoor.RIGHT_DOOR_TRIM == lim.getTypeSettings()) {
             restriction.addRightDoorTrim(lim);
+
+        } else if (TypeOfLimitionDoor.TOP_DOOR_TRIM_SIZE == lim.getTypeSettings()) {
+            restriction.addTopDoorTrimSize(lim);
+        } else if (TypeOfLimitionDoor.LEFT_DOOR_TRIM_SIZE == lim.getTypeSettings()) {
+            restriction.addLeftDoorTrimSize(lim);
+        } else if (TypeOfLimitionDoor.RIGHT_DOOR_TRIM_SIZE == lim.getTypeSettings()) {
+            restriction.addRightDoorTrimSize(lim);
 
         } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
             restriction.addColors(lim);

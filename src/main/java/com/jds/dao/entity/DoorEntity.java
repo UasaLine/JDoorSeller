@@ -72,11 +72,20 @@ public class DoorEntity implements SerializingFields {
     @Column(name = "topDoorTrim")
     private int topDoorTrim;
 
+    @Column(name = "topDoorTrimSize")
+    private int topDoorTrimSize;
+
     @Column(name = "leftDoorTrim")
     private int leftDoorTrim;
 
+    @Column(name = "leftDoorTrimSize")
+    private int leftDoorTrimSize;
+
     @Column(name = "rightDoorTrim")
     private int rightDoorTrim;
+
+    @Column(name = "rightDoorTrimSize")
+    private int rightDoorTrimSize;
 
     //price
     @Column(name = "price")

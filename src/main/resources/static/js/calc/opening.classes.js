@@ -2,8 +2,14 @@ class InnerOpen {
     static init() {
         $(".innerOpenCheckbox").click(InnerOpen.clickCheckbox);
         $(".div_images_innerOpen").click(InnerOpen.clickImages);
-    }
 
+
+    }
+    static updateView(){
+        $('#innerOpenCheckboxId').prop("checked", door.innerOpen>0);
+        InnerOpen.showTypeImages(door.innerOpen>0);
+
+    }
     static clickCheckbox() {
         let val = $(this).is(":checked");
         InnerOpen.showTypeImages(val);
@@ -43,6 +49,12 @@ class InnerOpen {
 class SideOpen {
     static init() {
         $(".openCheckbox").click(SideOpen.clickCheckbox);
+
+
+    }
+
+    static updateView(){
+        $("[data = " + door.sideDoorOpen + "]").prop("checked", true);
     }
 
     static clickCheckbox() {

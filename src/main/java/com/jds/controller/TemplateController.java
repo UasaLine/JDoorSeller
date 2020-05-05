@@ -47,9 +47,9 @@ public class TemplateController {
 
     @PostMapping(value = "/templates/item", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public void saveTemplate(@RequestBody RestrictionOfSelectionFields templateJSON) throws Exception {
+    public void saveTemplate(@RequestBody RestrictionOfSelectionFields template) throws Exception {
 
-        service.saveDoorTemplate(templateJSON);
+        service.saveDoorTemplate(template);
 
     }
 }

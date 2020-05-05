@@ -52,13 +52,13 @@ public class DoorService implements DoorServ {
     }
 
     @Override
-    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid)   {
+    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
 
         DoorEntity door;
 
         if (id > 0) {
             door = dAO.getDoor(id);
-            door = allowEditing(door,orderId);
+            door = allowEditing(door, orderId);
         } else if (typid > 0) {
             door = createNewDoorByTemplate(typid, id);
         } else {
@@ -72,9 +72,9 @@ public class DoorService implements DoorServ {
         return door.clearNonSerializingFields();
     }
 
-    private DoorEntity allowEditing(DoorEntity door, int orderId)  {
+    private DoorEntity allowEditing(DoorEntity door, int orderId) {
         DoorsОrder doorsОrder = orderService.getOrder(orderId);
-        if(doorsОrder.getStatus()== OrderStatus.CALC) {
+        if (doorsОrder.getStatus() == OrderStatus.CALC) {
             door.setTemplate(templateService.getTemplateFromLimits(String.valueOf(door.getDoorType().getId())));
         }
         return door;
@@ -166,10 +166,10 @@ public class DoorService implements DoorServ {
         doorEntity.setTemplate(template);
 
         doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
-        //doorEntity.setWidthDoor(findInTemplateSize(doorTemplate.getTemplate().getWidthDoor()));
-        //doorEntity.setHeightDoor(findInTemplateSize(doorTemplate.getTemplate().getHeightDoor()));
+        doorEntity.setWidthDoor(findInTemplateSize(template.getWidthDoor()));
+        doorEntity.setHeightDoor(findInTemplateSize(template.getHeightDoor()));
         doorEntity.setDoorLeaf(doorType.getDoorLeaf());
-        //doorEntity.setActiveDoorLeafWidth()
+        doorEntity.setActiveDoorLeafWidth(findInTemplateSize(template.getWidthDoorLeaf()));
         //doorEntity.setDoorFanlightHeight
         doorEntity.setDeepnessDoor((int) findInTemplateRestriction(template.getDeepnessDoor()));
         doorEntity.setThicknessDoorLeaf((int) findInTemplateRestriction(template.getThicknessDoorLeaf()));
@@ -178,9 +178,14 @@ public class DoorService implements DoorServ {
 
         doorEntity.setDoorstep((int) findInTemplateRestriction(template.getDoorstep()));
         doorEntity.setStainlessSteelDoorstep((int) findInTemplateRestriction(template.getStainlessSteelDoorstep()));
+
         doorEntity.setTopDoorTrim((int) findInTemplateRestriction(template.getTopDoorTrim()));
         doorEntity.setLeftDoorTrim((int) findInTemplateRestriction(template.getLeftDoorTrim()));
         doorEntity.setRightDoorTrim((int) findInTemplateRestriction(template.getRightDoorTrim()));
+
+        doorEntity.setTopDoorTrimSize(findInTemplateSize(template.getTopDoorTrimSize()));
+        doorEntity.setLeftDoorTrimSize(findInTemplateSize(template.getLeftDoorTrimSize()));
+        doorEntity.setRightDoorTrimSize(findInTemplateSize(template.getRightDoorTrimSize()));
 
         //sealingLine
         doorEntity.setFirstSealingLine((int) findInTemplateRestriction(template.getFirstSealingLine()));
@@ -221,6 +226,7 @@ public class DoorService implements DoorServ {
                 .collect(Collectors.toList());
         return furnitureService.convertToFurniture(defList);
     }
+
     private List<ImageEntity> defaultAndConvertToImage(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
@@ -254,12 +260,26 @@ public class DoorService implements DoorServ {
         return "";
     }
 
+    public int findInTemplateSize(@NonNull List<LimitationDoor> listLim) {
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+            return defList.get(0).getDefaultValue();
+        }
+
+        return 0;
+    }
+
     @Override
     public DoorEntity saveDoor(@NonNull DoorEntity door) {
 
         return addDooToOrder(dAO.saveDoor(door.clearEmptyLinks()));
 
     }
+
     @Override
     public DoorsОrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
 
@@ -298,70 +318,70 @@ public class DoorService implements DoorServ {
     }
 
     @Override
-    public List<LineSpecification> getSpecificationByDoorId(@NonNull String doorId){
+    public List<LineSpecification> getSpecificationByDoorId(@NonNull String doorId) {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
         List<LineSpecification> lineSpec = dAO.getLineSpecification(doorEntity.getDoorType().getId());
 
         lineSpec.stream()
-                .peek((lin)->addFurKitToLineSpec(lineSpec,doorEntity))
-                .forEach((lin)->lin.getDoorType().clearNonSerializingFields());
+                .peek((lin) -> addFurKitToLineSpec(lineSpec, doorEntity))
+                .forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
 
         return lineSpec;
 
     }
 
-    public List<LineSpecification> addFurKitToLineSpec(List<LineSpecification> lineSpec,DoorEntity doorEntity){
+    public List<LineSpecification> addFurKitToLineSpec(List<LineSpecification> lineSpec, DoorEntity doorEntity) {
 
         FurnitureKit furnitureKit = doorEntity.getFurnitureKit();
         DoorType doorType = doorEntity.getDoorType();
 
-        if (furnitureKit.getHandle()!=null){
-            addfurniture(lineSpec,furnitureKit.getHandle(),doorType);
+        if (furnitureKit.getHandle() != null) {
+            addfurniture(lineSpec, furnitureKit.getHandle(), doorType);
         }
 
-        if (furnitureKit.getTopLock()!=null){
-            addfurniture(lineSpec,furnitureKit.getTopLock(),doorType);
+        if (furnitureKit.getTopLock() != null) {
+            addfurniture(lineSpec, furnitureKit.getTopLock(), doorType);
         }
-        if (furnitureKit.getTopLockCylinder()!=null){
-            addfurniture(lineSpec,furnitureKit.getTopLockCylinder(),doorType);
+        if (furnitureKit.getTopLockCylinder() != null) {
+            addfurniture(lineSpec, furnitureKit.getTopLockCylinder(), doorType);
         }
-        if (furnitureKit.getTopInLockDecor()!=null){
-            addfurniture(lineSpec,furnitureKit.getTopInLockDecor(),doorType);
+        if (furnitureKit.getTopInLockDecor() != null) {
+            addfurniture(lineSpec, furnitureKit.getTopInLockDecor(), doorType);
         }
-        if (furnitureKit.getTopOutLockDecor()!=null){
-            addfurniture(lineSpec,furnitureKit.getTopOutLockDecor(),doorType);
+        if (furnitureKit.getTopOutLockDecor() != null) {
+            addfurniture(lineSpec, furnitureKit.getTopOutLockDecor(), doorType);
         }
-        if (furnitureKit.getLowerLock()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerLock(),doorType);
-        }
-
-        if (furnitureKit.getLowerLock()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerLock(),doorType);
-        }
-        if (furnitureKit.getLowerLockCylinder()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerLockCylinder(),doorType);
-        }
-        if (furnitureKit.getLowerInLockDecor()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerInLockDecor(),doorType);
-        }
-        if (furnitureKit.getLowerOutLockDecor()!=null){
-            addfurniture(lineSpec,furnitureKit.getLowerOutLockDecor(),doorType);
+        if (furnitureKit.getLowerLock() != null) {
+            addfurniture(lineSpec, furnitureKit.getLowerLock(), doorType);
         }
 
-        if (furnitureKit.getCloser()!=null){
-            addfurniture(lineSpec,furnitureKit.getCloser(),doorType);
+        if (furnitureKit.getLowerLock() != null) {
+            addfurniture(lineSpec, furnitureKit.getLowerLock(), doorType);
         }
-        if (furnitureKit.getEndDoorLock()!=null){
-            addfurniture(lineSpec,furnitureKit.getEndDoorLock(),doorType);
+        if (furnitureKit.getLowerLockCylinder() != null) {
+            addfurniture(lineSpec, furnitureKit.getLowerLockCylinder(), doorType);
+        }
+        if (furnitureKit.getLowerInLockDecor() != null) {
+            addfurniture(lineSpec, furnitureKit.getLowerInLockDecor(), doorType);
+        }
+        if (furnitureKit.getLowerOutLockDecor() != null) {
+            addfurniture(lineSpec, furnitureKit.getLowerOutLockDecor(), doorType);
+        }
+
+        if (furnitureKit.getCloser() != null) {
+            addfurniture(lineSpec, furnitureKit.getCloser(), doorType);
+        }
+        if (furnitureKit.getEndDoorLock() != null) {
+            addfurniture(lineSpec, furnitureKit.getEndDoorLock(), doorType);
         }
 
 
         return lineSpec;
     }
 
-    public void addfurniture(List<LineSpecification> lineSpec,DoorFurniture furniture,DoorType doorType){
+    public void addfurniture(List<LineSpecification> lineSpec, DoorFurniture furniture, DoorType doorType) {
 
         lineSpec.add(LineSpecification.builder()
                 .name(furniture.getName())

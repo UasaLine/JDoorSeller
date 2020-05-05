@@ -1,5 +1,4 @@
 class Trim {
-  constructor() {}
   static init(data) {
     $(".trims").click(Trim.click);
 
@@ -7,16 +6,13 @@ class Trim {
     Trim.checkAndAvailable("leftDoorTrim", data);
     Trim.checkAndAvailable("rightDoorTrim", data);
 
-    if (Trim.anyOn()) {
-      Trim.turnOffMain(true);
-    }
   }
   static click() {
     if (Trim.isAvailable(this)) {
       let val = $(this).is(":checked");
       let elem_id = $(this).attr("id");
 
-      if (elem_id == "doorTrim_checkbox") {
+      if (elem_id == "mainDoorTrim_checkbox") {
         Trim.turnOffAll(val);
         Door.set("topDoorTrim", val ? 1 : 0);
         Door.set("leftDoorTrim", val ? 1 : 0);
@@ -24,6 +20,7 @@ class Trim {
       } else {
         Trim.turnOffMain(val);
         Door.set($(this).attr("Item"), val ? 1 : 0);
+        Trim.showButtonSize($(this).attr("Item"),val);
       }
 
       Door.draw(door, 1);
@@ -37,26 +34,40 @@ class Trim {
       if (tabSize > 1) {
         Trim.availableOff(name, true);
 
-        if (!Trim.isAvailable($("#doorTrim_checkbox"))) {
-          Trim.availableOff("doorTrim", true);
+        if (!Trim.isAvailable($("#mainDoorTrim_checkbox"))) {
+          Trim.availableOff("mainDoorTrim", true);
         }
       }
     }
   }
   static turnOffAll(val) {
     $("#topDoorTrim_checkbox").prop("checked", val);
+    Trim.showButtonSize('topDoorTrim',val);
     $("#leftDoorTrim_checkbox").prop("checked", val);
+    Trim.showButtonSize('leftDoorTrim',val);
     $("#rightDoorTrim_checkbox").prop("checked", val);
+    Trim.showButtonSize('rightDoorTrim',val);
   }
   static turnOffMain(val) {
     if (!val && !Trim.anyOn()) {
-      $("#doorTrim_checkbox").prop("checked", val);
+      $("#mainDoorTrim_checkbox").prop("checked", val);
     } else if (val) {
-      $("#doorTrim_checkbox").prop("checked", val);
+      $("#mainDoorTrim_checkbox").prop("checked", val);
     }
   }
   static turnOff(item) {
     $(item).prop("checked", false);
+  }
+  static turnOn(name, value){
+
+      if (value == 1) {
+        $("#" + name + "_checkbox").prop("checked", true);
+        Trim.showButtonSize(name,true);
+      } else {
+        $("#" + name + "_checkbox").prop("checked", false);
+        Trim.showButtonSize(name,true);
+      }
+
   }
   static availableOff(name, val) {
     $("#name" + name).attr("available", val ? "yes" : "no");
@@ -74,6 +85,17 @@ class Trim {
       return true;
     } else {
       return false;
+    }
+  }
+  static showButtonSize(item,val){
+    if(val){
+      $('#'+item+'SizeDiv').removeClass('ghost');
+    }
+    else {
+      $('#'+item+'SizeDiv').addClass('ghost');
+    }
+    if (Trim.anyOn()) {
+      Trim.turnOffMain(true);
     }
   }
 }
