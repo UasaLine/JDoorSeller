@@ -1,4 +1,4 @@
-package com.jds.model;
+package com.jds.model.cutting;
 
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.Metal;

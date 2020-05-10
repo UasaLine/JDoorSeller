@@ -6,6 +6,7 @@ import com.jds.dao.repository.MainDAO;
 import com.jds.dao.repository.MetalRepository;
 import com.jds.dao.repository.OrderDAO;
 import com.jds.model.*;
+import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.OrderStatus;
