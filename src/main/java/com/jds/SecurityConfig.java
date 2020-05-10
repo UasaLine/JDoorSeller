@@ -21,9 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/css/*",
-                        "/css/bootstrap-4.3.1css/*","/js/*",
+                        "/css/bootstrap-4.3.1css/*", "/js/*",
                         "/js/bootstrap-4.3.1js/*",
-                        "/images/*","/images/background/*").permitAll()
+                        "/images/*", "/images/background/*",
+                        "/v2/api-docs","/swagger-ui.html","/swagger-resources/**",
+                        "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
@@ -38,13 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserService userService;
 
     @Bean
-    public PasswordEncoder bcryptPasswordEncoder(){
+    public PasswordEncoder bcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
     @Autowired
-    public void ConfigureGlobal(AuthenticationManagerBuilder auth)throws Exception{
+    public void ConfigureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bcryptPasswordEncoder());
     }
 }
