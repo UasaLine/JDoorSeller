@@ -2,6 +2,7 @@ package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.*;
+import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;

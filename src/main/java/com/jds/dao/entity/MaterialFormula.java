@@ -1,7 +1,7 @@
 package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jds.model.DoorPart;
+import com.jds.model.cutting.DoorPart;
 
 import javax.persistence.*;
 import java.util.List;
