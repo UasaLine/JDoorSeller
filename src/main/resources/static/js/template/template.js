@@ -1,3 +1,4 @@
+
 let doorClassList;
 let template;
 let restriction;
@@ -72,6 +73,9 @@ jQuery("document").ready(function () {
 
         installFromTemplateFurnitur("shieldColor");
         installFromTemplateFurnitur("shieldDesign");
+
+        SizeCostBlock.setValueToDom();
+
     }
 
     function fillInAlLSelectAfterSelectingType() {
@@ -175,6 +179,8 @@ jQuery("document").ready(function () {
     $("#heightSizMaxMinDiv").change(function () {
         saveInJavaObjectSize("heightDoor");
     });
+
+    SizeCostBlock.init();
 
     // subordinateSize
 

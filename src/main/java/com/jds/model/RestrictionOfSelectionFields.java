@@ -60,6 +60,9 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> toning = new ArrayList<>();
     private List<LimitationDoor> armor = new ArrayList<>();
 
+    private List<LimitationDoor> sizeCostWidth = new ArrayList<>();
+    private List<LimitationDoor> sizeCostHeight = new ArrayList<>();
+
 
     //replace with getting data from the database
     public RestrictionOfSelectionFields(int doorTypeId) {
@@ -339,6 +342,20 @@ public class RestrictionOfSelectionFields {
 
 
         this.closer.add(furniture.setNuulLazyFild());
+
+    }
+
+    public void addSizeCostWidth(@NonNull LimitationDoor lim) {
+
+
+        this.sizeCostWidth.add(lim.setNuulLazyFild());
+
+    }
+
+    public void addSizeCostHeight(@NonNull LimitationDoor lim) {
+
+
+        this.sizeCostHeight.add(lim.setNuulLazyFild());
 
     }
 
