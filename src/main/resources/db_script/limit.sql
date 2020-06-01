@@ -13,5 +13,6 @@ create table limitation_door
   picturePath      CHARACTER VARYING(150),
   step             INT,
   defaultValue     INT,
-  pairOfValues     INT NOT NULL
+  pairOfValues     INT NOT NULL,
+  cost             INT
 );

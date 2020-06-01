@@ -96,6 +96,9 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TONING, restriction.getToning(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.ARMOR, restriction.getArmor(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SIZE_COST_HEIGHT, restriction.getSizeCostHeight(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SIZE_COST_WIDTH, restriction.getSizeCostWidth(), limitList);
+
         deleteAllDoorTemplate(limitList);
 
     }
@@ -242,6 +245,11 @@ public class TemplateService {
             restriction.addToning(lim);
         } else if (TypeOfLimitionDoor.ARMOR == lim.getTypeSettings()) {
             restriction.addArmor(lim);
+
+        } else if (TypeOfLimitionDoor.SIZE_COST_HEIGHT == lim.getTypeSettings()) {
+            restriction.addSizeCostHeight(lim);
+        } else if (TypeOfLimitionDoor.SIZE_COST_WIDTH == lim.getTypeSettings()) {
+            restriction.addSizeCostWidth(lim);
         }
     }
 

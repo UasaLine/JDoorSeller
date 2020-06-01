@@ -60,6 +60,9 @@ public class LimitationDoor {
     @Column(name = "defaultValue")
     private int defaultValue;
 
+    @Column(name = "cost")
+    private int cost;
+
 
 
     public LimitationDoor(String firstItem, double startRestriction, double stopRestriction, int defaultValue) {

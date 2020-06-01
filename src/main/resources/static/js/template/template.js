@@ -1,3 +1,4 @@
+
 let doorClassList;
 let template;
 let restriction;
@@ -72,6 +73,9 @@ jQuery("document").ready(function () {
 
         installFromTemplateFurnitur("shieldColor");
         installFromTemplateFurnitur("shieldDesign");
+
+        SizeCostBlock.setValueToDom();
+
     }
 
     function fillInAlLSelectAfterSelectingType() {
@@ -175,6 +179,8 @@ jQuery("document").ready(function () {
     $("#heightSizMaxMinDiv").change(function () {
         saveInJavaObjectSize("heightDoor");
     });
+
+    SizeCostBlock.init();
 
     // subordinateSize
 
@@ -830,6 +836,7 @@ jQuery("document").ready(function () {
             fillInFieldFromColor("#" + $(elem).attr("id"), table);
             setValueInSelectInt("#" + $(elem).attr("id"), table[i].itemId);
             setSwitchDefaultVal(elem, javaName, table[i].defaultValue);
+            setCostVal(elem, javaName, table[i].cost);
 
             if (allFieldsAreFilled(selector)) {
                 //addSelectField('colors');
@@ -907,6 +914,7 @@ jQuery("document").ready(function () {
                 );
                 setValueInSelectInt("#" + $(elem).attr("id"), table[i].itemId);
                 setSwitchDefaultVal(elem, nameJavaObject, table[i].defaultValue);
+                setCostVal(elem, nameJavaObject, table[i].cost);
 
                 if (allFieldsAreFilled(selector)) {
                     addField(nameJavaObject, "select", "Select");
@@ -1130,6 +1138,19 @@ jQuery("document").ready(function () {
             .appendTo("#" + nameJavaObject + "LineSelect" + data);
 
         $("<div>")
+            .attr("class", "col-2")
+            .attr("id", "" + nameJavaObject + "CostLineInput" + data)
+            .appendTo("#" + nameJavaObject + "LineDiv" + data);
+
+        $("<input>")
+            .attr("class", "form-control")
+            .attr("type", "number")
+            .attr("placeholder", "стоимость,руб")
+            .attr("id", "" + nameJavaObject + "CostInput" + data)
+            .appendTo("#" + nameJavaObject + "CostLineInput" + data);
+
+
+        $("<div>")
             .attr("class", "custom-control custom-switch")
             .attr("id", "" + nameJavaObject + "LineSwitch" + data)
             .appendTo("#" + nameJavaObject + "LineDiv" + data);
@@ -1256,6 +1277,12 @@ jQuery("document").ready(function () {
         return 0;
     }
 
+    function getCostVal(elem, nameFieldJavaObject) {
+        let dataVal = $(elem).attr("data");
+        return $("#" + nameFieldJavaObject + "CostInput" + dataVal).val();
+    }
+
+
     function findInRestriction(val, nameFieldJavaObject, defaultVal) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
@@ -1333,20 +1360,22 @@ jQuery("document").ready(function () {
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
-                var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                let defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                let costVal = getCostVal(elem[i], nameFieldJavaObject);
                 template[nameFieldJavaObject].push(
-                    findInRestrByItemId($(elem[i]).val(), nameFieldJavaObject, defaultVal)
+                    findInRestrByItemId($(elem[i]).val(), nameFieldJavaObject, defaultVal, costVal)
                 );
             }
         }
     }
 
-    function findInRestrByItemId(val, nameFieldJavaObject, defaultVal) {
+    function findInRestrByItemId(val, nameFieldJavaObject, defaultVal, costVal=0) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].itemId == val) {
                 var lim = tab[i];
                 lim.defaultValue = defaultVal;
+                lim.cost = costVal;
                 return lim;
             }
         }
@@ -1453,6 +1482,11 @@ jQuery("document").ready(function () {
         } else {
             $(defSwitch).prop("checked", false);
         }
+    }
+
+    function setCostVal(elem, nameJavaObject, defaultValue) {
+        var dataVal = $(elem).attr("data");
+        $("#" + nameJavaObject + "CostInput" + dataVal).val(defaultValue);
     }
 
     function setCurrentClassById() {
