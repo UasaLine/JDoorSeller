@@ -106,10 +106,30 @@ public class DoorService implements DoorServ {
         //size
         addCostResizing(doorEntity);
         //color
+        addCostForColorChange(doorEntity);
         //shieldKit
         //furniture
 
 
+
+        return doorEntity;
+    }
+
+    private DoorEntity addCostForColorChange(@NonNull DoorEntity doorEntity) {
+
+        LimitationDoor defaultColor = doorEntity.getTemplate().getColors().stream()
+                .filter(line ->line.getDefaultValue()==1)
+                .findFirst().orElse(new LimitationDoor());
+
+        if(!defaultColor.getFirstItem().equals(doorEntity.getDoorColor())){
+            LimitationDoor currentColorLim = doorEntity.getTemplate().getColors().stream()
+                    .filter(line ->line.getFirstItem().equals(doorEntity.getDoorColor())).findFirst().orElse(new LimitationDoor());
+
+            doorEntity.getCostList().addLine(currentColorLim.getTypeSettings()+" "+currentColorLim.getFirstItem(),
+                    1,
+                    false,
+                    currentColorLim.getCost());
+        }
 
         return doorEntity;
     }
