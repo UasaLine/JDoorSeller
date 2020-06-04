@@ -14,6 +14,9 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,11 +88,73 @@ public class DoorService implements DoorServ {
                                                     @NonNull int discount,
                                                     @NonNull int RetailMargin) {
 
+        doorEntity = costOfChangesAtTemplate(doorEntity);
 
-        return addDooToOrder(doorEntity
+        doorEntity
                 .setPriceOfDoorType(discount, RetailMargin)
-                .createName()
-        );
+                .createName();
+
+
+
+
+        return addDooToOrder(doorEntity);
+    }
+
+    private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity){
+
+        doorEntity.setCostList(new CostList());
+        //size
+        addCostResizing(doorEntity);
+        //color
+        //shieldKit
+        //furniture
+
+
+
+        return doorEntity;
+    }
+
+    private DoorEntity addCostResizing(@NonNull DoorEntity doorEntity) {
+
+        int Widthsize = doorEntity.getWidthDoor();
+        int defaultWidth = doorEntity.getTemplate().getWidthDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
+        List<LineCostList> listWidth = new ArrayList<>();
+
+        if(Widthsize != defaultWidth){
+            List<LimitationDoor> sizeCostWidth = doorEntity.getTemplate().getSizeCostWidth();
+            listWidth = sizeCostWidth.stream()
+                    .map((lim) -> toMarkup(lim,Widthsize))
+                    .filter(line ->line.getCost()>0)
+                    .collect(Collectors.toList());
+        }
+
+        List<LineCostList> listHeight = new ArrayList<>();
+        int Heightsize = doorEntity.getHeightDoor();
+        int defaultHeight = doorEntity.getTemplate().getHeightDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
+
+        if(Heightsize != defaultHeight) {
+            List<LimitationDoor> sizeCostHeight = doorEntity.getTemplate().getSizeCostHeight();
+            listHeight = sizeCostHeight.stream()
+                    .map((lim) -> toMarkup(lim, Heightsize))
+                    .filter(line -> line.getCost() > 0)
+                    .collect(Collectors.toList());
+        }
+
+        listWidth.addAll(listHeight);
+        if (listWidth.size()>0) {
+            LineCostList line = listWidth.stream().max(Comparator.comparing(obj -> obj.getCost())).get();
+            doorEntity.getCostList().addLine(line);
+        }
+
+        return doorEntity;
+    }
+
+    private LineCostList toMarkup(LimitationDoor lim, int size) {
+
+        if (size > lim.getStartRestriction() &&  size < lim.getStopRestriction()){
+            return new LineCostList(lim.getTypeSettings().toString()+ " "+size, 1, false, lim.getCost());
+        }
+        return new LineCostList();
     }
 
     public DoorEntity recalculateTheDoorCompletely(DoorEntity door) {
