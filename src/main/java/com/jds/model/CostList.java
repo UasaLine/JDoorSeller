@@ -9,9 +9,13 @@ public class CostList {
     List<LineCostList> list;
 
     public void addLine(String name,int group,boolean headline,int cost){
-       list.add(new LineCostList(name,group,headline,cost));
-       totalCost +=cost;
+        addLine(new LineCostList(name,group,headline,cost));
    }
+
+    public void addLine(LineCostList line){
+        list.add(line);
+        totalCost +=line.getCost();
+    }
 
     public CostList() {
         totalCost = 0;
