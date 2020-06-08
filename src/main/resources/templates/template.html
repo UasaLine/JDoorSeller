@@ -183,49 +183,36 @@
 
             <!--cost setting-->
             <div class="mb-3 size-cost-block" id="sizeCostsetting">
-                <label for="sizeCostsettingDiv0">Настройка стоимости размеров:</label>
-                <div class="row sizeCostLine" id="sizeCostsettingDiv0" data="0">
-                    <div class="col-2">
-                        <input type="number" class="form-control sizeCostWidthInput" id="widthMinCost0"  placeholder="min">
-                        <small class="form-text text-muted">ширина от</small>
+                <label for="sizeCostsettingDiv3">Настройка стоимости размеров:</label>
+                <br>
+                <label for="sizeCostsettingDiv3">Ширина:</label>
+                <div class="row sizeCostLine" id="sizeCostsettingDiv3" data="1">
+                    <div class="col-3">
+                        <input type="number" class="form-control sizeCostWidthInput" id="costOfChangeWidth"  placeholder="0">
+                        <small class="form-text text-muted">Базовая стоимость изменения,руб:</small>
                     </div>
                     <div class="col-2">
-                        <input type="number" class="form-control sizeCostWidthInput" id="widthMaxCost0"  placeholder="max">
-                        <small class="form-text text-muted">ширина до</small>
+                        <input type="number" class="form-control sizeCostWidthInput" id="sizeOfTorificationWidth"  placeholder="0">
+                        <small class="form-text text-muted">Шаг торификации,мм:</small>
                     </div>
-                    <div class="col-2">
-                        <input type="number" class="form-control sizeCostHeightInput" id="heightMinCost0"  placeholder="min">
-                        <small class="form-text text-muted">высота от</small>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" class="form-control sizeCostHeightInput" id="heightMaxCost0"  placeholder="max">
-                        <small class="form-text text-muted">высота до</small>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" class="form-control" id="sizeCost0" placeholder="cost">
-                        <small class="form-text text-muted">стоимость в руб.</small>
+                    <div class="col-3">
+                        <input type="number" class="form-control sizeCostHeightInput" id="costSizeOfTorificationWidth" placeholder="0">
+                        <small class="form-text text-muted">стимость за шаг торификации,руб:</small>
                     </div>
                 </div>
-                <div class="row sizeCostLine" id="sizeCostsettingDiv1" data="1">
-                    <div class="col-2">
-                        <input type="number" class="form-control sizeCostWidthInput" id="widthMinCost1"  placeholder="min">
-                        <small class="form-text text-muted">ширина от</small>
+                <label for="sizeCostsettingDiv4">Высота:</label>
+                <div class="row sizeCostLine" id="sizeCostsettingDiv4" data="1">
+                    <div class="col-3">
+                        <input type="number" class="form-control sizeCostWidthInput" id="costOfChangeHeight"  placeholder="0">
+                        <small class="form-text text-muted">Базовая стоимость изменения,руб:</small>
                     </div>
                     <div class="col-2">
-                        <input type="number" class="form-control sizeCostWidthInput" id="widthMaxCost1"  placeholder="max">
-                        <small class="form-text text-muted">ширина до</small>
+                        <input type="number" class="form-control sizeCostWidthInput" id="sizeOfTorificationHeight"  placeholder="0">
+                        <small class="form-text text-muted">Шаг торификации,мм:</small>
                     </div>
-                    <div class="col-2">
-                        <input type="number" class="form-control sizeCostHeightInput" id="heightMinCost1" placeholder="min">
-                        <small class="form-text text-muted">высота от</small>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" class="form-control sizeCostHeightInput" id="heightMaxCost1" placeholder="max">
-                        <small class="form-text text-muted">высота до</small>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" class="form-control" id="sizeCost1" placeholder="cost">
-                        <small class="form-text text-muted">стоимость в руб.</small>
+                    <div class="col-3">
+                        <input type="number" class="form-control sizeCostHeightInput" id="costSizeOfTorificationHeight" placeholder="0">
+                        <small class="form-text text-muted">стимость за шаг торификации,руб:</small>
                     </div>
                 </div>
             </div>
