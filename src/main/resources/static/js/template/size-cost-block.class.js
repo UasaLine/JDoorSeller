@@ -4,11 +4,13 @@ class SizeCostBlock {
     static HEIGHT_JAVA_OBJECT = 'sizeCostHeight';
 
     static domSelect = {
-        widthMin:'widthMinCost',
-        widthMax:'widthMaxCost',
-        heightMin:'heightMinCost',
-        heightMax:'heightMaxCost',
-        cost:'sizeCost'
+        sizeOfTorification:'sizeOfTorification',
+        costSizeOfTorification:'costSizeOfTorification',
+        cost:'costOfChange',
+        typeSize:{
+            width:'Width',
+            height:'Height'
+        }
     }
 
     static init(){
@@ -24,32 +26,19 @@ class SizeCostBlock {
         SizeCostBlock.deleteLineIntoTemplate(SizeCostBlock.HEIGHT_JAVA_OBJECT);
         SizeCostBlock.deleteLineIntoTemplate(SizeCostBlock.WIDTH_JAVA_OBJECT);
 
-        let selector = ".sizeCostLine";
-        let elem = $(selector);
+        SizeCostBlock.saveLineToJavaObject(SizeCostBlock.HEIGHT_JAVA_OBJECT,SizeCostBlock.domSelect.typeSize.width);
+        SizeCostBlock.saveLineToJavaObject(SizeCostBlock.WIDTH_JAVA_OBJECT,SizeCostBlock.domSelect.typeSize.height);
 
-        for (var i = 0; i < elem.length; ++i) {
+    }
 
-                let index = $(elem[i]).attr("data");
-                let cost = SizeCostBlock.getVal(index,SizeCostBlock.domSelect.cost);
-                if (cost){
-                    template[SizeCostBlock.HEIGHT_JAVA_OBJECT].push({
-                        itemId:index,
-                        startRestriction: SizeCostBlock.getVal(index,SizeCostBlock.domSelect.heightMin),
-                        stopRestriction: SizeCostBlock.getVal(index,SizeCostBlock.domSelect.heightMax),
-                        step:0,
-                        pairOfValues:0,
-                        cost: cost
-                    });
-                    template[SizeCostBlock.WIDTH_JAVA_OBJECT].push({
-                        itemId:index,
-                        startRestriction: SizeCostBlock.getVal(index,SizeCostBlock.domSelect.widthMin),
-                        stopRestriction: SizeCostBlock.getVal(index,SizeCostBlock.domSelect.widthMax),
-                        step:0,
-                        pairOfValues:0,
-                        cost: cost
-                    });
-                }
-        }
+    static saveLineToJavaObject(javaFieldName,typeSize){
+        template[javaFieldName].push({
+            startRestriction: SizeCostBlock.getVal(typeSize,SizeCostBlock.domSelect.costSizeOfTorification),
+            stopRestriction: 0,
+            step: SizeCostBlock.getVal(typeSize,SizeCostBlock.domSelect.sizeOfTorification),
+            pairOfValues:0,
+            cost: SizeCostBlock.getVal(typeSize,SizeCostBlock.domSelect.cost)
+        });
     }
 
     static deleteLineIntoTemplate(nameFieldJavaObject){
@@ -66,17 +55,33 @@ class SizeCostBlock {
     }
 
     static setValueToDom(){
-        template[SizeCostBlock.WIDTH_JAVA_OBJECT].forEach(
-            function(item, i, arr) {
-                SizeCostBlock.setVal(i,SizeCostBlock.domSelect.cost,item.cost);
-                SizeCostBlock.setVal(i,SizeCostBlock.domSelect.widthMin,item.startRestriction);
-                SizeCostBlock.setVal(i,SizeCostBlock.domSelect.widthMax,item.stopRestriction);
-        });
-        template[SizeCostBlock.HEIGHT_JAVA_OBJECT].forEach(
-            function(item, i, arr) {
-                SizeCostBlock.setVal(i,SizeCostBlock.domSelect.cost,item.cost);
-                SizeCostBlock.setVal(i,SizeCostBlock.domSelect.heightMin,item.startRestriction);
-                SizeCostBlock.setVal(i,SizeCostBlock.domSelect.heightMax,item.stopRestriction);
-            });
+
+        const lineTemplateWidth = template[SizeCostBlock.WIDTH_JAVA_OBJECT];
+        if(lineTemplateWidth.length>0){
+            SizeCostBlock.setVal(SizeCostBlock.domSelect.typeSize.width,
+                SizeCostBlock.domSelect.cost,
+                lineTemplateWidth[0].cost);
+            SizeCostBlock.setVal(SizeCostBlock.domSelect.typeSize.width,
+                SizeCostBlock.domSelect.costSizeOfTorification,
+                lineTemplateWidth[0].startRestriction);
+            SizeCostBlock.setVal(SizeCostBlock.domSelect.typeSize.width,
+                SizeCostBlock.domSelect.sizeOfTorification,
+                lineTemplateWidth[0].step);
+        }
+
+
+
+        const lineTemplateHeight = template[SizeCostBlock.HEIGHT_JAVA_OBJECT];
+        if(lineTemplateHeight.length>0) {
+            SizeCostBlock.setVal(SizeCostBlock.domSelect.typeSize.height,
+                SizeCostBlock.domSelect.cost,
+                lineTemplateHeight[0].cost);
+            SizeCostBlock.setVal(SizeCostBlock.domSelect.typeSize.height,
+                SizeCostBlock.domSelect.costSizeOfTorification,
+                lineTemplateHeight[0].startRestriction);
+            SizeCostBlock.setVal(SizeCostBlock.domSelect.typeSize.height,
+                SizeCostBlock.domSelect.sizeOfTorification,
+                lineTemplateHeight[0].step);
+        }
     }
 }

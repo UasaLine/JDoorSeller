@@ -103,9 +103,8 @@ public class DoorService implements DoorServ {
     private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity){
 
         doorEntity.setCostList(new CostList());
-        //size
+
         addCostResizing(doorEntity);
-        //color
         addCostForColorChange(doorEntity);
         //shieldKit
         //furniture
@@ -143,7 +142,7 @@ public class DoorService implements DoorServ {
         if(Widthsize != defaultWidth){
             List<LimitationDoor> sizeCostWidth = doorEntity.getTemplate().getSizeCostWidth();
             listWidth = sizeCostWidth.stream()
-                    .map((lim) -> toMarkup(lim,Widthsize))
+                    .map((lim) -> toMarkup(lim,Widthsize,defaultWidth))
                     .filter(line ->line.getCost()>0)
                     .collect(Collectors.toList());
         }
@@ -155,7 +154,7 @@ public class DoorService implements DoorServ {
         if(Heightsize != defaultHeight) {
             List<LimitationDoor> sizeCostHeight = doorEntity.getTemplate().getSizeCostHeight();
             listHeight = sizeCostHeight.stream()
-                    .map((lim) -> toMarkup(lim, Heightsize))
+                    .map((lim) -> toMarkup(lim, Heightsize,defaultHeight))
                     .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
@@ -169,11 +168,25 @@ public class DoorService implements DoorServ {
         return doorEntity;
     }
 
-    private LineCostList toMarkup(LimitationDoor lim, int size) {
+    private LineCostList toMarkup(LimitationDoor lim, int size, int defaultSize) {
 
-        if (size > lim.getStartRestriction() &&  size < lim.getStopRestriction()){
-            return new LineCostList(lim.getTypeSettings().toString()+ " "+size, 1, false, lim.getCost());
+
+        int costStep = (int) lim.getStartRestriction();
+        int step = (int) lim.getStep();
+        int costForChange = lim.getCost();
+
+        if (costStep > 0 && step > 0 && costForChange > 0) {
+
+            int costDiff = ((size - defaultSize)/step) * costStep;
+
+            return new LineCostList(lim.getTypeSettings().toString() + " " + size +
+                    ", costForChange: "+ costForChange+
+                    ", costDiff: "+ costDiff,
+                    1,
+                    false,
+                    costForChange + costDiff);
         }
+
         return new LineCostList();
     }
 
