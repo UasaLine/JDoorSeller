@@ -102,12 +102,48 @@ public class DoorService implements DoorServ {
 
         doorEntity.setCostList(new CostList());
 
-
         addCostResizing(doorEntity);
         addCostForColorChange(doorEntity);
         addCostForShieldKitChange(doorEntity);
-        //furniture
+        addCostForFurnitureKitChange(doorEntity);
 
+        return doorEntity;
+    }
+
+    private DoorEntity addCostForFurnitureKitChange(@NonNull DoorEntity doorEntity) {
+        FurnitureKit kit = doorEntity.getFurnitureKit();
+
+        addCostForFurniture(kit.getTopLock(), doorEntity.getTemplate().getTopLock(), doorEntity);
+        addCostForFurniture(kit.getLowerLock(), doorEntity.getTemplate().getLowerLock(), doorEntity);
+        //...
+
+        return doorEntity;
+
+    }
+
+    private DoorEntity addCostForFurniture(DoorFurniture furniture,
+                                      List<LimitationDoor> listOfFurniturLimit,
+                                      @NonNull DoorEntity doorEntity) {
+
+        if (furniture != null) {
+
+            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
+                    listOfFurniturLimit
+            );
+
+            if (defaultShieldColor.getItemId() != furniture.getId()) {
+
+                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
+                        listOfFurniturLimit, furniture.getId()
+                );
+
+                doorEntity.getCostList().addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        1,
+                        false,
+                        currentColorLim.getCost());
+            }
+        }
 
         return doorEntity;
     }
@@ -160,7 +196,6 @@ public class DoorService implements DoorServ {
 
         return doorEntity;
     }
-
 
     private DoorEntity addCostForColorChange(@NonNull DoorEntity doorEntity) {
 
