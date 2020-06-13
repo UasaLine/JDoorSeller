@@ -122,8 +122,8 @@ public class DoorService implements DoorServ {
     }
 
     private DoorEntity addCostForFurniture(DoorFurniture furniture,
-                                      List<LimitationDoor> listOfFurniturLimit,
-                                      @NonNull DoorEntity doorEntity) {
+                                           List<LimitationDoor> listOfFurniturLimit,
+                                           @NonNull DoorEntity doorEntity) {
 
         if (furniture != null) {
 
