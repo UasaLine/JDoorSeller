@@ -12,6 +12,7 @@ import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.OrderStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,7 +44,6 @@ public class DoorService implements DoorServ {
     @Override
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
 
-
         if (door.getDoorType().getPriceList() == 1) {
 
             return recalculateTheDoorByPriceList(door,
@@ -53,6 +53,7 @@ public class DoorService implements DoorServ {
         } else {
             return recalculateTheDoorCompletely(door);
         }
+
     }
 
     @Override
@@ -94,37 +95,120 @@ public class DoorService implements DoorServ {
                 .setPriceOfDoorType(discount, RetailMargin)
                 .createName();
 
-
-
-
         return addDooToOrder(doorEntity);
     }
 
-    private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity){
+    private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity) {
 
         doorEntity.setCostList(new CostList());
 
         addCostResizing(doorEntity);
         addCostForColorChange(doorEntity);
-        //shieldKit
-        //furniture
+        addCostForShieldKitChange(doorEntity);
+        addCostForFurnitureKitChange(doorEntity);
 
+        return doorEntity;
+    }
 
+    private DoorEntity addCostForFurnitureKitChange(@NonNull DoorEntity doorEntity) {
+        FurnitureKit kit = doorEntity.getFurnitureKit();
+
+        addCostForFurniture(kit.getTopLock(), doorEntity.getTemplate().getTopLock(), doorEntity);
+        addCostForFurniture(kit.getLowerLock(), doorEntity.getTemplate().getLowerLock(), doorEntity);
+        //...
+
+        return doorEntity;
+
+    }
+
+    private DoorEntity addCostForFurniture(DoorFurniture furniture,
+                                           List<LimitationDoor> listOfFurniturLimit,
+                                           @NonNull DoorEntity doorEntity) {
+
+        if (furniture != null) {
+
+            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
+                    listOfFurniturLimit
+            );
+
+            if (defaultShieldColor.getItemId() != furniture.getId()) {
+
+                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
+                        listOfFurniturLimit, furniture.getId()
+                );
+
+                doorEntity.getCostList().addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        1,
+                        false,
+                        currentColorLim.getCost());
+            }
+        }
+
+        return doorEntity;
+    }
+
+    private DoorEntity addCostForShieldKitChange(@NonNull DoorEntity doorEntity) {
+
+        ShieldKit kit = doorEntity.getShieldKit();
+
+        ImageEntity shieldColor = kit.getShieldColor();
+        if (shieldColor != null) {
+
+            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
+                    doorEntity.getTemplate().getShieldColor()
+            );
+
+            if (defaultShieldColor.getItemId() != shieldColor.getId()) {
+
+                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
+                        doorEntity.getTemplate().getShieldColor(), shieldColor.getId()
+                );
+
+                doorEntity.getCostList().addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        1,
+                        false,
+                        currentColorLim.getCost());
+            }
+        }
+
+        ImageEntity shieldDesign = kit.getShieldDesign();
+        if (shieldDesign != null) {
+
+            LimitationDoor defaultShieldDesign = TemplateService.getDefaultLine(
+                    doorEntity.getTemplate().getShieldDesign()
+            );
+
+            if (defaultShieldDesign.getItemId() != shieldDesign.getId()) {
+
+                LimitationDoor currentDesignLim = TemplateService.getLineByItemId(
+                        doorEntity.getTemplate().getShieldDesign(), shieldDesign.getId()
+                );
+
+                doorEntity.getCostList().addLine(
+                        LimitationDoor.getDescription(currentDesignLim),
+                        1,
+                        false,
+                        currentDesignLim.getCost());
+            }
+        }
 
         return doorEntity;
     }
 
     private DoorEntity addCostForColorChange(@NonNull DoorEntity doorEntity) {
 
-        LimitationDoor defaultColor = doorEntity.getTemplate().getColors().stream()
-                .filter(line ->line.getDefaultValue()==1)
-                .findFirst().orElse(new LimitationDoor());
+        LimitationDoor defaultColor = TemplateService.getDefaultLine(doorEntity.getTemplate().getColors());
 
-        if(!defaultColor.getFirstItem().equals(doorEntity.getDoorColor())){
+        if (!defaultColor.getFirstItem().equals(doorEntity.getDoorColor())) {
             LimitationDoor currentColorLim = doorEntity.getTemplate().getColors().stream()
-                    .filter(line ->line.getFirstItem().equals(doorEntity.getDoorColor())).findFirst().orElse(new LimitationDoor());
+                    .filter(line -> line.getFirstItem().equals(doorEntity.getDoorColor()))
+                    .findFirst()
+                    .orElse(new LimitationDoor());
 
-            doorEntity.getCostList().addLine(currentColorLim.getTypeSettings()+" "+currentColorLim.getFirstItem(),
+            doorEntity.getCostList().addLine(
+                    LimitationDoor.getDescription(currentColorLim),
                     1,
                     false,
                     currentColorLim.getCost());
@@ -139,11 +223,11 @@ public class DoorService implements DoorServ {
         int defaultWidth = doorEntity.getTemplate().getWidthDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
         List<LineCostList> listWidth = new ArrayList<>();
 
-        if(Widthsize != defaultWidth){
+        if (Widthsize != defaultWidth) {
             List<LimitationDoor> sizeCostWidth = doorEntity.getTemplate().getSizeCostWidth();
             listWidth = sizeCostWidth.stream()
-                    .map((lim) -> toMarkup(lim,Widthsize,defaultWidth))
-                    .filter(line ->line.getCost()>0)
+                    .map((lim) -> toMarkup(lim, Widthsize, defaultWidth))
+                    .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
 
@@ -151,16 +235,16 @@ public class DoorService implements DoorServ {
         int Heightsize = doorEntity.getHeightDoor();
         int defaultHeight = doorEntity.getTemplate().getHeightDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
 
-        if(Heightsize != defaultHeight) {
+        if (Heightsize != defaultHeight) {
             List<LimitationDoor> sizeCostHeight = doorEntity.getTemplate().getSizeCostHeight();
             listHeight = sizeCostHeight.stream()
-                    .map((lim) -> toMarkup(lim, Heightsize,defaultHeight))
+                    .map((lim) -> toMarkup(lim, Heightsize, defaultHeight))
                     .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
 
         listWidth.addAll(listHeight);
-        if (listWidth.size()>0) {
+        if (listWidth.size() > 0) {
             LineCostList line = listWidth.stream().max(Comparator.comparing(obj -> obj.getCost())).get();
             doorEntity.getCostList().addLine(line);
         }
@@ -177,11 +261,11 @@ public class DoorService implements DoorServ {
 
         if (costStep > 0 && step > 0 && costForChange > 0) {
 
-            int costDiff = ((size - defaultSize)/step) * costStep;
+            int costDiff = ((size - defaultSize) / step) * costStep;
 
             return new LineCostList(lim.getTypeSettings().toString() + " " + size +
-                    ", costForChange: "+ costForChange+
-                    ", costDiff: "+ costDiff,
+                    ", costForChange: " + costForChange +
+                    ", costDiff: " + costDiff,
                     1,
                     false,
                     costForChange + costDiff);

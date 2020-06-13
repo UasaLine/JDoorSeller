@@ -82,6 +82,7 @@ public class FurnitureService {
                 .peek(furniture -> furniture.clearNonSerializingFields())
                 .collect(Collectors.toList());
     }
+
     public List<ImageEntity> convertToImage(List<LimitationDoor> topLock) {
         return topLock.stream()
                 .map(lim -> colorRepository.getColorById(lim.getItemId()))

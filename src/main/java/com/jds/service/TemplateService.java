@@ -278,4 +278,16 @@ public class TemplateService {
         return size;
     }
 
+    public static LimitationDoor getDefaultLine(List<LimitationDoor> list){
+        return list.stream()
+                .filter(line -> line.getDefaultValue() == 1)
+                .findFirst().orElse(new LimitationDoor());
+    }
+
+    public static LimitationDoor getLineByItemId(List<LimitationDoor> list,int id){
+        return list.stream()
+                .filter(line -> line.getItemId() == id)
+                .findFirst().orElse(new LimitationDoor());
+    }
+
 }

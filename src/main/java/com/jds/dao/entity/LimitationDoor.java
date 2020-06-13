@@ -127,4 +127,8 @@ public class LimitationDoor {
         return false;
     }
 
+    public static String getDescription(LimitationDoor lim){
+        return lim.getTypeSettings() + " " + lim.getFirstItem();
+    }
+
 }
