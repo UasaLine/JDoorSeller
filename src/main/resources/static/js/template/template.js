@@ -145,7 +145,7 @@ jQuery("document").ready(function () {
         saveInJavaObjectSize("widthDoor");
         if (allFieldsAreFilled(".widthDoorInput")) {
             //addInputField('widthDoorInput', 'widthDoorDiv');
-            addField("widthDoor", "input");
+            addField("widthDoor", "input", "Input");
         }
     });
     $("#widthDoorDiv").on("click", ".widthDoorLineCheckbox", function () {
