@@ -41,6 +41,7 @@ jQuery("document").ready(function () {
 
   $("#picturePath").change(function () {
     setField("picturePath", $("#picturePath").val());
+    showPicture($("#picturePath").val());
   });
 
   $("#pricePaintingMeterOfSpace").change(function () {
@@ -120,6 +121,7 @@ jQuery("document").ready(function () {
       setCheckBox("#smooth", JavaObject.smooth);
       setCheckBox("#containsDesign", JavaObject.containsDesign);
       $("#picturePath").val(JavaObject.picturePath);
+      showPicture(JavaObject.picturePath);
       $("#pricePaintingMeterOfSpace").val(JavaObject.pricePaintingMeterOfSpace);
       setValueInSelect("#typeOfImage", JavaObject.typeOfImage);
       setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
@@ -184,3 +186,7 @@ jQuery("document").ready(function () {
     });
   }
 });
+
+  function showPicture(value) {
+    $("#picturePath_img").attr("src","../"+value);
+  }
