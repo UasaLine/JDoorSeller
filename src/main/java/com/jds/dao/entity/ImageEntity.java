@@ -46,6 +46,8 @@ public class ImageEntity implements LimiItem, SerializingFields {
     @Enumerated(EnumType.STRING)
     private TypeOfDoorColor typeOfDoorColor;
 
+    @Column(name = "containsDesign")
+    private int containsDesign;
 
     // kit
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
