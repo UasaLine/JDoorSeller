@@ -31,6 +31,14 @@ jQuery("document").ready(function () {
     }
   });
 
+  $("#containsDesign").change(function () {
+    if ($(this).is(":checked")) {
+      setField("containsDesign", 1);
+    } else {
+      setField("containsDesign", 0);
+    }
+  });
+
   $("#picturePath").change(function () {
     setField("picturePath", $("#picturePath").val());
   });
@@ -110,6 +118,7 @@ jQuery("document").ready(function () {
       $("#idManufacturerProgram").val(JavaObject.idManufacturerProgram);
       $("#name").val(JavaObject.name);
       setCheckBox("#smooth", JavaObject.smooth);
+      setCheckBox("#containsDesign", JavaObject.containsDesign);
       $("#picturePath").val(JavaObject.picturePath);
       $("#pricePaintingMeterOfSpace").val(JavaObject.pricePaintingMeterOfSpace);
       setValueInSelect("#typeOfImage", JavaObject.typeOfImage);
