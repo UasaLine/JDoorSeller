@@ -27,7 +27,7 @@ jQuery("document").ready(function () {
         .attr("id", "optionsDiv" + i)
         .appendTo("#" + i);
 
-      drawObject(data[i].door, i);
+      Door.draw(data[i].door, i);
 
       //options cap
       $("<span>")

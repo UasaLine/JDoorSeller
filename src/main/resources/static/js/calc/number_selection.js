@@ -1,10 +1,29 @@
+function average_Size_widthDoor(aver) {
+
+  return Math.round(aver/2);
+}
+
 function select_introduction(startNumber, headName, idElement, minVal, maxVal) {
   $("#nameSelectForm").text(headName);
   $("#nameSelectForm").attr("data", idElement);
 
-  if (startNumber < minVal || startNumber > maxVal) {
-    startNumber = minVal + (maxVal - minVal) / 2;
+  let nameField = SizingDrum.getFieldNameFromInputId("input_widthDoor");
+  let tab = RestrictionOfSelectionFields[nameField];
+  for (var i=0; i<tab.length; i++) {
+
+    if (tab[i].pairOfValues == 1) {
+      if (startNumber < minVal || startNumber > maxVal) {
+        startNumber = minVal + (maxVal - minVal) / 2;
+      }
+    } else {
+
+      if (startNumber == tab[i].startRestriction) {
+        average_widthDoorVal = i;
+      }
+    }
   }
+
+
 
   var numberL = parceLongValue(startNumber, "L");
   //var numberR = parceLongValue(startNumber,'R');
@@ -112,17 +131,44 @@ function deleteDown(elem) {
 }
 
 function getNextValue(firstValue, n, minVal, maxVal) {
-  if (1 * n + parseInt(firstValue) <= maxVal) {
-    return 1 * n + parseInt(firstValue);
+  let nameField = SizingDrum.getFieldNameFromInputId("input_widthDoor");
+  var tab = RestrictionOfSelectionFields[nameField];
+
+  for (var i=0; i<tab.length; i++) {
+    if (tab[i].pairOfValues == 0) {
+      if (average_widthDoorVal > maxSize_widthDoorVal - 1) {
+        average_widthDoorVal = -1;
+      }
+      return tab[average_widthDoorVal + 1].startRestriction;
+
+    }else {
+      if (1 * n + parseInt(firstValue) <= maxVal) {
+        return 1 * n + parseInt(firstValue);
+      }
+      return minVal;
+    }
   }
-  return minVal;
+
 }
 
 function getPreviousValue(firstValue, n, minVal, maxVal) {
-  if (parseInt(firstValue) - 1 * n > minVal) {
-    return parseInt(firstValue) - 1 * n;
+  let nameField = SizingDrum.getFieldNameFromInputId("input_widthDoor");
+  var tab = RestrictionOfSelectionFields[nameField];
+
+  for (var i=0; i<tab.length; i++){
+    if(tab[i].pairOfValues == 0) {
+      if (average_widthDoorVal < 1) {
+        average_widthDoorVal = maxSize_widthDoorVal + 1;
+      }
+      return tab[average_widthDoorVal - 1].startRestriction;
+    } else {
+      if (parseInt(firstValue) - 1 * n > minVal) {
+        return parseInt(firstValue) - 1 * n;
+        }
+        return maxVal;
+    }
   }
-  return maxVal;
+
 }
 
 function closeSelect() {

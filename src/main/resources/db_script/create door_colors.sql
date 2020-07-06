@@ -8,5 +8,6 @@ create table Door_Colors
     price                 int,
     smooth                int,
     typeOfImage           CHARACTER VARYING(20)  NOT NULL,
-    typeOfDoorColor       CHARACTER VARYING(12)
+    typeOfDoorColor       CHARACTER VARYING(12),
+    containsDesign        int
 );
