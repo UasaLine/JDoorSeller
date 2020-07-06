@@ -331,13 +331,8 @@ jQuery("document").ready(function () {
 
   $("#addL").on("click", function () {
 
-      //let nameField = SizingDrum.getFieldNameFromInputId("input_widthDoor");
-      //var tab = RestrictionOfSelectionFields["widthDoor"];
-
       average_widthDoorVal+=1;
       add("L", 5, null, sizeMin, sizeMax);
-
-
 
   });
 
