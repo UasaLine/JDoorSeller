@@ -9,15 +9,24 @@ class SizingDrum {
 
     static sizeLimMin(elemId) {
 
+
         let nameField = SizingDrum.getFieldNameFromInputId(elemId);
 
         var tab = RestrictionOfSelectionFields[nameField];
+
+        var tabMin = tab[0].startRestriction;
+
         for (var i = 0; i < tab.length; i++) {
-            if (tab[i].pairOfValues == 1) {
-                return tab[i].startRestriction;
+            if (tab[i].pairOfValues == 0) {
+                if (tabMin > tab[i].startRestriction) {
+                    tabMin = tab[i].startRestriction;
+                }
+                } else {
+                    tabMin = tab[i].startRestriction;
             }
         }
-        return 0;
+        //alert(tabMin);
+        return tabMin;
     }
 
     static sizeLimMax(elemId) {
@@ -25,12 +34,21 @@ class SizingDrum {
         let nameField = SizingDrum.getFieldNameFromInputId(elemId);
 
         var tab = RestrictionOfSelectionFields[nameField];
+
+        var tabMax = tab[0].startRestriction;
+
         for (var i = 0; i < tab.length; i++) {
-            if (tab[i].pairOfValues == 1) {
-                return tab[i].stopRestriction;
+            if (tab[i].pairOfValues == 0) {
+                if (tabMax < tab[i].startRestriction) {
+                    tabMax = tab[i].startRestriction;
+                }
+            }else {
+                    tabMax = tab[i].stopRestriction;
+               }
             }
-        }
-        return 2100;
+
+        //alert(tabMax);
+        return tabMax;
     }
 
     static setSize() {
@@ -55,6 +73,7 @@ class SizingDrum {
     }
 
     static getFieldNameFromInputId(elemId){
+
         return elemId.replace('input_', '');
     }
 

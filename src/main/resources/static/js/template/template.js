@@ -145,6 +145,7 @@ jQuery("document").ready(function () {
         saveInJavaObjectSize("widthDoor");
         if (allFieldsAreFilled(".widthDoorInput")) {
             //addInputField('widthDoorInput', 'widthDoorDiv');
+
             addField("widthDoor", "input", "Input");
         }
     });
@@ -1305,12 +1306,16 @@ jQuery("document").ready(function () {
         }
     }
 
+
     function saveInJavaObjectSize(nameFieldJavaObject) {
         //delete all
         var size = template[nameFieldJavaObject].length;
         template[nameFieldJavaObject].splice(0, size);
 
         //for pairOfValues = 0
+
+        var pairOfValues = !$("#widthDoorCheckbox").is(':checked');
+        if (!pairOfValues) {
         var selector = "." + nameFieldJavaObject + "Input";
         var elem = $(selector);
         for (var i = 0; i < elem.length; ++i) {
@@ -1321,12 +1326,16 @@ jQuery("document").ready(function () {
                 );
             }
         }
+        }
         //for pairOfValues = 1
+
         if (
+            pairOfValues && (
             $("#" + nameFieldJavaObject + "Min").val() ||
             $("#" + nameFieldJavaObject + "Max").val() ||
             $("#" + nameFieldJavaObject + "Step").val() ||
             $("#" + nameFieldJavaObject + "Default").val()
+        )
         ) {
             template[nameFieldJavaObject].push(
                 newInstansLim(

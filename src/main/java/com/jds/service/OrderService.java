@@ -166,8 +166,12 @@ public class OrderService {
         return null;
     }
 
-    private OrderStatus statusOrderBaseByOrderId(@NonNull int id){
-        DoorsОrder orderInBase = dAO.getOrder(id);
-        return orderInBase.getStatus();
+    private OrderStatus statusOrderBaseByOrderId(int id){
+        if (id>0) {
+            DoorsОrder orderInBase = dAO.getOrder(id);
+            return orderInBase.getStatus();
+        }else {
+            return OrderStatus.CALC;
+        }
     }
 }

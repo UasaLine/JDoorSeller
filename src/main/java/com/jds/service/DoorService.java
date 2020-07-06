@@ -450,7 +450,11 @@ public class DoorService implements DoorServ {
                 .collect(Collectors.toList());
 
         if (defList.size() == 1) {
-            return defList.get(0).getDefaultValue();
+            if(defList.get(0).getPairOfValues() == 1) {
+                return defList.get(0).getDefaultValue();
+            } else {
+                return (int) defList.get(0).getStartRestriction();
+            }
         }
 
         return 0;
