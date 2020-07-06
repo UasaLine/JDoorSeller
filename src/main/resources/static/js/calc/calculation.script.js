@@ -3,6 +3,8 @@ let failureToSetValue = false;
 let currentItem = "";
 let RestrictionOfSelectionFields;
 let selectSizeOpen = false;
+let average_widthDoorVal = 0;
+let maxSize_widthDoorVal = 0;
 
 jQuery("document").ready(function () {
 
@@ -307,8 +309,13 @@ jQuery("document").ready(function () {
   });
 
   $(".select_size").on("click", function () {
+
+
     sizeMin = SizingDrum.sizeLimMin($(this).attr("id"));
     sizeMax = SizingDrum.sizeLimMax($(this).attr("id"));
+
+      maxSize_widthDoorVal = RestrictionOfSelectionFields["widthDoor"].length-1;
+      average_widthDoorVal = average_Size_widthDoor(maxSize_widthDoorVal);
 
     select_introduction(
       $(this).attr("data"),
@@ -323,11 +330,22 @@ jQuery("document").ready(function () {
   });
 
   $("#addL").on("click", function () {
-    add("L", 5, null, sizeMin, sizeMax);
+
+      //let nameField = SizingDrum.getFieldNameFromInputId("input_widthDoor");
+      //var tab = RestrictionOfSelectionFields["widthDoor"];
+
+      average_widthDoorVal+=1;
+      add("L", 5, null, sizeMin, sizeMax);
+
+
+
   });
 
   $("#reduceL").on("click", function () {
-    reduce("L", 5, sizeMin, sizeMax);
+      average_widthDoorVal -= 1;
+
+      reduce("L", 5, sizeMin, sizeMax);
+
   });
 
   $("#addR").on("click", function () {
