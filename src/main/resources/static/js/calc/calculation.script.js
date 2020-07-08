@@ -180,7 +180,7 @@ jQuery("document").ready(function () {
     } else if (currentItem == "sideDoorOpen") {
       if ($(this).is(":checked")) {
         oneEnableAllDisable($(this).attr("Item"), this);
-        isRepRun = false;
+        isRepRun = true;
       }
     } else if (currentItem == "additionalDoorSettings") {
       isRepRun = false;
