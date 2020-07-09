@@ -38,6 +38,7 @@ jQuery("document").ready(function () {
 
         installFromTemplateMetal();
         installFromTemplateColor(template.colors, "colors");
+        installFromTemplateDesign(template.design, "design");
 
         installFromTemplateSelect("doorstep");
         installFromTemplateSelect("stainlessSteelDoorstep");
@@ -81,6 +82,7 @@ jQuery("document").ready(function () {
     function fillInAlLSelectAfterSelectingType() {
         fillInMetal();
         fillInColor("colors", restriction.colors);
+        fillInColor("design", restriction.design);
 
         fillInSelector(".doorstepSelect", "doorstep");
         fillInSelector(".stainlessSteelDoorstepSelect", "stainlessSteelDoorstep");
@@ -250,6 +252,11 @@ jQuery("document").ready(function () {
         } else {
             saveInJavaObjectColorAndFurnitur("colors");
         }
+    });
+
+    $("#DesignDiv").change(".designSelect", function () {
+            saveInJavaObjectColorAndFurnitur("design");
+            fillInColor("design", restriction.design);
     });
 
     $("#shieldColorDiv").change(".shieldColorSelect", function () {
@@ -846,6 +853,18 @@ jQuery("document").ready(function () {
         }
     }
 
+    function installFromTemplateDesign(table, javaName) {
+        var length = table.length;
+        var selector = "." + javaName + "Select";
+        var elem = null;
+
+        for (var i = 0; i < length; ++i) {
+            elem = getNotCompletedFields(selector);
+            fillInFieldFromDesign("#" + $(elem).attr("id"), restriction.design);
+            setValueInSelectInt("#" + $(elem).attr("id"), table[i].itemId);
+        }
+    }
+
     function installFromTemplateSelect(nameJavaObject) {
         var table = template[nameJavaObject];
         var length = table.length;
@@ -1065,6 +1084,24 @@ jQuery("document").ready(function () {
         $(selector).append($("<option ></option>"));
 
         $(selector).append($("<option value=all>select all</option>"));
+
+        for (var i = 0; i < table.length; ++i) {
+            $(selector).append(
+                $(
+                    "<option value=" +
+                    table[i].itemId +
+                    ">" +
+                    table[i].firstItem +
+                    "</option>"
+                )
+            );
+        }
+    }
+
+    function fillInFieldFromDesign(selector, table) {
+        $(selector).empty();
+
+        $(selector).append($("<option ></option>"));
 
         for (var i = 0; i < table.length; ++i) {
             $(selector).append(

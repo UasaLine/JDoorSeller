@@ -7,7 +7,7 @@ import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.ShortTemplate;
 import com.jds.model.modelEnum.TypeOfFurniture;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
+import com.jds.dao.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +61,7 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HEIGHT_FANLIGHT, restriction.getHeightDoorFanlight(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.COLOR_DOOR, restriction.getColors(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DESIGN_DOOR, restriction.getDesign(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_COLOR, restriction.getShieldColor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_DESIGN, restriction.getShieldDesign(), limitList);
 
@@ -128,6 +129,7 @@ public class TemplateService {
                 .stuffMetal(metalDao.getMetals())
 
                 .stuffColors(colorDao.getDoorColors())
+                .stuffDesign(colorDao.getDoorDesign())
                 .stuffShieldColor(colorDao.getShieldColor())
                 .stuffShieldDesign(colorDao.getShieldDesign())
 
@@ -212,6 +214,8 @@ public class TemplateService {
 
         } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
             restriction.addColors(lim);
+        } else if (TypeOfLimitionDoor.DESIGN_DOOR == lim.getTypeSettings()) {
+            restriction.addDesign(lim);
         } else if (TypeOfLimitionDoor.SHIELD_COLOR == lim.getTypeSettings()) {
             restriction.addShieldColor(lim);
         } else if (TypeOfLimitionDoor.SHIELD_DESIGN == lim.getTypeSettings()) {

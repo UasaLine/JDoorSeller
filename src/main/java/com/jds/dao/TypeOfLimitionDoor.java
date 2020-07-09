@@ -1,4 +1,4 @@
-package com.jds.model.modelEnum;
+package com.jds.dao;
 
 public enum TypeOfLimitionDoor {
     METAL_THICKNESS,
@@ -15,6 +15,7 @@ public enum TypeOfLimitionDoor {
     HEIGHT_FANLIGHT,
 
     COLOR_DOOR,
+    DESIGN_DOOR,
     COLOR_WOOD_PANEL,
 
     DOORSTEP,

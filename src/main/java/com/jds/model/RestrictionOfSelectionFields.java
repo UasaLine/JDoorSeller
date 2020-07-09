@@ -4,7 +4,7 @@ import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
+import com.jds.dao.TypeOfLimitionDoor;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -25,6 +25,8 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> deepnessDoor = new ArrayList<>();
     private List<LimitationDoor> thicknessDoorLeaf = new ArrayList<>();
     private List<LimitationDoor> colors = new ArrayList<>();
+    private List<LimitationDoor> design = new ArrayList<>();
+
     private List<LimitationDoor> additionalDoorSetting = new ArrayList<>();
 
     private List<LimitationDoor> doorstep = new ArrayList<>();
@@ -197,6 +199,29 @@ public class RestrictionOfSelectionFields {
 
     }
 
+    public RestrictionOfSelectionFields stuffDesign(@NonNull List<ImageEntity> design) {
+
+        design.stream().forEach((desig) -> addDesign(desig));
+        return this;
+    }
+
+    public void addDesign(@NonNull ImageEntity design) {
+        if (design != null) {
+            this.design.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.DESIGN_DOOR)
+                    .itemId(design.getId())
+                    .firstItem(design.getName())
+                    .picturePath(design.getPicturePath())
+                    .build());
+        }
+    }
+
+    public void addDesign(@NonNull LimitationDoor design) {
+
+        this.design.add(design.setNuulLazyFild());
+
+    }
+
     public RestrictionOfSelectionFields stuffShieldColor(@NonNull List<ImageEntity> colors) {
 
         colors.stream().forEach((color) -> addShieldColor(color));
@@ -220,26 +245,26 @@ public class RestrictionOfSelectionFields {
 
     }
 
-    public RestrictionOfSelectionFields stuffShieldDesign(@NonNull List<ImageEntity> colors) {
+    public RestrictionOfSelectionFields stuffShieldDesign(@NonNull List<ImageEntity> design) {
 
-        colors.stream().forEach((color) -> addShieldDesign(color));
+        design.stream().forEach((desig) -> addShieldDesign(desig));
         return this;
     }
 
-    public void addShieldDesign(@NonNull ImageEntity color) {
-        if (color != null) {
+    public void addShieldDesign(@NonNull ImageEntity design) {
+        if (design != null) {
             this.shieldDesign.add(LimitationDoor.builder()
                     .typeSettings(TypeOfLimitionDoor.SHIELD_DESIGN)
-                    .itemId(color.getId())
-                    .firstItem(color.getName())
-                    .picturePath(color.getPicturePath())
+                    .itemId(design.getId())
+                    .firstItem(design.getName())
+                    .picturePath(design.getPicturePath())
                     .build());
         }
     }
 
-    public void addShieldDesign(@NonNull LimitationDoor color) {
+    public void addShieldDesign(@NonNull LimitationDoor design) {
 
-        this.shieldDesign.add(color.setNuulLazyFild());
+        this.shieldDesign.add(design.setNuulLazyFild());
 
     }
 
