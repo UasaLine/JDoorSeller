@@ -427,8 +427,11 @@ public class DoorEntity implements SerializingFields {
     public DoorEntity setPriceOfDoorType(@NonNull int discount,
                                          @NonNull int RetailMargin) {
 
-        setPrice((int) (doorType.getRetailPrice() + costList.getTotalCost()));
-        setDiscountPrice(price - ((int) ((price * discount) / 100)));
+        int retailPrice = (int) doorType.getRetailPrice();
+        int costForChange = costList.getTotalCost();
+
+        setPrice(retailPrice + costForChange);
+        setDiscountPrice(retailPrice - ((int) ((retailPrice * discount) / 100)) + costForChange);
         setPriceWithMarkup(discountPrice + ((int) ((discountPrice * RetailMargin) / 100)));
 
         return this;
@@ -461,7 +464,7 @@ public class DoorEntity implements SerializingFields {
                     false,
                     (int) furnitureKit.getTopLock().getPrice());
         }
-        if (furnitureKit.getTopInLockDecor()!= null) {
+        if (furnitureKit.getTopInLockDecor() != null) {
             costList.addLine("Фурнитура: накладка верх. внутреняя ",
                     4,
                     false,
