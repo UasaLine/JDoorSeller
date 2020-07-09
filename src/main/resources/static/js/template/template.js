@@ -82,7 +82,7 @@ jQuery("document").ready(function () {
     function fillInAlLSelectAfterSelectingType() {
         fillInMetal();
         fillInColor("colors", restriction.colors);
-        fillInColor("design", restriction.design);
+        fillInDesign("design", restriction.design);
 
         fillInSelector(".doorstepSelect", "doorstep");
         fillInSelector(".stainlessSteelDoorstepSelect", "stainlessSteelDoorstep");
@@ -959,6 +959,16 @@ jQuery("document").ready(function () {
         for (var i = 0; i < elems.length; ++i) {
             if (!$(elems[i]).val()) {
                 fillInFieldFromColor("#" + $(elems[i]).attr("id"), tabl);
+            }
+        }
+    }
+
+    function fillInDesign(javaName, tabl) {
+        var elems = $("." + javaName + "Select");
+
+        for (var i = 0; i < elems.length; ++i) {
+            if (!$(elems[i]).val()) {
+                fillInFieldFromDesign("#" + $(elems[i]).attr("id"), tabl);
             }
         }
     }
