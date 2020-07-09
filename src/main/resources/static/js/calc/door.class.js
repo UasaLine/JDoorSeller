@@ -50,7 +50,7 @@ class Door {
 
       let containerLeaf = Door.createLeafContainer(container, config, "L");
 
-
+      Door.dinamicRelief(containerLeaf, config, "L");
       Door.createCloser(containerLeaf, config, door);
       Door.createHandle(containerLeaf, config, door, "L");
       Door.createStep(containerLeaf, config, door);
@@ -67,8 +67,7 @@ class Door {
 
       let containerLeafR = Door.createLeafContainer(containerR, config, "R");
 
-      Door.dinamicRelief(containerLeaf, containerLeafR, config);
-      //Door.createRelief(containerLeafR, config, "R");
+      Door.createRelief(containerLeafR, config, "R");
       Door.createHandle(containerLeafR, config, door, "R");
       Door.createStep(containerLeafR, config, door);
       Door.createGlass(containerLeafR, config, door);
@@ -115,13 +114,12 @@ class Door {
     return "#picture_door" + side + i;
   }
 
-  static dinamicRelief(containerLeaf, containerLeafR, config){
+  static dinamicRelief(containerLeaf, config ,side){
     if (!door.template.design.length == 0) {
-      Door.createReliefDesign(containerLeaf, config, door.template.design[0].picturePath, "L");
+      Door.createReliefDesign(containerLeaf, config, door.template.design[0].picturePath, side);
     }else{
-      Door.createRelief(containerLeaf, config, "L");
+      Door.createRelief(containerLeaf, config, side);
     }
-    Door.createRelief(containerLeafR, config, "R");
   }
 
   static createСolor(container, config) {
