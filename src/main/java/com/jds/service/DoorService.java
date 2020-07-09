@@ -219,14 +219,14 @@ public class DoorService implements DoorServ {
 
     private DoorEntity addCostResizing(@NonNull DoorEntity doorEntity) {
 
-        int Widthsize = doorEntity.getWidthDoor();
+        int WidthSize = doorEntity.getWidthDoor();
         int defaultWidth = doorEntity.getTemplate().getWidthDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
         List<LineCostList> listWidth = new ArrayList<>();
 
-        if (Widthsize != defaultWidth) {
+        if (WidthSize != defaultWidth) {
             List<LimitationDoor> sizeCostWidth = doorEntity.getTemplate().getSizeCostWidth();
             listWidth = sizeCostWidth.stream()
-                    .map((lim) -> toMarkup(lim, Widthsize, defaultWidth))
+                    .map((lim) -> toMarkup(lim, WidthSize, defaultWidth, false))
                     .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
@@ -237,29 +237,27 @@ public class DoorService implements DoorServ {
 
         if (Heightsize != defaultHeight) {
             List<LimitationDoor> sizeCostHeight = doorEntity.getTemplate().getSizeCostHeight();
+            final boolean ALREADY_COUNTED = !listWidth.isEmpty();
             listHeight = sizeCostHeight.stream()
-                    .map((lim) -> toMarkup(lim, Heightsize, defaultHeight))
+                    .map((lim) -> toMarkup(lim, Heightsize, defaultHeight, ALREADY_COUNTED))
                     .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
 
-        listWidth.addAll(listHeight);
-        if (listWidth.size() > 0) {
-            LineCostList line = listWidth.stream().max(Comparator.comparing(obj -> obj.getCost())).get();
-            doorEntity.getCostList().addLine(line);
-        }
+        doorEntity.getCostList().addAllLine(listWidth);
+        doorEntity.getCostList().addAllLine(listHeight);
 
         return doorEntity;
     }
 
-    private LineCostList toMarkup(LimitationDoor lim, int size, int defaultSize) {
+    private LineCostList toMarkup(LimitationDoor lim, int size, int defaultSize, boolean alreadyCounted) {
 
 
         int costStep = (int) lim.getStartRestriction();
         int step = (int) lim.getStep();
-        int costForChange = lim.getCost();
+        int costForChange = alreadyCounted ? 0 : lim.getCost();
 
-        if (costStep > 0 && step > 0 && costForChange > 0) {
+        if (costStep > 0 && step > 0 && (costForChange > 0 || alreadyCounted)) {
 
             int costDiff = ((size - defaultSize) / step) * costStep;
 
@@ -450,7 +448,7 @@ public class DoorService implements DoorServ {
                 .collect(Collectors.toList());
 
         if (defList.size() == 1) {
-            if(defList.get(0).getPairOfValues() == 1) {
+            if (defList.get(0).getPairOfValues() == 1) {
                 return defList.get(0).getDefaultValue();
             } else {
                 return (int) defList.get(0).getStartRestriction();
