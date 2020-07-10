@@ -17,6 +17,12 @@ public class CostList {
         totalCost +=line.getCost();
     }
 
+    public void addAllLine(List<LineCostList> list){
+        for (LineCostList line: list) {
+            addLine(line);
+        }
+    }
+
     public CostList() {
         totalCost = 0;
         list = new ArrayList<>();
