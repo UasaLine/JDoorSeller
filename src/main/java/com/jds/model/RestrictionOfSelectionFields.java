@@ -4,7 +4,7 @@ import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
-import com.jds.dao.TypeOfLimitionDoor;
+import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -245,26 +245,26 @@ public class RestrictionOfSelectionFields {
 
     }
 
-    public RestrictionOfSelectionFields stuffShieldDesign(@NonNull List<ImageEntity> design) {
+    public RestrictionOfSelectionFields stuffShieldDesign(@NonNull List<ImageEntity> colors) {
 
-        design.stream().forEach((desig) -> addShieldDesign(desig));
+        colors.stream().forEach((color) -> addShieldDesign(color));
         return this;
     }
 
-    public void addShieldDesign(@NonNull ImageEntity design) {
-        if (design != null) {
+    public void addShieldDesign(@NonNull ImageEntity color) {
+        if (color != null) {
             this.shieldDesign.add(LimitationDoor.builder()
                     .typeSettings(TypeOfLimitionDoor.SHIELD_DESIGN)
-                    .itemId(design.getId())
-                    .firstItem(design.getName())
-                    .picturePath(design.getPicturePath())
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .picturePath(color.getPicturePath())
                     .build());
         }
     }
 
-    public void addShieldDesign(@NonNull LimitationDoor design) {
+    public void addShieldDesign(@NonNull LimitationDoor color) {
 
-        this.shieldDesign.add(design.setNuulLazyFild());
+        this.shieldDesign.add(color.setNuulLazyFild());
 
     }
 

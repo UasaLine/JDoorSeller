@@ -3,7 +3,7 @@ package com.jds.service;
 import com.jds.dao.repository.MainDAO;
 import com.jds.dao.entity.*;
 import com.jds.model.*;
-import com.jds.dao.TypeOfLimitionDoor;
+import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

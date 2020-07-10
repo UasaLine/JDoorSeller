@@ -1,4 +1,4 @@
-package com.jds.dao;
+package com.jds.model.modelEnum;
 
 public enum TypeOfLimitionDoor {
     METAL_THICKNESS,

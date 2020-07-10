@@ -1,7 +1,7 @@
 package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
-import com.jds.dao.TypeOfLimitionDoor;
+import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.*;
 
 import javax.persistence.*;
