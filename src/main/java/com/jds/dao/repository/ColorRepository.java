@@ -63,6 +63,9 @@ public class ColorRepository {
     public List<ImageEntity> getDoorColors() {
         return getImage(TypeOfImage.DOOR_COLOR);
     }
+    public List<ImageEntity> getDoorDesign() {
+        return getImage(TypeOfImage.DOOR_DESIGN);
+    }
     public List<ImageEntity> getShieldColor() {
         return getImage(TypeOfImage.SHIELD_COLOR);
     }

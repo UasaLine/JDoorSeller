@@ -50,7 +50,7 @@ class Door {
 
       let containerLeaf = Door.createLeafContainer(container, config, "L");
 
-      Door.createRelief(containerLeaf, config, "L");
+      Door.dinamicRelief(containerLeaf, config, "L");
       Door.createCloser(containerLeaf, config, door);
       Door.createHandle(containerLeaf, config, door, "L");
       Door.createStep(containerLeaf, config, door);
@@ -113,6 +113,15 @@ class Door {
 
     return "#picture_door" + side + i;
   }
+
+  static dinamicRelief(containerLeaf, config ,side){
+    if (!door.template.design.length == 0) {
+      Door.createReliefDesign(containerLeaf, config, door.template.design[0].picturePath, side);
+    }else{
+      Door.createRelief(containerLeaf, config, side);
+    }
+  }
+
   static createСolor(container, config) {
     $("<img>")
       .attr("class", "color_door")
@@ -200,15 +209,28 @@ class Door {
 
     return "#Leaf" + side + config.i;
   }
-  static createRelief(containerLeaf, config, side) {
+
+  static createReliefDesign(containerLeaf, config, path, side) {
     $("<img>")
-      .attr("class", "opening_side_images")
-      .attr("src", "images/Door/" + config["sideOpening" + side] + ".png")
-      .attr(
-        "style",
-        "width:" + config.width + "px; height:" + config.height + "px;"
-      )
-      .appendTo(containerLeaf);
+        .attr("class", "opening_side_images")
+        .attr("src", path)
+        .attr(
+            "style",
+            "width:" + config.width + "px; height:" + config.height + "px;"
+        )
+        .appendTo(containerLeaf);
+  }
+
+  static createRelief(containerLeaf, config, side) {
+      $("<img>")
+          .attr("class", "opening_side_images")
+          .attr("src", "images/Door/" + config["sideOpening" + side] + ".png")
+          .attr(
+              "style",
+              "width:" + config.width + "px; height:" + config.height + "px;"
+          )
+          .appendTo(containerLeaf);
+
   }
   static createCloser(containerLeaf, config, door) {
     if (door.furnitureKit != null && door.furnitureKit.closer != null) {

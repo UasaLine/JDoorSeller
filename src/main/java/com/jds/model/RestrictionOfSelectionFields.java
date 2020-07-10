@@ -25,6 +25,8 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> deepnessDoor = new ArrayList<>();
     private List<LimitationDoor> thicknessDoorLeaf = new ArrayList<>();
     private List<LimitationDoor> colors = new ArrayList<>();
+    private List<LimitationDoor> design = new ArrayList<>();
+
     private List<LimitationDoor> additionalDoorSetting = new ArrayList<>();
 
     private List<LimitationDoor> doorstep = new ArrayList<>();
@@ -194,6 +196,29 @@ public class RestrictionOfSelectionFields {
     public void addColors(@NonNull LimitationDoor color) {
 
         this.colors.add(color.setNuulLazyFild());
+
+    }
+
+    public RestrictionOfSelectionFields stuffDesign(@NonNull List<ImageEntity> design) {
+
+        design.stream().forEach((desig) -> addDesign(desig));
+        return this;
+    }
+
+    public void addDesign(@NonNull ImageEntity design) {
+        if (design != null) {
+            this.design.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.DESIGN_DOOR)
+                    .itemId(design.getId())
+                    .firstItem(design.getName())
+                    .picturePath(design.getPicturePath())
+                    .build());
+        }
+    }
+
+    public void addDesign(@NonNull LimitationDoor design) {
+
+        this.design.add(design.setNuulLazyFild());
 
     }
 

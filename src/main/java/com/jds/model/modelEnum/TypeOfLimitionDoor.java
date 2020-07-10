@@ -15,6 +15,7 @@ public enum TypeOfLimitionDoor {
     HEIGHT_FANLIGHT,
 
     COLOR_DOOR,
+    DESIGN_DOOR,
     COLOR_WOOD_PANEL,
 
     DOORSTEP,
