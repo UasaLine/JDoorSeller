@@ -261,7 +261,7 @@ jQuery("document").ready(function () {
         $('.toast').toast('show');
     });
 
-    function CalculateCostHide() {
+    function calculateCostHide() {
         $('.toast').toast('hide');
         PriceComponent.deleteRow();
     }
@@ -280,7 +280,7 @@ jQuery("document").ready(function () {
                     //alert('price is: ' + data.price);
                     door = data;
                     displayPrice();
-                    CalculateCostHide();
+                    calculateCostHide();
                 },
                 error: function (data) {
                     alert("error:" + data);

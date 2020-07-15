@@ -424,8 +424,7 @@ public class DoorEntity implements SerializingFields {
         return this;
     }
 
-    public DoorEntity setPriceOfDoorType(@NonNull int discount,
-                                         @NonNull int RetailMargin) {
+    public DoorEntity setPriceOfDoorType() {
 
         int retailPrice = (int) doorType.getRetailPrice();
         int costForChange = costList.getCostByGroup(200);
