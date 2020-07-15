@@ -51,4 +51,11 @@ public class CostList {
     public void setList(List<LineCostList> list) {
         this.list = list;
     }
+
+    public int getCostByGroup(int group){
+        return list.stream()
+                .filter(elem -> elem.getGroup() == group)
+                .mapToInt((s) -> s.getCost())
+                .sum();
+    }
 }

@@ -428,29 +428,18 @@ public class DoorEntity implements SerializingFields {
                                          @NonNull int RetailMargin) {
 
         int retailPrice = (int) doorType.getRetailPrice();
-
-        int costForChange = costList.getTotalCost();
-
-        costList.addLine("RetailPrice",
-                2,
-                false,
-                (int) retailPrice);
-
-        costList.addLine("Discount",
-                2,
-                false,
-                (int) -discount);
+        int costForChange = costList.getCostByGroup(200);
+        int discountPrice = costList.getCostByGroup(100);
+        int retailMergin = costList.getCostByGroup(500);
 
         setPrice(retailPrice + costForChange);
-
-        setDiscountPrice(retailPrice - ((int) ((retailPrice * discount) / 100)) + costForChange);
-        setPriceWithMarkup(discountPrice + ((int) ((discountPrice * RetailMargin) / 100)));
+        setDiscountPrice(costForChange + discountPrice);
+        setPriceWithMarkup(retailMergin + getDiscountPrice());
 
         return this;
     }
 
     public DoorEntity costToPrice() {
-
 
         double summMarkUp = 0;
         if (isDoorGlass == 1) {
