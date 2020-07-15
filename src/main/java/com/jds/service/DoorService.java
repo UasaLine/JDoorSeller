@@ -89,18 +89,19 @@ public class DoorService implements DoorServ {
                                                     @NonNull int discount,
                                                     @NonNull int RetailMargin) {
 
+        doorEntity.setCostList(new CostList());
+
         doorEntity = costOfChangesAtTemplate(doorEntity);
 
         doorEntity
                 .setPriceOfDoorType(discount, RetailMargin)
                 .createName();
 
+
         return addDooToOrder(doorEntity);
     }
 
     private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity) {
-
-        doorEntity.setCostList(new CostList());
 
         addCostResizing(doorEntity);
         addCostForColorChange(doorEntity);

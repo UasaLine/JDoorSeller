@@ -4,6 +4,9 @@ class PriceComponent {
         $("<div>")
             .attr("class", row)
             .attr("id", idname)
+            .attr("style",
+                ""
+                )
 
             .appendTo("#"+container);
 
@@ -18,6 +21,10 @@ class PriceComponent {
             .appendTo("#"+container);
 
         return idname;
+    }
+
+    static deleteRow() {
+        $(".lineForDelete").remove();
     }
 
 }

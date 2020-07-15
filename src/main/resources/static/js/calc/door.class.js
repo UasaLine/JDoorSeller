@@ -105,6 +105,7 @@ class Door {
     }
     return result;
   }
+
   static createContainer(i, side) {
     $("<div>")
       .attr("class", "picture_door" + side)
