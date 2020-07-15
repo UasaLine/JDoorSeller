@@ -83,10 +83,14 @@
   display: inline-block;
 }
 
-.toast{
+#costCalcForm{
   width: 1000px;
   position: absolute; top: 300px;
   width: 1000px;
   left: 50px;
   z-index: 1000;
+}
+
+.totalColorLine{
+  font-weight: 800;
 }

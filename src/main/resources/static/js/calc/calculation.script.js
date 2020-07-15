@@ -250,7 +250,7 @@ jQuery("document").ready(function () {
             $("#"+idColName).text(costOutput);
 
         }
-        idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "rowTotalCost");
+        idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete totalColorLine", "rowTotalCost");
         idColName = PriceComponent.addLineColumn(idRow, "col-9", "colNameTotalCost");
         costOutput = "TotalCost";
         $("#"+idColName).text(costOutput);
