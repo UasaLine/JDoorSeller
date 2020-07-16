@@ -6,6 +6,7 @@ let selectSizeOpen = false;
 let average_widthDoorVal = 0;
 let maxSize_widthDoorVal = 0;
 
+
 jQuery("document").ready(function () {
 
     var goTo;
@@ -232,6 +233,39 @@ jQuery("document").ready(function () {
         }
     });
 
+    $("#buttonCalculateCostShow").on("click", function () {
+        PriceComponent.deleteRow();
+        let cost = door.costList.costList;
+        if (cost.length==0) return;
+        let costOutput="";
+        let idRow="";
+        let idColName="";
+        for (let i = 0; i < cost.length; i++){
+            idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "row"+i);
+            idColName = PriceComponent.addLineColumn(idRow, "col-9", "colName"+i);
+            costOutput = cost[i].name;
+            $("#"+idColName).text(costOutput);
+            idColName = PriceComponent.addLineColumn(idRow, "col", "colCost"+i);
+            costOutput = cost[i].cost;
+            $("#"+idColName).text(costOutput);
+
+        }
+        idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete totalColorLine", "rowTotalCost");
+        idColName = PriceComponent.addLineColumn(idRow, "col-9", "colNameTotalCost");
+        costOutput = "TotalCost";
+        $("#"+idColName).text(costOutput);
+        idColName = PriceComponent.addLineColumn(idRow, "col", "colCostTotalCost");
+        costOutput = door.costList.totalCost;
+        $("#"+idColName).text(costOutput);
+
+        $('.toast').toast('show');
+    });
+
+    function calculateCostHide() {
+        $('.toast').toast('hide');
+        PriceComponent.deleteRow();
+    }
+
     $("#buttonCalculate").on("click", function () {
         if (checkThCompletedFields()) {
             var strJSON = JSON.stringify(door);
@@ -246,6 +280,7 @@ jQuery("document").ready(function () {
                     //alert('price is: ' + data.price);
                     door = data;
                     displayPrice();
+                    calculateCostHide();
                 },
                 error: function (data) {
                     alert("error:" + data);

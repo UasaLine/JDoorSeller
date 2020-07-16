@@ -87,20 +87,57 @@ public class DoorService implements DoorServ {
 
     public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
                                                     @NonNull int discount,
-                                                    @NonNull int RetailMargin) {
+                                                    @NonNull int retailMargin) {
+
+        doorEntity.setCostList(new CostList());
+
+        doorEntity = addPriceToCostList(doorEntity, discount);
 
         doorEntity = costOfChangesAtTemplate(doorEntity);
 
+        doorEntity = addRetailMarginToCostList(doorEntity, retailMargin);
+
         doorEntity
-                .setPriceOfDoorType(discount, RetailMargin)
+                .setPriceOfDoorType()
                 .createName();
+
 
         return addDooToOrder(doorEntity);
     }
 
-    private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity) {
+    private DoorEntity addRetailMarginToCostList(DoorEntity doorEntity, int retailMargin) {
 
-        doorEntity.setCostList(new CostList());
+        int discountPrice = doorEntity.getCostList().getTotalCost();
+        int priceWithMarkup = (int) ((discountPrice * retailMargin) / 100);
+
+        doorEntity.getCostList().addLine("PriceWithMarkup",
+                500,
+                false,
+                (int) priceWithMarkup);
+
+        return doorEntity;
+    }
+
+    private DoorEntity addPriceToCostList(DoorEntity doorEntity, int discount) {
+
+        int retailPrice = (int) doorEntity.getDoorType().getRetailPrice();
+
+        doorEntity.getCostList().addLine("RetailPrice",
+                100,
+                false,
+                (int) retailPrice);
+
+        int discountCost = (int) ((retailPrice * discount) / 100);
+
+        doorEntity.getCostList().addLine("Discount",
+                100,
+                false,
+                (int) -discountCost);
+
+        return doorEntity;
+    }
+
+    private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity) {
 
         addCostResizing(doorEntity);
         addCostForColorChange(doorEntity);
@@ -139,7 +176,7 @@ public class DoorService implements DoorServ {
 
                 doorEntity.getCostList().addLine(
                         LimitationDoor.getDescription(currentColorLim),
-                        1,
+                        200,
                         false,
                         currentColorLim.getCost());
             }
@@ -167,7 +204,7 @@ public class DoorService implements DoorServ {
 
                 doorEntity.getCostList().addLine(
                         LimitationDoor.getDescription(currentColorLim),
-                        1,
+                        200,
                         false,
                         currentColorLim.getCost());
             }
@@ -188,7 +225,7 @@ public class DoorService implements DoorServ {
 
                 doorEntity.getCostList().addLine(
                         LimitationDoor.getDescription(currentDesignLim),
-                        1,
+                        200,
                         false,
                         currentDesignLim.getCost());
             }
@@ -209,7 +246,7 @@ public class DoorService implements DoorServ {
 
             doorEntity.getCostList().addLine(
                     LimitationDoor.getDescription(currentColorLim),
-                    1,
+                    200,
                     false,
                     currentColorLim.getCost());
         }
@@ -264,7 +301,7 @@ public class DoorService implements DoorServ {
             return new LineCostList(lim.getTypeSettings().toString() + " " + size +
                     ", costForChange: " + costForChange +
                     ", costDiff: " + costDiff,
-                    1,
+                    200,
                     false,
                     costForChange + costDiff);
         }
