@@ -2,25 +2,19 @@ package com.jds.service;
 
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
+import com.jds.model.image.ColorPicture;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ColorService {
@@ -73,13 +67,14 @@ public class ColorService {
         return colorPath + extension;
     }
 
-    private String FileExtensionByImageType(@NonNull TypeOfImage type){
+    private String FileExtensionByImageType(@NonNull TypeOfImage type) {
         if (TypeOfImage.DOOR_COLOR == type || TypeOfImage.SHIELD_COLOR == type)
             return ".jpg";
         else if (TypeOfImage.SHIELD_DESIGN == type)
             return ".png";
         return "";
     }
+
     private String getPathDirectoryByImageType(@NonNull TypeOfImage type) {
         if (TypeOfImage.DOOR_COLOR == type)
             return "images/Door/AColor1/";
@@ -92,13 +87,13 @@ public class ColorService {
         return "";
     }
 
-    public List<String> getImageList(String type){
+    public List<ColorPicture> getImageList(String type) {
 
         String pathImageDir = getPathDirectoryByImageType(TypeOfImage.valueOf(type));
         Path rootLocation = Paths.get("");
-        File dir = new File (rootLocation+"src/main/resources/static/"+pathImageDir);
-        if(!dir.exists()){
-            System.out.println("!EROR: file is not defaund"+dir.getAbsolutePath());
+        File dir = new File(rootLocation + "src/main/resources/static/" + pathImageDir);
+        if (!dir.exists()) {
+            System.out.println("!EROR: file is not defaund" + dir.getAbsolutePath());
         }
 
 
@@ -106,18 +101,28 @@ public class ColorService {
 //                .map(file -> pathImageDir + file.getName())
 //                .collect(Collectors.toList());
 
-        List<String> list = new ArrayList<>();
-        for (File elem : dir.listFiles()){
-            if (elem.isDirectory()){
-                File dirParent = new File (rootLocation+"src/main/resources/static/"+pathImageDir+elem.getName());
-                for (File elem2:dirParent.listFiles()){
-                    list.add(pathImageDir + elem2.getName());
+        //ColorPicture colorPicture = new ColorPicture(5,"лох", "гоп");
+        List<ColorPicture> list = new ArrayList<>();
+        int i = 0;
+        for (File elem : dir.listFiles()) {
+            i++;
+            if (elem.isDirectory()) {
+                File dirParent = new File(rootLocation + "src/main/resources/static/" + pathImageDir + elem.getName());
+                for (File elem2 : dirParent.listFiles()) {
+                    i++;
+                    if (elem2.isFile()) {
+                        list.add(colorAdPicture(i, elem2.getName(), pathImageDir + elem.getName() + "/" + elem2.getName()));
+                    }
                 }
             } else if (elem.isFile()) {
-                list.add(pathImageDir + elem.getName());
+                list.add(colorAdPicture(i, elem.getName(), pathImageDir + elem.getName()));
             }
         }
 
         return list;
+    }
+
+    public ColorPicture colorAdPicture(int id, String name, String path) {
+        return new ColorPicture(id, name, path);
     }
 }
