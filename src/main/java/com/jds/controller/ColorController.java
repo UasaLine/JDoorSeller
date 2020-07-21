@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -44,6 +45,15 @@ public class ColorController {
     public ResponseAction saveColor(@RequestBody ImageEntity color) {
 
         return new ResponseAction(service.saveColor(color));
+
+    }
+
+    @GetMapping(value = "/color/image-type/{imageType}")
+    @ResponseBody
+    public List<String> getColorList(@PathVariable String imageType) {
+
+        return  service.getImageList(imageType);
+
 
     }
 

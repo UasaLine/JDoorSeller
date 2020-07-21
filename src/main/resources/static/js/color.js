@@ -7,6 +7,11 @@ jQuery("document").ready(function () {
   getTypeList();
   getJavaObject();
 
+    async function f() {
+        let result = await getImageListFromServer();
+        setValueInSelect("#picturePath", JavaObject.picturePath);
+    }
+
   $("#idManufacturerProgram").change(function () {
     setField("idManufacturerProgram", $("#idManufacturerProgram").val());
   });
@@ -17,6 +22,13 @@ jQuery("document").ready(function () {
 
   $("#typeOfImage").change(function () {
     setField("typeOfImage", $("#typeOfImage").val());
+    if ($("#typeOfImage").val() != ""){
+      getImageListFromServer();
+    }else {
+      fillInTypes("#picturePath", "");
+      showPicture("");
+    }
+
   });
 
   $("#typeOfDoorColor").change(function () {
@@ -40,9 +52,27 @@ jQuery("document").ready(function () {
   });
 
   $("#picturePath").change(function () {
+    // setField("picturePath", $("#picturePath").val());
+    //showPicture($("#picturePath").val());
+    showPicture($('#picturePath option:selected').val());
+
     setField("picturePath", $("#picturePath").val());
-    showPicture($("#picturePath").val());
   });
+
+  function getImageListFromServer(){
+    $.ajax({
+      url: location.origin + "/color/image-type/" + JavaObject.typeOfImage,
+      dataType: "json",
+      success: function (data) {
+        pathImageList = data;
+        fillInTypes("#picturePath", pathImageList);
+        return 1;
+      },
+      error: function (data) {
+        alert("!ERROR: изображений получить не удалось:");
+      },
+    });
+  }
 
   $("#pricePaintingMeterOfSpace").change(function () {
     setField(
@@ -113,6 +143,8 @@ jQuery("document").ready(function () {
     return id;
   }
 
+
+
   function fillByOject() {
     if (JavaObject != null) {
       $("#id").val(JavaObject.id);
@@ -120,13 +152,25 @@ jQuery("document").ready(function () {
       $("#name").val(JavaObject.name);
       setCheckBox("#smooth", JavaObject.smooth);
       setCheckBox("#containsDesign", JavaObject.containsDesign);
-      $("#picturePath").val(JavaObject.picturePath);
+
+     // $("#picturePath").val(JavaObject.picturePath);
+
+
       showPicture(JavaObject.picturePath);
       $("#pricePaintingMeterOfSpace").val(JavaObject.pricePaintingMeterOfSpace);
       setValueInSelect("#typeOfImage", JavaObject.typeOfImage);
+
       setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
+      if (JavaObject.typeOfImage != null){
+
+          f();
+
+          //getImageListFromServer();
+          //setValueInSelect("#picturePath", JavaObject.picturePath);
+      }
     }
   }
+
 
   function setField(fieldName, value) {
     JavaObject[fieldName] = value;

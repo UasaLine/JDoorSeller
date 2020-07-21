@@ -6,10 +6,21 @@ import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ColorService {
@@ -76,6 +87,37 @@ public class ColorService {
             return "images/shield sketch/";
         else if (TypeOfImage.SHIELD_DESIGN == type)
             return "images/shield sketch/design/";
+        else if (TypeOfImage.DOOR_DESIGN == type)
+            return "images/Door/design/";
         return "";
+    }
+
+    public List<String> getImageList(String type){
+
+        String pathImageDir = getPathDirectoryByImageType(TypeOfImage.valueOf(type));
+        Path rootLocation = Paths.get("");
+        File dir = new File (rootLocation+"src/main/resources/static/"+pathImageDir);
+        if(!dir.exists()){
+            System.out.println("!EROR: file is not defaund"+dir.getAbsolutePath());
+        }
+
+
+//        List<String> list = Arrays.stream(dir.listFiles())
+//                .map(file -> pathImageDir + file.getName())
+//                .collect(Collectors.toList());
+
+        List<String> list = new ArrayList<>();
+        for (File elem : dir.listFiles()){
+            if (elem.isDirectory()){
+                File dirParent = new File (rootLocation+"src/main/resources/static/"+pathImageDir+elem.getName());
+                for (File elem2:dirParent.listFiles()){
+                    list.add(pathImageDir + elem2.getName());
+                }
+            } else if (elem.isFile()) {
+                list.add(pathImageDir + elem.getName());
+            }
+        }
+
+        return list;
     }
 }
