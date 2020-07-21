@@ -96,12 +96,6 @@ public class ColorService {
             System.out.println("!EROR: file is not defaund" + dir.getAbsolutePath());
         }
 
-
-//        List<String> list = Arrays.stream(dir.listFiles())
-//                .map(file -> pathImageDir + file.getName())
-//                .collect(Collectors.toList());
-
-        //ColorPicture colorPicture = new ColorPicture(5,"лох", "гоп");
         List<ColorPicture> list = new ArrayList<>();
         int i = 0;
         for (File elem : dir.listFiles()) {
@@ -118,7 +112,6 @@ public class ColorService {
                 list.add(colorAdPicture(i, elem.getName(), pathImageDir + elem.getName()));
             }
         }
-
         return list;
     }
 
