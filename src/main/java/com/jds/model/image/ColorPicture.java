@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 public class ColorPicture {
     private int id;
     private String name;
