@@ -54,7 +54,6 @@ public class ColorController {
 
         return  service.getImageList(imageType);
 
-
     }
 
     @DeleteMapping(value = "/color/{id}")
