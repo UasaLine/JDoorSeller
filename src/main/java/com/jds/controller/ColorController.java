@@ -1,6 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
+import com.jds.model.image.ColorPicture;
 import com.jds.model.ResponseAction;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
@@ -44,6 +45,14 @@ public class ColorController {
     public ResponseAction saveColor(@RequestBody ImageEntity color) {
 
         return new ResponseAction(service.saveColor(color));
+
+    }
+
+    @GetMapping(value = "/color/image-type/{imageType}")
+    @ResponseBody
+    public List<ColorPicture> getColorList(@PathVariable String imageType) {
+
+        return  service.getImageList(imageType);
 
     }
 
