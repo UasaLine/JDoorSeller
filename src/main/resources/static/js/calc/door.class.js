@@ -228,13 +228,20 @@ class Door {
         return "#Leaf" + side + config.i;
     }
 
+    static reflectionPicture(){
+        if (door.sideDoorOpen == "LEFT"){
+            return 1;
+        } else return -1;
+    }
+
     static createReliefDesign(containerLeaf, config, path, side) {
+        let scaleX = Door.reflectionPicture();
         $("<img>")
             .attr("class", "opening_side_images")
             .attr("src", path)
             .attr(
                 "style",
-                "width:" + config.width + "px; height:" + config.height + "px;"
+                "width:" + config.width + "px; height:" + config.height + "px; transform: scale("+ scaleX +", 1)"
             )
             .appendTo(containerLeaf);
     }
