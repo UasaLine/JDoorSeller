@@ -98,7 +98,7 @@ public class DoorService implements DoorServ {
         doorEntity = addRetailMarginToCostList(doorEntity, retailMargin);
 
         doorEntity
-                .setPriceOfDoorType()
+                .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
 
 

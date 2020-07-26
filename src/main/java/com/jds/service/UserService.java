@@ -57,6 +57,7 @@ public class UserService implements UserDetailsService, UserServ {
                     .accountNonLocked(true)
                     .credentialsNonExpired(true)
                     .enabled(true)
+                    .priceGroup(PriceGroups.RETAIL_PRICE)
                     .build();
         }
 
