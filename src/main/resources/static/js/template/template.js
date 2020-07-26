@@ -1,4 +1,3 @@
-
 let doorClassList;
 let template;
 let restriction;
@@ -9,9 +8,9 @@ jQuery("document").ready(function () {
     grtListDoorClassToSelect();
 
     //new Template instans
-    function getDoorTemplate() {
+    function getDoorTemplate(id) {
         $.ajax({
-            url: "item/" + getIdFromUrl(),
+            url: "item/" + id,
             dataType: "json",
             success: function (data) {
                 template = data.template;
@@ -117,11 +116,13 @@ jQuery("document").ready(function () {
     }
 
     $("#doorclassselect").change(function () {
-        fillInDoorType(getDoorClassbyId($("#doorclassselect").val()));
+        let ClassId = getDoorClassbyId($("#doorclassselect").val());
+        fillOptionsInSelector(ClassId, "#doortypeselect");
+        fillOptionsInSelector(ClassId, "#fillFromTemplate");
     });
 
     $("#doortypeselect").change(function () {
-        getDoorTemplate();
+        getDoorTemplate(getIdFromUrl());
     });
 
     $("#metalDiv").change(".metalSelect", function () {
@@ -255,8 +256,8 @@ jQuery("document").ready(function () {
     });
 
     $("#DesignDiv").change(".designSelect", function () {
-            saveInJavaObjectColorAndFurnitur("design");
-            fillInColor("design", restriction.design);
+        saveInJavaObjectColorAndFurnitur("design");
+        fillInColor("design", restriction.design);
     });
 
     $("#shieldColorDiv").change(".shieldColorSelect", function () {
@@ -642,8 +643,9 @@ jQuery("document").ready(function () {
     });
 
     $("#saveTemplate").on("click", function () {
-        if (template.doorTypeid == 0) {
-            template.doorTypeid = $("#doortypeselect").val();
+        let typeId = $("#doortypeselect").val();
+        if (template.doorTypeid == 0 || template.doorTypeid != typeId) {
+            template.doorTypeid = typeId;
         }
         var templateJSON = JSON.stringify(template);
 
@@ -663,6 +665,10 @@ jQuery("document").ready(function () {
 
     $("#close").on("click", function () {
         toList();
+    });
+
+    $("#fillFromTemplate").change(function () {
+        fillFromTemplate();
     });
 
     $("#widthDoorCheckbox").on("click", function () {
@@ -725,13 +731,13 @@ jQuery("document").ready(function () {
         }
     }
 
-    function fillInDoorType(doorClass) {
-        $("#doortypeselect").empty();
+    function fillOptionsInSelector(doorClass, selector) {
+        $(selector).empty();
 
-        $("#doortypeselect").append($("<option></option>"));
+        $(selector).append($("<option></option>"));
 
         for (var i = 0; i < doorClass.doorTypes.length; ++i) {
-            $("#doortypeselect").append(
+            $(selector).append(
                 $(
                     "<option value=" +
                     doorClass.doorTypes[i].id +
@@ -1363,26 +1369,26 @@ jQuery("document").ready(function () {
 
         var pairOfValues = !$("#widthDoorCheckbox").is(':checked');
         if (!pairOfValues) {
-        var selector = "." + nameFieldJavaObject + "Input";
-        var elem = $(selector);
-        for (var i = 0; i < elem.length; ++i) {
-            if ($(elem[i]).val()) {
-                var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
-                template[nameFieldJavaObject].push(
-                    newInstansLim($(elem[i]).val(), 0, 0, 0, defaultVal)
-                );
+            var selector = "." + nameFieldJavaObject + "Input";
+            var elem = $(selector);
+            for (var i = 0; i < elem.length; ++i) {
+                if ($(elem[i]).val()) {
+                    var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                    template[nameFieldJavaObject].push(
+                        newInstansLim($(elem[i]).val(), 0, 0, 0, defaultVal)
+                    );
+                }
             }
-        }
         }
         //for pairOfValues = 1
 
         if (
             pairOfValues && (
-            $("#" + nameFieldJavaObject + "Min").val() ||
-            $("#" + nameFieldJavaObject + "Max").val() ||
-            $("#" + nameFieldJavaObject + "Step").val() ||
-            $("#" + nameFieldJavaObject + "Default").val()
-        )
+                $("#" + nameFieldJavaObject + "Min").val() ||
+                $("#" + nameFieldJavaObject + "Max").val() ||
+                $("#" + nameFieldJavaObject + "Step").val() ||
+                $("#" + nameFieldJavaObject + "Default").val()
+            )
         ) {
             template[nameFieldJavaObject].push(
                 newInstansLim(
@@ -1425,7 +1431,7 @@ jQuery("document").ready(function () {
         }
     }
 
-    function findInRestrByItemId(val, nameFieldJavaObject, defaultVal, costVal=0) {
+    function findInRestrByItemId(val, nameFieldJavaObject, defaultVal, costVal = 0) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].itemId == val) {
@@ -1550,14 +1556,16 @@ jQuery("document").ready(function () {
         if (classId != "0") {
             setValueInSelectInt("#doorclassselect", classId);
 
-            fillInDoorType(getDoorClassbyId($("#doorclassselect").val()));
+            let ClassId = getDoorClassbyId($("#doorclassselect").val());
+            fillOptionsInSelector(ClassId, "#doortypeselect");
+            fillOptionsInSelector(ClassId, "#fillFromTemplate");
 
             var typeId = $("#typeId").text();
             if (typeId != "0") {
                 setValueInSelectInt("#doortypeselect", typeId);
             }
 
-            getDoorTemplate();
+            getDoorTemplate(typeId);
         }
     }
 
@@ -1592,5 +1600,10 @@ jQuery("document").ready(function () {
                 $("#" + nameObject + "LineDiv" + data).empty();
             }
         }
+    }
+
+    function fillFromTemplate() {
+        let copyTypeId = $("#fillFromTemplate").val();
+        getDoorTemplate(copyTypeId);
     }
 });
