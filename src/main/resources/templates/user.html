@@ -4,7 +4,8 @@
 <head>
     <title>door seller</title>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="js/doorUserScript.js"></script>
+	<script type="text/javascript" src="../js/user/user.js"></script>
+	<script type="text/javascript" src="../js/shared/page-selector-class.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/logoSett.css" />
 	<link rel="stylesheet" type="text/css" href="css/displayCss.css" />
 	<!-- Подключаем Bootstrap CSS -->
@@ -62,8 +63,6 @@
 					</div>
 				</div>
 
-
-
 				<div class="col-md-6 mb-3">
 					<label for="username">имя:</label>
 					<input type="text" class="form-control" name="username" id="username" placeholder="имя" th:value="${user.username}" >
@@ -83,7 +82,8 @@
 <!--				PriceGroups-->
 				<div class="col-md-6 mb-3">
 					<label for="PriceGroups">Ценавая группа:</label>
-					<select class="form-control" id="PriceGroups">
+					<input class="ghost" type="text" id="priceGroupsFromJObject" th:value="${user.priceGroup}" show="ghost_lement">
+					<select class="form-control" id="PriceGroups" name="priceGroups">
 					</select>
 					<p class="textComit">назначает пользователю группу цен, для базовой цены расчета двери из настроек моделей</p>
 				</div>
