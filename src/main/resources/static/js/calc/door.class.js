@@ -442,9 +442,12 @@ class Door {
 
     static createShieldColor(containerLeaf, door) {
         if (door.shieldKit != null && door.shieldKit.shieldColor != null) {
+            let scaleX = Door.reflectionPicture();
             $("<img>")
                 .attr("class", "shield_color")
                 .attr("src", door.shieldKit.shieldColor.picturePath)
+                .attr("style",
+                    "px; transform: scale("+ scaleX +", 1)")
                 .appendTo(containerLeaf);
         }
     }
