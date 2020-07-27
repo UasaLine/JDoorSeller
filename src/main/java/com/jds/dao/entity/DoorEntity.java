@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
+import com.jds.model.modelEnum.PriceGroups;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 import lombok.Getter;
@@ -424,18 +425,34 @@ public class DoorEntity implements SerializingFields {
         return this;
     }
 
-    public DoorEntity setPriceOfDoorType() {
+    public DoorEntity setPriceOfDoorType(UserEntity user) {
 
-        int retailPrice = (int) doorType.getRetailPrice();
+        int basePrice = getBasePrice(user);
         int costForChange = costList.getCostByGroup(200);
         int discountPrice = costList.getCostByGroup(100);
         int retailMergin = costList.getCostByGroup(500);
 
-        setPrice(retailPrice + costForChange);
+        setPrice(basePrice + costForChange);
         setDiscountPrice(costForChange + discountPrice);
         setPriceWithMarkup(retailMergin + getDiscountPrice());
 
         return this;
+    }
+
+    int getBasePrice(UserEntity user) {
+
+        PriceGroups priceGroup = user.getPriceGroup();
+        if (priceGroup == PriceGroups.RETAIL_PRICE) {
+            return (int)
+                    doorType.getRetailPrice();
+        } else if (priceGroup == PriceGroups.WHOLESALE_PRICE) {
+            return (int) doorType.getWholesalePriceFromStock1();
+        } else if (priceGroup == PriceGroups.PRICE_OVER_1_MILLION_PER_MONTH) {
+            return (int) doorType.getWholesalePriceFromStock2();
+        } else if (priceGroup == PriceGroups.WHOLESALE_PRICE_ON_PREPAYMENT) {
+            return (int) doorType.wholesalePriceFromOrder;
+        }
+        return 0;
     }
 
     public DoorEntity costToPrice() {

@@ -3,6 +3,8 @@ package com.jds.service;
 import com.jds.dao.repository.MainDAO;
 import com.jds.dao.entity.*;
 import com.jds.model.*;
+import com.jds.model.image.TypeOfDoorColor;
+import com.jds.model.modelEnum.PriceGroups;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.NotBoundException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -260,4 +263,7 @@ public class MaineService {
     }
 
 
+    public EnumSet<PriceGroups> getAllPriceGroup() {
+        return EnumSet.allOf(PriceGroups.class);
+    }
 }
