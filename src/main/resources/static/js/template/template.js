@@ -841,7 +841,7 @@ jQuery("document").ready(function () {
             }
 
             elem = getNotCompletedFields(selector);
-            fillInFieldFromColor("#" + $(elem).attr("id"), table);
+            fillInFieldFromDesign("#" + $(elem).attr("id"), table);
             setValueInSelectInt("#" + $(elem).attr("id"), table[i].itemId);
             setSwitchDefaultVal(elem, javaName, table[i].defaultValue);
             setCostVal(elem, javaName, table[i].cost);
@@ -958,7 +958,7 @@ jQuery("document").ready(function () {
 
         for (var i = 0; i < elems.length; ++i) {
             if (!$(elems[i]).val()) {
-                fillInFieldFromColor("#" + $(elems[i]).attr("id"), tabl);
+                fillInFieldFromDesign("#" + $(elems[i]).attr("id"), tabl);
             }
         }
     }
@@ -1085,26 +1085,6 @@ jQuery("document").ready(function () {
                     )
                 );
             }
-        }
-    }
-
-    function fillInFieldFromColor(selector, table) {
-        $(selector).empty();
-
-        $(selector).append($("<option ></option>"));
-
-        $(selector).append($("<option value=all>select all</option>"));
-
-        for (var i = 0; i < table.length; ++i) {
-            $(selector).append(
-                $(
-                    "<option value=" +
-                    table[i].itemId +
-                    ">" +
-                    table[i].firstItem +
-                    "</option>"
-                )
-            );
         }
     }
 
