@@ -8,6 +8,7 @@ import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
+import com.jds.model.modelEnum.PriceGroups;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -56,6 +57,7 @@ public class UserService implements UserDetailsService, UserServ {
                     .accountNonLocked(true)
                     .credentialsNonExpired(true)
                     .enabled(true)
+                    .priceGroup(PriceGroups.RETAIL_PRICE)
                     .build();
         }
 
@@ -108,7 +110,12 @@ public class UserService implements UserDetailsService, UserServ {
         );
     }
 
-    public void saveUser(@NonNull String userId, @NonNull String username, @NonNull String password, int discount, boolean enabledСheckbox) {
+    public void saveUser(@NonNull String userId,
+                         @NonNull String username,
+                         @NonNull String password,
+                         int discount,
+                         boolean enabledСheckbox,
+                         PriceGroups priceGroups) {
 
         if (username == "" || password == "") {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
@@ -129,6 +136,7 @@ public class UserService implements UserDetailsService, UserServ {
                 .credentialsNonExpired(true)
                 .discount(discount)
                 .enabled(enabledСheckbox)
+                .priceGroup(priceGroups)
                 .build());
     }
 

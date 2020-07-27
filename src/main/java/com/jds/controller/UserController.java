@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.UserEntity;
 
+import com.jds.model.modelEnum.PriceGroups;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,9 +47,10 @@ public class UserController {
                            @RequestParam(required = false) String userId,
                            @RequestParam(required = false) String password,
                            @RequestParam(required = false) int discount,
-                           @RequestParam(required = false) boolean enabledСheckbox) throws Exception {
+                           @RequestParam(required = false) boolean enabledСheckbox,
+                           @RequestParam(required = false) PriceGroups priceGroups) throws Exception {
 
-        service.saveUser(userId,username,password,discount,enabledСheckbox);
+        service.saveUser(userId,username,password,discount,enabledСheckbox,priceGroups);
 
         List<UserEntity> list = service.getUsers();
         model.addAttribute("users", list);

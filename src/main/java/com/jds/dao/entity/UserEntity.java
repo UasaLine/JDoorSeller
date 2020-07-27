@@ -2,6 +2,7 @@ package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.Role;
+import com.jds.model.modelEnum.PriceGroups;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,6 +31,10 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "discount")
     private int discount;
+
+    @Column(name = "price_group")
+    @Enumerated(EnumType.STRING)
+    private PriceGroups priceGroup;
 
     @JsonIgnore
     @Transient
