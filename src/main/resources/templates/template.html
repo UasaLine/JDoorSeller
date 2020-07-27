@@ -32,22 +32,43 @@
                     <button type="button" class="btn btn-primary" id="saveTemplate">сохранить</button>
                     <button type="button" class="btn btn-primary" id="close">закрыть</button>
                 </div>
-                <div class="col-md-1 mb-3">
+            </div>
+
+            <span class="ghost" id="typeId" th:utext="${typeId}"></span>
+            <span class="ghost" id="classId" th:utext="${classId}"></span>
+
+<!--            класс двери:-->
+            <div class="row">
+                <div class="col-2">
                     <label  for="doorclassselect">класс двери:</label>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-4">
                     <select class="form-control" id="doorclassselect"></select>
                 </div>
+            </div>
 
-                <span class="ghost" id="typeId" th:utext="${typeId}"></span>
-                <span class="ghost" id="classId" th:utext="${classId}"></span>
-                <div class="col-md-1 mb-3">
+<!--            вид двери:-->
+            <div class="row">
+                <div class="col-2">
                     <label  for="doortypeselect">вид двери:</label>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-4">
                     <select class="form-control" id="doortypeselect"></select>
                 </div>
             </div>
+
+<!--            заполнить по шаблону-->
+            <div class="row">
+                <div class="col-2">
+                    <label  for="fillFromTemplate">заполнить по шаблону:</label>
+                </div>
+                <div class="col-4">
+                    <select class="form-control" id="fillFromTemplate"></select>
+                </div>
+            </div>
+            <br>
+
+
             <h4 class="chapter">металл</h4>
             <br>
 
