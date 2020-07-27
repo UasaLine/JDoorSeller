@@ -117,8 +117,10 @@ public class UserService implements UserDetailsService, UserServ {
                          boolean enabledСheckbox,
                          PriceGroups priceGroups) {
 
-        if (username == "" || password == "") {
+        if (userId == "0" && (username == "" || password == "")) {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
+        } else if (userId != "0" && password == ""){
+            password = dAO.getUser(Integer.parseInt(userId)).getPassword();
         }
 
         List<Role> roleList = new ArrayList<>();
