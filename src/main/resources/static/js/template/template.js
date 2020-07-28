@@ -121,6 +121,10 @@ jQuery("document").ready(function () {
         fillOptionsInSelector(ClassId, "#fillFromTemplate");
     });
 
+    $("#costOfChangeWidth").change(function () {
+        $('#costOfChangeHeight').val($('#costOfChangeWidth').val());
+    });
+
     $("#doortypeselect").change(function () {
         getDoorTemplate(getIdFromUrl());
     });
