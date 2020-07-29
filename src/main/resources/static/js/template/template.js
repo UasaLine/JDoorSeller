@@ -261,7 +261,7 @@ jQuery("document").ready(function () {
 
     $("#DesignDiv").change(".designSelect", function () {
         saveInJavaObjectColorAndFurnitur("design");
-        fillInColor("design", restriction.design);
+        fillInDesign("design", restriction.design);
     });
 
     $("#shieldColorDiv").change(".shieldColorSelect", function () {
@@ -968,7 +968,7 @@ jQuery("document").ready(function () {
 
         for (var i = 0; i < elems.length; ++i) {
             if (!$(elems[i]).val()) {
-                fillInFieldFromDesign("#" + $(elems[i]).attr("id"), tabl);
+                fillInFieldFromColor("#" + $(elems[i]).attr("id"), tabl);
             }
         }
     }
@@ -1095,6 +1095,26 @@ jQuery("document").ready(function () {
                     )
                 );
             }
+        }
+    }
+
+    function fillInFieldFromColor(selector, table) {
+        $(selector).empty();
+
+        $(selector).append($("<option ></option>"));
+
+        $(selector).append($("<option value=all>select all</option>"));
+
+        for (var i = 0; i < table.length; ++i) {
+            $(selector).append(
+                $(
+                    "<option value=" +
+                    table[i].itemId +
+                    ">" +
+                    table[i].firstItem +
+                    "</option>"
+                )
+            );
         }
     }
 
