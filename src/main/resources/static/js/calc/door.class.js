@@ -454,9 +454,12 @@ class Door {
 
     static createShieldDesign(containerLeaf, door) {
         if (door.shieldKit != null && door.shieldKit.shieldDesign != null) {
+            let scaleX = Door.reflectionPicture();
             $("<img>")
                 .attr("class", "shield_design")
                 .attr("src", door.shieldKit.shieldDesign.picturePath)
+                .attr("style",
+                    "px; transform: scale("+ scaleX +", 1)")
                 .appendTo(containerLeaf);
         }
     }

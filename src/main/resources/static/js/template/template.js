@@ -121,6 +121,10 @@ jQuery("document").ready(function () {
         fillOptionsInSelector(ClassId, "#fillFromTemplate");
     });
 
+    $("#costOfChangeWidth").change(function () {
+        $('#costOfChangeHeight').val($('#costOfChangeWidth').val());
+    });
+
     $("#doortypeselect").change(function () {
         getDoorTemplate(getIdFromUrl());
     });
@@ -196,7 +200,7 @@ jQuery("document").ready(function () {
     });
 
     $("#deepnessDoorDiv").change(".deepnessDoorInput", function () {
-        saveInJavaObjectSize("deepnessDoor");
+        saveInJavaObjectListValues("deepnessDoor");
         if (allFieldsAreFilled(".deepnessDoorInput")) {
             //addInputField('deepnessDoorInput', 'deepnessDoorDiv');
             addField("deepnessDoor", "input", "Input");
@@ -206,13 +210,13 @@ jQuery("document").ready(function () {
         if ($(this).is(":checked")) {
             switchOffAll("deepnessDoor");
             $(this).prop("checked", true);
-            saveInJavaObjectSize("deepnessDoor");
+            saveInJavaObjectListValues("deepnessDoor");
         } else {
-            saveInJavaObjectSize("deepnessDoor");
+            saveInJavaObjectListValues("deepnessDoor");
         }
     });
     $("#thicknessDoorLeafDiv").change(".thicknessDoorLeafInput", function () {
-        saveInJavaObjectSize("thicknessDoorLeaf");
+        saveInJavaObjectListValues("thicknessDoorLeaf");
         if (allFieldsAreFilled(".thicknessDoorLeafInput")) {
             //addInputField('thicknessDoorLeafInput', 'thicknessDoorLeafDiv');
             addField("thicknessDoorLeaf", "input", "Input");
@@ -225,9 +229,9 @@ jQuery("document").ready(function () {
             if ($(this).is(":checked")) {
                 switchOffAll("thicknessDoorLeaf");
                 $(this).prop("checked", true);
-                saveInJavaObjectSize("thicknessDoorLeaf");
+                saveInJavaObjectListValues("thicknessDoorLeaf");
             } else {
-                saveInJavaObjectSize("thicknessDoorLeaf");
+                saveInJavaObjectListValues("thicknessDoorLeaf");
             }
         }
     );
@@ -257,7 +261,7 @@ jQuery("document").ready(function () {
 
     $("#DesignDiv").change(".designSelect", function () {
         saveInJavaObjectColorAndFurnitur("design");
-        fillInColor("design", restriction.design);
+        fillInDesign("design", restriction.design);
     });
 
     $("#shieldColorDiv").change(".shieldColorSelect", function () {
@@ -964,7 +968,7 @@ jQuery("document").ready(function () {
 
         for (var i = 0; i < elems.length; ++i) {
             if (!$(elems[i]).val()) {
-                fillInFieldFromDesign("#" + $(elems[i]).attr("id"), tabl);
+                fillInFieldFromColor("#" + $(elems[i]).attr("id"), tabl);
             }
         }
     }
@@ -1091,6 +1095,26 @@ jQuery("document").ready(function () {
                     )
                 );
             }
+        }
+    }
+
+    function fillInFieldFromColor(selector, table) {
+        $(selector).empty();
+
+        $(selector).append($("<option ></option>"));
+
+        $(selector).append($("<option value=all>select all</option>"));
+
+        for (var i = 0; i < table.length; ++i) {
+            $(selector).append(
+                $(
+                    "<option value=" +
+                    table[i].itemId +
+                    ">" +
+                    table[i].firstItem +
+                    "</option>"
+                )
+            );
         }
     }
 
@@ -1341,27 +1365,14 @@ jQuery("document").ready(function () {
 
 
     function saveInJavaObjectSize(nameFieldJavaObject) {
-        //delete all
-        var size = template[nameFieldJavaObject].length;
-        template[nameFieldJavaObject].splice(0, size);
 
         //for pairOfValues = 0
-
         var pairOfValues = !$("#widthDoorCheckbox").is(':checked');
         if (!pairOfValues) {
-            var selector = "." + nameFieldJavaObject + "Input";
-            var elem = $(selector);
-            for (var i = 0; i < elem.length; ++i) {
-                if ($(elem[i]).val()) {
-                    var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
-                    template[nameFieldJavaObject].push(
-                        newInstansLim($(elem[i]).val(), 0, 0, 0, defaultVal)
-                    );
-                }
-            }
+            saveInJavaObjectListValues(nameFieldJavaObject);
         }
-        //for pairOfValues = 1
 
+        //for pairOfValues = 1
         if (
             pairOfValues && (
                 $("#" + nameFieldJavaObject + "Min").val() ||
@@ -1370,6 +1381,7 @@ jQuery("document").ready(function () {
                 $("#" + nameFieldJavaObject + "Default").val()
             )
         ) {
+            clearFromTemplate(nameFieldJavaObject);
             template[nameFieldJavaObject].push(
                 newInstansLim(
                     $("#" + nameFieldJavaObject + "Min").val(),
@@ -1379,6 +1391,25 @@ jQuery("document").ready(function () {
                     $("#" + nameFieldJavaObject + "Default").val()
                 )
             );
+        }
+    }
+
+    function clearFromTemplate(nameFieldJavaObject) {
+        var size = template[nameFieldJavaObject].length;
+        template[nameFieldJavaObject].splice(0, size);
+    }
+
+    function saveInJavaObjectListValues(nameFieldJavaObject) {
+        clearFromTemplate(nameFieldJavaObject);
+        var selector = "." + nameFieldJavaObject + "Input";
+        var elem = $(selector);
+        for (var i = 0; i < elem.length; ++i) {
+            if ($(elem[i]).val()) {
+                var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                template[nameFieldJavaObject].push(
+                    newInstansLim($(elem[i]).val(), 0, 0, 0, defaultVal)
+                );
+            }
         }
     }
 

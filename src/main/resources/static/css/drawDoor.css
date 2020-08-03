@@ -48,11 +48,11 @@ handle
   right: 35%;
 }
 .left_side_handle {
-  top: 50%;
+  top: 48%;
   left: 12%;
 }
 .rigth_side_handle {
-  top: 50%;
+  top: 48%;
   right: 12%;
 }
 
@@ -165,13 +165,13 @@ stainlessSteelDoorstep
 .night_lock_images_R{
   position: absolute;
   left: 13%;
-  top: 45%;
+  top: 43%;
   z-index: 200;
 }
 .night_lock_images_L{
   position: absolute;
   right: 13%;
-  top: 45%;
+  top: 43%;
   z-index: 200;
 }
 
@@ -184,11 +184,11 @@ stainlessSteelDoorstep
   right: 12%;
 }
 .top_lock_decor{
-  top: 38%;
+  top: 36%;
   z-index: 200;
 }
 .lower_lock_decor{
-  top: 57%;
+  top: 55%;
   z-index: 200;
 }
 
