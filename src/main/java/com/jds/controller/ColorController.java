@@ -20,7 +20,8 @@ public class ColorController {
     private ColorService service;
 
     @GetMapping(value = "/color")
-    public String getMetalListPage(Model model) throws Exception {
+    public String getMetalListPage(Model model,
+                                   @RequestParam(required = false, defaultValue = "") String typeOfImage) throws Exception {
 
         List<ImageEntity> list = service.getColors();
         model.addAttribute("List", list);
@@ -28,7 +29,10 @@ public class ColorController {
     }
 
     @GetMapping(value = "/color/{id}")
-    public String getMetalPage(@PathVariable String id) throws Exception {
+    public String getMetalPage(@PathVariable String id,
+                               @RequestParam(required = false, defaultValue = "") String typeOfImage,
+                               Model model) throws Exception {
+        model.addAttribute("typeOfImage", typeOfImage);
         return "color";
     }
 
@@ -52,7 +56,7 @@ public class ColorController {
     @ResponseBody
     public List<ColorPicture> getColorList(@PathVariable String imageType) {
 
-        return  service.getImageList(imageType);
+        return service.getImageList(imageType);
 
     }
 
