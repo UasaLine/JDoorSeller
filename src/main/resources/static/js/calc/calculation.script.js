@@ -448,7 +448,12 @@ jQuery("document").ready(function () {
 
     function pickOut(item) {
         var attr = $(item).attr("class");
-        let attrFirst = attr.substring(0, attr.indexOf(' '));
+        let attrFirst;
+        if (attr.indexOf(' ') > 0){
+            attrFirst = attr.substring(0, attr.indexOf(' '));
+        }else {
+            attrFirst = attr;
+        }
 
         var elems = $("." + attrFirst);
         var elemsTotal = elems.length;
