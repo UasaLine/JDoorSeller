@@ -448,8 +448,9 @@ jQuery("document").ready(function () {
 
     function pickOut(item) {
         var attr = $(item).attr("class");
+        let attrFirst = attr.substring(0, attr.indexOf(' '));
 
-        var elems = $("." + attr);
+        var elems = $("." + attrFirst);
         var elemsTotal = elems.length;
         for (var i = 0; i < elemsTotal; ++i) {
             $(elems[i]).attr("check", "no");
