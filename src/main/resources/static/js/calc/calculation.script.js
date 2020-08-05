@@ -446,14 +446,17 @@ jQuery("document").ready(function () {
         return null;
     }
 
+    function getFirstAttr(attr) {
+        if (attr.indexOf(' ') > 0){
+            return attr.substring(0, attr.indexOf(' '));
+        }else {
+            return attr;
+        }
+    }
+
     function pickOut(item) {
         var attr = $(item).attr("class");
-        let attrFirst;
-        if (attr.indexOf(' ') > 0){
-            attrFirst = attr.substring(0, attr.indexOf(' '));
-        }else {
-            attrFirst = attr;
-        }
+        let attrFirst = getFirstAttr(attr);
 
         var elems = $("." + attrFirst);
         var elemsTotal = elems.length;
