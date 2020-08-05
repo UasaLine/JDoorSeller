@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.rmi.NotBoundException;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -39,10 +36,13 @@ public class MaineService {
     public List<DoorClass> getDoorClass() {
 
         List<DoorClass> doorClassList = dAO.getDoorClass();
+        for(int i =0; i<doorClassList.size(); i++){
+            doorClassList.get(i).setDoorTypes(doorClassList.get(i).sortDoorTypesList(doorClassList.get(i).getDoorTypes()));
+        }
 
         return doorClassList.stream()
-                .peek((dClass) -> dClass.getDoorTypes().stream().
-                        forEach((type) -> type.clearNonSerializingFields()))
+                .peek((dClass) -> dClass.getDoorTypes().stream()
+                        .forEach((type) -> type.clearNonSerializingFields()))
                 .collect(Collectors.toList());
     }
 
