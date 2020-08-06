@@ -36,14 +36,12 @@ public class DoorClass {
 
     public List<DoorType> sortDoorTypesList(List<DoorType> doorTypes){
 
-        Set<DoorType> sortedSet = new TreeSet<DoorType>(new Comparator<DoorType>() {
+        Collections.sort(doorTypes, new Comparator<DoorType>() {
             public int compare(DoorType o1, DoorType o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
-        sortedSet.addAll(doorTypes);
-
-        return  sortedSet.stream().collect(Collectors.toList());
+        return  doorTypes;
     }
 
     public DoorClass clearNonSerializingFields(){
