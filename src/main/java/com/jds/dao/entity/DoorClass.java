@@ -2,7 +2,8 @@ package com.jds.dao.entity;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -32,6 +33,16 @@ public class DoorClass {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doorClass")
     private List<DoorType> doorTypes;
+
+    public List<DoorType> sortDoorTypesList(List<DoorType> doorTypes){
+
+        Collections.sort(doorTypes, new Comparator<DoorType>() {
+            public int compare(DoorType o1, DoorType o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        return  doorTypes;
+    }
 
     public DoorClass clearNonSerializingFields(){
 

@@ -29,6 +29,7 @@ public class ColorController {
 
     @GetMapping(value = "/color/{id}")
     public String getMetalPage(@PathVariable String id) throws Exception {
+
         return "color";
     }
 
@@ -52,7 +53,7 @@ public class ColorController {
     @ResponseBody
     public List<ColorPicture> getColorList(@PathVariable String imageType) {
 
-        return  service.getImageList(imageType);
+        return service.getImageList(imageType);
 
     }
 
