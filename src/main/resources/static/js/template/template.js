@@ -247,34 +247,8 @@ jQuery("document").ready(function () {
                 addField("colors", "select", "Select");
             }
             fillInColor("colors", restriction.colors);
-
-
-
-
         }
     });
-
-    $("#colorsDiv").on("click", ".colorsSelect", function () {
-        let javaName = "colors"
-        let selector = "#" + $(this).attr("id");
-        let sec = $(selector).val();
-
-        if (sec) {
-        fillInFieldFromColor(javaName, selector, restriction.colors);
-        setValueInSelectInt(selector, sec);
-        }
-
-
-        // let elems = $("." + "colors" + "Select");
-        // for (var i = 0; i < elems.length; ++i) {
-        //     if ($(elems[i]).val()) {
-        //         fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"), tabl);
-        //     }
-        // }
-
-
-    });
-
 
     $("#colorsDiv").on("click", ".colorsLineCheckbox", function () {
         if ($(this).is(":checked")) {
@@ -996,6 +970,14 @@ jQuery("document").ready(function () {
         for (var i = 0; i < elems.length; i++) {
             if (!$(elems[i]).val()) {
                 fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"), tabl);
+            }else {
+                let gh = $(elems[i]).val();
+                fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"),tabl);
+                for(a = 0; a < tabl.length; a++) {
+                    if (tabl[a].itemId == gh) {
+                        setValueInSelectInt("#" + $(elems[i]).attr("id"), gh);
+                    }
+                }
             }
         }
     }
