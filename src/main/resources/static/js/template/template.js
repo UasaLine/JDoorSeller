@@ -852,7 +852,7 @@ jQuery("document").ready(function () {
             }
 
             elem = getNotCompletedFields(selector);
-            fillInFieldFromColor(javaName,"#" + $(elem).attr("id"), restriction.colors);
+            fillInFieldFromColor(javaName, "#" + $(elem).attr("id"), restriction.colors);
             setValueInSelectInt("#" + $(elem).attr("id"), table[i].itemId);
             setSwitchDefaultVal(elem, javaName, table[i].defaultValue);
             setCostVal(elem, javaName, table[i].cost);
@@ -970,14 +970,10 @@ jQuery("document").ready(function () {
         for (var i = 0; i < elems.length; i++) {
             if (!$(elems[i]).val()) {
                 fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"), tabl);
-            }else {
-                let gh = $(elems[i]).val();
-                fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"),tabl);
-                for(a = 0; a < tabl.length; a++) {
-                    if (tabl[a].itemId == gh) {
-                        setValueInSelectInt("#" + $(elems[i]).attr("id"), gh);
-                    }
-                }
+            } else {
+                let valueElem = $(elems[i]).val();
+                fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"), tabl);
+                setValueInSelectInt("#" + $(elems[i]).attr("id"), valueElem);
             }
         }
     }
@@ -1112,7 +1108,7 @@ jQuery("document").ready(function () {
         var elems = $("." + javaName + "Select");
         let doubleHave = true;
         for (var i = 0; i < elems.length; i++) {
-            if ($(elems[i]).val() == valueTable.itemId){
+            if ($(elems[i]).val() == valueTable.itemId) {
                 doubleHave = false;
             }
         }
@@ -1132,18 +1128,18 @@ jQuery("document").ready(function () {
 
             if (searchDoubleValue(javaName, table[i])) {
 
-            $(selector).append(
-                $(
-                    "<option value=" +
-                    table[i].itemId +
-                    ">" +
-                    table[i].firstItem +
-                    "</option>"
-                )
-            );
+                $(selector).append(
+                    $(
+                        "<option value=" +
+                        table[i].itemId +
+                        ">" +
+                        table[i].firstItem +
+                        "</option>"
+                    )
+                );
 
 
-           }
+            }
         }
     }
 
