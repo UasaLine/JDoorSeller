@@ -84,8 +84,15 @@ body{
 .chapter{
     background-color: #373a3c;
     color: white;
-    height:35px;
-    padding-left:5px;
+    height:45px;
+    padding-left:10px;
+    margin-bottom: -0.2rem;
+}
+
+h4,
+.h4
+ {
+    line-height: 1.7;
 }
 
 /* ----------------------------------------- */
