@@ -1277,13 +1277,13 @@ jQuery("document").ready(function () {
         }
 
         if (currentItem == "lowerOutLockDecor") {
-            $(".select_topOutLockDecor").attr("show", "is_alive_lement");
+            $(".select_lowerOutLockDecor").attr("show", "is_alive_lement");
             goTo = "topLockkit";
             currentItemForDisplay = $("#nametopLockkit").html();
             //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "topLockkit";
         } else {
-            $(".select_topOutLockDecor").attr("show", "ghost_lement");
+            $(".select_lowerOutLockDecor").attr("show", "ghost_lement");
         }
         if (currentItem == "handle") {
             setСurrentItem("handle");
