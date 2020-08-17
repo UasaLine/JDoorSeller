@@ -648,11 +648,18 @@ jQuery("document").ready(function () {
     });
 
     $("#saveTemplate").on("click", function () {
+
+        if (ValidateDefault.validateDefault(template)){
+            return;
+        }
+
         let typeId = $("#doortypeselect").val();
         if (template.doorTypeid == 0 || template.doorTypeid != typeId) {
             template.doorTypeid = typeId;
         }
         var templateJSON = JSON.stringify(template);
+
+
 
         $.ajax({
             type: "POST",
