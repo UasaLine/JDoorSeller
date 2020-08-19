@@ -49,11 +49,11 @@ public class ColorController {
 
     }
 
-    @GetMapping(value = "/color/image-type/{imageType}")
+    @GetMapping(value = "/color/image-file-list/{imageType}")
     @ResponseBody
     public List<ColorPicture> getColorList(@PathVariable String imageType) {
 
-        return service.getImageList(imageType);
+        return service.getImageFileList(imageType);
 
     }
 
@@ -73,7 +73,7 @@ public class ColorController {
 
     }
 
-    @GetMapping(value = "/door-color/types")
+    @GetMapping(value = "/color/door-color/types")
     @ResponseBody
     public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
 
