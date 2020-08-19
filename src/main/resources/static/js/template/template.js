@@ -249,6 +249,7 @@ jQuery("document").ready(function () {
             fillInColor("colors", restriction.colors);
         }
     });
+
     $("#colorsDiv").on("click", ".colorsLineCheckbox", function () {
         if ($(this).is(":checked")) {
             switchOffAll("colors");
@@ -647,11 +648,18 @@ jQuery("document").ready(function () {
     });
 
     $("#saveTemplate").on("click", function () {
+
+        if (ValidateDefault.validateDefault(template)){
+            return;
+        }
+
         let typeId = $("#doortypeselect").val();
         if (template.doorTypeid == 0 || template.doorTypeid != typeId) {
             template.doorTypeid = typeId;
         }
         var templateJSON = JSON.stringify(template);
+
+
 
         $.ajax({
             type: "POST",
@@ -851,7 +859,7 @@ jQuery("document").ready(function () {
             }
 
             elem = getNotCompletedFields(selector);
-            fillInFieldFromDesign("#" + $(elem).attr("id"), table);
+            fillInFieldFromColor(javaName, "#" + $(elem).attr("id"), restriction.colors);
             setValueInSelectInt("#" + $(elem).attr("id"), table[i].itemId);
             setSwitchDefaultVal(elem, javaName, table[i].defaultValue);
             setCostVal(elem, javaName, table[i].cost);
@@ -966,9 +974,13 @@ jQuery("document").ready(function () {
     function fillInColor(javaName, tabl) {
         var elems = $("." + javaName + "Select");
 
-        for (var i = 0; i < elems.length; ++i) {
+        for (var i = 0; i < elems.length; i++) {
             if (!$(elems[i]).val()) {
-                fillInFieldFromColor("#" + $(elems[i]).attr("id"), tabl);
+                fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"), tabl);
+            } else {
+                let valueElem = $(elems[i]).val();
+                fillInFieldFromColor(javaName, "#" + $(elems[i]).attr("id"), tabl);
+                setValueInSelectInt("#" + $(elems[i]).attr("id"), valueElem);
             }
         }
     }
@@ -1098,7 +1110,21 @@ jQuery("document").ready(function () {
         }
     }
 
-    function fillInFieldFromColor(selector, table) {
+
+    function searchDoubleValue(javaName, valueTable) {
+        var elems = $("." + javaName + "Select");
+        let doubleHave = true;
+        for (var i = 0; i < elems.length; i++) {
+            if ($(elems[i]).val() == valueTable.itemId) {
+                doubleHave = false;
+            }
+        }
+        return doubleHave;
+
+    }
+
+    function fillInFieldFromColor(javaName, selector, table) {
+
         $(selector).empty();
 
         $(selector).append($("<option ></option>"));
@@ -1106,15 +1132,21 @@ jQuery("document").ready(function () {
         $(selector).append($("<option value=all>select all</option>"));
 
         for (var i = 0; i < table.length; ++i) {
-            $(selector).append(
-                $(
-                    "<option value=" +
-                    table[i].itemId +
-                    ">" +
-                    table[i].firstItem +
-                    "</option>"
-                )
-            );
+
+            if (searchDoubleValue(javaName, table[i])) {
+
+                $(selector).append(
+                    $(
+                        "<option value=" +
+                        table[i].itemId +
+                        ">" +
+                        table[i].firstItem +
+                        "</option>"
+                    )
+                );
+
+
+            }
         }
     }
 
