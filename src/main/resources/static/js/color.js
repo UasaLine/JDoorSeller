@@ -71,7 +71,7 @@ jQuery("document").ready(function () {
 
     function getImageListFromServer() {
         $.ajax({
-            url: location.origin + "/color/image-type/" + JavaObject.typeOfImage,
+            url: location.origin + "/color/image-file-list/" + JavaObject.typeOfImage,
             dataType: "json",
             success: function (data) {
                 colorListPictures = data;
@@ -200,7 +200,7 @@ jQuery("document").ready(function () {
             },
         });
         $.ajax({
-            url: location.origin + "/door-color/types",
+            url: location.origin + "/color/door-color/types",
             dataType: "json",
             success: function (data) {
                 typeDoorColorList = data;
