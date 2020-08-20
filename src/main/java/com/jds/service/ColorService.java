@@ -87,7 +87,7 @@ public class ColorService {
         return "";
     }
 
-    public List<ColorPicture> getImageList(String type) {
+    public List<ColorPicture> getImageFileList(String type) {
 
         String pathImageDir = getPathDirectoryByImageType(TypeOfImage.valueOf(type));
         Path rootLocation = Paths.get("");
