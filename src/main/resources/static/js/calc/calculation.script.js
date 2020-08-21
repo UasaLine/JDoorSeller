@@ -1,4 +1,5 @@
 let door;
+let listColorsEntity;
 let failureToSetValue = false;
 let currentItem = "";
 let RestrictionOfSelectionFields;
@@ -45,6 +46,7 @@ jQuery("document").ready(function () {
     }
 
     function FillOutForm(door, updateClassDiv) {
+        door.listColorsEntity = listColorsEntity;
         RepresentationManager.showAllFieldsValues(door);
         if (updateClassDiv) {
             ClassCardBlock.display(door.availableDoorClass);
@@ -75,8 +77,9 @@ jQuery("document").ready(function () {
         typeId = $(this).attr("data");
 
         pickOut(this);
-
         getNewDoorInstans(false);
+        getColorInstans();
+
     });
 
     $(".vertical_menu_button").on("click", function () {
@@ -103,7 +106,6 @@ jQuery("document").ready(function () {
         RepresentationManager.showFieldValue($(this).attr("data"));
         Door.draw(door, 1);
         pickOut(this);
-
     });
 
     $(".div_images_DoorGlass").on("click", function () {
@@ -629,10 +631,15 @@ jQuery("document").ready(function () {
                     "data",
                     tab[i + offsetTab.biasInt].firstItem
                 );
-                $("#images" + nameJava + "Img" + i).attr(
-                    "src",
-                    tab[i + offsetTab.biasInt].picturePath
-                );
+                for(let a = 0; a < listColorsEntity.length; a++) {
+                    if (listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
+                        $("#images" + nameJava + "Img" + i).attr(
+                            "src",
+                            listColorsEntity[a + offsetTab.biasInt].picturePath
+                        );
+                    }
+                }
+
                 $("#images" + nameJava + "Span" + i).text(
                     tab[i + offsetTab.biasInt].firstItem
                 );
@@ -912,6 +919,19 @@ jQuery("document").ready(function () {
             return 800;
         }
         return 0;
+    }
+
+    function getColorInstans() {
+        $.ajax({
+            url: "color/doorColors",
+            dataType: "json",
+            success: function (data) {
+                listColorsEntity = data;
+            },
+            error: function (data) {
+                alert("!ERROR: типы фурнитуры получить не удалось:");
+            },
+        });
     }
 
     function getNewDoorInstans(updateClassDiv) {
