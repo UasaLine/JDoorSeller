@@ -26,6 +26,17 @@ public class ColorService {
         return dAO.getImages();
     }
 
+    public List<ImageEntity> getColorsType(Enum type) {
+        List<ImageEntity> list = dAO.getImages();
+        List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
+                for(int i = 0; i < list.size(); i++){
+                    if (list.get(i).getTypeOfImage() == type){
+                        listReturn.add(list.get(i));
+                    }
+                }
+        return listReturn;
+    }
+
     public ImageEntity getColor(@NonNull String id) {
 
         if ("0".equals(id)) {
