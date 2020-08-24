@@ -127,9 +127,9 @@ class Door {
     }
 
     static getPicturePath(nameColor) {
-        let listColors = door.template.colors;
+        let listColors = door.listColorsEntity;
         for (let i = 0; i < listColors.length; i++) {
-            if (listColors[i].firstItem == nameColor) {
+            if (listColors[i].name == nameColor) {
                 return listColors[i].picturePath;
             }
         }
@@ -140,7 +140,6 @@ class Door {
         $("<img>")
             .attr("class", "color_door")
             .attr("src", pathPicture)
-            //.attr("src", "images/Door/AColor1/" + config.color + ".jpg")
             .attr(
                 "style",
                 "width:" +

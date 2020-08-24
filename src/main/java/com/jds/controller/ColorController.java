@@ -7,12 +7,16 @@ import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+
+import static com.jds.model.image.TypeOfImage.DOOR_COLOR;
 
 @Controller
 public class ColorController {
@@ -25,6 +29,16 @@ public class ColorController {
         List<ImageEntity> list = service.getColors();
         model.addAttribute("List", list);
         return "colorList";
+    }
+
+    @GetMapping(value = "color/doorColors",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<ImageEntity> getDoorColorsList() {
+        List<ImageEntity> list = service.getColorsType(DOOR_COLOR);
+        for (int i =0; i < list.size(); i++){
+            list.get(i).clearNonSerializingFields();
+        }
+        return list;
     }
 
     @GetMapping(value = "/color/{id}")
