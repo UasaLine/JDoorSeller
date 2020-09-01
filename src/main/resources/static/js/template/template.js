@@ -16,6 +16,7 @@ jQuery("document").ready(function () {
                 template = data.template;
                 restriction = data.restriction;
 
+                clearFromTemplateAfterSelectingType();
                 installFromTemplatAfterSelectingType();
                 fillInAlLSelectAfterSelectingType();
             },
@@ -23,6 +24,57 @@ jQuery("document").ready(function () {
                 alert("!ERROR: данные шаблона получить не удалось:");
             },
         });
+    }
+
+    function clearFromBlock(selector, chekbox){
+        $(selector).empty();
+        $(chekbox).prop("checked", false);
+
+        let elem = $(selector);
+
+        for(let i = 1; i < elem.length; i++){
+            $(elem[i]).parent().parent().remove();
+        }
+    }
+
+    function clearFromInput(selector){
+        $(selector).val("");
+    }
+
+
+    function clearFromTemplateAfterSelectingType() {
+        clearFromBlock(".metalSelect",".metalLineCheckbox");
+
+        clearFromBlock(".deepnessDoorInput",".deepnessDoorLineCheckbox");
+        clearFromInput("#deepnessDoorInput0");
+
+        clearFromBlock(".thicknessDoorLeafInput",".thicknessDoorLeafLineCheckbox");
+        clearFromInput("#thicknessDoorLeafInput0");
+
+        clearFromBlock(".colorsSelect",".colorsLineCheckbox");
+        clearFromBlock(".shieldColorSelect",".shieldColorLineCheckbox");
+        clearFromBlock(".shieldDesignSelect",".shieldDesignLineCheckbox");
+        clearFromBlock(".topLockSelect",".topLockLineCheckbox");
+        clearFromBlock(".lowerLockSelect",".lowerLockLineCheckbox");
+        clearFromBlock(".lockCylinderSelect",".lockCylinderLineCheckbox");
+        clearFromBlock(".handleSelect",".handleLineCheckbox");
+        clearFromBlock(".topInLockDecorSelect",".topInLockDecorLineCheckbox");
+        clearFromBlock(".topOutLockDecorSelect",".topOutLockDecorLineCheckbox");
+        clearFromBlock(".lowerInLockDecorSelect",".lowerInLockDecorLineCheckbox");
+        clearFromBlock(".lowerOutLockDecorSelect",".lowerOutLockDecorLineCheckbox");
+        clearFromBlock(".leftDoorTrimSelect",".leftDoorTrimLineCheckbox");
+        clearFromBlock(".rightDoorTrimSelect",".rightDoorTrimLineCheckbox");
+        clearFromBlock(".topDoorTrimSelect",".topDoorTrimLineCheckbox");
+        clearFromBlock(".doorstepSelect",".doorstepLineCheckbox");
+        clearFromBlock(".stainlessSteelDoorstepSelect",".stainlessSteelDoorstepLineCheckbox");
+        clearFromBlock(".firstSealingLineSelect",".firstSealingLineLineCheckbox");
+        clearFromBlock(".secondSealingLineSelect",".secondSealingLineLineCheckbox");
+        clearFromBlock(".thirdSealingLineSelect",".thirdSealingLineLineCheckbox");
+        clearFromBlock(".closerSelect",".closerLineCheckbox");
+        clearFromBlock(".endDoorLockSelect",".endDoorLockLineCheckbox");
+        clearFromBlock(".typeDoorGlassSelect",".typeDoorGlassLineCheckbox");
+        clearFromBlock(".toningSelect",".toningLineCheckbox");
+        clearFromBlock(".armorSelect",".armorLineCheckbox");
     }
 
     function installFromTemplatAfterSelectingType() {
