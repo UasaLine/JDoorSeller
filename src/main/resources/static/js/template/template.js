@@ -16,7 +16,6 @@ jQuery("document").ready(function () {
                 template = data.template;
                 restriction = data.restriction;
 
-                clearFromTemplateAfterSelectingType();
                 installFromTemplatAfterSelectingType();
                 fillInAlLSelectAfterSelectingType();
             },
@@ -42,6 +41,8 @@ jQuery("document").ready(function () {
     }
 
     function clearFromTemplateAfterSelectingType() {
+        $(".designSelect").empty();
+
         clearFromBlock(".metalSelect",".metalLineCheckbox");
 
         clearFromInput("#widthDoorMin");
@@ -70,7 +71,6 @@ jQuery("document").ready(function () {
         clearFromInput("#thicknessDoorLeafInput0");
 
         clearFromBlock(".colorsSelect",".colorsLineCheckbox");
-        $(".designSelect").empty();
         clearFromBlock(".shieldColorSelect",".shieldColorLineCheckbox");
         clearFromBlock(".shieldDesignSelect",".shieldDesignLineCheckbox");
         clearFromBlock(".topLockSelect",".topLockLineCheckbox");
@@ -1718,6 +1718,7 @@ jQuery("document").ready(function () {
 
     function fillFromTemplate() {
         let copyTypeId = $("#fillFromTemplate").val();
+        clearFromTemplateAfterSelectingType();
         getDoorTemplate(copyTypeId);
     }
 });
