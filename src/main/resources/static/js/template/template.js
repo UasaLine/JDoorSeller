@@ -41,9 +41,27 @@ jQuery("document").ready(function () {
         $(selector).val("");
     }
 
-
     function clearFromTemplateAfterSelectingType() {
         clearFromBlock(".metalSelect",".metalLineCheckbox");
+
+        clearFromInput("#widthDoorMin");
+        clearFromInput("#widthDoorMax");
+        clearFromInput("#widthDoorStep");
+        clearFromInput("#widthDoorDefault");
+        clearFromInput("#widthDoorLeafMin");
+        clearFromInput("#widthDoorLeafMax");
+        clearFromInput("#widthDoorLeafStep");
+        clearFromInput("#widthDoorLeafDefault");
+        clearFromInput("#heightDoorMin");
+        clearFromInput("#heightDoorMax");
+        clearFromInput("#heightDoorStep");
+        clearFromInput("#heightDoorDefault");
+        clearFromInput("#costOfChangeWidth");
+        clearFromInput("#sizeOfTorificationWidth");
+        clearFromInput("#costSizeOfTorificationWidth");
+        clearFromInput("#costOfChangeHeight");
+        clearFromInput("#sizeOfTorificationHeight");
+        clearFromInput("#costSizeOfTorificationHeight");
 
         clearFromBlock(".deepnessDoorInput",".deepnessDoorLineCheckbox");
         clearFromInput("#deepnessDoorInput0");
@@ -52,6 +70,7 @@ jQuery("document").ready(function () {
         clearFromInput("#thicknessDoorLeafInput0");
 
         clearFromBlock(".colorsSelect",".colorsLineCheckbox");
+        $(".designSelect").empty();
         clearFromBlock(".shieldColorSelect",".shieldColorLineCheckbox");
         clearFromBlock(".shieldDesignSelect",".shieldDesignLineCheckbox");
         clearFromBlock(".topLockSelect",".topLockLineCheckbox");
