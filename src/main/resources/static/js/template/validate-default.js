@@ -1,6 +1,8 @@
+let validateProblemBlok = "";
 class ValidateDefault {
 
     static validateDefault(template) {
+
         if (validateDefault("metal") |
             validateDefault('widthDoor') |
             validateDefault('heightDoor') |
@@ -13,6 +15,7 @@ class ValidateDefault {
             validateDefault('rightDoorTrimSize') |
             validateDefault('topDoorTrim') |
             validateDefault('topDoorTrimSize')) {
+            alert(validateProblemBlok);
             return true;
         } else {
             return false;
@@ -27,6 +30,6 @@ function validateDefault(fieldName) {
             return false;
         }
     }
-    alert(fieldName + ' - не установлен по умолчанию');
+    validateProblemBlok += fieldName + ' - не установлен по умолчанию\n';
     return true;
 }
