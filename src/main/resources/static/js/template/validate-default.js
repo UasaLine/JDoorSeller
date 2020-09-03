@@ -2,7 +2,7 @@ let validateProblemBlok = "";
 class ValidateDefault {
 
     static validateDefault(template) {
-
+        validateProblemBlok = "";
         if (validateDefault("metal") |
             validateDefault('widthDoor') |
             validateDefault('heightDoor') |
