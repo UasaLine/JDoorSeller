@@ -2,6 +2,15 @@ jQuery("document").ready(function () {
   var typeId = 0;
   var classId = $("#currentClassId").attr("value");
 
+    changeListGroupItem(".list-group-item");
+
+  function changeListGroupItem(selector){
+    classId = $(selector).attr("data");
+    if (location.href == (location.origin + "/doortypelist") && classId != ""){
+      location.href = "doortypelist?classId=" + classId;
+    }
+  }
+
   $(".list-group").on("click", ".list-group-item", function () {
     classId = $(this).attr("data");
     location.href = "doortypelist?classId=" + classId;
