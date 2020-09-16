@@ -8,7 +8,6 @@ import com.jds.model.modelEnum.PriceGroups;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -101,6 +100,10 @@ public class DoorEntity implements SerializingFields {
 
     @Column(name = "doorColor")
     private String doorColor;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "doorColor_id", referencedColumnName = "id")
+    private DoorDesign doorDesign;
 
     @Column(name = "quantity")
     private int quantity;
@@ -220,6 +223,9 @@ public class DoorEntity implements SerializingFields {
         if (shieldKit != null && !shieldKit.exists()) {
             shieldKit = null;
         }
+        if (doorDesign != null && ! doorDesign.exists()){
+            doorDesign = null;
+        }
         return this;
     }
 
@@ -233,6 +239,9 @@ public class DoorEntity implements SerializingFields {
         }
         if (getShieldKit() != null) {
             getShieldKit().clearNonSerializingFields();
+        }
+        if (getDoorDesign() != null) {
+            getDoorDesign().clearNonSerializingFields();
         }
         if (doorType != null) {
             doorType.clearNonSerializingFields();

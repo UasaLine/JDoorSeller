@@ -130,6 +130,8 @@ public class TemplateService {
 
                 .stuffColors(colorDao.getDoorColors())
                 .stuffDesign(colorDao.getDoorDesign())
+                .stuffDoorColor(colorDao.getDoorColors())
+                .stuffDoorDesign(colorDao.getDoorDesign())
                 .stuffShieldColor(colorDao.getShieldColor())
                 .stuffShieldDesign(colorDao.getShieldDesign())
 

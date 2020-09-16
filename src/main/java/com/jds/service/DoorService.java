@@ -413,6 +413,7 @@ public class DoorService implements DoorServ {
         //discountPrice
         //priceWithMarkup
         doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
+        doorEntity.setDoorDesign(DoorDesign.instanceDesign(template.getColors(), template.getDesign(), colorDao));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
                 .topLock(defaultAndConvertToFurniture(template.getTopLock()))

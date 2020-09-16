@@ -39,6 +39,8 @@ jQuery("document").ready(function () {
 
     var audio = $("#mySoundClip")[0];
 
+    Door.getColorInstans();
+
     if (id > 0) {
         getNewDoorInstans(false);
     } else {
@@ -46,7 +48,6 @@ jQuery("document").ready(function () {
     }
 
     function FillOutForm(door, updateClassDiv) {
-        door.listColorsEntity = listColorsEntity;
         RepresentationManager.showAllFieldsValues(door);
         if (updateClassDiv) {
             ClassCardBlock.display(door.availableDoorClass);
@@ -78,7 +79,6 @@ jQuery("document").ready(function () {
 
         pickOut(this);
         getNewDoorInstans(false);
-        getColorInstans();
 
     });
 
@@ -631,11 +631,11 @@ jQuery("document").ready(function () {
                     "data",
                     tab[i + offsetTab.biasInt].firstItem
                 );
-                for(let a = 0; a < listColorsEntity.length; a++) {
-                    if (listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
+                for(let a = 0; a < Door.listColorsEntity.length; a++) {
+                    if (Door.listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
-                            listColorsEntity[a + offsetTab.biasInt].picturePath
+                            Door.listColorsEntity[a + offsetTab.biasInt].picturePath
                         );
                     }
                 }
@@ -919,19 +919,6 @@ jQuery("document").ready(function () {
             return 800;
         }
         return 0;
-    }
-
-    function getColorInstans() {
-        $.ajax({
-            url: "color/doorColors",
-            dataType: "json",
-            success: function (data) {
-                listColorsEntity = data;
-            },
-            error: function (data) {
-                alert("!ERROR: типы фурнитуры получить не удалось:");
-            },
-        });
     }
 
     function getNewDoorInstans(updateClassDiv) {

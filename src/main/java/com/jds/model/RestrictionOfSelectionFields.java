@@ -26,6 +26,8 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> thicknessDoorLeaf = new ArrayList<>();
     private List<LimitationDoor> colors = new ArrayList<>();
     private List<LimitationDoor> design = new ArrayList<>();
+    private List<LimitationDoor> doorColor = new ArrayList<>();
+    private List<LimitationDoor> doorDesign = new ArrayList<>();
 
     private List<LimitationDoor> additionalDoorSetting = new ArrayList<>();
 
@@ -220,6 +222,40 @@ public class RestrictionOfSelectionFields {
 
         this.design.add(design.setNuulLazyFild());
 
+    }
+
+    public RestrictionOfSelectionFields stuffDoorColor(@NonNull List<ImageEntity> colors) {
+
+        colors.stream().forEach((color) -> addDoorColor(color));
+        return this;
+    }
+
+    public void addDoorColor(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.doorColor.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.COLOR_DOOR)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
+    }
+
+    public RestrictionOfSelectionFields stuffDoorDesign(@NonNull List<ImageEntity> colors) {
+
+        colors.stream().forEach((color) -> addDoorDesign(color));
+        return this;
+    }
+
+    public void addDoorDesign(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.doorDesign.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.DESIGN_DOOR)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
     }
 
     public RestrictionOfSelectionFields stuffShieldColor(@NonNull List<ImageEntity> colors) {

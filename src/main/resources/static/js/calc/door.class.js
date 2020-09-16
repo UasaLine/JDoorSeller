@@ -1,11 +1,21 @@
 class Door {
+    static listColorsEntity;
+
+
+
+    static init() {
+        Door.getColorInstans();
+    };
+
     static set(fieldName, value) {
         door[fieldName] = value;
         failureToSetValue = false;
 
     }
 
+
     static draw(door, i) {
+        let sideDoorOpen = door.sideDoorOpen;
         let config = new Object();
         config.color = door.doorColor;
         config.width = (door.widthDoor * 2) / 10;
@@ -51,7 +61,7 @@ class Door {
 
             let containerLeaf = Door.createLeafContainer(container, config, "L");
 
-            Door.dinamicRelief(containerLeaf, config, "L");
+            Door.dinamicRelief(containerLeaf, config, door, "L");
             Door.createCloser(containerLeaf, config, door);
             Door.createHandle(containerLeaf, config, door, "L");
             Door.createStep(containerLeaf, config, door);
@@ -118,16 +128,16 @@ class Door {
         return "#picture_door" + side + i;
     }
 
-    static dinamicRelief(containerLeaf, config, side) {
-        if (!door.template.design.length == 0) {
-            Door.createReliefDesign(containerLeaf, config, door.template.design[0].picturePath, side);
+    static dinamicRelief(containerLeaf, config, door, side) {
+        if (door.doorDesign != null && door.doorDesign.doorDesign != null) {
+            Door.createReliefDesign(containerLeaf, config, door.doorDesign.doorDesign.picturePath, door, side);
         } else {
             Door.createRelief(containerLeaf, config, side);
         }
     }
 
     static getPicturePath(nameColor) {
-        let listColors = door.listColorsEntity;
+        let listColors = Door.listColorsEntity;
         for (let i = 0; i < listColors.length; i++) {
             if (listColors[i].name == nameColor) {
                 return listColors[i].picturePath;
@@ -137,6 +147,7 @@ class Door {
 
     static createСolor(container, config) {
         let pathPicture = Door.getPicturePath(config.color);
+        //let pathPicture = door.doorDesign.doorColor.picturePath;
         $("<img>")
             .attr("class", "color_door")
             .attr("src", pathPicture)
@@ -227,14 +238,14 @@ class Door {
         return "#Leaf" + side + config.i;
     }
 
-    static reflectionPicture(){
+    static reflectionPicture(door){
         if (door.sideDoorOpen == "LEFT"){
             return 1;
         } else return -1;
     }
 
-    static createReliefDesign(containerLeaf, config, path, side) {
-        let scaleX = Door.reflectionPicture();
+    static createReliefDesign(containerLeaf, config, path, door, side) {
+        let scaleX = Door.reflectionPicture(door);
         $("<img>")
             .attr("class", "opening_side_images")
             .attr("src", path)
@@ -441,7 +452,7 @@ class Door {
 
     static createShieldColor(containerLeaf, door) {
         if (door.shieldKit != null && door.shieldKit.shieldColor != null) {
-            let scaleX = Door.reflectionPicture();
+            let scaleX = Door.reflectionPicture(door);
             $("<img>")
                 .attr("class", "shield_color")
                 .attr("src", door.shieldKit.shieldColor.picturePath)
@@ -453,7 +464,7 @@ class Door {
 
     static createShieldDesign(containerLeaf, door) {
         if (door.shieldKit != null && door.shieldKit.shieldDesign != null) {
-            let scaleX = Door.reflectionPicture();
+            let scaleX = Door.reflectionPicture(door);
             $("<img>")
                 .attr("class", "shield_design")
                 .attr("src", door.shieldKit.shieldDesign.picturePath)
@@ -461,5 +472,18 @@ class Door {
                     "px; transform: scale("+ scaleX +", 1)")
                 .appendTo(containerLeaf);
         }
+    }
+
+    static getColorInstans() {
+        $.ajax({
+            url: "color/doorColors",
+            dataType: "json",
+            success: function (data) {
+                Door.listColorsEntity = data;
+            },
+            error: function (data) {
+                alert("!ERROR: типы фурнитуры получить не удалось:");
+            },
+        });
     }
 }
