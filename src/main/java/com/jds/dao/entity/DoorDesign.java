@@ -40,14 +40,10 @@ public class DoorDesign {
 
 
         if (defList.size() == 1) {
-            //colorDao.getColorById(defList.get(0).getItemId()).clearNonSerializingFields();
             design.setDoorColor(colorDao.getColorById(defList.get(0).getItemId()));
-            design.getDoorColor().clearNonSerializingFields();
         }
         if (templateDesign.size() == 1) {
-            //colorDao.getColorById(templateDesign.get(0).getItemId()).clearNonSerializingFields();
             design.setDoorDesign(colorDao.getColorById(templateDesign.get(0).getItemId()));
-            design.getDoorDesign().clearNonSerializingFields();
         }
         design.clearNonSerializingFields();
         return design;
