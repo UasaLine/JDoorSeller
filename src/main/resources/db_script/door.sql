@@ -27,6 +27,7 @@ CREATE TABLE door
     priceWithMarkup        int,
     quantity               int,
     doorColor              CHARACTER VARYING(100),
+    doorColor_id           int,
     glass_id               int,
     isDoorGlass            int,
     furniture_id           int,
