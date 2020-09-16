@@ -1,5 +1,6 @@
 jQuery("document").ready(function () {
   var orderId = $("#shadowId").text();
+  Door.init();
 
   $.ajax({
     url: "getPrintApp",

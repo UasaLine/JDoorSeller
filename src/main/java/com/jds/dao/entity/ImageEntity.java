@@ -56,6 +56,13 @@ public class ImageEntity implements LimiItem, SerializingFields {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
     private List<ImageEntity> shieldDesign;
 
+    // design
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorColor")
+    private List<ImageEntity> doorColor;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorDesign")
+    private List<ImageEntity> doorDesign;
+
     public ImageEntity() {
         pricePaintingMeterOfSpace = 0;
         smooth = 0;
@@ -64,6 +71,8 @@ public class ImageEntity implements LimiItem, SerializingFields {
     public ImageEntity clearNonSerializingFields(){
         this.setShieldColor(null);
         this.setShieldDesign(null);
+        this.setDoorColor(null);
+        this.setDoorDesign(null);
         return this;
     }
 }

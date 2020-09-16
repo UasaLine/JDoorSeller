@@ -25,7 +25,6 @@ public class ColorController {
 
     @GetMapping(value = "/color")
     public String getMetalListPage(Model model) throws Exception {
-
         List<ImageEntity> list = service.getColors();
         model.addAttribute("List", list);
         return "colorList";
