@@ -129,16 +129,11 @@ class Door {
     }
 
     static dinamicRelief(containerLeaf, config, door, side) {
-        if (!door.doorDesign.doorDesign == 0) {
+        if (door.doorDesign != null && door.doorDesign.doorDesign != null) {
             Door.createReliefDesign(containerLeaf, config, door.doorDesign.doorDesign.picturePath, door, side);
         } else {
             Door.createRelief(containerLeaf, config, side);
         }
-          /*  if (!door.template.design.length == 0) {
-                Door.createReliefDesign(containerLeaf, config, door.template.design[0].picturePath, side);
-            } else {
-                Door.createRelief(containerLeaf, config, side);
-            }*/
     }
 
     static getPicturePath(nameColor) {
