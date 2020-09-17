@@ -239,7 +239,7 @@ class Door {
     }
 
     static reflectionPicture(door){
-        if (door.sideDoorOpen == "LEFT"){
+        if (door.sideDoorOpen == "RIGHT"){
             return 1;
         } else return -1;
     }
