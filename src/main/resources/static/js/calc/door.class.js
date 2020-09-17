@@ -239,7 +239,7 @@ class Door {
     }
 
     static reflectionPicture(door){
-        if (door.sideDoorOpen == "LEFT"){
+        if (door.sideDoorOpen == "RIGHT"){
             return 1;
         } else return -1;
     }
@@ -280,7 +280,7 @@ class Door {
     static createHandle(containerLeaf, config, door, side) {
         if (side === "L") {
             if (door.furnitureKit != null && door.furnitureKit.handle != null) {
-                if (door.sideDoorOpen == "LEFT") {
+                if (door.sideDoorOpen == "RIGHT") {
                     $("<img>")
                         .attr(
                             "class",
@@ -300,7 +300,7 @@ class Door {
             }
         } else {
             if (door.furnitureKit != null && door.furnitureKit.handle != null) {
-                if (door.sideDoorOpen == "LEFT") {
+                if (door.sideDoorOpen == "RIGHT") {
                     $("<img>")
                         .attr(
                             "class",
@@ -358,7 +358,7 @@ class Door {
 
     static createLogo(containerLeaf, door) {
         let side = "R";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
@@ -370,7 +370,7 @@ class Door {
 
     static createHinges(containerLeaf, door) {
         let side = "R";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
@@ -392,7 +392,7 @@ class Door {
 
     static createNightLock(containerLeaf, door) {
         let side = "R";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
@@ -404,7 +404,7 @@ class Door {
 
     static createTopInLockDecor(containerLeaf, door) {
         let side = "R";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
@@ -416,7 +416,7 @@ class Door {
 
     static createLowerInLockDecor(containerLeaf, door) {
         let side = "R";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
@@ -428,7 +428,7 @@ class Door {
 
     static createTopOutLockDecor(containerLeaf, door) {
         let side = "L";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "R";
         }
 
@@ -440,7 +440,7 @@ class Door {
 
     static createLowerOutLockDecor(containerLeaf, door) {
         let side = "L";
-        if (door.sideDoorOpen == "LEFT") {
+        if (door.sideDoorOpen == "RIGHT") {
             side = "R";
         }
 
