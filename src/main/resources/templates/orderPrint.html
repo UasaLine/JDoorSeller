@@ -27,11 +27,11 @@
 			<tr th:each="door : ${order.doors}">
 				<td th:utext="${door.id}">..</td>
 				<td th:utext="${door.id}">..</td>
-				<td th:utext="${door.name}">..</td>				
-				<td>1</td>
+				<td th:utext="${door.name}">..</td>
+				<td th:utext="${door.quantity}">..</td>
 				<td>шт.</td>
 				<td th:utext="${door.priceWithMarkup}">..</td>
-				<td th:utext="${door.priceWithMarkup}">..</td>
+				<td th:utext="${door.priceWithMarkup*door.quantity}">..</td>
 			</tr>
 
 		</table>

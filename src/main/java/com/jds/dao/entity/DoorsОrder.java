@@ -101,7 +101,7 @@ public class DoorsОrder {
 
         for (DoorEntity door : doors) {
             totalQuantity += 1;
-            totalAmount += door.getPriceWithMarkup();
+            totalAmount += door.getPriceWithMarkup()*door.getQuantity();
             totalTax += (door.getPriceWithMarkup() * tax) / (100 + tax);
         }
 
