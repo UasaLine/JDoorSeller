@@ -232,13 +232,17 @@ jQuery("document").ready(function () {
       data: strJSON,
       dataType: "json",
       success: function (data) {
-        $("#order_id").text(data.order_id);
-        orderId = $("#order_id").text();
-        if (add == 1) {
-          addDoor(orderId);
-        }
-        if (close == 1) {
-          toClose();
+        if(!data.success){
+          alert(data.message);
+        }else {
+          $("#order_id").text(data.data.order_id);
+          orderId = $("#order_id").text();
+          if (add == 1) {
+            addDoor(orderId);
+          }
+          if (close == 1) {
+            toClose();
+          }
         }
       },
       error: function (data) {
