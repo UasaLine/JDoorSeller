@@ -499,6 +499,7 @@ public class DoorService implements DoorServ {
     @Override
     public DoorEntity saveDoor(@NonNull DoorEntity door) {
 
+        door.createName();
         return addDooToOrder(dAO.saveDoor(door.clearEmptyLinks()));
 
     }
