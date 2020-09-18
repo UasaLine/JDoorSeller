@@ -4,6 +4,7 @@ import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.BackResponse.OrderResponse;
 import com.jds.model.PrintAppToTheOrder;
 import com.jds.model.modelEnum.OrderStatus;
 import lombok.NonNull;
@@ -98,14 +99,22 @@ public class OrderService {
         return clearNonSerializingFields(order);
     }
 
-    public DoorsОrder checkAndSave(@NonNull DoorsОrder order){
+    public DoorsОrder checkStatusAndSave(@NonNull DoorsОrder order){
         OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getId());
         if(OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus){
             order.setSeller(userService.getCurrentUser());
-            return saveOrder(order);
+                return saveOrder(order);
         }
         else {
             return null;
+        }
+    }
+
+    public OrderResponse checkAccessAndSave(@NonNull DoorsОrder order){
+        if ("admin".equals(userService.getCurrentUser().getUsername())){
+            return new OrderResponse(false, "!save is not available for admin");
+        }else {
+            return new OrderResponse(checkStatusAndSave(order));
         }
     }
 

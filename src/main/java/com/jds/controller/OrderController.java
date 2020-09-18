@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.BackResponse.OrderResponse;
 import com.jds.model.modelEnum.OrderStatus;
 import com.jds.service.OrderService;
 import com.jds.service.UserServ;
@@ -62,9 +63,9 @@ public class OrderController {
 
     @PostMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorsОrder saveOrder(@RequestBody DoorsОrder order) throws Exception {
+    public OrderResponse saveOrder(@RequestBody DoorsОrder order) throws Exception {
 
-        return orderService.checkAndSave(order);
+        return orderService.checkAccessAndSave(order);
     }
 
     @DeleteMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
