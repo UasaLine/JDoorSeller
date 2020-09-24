@@ -270,6 +270,7 @@ public class RestrictionOfSelectionFields {
                     .typeSettings(TypeOfLimitionDoor.SHIELD_COLOR)
                     .itemId(color.getId())
                     .firstItem(color.getName())
+                    .secondItem(String.valueOf(color.getContainsDesign()))
                     .picturePath(color.getPicturePath())
                     .build());
         }
