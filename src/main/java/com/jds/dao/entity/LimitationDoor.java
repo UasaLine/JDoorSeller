@@ -131,9 +131,9 @@ public class LimitationDoor implements Comparable<LimitationDoor> {
     }
 
     @Override
-    public int compareTo(LimitationDoor o2) {
-        if (this.getTypeSettings().name().equals(o2.getTypeSettings().name())) {
-            return o2.getFirstItem().toUpperCase().compareTo(this.getFirstItem().toUpperCase());
+    public int compareTo(LimitationDoor lim) {
+        if (this.getTypeSettings().name().equals(lim.getTypeSettings().name())) {
+            return lim.getFirstItem().toUpperCase().compareTo(this.getFirstItem().toUpperCase());
         } else {
             return 0;
         }

@@ -77,7 +77,7 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     }
 
     @Override
-    public int compareTo(ImageEntity o) {
-        return o.getName().toUpperCase().compareTo(this.getName().toUpperCase());
+    public int compareTo(ImageEntity imageEntity) {
+        return imageEntity.getName().toUpperCase().compareTo(this.getName().toUpperCase());
     }
 }
