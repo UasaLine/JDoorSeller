@@ -112,7 +112,7 @@ public class TemplateService {
         RestrictionOfSelectionFields restriction = new RestrictionOfSelectionFields();
         restriction.setDoorTypeid(intDoorTypeId);
 
-        limitList.stream().forEach((lim) -> RestrictionBuild(restriction, lim));
+        limitList.stream().sorted((o1, o2) -> -o1.compareTo(o2)).forEach((lim) -> RestrictionBuild(restriction, lim));
 
         return restriction;
     }
