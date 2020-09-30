@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "Door_Colors")
-public class ImageEntity implements LimiItem, SerializingFields {
+public class ImageEntity implements LimiItem, SerializingFields, Comparable<ImageEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,5 +74,10 @@ public class ImageEntity implements LimiItem, SerializingFields {
         this.setDoorColor(null);
         this.setDoorDesign(null);
         return this;
+    }
+
+    @Override
+    public int compareTo(ImageEntity imageEntity) {
+        return imageEntity.getName().toUpperCase().compareTo(this.getName().toUpperCase());
     }
 }

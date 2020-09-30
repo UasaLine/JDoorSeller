@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -180,7 +181,9 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields stuffColors(@NonNull List<ImageEntity> colors) {
 
-        colors.stream().forEach((color) -> addColors(color));
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addColors(color));
         return this;
     }
 
@@ -203,7 +206,9 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields stuffDesign(@NonNull List<ImageEntity> design) {
 
-        design.stream().forEach((desig) -> addDesign(desig));
+        design.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((desig) -> addDesign(desig));
         return this;
     }
 
@@ -226,7 +231,9 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields stuffDoorColor(@NonNull List<ImageEntity> colors) {
 
-        colors.stream().forEach((color) -> addDoorColor(color));
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addDoorColor(color));
         return this;
     }
 
@@ -243,7 +250,9 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields stuffDoorDesign(@NonNull List<ImageEntity> colors) {
 
-        colors.stream().forEach((color) -> addDoorDesign(color));
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addDoorDesign(color));
         return this;
     }
 
@@ -260,7 +269,9 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields stuffShieldColor(@NonNull List<ImageEntity> colors) {
 
-        colors.stream().forEach((color) -> addShieldColor(color));
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addShieldColor(color));
         return this;
     }
 
@@ -270,6 +281,7 @@ public class RestrictionOfSelectionFields {
                     .typeSettings(TypeOfLimitionDoor.SHIELD_COLOR)
                     .itemId(color.getId())
                     .firstItem(color.getName())
+                    .secondItem(String.valueOf(color.getContainsDesign()))
                     .picturePath(color.getPicturePath())
                     .build());
         }
@@ -283,7 +295,9 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields stuffShieldDesign(@NonNull List<ImageEntity> colors) {
 
-        colors.stream().forEach((color) -> addShieldDesign(color));
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addShieldDesign(color));
         return this;
     }
 
@@ -306,14 +320,17 @@ public class RestrictionOfSelectionFields {
 
     public RestrictionOfSelectionFields addTopLock(@NonNull List<DoorFurniture> furnitures) {
         topLock = new ArrayList<>();
-        for (DoorFurniture furniture : furnitures) {
 
+        for (DoorFurniture furniture : furnitures) {
             addTopLock(LimitationDoor.builder()
                     .typeSettings(TypeOfLimitionDoor.TOP_LOCK)
                     .itemId(furniture.getId())
                     .firstItem(furniture.getName())
                     .build());
         }
+        topLock = topLock.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -328,6 +345,9 @@ public class RestrictionOfSelectionFields {
         for (DoorFurniture furniture : furnitures) {
             addLowerLock(getLim(furniture, TypeOfLimitionDoor.LOWER_LOCK));
         }
+        lowerLock = lowerLock.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -342,6 +362,9 @@ public class RestrictionOfSelectionFields {
         for (DoorFurniture furniture : furnitures) {
             addHandle(getLim(furniture, TypeOfLimitionDoor.HANDLE));
         }
+        handle = handle.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -357,6 +380,9 @@ public class RestrictionOfSelectionFields {
 
             addLockCylinder(getLim(furniture, TypeOfLimitionDoor.LOCK_CYLINDER));
         }
+        lockCylinder = lockCylinder.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -372,6 +398,9 @@ public class RestrictionOfSelectionFields {
 
             addCloser(getLim(furniture, TypeOfLimitionDoor.CLOSER));
         }
+        closer = closer.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -450,6 +479,9 @@ public class RestrictionOfSelectionFields {
 
             addEndDoorLock(getLim(furniture, TypeOfLimitionDoor.END_DOOR_LOCK));
         }
+        endDoorLock = endDoorLock.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -459,6 +491,9 @@ public class RestrictionOfSelectionFields {
 
             addTypeDoorGlass(getLim(furniture, TypeOfLimitionDoor.TYPE_GLASS));
         }
+        typeDoorGlass =  typeDoorGlass.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -468,6 +503,9 @@ public class RestrictionOfSelectionFields {
 
             addToning(getLim(furniture, TypeOfLimitionDoor.TONING));
         }
+        toning =  toning.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -477,6 +515,9 @@ public class RestrictionOfSelectionFields {
 
             addArmor(getLim(furniture, TypeOfLimitionDoor.ARMOR));
         }
+        armor =  armor.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -486,6 +527,9 @@ public class RestrictionOfSelectionFields {
 
             addTopInLockDecor(getLim(furniture, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR));
         }
+        topInLockDecor =  topInLockDecor.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -494,6 +538,9 @@ public class RestrictionOfSelectionFields {
         for (DoorFurniture furniture : furnitures) {
             addTopOutLockDecor(getLim(furniture, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR));
         }
+        topOutLockDecor =  topOutLockDecor.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -503,6 +550,9 @@ public class RestrictionOfSelectionFields {
 
             addLowerInLockDecor(getLim(furniture, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR));
         }
+        lowerInLockDecor =  lowerInLockDecor.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 
@@ -512,6 +562,9 @@ public class RestrictionOfSelectionFields {
 
             addLowerOutLockDecor(getLim(furniture, TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR));
         }
+        lowerOutLockDecor =  lowerOutLockDecor.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
         return this;
     }
 

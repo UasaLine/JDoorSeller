@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LimitationDoor {
+public class LimitationDoor implements Comparable<LimitationDoor> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,7 +62,6 @@ public class LimitationDoor {
 
     @Column(name = "cost")
     private int cost;
-
 
 
     public LimitationDoor(String firstItem, double startRestriction, double stopRestriction, int defaultValue) {
@@ -115,20 +114,29 @@ public class LimitationDoor {
         return limit;
     }
 
-    public LimitationDoor setNuulLazyFild(){
+    public LimitationDoor setNuulLazyFild() {
         this.doorType = null;
         return this;
     }
 
-    public boolean isDefault(){
-        if (this.defaultValue > 0){
+    public boolean isDefault() {
+        if (this.defaultValue > 0) {
             return true;
         }
         return false;
     }
 
-    public static String getDescription(LimitationDoor lim){
+    public static String getDescription(LimitationDoor lim) {
         return lim.getTypeSettings() + " " + lim.getFirstItem();
+    }
+
+    @Override
+    public int compareTo(LimitationDoor lim) {
+        if (this.getTypeSettings().name().equals(lim.getTypeSettings().name())) {
+            return lim.getFirstItem().toUpperCase().compareTo(this.getFirstItem().toUpperCase());
+        } else {
+            return 0;
+        }
     }
 
 }
