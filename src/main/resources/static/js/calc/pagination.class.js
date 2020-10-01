@@ -1,6 +1,6 @@
 class PaginationPage {
 
-    static AMOUNT_ELEMENTS_IN_PAGE = 9;
+    static AMOUNT_ELEMENTS_IN_PAGE = 1;
 
     tabSize;
     amountElements;
@@ -34,4 +34,11 @@ class PaginationPage {
         return offsetTab;
     }
 
+    static show (){
+        $("#toolbarPageDiv").removeClass("ghost");
+    }
+
+    static hide (){
+        $("#toolbarPageDiv").addClass("ghost");
+    }
 }
