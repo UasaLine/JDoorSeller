@@ -411,6 +411,11 @@ jQuery("document").ready(function () {
         checkForLimits();
     });
 
+
+    $(".toolbarPage").on("click",".toolbarPageButton",function () {
+        displayColor("doorColor", door.template.colors, parseInt($(this).attr('data')));
+    });
+
     //--------------------------------------
     //setter
     //--------------------------------------
@@ -626,7 +631,8 @@ jQuery("document").ready(function () {
     }
 
     function displayColor(nameJava, tab, bias) {
-        var offsetTab = generatePageToolbar(tab, bias);
+
+        let offsetTab = PaginationPage.generate(tab, bias,'toolbarPage');
 
         for (var i = 0; i < offsetTab.amountElements; ++i) {
             if (i + offsetTab.biasInt < offsetTab.tabSize) {
@@ -639,7 +645,7 @@ jQuery("document").ready(function () {
                     if (Door.listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
-                            Door.listColorsEntity[a + offsetTab.biasInt].picturePath
+                            Door.listColorsEntity[a].picturePath
                         );
                     }
                 }
@@ -654,27 +660,6 @@ jQuery("document").ready(function () {
                 $("#images" + nameJava + "Span" + i).text("");
             }
         }
-    }
-
-    function generatePageToolbar(tab, bias) {
-        var offsetTab = {};
-        offsetTab.tabSize = tab.length;
-        offsetTab.amountElements = 15;
-        offsetTab.amountPag = (
-            offsetTab.tabSize / offsetTab.amountElements
-        ).toFixed(0);
-        offsetTab.biasInt = Number.parseInt(bias) * offsetTab.amountElements;
-
-        if (offsetTab.amountPag > 0) {
-            for (var i = 0; i < offsetTab.amountPag; ++i) {
-                $("<button>")
-                    .attr("type", "button")
-                    .attr("class", "btn btn-outline-dark")
-                    .text(i + 1)
-                    .appendTo("#toolbarPage");
-            }
-        }
-        return offsetTab;
     }
 
     function displayImage(nameJava, tab, bias) {
