@@ -49,8 +49,6 @@ class InnerOpen {
 class SideOpen {
     static init() {
         $(".openCheckbox").click(SideOpen.clickCheckbox);
-
-
     }
 
     static updateView(){
