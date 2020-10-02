@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ColorPicture {
+public class ColorPicture implements Comparable<ColorPicture> {
     private int id;
     private String name;
     private String path;
@@ -14,5 +14,9 @@ public class ColorPicture {
         this.id = id;
         this.name = name;
         this.path = path;
+    }
+
+    public int compareTo(ColorPicture colorPicture) {
+        return colorPicture.getName().toUpperCase().compareTo(this.getName().toUpperCase());
     }
 }
