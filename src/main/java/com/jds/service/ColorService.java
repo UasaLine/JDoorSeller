@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ColorService {
@@ -123,6 +124,11 @@ public class ColorService {
                 list.add(colorAdPicture(i, elem.getName(), pathImageDir + elem.getName()));
             }
         }
+
+        list = list.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
+
         return list;
     }
 
