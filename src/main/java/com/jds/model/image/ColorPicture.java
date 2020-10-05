@@ -16,6 +16,7 @@ public class ColorPicture implements Comparable<ColorPicture> {
         this.path = path;
     }
 
+
     public int compareTo(ColorPicture colorPicture) {
         return colorPicture.getName().toUpperCase().compareTo(this.getName().toUpperCase());
     }
