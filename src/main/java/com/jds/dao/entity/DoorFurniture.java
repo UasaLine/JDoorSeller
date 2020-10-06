@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "Door_Furniture")
-public class DoorFurniture implements LimiItem, SerializingFields {
+public class DoorFurniture implements LimiItem, SerializingFields,Comparable<DoorFurniture> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -186,4 +186,7 @@ public class DoorFurniture implements LimiItem, SerializingFields {
         sketchPathSecond = sketchPathSecond.replace("CalculationDoorsAutonomous", "images");
     }
 
+    public int compareTo(DoorFurniture doorFurniture) {
+        return doorFurniture.getName().toUpperCase().compareTo(this.getName().toUpperCase());
+    }
 }
