@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -45,6 +46,10 @@ public class FurnitureRepository {
         List<DoorFurniture> doorFurnitureList = query.list();
 
         session.close();
+
+        doorFurnitureList = doorFurnitureList.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
 
         return doorFurnitureList;
     }

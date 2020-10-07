@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.jds.model.image.TypeOfImage.DOOR_COLOR;
 
@@ -26,6 +28,11 @@ public class ColorController {
     @GetMapping(value = "/color")
     public String getMetalListPage(Model model) throws Exception {
         List<ImageEntity> list = service.getColors();
+
+        list = list.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
+
         model.addAttribute("List", list);
         return "colorList";
     }
