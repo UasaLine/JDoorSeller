@@ -59,8 +59,12 @@ public class FurnitureService {
     }
 
     public String saveFurniture(@NonNull DoorFurniture furniture) {
-
-        return repository.saveFurniture(furniture);
+        if (furniture.getName().equals(null)){
+            return null;
+        }else{
+            repository.saveFurniture(furniture);
+            return "ок";
+        }
     }
 
     public AvailableFieldsForSelection getAvailableFields(String doorTypeId) {
