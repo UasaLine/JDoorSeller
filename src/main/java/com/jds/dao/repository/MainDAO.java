@@ -2,6 +2,7 @@ package com.jds.dao.repository;
 
 import com.jds.dao.entity.*;
 import com.jds.model.FireproofDoor;
+import com.jds.model.image.TypeOfImage;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
 import lombok.NonNull;
@@ -527,6 +528,21 @@ public class MainDAO {
         return door;
     }
 
+    public List<DoorEntity> getDoors() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorEntity.class);
+        List<DoorEntity> doorsList = query.list();
+
+        session.close();
+
+        return doorsList;
+    }
+
     public List<SizeOfDoorParts> getSizeOfDoorPartsList(int doortypeId) {
 
         Session session = sessionFactory.openSession();
@@ -774,4 +790,24 @@ public class MainDAO {
         Session session = sessionFactory.getCurrentSession();
         session.delete(lineSpecification);
     }
+
+    public List<LimitationDoor> getLimitByTypeOfImages (TypeOfImage type){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from limitation_door where typesettings like :typesettings";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(LimitationDoor.class)
+                .setParameter("typesettings", type.toString());
+        List<LimitationDoor> list = query.list();
+
+        session.close();
+
+        List<LimitationDoor> limitList = new ArrayList<>();
+        if (list.size() > 0) {
+            limitList = list;
+        }
+        return limitList;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.repository.FurnitureRepository;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
+import com.jds.dao.repository.MainDAO;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.modelEnum.TypeOfFurniture;
@@ -26,6 +27,8 @@ public class FurnitureService {
     private ColorRepository colorRepository;
     @Autowired
     private TemplateService templateService;
+    @Autowired
+    private DeleteCheckService deleteCheckService;
 
     public List<DoorFurniture> getFurnitureList() {
         return repository.getFurniture();
@@ -45,8 +48,14 @@ public class FurnitureService {
     }
 
     public String deleteFurniture(@NonNull String id) {
+
         DoorFurniture furniture = repository.getFurnitureById(Integer.parseInt(id));
-        return repository.deleteFurniture(furniture);
+
+        if (deleteCheckService.checkFurniture(furniture)){
+            return null;
+        } else {
+            return repository.deleteFurniture(furniture);
+        }
     }
 
     public String saveFurniture(@NonNull DoorFurniture furniture) {

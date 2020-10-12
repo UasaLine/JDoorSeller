@@ -295,4 +295,60 @@ public class FurnitureKit implements SerializingFields {
     public void setTopInLockDecor(DoorFurniture topInLockDecor) {
         this.topInLockDecor = topInLockDecor;
     }
+
+    public boolean isContentFurniture(int id) {
+
+        if (topLock != null) {
+            if (topLock.getId() == id) {
+                return true;
+            }
+        }
+        if (topInLockDecor != null) {
+            if (topInLockDecor.getId() == id) {
+                return true;
+            }
+        }
+        if (topOutLockDecor != null) {
+            if (topOutLockDecor.getId() == id) {
+                return true;
+            }
+        }
+        if (topLockCylinder != null) {
+            if (topLockCylinder.getId() == id) {
+                return true;
+            }
+        }
+        if (lowerLock != null) {
+            if (lowerLock.getId() == id) {
+                return true;
+            }
+        }
+        if (lowerInLockDecor != null) {
+            if (lowerInLockDecor.getId() == id) {
+                return true;
+            }
+        }
+        if (lowerOutLockDecor != null) {
+            if (lowerOutLockDecor.getId() == id) {
+                return true;
+            }
+        }
+        if (lowerLockCylinder != null) {
+            if (lowerLockCylinder.getId() == id) {
+                return true;
+            }
+        }
+        if (handle != null) {
+            if (handle.getId() == id) {
+                return true;
+            }
+        }
+        if (closer != null) {
+            if (closer.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

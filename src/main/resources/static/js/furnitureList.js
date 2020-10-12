@@ -36,7 +36,11 @@ jQuery("document").ready(function () {
         method: "DELETE",
         dataType: "json",
         success: function (data) {
-          location.pathname = "/furniture";
+          if (data.status == null){
+            alert("эта фурнитура используеться");
+          }else {
+            location.pathname = "/furniture";
+          }
         },
         error: function (data) {
           alert("!ERROR: елемнет удалить не удалось:");
