@@ -1,6 +1,6 @@
 class PaginationPage {
 
-    static AMOUNT_ELEMENTS_IN_PAGE = 6;
+    static AMOUNT_ELEMENTS_IN_PAGE = 8;
 
     tabSize;
     amountElements;
