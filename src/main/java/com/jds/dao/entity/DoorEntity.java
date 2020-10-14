@@ -7,6 +7,7 @@ import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.PriceGroups;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
