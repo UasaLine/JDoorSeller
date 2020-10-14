@@ -47,8 +47,22 @@ jQuery("document").ready(function () {
     }
   });
 
+  function getFilterByTypeFurnituresfromUrl() {
+    let searchParams = new URLSearchParams(location.search);
+    if(searchParams.has('typeOfFurniture')){
+      let filtrValue = searchParams.get('typeOfFurniture');
+      PageSelector.setValueInSelect("#typeOfFurniture", filtrValue);
+
+      filterOut();
+    }
+  }
+
+  function getFilterByTypeFurniture() {
+    return "?typeOfFurniture=" + $("#typeOfFurniture").val();
+  }
+
   function getFurniture(orderId) {
-    location.href = "furniture/" + orderId;
+    location.href = "furniture/" + orderId + getFilterByTypeFurniture();
   }
 
   function deletOrder() {
@@ -83,6 +97,7 @@ jQuery("document").ready(function () {
       success: function (data) {
         types = data;
         fillInTypes();
+        getFilterByTypeFurnituresfromUrl()
       },
       error: function (data) {
         alert("!ERROR: типы фурнитуры получить не удалось:");
