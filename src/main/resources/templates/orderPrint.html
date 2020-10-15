@@ -25,10 +25,6 @@
 				<th>Сумма</th>
 			</tr>
 
-			<!--
-            Local Variable: iter (Iterator).
-          -->
-
 			<tr th:each="door, iter : ${order.doors}">
 				<td th:utext="${iter.count}">..</td>
 				<td th:utext="${door.id}">..</td>
