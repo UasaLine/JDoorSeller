@@ -1,6 +1,10 @@
 package com.jds.dao.entity;
 
+import com.jds.dao.repository.UserDAO;
 import com.jds.model.modelEnum.OrderStatus;
+import com.jds.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.*;
@@ -62,17 +66,19 @@ public class DoorsОrder {
     @Transient
     private List<OrderStatus> statusList;
 
-    public boolean isWorking(){
+    public boolean isWorking() {
 
-        if((this.getStatus() == OrderStatus.IN_WORK)
-                ||(this.getStatus() == OrderStatus.READY)){
+        if ((this.getStatus() == OrderStatus.IN_WORK)
+                || (this.getStatus() == OrderStatus.READY)) {
             return true;
         }
 
         return false;
-    };
+    }
 
-    public DoorsОrder()  {
+    ;
+
+    public DoorsОrder() {
 
         doors = new ArrayList<>();
         data = new java.sql.Date(new Date().getTime());
@@ -92,21 +98,37 @@ public class DoorsОrder {
         return 0;
     }
 
-    public DoorsОrder calculateTotal() {
+    public DoorsОrder calculateTotal(UserSetting userSetting) {
 
-        totalAmount = 0;
-        totalTax = 0;
-        totalQuantity = 0;
-        int tax = 20;
-
-        for (DoorEntity door : doors) {
-            totalQuantity += 1;
-            totalAmount += door.getPriceWithMarkup()*door.getQuantity();
-            totalTax += (door.getPriceWithMarkup() * tax) / (100 + tax);
+        if (userSetting.getIncludesTax() != 0){
+            totalCostByDoors(userSetting.getSalesTax());
+        }else {
+            totalCostByDoors(0);
         }
 
 
         return this;
+    }
+
+    public DoorsОrder calculateTotal() {
+
+        int tax = 20;
+        totalCostByDoors(tax);
+
+        return this;
+    }
+
+    private void totalCostByDoors(int tax) {
+
+        totalAmount = 0;
+        totalTax = 0;
+        totalQuantity = 0;
+
+        for (DoorEntity door : doors) {
+            totalQuantity += 1;
+            totalAmount += door.getPriceWithMarkup() * door.getQuantity();
+            totalTax += (door.getPriceWithMarkup() * door.getQuantity() * tax) / (100 + tax);
+        }
     }
 
     public int getId() {
