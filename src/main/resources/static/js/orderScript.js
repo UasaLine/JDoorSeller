@@ -138,6 +138,7 @@ jQuery("document").ready(function () {
         "металл</th><th>" +
         "цвет</th><th>" +
         "цена</th><th>"+
+        "скидка</th><th>"+
         "сумма</th></tr>"
     );
 
@@ -166,6 +167,9 @@ jQuery("document").ready(function () {
           "</td>" +
           '<td class="price_line">' +
           doors[j].priceWithMarkup +
+          "</td>" +
+          '<td class="sale_line">' +
+          20 +
           "</td>" +
           '<td class="total_line">' +
           (doors[j].priceWithMarkup * doors[j].quantity) +
