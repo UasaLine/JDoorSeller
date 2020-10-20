@@ -420,6 +420,10 @@ jQuery("document").ready(function () {
         else if (currentItem == "shieldColor" || currentItem == "shieldDesign"){
             displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
         }
+        else if (currentItem == "topLock" || currentItem == "lowerLock"){
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')), '');
+        }
+
     });
 
     //--------------------------------------
@@ -725,42 +729,14 @@ jQuery("document").ready(function () {
 
     function displayListOfItems(nameTab, tab, bias, postfixName) {
         if (tab != null) {
-            var tabSize = tab.length;
-            var amountElements = 4;
-            var amountPag = (tabSize / amountElements).toFixed(0);
-            var biasInt = Number.parseInt(bias) * amountElements;
-
-            if (tabSize > 0) {
-                $("#name" + nameTab + postfixName).attr("available", "yes");
-            } else {
-                $("#name" + nameTab + postfixName).attr("available", "no");
-            }
-
-            //delete
-            $("." + nameTab + "pag").remove();
-
-            for (var i = 0; i < amountPag; ++i) {
-                $("<a>")
-                    .attr("class", "pag")
-                    .attr("data", i)
-                    .text("" + i + " ")
-                    .appendTo(".color_pages");
-            }
-            $("<a>")
-                .attr("class", nameTab + "pag")
-                .attr("data", ">")
-                .text(" > ")
-                .appendTo("." + nameTab + "_pages");
-
-            $(".color_pages").attr("data", bias);
-
-            for (var i = 0; i < amountElements; ++i) {
+            let offsetTab = PaginationPage.generate(tab, bias,'toolbarPage');
+            for (var i = 0; i < offsetTab.amountElements; ++i) {
                 var sel = "#" + nameTab;
-                if (i + biasInt < tabSize) {
+                if (i + offsetTab.biasInt < offsetTab.tabSize) {
                     $(sel + "Div" + i).attr("show", "is_alive_lement");
-                    $(sel + "Div" + i).attr("data", tab[i + biasInt].id);
-                    $(sel + "Img" + i).attr("src", tab[i + biasInt].picturePathFirst);
-                    $(sel + "Span" + i).text(tab[i + biasInt].name);
+                    $(sel + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
+                    $(sel + "Img" + i).attr("src", tab[i + offsetTab.biasInt].picturePathFirst);
+                    $(sel + "Span" + i).text(tab[i + offsetTab.biasInt].name);
                 } else {
                     $(sel + "Div" + i).attr("show", "ghost_lement");
                     $(sel + "Div" + i).attr("data", "");
@@ -1186,8 +1162,9 @@ jQuery("document").ready(function () {
             $(".select_topLock").attr("show", "is_alive_lement");
             goTo = "topLockkit";
             currentItemForDisplay = $("#nametopLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "topLockkit";
+            displayListOfItems("topLock", availableFurnitureList.topLock, 0, "kit");
+            PaginationPage.show();
         } else {
             $(".select_topLock").attr("show", "ghost_lement");
         }
@@ -1363,7 +1340,12 @@ jQuery("document").ready(function () {
     }
 
     function hasAParination() {
-        if ("shieldColor" == currentItem || "shieldDesign" == currentItem || "doorColor" == currentItem ){
+        if ("shieldColor" == currentItem ||
+            "shieldDesign" == currentItem ||
+            "doorColor" == currentItem ||
+            'topLock'  == currentItem ||
+            "lowerLock" == currentItem )
+        {
             return true ;
         }
         return false;

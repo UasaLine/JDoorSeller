@@ -6,15 +6,24 @@ class AvailableManager {
 
   makeFieldsAvailable() {
     if (this.doorTemplate != null) {
-      this.makeAvailable("comment");
-      this.makeAvailable("handle");
-      this.makeAvailable("shieldKit");
-      this.makeAvailable("doorColor");
-      this.makeAvailable("additionalDoorSettings");
-      this.makeAvailable("sideDoorOpen");
+      AvailableManager.makeAvailable("comment");
+      AvailableManager.makeAvailable("handle");
+      AvailableManager.makeAvailable("shieldKit");
+      AvailableManager.makeAvailable("doorColor");
+      AvailableManager.makeAvailable("additionalDoorSettings");
+      AvailableManager.makeAvailable("sideDoorOpen");
+    }
+    if(availableFurnitureList.topLock && availableFurnitureList.topLock.length > 0){
+      AvailableManager.makeAvailable("topLock"+"kit");
+    }
+    if(availableFurnitureList.lowerLock && availableFurnitureList.lowerLock.length > 0){
+      AvailableManager.makeAvailable("lowerLock"+"kit");
     }
   }
-  makeAvailable(name) {
+  static makeAvailable(name) {
     $("#name" + name).attr("available", "yes");
+  }
+  static makeUnavailable(name) {
+    $("#name" + name).attr("available", "no");
   }
 }
