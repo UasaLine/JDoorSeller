@@ -26,8 +26,9 @@
 				<th>Цена</th>
 				<th>Сумма</th>
 			</tr>
-			<tr th:each="door : ${order.doors}">
-				<td th:utext="${door.id}">..</td>
+
+			<tr th:each="door, iter : ${order.doors}">
+				<td th:utext="${iter.count}">..</td>
 				<td th:utext="${door.id}">..</td>
 				<td th:utext="${door.name}">..</td>
 				<td th:utext="${door.quantity}">..</td>
