@@ -511,7 +511,7 @@ public class DoorService implements DoorServ {
             DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
-                orderDAO.saveOrder(order.calculateTotal());
+                orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting()));
                 return orderService.clearNonSerializingFields(order);
             }
 
@@ -536,7 +536,7 @@ public class DoorService implements DoorServ {
         }
 
         order.addDoor(door);
-        orderDAO.saveOrder(order.calculateTotal());
+        orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting()));
         return door;
 
     }
