@@ -1,29 +1,52 @@
 class AvailableManager {
-  constructor(doorTemplate, availableFurnitureList) {
-    this.doorTemplate = doorTemplate;
-    this.availableFurnitureList = availableFurnitureList;
-  }
+    constructor(doorTemplate, availableFurnitureList) {
+        this.doorTemplate = doorTemplate;
+        this.availableFurnitureList = availableFurnitureList;
+    }
 
-  makeFieldsAvailable() {
-    if (this.doorTemplate != null) {
-      AvailableManager.makeAvailable("comment");
-      AvailableManager.makeAvailable("handle");
-      AvailableManager.makeAvailable("shieldKit");
-      AvailableManager.makeAvailable("doorColor");
-      AvailableManager.makeAvailable("additionalDoorSettings");
-      AvailableManager.makeAvailable("sideDoorOpen");
+    makeFieldsAvailable() {
+        if (this.doorTemplate != null) {
+            AvailableManager.makeAvailable("comment");
+            AvailableManager.makeAvailable("handle");
+            AvailableManager.makeAvailable("shieldKit");
+            AvailableManager.makeAvailable("doorColor");
+            AvailableManager.makeAvailable("additionalDoorSettings");
+            AvailableManager.makeAvailable("sideDoorOpen");
+        }
+
+        this.makeAvailableIfExists("topLock","kit");
+        this.makeAvailableIfExists("lowerLock","kit");
+
+        this.makeAvailableIfExists("handle","");
+
+        this.makeAvailableIfExists("lowerLockCylinder","");
+        this.makeAvailableIfExists("topLockCylinder","");
+
+        this.makeAvailableIfExists("topInLockDecor","");
+        this.makeAvailableIfExists("topOutLockDecor","");
+
+        this.makeAvailableIfExists("lowerInLockDecor","");
+        this.makeAvailableIfExists("lowerOutLockDecor","");
+
+        this.makeAvailableIfExists("closer","");
+
+        this.makeAvailableIfExists("typeDoorGlass","");
+        this.makeAvailableIfExists("toning","");
+        this.makeAvailableIfExists("armor","");
+
     }
-    if(availableFurnitureList.topLock && availableFurnitureList.topLock.length > 0){
-      AvailableManager.makeAvailable("topLock"+"kit");
+
+    makeAvailableIfExists(name,postfix) {
+        if (availableFurnitureList[name] && availableFurnitureList[name].length > 0) {
+            AvailableManager.makeAvailable(name + postfix);
+        }
     }
-    if(availableFurnitureList.lowerLock && availableFurnitureList.lowerLock.length > 0){
-      AvailableManager.makeAvailable("lowerLock"+"kit");
+
+    static makeAvailable(name) {
+        $("#name" + name).attr("available", "yes");
     }
-  }
-  static makeAvailable(name) {
-    $("#name" + name).attr("available", "yes");
-  }
-  static makeUnavailable(name) {
-    $("#name" + name).attr("available", "no");
-  }
+
+    static makeUnavailable(name) {
+        $("#name" + name).attr("available", "no");
+    }
 }
