@@ -22,10 +22,10 @@ public class DoorController {
     private MaineService maineService;
 
     @GetMapping(value = "/calculation")
-    public String calculation(Model model,
-                              @RequestParam(required = false) String orderId,
-                              @RequestParam(required = false) String id,
-                              @RequestParam(required = false) String typid) throws Exception {
+    public String calculationPage(Model model,
+                                  @RequestParam(required = false) String orderId,
+                                  @RequestParam(required = false) String id,
+                                  @RequestParam(required = false) String typid) throws Exception {
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
         model.addAttribute("typid", typid);
@@ -34,9 +34,9 @@ public class DoorController {
 
     @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity data(@RequestParam(required = false, defaultValue = "0") String id,
-                           @RequestParam(required = false, defaultValue = "0") String orderId,
-                           @RequestParam(required = false, defaultValue = "0") String typid) throws Exception {
+    public DoorEntity getDoor(@RequestParam(required = false, defaultValue = "0") String id,
+                              @RequestParam(required = false, defaultValue = "0") String orderId,
+                              @RequestParam(required = false, defaultValue = "0") String typid) throws Exception {
 
         return service.getDoor(Integer.parseInt(id),
                 Integer.parseInt(orderId),
