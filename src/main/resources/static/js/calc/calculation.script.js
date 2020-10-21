@@ -303,6 +303,7 @@ jQuery("document").ready(function () {
                 data: strJSON,
                 dataType: "json",
                 success: function (data) {
+                    door.id = data.id;
                 },
                 error: function (data) {
                     alert("error:" + data);
