@@ -12,12 +12,9 @@ import com.jds.model.cutting.SheetCutting;
 import com.jds.model.modelEnum.OrderStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,7 +99,7 @@ public class DoorService implements DoorServ {
                 .createName();
 
 
-        return addDooToOrder(doorEntity);
+        return addToOrderIfNotExist(doorEntity);
     }
 
     private DoorEntity addRetailMarginToCostList(DoorEntity doorEntity, int retailMargin) {
@@ -500,7 +497,9 @@ public class DoorService implements DoorServ {
     public DoorEntity saveDoor(@NonNull DoorEntity door) {
 
         door.createName();
-        return addDooToOrder(dAO.saveDoor(door.clearEmptyLinks()));
+        door.clearEmptyLinks();
+        door = dAO.saveDoor(door);
+        return addToOrderIfNotExist(door);
 
     }
 
@@ -511,7 +510,7 @@ public class DoorService implements DoorServ {
             DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
-                orderDAO.saveOrder(order.calculateTotal());
+                orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting()));
                 return orderService.clearNonSerializingFields(order);
             }
 
@@ -520,23 +519,25 @@ public class DoorService implements DoorServ {
         return null;
     }
 
-    public DoorEntity addDooToOrder(@NonNull DoorEntity door) {
+    public DoorEntity addToOrderIfNotExist(@NonNull DoorEntity door) {
 
         if (door.getOrderHolder() == 0) {
             return door;
         }
 
         DoorsОrder order = orderDAO.getOrder(door.getOrderHolder());
+        DoorEntity fineDoor = order.getDoors().stream()
+                .filter(doorItem -> doorItem.getId() == door.getId())
+                .findFirst()
+                .orElse(null);
 
-        List<DoorEntity> doors = order.getDoors();
-        for (int i = 0; i < doors.size(); i++) {
-            if (doors.get(i).getId() == door.getId()) {
-                return door;
-            }
+        if (fineDoor != null) {
+            return door;
         }
 
         order.addDoor(door);
-        orderDAO.saveOrder(order.calculateTotal());
+        order.calculateTotal(userService.getUserSetting());
+        orderDAO.saveOrder(order);
         return door;
 
     }

@@ -7,6 +7,7 @@ import com.jds.model.cutting.Sheet;
 import com.jds.model.modelEnum.PriceGroups;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.model.modelEnum.TypeOfSalaryConst;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -338,6 +339,9 @@ public class DoorEntity implements SerializingFields {
         stringBuilder.append(" ");
         stringBuilder.append(widthDoor + " X " + heightDoor);
         stringBuilder.append(" (" + metal + " мм) " + sideDoorOpen + " " + doorColor);
+        if (shieldKit.exists()){
+            stringBuilder.append(shieldKit.toString());
+        }
         name = stringBuilder.toString();
         return this;
 

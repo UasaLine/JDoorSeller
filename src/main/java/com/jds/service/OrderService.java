@@ -119,7 +119,8 @@ public class OrderService {
     }
 
     private DoorsОrder saveOrder(@NonNull DoorsОrder order) {
-        return dAO.saveOrder(order.calculateTotal());
+
+        return dAO.saveOrder(order.calculateTotal(userService.getUserSetting()));
     }
 
     public String deleteOrder(String orderId) {

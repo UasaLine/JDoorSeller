@@ -17,11 +17,16 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.jds.model.image.TypeOfImage.DOOR_COLOR;
+
 @Service
 public class ColorService {
 
     @Autowired
     private ColorRepository dAO;
+
+    @Autowired
+    private DeleteCheckService deleteCheckService;
 
     public List<ImageEntity> getColors() {
         return dAO.getImages();
@@ -58,8 +63,14 @@ public class ColorService {
     }
 
     public String deleteColor(@NonNull String id) {
+
         ImageEntity color = getColor(id);
-        return dAO.deleteColor(color);
+
+        if (deleteCheckService.checkColor(color)){
+            return null;
+        } else {
+            return dAO.deleteColor(color);
+        }
     }
 
     public EnumSet<TypeOfImage> getImageTypeList() {
@@ -80,7 +91,7 @@ public class ColorService {
     }
 
     private String FileExtensionByImageType(@NonNull TypeOfImage type) {
-        if (TypeOfImage.DOOR_COLOR == type || TypeOfImage.SHIELD_COLOR == type)
+        if (DOOR_COLOR == type || TypeOfImage.SHIELD_COLOR == type)
             return ".jpg";
         else if (TypeOfImage.SHIELD_DESIGN == type)
             return ".png";
@@ -88,7 +99,7 @@ public class ColorService {
     }
 
     private String getPathDirectoryByImageType(@NonNull TypeOfImage type) {
-        if (TypeOfImage.DOOR_COLOR == type)
+        if (DOOR_COLOR == type)
             return "images/Door/AColor1/";
         else if (TypeOfImage.SHIELD_COLOR == type)
             return "images/shield sketch/";

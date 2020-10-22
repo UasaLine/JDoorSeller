@@ -4,6 +4,8 @@
 <head>
     <title>door seller</title>    
     <link rel="stylesheet" type="text/css" href="css/print.css" />
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/orderPrint.js"></script>
 </head>
 <body>
 <div class="mainDiv">
@@ -43,7 +45,9 @@
 	</div>	
 	<div class="total">	
 		<span><strong>Итого: </strong></span><span th:utext="${order.totalAmount}"><strong></strong></span><br>
-		<span><strong>В том числе НДС: </strong></span><span th:utext="${order.totalTax}"><strong></strong></span><br>
+	</div>
+	<div class="total totalTax">
+	<span><strong>В том числе НДС: </strong></span><span id="taxText" th:utext="${order.totalTax}"><strong></strong></span><br>
 	</div>		
 		
 		<span><strong>Всего наименований:</strong></span>

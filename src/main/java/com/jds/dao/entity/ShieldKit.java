@@ -26,7 +26,7 @@ public class ShieldKit {
     @JoinColumn(name = "shieldDesign")
     private ImageEntity shieldDesign;
 
-    @OneToOne(mappedBy = "shieldKit",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "shieldKit", fetch = FetchType.LAZY)
     private DoorEntity door;
 
     public static ShieldKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields) {
@@ -52,12 +52,23 @@ public class ShieldKit {
 
     public ShieldKit clearNonSerializingFields() {
         door = null;
-        if (shieldColor!=null){
+        if (shieldColor != null) {
             shieldColor.clearNonSerializingFields();
         }
-        if (shieldDesign!=null){
+        if (shieldDesign != null) {
             shieldDesign.clearNonSerializingFields();
         }
         return this;
     }
+
+    @Override
+    public String toString() {
+
+        String shieldColorName = shieldColor != null ? shieldColor.getName() + ": " : "";
+        String shieldDesignName = shieldDesign != null ? shieldDesign.getName() : "";
+
+        return " ( " + shieldColorName + shieldDesignName + " )";
+    }
+
+
 }

@@ -24,7 +24,6 @@ jQuery("document").ready(function () {
     var colors;
 
 
-
     var id = $("#id").text();
     var orderId = $("#orderId").text();
     var typeId = 0;
@@ -239,27 +238,27 @@ jQuery("document").ready(function () {
     $("#buttonCalculateCostShow").on("click", function () {
         PriceComponent.deleteRow();
         let cost = door.costList.costList;
-        if (cost.length==0) return;
-        let costOutput="";
-        let idRow="";
-        let idColName="";
-        for (let i = 0; i < cost.length; i++){
-            idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "row"+i);
-            idColName = PriceComponent.addLineColumn(idRow, "col-9", "colName"+i);
+        if (cost.length == 0) return;
+        let costOutput = "";
+        let idRow = "";
+        let idColName = "";
+        for (let i = 0; i < cost.length; i++) {
+            idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "row" + i);
+            idColName = PriceComponent.addLineColumn(idRow, "col-9", "colName" + i);
             costOutput = cost[i].name;
-            $("#"+idColName).text(costOutput);
-            idColName = PriceComponent.addLineColumn(idRow, "col", "colCost"+i);
+            $("#" + idColName).text(costOutput);
+            idColName = PriceComponent.addLineColumn(idRow, "col", "colCost" + i);
             costOutput = cost[i].cost;
-            $("#"+idColName).text(costOutput);
+            $("#" + idColName).text(costOutput);
 
         }
         idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete totalColorLine", "rowTotalCost");
         idColName = PriceComponent.addLineColumn(idRow, "col-9", "colNameTotalCost");
         costOutput = "TotalCost";
-        $("#"+idColName).text(costOutput);
+        $("#" + idColName).text(costOutput);
         idColName = PriceComponent.addLineColumn(idRow, "col", "colCostTotalCost");
         costOutput = door.costList.totalCost;
-        $("#"+idColName).text(costOutput);
+        $("#" + idColName).text(costOutput);
 
         $('.toast').toast('show');
     });
@@ -304,6 +303,7 @@ jQuery("document").ready(function () {
                 data: strJSON,
                 dataType: "json",
                 success: function (data) {
+                    door.id = data.id;
                 },
                 error: function (data) {
                     alert("error:" + data);
@@ -413,13 +413,28 @@ jQuery("document").ready(function () {
     });
 
 
-    $(".toolbarPage").on("click",".toolbarPageButton",function () {
-        if (currentItem == "doorColor"){
+    $(".toolbarPage").on("click", ".toolbarPageButton", function () {
+        if (currentItem == "doorColor") {
             displayColor("doorColor", door.template.colors, parseInt($(this).attr('data')));
-        }
-        else if (currentItem == "shieldColor" || currentItem == "shieldDesign"){
+        } else if (currentItem == "shieldColor" || currentItem == "shieldDesign") {
             displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
+        } else if (currentItem == "topLock" ||
+            currentItem == "lowerLock" ||
+            currentItem == "handle" ||
+            currentItem == "lowerLockCylinder" ||
+            currentItem == "topLockCylinder" ||
+            currentItem == "topInLockDecor" ||
+            currentItem == "topOutLockDecor" ||
+            currentItem == "lowerInLockDecor" ||
+            currentItem == "lowerOutLockDecor" ||
+            currentItem == "closer" ||
+            currentItem == "typeDoorGlass" ||
+            currentItem == "toning" ||
+            currentItem == "armor"
+        ) {
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')), '');
         }
+
     });
 
     //--------------------------------------
@@ -464,9 +479,9 @@ jQuery("document").ready(function () {
     }
 
     function getFirstAttr(attr) {
-        if (attr.indexOf(' ') > 0){
+        if (attr.indexOf(' ') > 0) {
             return attr.substring(0, attr.indexOf(' '));
-        }else {
+        } else {
             return attr;
         }
     }
@@ -638,7 +653,7 @@ jQuery("document").ready(function () {
 
     function displayColor(nameJava, tab, bias) {
 
-        let offsetTab = PaginationPage.generate(tab, bias,'toolbarPage');
+        let offsetTab = PaginationPage.generate(tab, bias, 'toolbarPage');
 
         for (var i = 0; i < offsetTab.amountElements; ++i) {
             if (i + offsetTab.biasInt < offsetTab.tabSize) {
@@ -647,7 +662,7 @@ jQuery("document").ready(function () {
                     "data",
                     tab[i + offsetTab.biasInt].firstItem
                 );
-                for(let a = 0; a < Door.listColorsEntity.length; a++) {
+                for (let a = 0; a < Door.listColorsEntity.length; a++) {
                     if (Door.listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
@@ -670,7 +685,7 @@ jQuery("document").ready(function () {
 
     function displayImage(nameJava, tab, bias) {
 
-        let offsetTab = PaginationPage.generate(tab, bias,'toolbarPage');
+        let offsetTab = PaginationPage.generate(tab, bias, 'toolbarPage');
 
         for (var i = 0; i < offsetTab.amountElements; ++i) {
             if (i + offsetTab.biasInt < offsetTab.tabSize) {
@@ -725,42 +740,14 @@ jQuery("document").ready(function () {
 
     function displayListOfItems(nameTab, tab, bias, postfixName) {
         if (tab != null) {
-            var tabSize = tab.length;
-            var amountElements = 4;
-            var amountPag = (tabSize / amountElements).toFixed(0);
-            var biasInt = Number.parseInt(bias) * amountElements;
-
-            if (tabSize > 0) {
-                $("#name" + nameTab + postfixName).attr("available", "yes");
-            } else {
-                $("#name" + nameTab + postfixName).attr("available", "no");
-            }
-
-            //delete
-            $("." + nameTab + "pag").remove();
-
-            for (var i = 0; i < amountPag; ++i) {
-                $("<a>")
-                    .attr("class", "pag")
-                    .attr("data", i)
-                    .text("" + i + " ")
-                    .appendTo(".color_pages");
-            }
-            $("<a>")
-                .attr("class", nameTab + "pag")
-                .attr("data", ">")
-                .text(" > ")
-                .appendTo("." + nameTab + "_pages");
-
-            $(".color_pages").attr("data", bias);
-
-            for (var i = 0; i < amountElements; ++i) {
+            let offsetTab = PaginationPage.generate(tab, bias, 'toolbarPage');
+            for (var i = 0; i < offsetTab.amountElements; ++i) {
                 var sel = "#" + nameTab;
-                if (i + biasInt < tabSize) {
+                if (i + offsetTab.biasInt < offsetTab.tabSize) {
                     $(sel + "Div" + i).attr("show", "is_alive_lement");
-                    $(sel + "Div" + i).attr("data", tab[i + biasInt].id);
-                    $(sel + "Img" + i).attr("src", tab[i + biasInt].picturePathFirst);
-                    $(sel + "Span" + i).text(tab[i + biasInt].name);
+                    $(sel + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
+                    $(sel + "Img" + i).attr("src", tab[i + offsetTab.biasInt].picturePathFirst);
+                    $(sel + "Span" + i).text(tab[i + offsetTab.biasInt].name);
                 } else {
                     $(sel + "Div" + i).attr("show", "ghost_lement");
                     $(sel + "Div" + i).attr("data", "");
@@ -1150,6 +1137,8 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#namedoorGlass").html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
+            PaginationPage.show();
         } else {
             $(".select_typeDoorGlass").attr("show", "ghost_lement");
         }
@@ -1160,6 +1149,8 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#namedoorGlass").html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
+            PaginationPage.show();
         } else {
             $(".select_toning").attr("show", "ghost_lement");
         }
@@ -1170,6 +1161,8 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#namedoorGlass").html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
+            PaginationPage.show();
         } else {
             $(".select_armor").attr("show", "ghost_lement");
         }
@@ -1186,8 +1179,9 @@ jQuery("document").ready(function () {
             $(".select_topLock").attr("show", "is_alive_lement");
             goTo = "topLockkit";
             currentItemForDisplay = $("#nametopLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "topLockkit";
+            displayListOfItems("topLock", availableFurnitureList.topLock, 0, "kit");
+            PaginationPage.show();
         } else {
             $(".select_topLock").attr("show", "ghost_lement");
         }
@@ -1196,8 +1190,9 @@ jQuery("document").ready(function () {
             $(".select_topInLockDecor").attr("show", "is_alive_lement");
             goTo = "topLockkit";
             currentItemForDisplay = $("#nametopLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "topLockkit";
+            displayListOfItems("topInLockDecor", availableFurnitureList.topInLockDecor, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_topInLockDecor").attr("show", "ghost_lement");
         }
@@ -1206,8 +1201,9 @@ jQuery("document").ready(function () {
             $(".select_topOutLockDecor").attr("show", "is_alive_lement");
             goTo = "topLockkit";
             currentItemForDisplay = $("#nametopLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "topLockkit";
+            displayListOfItems("topOutLockDecor", availableFurnitureList.topOutLockDecor, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_topOutLockDecor").attr("show", "ghost_lement");
         }
@@ -1224,8 +1220,9 @@ jQuery("document").ready(function () {
             $(".select_lowerLock").attr("show", "is_alive_lement");
             goTo = "lowerLockkit";
             currentItemForDisplay = $("#namelowerLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "lowerLockkit";
+            displayListOfItems("lowerLock", availableFurnitureList.lowerLock, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_lowerLock").attr("show", "ghost_lement");
         }
@@ -1235,6 +1232,8 @@ jQuery("document").ready(function () {
             goTo = "lowerLockkit";
             currentItemForDisplay = $("#namelowerLockkit").html();
             currentItemForDisplayId = "lowerLockkit";
+            displayListOfItems("lowerInLockDecor", availableFurnitureList.lowerInLockDecor, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_lowerInLockDecor").attr("show", "ghost_lement");
         }
@@ -1244,26 +1243,8 @@ jQuery("document").ready(function () {
             goTo = "lowerLockkit";
             currentItemForDisplay = $("#namelowerLockkit").html();
             currentItemForDisplayId = "lowerLockkit";
-        } else {
-            $(".select_lowerOutLockDecor").attr("show", "ghost_lement");
-        }
-
-        if (currentItem == "lowerInLockDecor") {
-            $(".select_lowerInLockDecor").attr("show", "is_alive_lement");
-            goTo = "lowerLockkit";
-            currentItemForDisplay = $("#namelowerLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = "lowerLockkit";
-        } else {
-            $(".select_lowerInLockDecor").attr("show", "ghost_lement");
-        }
-
-        if (currentItem == "lowerOutLockDecor") {
-            $(".select_lowerOutLockDecor").attr("show", "is_alive_lement");
-            goTo = "topLockkit";
-            currentItemForDisplay = $("#nametopLockkit").html();
-            //currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = "topLockkit";
+            displayListOfItems("lowerOutLockDecor", availableFurnitureList.lowerOutLockDecor, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_lowerOutLockDecor").attr("show", "ghost_lement");
         }
@@ -1271,6 +1252,8 @@ jQuery("document").ready(function () {
         if (currentItem == "handle") {
             setСurrentItem("handle");
             $(".select_handle").attr("show", "is_alive_lement");
+            displayListOfItems("handle", availableFurnitureList.handle, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_handle").attr("show", "ghost_lement");
         }
@@ -1286,6 +1269,8 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#nameadditionally").html();
             currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "additionally";
+            displayListOfItems("closer", availableFurnitureList.closer, 0, '');
+            PaginationPage.show();
         } else {
             $(".select_closer").attr("show", "ghost_lement");
         }
@@ -1303,6 +1288,8 @@ jQuery("document").ready(function () {
             $(".select_topLockCylinder").attr("show", "is_alive_lement");
             goTo = "topLockkit";
             currentItemForDisplay = $("#nametopLockkit").html();
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
+            PaginationPage.show();
         } else {
             $(".select_topLockCylinder").attr("show", "ghost_lement");
         }
@@ -1311,6 +1298,8 @@ jQuery("document").ready(function () {
             $(".select_lowerLockCylinder").attr("show", "is_alive_lement");
             goTo = "lowerLockkit";
             currentItemForDisplay = $("#namelowerLockkit").html();
+            displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
+            PaginationPage.show();
         } else {
             $(".select_lowerLockCylinder").attr("show", "ghost_lement");
         }
@@ -1357,17 +1346,34 @@ jQuery("document").ready(function () {
             $(".select_comment").attr("show", "ghost_lement");
         }
 
-        if (!hasAParination(currentItem)){
-                PaginationPage.hide();
+        if (!hasAParination(currentItem)) {
+            PaginationPage.hide();
         }
     }
 
     function hasAParination() {
-        if ("shieldColor" == currentItem || "shieldDesign" == currentItem || "doorColor" == currentItem ){
-            return true ;
+        if ("shieldColor" == currentItem ||
+            "shieldDesign" == currentItem ||
+            "doorColor" == currentItem ||
+            'topLock' == currentItem ||
+            "lowerLock" == currentItem ||
+            'closer' == currentItem ||
+            'topLockCylinder' == currentItem ||
+            'lowerLockCylinder' == currentItem ||
+            'handle' == currentItem ||
+            'lowerOutLockDecor' == currentItem ||
+            'lowerInLockDecor' == currentItem ||
+            'topOutLockDecor' == currentItem ||
+            'topInLockDecor' == currentItem ||
+            'typeDoorGlass' == currentItem ||
+            'toning' == currentItem ||
+            'armor' == currentItem
+        ) {
+            return true;
         }
         return false;
     }
+
     function addToTheHistoryList(val) {
         historyList[currentHisPoint] = val;
         currentHisPoint++;
