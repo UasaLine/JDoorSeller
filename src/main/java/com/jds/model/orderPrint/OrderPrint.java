@@ -1,15 +1,10 @@
 package com.jds.model.orderPrint;
 
-import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorsОrder;
-import com.jds.dao.entity.OrderDiscount;
-import com.jds.model.OrderDiscounts;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +33,7 @@ public class OrderPrint {
         this.totalQuantity = order.getTotalQuantity();
 
         doorsLine = order.getDoors().stream()
-                .map((door)-> new OrderPrintLine(door, ordersDiscounts))
+                .map((door) -> new OrderPrintLine(door, ordersDiscounts))
                 .sorted((line1, line2) -> -line1.compareTo(line2))
                 .collect(Collectors.toList());
     }

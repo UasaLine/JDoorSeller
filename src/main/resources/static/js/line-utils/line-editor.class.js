@@ -124,7 +124,7 @@ class LineEditor {
             let price = $(this).children('.price_line').text();
 
             let discount = $(this).children('.discount_line').text();
-            let priceDiscount = Math.floor(price - discount/100*price);
+            let priceDiscount = price -  Math.floor(price*discount/100);
             let totalItem = $(this).children('.total_line');
             let door_id = $(this).children('.id').text();
 

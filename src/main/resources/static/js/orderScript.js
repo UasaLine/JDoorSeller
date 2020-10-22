@@ -194,7 +194,7 @@ jQuery("document").ready(function () {
           discount +
           "</td>" +
           '<td class="total_line">' +
-          Math.floor((doors[j].priceWithMarkup * doors[j].quantity) - discount/100*(doors[j].priceWithMarkup * doors[j].quantity)) +
+         (doors[j].priceWithMarkup -  Math.floor(doors[j].priceWithMarkup*discount/100)) * doors[j].quantity +
           "</td>" +
           "</tr>"
       );

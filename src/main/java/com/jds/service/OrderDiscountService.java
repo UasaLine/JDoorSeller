@@ -2,14 +2,12 @@ package com.jds.service;
 
 import com.jds.dao.entity.OrderDiscount;
 import com.jds.dao.repository.OrderDiscountRepository;
-import com.jds.model.OrderDiscounts;
-import com.jds.model.ResponseAction;
+import com.jds.model.orderPrint.OrderDiscounts;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderDiscountService {
@@ -20,7 +18,11 @@ public class OrderDiscountService {
     public List<OrderDiscount> saveOrderDiscount(@NonNull List<OrderDiscount> orderDiscountList) {
 
         for (OrderDiscount orderdiscount:orderDiscountList){
-            orderdiscount = orderDiscountRepository.saveOrderDiscount(orderdiscount);
+            if (orderdiscount.getDiscount() == 0){
+                orderDiscountRepository.deleteOrderDiscount(orderdiscount);
+            }else {
+                orderDiscountRepository.saveOrderDiscount(orderdiscount);
+            }
         }
 
         return orderDiscountList;

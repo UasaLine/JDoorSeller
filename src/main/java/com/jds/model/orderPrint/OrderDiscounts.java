@@ -1,4 +1,4 @@
-package com.jds.model;
+package com.jds.model.orderPrint;
 
 import com.jds.dao.entity.OrderDiscount;
 import lombok.Getter;
@@ -19,12 +19,13 @@ public class OrderDiscounts {
 
     public int getByDoorId (int door_id){
 
-        List<OrderDiscount> orderDiscount;
-        orderDiscount = ordersDiscountsList.stream()
+        OrderDiscount orderDiscount = ordersDiscountsList.stream()
                 .filter((dis)-> dis.getDoor_id() == (door_id))
-                .collect(Collectors.toList());
+                .findFirst().orElse(null);
 
-        return orderDiscount.get(0).getDiscount();
+        if (orderDiscount != null){
+            return orderDiscount.getDiscount();
+        } return 0;
 
     }
 
