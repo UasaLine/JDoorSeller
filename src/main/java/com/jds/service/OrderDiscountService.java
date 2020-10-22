@@ -46,4 +46,12 @@ public class OrderDiscountService {
         OrderDiscount orderDiscount = orderDiscountRepository.getOrderDiscountById(Integer.parseInt(id));
         return orderDiscountRepository.deleteOrderDiscount(orderDiscount);
     }
+
+    public String deleteOrderDiscountByOrderId(String id) {
+        List<OrderDiscount> orderDiscountList = orderDiscountRepository.getOrderDiscountByOrderId(Integer.parseInt(id));
+        for (OrderDiscount ordr : orderDiscountList){
+            orderDiscountRepository.deleteOrderDiscount(ordr);
+        }
+        return "ок";
+    }
 }

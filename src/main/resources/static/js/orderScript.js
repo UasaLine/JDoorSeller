@@ -74,6 +74,7 @@ jQuery("document").ready(function () {
 
   $("#deleteOrder").on("click", function () {
     deletOrder();
+    deleteOrderDiscountByOrderId();
   });
 
   $("#print").on("click", function () {
@@ -372,6 +373,19 @@ jQuery("document").ready(function () {
       success: function (data) {
         alert("delete completed" + data);
         location.href = "orders";
+      },
+      error: function (data) {
+        alert("delete error:" + data);
+      },
+    });
+  }
+
+  function deleteOrderDiscountByOrderId() {
+    $.ajax({
+      type: "DELETE",
+      url: "deleteOrderDiscountByOrderId?orderId=" + orderId,
+      dataType: "json",
+      success: function (data) {
       },
       error: function (data) {
         alert("delete error:" + data);

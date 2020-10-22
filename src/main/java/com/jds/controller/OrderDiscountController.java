@@ -47,4 +47,11 @@ public class OrderDiscountController {
         return new ResponseAction(orderDiscountService.deleteOrderDiscount(id));
     }
 
+    @DeleteMapping(value = "/deleteOrderDiscountByOrderId", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseAction deleteOrderDiscountByOrderId(@RequestParam(required = false) String orderId)throws Exception {
+
+        return new ResponseAction(orderDiscountService.deleteOrderDiscountByOrderId(orderId));
+    }
+
 }
