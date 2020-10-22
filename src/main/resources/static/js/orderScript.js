@@ -1,12 +1,28 @@
+let orderDiscountList =[];
+let order;
+
 jQuery("document").ready(function () {
 
   //getInstans order
   var orderId = $("#order_id").text();
   var currentDoorId = 0;
-  var order;
+
   let buttonsManager = new ButtonsManager('different_availability','CALC');
+
   setOrderId("Заказ");
 
+    $.ajax({
+        url: "getOrderDiscount/order_id",
+        data: { orderId: orderId },
+        dataType: "json",
+        success: function (data) {
+            orderDiscountList = [];
+            orderDiscountList = data;
+        },
+        error: function (data) {
+            alert("error:" + data);
+        },
+    });
 
   $.ajax({
     url: "getOrder",
@@ -25,6 +41,7 @@ jQuery("document").ready(function () {
 
   $("#saveOrder").on("click", function () {
     saveOrder(0, 0);
+    saveOrderDiscount(0, 0);
   });
 
   $("#toСlose").on("click", function () {
@@ -33,11 +50,13 @@ jQuery("document").ready(function () {
 
   $("#saveOrderAndShutDown").on("click", function () {
     saveOrder(0, 1);
+      saveOrderDiscount(0, 1);
   });
 
   $("#addDoor").on("click", function () {
     if (orderId == "0") {
       saveOrder(1, 0);
+        saveOrderDiscount(1, 1);
     } else {
       addDoor(orderId);
     }
@@ -49,6 +68,8 @@ jQuery("document").ready(function () {
 
   $("#delete").on("click", function () {
     deleteDoor();
+    deleteIfExist();
+   //deleteOrderDiscount();
   });
 
   $("#deleteOrder").on("click", function () {
@@ -114,7 +135,7 @@ jQuery("document").ready(function () {
     order.doors.forEach(function (item, i, arr) {
       item.quantity = $("#"+item.id).text();
     })
-
+      order.totalAmount = $("#total").text();
   }
 
   function fillOutOfTheObject() {
@@ -145,6 +166,7 @@ jQuery("document").ready(function () {
     var doors = order.doors;
     var position = 1;
     for (var j = 0; j < doors.length; ++j) {
+        let discount = searchOrderDiscount(doors[j]);
       $(".Table > tbody").append(
         "<tr class='edit_line'>" +
           '<td class="position">' +
@@ -168,17 +190,26 @@ jQuery("document").ready(function () {
           '<td class="price_line">' +
           doors[j].priceWithMarkup +
           "</td>" +
-          '<td class="sale_line">' +
-          20 +
+          '<td class="vary_field text_input discount_line">' +
+          discount +
           "</td>" +
           '<td class="total_line">' +
-          (doors[j].priceWithMarkup * doors[j].quantity) +
+          Math.floor((doors[j].priceWithMarkup * doors[j].quantity) - discount/100*(doors[j].priceWithMarkup * doors[j].quantity)) +
           "</td>" +
           "</tr>"
       );
       position++;
     }
   }
+
+    function searchOrderDiscount(door) {
+        let discont = orderDiscountList.find(item => (item.door_id == door.id & item.order_id == order.order_id));
+        if (discont){
+            return discont.discount;
+        }else {
+            return 0;
+        }
+    }
 
   function fillOutOfTheObjectToFactory() {
     $("tr").remove();
@@ -255,6 +286,25 @@ jQuery("document").ready(function () {
     });
   }
 
+    function saveOrderDiscount(add, close) {
+        var strJSON = JSON.stringify(orderDiscountList);
+
+        $.ajax({
+            type: "POST",
+            url: "orderDiscount",
+            contentType: "application/json",
+            data: strJSON,
+            dataType: "json",
+            success: function (data) {
+                orderDiscountList = [];
+                orderDiscountList = data;
+            },
+            error: function (data) {
+                alert("error: даписать не удалось:(");
+            },
+        });
+    }
+
   function toClose() {
     location.href = "orders";
   }
@@ -272,6 +322,31 @@ jQuery("document").ready(function () {
   function changeDoor() {
     location.href = "calculation?orderId=" + orderId + "&id=" + currentDoorId;
   }
+
+   function deleteIfExist(){
+       orderDiscountList.forEach(function (item, i, arr) {
+           if (item.order_id == orderId & item.door_id == currentDoorId){
+               deleteOrderDiscount(item.id);
+               orderDiscountList.splice(i, 1);
+               return;
+           }
+       })
+
+   }
+
+    function deleteOrderDiscount(orderDiscountId) {
+        $.ajax({
+            type: "DELETE",
+            url: "orderDiscount/"+orderDiscountId,
+            dataType: "json",
+            success: function (data) {
+
+            },
+            error: function (data) {
+                alert('delete error:' + data);
+            },
+        });
+    }
 
   function deleteDoor() {
     $.ajax({

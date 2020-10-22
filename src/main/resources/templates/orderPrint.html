@@ -22,16 +22,21 @@
 				<th>Кол-во</th>
 				<th>Ед.	</th>
 				<th>Цена</th>
+				<th>Скидка</th>
 				<th>Сумма</th>
 			</tr>
-			<tr th:each="door : ${order.doors}">
-				<td th:utext="${door.id}">..</td>
-				<td th:utext="${door.id}">..</td>
-				<td th:utext="${door.name}">..</td>
-				<td th:utext="${door.quantity}">..</td>
+
+			<tr th:each="doorsLine, iter : ${order.doorsLine}">
+				<td th:utext="${iter.count}">..</td>
+				<td th:utext="${doorsLine.id}">..</td>
+				<td th:utext="${doorsLine.name}">..</td>
+				<td th:utext="${doorsLine.quantity}">..</td>
 				<td>шт.</td>
-				<td th:utext="${door.priceWithMarkup}">..</td>
-				<td th:utext="${door.priceWithMarkup*door.quantity}">..</td>
+				<td th:utext="${doorsLine.priceWithMarkup}">..</td>
+				<td th:utext="${doorsLine.discount}">..</td>
+				<td th:utext="${doorsLine.totalPrice}">..</td>
+
+
 			</tr>
 
 		</table>
