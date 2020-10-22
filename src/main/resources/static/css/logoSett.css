@@ -338,6 +338,27 @@ tr:hover {
     color: #FFFFFF;
 }
 
+.images_furniture {
+    height: 100px;
+    width: 100px;
+    margin: 3px;
+}
+
+.div_images_furniture {
+    display: inline-block;
+    margin: 0px;
+}
+
+.div_images_furniture:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_furniture[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
 .to_calculate {
     height: 35px;
     width: 200px;

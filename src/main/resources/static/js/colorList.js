@@ -29,7 +29,12 @@ jQuery("document").ready(function () {
                 method: "DELETE",
                 dataType: "json",
                 success: function (data) {
-                    location.pathname = "/color";
+                    if (data.status == null){
+                        alert("этот цвет используеться");
+                    }else {
+                        location.pathname = "/color";
+                    }
+
                 },
                 error: function (data) {
                     alert("!ERROR: елемнет удалить не удалось:");
