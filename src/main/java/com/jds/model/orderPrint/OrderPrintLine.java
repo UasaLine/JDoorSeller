@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class OrderPrintLine implements Comparable<OrderPrintLine> {
 
-    private int position;
     private int id;
     private String name;
     private int quantity;
@@ -24,7 +23,6 @@ public class OrderPrintLine implements Comparable<OrderPrintLine> {
     private int totalPrice;
 
     public OrderPrintLine(DoorEntity door, OrderDiscounts orderDiscounts) {
-        this.position++;
         this.id = door.getId();
         this.name = door.getName();
         this.quantity = door.getQuantity();
