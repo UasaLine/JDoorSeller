@@ -130,6 +130,7 @@ public class OrderService {
     public String deleteOrder(String orderId) {
         DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
         dAO.deleteOrder(order);
+        orderDiscountService.deleteOrderDiscountByOrderId(orderId);
         return String.valueOf(order.getId());
     }
 

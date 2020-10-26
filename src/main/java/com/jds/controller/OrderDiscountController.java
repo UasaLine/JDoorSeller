@@ -26,14 +26,7 @@ public class OrderDiscountController {
         return orderDiscountService.saveOrderDiscount(orderDiscount);
     }
 
-    @GetMapping(value = "/getOrderDiscount", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<OrderDiscount> getOrderDiscount() throws Exception {
-
-        return orderDiscountService.getOrderDiscount();
-    }
-
-    @GetMapping(value = "/getOrderDiscount/order_id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/orderDiscounts", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<OrderDiscount> getOrderDiscount(@RequestParam(required = false) String orderId) throws Exception {
 
@@ -46,12 +39,4 @@ public class OrderDiscountController {
 
         return new ResponseAction(orderDiscountService.deleteOrderDiscount(id));
     }
-
-    @DeleteMapping(value = "/deleteOrderDiscountByOrderId", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseAction deleteOrderDiscountByOrderId(@RequestParam(required = false) String orderId)throws Exception {
-
-        return new ResponseAction(orderDiscountService.deleteOrderDiscountByOrderId(orderId));
-    }
-
 }

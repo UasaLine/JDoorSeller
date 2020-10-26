@@ -12,7 +12,7 @@ jQuery("document").ready(function () {
   setOrderId("Заказ");
 
     $.ajax({
-        url: "getOrderDiscount/order_id",
+        url: "orderDiscounts",
         data: { orderId: orderId },
         dataType: "json",
         success: function (data) {
