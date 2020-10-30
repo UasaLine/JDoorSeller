@@ -1,8 +1,8 @@
 package com.jds.controller;
 
+import com.jds.model.orderPrint.OrderPrint;
 import com.jds.model.PrintAppToTheOrder;
-import com.jds.model.RestrictionOfSelectionFields;
-import com.jds.service.MaineService;
+import com.jds.service.OrderDiscountService;
 import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,12 +19,14 @@ public class PrintController {
 
     @Autowired
     private OrderService service;
+    @Autowired
+    private OrderDiscountService orderDiscountService;
 
     @GetMapping(value = "/orderprint")
     public String getPrintOrder(Model model,
                                 @RequestParam(required = false) String orderId) throws Exception {
 
-        model.addAttribute("order", service.getOrder(orderId));
+        model.addAttribute("order", new OrderPrint(service.getOrder(orderId), orderDiscountService.getOrderDiscounts(orderId)));
         return "orderPrint";
     }
     @GetMapping(value = "/doorsprint")

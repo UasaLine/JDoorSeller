@@ -24,6 +24,9 @@ public class OrderService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    OrderDiscountService orderDiscountService;
+
 
     public List<DoorsОrder> getOrders() {
 
@@ -120,12 +123,14 @@ public class OrderService {
 
     private DoorsОrder saveOrder(@NonNull DoorsОrder order) {
 
-        return dAO.saveOrder(order.calculateTotal(userService.getUserSetting()));
+        order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrder_id())));
+        return dAO.saveOrder(order);
     }
 
     public String deleteOrder(String orderId) {
         DoorsОrder order = dAO.getOrder(Integer.parseInt(orderId));
         dAO.deleteOrder(order);
+        orderDiscountService.deleteOrderDiscountByOrderId(orderId);
         return String.valueOf(order.getId());
     }
 
