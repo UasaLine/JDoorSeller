@@ -9,6 +9,9 @@ class SizingDrum {
 
     static sizeLimMin(elemId) {
 
+        if (elemId == "input_glassWidth" || "input_glassHeight" || "input_leftGlassPosition" || "input_bottomGlassPosition"){
+            return 0;
+        }
 
         let nameField = SizingDrum.getFieldNameFromInputId(elemId);
 
@@ -30,6 +33,10 @@ class SizingDrum {
     }
 
     static sizeLimMax(elemId) {
+
+        if (elemId == "input_glassWidth" || "input_glassHeight" || "input_leftGlassPosition" || "input_bottomGlassPosition"){
+            return door.heightDoor;
+        }
 
         let nameField = SizingDrum.getFieldNameFromInputId(elemId);
 
@@ -63,7 +70,12 @@ class SizingDrum {
 
         var fieldName =  SizingDrum.getFieldNameFromInputId($("#nameSelectForm").attr("data"));
 
-        Door.set(fieldName,number);
+        if (fieldName == "glassWidth" || "glassHeight" || "leftGlassPosition" || "bottomGlassPosition"){
+            Door.setGlass(fieldName,number);
+        }else {
+            Door.set(fieldName,number);
+
+        }
 
         currentItem = fieldName;
         RepresentationManager.showFieldValue(number);

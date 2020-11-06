@@ -775,16 +775,26 @@ jQuery("document").ready(function () {
                 currentItem = "armor";
                 RepresentationManager.showFieldValue(door.doorGlass.armor.name);
             }
-            currentItem = "doorGlass";
-            RepresentationManager.showFieldValue(door.doorGlass);
 
-            $("#inputWidthDoorGlass").attr("value", door.doorGlass.glassWidth);
-            $("#inputHeightDoorGlass").attr("value", door.doorGlass.glassHeight);
-            $("#inputleftDoorGlass").attr("value", door.doorGlass.leftGlassPosition);
-            $("#inputbottomDoorGlass").attr(
-                "value",
-                door.doorGlass.bottomGlassPosition
-            );
+            //Door.set("WidthDoorGlass", door.doorGlass.glassWidth);
+            //Door.set("HeightDoorGlass", door.doorGlass.glassHeight);
+            //Door.set("leftDoorGlass", door.doorGlass.leftGlassPosition);
+            //Door.set("bottomDoorGlass", door.doorGlass.bottomGlassPosition);
+
+            currentItem = "glassWidth";
+            RepresentationManager.showFieldValue(door.doorGlass.glassWidth);
+            currentItem = "glassHeight";
+            RepresentationManager.showFieldValue(door.doorGlass.glassHeight);
+            currentItem = "leftGlassPosition";
+            RepresentationManager.showFieldValue(door.doorGlass.leftGlassPosition);
+            currentItem = "bottomGlassPosition";
+            RepresentationManager.showFieldValue(door.doorGlass.bottomGlassPosition);
+
+
+            // $("#input_WidthDoorGlass").attr("value", door.doorGlass.glassWidth);
+            // $("#input_HeightDoorGlass").attr("value", door.doorGlass.glassHeight);
+            // $("#input_leftDoorGlass").attr("value", door.doorGlass.leftGlassPosition);
+            // $("#input_bottomDoorGlass").attr("value", door.doorGlass.bottomGlassPosition);
         }
     }
 
@@ -933,7 +943,16 @@ jQuery("document").ready(function () {
         });
     }
 
+    function glassShowIfIsExist(data) {
+        if (data.typeDoorGlass.length > 0) {
+            $("#doorGlass").attr("show", "is_alive_lement");
+        } else {
+            $("#doorGlass").attr("show", "ghost_lement");
+        }
+    }
+
     function fillInTheFieldsToTheTemplate(data) {
+        glassShowIfIsExist(data);
         const makeAvailable = new AvailableManager(data, availableFurnitureList);
         makeAvailable.makeFieldsAvailable();
 
@@ -1135,7 +1154,7 @@ jQuery("document").ready(function () {
             $(".select_typeDoorGlass").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1147,7 +1166,7 @@ jQuery("document").ready(function () {
             $(".select_toning").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1159,7 +1178,7 @@ jQuery("document").ready(function () {
             $(".select_armor").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1367,7 +1386,8 @@ jQuery("document").ready(function () {
             'topInLockDecor' == currentItem ||
             'typeDoorGlass' == currentItem ||
             'toning' == currentItem ||
-            'armor' == currentItem
+            'armor' == currentItem ||
+            'doorGlass' == currentItem
         ) {
             return true;
         }

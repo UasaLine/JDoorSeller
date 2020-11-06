@@ -13,6 +13,11 @@ class Door {
 
     }
 
+    static setGlass(fieldName, value) {
+        door.doorGlass[fieldName] = value;
+        failureToSetValue = false;
+    }
+
 
     static draw(door, i) {
         let sideDoorOpen = door.sideDoorOpen;
@@ -35,18 +40,20 @@ class Door {
 
             config.topGlassPosition = 0;
             if (door.doorGlass.bottomGlassPosition == 0) {
-                config.topGlassPosition = (height - glassHeight) / 2;
+                //glassHeight
+                config.topGlassPosition = (door.heightDoor - door.doorGlass.glassHeight*2) / 10;
             } else {
-                config.topGlassPosition =
-                    height - glassHeight - (door.doorGlass.bottomGlassPosition * 2) / 10;
+                config.topGlassPosition = (door.doorGlass.bottomGlassPosition * 2) / 10;
             }
 
             config.leftGlassPosition;
             if (door.doorGlass.leftGlassPosition == 0) {
-                config.leftGlassPosition = (width - glassWidth) / 2;
+                //glassWidth
+                config.leftGlassPosition = (door.widthDoor - door.doorGlass.glassWidth) / 2;
             } else {
                 config.leftGlassPosition = (door.doorGlass.leftGlassPosition * 2) / 10;
             }
+
         }
 
         this.delete(i);
@@ -343,16 +350,20 @@ class Door {
                 .attr(
                     "style",
                     "width:" +
-                    glassWidth +
+                    //glassWidth +
+                    config.glassWidth +
                     "px; height:" +
-                    glassHeight +
+                    //glassHeight +
+                    config.glassHeight +
                     "px; top:" +
-                    topGlassPosition +
+                    //topGlassPosition +
+                    config.topGlassPosition +
                     "px; left:" +
-                    leftGlassPosition +
+                    //leftGlassPosition +
+                    config.leftGlassPosition +
                     "px;"
                 )
-                .appendTo("#LeafL" + i);
+                .appendTo(containerLeaf);
         }
     }
 

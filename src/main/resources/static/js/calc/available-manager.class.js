@@ -33,7 +33,6 @@ class AvailableManager {
         this.makeAvailableIfExists("typeDoorGlass","");
         this.makeAvailableIfExists("toning","");
         this.makeAvailableIfExists("armor","");
-
     }
 
     makeAvailableIfExists(name,postfix) {

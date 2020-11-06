@@ -1,6 +1,6 @@
 class RepresentationManager {
 
-    static showAllFieldsValues(door){
+    static showAllFieldsValues(door) {
         for (let key in door) {
             currentItem = key;
             RepresentationManager.showFieldValue(door[key]);
@@ -13,8 +13,6 @@ class RepresentationManager {
         Container2fields.setValueToField(buildVal);
         Container3fields.setSizeValueToButton(currentItem);
     }
-
-    
 }
 
 class Container2fields {
@@ -89,14 +87,13 @@ class Container2fields {
                 currentItem == "stainlessSteelDoorstep"
             ) {
                 Container2fields.fillCheckbox(currentItem, value);
-            }
-            else if (
+            } else if (
                 currentItem == "topDoorTrim" ||
                 currentItem == "leftDoorTrim" ||
                 currentItem == "rightDoorTrim"
             ) {
                 Trim.turnOn(currentItem, value);
-            }else if (
+            } else if (
                 currentItem == "firstSealingLine" ||
                 currentItem == "secondSealingLine" ||
                 currentItem == "thirdSealingLine"
@@ -112,7 +109,7 @@ class Container2fields {
         }
     }
 
-    static setValueToField(value){
+    static setValueToField(value) {
         $(".vertical_menu_button_rigtht#" + currentItem + "Show strong").html(
             value
         );
@@ -164,12 +161,17 @@ class Container2fields {
 }
 
 class Container3fields {
-    static setSizeValueToButton(fieldName){
-        let value = door[fieldName];
-        let item = $('#input_'+fieldName);
+    static setSizeValueToButton(fieldName) {
+        let value;
+        if (fieldName == "glassWidth" || "glassHeight" || "leftGlassPosition" || "bottomGlassPosition") {
+            value = door.doorGlass[fieldName];
+        } else {
+            value = door[fieldName];
+        }
+        let item = $('#input_' + fieldName);
         let buttonText = $(item).attr('name');
-        $(item).text(buttonText+' '+value);
-        $(item).attr('data',value);
-        $(item).attr('value',value);
+        $(item).text(buttonText + ' ' + value);
+        $(item).attr('data', value);
+        $(item).attr('value', value);
     }
 }
