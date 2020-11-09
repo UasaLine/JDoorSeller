@@ -110,6 +110,9 @@ jQuery("document").ready(function () {
 
     $(".div_images_DoorGlass").on("click", function () {
         setDoorGlassImg($(this).attr("Item"), $(this).attr("data"));
+        if ($("#typeDoorGlass").attr("data") == "" || $("#typeDoorGlass").attr("data") == "нет"){
+            resetDoorGlassField();
+        }
         RepresentationManager.showFieldValue($(this).children("span").html());
         Door.draw(door, 1);
         pickOut(this);
@@ -355,7 +358,9 @@ jQuery("document").ready(function () {
     });
 
     $(".select_size").on("click", function () {
-
+        if ($(this).attr("available") == "no") {
+            return;
+        }
 
         sizeMin = SizingDrum.sizeLimMin($(this).attr("id"));
         sizeMax = SizingDrum.sizeLimMax($(this).attr("id"));
@@ -453,6 +458,17 @@ jQuery("document").ready(function () {
 
     function setDoorGlassField(fieldName, value) {
         door.doorGlass[fieldName] = value;
+    }
+
+    function resetDoorGlassField() {
+        Door.setGlass("glassWidth",0);
+        Door.setGlass("glassHeight",0);
+        Door.setGlass("leftGlassPosition",0);
+        Door.setGlass("bottomGlassPosition",0);
+        setDoorGlassField("toning", "");
+        setDoorGlassField("armor", "");
+        $(".vertical_menu_button_rigtht#" + "toning" + "Show strong").html("");
+        $(".vertical_menu_button_rigtht#" + "armor" + "Show strong").html("");
     }
 
     function setDoorFurniture(fieldName, value, doorKit) {
@@ -642,6 +658,10 @@ jQuery("document").ready(function () {
 
     function processItemSelection(item) {
         currentItem = $(item).attr("id");
+
+        if ($("#" + currentItem).attr("available") == "no") {
+            return;
+        }
         currentItemForDisplay = $(item).html();
         currentItemDaughterForDisplay = "";
         currentItemForDisplayId = currentItem;
@@ -1146,6 +1166,7 @@ jQuery("document").ready(function () {
         if (currentItem == "doorGlass") {
             $(".select_doorGlass").attr("show", "is_alive_lement");
             displayGlass();
+            setAvailableChildrenAttr();
         } else {
             $(".select_doorGlass").attr("show", "ghost_lement");
         }
@@ -1163,6 +1184,10 @@ jQuery("document").ready(function () {
         }
 
         if (currentItem == "toning") {
+            if ($("#toning").attr("available") == "no") {
+                return;
+            }
+
             $(".select_toning").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
@@ -1175,6 +1200,9 @@ jQuery("document").ready(function () {
         }
 
         if (currentItem == "armor") {
+            if ($("#armor").attr("available") == "no") {
+                return;
+            }
             $(".select_armor").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
@@ -1368,6 +1396,25 @@ jQuery("document").ready(function () {
         if (!hasAParination(currentItem)) {
             PaginationPage.hide();
         }
+    }
+
+    function setAvailableChildrenAttr() {
+        if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет") {
+            $("#toning").attr("available", "no");
+            $("#armor").attr("available", "no");
+            $("#input_glassWidth").attr("available", "no");
+            $("#input_glassHeight").attr("available", "no");
+            $("#input_leftGlassPosition").attr("available", "no");
+            $("#input_bottomGlassPosition").attr("available", "no");
+        } else {
+            $("#toning").attr("available", "yes");
+            $("#armor").attr("available", "yes");
+            $("#input_glassWidth").attr("available", "yes");
+            $("#input_glassHeight").attr("available", "yes");
+            $("#input_leftGlassPosition").attr("available", "yes");
+            $("#input_bottomGlassPosition").attr("available", "yes");
+        }
+
     }
 
     function hasAParination() {

@@ -163,7 +163,7 @@ class Container2fields {
 class Container3fields {
     static setSizeValueToButton(fieldName) {
         let value;
-        if (fieldName == "glassWidth" || "glassHeight" || "leftGlassPosition" || "bottomGlassPosition") {
+        if (fieldName == "glassWidth" || fieldName ==  "glassHeight" || fieldName ==  "leftGlassPosition" || fieldName ==  "bottomGlassPosition") {
             value = door.doorGlass[fieldName];
         } else {
             value = door[fieldName];

@@ -41,17 +41,17 @@ class Door {
             config.topGlassPosition = 0;
             if (door.doorGlass.bottomGlassPosition == 0) {
                 //glassHeight
-                config.topGlassPosition = (door.heightDoor - door.doorGlass.glassHeight*2) / 10;
+                config.topGlassPosition = (door.heightDoor - door.doorGlass.glassHeight) / 10;
             } else {
-                config.topGlassPosition = (door.doorGlass.bottomGlassPosition * 2) / 10;
+                config.topGlassPosition = (door.heightDoor - Number(door.doorGlass.glassHeight) - Number(door.doorGlass.bottomGlassPosition)) / 10;
             }
 
-            config.leftGlassPosition;
+            config.leftGlassPosition = 0;
             if (door.doorGlass.leftGlassPosition == 0) {
                 //glassWidth
-                config.leftGlassPosition = (door.widthDoor - door.doorGlass.glassWidth) / 2;
+                config.leftGlassPosition = (door.widthDoor - door.doorGlass.glassWidth) / 10;
             } else {
-                config.leftGlassPosition = (door.doorGlass.leftGlassPosition * 2) / 10;
+                config.leftGlassPosition = ((door.widthDoor - Number(door.doorGlass.glassWidth)) + Number(door.doorGlass.leftGlassPosition)) / 10;
             }
 
         }
