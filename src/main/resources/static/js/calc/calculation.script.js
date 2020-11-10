@@ -110,12 +110,13 @@ jQuery("document").ready(function () {
 
     $(".div_images_DoorGlass").on("click", function () {
         setDoorGlassImg($(this).attr("Item"), $(this).attr("data"));
-        if ($("#typeDoorGlass").attr("data") == "" || $("#typeDoorGlass").attr("data") == "нет"){
+        RepresentationManager.showFieldValue($(this).children("span").html());
+        if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет"){
             resetDoorGlassField();
         }
-        RepresentationManager.showFieldValue($(this).children("span").html());
         Door.draw(door, 1);
         pickOut(this);
+
     });
 
     $(".div_images_furniture").on("click", function () {
@@ -465,10 +466,13 @@ jQuery("document").ready(function () {
         Door.setGlass("glassHeight",0);
         Door.setGlass("leftGlassPosition",0);
         Door.setGlass("bottomGlassPosition",0);
-        setDoorGlassField("toning", "");
-        setDoorGlassField("armor", "");
+        setDoorGlassField("toning", null);
+        setDoorGlassField("armor", null);
         $(".vertical_menu_button_rigtht#" + "toning" + "Show strong").html("");
         $(".vertical_menu_button_rigtht#" + "armor" + "Show strong").html("");
+        $("#doorGlassShow").text("");
+        door.doorGlass.id = 0;
+        door.doorGlass.space = 0;
     }
 
     function setDoorFurniture(fieldName, value, doorKit) {
