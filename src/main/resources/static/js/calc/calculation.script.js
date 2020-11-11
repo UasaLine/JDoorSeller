@@ -572,7 +572,7 @@ jQuery("document").ready(function () {
 
     function displayPrice() {
         $("#price").text("Цена: " + door.priceWithMarkup);
-
+        //door.costList.totalCost;
         $(".decryption").remove();
 
         if (door.costList !== null) {
