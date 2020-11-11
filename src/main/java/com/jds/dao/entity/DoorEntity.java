@@ -14,6 +14,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Door")
@@ -302,23 +303,37 @@ public class DoorEntity implements SerializingFields {
 
     public DoorEntity calculateGlass() {
 
+        RestrictionOfSelectionFields temp = template;
+
         if (doorGlass.exists()) {
 
+            List<LimitationDoor> glassType = template.getTypeDoorGlass().stream()
+                    .filter((p)-> p.getItemId() == doorGlass.getTypeDoorGlass().getId())
+                    .collect(Collectors.toList());
+
             double glassSpace = doorGlass.getSpace();
-            int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace);
+            int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace) + glassType.get(0).getCost();
             costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getTypeDoorGlass().getName(),
-                    5, false, cost);
+                    200, false, cost);
+
+            List<LimitationDoor> glassToning = template.getToning().stream()
+                    .filter((p)-> p.getItemId() == doorGlass.getToning().getId())
+                    .collect(Collectors.toList());
 
             if (doorGlass.getToning() != null) {
-                cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace);
+                cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace) + glassToning.get(0).getCost();
                 costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getToning().getName(),
-                        5, false, cost);
+                        200, false, cost);
             }
 
+            List<LimitationDoor> glassArmor = template.getArmor().stream()
+                    .filter((p)-> p.getItemId() == doorGlass.getArmor().getId())
+                    .collect(Collectors.toList());
+
             if (doorGlass.getArmor() != null) {
-                cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE, glassSpace);
+                cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE, glassSpace) + glassArmor.get(0).getCost();;
                 costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getArmor().getName(),
-                        5, false, cost);
+                        200, false, cost);
             }
 
 

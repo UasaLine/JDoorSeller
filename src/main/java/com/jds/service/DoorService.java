@@ -94,12 +94,13 @@ public class DoorService implements DoorServ {
 
         doorEntity = costOfChangesAtTemplate(doorEntity);
 
+        doorEntity.calculateGlass();
+
         doorEntity = addRetailMarginToCostList(doorEntity, retailMargin);
 
         doorEntity
                 .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
-
 
         return addToOrderIfNotExist(doorEntity);
     }

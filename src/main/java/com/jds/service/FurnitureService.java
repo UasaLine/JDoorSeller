@@ -84,6 +84,9 @@ public class FurnitureService {
 
                 .shieldColor(convertToImage(template.getShieldColor()))
                 .shieldDesign(convertToImage(template.getShieldDesign()))
+                .typeDoorGlass(convertToFurniture(template.getTypeDoorGlass()))
+                .toning(convertToFurniture(template.getToning()))
+                .armor(convertToFurniture(template.getArmor()))
                 .build();
 
 
