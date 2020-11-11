@@ -122,11 +122,46 @@ class LineEditor {
         $('.edit_line').each(function () {
             let quantity = $(this).children('.quantity_line').text();
             let price = $(this).children('.price_line').text();
+
+            let discount = $(this).children('.discount_line').text();
+            let priceDiscount = price -  Math.floor(price*discount/100);
             let totalItem = $(this).children('.total_line');
-            let total = quantity * price;
+            let door_id = $(this).children('.id').text();
+
+            let position = $(this).children('.position').text();
+
+            LineEditor.setOrderDiscount(door_id, discount, position);
+
+            let total = quantity * priceDiscount;
             $(totalItem).text(total);
             tab_total = tab_total + total;
         })
         $('#total').text(tab_total);
     }
+
+    static addOrderDiscount(door_id, discount, position) {
+        let orderDiscount = {};
+        orderDiscount.order_id = order.order_id;
+        orderDiscount.door_id = door_id;
+        orderDiscount.discount = discount;
+
+        orderDiscountList.push(orderDiscount);
+    }
+
+    static setOrderDiscount(door_id, discount, position) {
+        let isExist = false;
+        for (let i = 0; i < orderDiscountList.length; i++){
+            if (order.order_id == orderDiscountList[i].order_id & door_id == orderDiscountList[i].door_id){
+                orderDiscountList[i].discount = discount;
+                isExist = true;
+            }
+        }
+        if (!isExist){
+            if (discount != 0){
+                LineEditor.addOrderDiscount(door_id, discount, position)
+            }
+        }
+    }
+
+
 }

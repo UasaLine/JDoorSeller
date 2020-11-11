@@ -111,8 +111,12 @@ jQuery("document").ready(function () {
     $(".div_images_DoorGlass").on("click", function () {
         setDoorGlassImg($(this).attr("Item"), $(this).attr("data"));
         RepresentationManager.showFieldValue($(this).children("span").html());
+        if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет"){
+            resetDoorGlassField();
+        }
         Door.draw(door, 1);
         pickOut(this);
+
     });
 
     $(".div_images_furniture").on("click", function () {
@@ -355,7 +359,9 @@ jQuery("document").ready(function () {
     });
 
     $(".select_size").on("click", function () {
-
+        if ($(this).attr("available") == "no") {
+            return;
+        }
 
         sizeMin = SizingDrum.sizeLimMin($(this).attr("id"));
         sizeMax = SizingDrum.sizeLimMax($(this).attr("id"));
@@ -455,6 +461,20 @@ jQuery("document").ready(function () {
         door.doorGlass[fieldName] = value;
     }
 
+    function resetDoorGlassField() {
+        Door.setGlass("glassWidth",0);
+        Door.setGlass("glassHeight",0);
+        Door.setGlass("leftGlassPosition",0);
+        Door.setGlass("bottomGlassPosition",0);
+        setDoorGlassField("toning", null);
+        setDoorGlassField("armor", null);
+        $(".vertical_menu_button_rigtht#" + "toning" + "Show strong").html("");
+        $(".vertical_menu_button_rigtht#" + "armor" + "Show strong").html("");
+        $("#doorGlassShow").text("");
+        door.doorGlass.id = 0;
+        door.doorGlass.space = 0;
+    }
+
     function setDoorFurniture(fieldName, value, doorKit) {
         setDoorFurnitureByObject(findObject(fieldName, value), fieldName, doorKit)
     }
@@ -552,7 +572,7 @@ jQuery("document").ready(function () {
 
     function displayPrice() {
         $("#price").text("Цена: " + door.priceWithMarkup);
-
+        //door.costList.totalCost;
         $(".decryption").remove();
 
         if (door.costList !== null) {
@@ -642,6 +662,10 @@ jQuery("document").ready(function () {
 
     function processItemSelection(item) {
         currentItem = $(item).attr("id");
+
+        if ($("#" + currentItem).attr("available") == "no") {
+            return;
+        }
         currentItemForDisplay = $(item).html();
         currentItemDaughterForDisplay = "";
         currentItemForDisplayId = currentItem;
@@ -775,16 +799,26 @@ jQuery("document").ready(function () {
                 currentItem = "armor";
                 RepresentationManager.showFieldValue(door.doorGlass.armor.name);
             }
-            currentItem = "doorGlass";
-            RepresentationManager.showFieldValue(door.doorGlass);
 
-            $("#inputWidthDoorGlass").attr("value", door.doorGlass.glassWidth);
-            $("#inputHeightDoorGlass").attr("value", door.doorGlass.glassHeight);
-            $("#inputleftDoorGlass").attr("value", door.doorGlass.leftGlassPosition);
-            $("#inputbottomDoorGlass").attr(
-                "value",
-                door.doorGlass.bottomGlassPosition
-            );
+            //Door.set("WidthDoorGlass", door.doorGlass.glassWidth);
+            //Door.set("HeightDoorGlass", door.doorGlass.glassHeight);
+            //Door.set("leftDoorGlass", door.doorGlass.leftGlassPosition);
+            //Door.set("bottomDoorGlass", door.doorGlass.bottomGlassPosition);
+
+            currentItem = "glassWidth";
+            RepresentationManager.showFieldValue(door.doorGlass.glassWidth);
+            currentItem = "glassHeight";
+            RepresentationManager.showFieldValue(door.doorGlass.glassHeight);
+            currentItem = "leftGlassPosition";
+            RepresentationManager.showFieldValue(door.doorGlass.leftGlassPosition);
+            currentItem = "bottomGlassPosition";
+            RepresentationManager.showFieldValue(door.doorGlass.bottomGlassPosition);
+
+
+            // $("#input_WidthDoorGlass").attr("value", door.doorGlass.glassWidth);
+            // $("#input_HeightDoorGlass").attr("value", door.doorGlass.glassHeight);
+            // $("#input_leftDoorGlass").attr("value", door.doorGlass.leftGlassPosition);
+            // $("#input_bottomDoorGlass").attr("value", door.doorGlass.bottomGlassPosition);
         }
     }
 
@@ -933,7 +967,16 @@ jQuery("document").ready(function () {
         });
     }
 
+    function glassShowIfIsExist(data) {
+        if (data.typeDoorGlass.length > 0) {
+            $("#doorGlass").attr("show", "is_alive_lement");
+        } else {
+            $("#doorGlass").attr("show", "ghost_lement");
+        }
+    }
+
     function fillInTheFieldsToTheTemplate(data) {
+        glassShowIfIsExist(data);
         const makeAvailable = new AvailableManager(data, availableFurnitureList);
         makeAvailable.makeFieldsAvailable();
 
@@ -1127,6 +1170,7 @@ jQuery("document").ready(function () {
         if (currentItem == "doorGlass") {
             $(".select_doorGlass").attr("show", "is_alive_lement");
             displayGlass();
+            setAvailableChildrenAttr();
         } else {
             $(".select_doorGlass").attr("show", "ghost_lement");
         }
@@ -1135,7 +1179,7 @@ jQuery("document").ready(function () {
             $(".select_typeDoorGlass").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1144,10 +1188,14 @@ jQuery("document").ready(function () {
         }
 
         if (currentItem == "toning") {
+            if ($("#toning").attr("available") == "no") {
+                return;
+            }
+
             $(".select_toning").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1156,10 +1204,13 @@ jQuery("document").ready(function () {
         }
 
         if (currentItem == "armor") {
+            if ($("#armor").attr("available") == "no") {
+                return;
+            }
             $(".select_armor").attr("show", "is_alive_lement");
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            currentItemDaughterForDisplay = $(item).html();
+            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1351,6 +1402,25 @@ jQuery("document").ready(function () {
         }
     }
 
+    function setAvailableChildrenAttr() {
+        if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет") {
+            $("#toning").attr("available", "no");
+            $("#armor").attr("available", "no");
+            $("#input_glassWidth").attr("available", "no");
+            $("#input_glassHeight").attr("available", "no");
+            $("#input_leftGlassPosition").attr("available", "no");
+            $("#input_bottomGlassPosition").attr("available", "no");
+        } else {
+            $("#toning").attr("available", "yes");
+            $("#armor").attr("available", "yes");
+            $("#input_glassWidth").attr("available", "yes");
+            $("#input_glassHeight").attr("available", "yes");
+            $("#input_leftGlassPosition").attr("available", "yes");
+            $("#input_bottomGlassPosition").attr("available", "yes");
+        }
+
+    }
+
     function hasAParination() {
         if ("shieldColor" == currentItem ||
             "shieldDesign" == currentItem ||
@@ -1367,7 +1437,8 @@ jQuery("document").ready(function () {
             'topInLockDecor' == currentItem ||
             'typeDoorGlass' == currentItem ||
             'toning' == currentItem ||
-            'armor' == currentItem
+            'armor' == currentItem ||
+            'doorGlass' == currentItem
         ) {
             return true;
         }

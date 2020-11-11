@@ -13,6 +13,11 @@ class Door {
 
     }
 
+    static setGlass(fieldName, value) {
+        door.doorGlass[fieldName] = value;
+        failureToSetValue = false;
+    }
+
 
     static draw(door, i) {
         let sideDoorOpen = door.sideDoorOpen;
@@ -35,18 +40,22 @@ class Door {
 
             config.topGlassPosition = 0;
             if (door.doorGlass.bottomGlassPosition == 0) {
-                config.topGlassPosition = (height - glassHeight) / 2;
+                //glassHeight
+                config.topGlassPosition = (door.heightDoor - door.doorGlass.glassHeight) / 10;
             } else {
-                config.topGlassPosition =
-                    height - glassHeight - (door.doorGlass.bottomGlassPosition * 2) / 10;
+                config.topGlassPosition = ((door.heightDoor - Number(door.doorGlass.glassHeight) - Number(door.doorGlass.bottomGlassPosition))*2) / 10;
             }
 
-            config.leftGlassPosition;
+            config.leftGlassPosition = 0;
             if (door.doorGlass.leftGlassPosition == 0) {
-                config.leftGlassPosition = (width - glassWidth) / 2;
+                //glassWidth
+                config.leftGlassPosition = (door.widthDoor - door.doorGlass.glassWidth) / 10;
+                config.leftGlassPositionInner = config.leftGlassPosition;
             } else {
-                config.leftGlassPosition = (door.doorGlass.leftGlassPosition * 2) / 10;
+                config.leftGlassPosition = (Number(door.doorGlass.leftGlassPosition) * 2) / 10;
+                config.leftGlassPositionInner = ((door.widthDoor - door.doorGlass.glassWidth) * 2) / 10 - config.leftGlassPosition;
             }
+
         }
 
         this.delete(i);
@@ -65,7 +74,7 @@ class Door {
             Door.createCloser(containerLeaf, config, door);
             Door.createHandle(containerLeaf, config, door, "L");
             Door.createStep(containerLeaf, config, door);
-            Door.createGlass(containerLeaf, config, door);
+            Door.createGlass(containerLeaf, config, door, "L");
             Door.createLogo(containerLeaf, door);
             Door.createHinges(containerLeaf, door);
             Door.createTopOutLockDecor(containerLeaf, door);
@@ -81,7 +90,7 @@ class Door {
             Door.createRelief(containerLeafR, config, "R");
             Door.createHandle(containerLeafR, config, door, "R");
             Door.createStep(containerLeafR, config, door);
-            Door.createGlass(containerLeafR, config, door);
+            Door.createGlass(containerLeafR, config, door, "R");
             Door.createNightLock(containerLeafR, door);
             Door.createTopInLockDecor(containerLeafR, door);
             Door.createLowerInLockDecor(containerLeafR, door);
@@ -334,25 +343,27 @@ class Door {
         }
     }
 
-    static createGlass(containerLeaf, config, door) {
+    static createGlass(containerLeaf, config, door, key) {
         if (door.isDoorGlass == 1 && door.doorGlass != null) {
-            //draw glass
+
+            let leftPosition = key === "L" ? config.leftGlassPosition : config.leftGlassPositionInner ;
+
             $("<img>")
                 .attr("class", "opening_side_images")
                 .attr("src", "images/Door/window.png")
                 .attr(
                     "style",
                     "width:" +
-                    glassWidth +
+                    config.glassWidth +
                     "px; height:" +
-                    glassHeight +
+                    config.glassHeight +
                     "px; top:" +
-                    topGlassPosition +
+                    config.topGlassPosition +
                     "px; left:" +
-                    leftGlassPosition +
+                    leftPosition +
                     "px;"
                 )
-                .appendTo("#LeafL" + i);
+                .appendTo(containerLeaf);
         }
     }
 

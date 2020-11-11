@@ -37,6 +37,8 @@ public class DoorService implements DoorServ {
     private ColorRepository colorDao;
     @Autowired
     private TemplateService templateService;
+    @Autowired
+    OrderDiscountService orderDiscountService;
 
     @Override
     public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
@@ -92,12 +94,13 @@ public class DoorService implements DoorServ {
 
         doorEntity = costOfChangesAtTemplate(doorEntity);
 
+        doorEntity.calculateGlass();
+
         doorEntity = addRetailMarginToCostList(doorEntity, retailMargin);
 
         doorEntity
                 .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
-
 
         return addToOrderIfNotExist(doorEntity);
     }
@@ -510,7 +513,7 @@ public class DoorService implements DoorServ {
             DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
-                orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting()));
+                orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(orderId)));
                 return orderService.clearNonSerializingFields(order);
             }
 
@@ -536,7 +539,7 @@ public class DoorService implements DoorServ {
         }
 
         order.addDoor(door);
-        order.calculateTotal(userService.getUserSetting());
+        order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrder_id())));
         orderDAO.saveOrder(order);
         return door;
 

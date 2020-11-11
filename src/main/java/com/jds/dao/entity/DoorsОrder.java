@@ -1,10 +1,7 @@
 package com.jds.dao.entity;
 
-import com.jds.dao.repository.UserDAO;
+import com.jds.model.orderPrint.OrderDiscounts;
 import com.jds.model.modelEnum.OrderStatus;
-import com.jds.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.*;
@@ -98,36 +95,30 @@ public class DoorsОrder {
         return 0;
     }
 
-    public DoorsОrder calculateTotal(UserSetting userSetting) {
+    public DoorsОrder calculateTotal(UserSetting userSetting, OrderDiscounts orderDiscounts) {
 
-        if (userSetting.getIncludesTax() != 0){
-            totalCostByDoors(userSetting.getSalesTax());
-        }else {
-            totalCostByDoors(0);
+        if (userSetting.getIncludesTax() != 0) {
+            totalCostByDoors(userSetting.getSalesTax(), orderDiscounts);
+        } else {
+            totalCostByDoors(0, orderDiscounts);
         }
 
 
         return this;
     }
 
-    public DoorsОrder calculateTotal() {
-
-        int tax = 20;
-        totalCostByDoors(tax);
-
-        return this;
-    }
-
-    private void totalCostByDoors(int tax) {
+    private void totalCostByDoors(int tax, OrderDiscounts orderDiscounts) {
 
         totalAmount = 0;
         totalTax = 0;
         totalQuantity = 0;
 
         for (DoorEntity door : doors) {
-            totalQuantity += 1;
-            totalAmount += door.getPriceWithMarkup() * door.getQuantity();
-            totalTax += (door.getPriceWithMarkup() * door.getQuantity() * tax) / (100 + tax);
+
+            int discount = orderDiscounts.getByDoorId(door.getId());
+            totalQuantity = totalQuantity + door.getQuantity();
+            totalAmount += (door.getPriceWithMarkup() - Math.round(door.getPriceWithMarkup() * discount / 100)) * door.getQuantity();
+            totalTax += ((door.getPriceWithMarkup() - Math.round((door.getPriceWithMarkup() * discount / 100))) * door.getQuantity()) * tax / (100 + tax);
         }
     }
 
