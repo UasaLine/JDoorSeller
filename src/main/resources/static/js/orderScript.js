@@ -400,11 +400,13 @@ jQuery("document").ready(function () {
     }
 
     function printOrder() {
-        location.href = "orderprint?orderId=" + orderId;
+        window.open("orderprint?orderId=" + orderId, '_blank');
+        //location.href = "orderprint?orderId=" + orderId;
     }
 
     function printDoors() {
-        location.href = "doorsprint?orderId=" + orderId;
+        window.open("doorsprint?orderId=" + orderId, '_blank');
+        //location.href = "doorsprint?orderId=" + orderId;
     }
 
     function setOrderId(name) {
