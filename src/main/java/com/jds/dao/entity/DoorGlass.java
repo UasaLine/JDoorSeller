@@ -3,6 +3,7 @@ package com.jds.dao.entity;
 import com.jds.model.modelEnum.TypeOfFurniture;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "glass")
@@ -160,6 +161,17 @@ public class DoorGlass {
 
     public void setDoor(DoorEntity door) {
         this.door = door;
+    }
+
+    public int getGlassCost (List<LimitationDoor> templateGlass , int glassId){
+
+        LimitationDoor lim = templateGlass.stream()
+                .filter((p)-> p.getItemId() == glassId)
+                .findFirst().orElse(null);
+
+        if (lim != null){
+            return lim.getCost();
+        } else return 0;
     }
 
 
