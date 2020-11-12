@@ -54,8 +54,49 @@ public class PrintAppToTheOrder {
 
 
         furniture = new ArrayList<>();
-        furniture.add(new ParamApp("Верхний замок:", String.valueOf(door.getDoorstep())));
+        if (door.getFurnitureKit().getTopLock() != null) {
+            furniture.add(new ParamApp("Верхний замок:", String.valueOf(door.getFurnitureKit().getTopLock().getName())));
+        }
+        if (door.getFurnitureKit().getTopInLockDecor() != null) {
+            furniture.add(new ParamApp("Внутренняя накладка", String.valueOf(door.getFurnitureKit().getTopInLockDecor().getName())));
+        }
+        if (door.getFurnitureKit().getTopOutLockDecor() != null) {
+            furniture.add(new ParamApp("Внешняя накладка:", String.valueOf(door.getFurnitureKit().getTopOutLockDecor().getName())));
+        }
+        if (door.getFurnitureKit().getTopLockCylinder() != null) {
+            furniture.add(new ParamApp("Цилиндр:", String.valueOf(door.getFurnitureKit().getTopLockCylinder().getName())));
+        }
+        if (door.getFurnitureKit().getLowerLock() != null) {
+            furniture.add(new ParamApp("Нижний замок:", String.valueOf(door.getFurnitureKit().getLowerLock().getName())));
+        }
+        if (door.getFurnitureKit().getLowerInLockDecor() != null) {
+            furniture.add(new ParamApp("Внутренняя накладка:", String.valueOf(door.getFurnitureKit().getLowerInLockDecor().getName())));
+        }
+        if (door.getFurnitureKit().getLowerOutLockDecor() != null) {
+            furniture.add(new ParamApp("Внешняя накладка:", String.valueOf(door.getFurnitureKit().getLowerOutLockDecor().getName())));
+        }
+        if (door.getFurnitureKit().getLowerLockCylinder() != null) {
+            furniture.add(new ParamApp("Цилиндр:", String.valueOf(door.getFurnitureKit().getLowerLockCylinder().getName())));
+        }
 
+        if (door.getFurnitureKit().getHandle() != null) {
+            furniture.add(new ParamApp("Ручка:", String.valueOf(door.getFurnitureKit().getHandle().getName())));
+        }
+        if (door.getFurnitureKit().getCloser() != null) {
+            furniture.add(new ParamApp("Задвижка:", String.valueOf(door.getFurnitureKit().getCloser().getName())));
+        }
+        if (door.getFurnitureKit().getEndDoorLock() != null) {
+            furniture.add(new ParamApp("Торцевой дверной замок:", String.valueOf(door.getFurnitureKit().getEndDoorLock().getName())));
+        }
+        if (door.getFurnitureKit().getNightLock() != 0) {
+            furniture.add(new ParamApp("Ночной замок:", String.valueOf(door.getFurnitureKit().getNightLock())));
+        }
+        if (door.getFurnitureKit().getPeephole() != 0) {
+            furniture.add(new ParamApp("Дверной глазок:", String.valueOf(door.getFurnitureKit().getPeephole())));
+        }
+        if (door.getFurnitureKit().getAmplifierCloser() != 0) {
+            furniture.add(new ParamApp("Усилитель:", String.valueOf(door.getFurnitureKit().getAmplifierCloser())));
+        }
     }
 
 
