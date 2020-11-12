@@ -305,29 +305,24 @@ public class DoorEntity implements SerializingFields {
 
         if (doorGlass.exists()) {
 
-            List<LimitationDoor> glassType = template.getTypeDoorGlass().stream()
-                    .filter((p)-> p.getItemId() == doorGlass.getTypeDoorGlass().getId())
-                    .collect(Collectors.toList());
-
             double glassSpace = doorGlass.getSpace();
             int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace);
-            int costMarkup = glassType.get(0).getCost();
             costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getTypeDoorGlass().getName(),
                     200, false, cost);
+
+            int costMarkup = doorGlass.getGlassCost(template.getTypeDoorGlass(), doorGlass.getTypeDoorGlass().getId());
             if (costMarkup != 0){
                 costList.addLine("Наценка на стекло: " + doorGlass.getTypeDoorGlass().getName(),
                         200, false, costMarkup);
             }
             
             if (doorGlass.getToning() != null) {
-            List<LimitationDoor> glassToning = template.getToning().stream()
-                    .filter((p)-> p.getItemId() == doorGlass.getToning().getId())
-                    .collect(Collectors.toList());
 
                 cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace);
-                costMarkup = glassToning.get(0).getCost();
                 costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getToning().getName(),
                         200, false, cost);
+
+                costMarkup = doorGlass.getGlassCost(template.getToning(), doorGlass.getToning().getId());
                 if (costMarkup != 0){
                     costList.addLine("Наценка на тонировку: " + doorGlass.getToning().getName(),
                             200, false, costMarkup);
@@ -335,14 +330,11 @@ public class DoorEntity implements SerializingFields {
             }
 
             if (doorGlass.getArmor() != null) {
-            List<LimitationDoor> glassArmor = template.getArmor().stream()
-                    .filter((p)-> p.getItemId() == doorGlass.getArmor().getId())
-                    .collect(Collectors.toList());
-
                 cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE, glassSpace);
-                costMarkup = glassArmor.get(0).getCost();
                 costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getArmor().getName(),
                         200, false, cost);
+
+                costMarkup = doorGlass.getGlassCost(template.getArmor(), doorGlass.getArmor().getId());
                 if (costMarkup != 0){
                     costList.addLine("Наценка на броню: " + doorGlass.getArmor().getName(),
                             200, false, costMarkup);
