@@ -105,4 +105,5 @@ public class FurnitureService {
                 .peek(image -> image.clearNonSerializingFields())
                 .collect(Collectors.toList());
     }
+
 }

@@ -7,6 +7,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -350,5 +351,16 @@ public class FurnitureKit implements SerializingFields {
         }
 
         return false;
+    }
+
+    public int getFurnitureCost (List<LimitationDoor> furnitureKit , int furnId){
+
+        LimitationDoor lim = furnitureKit.stream()
+                .filter((p)-> p.getItemId() == furnId)
+                .findFirst().orElse(null);
+
+        if (lim != null){
+            return lim.getCost();
+        } else return 0;
     }
 }

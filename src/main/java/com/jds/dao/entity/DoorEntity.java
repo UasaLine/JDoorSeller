@@ -14,6 +14,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity
@@ -507,77 +508,156 @@ public class DoorEntity implements SerializingFields {
         //TopLock
         if (furnitureKit.getTopLock() != null) {
             costList.addLine("Фурнитура: верхний замок ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getTopLock().getPrice());
+
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getTopLock(), furnitureKit.getTopLock().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка верхний замок: ",
+                        200, false, costMarkup);
+            }
+
         }
         if (furnitureKit.getTopInLockDecor() != null) {
             costList.addLine("Фурнитура: накладка верх. внутреняя ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getTopInLockDecor().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getTopInLockDecor(), furnitureKit.getTopInLockDecor().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка накладка верх. внутреняя: ",
+                        200, false, costMarkup);
+            }
         }
         if (furnitureKit.getTopOutLockDecor() != null) {
             costList.addLine("Фурнитура: накладка верх. внешняя ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getTopOutLockDecor().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getTopOutLockDecor(), furnitureKit.getTopOutLockDecor().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка накладка верх. внешняя: ",
+                        200, false, costMarkup);
+            }
         }
 
         if (furnitureKit.getTopLockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getTopLockCylinder().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getLockCylinder(), furnitureKit.getTopLockCylinder().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка цилиндр: ",
+                        200, false, costMarkup);
+            }
         }
 
         //LowerLock
         if (furnitureKit.getLowerLock() != null) {
             costList.addLine("Фурнитура: нижний замок ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getLowerLock().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getLowerLock(), furnitureKit.getLowerLock().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка нижний замок: ",
+                        200, false, costMarkup);
+            }
         }
         if (furnitureKit.getLowerInLockDecor() != null) {
             costList.addLine("Фурнитура: накладка низ. внутренняя",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getLowerInLockDecor().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getLowerInLockDecor(), furnitureKit.getLowerInLockDecor().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка накладка низ. внутренняя: ",
+                        200, false, costMarkup);
+            }
         }
         if (furnitureKit.getLowerOutLockDecor() != null) {
             costList.addLine("Фурнитура: накладка низ. внешняя",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getLowerOutLockDecor().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getLowerOutLockDecor(), furnitureKit.getLowerOutLockDecor().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка накладка низ. внешняя: ",
+                        200, false, costMarkup);
+            }
         }
         if (furnitureKit.getLowerLockCylinder() != null) {
             costList.addLine("Фурнитура: цилиндр ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getLowerLockCylinder().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getLockCylinder(), furnitureKit.getLowerLockCylinder().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка цилиндр: ",
+                        200, false, costMarkup);
+            }
         }
 
 
         // handle
         if (furnitureKit.getHandle() != null) {
             costList.addLine("Фурнитура: ручка ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getHandle().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getHandle(), furnitureKit.getHandle().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка ручка: ",
+                        200, false, costMarkup);
+            }
         }
         // Closer
         if (furnitureKit.getCloser() != null) {
             costList.addLine("Фурнитура: доводчик ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getCloser().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getCloser(), furnitureKit.getCloser().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка доводчик: ",
+                        200, false, costMarkup);
+            }
         }
         //endDoorLock
         if (furnitureKit.getEndDoorLock() != null) {
             costList.addLine("Фурнитура: торцевой шпингалет ",
-                    4,
+                    200,
                     false,
                     (int) furnitureKit.getEndDoorLock().getPrice());
+
+            int costMarkup = furnitureKit.getFurnitureCost(template.getEndDoorLock(), furnitureKit.getEndDoorLock().getId());
+
+            if (costMarkup != 0){
+                costList.addLine("Наценка торцевой шпингалет: ",
+                        200, false, costMarkup);
+            }
         }
 
         return this;
