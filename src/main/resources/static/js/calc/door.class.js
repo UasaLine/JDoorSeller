@@ -418,10 +418,10 @@ class Door {
         if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
-
+        //images/findings/zamok.png
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", "images/findings/zamok.png")
+            .attr("src", door.furnitureKit.topInLockDecor.sketchPathFirst)
             .appendTo(containerLeaf);
     }
 
@@ -433,7 +433,7 @@ class Door {
 
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", "images/findings/zamokIn.png")
+            .attr("src", door.furnitureKit.lowerInLockDecor.sketchPathFirst)
             .appendTo(containerLeaf);
     }
 
@@ -442,11 +442,13 @@ class Door {
         if (door.sideDoorOpen == "RIGHT") {
             side = "R";
         }
-
+       // "images/findings/zamok.png"
+        door.furnitureKit.topOutLockDecor.sketchPathFirst;
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", "images/findings/zamok.png")
+            .attr("src", door.furnitureKit.topOutLockDecor.sketchPathFirst)
             .appendTo(containerLeaf);
+
     }
 
     static createLowerOutLockDecor(containerLeaf, door) {
@@ -455,9 +457,10 @@ class Door {
             side = "R";
         }
 
+        //images/findings/zamokIn.png
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", "images/findings/zamokIn.png")
+            .attr("src", door.furnitureKit.lowerOutLockDecor.sketchPathFirst)
             .appendTo(containerLeaf);
     }
 
