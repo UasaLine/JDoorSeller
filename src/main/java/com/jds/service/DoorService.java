@@ -94,7 +94,9 @@ public class DoorService implements DoorServ {
 
         doorEntity = costOfChangesAtTemplate(doorEntity);
 
-        doorEntity.calculateGlass();
+        doorEntity
+                .calculateGlass()
+                .calculateFurniture();
 
         doorEntity = addRetailMarginToCostList(doorEntity, retailMargin);
 

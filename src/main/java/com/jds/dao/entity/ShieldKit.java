@@ -64,11 +64,10 @@ public class ShieldKit {
     @Override
     public String toString() {
 
-        String shieldColorName = shieldColor != null ? shieldColor.getName() + ": " : "";
-        String shieldDesignName = shieldDesign != null ? shieldDesign.getName() : "";
+        String shieldColorName = shieldColor != null ? shieldColor.getName() + " " : "";
+        String shieldDesignName = shieldDesign != null ? " ( " + shieldDesign.getName() + " )" : "";
 
-        return " ( " + shieldColorName + shieldDesignName + " )";
+        return " - " + shieldColorName + shieldDesignName;
     }
-
 
 }
