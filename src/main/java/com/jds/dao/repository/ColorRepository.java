@@ -72,6 +72,10 @@ public class ColorRepository {
     public List<ImageEntity> getShieldDesign() {
         return getImage(TypeOfImage.SHIELD_DESIGN);
     }
+    public List<ImageEntity> getShieldGlass() {
+        return getImage(TypeOfImage.SHIELD_GLASS);
+    }
+
     private List<ImageEntity> getImage(TypeOfImage typeImage) {
 
         Session session = sessionFactory.openSession();

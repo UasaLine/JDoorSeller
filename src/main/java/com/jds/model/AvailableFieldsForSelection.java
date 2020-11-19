@@ -2,6 +2,7 @@ package com.jds.model;
 
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.ImageEntity;
+import com.jds.dao.entity.ShieldGlass;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -27,4 +28,5 @@ public class AvailableFieldsForSelection {
     private List<DoorFurniture> typeDoorGlass = new ArrayList<>();
     private List<DoorFurniture> toning = new ArrayList<>();
     private List<DoorFurniture> armor = new ArrayList<>();
+    private List<ImageEntity> shieldGlass = new ArrayList<>();
 }

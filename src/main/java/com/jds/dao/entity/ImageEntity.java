@@ -49,6 +49,9 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @Column(name = "containsDesign")
     private int containsDesign;
 
+    @Column(name = "containsGlass")
+    private int containsGlass;
+
     // kit
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
     private List<ImageEntity> shieldColor;
@@ -73,6 +76,11 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         this.setShieldDesign(null);
         this.setDoorColor(null);
         this.setDoorDesign(null);
+        return this;
+    }
+
+    public ImageEntity setNuulLazyFild() {
+        this.typeOfImage = null;
         return this;
     }
 

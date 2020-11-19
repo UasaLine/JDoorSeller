@@ -76,6 +76,8 @@ public class FurnitureKit implements SerializingFields {
     @OneToOne(mappedBy = "furnitureKit",fetch = FetchType.LAZY)
     private DoorEntity door;
 
+    //private ShieldGlass shieldGlass;
+
 
     public boolean exists(){
 

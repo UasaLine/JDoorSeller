@@ -47,6 +47,14 @@ jQuery("document").ready(function () {
         }
     });
 
+    $("#containsGlass").change(function () {
+        if ($(this).is(":checked")) {
+            setField("containsGlass", 1);
+        } else {
+            setField("containsGlass", 0);
+        }
+    });
+
     function getPictureColor(idPicture) {
         for (let i = 0; i < colorListPictures.length; i++) {
             if (colorListPictures[i].id == idPicture) {
@@ -153,6 +161,16 @@ jQuery("document").ready(function () {
         return id;
     }
 
+    function showContainsGlass() {
+        if(JavaObject.typeOfImage == "SHIELD_DESIGN"){
+            //$("#containsGlassDiv").hidden = false;
+            $("#containsGlassDiv").show();
+        } else {
+            $("#containsGlassDiv").hide();
+            //$("#containsGlassDiv").hidden = true;
+        }
+    }
+
 
     function fillByOject() {
         if (JavaObject != null) {
@@ -161,6 +179,8 @@ jQuery("document").ready(function () {
             $("#name").val(JavaObject.name);
             setCheckBox("#smooth", JavaObject.smooth);
             setCheckBox("#containsDesign", JavaObject.containsDesign);
+            showContainsGlass();
+            setCheckBox("#containsGlass", JavaObject.containsGlass);
 
             // $("#picturePath").val(JavaObject.picturePath);
 
