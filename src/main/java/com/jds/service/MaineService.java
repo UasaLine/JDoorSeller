@@ -36,13 +36,9 @@ public class MaineService {
     public List<DoorClass> getDoorClass() {
 
         List<DoorClass> doorClassList = dAO.getDoorClass();
-        for(int i =0; i<doorClassList.size(); i++){
-            doorClassList.get(i).setDoorTypes(doorClassList.get(i).sortDoorTypesList(doorClassList.get(i).getDoorTypes()));
-        }
-
         return doorClassList.stream()
-                .peek((dClass) -> dClass.getDoorTypes().stream()
-                        .forEach((type) -> type.clearNonSerializingFields()))
+                .map(DoorClass::clearNonSerializingFields)
+                .map(DoorClass::sortDoorTypesList)
                 .collect(Collectors.toList());
     }
 
@@ -243,7 +239,6 @@ public class MaineService {
     public List<RawMaterials> getAllMaterials() {
         return dAO.getRawMaterials();
     }
-
 
 
     public String getClassId(@NonNull String typeId) {
