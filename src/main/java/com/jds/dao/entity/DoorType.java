@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Door_Type")
-public class DoorType {
+public class DoorType implements Comparable<DoorType> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -299,5 +299,10 @@ public class DoorType {
 
     public void setLineSpecifications(List<LineSpecification> lineSpecifications) {
         this.lineSpecifications = lineSpecifications;
+    }
+
+    @Override
+    public int compareTo(DoorType doorType) {
+        return this.getName().compareTo(doorType.getName());
     }
 }
