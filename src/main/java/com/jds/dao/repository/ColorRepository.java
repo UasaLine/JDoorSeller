@@ -106,6 +106,21 @@ public class ColorRepository {
         return doorColorsList;
     }
 
+    public List<ImageEntity> getImagesContainsGlass() {
+        Session session = sessionFactory.openSession();
+        int containsGlass = 1;
+        String sql;
+        sql = "select * from door_colors where containsGlass = :containsGlass";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(ImageEntity.class)
+                .setParameter("containsGlass", containsGlass);
+        List<ImageEntity> doorColorsList = query.list();
+
+        session.close();
+
+        return doorColorsList;
+    }
+
     public ImageEntity getColorById(@NonNull int id) {
         Session session = sessionFactory.openSession();
 

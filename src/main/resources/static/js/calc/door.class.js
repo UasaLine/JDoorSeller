@@ -96,6 +96,7 @@ class Door {
             Door.createLowerInLockDecor(containerLeafR, door);
             Door.createShieldColor(containerLeafR, door);
             Door.createShieldDesign(containerLeafR, door);
+            Door.createShieldGlass(containerLeafR, door);
         }
     }
 
@@ -515,6 +516,18 @@ class Door {
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);
             }
+        }
+    }
+
+    static createShieldGlass(containerLeaf, door) {
+        if (door.shieldKit != null && door.shieldKit.shieldGlass != null) {
+                let scaleX = Door.reflectionPicture(door);
+                $("<img>")
+                    .attr("class", "shield_glass")
+                    .attr("src", door.shieldKit.shieldGlass.picturePath)
+                    .attr("style",
+                        "px; transform: scale(" + scaleX + ", 1)")
+                    .appendTo(containerLeaf);
         }
     }
 

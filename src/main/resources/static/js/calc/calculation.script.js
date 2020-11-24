@@ -144,7 +144,10 @@ jQuery("document").ready(function () {
         let javaObject = findObject(nameJavaField, idJavaObject);
 
         setDoorFurnitureByObject(javaObject, nameJavaField, door.shieldKit);
-        clearRelatedFieldsForImage(javaObject);
+
+        if (nameJavaField == "shieldColor"){
+            clearRelatedFieldsForImage(javaObject);
+        }
 
         RepresentationManager.showAllFieldsValues(door);
         pickOut(this);
@@ -994,7 +997,7 @@ jQuery("document").ready(function () {
             displayColor("doorColor", data.colors, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
             displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
-            displayImage("shieldGlass", availableFurnitureList.shieldGlass, 0);
+            displayImage("shieldGlass", addToShieldGlassList(), 0);
 
             displayadditionalDoorSettings(data);
             displayListOfItems("topLock", availableFurnitureList.topLock, 0, "kit");
@@ -1407,7 +1410,10 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#nameshieldKit").html();
 
             currentItemForDisplayId = "shieldKit";
-            displayImage("shieldGlass", availableFurnitureList.shieldGlass, 0);
+
+            displayImage("shieldGlass", addToShieldGlassList(), 0);
+
+
             PaginationPage.show();
         } else {
             $(".select_shieldGlass").attr("show", "ghost_lement");
@@ -1466,6 +1472,16 @@ jQuery("document").ready(function () {
             return true;
         }
         return false;
+    }
+
+    function addToShieldGlassList() {
+        let glassList = [];
+        for (let i = 0; i < availableFurnitureList.shieldGlass.length; i++){
+            if (availableFurnitureList.shieldGlass[i].containsDesign == door.shieldKit.shieldDesign.id){
+                glassList.push(availableFurnitureList.shieldGlass[i]);
+            }
+        }
+        return glassList;
     }
 
     function addToTheHistoryList(val) {
