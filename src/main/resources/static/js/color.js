@@ -3,6 +3,7 @@ jQuery("document").ready(function () {
     var typeImageList;
     var typeDoorColorList;
     let colorListPictures;
+    let shieldDesign;
 
     //new instans
     getTypeList();
@@ -19,10 +20,13 @@ jQuery("document").ready(function () {
     $("#typeOfImage").change(function () {
         setField("typeOfImage", $("#typeOfImage").val());
         if ($("#typeOfImage").val() != "") {
+            showContainsDesignGlass();
+            showContainsGlass();
             getImageListFromServer();
+            getShieldGlass();
         } else {
             fillInTypes("#picturePath", "");
-            showPicture("");
+            showPicture("#picturePath_img", "");
         }
 
     });
@@ -47,10 +51,38 @@ jQuery("document").ready(function () {
         }
     });
 
-    function getPictureColor(idPicture) {
-        for (let i = 0; i < colorListPictures.length; i++) {
-            if (colorListPictures[i].id == idPicture) {
-                return colorListPictures[i];
+    $("#containsGlass").change(function () {
+        if ($(this).is(":checked")) {
+            setField("containsGlass", 1);
+        } else {
+            setField("containsGlass", 0);
+        }
+    });
+
+    $("#picturePath").change(function () {
+        if ($("#picturePath").val() != "") {
+            setField("picturePath", getPictureColor($("#picturePath").val(), colorListPictures).path);
+            showPicture("#picturePath_img", getPictureColor($("#picturePath").val(), colorListPictures).path);
+        }else {
+            setField("picturePath", "");
+            showPicture("#picturePath_img", "");
+        }
+    });
+
+    $("#picturePathDesign").change(function () {
+        if ($("#picturePathDesign").val() != "") {
+        setField("containsDesign", getPictureColor($("#picturePathDesign").val(), shieldDesign).id);
+        showPicture("#picturePathDesign_img", getPictureColor($("#picturePathDesign").val(), shieldDesign).picturePath);
+    }else {
+            setField("containsDesign", 0);
+            showPicture("#picturePathDesign_img", "");
+        }
+    });
+
+    function getPictureColor(idPicture, picturesList) {
+        for (let i = 0; i < picturesList.length; i++) {
+            if (picturesList[i].id == idPicture) {
+                return picturesList[i];
             }
         }
     }
@@ -63,12 +95,6 @@ jQuery("document").ready(function () {
         }
     }
 
-
-    $("#picturePath").change(function () {
-        setField("picturePath", getPictureColor($("#picturePath").val()).path);
-        showPicture(getPictureColor($("#picturePath").val()).path);
-    });
-
     function getImageListFromServer() {
         $.ajax({
             url: location.origin + "/color/image-file-list/" + JavaObject.typeOfImage,
@@ -77,6 +103,23 @@ jQuery("document").ready(function () {
                 colorListPictures = data;
                 pathImageList = data;
                 fillInTypesPictures("#picturePath", pathImageList);
+            },
+            error: function (data) {
+                alert("!ERROR: изображений получить не удалось:");
+            },
+        });
+    }
+
+    function getShieldDesignFromServer() {
+        $.ajax({
+            url: location.origin + "/color/shieldDesign",
+            dataType: "json",
+            success: function (data) {
+                shieldDesign = data;
+                fillInTypesPictures("#picturePathDesign", shieldDesign);
+                if (JavaObject.containsDesign != 0 ) {
+                    showPicture("#picturePathDesign_img", getPictureShieldDesign(JavaObject.containsDesign).picturePath);
+                }
             },
             error: function (data) {
                 alert("!ERROR: изображений получить не удалось:");
@@ -153,29 +196,68 @@ jQuery("document").ready(function () {
         return id;
     }
 
+    function showContainsGlass() {
+        if(JavaObject.typeOfImage == "SHIELD_DESIGN"){
+            //$("#containsGlassDiv").hidden = false;
+            $("#containsGlassDiv").show();
+        } else {
+            $("#containsGlassDiv").hide();
+            //$("#containsGlassDiv").hidden = true;
+        }
+    }
 
-    function fillByOject() {
-        if (JavaObject != null) {
-            $("#id").val(JavaObject.id);
-            $("#idManufacturerProgram").val(JavaObject.idManufacturerProgram);
-            $("#name").val(JavaObject.name);
-            setCheckBox("#smooth", JavaObject.smooth);
-            setCheckBox("#containsDesign", JavaObject.containsDesign);
+    function showContainsDesignGlass() {
+        if (JavaObject.typeOfImage == "SHIELD_GLASS") {
+            $("#containsDesignGlass").show();
+        } else {
+            $("#containsDesignGlass").hide();
+        }
+    }
 
-            // $("#picturePath").val(JavaObject.picturePath);
-
-
-            showPicture(JavaObject.picturePath);
-            $("#pricePaintingMeterOfSpace").val(JavaObject.pricePaintingMeterOfSpace);
-            setValueInSelect("#typeOfImage", JavaObject.typeOfImage);
-
-            setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
-            if (JavaObject.typeOfImage != null) {
-                getImageListFromServer();
+    function getPictureShieldDesign(idItem) {
+        for (let i = 0; i < shieldDesign.length; i++) {
+            if (shieldDesign[i].id == idItem) {
+                return shieldDesign[i];
             }
         }
     }
 
+
+    function fillByOject() {
+        if (JavaObject != null) {
+            showContainsDesignGlass();
+            showContainsGlass();
+            if (JavaObject.typeOfImage != null) {
+                getImageListFromServer();
+                getShieldGlass();
+            }
+
+            $("#id").val(JavaObject.id);
+            $("#idManufacturerProgram").val(JavaObject.idManufacturerProgram);
+            $("#name").val(JavaObject.name);
+            setCheckBox("#smooth", JavaObject.smooth);
+            setCheckBox("#containsGlass", JavaObject.containsGlass);
+            showPicture("#picturePath_img", JavaObject.picturePath);
+
+            $("#pricePaintingMeterOfSpace").val(JavaObject.pricePaintingMeterOfSpace);
+            setValueInSelect("#typeOfImage", JavaObject.typeOfImage);
+
+            setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
+
+            if (JavaObject.typeOfImage == "SHIELD_GLASS"){
+            } else {
+                setCheckBox("#containsDesign", JavaObject.containsDesign);
+            }
+
+        }
+    }
+
+
+    function getShieldGlass() {
+        if (JavaObject.typeOfImage == "SHIELD_GLASS"){
+            getShieldDesignFromServer();
+        }
+    }
 
     function setField(fieldName, value) {
         JavaObject[fieldName] = value;
@@ -223,7 +305,17 @@ jQuery("document").ready(function () {
                     $("<option value=" + types[i].id + ">" + types[i].name + "</option>")
                 );
             }
-            setValueInSelect("#picturePath", getPictureColorPath(JavaObject.picturePath).id);
+
+            if (selectNmae == "#picturePath"){
+                if (JavaObject.picturePath != null) {
+                    setValueInSelect("#picturePath", getPictureColorPath(JavaObject.picturePath).id);
+                }
+            }
+            if (selectNmae == "#picturePathDesign"){
+                if (JavaObject.containsDesign != 0) {
+                    setValueInSelect("#picturePathDesign", JavaObject.containsDesign);
+                }
+            }
 
         }
     }
@@ -252,6 +344,7 @@ jQuery("document").ready(function () {
     }
 });
 
-function showPicture(value) {
-    $("#picturePath_img").attr("src", "../" + value);
+function showPicture(divSelect, value) {
+    $(divSelect).attr("src", "../" + value);
 }
+
