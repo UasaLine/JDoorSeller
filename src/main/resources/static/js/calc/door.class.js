@@ -521,6 +521,7 @@ class Door {
 
     static createShieldGlass(containerLeaf, door) {
         if (door.shieldKit != null && door.shieldKit.shieldGlass != null) {
+            if (door.shieldKit.shieldColor.containsDesign == 0) {
                 let scaleX = Door.reflectionPicture(door);
                 $("<img>")
                     .attr("class", "shield_glass")
@@ -528,6 +529,7 @@ class Door {
                     .attr("style",
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);
+            }
         }
     }
 

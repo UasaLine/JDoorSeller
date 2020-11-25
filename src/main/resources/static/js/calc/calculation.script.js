@@ -149,6 +149,10 @@ jQuery("document").ready(function () {
             clearRelatedFieldsForImage(javaObject);
         }
 
+        if (nameJavaField == "shieldDesign"){
+            clearGlass(javaObject);
+        }
+
         RepresentationManager.showAllFieldsValues(door);
         pickOut(this);
         if (goTo != "") {
@@ -1686,6 +1690,12 @@ jQuery("document").ready(function () {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         } else {
             $("#shieldGlass").attr("show", "is_alive_lement");
+        }
+    }
+
+    function clearGlass(javaObject) {
+        if (javaObject.containsDesign == 0){
+            setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         }
     }
 
