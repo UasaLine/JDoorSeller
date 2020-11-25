@@ -1,6 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.entity.DoorType;
+import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.*;
 import com.jds.model.DoorTemplate;
@@ -109,13 +110,14 @@ public class TemplateService {
         int intDoorTypeId = Integer.parseInt(doorTypeId);
 
         List<LimitationDoor> limitList = mainDAO.getLimitationDoor(intDoorTypeId);
+        List<ImageEntity> colorList = colorDao.getShieldGlass();
         RestrictionOfSelectionFields restriction = new RestrictionOfSelectionFields();
         restriction.setDoorTypeid(intDoorTypeId);
 
         limitList.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .forEach((lim) -> RestrictionBuild(restriction, lim));
-
+        restriction.addShieldGlass(colorList);
         return restriction;
     }
 

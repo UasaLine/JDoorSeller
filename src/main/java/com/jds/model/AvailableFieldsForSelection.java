@@ -27,4 +27,5 @@ public class AvailableFieldsForSelection {
     private List<DoorFurniture> typeDoorGlass = new ArrayList<>();
     private List<DoorFurniture> toning = new ArrayList<>();
     private List<DoorFurniture> armor = new ArrayList<>();
+    private List<ImageEntity> shieldGlass = new ArrayList<>();
 }

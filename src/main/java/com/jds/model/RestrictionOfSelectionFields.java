@@ -4,6 +4,7 @@ import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
+import com.jds.model.image.Image;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.*;
 
@@ -60,6 +61,7 @@ public class RestrictionOfSelectionFields {
 
     private List<LimitationDoor> shieldColor = new ArrayList<>();
     private List<LimitationDoor> shieldDesign = new ArrayList<>();
+    private List<LimitationDoor> shieldGlass = new ArrayList<>();
 
     private List<LimitationDoor> typeDoorGlass = new ArrayList<>();
     private List<LimitationDoor> toning = new ArrayList<>();
@@ -316,6 +318,25 @@ public class RestrictionOfSelectionFields {
 
         this.shieldDesign.add(color.setNuulLazyFild());
 
+    }
+
+    public void addShieldGlass(@NonNull List<ImageEntity> colorList) {
+        for (ImageEntity color : colorList) {
+            addShieldGlass(color);
+            //LimitationDoor limColor = new LimitationDoor();
+            //this.shieldGlass.add(color.setNuulLazyFild());
+        }
+    }
+
+    public void addShieldGlass(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.shieldGlass.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.SHIELD_GLASS)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
     }
 
     public RestrictionOfSelectionFields addTopLock(@NonNull List<DoorFurniture> furnitures) {

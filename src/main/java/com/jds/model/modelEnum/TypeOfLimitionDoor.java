@@ -56,6 +56,7 @@ public enum TypeOfLimitionDoor {
 
     SHIELD_COLOR,
     SHIELD_DESIGN,
+    SHIELD_GLASS,
 
     SIZE_COST_WIDTH,
     SIZE_COST_HEIGHT

@@ -72,6 +72,10 @@ public class ColorRepository {
     public List<ImageEntity> getShieldDesign() {
         return getImage(TypeOfImage.SHIELD_DESIGN);
     }
+    public List<ImageEntity> getShieldGlass() {
+        return getImage(TypeOfImage.SHIELD_GLASS);
+    }
+
     private List<ImageEntity> getImage(TypeOfImage typeImage) {
 
         Session session = sessionFactory.openSession();
@@ -96,6 +100,21 @@ public class ColorRepository {
         Query query = session.createSQLQuery(sql)
                 .addEntity(com.jds.dao.entity.ImageEntity.class);
         List<com.jds.dao.entity.ImageEntity> doorColorsList = query.list();
+
+        session.close();
+
+        return doorColorsList;
+    }
+
+    public List<ImageEntity> getImagesContainsGlass() {
+        Session session = sessionFactory.openSession();
+        int containsGlass = 1;
+        String sql;
+        sql = "select * from door_colors where containsGlass = :containsGlass";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(ImageEntity.class)
+                .setParameter("containsGlass", containsGlass);
+        List<ImageEntity> doorColorsList = query.list();
 
         session.close();
 
