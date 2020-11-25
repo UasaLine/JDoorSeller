@@ -944,7 +944,7 @@ public class DoorEntity implements SerializingFields {
         return sealingLine;
     }
 
-    public String getNameTrim(){
+    public String getNameTrimToString(){
         String topTrim = String.valueOf(getTopDoorTrimSize());
         String lefTrim = String.valueOf(getLeftDoorTrimSize());
         String rightTrim = String.valueOf(getRightDoorTrimSize());

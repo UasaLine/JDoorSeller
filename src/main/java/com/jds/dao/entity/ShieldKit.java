@@ -78,11 +78,11 @@ public class ShieldKit {
         return " - " + shieldColorName + shieldDesignName;
     }
 
-    public String getNameShield(){
-        String shieldColor = getShieldColor().getName();
-        String shieldDesign = (getShieldDesign() != null) ? " ( " + door.getShieldKit().getShieldDesign().getName() + " ) " : "";
-        String shieldGlass = (getShieldGlass() != null) ? door.getShieldKit().getShieldGlass().getName() : "";
-        return shieldColor + shieldDesign + shieldGlass;
+    public String getNameShielsToString(){
+        String shieldColorString = (getShieldColor().getName() != null) ? getShieldColor().getName() : "";
+        String shieldDesignString = (getShieldDesign() != null) ? " ( " + getShieldDesign().getName() + " ) " : "";
+        String shieldGlassString = (getShieldGlass() != null) ? getShieldGlass().getName() : "";
+        return shieldColorString + shieldDesignString + shieldGlassString;
     }
 
 }
