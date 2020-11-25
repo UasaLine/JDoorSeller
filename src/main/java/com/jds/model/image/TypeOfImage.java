@@ -5,4 +5,5 @@ public enum TypeOfImage {
     DOOR_DESIGN,
     SHIELD_COLOR,
     SHIELD_DESIGN,
+    SHIELD_GLASS
 }

@@ -418,10 +418,16 @@ class Door {
         if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
+        let imgKey;
+        if (door.furnitureKit.topInLockDecor == null){
+            imgKey ="images/findings/zamok.png";
+        } else {
+            imgKey = door.furnitureKit.topInLockDecor.sketchPathFirst;
+        }
         //images/findings/zamok.png
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", door.furnitureKit.topInLockDecor.sketchPathFirst)
+            .attr("src", imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -431,9 +437,16 @@ class Door {
             side = "L";
         }
 
+        let imgKey;
+        if (door.furnitureKit.lowerInLockDecor == null){
+            imgKey ="images/findings/zamok.png";
+        } else {
+            imgKey = door.furnitureKit.lowerInLockDecor.sketchPathFirst;
+        }
+
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", door.furnitureKit.lowerInLockDecor.sketchPathFirst)
+            .attr("src", imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -442,11 +455,20 @@ class Door {
         if (door.sideDoorOpen == "RIGHT") {
             side = "R";
         }
+
+        let imgKey;
+        if (door.furnitureKit.topOutLockDecor == null){
+            imgKey ="images/findings/zamok.png";
+        } else {
+            imgKey = door.furnitureKit.topOutLockDecor.sketchPathFirst;
+        }
+
        // "images/findings/zamok.png"
-        door.furnitureKit.topOutLockDecor.sketchPathFirst;
+        //door.furnitureKit.topOutLockDecor.sketchPathFirst;
+
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", door.furnitureKit.topOutLockDecor.sketchPathFirst)
+            .attr("src", imgKey)
             .appendTo(containerLeaf);
 
     }
@@ -457,10 +479,16 @@ class Door {
             side = "R";
         }
 
+        let imgKey;
+        if (door.furnitureKit.lowerOutLockDecor == null){
+            imgKey ="images/findings/zamok.png";
+        } else {
+            imgKey = door.furnitureKit.lowerOutLockDecor.sketchPathFirst;
+        }
         //images/findings/zamokIn.png
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", door.furnitureKit.lowerOutLockDecor.sketchPathFirst)
+            .attr("src", imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -483,6 +511,20 @@ class Door {
                 $("<img>")
                     .attr("class", "shield_design")
                     .attr("src", door.shieldKit.shieldDesign.picturePath)
+                    .attr("style",
+                        "px; transform: scale(" + scaleX + ", 1)")
+                    .appendTo(containerLeaf);
+            }
+        }
+    }
+
+    static createShieldGlass(containerLeaf, door) {
+        if (door.shieldKit != null && door.shieldKit.shieldGlass != null) {
+            if (door.shieldKit.shieldColor.containsDesign == 0) {
+                let scaleX = Door.reflectionPicture(door);
+                $("<img>")
+                    .attr("class", "shield_glass")
+                    .attr("src", door.shieldKit.shieldGlass.picturePath)
                     .attr("style",
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);
