@@ -43,25 +43,14 @@ public class PrintAppToTheOrder {
 
         appearance = new ArrayList<>();
         appearance.add(new ParamApp("Цвет двери:", String.valueOf(door.getDoorColor())));
-
-        String shieldColor = door.getShieldKit().getShieldColor().getName();
-        String shieldDesign = (door.getShieldKit().getShieldDesign() != null) ? " ( " + door.getShieldKit().getShieldDesign().getName() + " ) " : "";
-        String shieldGlass = (door.getShieldKit().getShieldGlass() != null) ? door.getShieldKit().getShieldGlass().getName() : "";
-
-        appearance.add(new ParamApp("Дек.накладка:", String.valueOf(shieldColor + shieldDesign + shieldGlass)));
+        appearance.add(new ParamApp("Дек.накладка:", door.getShieldKit().getNameShield()));
         //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));
         appearance.add(new ParamApp("Стекло:", (door.getIsDoorGlass() == 1) ? "да" : "нет"));
 
         internalView = new ArrayList<>();
 
         internalView.add(new ParamApp("Порог:", String.valueOf(door.getDoorstep())));
-
-        String topTrim = String.valueOf(door.getTopDoorTrimSize());
-        String lefTrim = String.valueOf(door.getLeftDoorTrimSize());
-        String rightTrim = String.valueOf(door.getRightDoorTrimSize());
-        String trim = "лев: " + lefTrim + " верх: " + topTrim + " прав: " + rightTrim;
-
-        internalView.add(new ParamApp("Наличник:", (door.getTopDoorTrim() == 1) ? trim : "нет"));
+        internalView.add(new ParamApp("Наличник:", (door.getTopDoorTrim() == 1) ? door.getNameTrim() : "нет"));
         internalView.add(new ParamApp("Цвет накладки:", "нет"));
 
 
