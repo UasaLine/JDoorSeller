@@ -18,7 +18,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.jds.model.image.TypeOfImage.DOOR_COLOR;
+import static com.jds.model.image.TypeOfImage.*;
 
 @Controller
 public class ColorController {
@@ -99,5 +99,16 @@ public class ColorController {
 
         return service.getImageTypeDoorColor();
 
+    }
+
+    @GetMapping(value = "/color/shieldDesign")
+    @ResponseBody
+    public List<ImageEntity> getColorShieldDesign() {
+
+        List<ImageEntity> list = service.getColorsTypeIfContainsGlassTrue(SHIELD_DESIGN);
+        for (int i =0; i < list.size(); i++){
+            list.get(i).clearNonSerializingFields();
+        }
+        return list;
     }
 }

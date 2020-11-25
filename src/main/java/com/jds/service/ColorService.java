@@ -43,6 +43,17 @@ public class ColorService {
         return listReturn;
     }
 
+    public List<ImageEntity> getColorsTypeIfContainsGlassTrue(Enum type) {
+        List<ImageEntity> list = dAO.getImagesContainsGlass();
+        List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
+        for(int i = 0; i < list.size(); i++){
+            if (list.get(i).getTypeOfImage() == type){
+                listReturn.add(list.get(i));
+            }
+        }
+        return listReturn;
+    }
+
     public ImageEntity getColor(@NonNull String id) {
 
         if ("0".equals(id)) {
@@ -107,6 +118,8 @@ public class ColorService {
             return "images/shield sketch/design/";
         else if (TypeOfImage.DOOR_DESIGN == type)
             return "images/Door/design/";
+        else if (TypeOfImage.SHIELD_GLASS == type)
+            return "images/Door/shieldGlass/";
         return "";
     }
 

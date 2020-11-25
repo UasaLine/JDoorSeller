@@ -424,6 +424,7 @@ public class DoorService implements DoorServ {
                 .handle(defaultAndConvertToFurniture(template.getHandle()))
                 .shieldColor(defaultAndConvertToImage(template.getShieldColor()))
                 .shieldDesign(defaultAndConvertToImage(template.getShieldDesign()))
+                .shieldGlass(defaultAndConvertToImage(template.getShieldGlass()))
                 .build();
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));

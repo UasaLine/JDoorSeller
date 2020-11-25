@@ -96,6 +96,7 @@ class Door {
             Door.createLowerInLockDecor(containerLeafR, door);
             Door.createShieldColor(containerLeafR, door);
             Door.createShieldDesign(containerLeafR, door);
+            Door.createShieldGlass(containerLeafR, door);
         }
     }
 

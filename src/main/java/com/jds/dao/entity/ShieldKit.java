@@ -26,6 +26,10 @@ public class ShieldKit {
     @JoinColumn(name = "shieldDesign")
     private ImageEntity shieldDesign;
 
+    @ManyToOne()
+    @JoinColumn(name = "shieldGlass")
+    private ImageEntity shieldGlass;
+
     @OneToOne(mappedBy = "shieldKit", fetch = FetchType.LAZY)
     private DoorEntity door;
 
@@ -33,6 +37,7 @@ public class ShieldKit {
         ShieldKit kit = new ShieldKit();
         kit.setShieldColor(getFirst(AvailableFields.getShieldColor()));
         kit.setShieldDesign(getFirst(AvailableFields.getShieldDesign()));
+        kit.setShieldGlass(getFirst(AvailableFields.getShieldGlass()));
         return kit;
     }
 
@@ -57,6 +62,9 @@ public class ShieldKit {
         }
         if (shieldDesign != null) {
             shieldDesign.clearNonSerializingFields();
+        }
+        if (shieldGlass != null) {
+            shieldGlass.clearNonSerializingFields();
         }
         return this;
     }

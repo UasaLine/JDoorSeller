@@ -116,6 +116,10 @@ jQuery("document").ready(function () {
         }
         Door.draw(door, 1);
         pickOut(this);
+        if (goTo != "") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
 
     });
 
@@ -140,7 +144,14 @@ jQuery("document").ready(function () {
         let javaObject = findObject(nameJavaField, idJavaObject);
 
         setDoorFurnitureByObject(javaObject, nameJavaField, door.shieldKit);
-        clearRelatedFieldsForImage(javaObject);
+
+        if (nameJavaField == "shieldColor"){
+            clearRelatedFieldsForImage(javaObject);
+        }
+
+        if (nameJavaField == "shieldDesign"){
+            clearGlass(javaObject);
+        }
 
         RepresentationManager.showAllFieldsValues(door);
         pickOut(this);
@@ -990,6 +1001,7 @@ jQuery("document").ready(function () {
             displayColor("doorColor", data.colors, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
             displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
+            displayImage("shieldGlass", addToShieldGlassList(), 0);
 
             displayadditionalDoorSettings(data);
             displayListOfItems("topLock", availableFurnitureList.topLock, 0, "kit");
@@ -1177,6 +1189,7 @@ jQuery("document").ready(function () {
 
         if (currentItem == "typeDoorGlass") {
             $(".select_typeDoorGlass").attr("show", "is_alive_lement");
+            goTo = "doorGlass";
 
             currentItemForDisplay = $("#namedoorGlass").html();
             //currentItemDaughterForDisplay = $(item).html();
@@ -1193,6 +1206,7 @@ jQuery("document").ready(function () {
             }
 
             $(".select_toning").attr("show", "is_alive_lement");
+            goTo = "doorGlass";
 
             currentItemForDisplay = $("#namedoorGlass").html();
             //currentItemDaughterForDisplay = $(item).html();
@@ -1208,6 +1222,7 @@ jQuery("document").ready(function () {
                 return;
             }
             $(".select_armor").attr("show", "is_alive_lement");
+            goTo = "doorGlass";
 
             currentItemForDisplay = $("#namedoorGlass").html();
             //currentItemDaughterForDisplay = $(item).html();
@@ -1360,7 +1375,9 @@ jQuery("document").ready(function () {
         if (currentItem == "shieldKit") {
             fillChildBlockShield("shieldColor");
             fillChildBlockShield("shieldDesign");
+            fillChildBlockShield("shieldGlass");
             displayChildFields();
+            showShieldGlass();
 
             $(".select_shieldKit").attr("show", "is_alive_lement");
         } else {
@@ -1389,6 +1406,21 @@ jQuery("document").ready(function () {
             PaginationPage.show();
         } else {
             $(".select_shieldDesign").attr("show", "ghost_lement");
+        }
+
+        if (currentItem == "shieldGlass") {
+            $(".select_shieldGlass").attr("show", "is_alive_lement");
+            goTo = "shieldKit";
+            currentItemForDisplay = $("#nameshieldKit").html();
+
+            currentItemForDisplayId = "shieldKit";
+
+            displayImage("shieldGlass", addToShieldGlassList(), 0);
+
+
+            PaginationPage.show();
+        } else {
+            $(".select_shieldGlass").attr("show", "ghost_lement");
         }
 
         if (currentItem == "comment") {
@@ -1424,6 +1456,7 @@ jQuery("document").ready(function () {
     function hasAParination() {
         if ("shieldColor" == currentItem ||
             "shieldDesign" == currentItem ||
+            "shieldGlass" == currentItem ||
             "doorColor" == currentItem ||
             'topLock' == currentItem ||
             "lowerLock" == currentItem ||
@@ -1443,6 +1476,16 @@ jQuery("document").ready(function () {
             return true;
         }
         return false;
+    }
+
+    function addToShieldGlassList() {
+        let glassList = [];
+        for (let i = 0; i < availableFurnitureList.shieldGlass.length; i++){
+            if (availableFurnitureList.shieldGlass[i].containsDesign == door.shieldKit.shieldDesign.id){
+                glassList.push(availableFurnitureList.shieldGlass[i]);
+            }
+        }
+        return glassList;
     }
 
     function addToTheHistoryList(val) {
@@ -1639,4 +1682,21 @@ jQuery("document").ready(function () {
             $("#shieldDesign").attr("show", "is_alive_lement");
         }
     }
+
+    function showShieldGlass() {
+        let shieldDesign = door.shieldKit.shieldDesign;
+        if (shieldDesign == null || (shieldDesign != null && shieldDesign.containsGlass == 0)) {
+            $("#shieldGlass").attr("show", "ghost_lement");
+            setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
+        } else {
+            $("#shieldGlass").attr("show", "is_alive_lement");
+        }
+    }
+
+    function clearGlass(javaObject) {
+        if (javaObject.containsDesign == 0){
+            setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
+        }
+    }
+
 });

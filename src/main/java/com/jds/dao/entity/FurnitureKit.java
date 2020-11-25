@@ -76,7 +76,6 @@ public class FurnitureKit implements SerializingFields {
     @OneToOne(mappedBy = "furnitureKit",fetch = FetchType.LAZY)
     private DoorEntity door;
 
-
     public boolean exists(){
 
         if ((topLock!=null)||(lowerLock!=null)||(handle!=null)||(closer!=null)){

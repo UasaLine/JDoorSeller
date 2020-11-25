@@ -208,3 +208,11 @@ stainlessSteelDoorstep
   position: absolute;
   z-index: 101;
 }
+.shield_glass{
+  top: 3.5%;
+  left: 9%;
+  height: 92.5%;
+  width: 82.5%;
+  position: absolute;
+  z-index: 101;
+}
