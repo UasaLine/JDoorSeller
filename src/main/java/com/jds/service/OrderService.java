@@ -107,7 +107,7 @@ public class OrderService {
         OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getId());
         if(OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus){
             order.setSeller(userService.getCurrentUser());
-                return saveOrder(order);
+                return saveAndCalc(order);
         }
         else {
             return null;
@@ -122,7 +122,7 @@ public class OrderService {
         }
     }
 
-    private DoorsОrder saveOrder(@NonNull DoorsОrder order) {
+    private DoorsОrder saveAndCalc(@NonNull DoorsОrder order) {
 
         order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrder_id())));
         return dAO.saveOrder(order);
@@ -169,11 +169,11 @@ public class OrderService {
            DoorsОrder order = dAO.getOrder(id);
            order.setStatus(orderStatus);
            order.setReleasDate(releasDate);
-           saveOrderToSetStatus(order);
+           save(order);
        }
     }
 
-    private DoorsОrder saveOrderToSetStatus(DoorsОrder order) {
+    private DoorsОrder save(DoorsОrder order) {
         return dAO.saveOrder(order);
     }
 
