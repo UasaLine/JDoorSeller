@@ -38,18 +38,19 @@ public class PrintAppToTheOrder {
         sizes.add(new ParamApp("Толщина полотна:", String.valueOf(door.getThicknessDoorLeaf())));
         sizes.add(new ParamApp("Открывание:", String.valueOf(door.getSideDoorOpen())));
         sizes.add(new ParamApp("Внутреннее открывание:", String.valueOf(door.getInnerOpen())));
-        sizes.add(new ParamApp("Ширина активной створки:", String.valueOf(door.getActiveDoorLeafWidth())));
-        sizes.add(new ParamApp("Высота фрамуги:", String.valueOf(door.getDoorFanlightHeight())));
+        //sizes.add(new ParamApp("Ширина активной створки:", String.valueOf(door.getActiveDoorLeafWidth())));
+        //sizes.add(new ParamApp("Высота фрамуги:", String.valueOf(door.getDoorFanlightHeight())));
 
         appearance = new ArrayList<>();
         appearance.add(new ParamApp("Цвет двери:", String.valueOf(door.getDoorColor())));
-        appearance.add(new ParamApp("Дек.накладка:", String.valueOf("нет")));
-        appearance.add(new ParamApp("Доп.петля:", String.valueOf(door.getAdditionallyHingeMain())));
-        appearance.add(new ParamApp("Стекло:", String.valueOf(door.getIsDoorGlass())));
+        appearance.add(new ParamApp("Дек.накладка:", door.getShieldKit().getNameShielsToString()));
+        //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));
+        appearance.add(new ParamApp("Стекло:", (door.getDoorGlass() != null) ? "да" : "нет"));
 
         internalView = new ArrayList<>();
+
         internalView.add(new ParamApp("Порог:", String.valueOf(door.getDoorstep())));
-        internalView.add(new ParamApp("Наличник:", String.valueOf(door.getTopDoorTrim())));
+        internalView.add(new ParamApp("Наличник:", (door.getTopDoorTrim() == 1) ? door.getNameTrimToString() : "нет"));
         internalView.add(new ParamApp("Цвет накладки:", "нет"));
 
 
