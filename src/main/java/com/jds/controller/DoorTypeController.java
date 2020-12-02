@@ -5,6 +5,7 @@ import com.jds.model.modelEnum.PriceGroups;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +72,7 @@ public class DoorTypeController {
         return "doorType";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/doortypelist")
     public String getDoorTypeList(Model model, @RequestParam(required = false) String classId) throws Exception {
 

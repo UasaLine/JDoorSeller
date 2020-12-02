@@ -8,6 +8,7 @@ import com.jds.service.OrderService;
 import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,7 @@ public class OrderController {
         return orderService.checkAccessAndSave(order);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteOrder(@RequestParam(required = false) String orderId) throws Exception {
@@ -75,6 +77,7 @@ public class OrderController {
         return orderService.deleteOrder(orderId);
     }
 
+    @Secured("ROLE_ONE_C")
     @PostMapping(value = "/loading/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<DoorsОrder> getOrders() throws Exception {
@@ -82,6 +85,7 @@ public class OrderController {
         return orderService.getOrders(OrderStatus.TO_WORK);
     }
 
+    @Secured("ROLE_ONE_C")
     @PostMapping(value = "/order/status")
     public void setOrdersStatus(@RequestParam(required = false) String orderId,
                                 @RequestParam(required = false) String status) throws Exception {

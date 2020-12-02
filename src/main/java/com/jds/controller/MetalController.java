@@ -4,6 +4,7 @@ import com.jds.dao.entity.Metal;
 import com.jds.model.ResponseAction;
 import com.jds.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ public class MetalController {
     @Autowired
     private MetalService service;
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/metal")
     public String getMetalListPage(Model model) throws Exception {
 
