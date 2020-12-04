@@ -140,6 +140,7 @@ public class UserService implements UserDetailsService, UserServ {
                 .discount(discount)
                 .enabled(enabledСheckbox)
                 .priceGroup(priceGroups)
+                .role(Role.USER)
                 .build());
     }
 
