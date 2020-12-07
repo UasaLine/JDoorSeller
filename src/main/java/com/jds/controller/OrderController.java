@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -84,9 +84,10 @@ public class OrderController {
 
     @PostMapping(value = "/order/status")
     public void setOrdersStatus(@RequestParam(required = false) String orderId,
-                                @RequestParam(required = false) String status) throws Exception {
+                                @RequestParam(required = false) String status,
+                                @RequestParam(required = false) String releasDate) throws Exception {
 
-        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId), status);
+        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId), status, new SimpleDateFormat("yyyy-MM-dd").parse(releasDate));
 
     }
 

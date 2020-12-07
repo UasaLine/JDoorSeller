@@ -11,6 +11,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,7 +107,7 @@ public class OrderService {
         OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getId());
         if(OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus){
             order.setSeller(userService.getCurrentUser());
-                return saveOrder(order);
+                return saveAndCalc(order);
         }
         else {
             return null;
@@ -121,7 +122,7 @@ public class OrderService {
         }
     }
 
-    private DoorsОrder saveOrder(@NonNull DoorsОrder order) {
+    private DoorsОrder saveAndCalc(@NonNull DoorsОrder order) {
 
         order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrder_id())));
         return dAO.saveOrder(order);
@@ -161,14 +162,19 @@ public class OrderService {
 
     }
 
-    public void setStatusAndSaveOrder(@NonNull int id, @NonNull String status){
+    public void setStatusAndSaveOrder(@NonNull int id, @NonNull String status, Date releasDate){
 
        OrderStatus orderStatus = validationOrderStatus(status);
        if (orderStatus!=null){
            DoorsОrder order = dAO.getOrder(id);
            order.setStatus(orderStatus);
-           saveOrder(order);
+           order.setReleasDate(releasDate);
+           save(order);
        }
+    }
+
+    private DoorsОrder save(DoorsОrder order) {
+        return dAO.saveOrder(order);
     }
 
     private OrderStatus validationOrderStatus(@NonNull String status){
