@@ -3,5 +3,6 @@ create table ShieldKit
 (
     id           SERIAL PRIMARY KEY,
     shieldColor  INT,
-    shieldDesign INT
+    shieldDesign INT,
+    shieldGlass INT
 );

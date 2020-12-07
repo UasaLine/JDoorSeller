@@ -7,6 +7,7 @@ import com.jds.service.TemplateService;
 import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class TemplateController {
     @Autowired
     private MaineService maineService;
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/templates")
     public String getTemplateList(Model model) {
 
@@ -45,6 +47,7 @@ public class TemplateController {
         return service.getDoorTemplate(typeId);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/templates/item", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public void saveTemplate(@RequestBody RestrictionOfSelectionFields template) throws Exception {

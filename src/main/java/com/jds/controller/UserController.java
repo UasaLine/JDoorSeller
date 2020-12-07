@@ -5,6 +5,7 @@ import com.jds.dao.entity.UserEntity;
 import com.jds.model.modelEnum.PriceGroups;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class UserController {
     private UserService service;
 
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/users")
     public String getUsers(Model model) throws Exception {
         List<UserEntity> list = service.getUsers();
@@ -28,6 +30,7 @@ public class UserController {
         return "userList";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/user")
     public String getUser(Model model,@RequestParam(defaultValue = "0") String userId) throws Exception {
 
@@ -42,6 +45,7 @@ public class UserController {
 
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/user")
     public String saveUser(Model model,@RequestParam(required = false) String username,
                            @RequestParam(required = false) String userId,

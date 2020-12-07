@@ -206,14 +206,14 @@ jQuery("document").ready(function () {
         } else if (currentItem == "additionalDoorSettings") {
             isRepRun = false;
         } else if (currentItem == "doorGlass") {
-            if ($(this).is(":checked")) {
-                $(".input_doorGlass_div").attr("show", "is_alive_lement");
-                setDoorField("isDoorGlass", 1);
-                isRepRun = false;
-            } else {
-                $(".input_doorGlass_div").attr("show", "ghost_lement");
-                setDoorField("isDoorGlass", 0);
-            }
+            // if ($(this).is(":checked")) {
+            //     $(".input_doorGlass_div").attr("show", "is_alive_lement");
+            //     setDoorField("isDoorGlass", 1);
+            //     isRepRun = false;
+            // } else {
+            //     $(".input_doorGlass_div").attr("show", "ghost_lement");
+            //     setDoorField("isDoorGlass", 0);
+            // }
         } else if (currentItem == "additionally") {
             if ($(this).attr("available") == "yes") {
                 if ($(this).attr("item") == "nightLock") {
@@ -794,8 +794,8 @@ jQuery("document").ready(function () {
     }
 
     function displayGlass() {
-        if (door.isDoorGlass == 1) {
-            $("#checkboxdoorGlass0").prop("checked", true);
+        //if (door.isDoorGlass == 1) {
+            //$("#checkboxdoorGlass0").prop("checked", true);
             $(".input_doorGlass_div").attr("show", "is_alive_lement");
 
             if (door.doorGlass.typeDoorGlass !== null) {
@@ -811,11 +811,6 @@ jQuery("document").ready(function () {
                 RepresentationManager.showFieldValue(door.doorGlass.armor.name);
             }
 
-            //Door.set("WidthDoorGlass", door.doorGlass.glassWidth);
-            //Door.set("HeightDoorGlass", door.doorGlass.glassHeight);
-            //Door.set("leftDoorGlass", door.doorGlass.leftGlassPosition);
-            //Door.set("bottomDoorGlass", door.doorGlass.bottomGlassPosition);
-
             currentItem = "glassWidth";
             RepresentationManager.showFieldValue(door.doorGlass.glassWidth);
             currentItem = "glassHeight";
@@ -824,13 +819,7 @@ jQuery("document").ready(function () {
             RepresentationManager.showFieldValue(door.doorGlass.leftGlassPosition);
             currentItem = "bottomGlassPosition";
             RepresentationManager.showFieldValue(door.doorGlass.bottomGlassPosition);
-
-
-            // $("#input_WidthDoorGlass").attr("value", door.doorGlass.glassWidth);
-            // $("#input_HeightDoorGlass").attr("value", door.doorGlass.glassHeight);
-            // $("#input_leftDoorGlass").attr("value", door.doorGlass.leftGlassPosition);
-            // $("#input_bottomDoorGlass").attr("value", door.doorGlass.bottomGlassPosition);
-        }
+       // }
     }
 
     function checkThCompletedFields() {

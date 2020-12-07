@@ -8,10 +8,12 @@ import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -25,6 +27,7 @@ public class ColorController {
     @Autowired
     private ColorService service;
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/color")
     public String getMetalListPage(Model model) throws Exception {
         List<ImageEntity> list = service.getColors();

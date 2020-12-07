@@ -4,6 +4,7 @@ import com.jds.dao.entity.DoorClass;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class DoorClassController {
         return "doorClass";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/doorclass")
     public String saveDoorClass(@RequestParam(required = false) String classId,
                                 @RequestParam(required = false) String name,

@@ -47,6 +47,7 @@ public class UserService implements UserDetailsService, UserServ {
             List<Role> roleList = new ArrayList<>();
             roleList.add(Role.USER);
             roleList.add(Role.ADMIN);
+            roleList.add(Role.ONE_C);
 
             return UserEntity.builder()
                     .id(9300)
@@ -139,6 +140,7 @@ public class UserService implements UserDetailsService, UserServ {
                 .discount(discount)
                 .enabled(enabledСheckbox)
                 .priceGroup(priceGroups)
+                .role(Role.USER)
                 .build());
     }
 
