@@ -5,5 +5,6 @@ CREATE TABLE users
   login            CHARACTER VARYING(100),
   password         CHARACTER VARYING(100),
   discount         int,
-  price_group      VARCHAR(255)
+  price_group      VARCHAR(255),
+  role             VARCHAR(255)
 );

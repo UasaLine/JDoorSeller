@@ -43,7 +43,9 @@ public class PrintAppToTheOrder {
 
         appearance = new ArrayList<>();
         appearance.add(new ParamApp("Цвет двери:", String.valueOf(door.getDoorColor())));
-        appearance.add(new ParamApp("Дек.накладка:", door.getShieldKit().getShielsName()));
+        if (door.getShieldKit() != null){
+            appearance.add(new ParamApp("Дек.накладка:", door.getShieldKit().getShieldName()));
+        }
         //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));
         appearance.add(new ParamApp("Стекло:", (door.getDoorGlass() != null) ? "да" : "нет"));
 
