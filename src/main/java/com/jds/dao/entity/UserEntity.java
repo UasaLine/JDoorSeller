@@ -36,6 +36,10 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private PriceGroups priceGroup;
 
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @JsonIgnore
     @Transient
     private List<Role> authorities;

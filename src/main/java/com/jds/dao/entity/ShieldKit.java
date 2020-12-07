@@ -78,8 +78,8 @@ public class ShieldKit {
         return " - " + shieldColorName + shieldDesignName;
     }
 
-    public String getNameShielsToString(){
-        String shieldColorString = (getShieldColor().getName() != null) ? getShieldColor().getName() : "";
+    public String getShieldName(){
+        String shieldColorString = (getShieldColor() != null) ? getShieldColor().getName() : "";
         String shieldDesignString = (getShieldDesign() != null) ? " ( " + getShieldDesign().getName() + " ) " : "";
         String shieldGlassString = (getShieldGlass() != null) ? getShieldGlass().getName() : "";
         return shieldColorString + shieldDesignString + shieldGlassString;

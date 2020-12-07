@@ -137,8 +137,7 @@ public class OrderService {
 
     public static DoorsОrder clearNonSerializingFields(DoorsОrder order) {
 
-        order.getSeller().setOrders(null);
-
+        //order.getSeller().setOrders(null);
 
         List<DoorEntity> doors = order.getDoors();
         for (DoorEntity door : doors) {

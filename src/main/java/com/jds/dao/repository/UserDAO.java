@@ -3,6 +3,7 @@ package com.jds.dao.repository;
 
 import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
+import com.jds.model.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

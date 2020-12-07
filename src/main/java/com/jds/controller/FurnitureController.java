@@ -6,6 +6,7 @@ import com.jds.model.ResponseAction;
 import com.jds.model.modelEnum.TypeOfFurniture;
 import com.jds.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class FurnitureController {
     @Autowired
     private FurnitureService service;
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/furniture")
     public String getFurnitureListPage(Model model) {
 

@@ -6,6 +6,7 @@ import com.jds.service.MaineService;
 import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,7 @@ public class MainController {
         return service.getDoorClass();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/specification")
     public String getSpecificationPage(Model model) throws Exception {
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
@@ -93,6 +95,7 @@ public class MainController {
 
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/materials")
     public String getMaterialPage() {
         return "materialList";
