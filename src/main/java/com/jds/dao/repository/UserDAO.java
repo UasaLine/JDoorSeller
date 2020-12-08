@@ -111,4 +111,24 @@ public class UserDAO {
         session.saveOrUpdate(setting);
 
     }
+
+    public UserEntity getRoleUser(String name){
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from users where login like :log";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(UserEntity.class)
+                .setParameter("log", name);
+        List<UserEntity> list = query.list();
+
+        session.close();
+
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+
+    }
 }

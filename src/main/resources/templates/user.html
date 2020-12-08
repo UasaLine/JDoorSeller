@@ -36,7 +36,7 @@
 
 		<span id = "enabled" th:text="${user.enabled}" show="ghost_lement"></span>
 
-		<form th:action="@{/user}" method="post">
+		<form th:action="@{/users}" method="post">
 
 			<div class="form-group">
 
@@ -71,6 +71,15 @@
 				<div class="col-md-6 mb-3">
 					<label for="password">new password:</label>
 					<input type="text" class="form-control" name="password" id="password" placeholder="password" >
+				</div>
+
+				<!--RoleUser-->
+				<div class="col-md-6 mb-3">
+					<label for="role">Роль:</label>
+					<input class="ghost" type="text" id="RoleUserFromObject" th:value="${user.role}" show="ghost_lement">
+					<select class="form-control" id="role" name="role">
+					</select>
+					<p class="textComit">назначает пользователю роль</p>
 				</div>
 
 				<div class="col-md-6 mb-3">
