@@ -1,9 +1,11 @@
 priceGroup = null;
+usersRoles = null;
 
 jQuery("document").ready(function () {
 
 
     getAllPriceGroup();
+    getRoles();
 
 
     if ($("#enabled").text() == "1") {
@@ -40,6 +42,26 @@ jQuery("document").ready(function () {
                 alert("!ERROR: ценовые группы получить не удалось:");
             },
         });
+    }
+
+    function getRoles() {
+        $.ajax({
+            url: location.origin + "/users/roles",
+            dataType: "json",
+            success: function (data) {
+                usersRoles = data;
+                PageSelector.fillInByStringList("#role", usersRoles);
+                setUsersRole();
+            },
+            error: function (data) {
+                alert("!ERROR: ценовые группы получить не удалось:");
+            },
+        });
+    }
+
+    function setUsersRole() {
+        let uisersRolesFromObject = $("#RoleUserFromObject").val();
+        PageSelector.setValueInSelect("#role", uisersRolesFromObject);
     }
 
 });
