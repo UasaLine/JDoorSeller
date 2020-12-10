@@ -20,7 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,9 +47,7 @@ public class UserService implements UserDetailsService, UserServ {
         if (username.equals("admin")) {
 
             List<Role> roleList = new ArrayList<>();
-            roleList.add(Role.USER);
             roleList.add(Role.ADMIN);
-            roleList.add(Role.ONE_C);
 
             return UserEntity.builder()
                     .id(9300)
@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService, UserServ {
         UserEntity user = dAO.getUserByName(username);
         if (user != null) {
             List<Role> roleList = new ArrayList<>();
-            roleList.add(Role.USER);
+            roleList.add(user.getRole());
 
             user.setAuthorities(roleList);
             user.setAccountNonExpired(true);
@@ -116,7 +116,8 @@ public class UserService implements UserDetailsService, UserServ {
                          @NonNull String password,
                          int discount,
                          boolean enabledСheckbox,
-                         PriceGroups priceGroups) {
+                         PriceGroups priceGroups,
+                         Role role) {
 
         if (userId == "0" && (username == "" || password == "")) {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
@@ -125,7 +126,7 @@ public class UserService implements UserDetailsService, UserServ {
         }
 
         List<Role> roleList = new ArrayList<>();
-        roleList.add(Role.USER);
+        roleList.add(role);
 
         int idInt = Integer.parseInt(userId);
 
@@ -140,7 +141,7 @@ public class UserService implements UserDetailsService, UserServ {
                 .discount(discount)
                 .enabled(enabledСheckbox)
                 .priceGroup(priceGroups)
-                .role(Role.USER)
+                .role(role)
                 .build());
     }
 
@@ -196,5 +197,9 @@ public class UserService implements UserDetailsService, UserServ {
                         .includesTax(maineService.booleanToInt(includesTax))
                         .build()
         );
+    }
+
+    public Set<Role> getRoles() {
+        return EnumSet.allOf(Role.class);
     }
 }

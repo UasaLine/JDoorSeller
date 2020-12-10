@@ -2,18 +2,22 @@ package com.jds.controller;
 
 import com.jds.dao.entity.UserEntity;
 
+import com.jds.model.Role;
 import com.jds.model.modelEnum.PriceGroups;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -46,15 +50,23 @@ public class UserController {
     }
 
     @Secured("ROLE_ADMIN")
-    @PostMapping(value = "/user")
+    @PostMapping(value = "/users")
     public String saveUser(Model model,@RequestParam(required = false) String username,
                            @RequestParam(required = false) String userId,
                            @RequestParam(required = false) String password,
                            @RequestParam(required = false) int discount,
                            @RequestParam(required = false) boolean enabledСheckbox,
-                           @RequestParam(required = false) PriceGroups priceGroups) throws Exception {
+                           @RequestParam(required = false) PriceGroups priceGroups,
+                           @RequestParam(required = false) Role role) throws Exception {
 
-        service.saveUser(userId,username,password,discount,enabledСheckbox,priceGroups);
+        service.saveUser(
+                userId,
+                username,
+                password,
+                discount,
+                enabledСheckbox,
+                priceGroups,
+                role);
 
         List<UserEntity> list = service.getUsers();
         model.addAttribute("users", list);
@@ -77,6 +89,12 @@ public class UserController {
 
         service.saveUserSetting(retailMargin,salesTax,includesTax);
         return "redirect:usersetting";
+    }
+
+    @GetMapping(value = "users/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Set<Role> getRoles() throws Exception {
+        return service.getRoles();
     }
 
 }

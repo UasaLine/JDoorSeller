@@ -7,7 +7,9 @@ jQuery("document").ready(function () {
     var orderId = $("#order_id").text();
     var currentDoorId = 0;
 
-    let buttonsManager = new ButtonsManager('different_availability', 'CALC');
+    let buttonsManager = new ButtonsManager(
+        'different_availability', 'CALC',
+        'ready_availability', 'CLOSED');
 
     setOrderId("Заказ");
     getOrderDiscount();
@@ -77,6 +79,7 @@ jQuery("document").ready(function () {
 
     $("#status").change(function () {
         order.status = $(this).val();
+        buttonsManager.turnOn(order.status);
     });
 
     LineEditor.init();
@@ -121,7 +124,7 @@ jQuery("document").ready(function () {
                 order = data;
                 fillOutOfTheObject();
 
-                buttonsManager.disabled(order.status);
+                buttonsManager.turnOff(order.status);
             },
             error: function (data) {
                 alert("error:" + data);

@@ -99,6 +99,7 @@ public class OrderService {
             return new DoorsОrder();
         }
         DoorsОrder order =  dAO.getOrder(id);
+        order.setStatusList(OrderStatus.statusList(order.getStatus()));
 
         return clearNonSerializingFields(order);
     }
