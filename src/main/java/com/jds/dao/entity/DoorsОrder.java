@@ -2,6 +2,7 @@ package com.jds.dao.entity;
 
 import com.jds.model.orderPrint.OrderDiscounts;
 import com.jds.model.modelEnum.OrderStatus;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.util.*;
@@ -79,9 +80,8 @@ public class DoorsОrder {
 
         doors = new ArrayList<>();
         data = new java.sql.Date(new Date().getTime());
-        status = OrderStatus.CALC;
+        status = OrderStatus.startStatus();
         statusList = new ArrayList<>();
-        this.addAllStatus();
     }
 
     public int deleteDoor(int id) {
@@ -246,14 +246,8 @@ public class DoorsОrder {
         this.statusList = statusList;
     }
 
-    public void addStatusList(OrderStatus status) {
-        this.statusList.add(status);
-    }
-
     public void addAllStatus() {
-        this.addStatusList(OrderStatus.CALC);
-        this.addStatusList(OrderStatus.TO_WORK);
-        this.addStatusList(OrderStatus.CLOSED);
+        this.statusList = OrderStatus.statusList(status);
     }
 
 
