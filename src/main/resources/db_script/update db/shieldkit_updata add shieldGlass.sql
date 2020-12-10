@@ -1,2 +1,2 @@
 ALTER TABLE shieldkit ADD COLUMN shieldGlass int;
-UPDATE shieldkit SET shieldGlass = 0;
+UPDATE shieldkit SET shieldGlass = null;
