@@ -187,71 +187,12 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public MaterialFormula saveOrUpdateMaterialFormula(MaterialFormula setting) {
-
-        setting.decodeAfterJson();
-
-        int id = getMaterialFormulaById(setting.getIdManufacturerProgram());//check exists
-        if (id > 0) {
-            setting.setId(id);
-        }
-
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(setting);
-
-        return setting;
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public RawMaterials saveOrUpdateRawMaterials(RawMaterials setting) {
-
-        int id = getRawMaterialsById(setting.getIdManufacturerProgram());//check exists
-        if (id > 0) {
-            setting.setId(id);
-        }
-
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(setting);
-
-        return setting;
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
-
-        saveOrUpdateDoorType(setting.getDoorType());
-        saveOrUpdateMaterialFormula(setting.getFormula());
-        saveOrUpdateRawMaterials(setting.getRawMaterials());
-
-        int id = getSpecificationSettingId(setting.getMetal(), setting.getDoorType().getId(), setting.getRawMaterials().getId());//check exists
-
-        if (id > 0) {
-            setting.setId(id);
-        }
-
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(setting);
-
-        return setting;
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
     public LimitationDoor saveLimitationDoor(LimitationDoor limit){
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(limit);
 
         return limit;
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public LineSpecification  saveLineSpecification(LineSpecification lineSpec){
-
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(lineSpec);
-
-        return lineSpec;
-
     }
 
     public Map<TypeOfSalaryConst, Double> getSalaryConstantsMap() {
@@ -393,81 +334,6 @@ public class MainDAO {
         return null;
 
     }
-
-
-    public int getMaterialFormulaById(String id) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from material_formula where idmanufacturerprogram like :log ";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(MaterialFormula.class)
-                .setParameter("log", id);
-        List<MaterialFormula> materialFormulas = query.list();
-
-        session.close();
-
-        if (materialFormulas.size() > 0) {
-            return materialFormulas.get(0).getId();
-        }
-        return 0;
-
-    }
-
-    public List<MaterialFormula> getMaterialFormula() {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from material_formula ";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(MaterialFormula.class);
-        List<MaterialFormula> materialFormulas = query.list();
-
-        session.close();
-
-        return materialFormulas;
-
-    }
-
-
-    public int getRawMaterialsById(String id) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from raw_materials where idmanufacturerprogram like :log ";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(RawMaterials.class)
-                .setParameter("log", id);
-        List<RawMaterials> rawMaterialsList = query.list();
-
-        session.close();
-
-        if (rawMaterialsList.size() > 0) {
-            return rawMaterialsList.get(0).getId();
-        }
-        return 0;
-
-    }
-
-    public List<RawMaterials> getRawMaterials() {
-
-        Session session = sessionFactory.openSession();
-
-        String sql;
-        sql = "select * from raw_materials ";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(RawMaterials.class);
-        List<RawMaterials> rawMaterialsList = query.list();
-
-        session.close();
-
-        return rawMaterialsList;
-
-    }
-
 
     public List<DoorFurniture> getFurnitureByType(TypeOfFurniture type, int idType) {
 
@@ -691,45 +557,6 @@ public class MainDAO {
         return salarySetting;
     }
 
-    public int getSpecificationSettingId(double metal, int typyDoorId, int rawMaterialsId) {
-        Session session = sessionFactory.openSession();
-
-        String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT and rawMaterials_id = :rawId";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(SpecificationSetting.class)
-                .setParameter("metalVal", metal)
-                .setParameter("rawId", rawMaterialsId)
-                .setParameter("idDoorT", typyDoorId);
-        List<SpecificationSetting> list = query.list();
-
-        session.close();
-
-        SpecificationSetting specificationSetting = new SpecificationSetting();
-        if (list.size() > 0) {
-            specificationSetting = list.get(0);
-        }
-        return specificationSetting.getId();
-    }
-
-    public List<SpecificationSetting> getSpecificationSetting(double metal, int typyDoorId) {
-        Session session = sessionFactory.openSession();
-
-        String sql = "select * from specification_setting where metal = :metalVal and doortype_id = :idDoorT";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(SpecificationSetting.class)
-                .setParameter("metalVal", metal)
-                .setParameter("idDoorT", typyDoorId);
-        List<SpecificationSetting> list = query.list();
-
-        session.close();
-
-        List<SpecificationSetting> specificationSettingList = new ArrayList<>();
-        if (list.size() > 0) {
-            specificationSettingList = list;
-        }
-        return specificationSettingList;
-    }
-
     public List<LimitationDoor> getLimitationDoor (int doorTypeId){
 
         Session session = sessionFactory.openSession();
@@ -767,28 +594,6 @@ public class MainDAO {
         }
         return limitList;
 
-    }
-
-
-    public List<LineSpecification> getLineSpecification(int id){
-
-        Session session = sessionFactory.openSession();
-
-        String sql = "select * from line_specification where doorType_id = :id";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(LineSpecification.class)
-                .setParameter("id", id);
-        List<LineSpecification> list = query.list();
-
-        session.close();
-
-        return list;
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteLineSpecification(LineSpecification lineSpecification){
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(lineSpecification);
     }
 
     public List<LimitationDoor> getLimitByTypeOfImages (TypeOfImage type){

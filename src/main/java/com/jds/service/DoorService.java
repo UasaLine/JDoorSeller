@@ -1,10 +1,7 @@
 package com.jds.service;
 
 import com.jds.dao.entity.*;
-import com.jds.dao.repository.ColorRepository;
-import com.jds.dao.repository.MainDAO;
-import com.jds.dao.repository.MetalRepository;
-import com.jds.dao.repository.OrderDAO;
+import com.jds.dao.repository.*;
 import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
@@ -25,6 +22,9 @@ public class DoorService implements DoorServ {
     private MainDAO dAO;
     @Autowired
     private OrderDAO orderDAO;
+    @Autowired
+    private MaterialsRepository materialsDAO;
+
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -321,7 +321,7 @@ public class DoorService implements DoorServ {
         paySettings.setDoorType(dAO.getDoorType(door.getDoorType().getId()));
         paySettings.setSalarySetting(dAO.getSalarySetting(door.getMetal()));
 
-        List<SpecificationSetting> speciSettingList = dAO.getSpecificationSetting(door.getMetal(), door.getDoorType().getId());
+        List<SpecificationSetting> speciSettingList = materialsDAO.getSpecificationSetting(door.getMetal(), door.getDoorType().getId());
 
         //new instance cost
         door.setCostList(new CostList());
@@ -553,7 +553,7 @@ public class DoorService implements DoorServ {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = dAO.getLineSpecification(doorEntity.getDoorType().getId());
+        List<LineSpecification> lineSpec = materialsDAO.getLineSpecification(doorEntity.getDoorType().getId());
 
         lineSpec.stream()
                 .peek((lin) -> addFurKitToLineSpec(lineSpec, doorEntity))

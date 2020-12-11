@@ -3,6 +3,7 @@ package com.jds.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jds.dao.repository.MainDAO;
+import com.jds.dao.repository.MaterialsRepository;
 import com.jds.dao.repository.MetalRepository;
 import com.jds.dao.entity.*;
 import com.jds.service.ColorService;
@@ -22,6 +23,9 @@ public class UpdateSettingsControllerPro {
 
     @Autowired
     private MainDAO mainDAO;
+
+    @Autowired
+    private MaterialsRepository materialsDAO;
 
     @Autowired
     private MaineService service;
@@ -197,7 +201,7 @@ public class UpdateSettingsControllerPro {
         LineSpecification spec = mapper.readValue(reader, LineSpecification.class);
 
 
-        LineSpecification lineSpecification = mainDAO.saveLineSpecification(spec);
+        LineSpecification lineSpecification = materialsDAO.saveLineSpecification(spec);
 
         return "jr";
     }

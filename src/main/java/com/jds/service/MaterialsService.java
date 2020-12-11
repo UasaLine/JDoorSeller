@@ -2,6 +2,7 @@ package com.jds.service;
 
 import com.jds.dao.entity.*;
 import com.jds.dao.repository.MainDAO;
+import com.jds.dao.repository.MaterialsRepository;
 import com.jds.model.Specification;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,30 +16,33 @@ public class MaterialsService {
     @Autowired
     private MainDAO dAO;
 
+    @Autowired
+    private MaterialsRepository materialsDao;
+
     public List<RawMaterials> getAllMaterials() {
-        return dAO.getRawMaterials();
+        return materialsDao.getRawMaterials();
     }
 
     public List<MaterialFormula> getMaterialFormulas() {
-        return dAO.getMaterialFormula();
+        return materialsDao.getMaterialFormula();
     }
 
     public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
-        return dAO.saveSpecificationSetting(setting);
+        return materialsDao.saveSpecificationSetting(setting);
     }
 
     public Specification getSpecification(@NonNull String typeId) {
         DoorType doorType = dAO.getDoorType(Integer.parseInt(typeId)).clearNonSerializingFields();
         return Specification.builder()
                 .doorType(doorType)
-                .availableValues(dAO.getRawMaterials())
+                .availableValues(materialsDao.getRawMaterials())
                 .lineSpecifications(getLineSpecification(doorType.getId()))
                 .build();
     }
 
     public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
 
-        List<LineSpecification> lineSpecificationList = dAO.getLineSpecification(DoorTypeId);
+        List<LineSpecification> lineSpecificationList = materialsDao.getLineSpecification(DoorTypeId);
         lineSpecificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
         return lineSpecificationList;
 
@@ -46,15 +50,15 @@ public class MaterialsService {
 
     public List<LineSpecification> saveSpecification(@NonNull Specification specification) {
 
-        List<LineSpecification> lineSpecInBase = dAO.getLineSpecification(specification.getDoorType().getId());
+        List<LineSpecification> lineSpecInBase = materialsDao.getLineSpecification(specification.getDoorType().getId());
 
         List<LineSpecification> lineSpecifications = specification.getLineSpecifications();
         lineSpecifications.stream()
                 .peek((lineSpec) -> setIdLineSpecification(lineSpec, lineSpecInBase, specification.getAvailableValues()))
-                .forEach((lineSpec) -> dAO.saveLineSpecification(lineSpec));
+                .forEach((lineSpec) -> materialsDao.saveLineSpecification(lineSpec));
 
         lineSpecInBase.stream()
-                .forEach((lineSpec) -> dAO.deleteLineSpecification(lineSpec));
+                .forEach((lineSpec) -> materialsDao.deleteLineSpecification(lineSpec));
 
         return lineSpecifications;
     }
