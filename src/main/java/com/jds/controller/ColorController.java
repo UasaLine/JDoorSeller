@@ -40,11 +40,11 @@ public class ColorController {
         return "colorList";
     }
 
-    @GetMapping(value = "color/doorColors",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "color/doorColors", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<ImageEntity> getDoorColorsList() {
         List<ImageEntity> list = service.getColorsType(DOOR_COLOR);
-        for (int i =0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             list.get(i).clearNonSerializingFields();
         }
         return list;
@@ -109,7 +109,7 @@ public class ColorController {
     public List<ImageEntity> getColorShieldDesign() {
 
         List<ImageEntity> list = service.getColorsTypeIfContainsGlassTrue(SHIELD_DESIGN);
-        for (int i =0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             list.get(i).clearNonSerializingFields();
         }
         return list;
