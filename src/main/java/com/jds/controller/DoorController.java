@@ -4,7 +4,6 @@ import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.LineSpecification;
 import com.jds.service.DoorServ;
-import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -18,14 +17,13 @@ public class DoorController {
 
     @Autowired
     private DoorServ service;
-    @Autowired
-    private MaineService maineService;
 
     @GetMapping(value = "/calculation")
     public String calculationPage(Model model,
                                   @RequestParam(required = false) String orderId,
                                   @RequestParam(required = false) String id,
-                                  @RequestParam(required = false) String typid) throws Exception {
+                                  @RequestParam(required = false) String typid) {
+
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
         model.addAttribute("typid", typid);
@@ -36,7 +34,7 @@ public class DoorController {
     @ResponseBody
     public DoorEntity getDoor(@RequestParam(required = false, defaultValue = "0") String id,
                               @RequestParam(required = false, defaultValue = "0") String orderId,
-                              @RequestParam(required = false, defaultValue = "0") String typid) throws Exception {
+                              @RequestParam(required = false, defaultValue = "0") String typid) {
 
         return service.getDoor(Integer.parseInt(id),
                 Integer.parseInt(orderId),
@@ -46,32 +44,30 @@ public class DoorController {
 
     @PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity calculateTheDoor(@RequestBody DoorEntity door) throws Exception {
+    public DoorEntity calculateTheDoor(@RequestBody DoorEntity door) {
 
         return service.calculateTheDoor(door);
-
     }
 
     @PostMapping(value = "/saveDoor", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity saveDoor(Model model, @RequestBody DoorEntity door) throws Exception {
+    public DoorEntity saveDoor(@RequestBody DoorEntity door) {
 
         return service.saveDoor(door);
-
     }
 
     @DeleteMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorsОrder deleteOrder(Model model,
-                                  @RequestParam(required = false) String orderId,
-                                  @RequestParam(required = false) String id) throws Exception {
+    public DoorsОrder deleteOrder(
+            @RequestParam(required = false) String orderId,
+            @RequestParam(required = false) String id) {
 
         return service.deleteDoorFromOrder(id, orderId);
     }
 
     @PostMapping(value = "/doorSpec", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) throws Exception {
+    public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) {
 
         return service.getSpecificationByDoorId(doorId);
     }
