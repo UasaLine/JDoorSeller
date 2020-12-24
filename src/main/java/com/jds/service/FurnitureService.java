@@ -5,7 +5,6 @@ import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.repository.FurnitureRepository;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
-import com.jds.dao.repository.MainDAO;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.modelEnum.TypeOfFurniture;
@@ -44,7 +43,7 @@ public class FurnitureService {
     }
 
     public List<TypeOfFurniture> getTypesFurniture() {
-        return new ArrayList<TypeOfFurniture>(Arrays.asList(TypeOfFurniture.values()));
+        return Arrays.asList(TypeOfFurniture.values());
     }
 
     public String deleteFurniture(@NonNull String id) {
@@ -68,7 +67,7 @@ public class FurnitureService {
     }
 
     public AvailableFieldsForSelection getAvailableFields(String doorTypeId) {
-        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(doorTypeId));
+        RestrictionOfSelectionFields template = templateService.getTemplate(String.valueOf(doorTypeId));
         return AvailableFieldsForSelection.builder()
                 .topLock(convertToFurniture(template.getTopLock()))
                 .lowerLock(convertToFurniture(template.getLowerLock()))

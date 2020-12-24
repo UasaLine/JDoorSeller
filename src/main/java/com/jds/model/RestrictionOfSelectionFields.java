@@ -5,11 +5,15 @@ import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
 import com.jds.model.image.Image;
+import com.jds.model.modelEnum.FabricationOperation;
+import com.jds.model.modelEnum.PeepholePosition;
 import com.jds.model.modelEnum.TypeOfLimitionDoor;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -58,6 +62,10 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> lowerOutLockDecor = new ArrayList<>();
     private List<LimitationDoor> closer = new ArrayList<>();
     private List<LimitationDoor> endDoorLock = new ArrayList<>();
+
+    private List<LimitationDoor> peephole = new ArrayList<>();
+    private List<LimitationDoor> peepholePosition = new ArrayList<>();
+    private List<LimitationDoor> peepholeHeight = new ArrayList<>();
 
     private List<LimitationDoor> shieldColor = new ArrayList<>();
     private List<LimitationDoor> shieldDesign = new ArrayList<>();
@@ -446,7 +454,11 @@ public class RestrictionOfSelectionFields {
     public void addLowerOutLockDecor(@NonNull LimitationDoor furniture) {
 
         this.lowerOutLockDecor.add(furniture.setNuulLazyFild());
+    }
 
+    public void addPeephole(@NonNull LimitationDoor furniture) {
+
+        this.peephole.add(furniture.setNuulLazyFild());
     }
 
     public void addCloser(@NonNull LimitationDoor furniture) {
@@ -512,7 +524,7 @@ public class RestrictionOfSelectionFields {
 
             addTypeDoorGlass(getLim(furniture, TypeOfLimitionDoor.TYPE_GLASS));
         }
-        typeDoorGlass =  typeDoorGlass.stream()
+        typeDoorGlass = typeDoorGlass.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -524,7 +536,7 @@ public class RestrictionOfSelectionFields {
 
             addToning(getLim(furniture, TypeOfLimitionDoor.TONING));
         }
-        toning =  toning.stream()
+        toning = toning.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -536,7 +548,7 @@ public class RestrictionOfSelectionFields {
 
             addArmor(getLim(furniture, TypeOfLimitionDoor.ARMOR));
         }
-        armor =  armor.stream()
+        armor = armor.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -548,7 +560,7 @@ public class RestrictionOfSelectionFields {
 
             addTopInLockDecor(getLim(furniture, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR));
         }
-        topInLockDecor =  topInLockDecor.stream()
+        topInLockDecor = topInLockDecor.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -559,7 +571,7 @@ public class RestrictionOfSelectionFields {
         for (DoorFurniture furniture : furnitures) {
             addTopOutLockDecor(getLim(furniture, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR));
         }
-        topOutLockDecor =  topOutLockDecor.stream()
+        topOutLockDecor = topOutLockDecor.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -571,7 +583,7 @@ public class RestrictionOfSelectionFields {
 
             addLowerInLockDecor(getLim(furniture, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR));
         }
-        lowerInLockDecor =  lowerInLockDecor.stream()
+        lowerInLockDecor = lowerInLockDecor.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -583,7 +595,18 @@ public class RestrictionOfSelectionFields {
 
             addLowerOutLockDecor(getLim(furniture, TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR));
         }
-        lowerOutLockDecor =  lowerOutLockDecor.stream()
+        lowerOutLockDecor = lowerOutLockDecor.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addPeephole(@NonNull List<DoorFurniture> furnitures) {
+        peephole = new ArrayList<>();
+        for (DoorFurniture furniture : furnitures) {
+            addPeephole(getLim(furniture, TypeOfLimitionDoor.PEEPHOLE));
+        }
+        peephole = peephole.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;
@@ -630,4 +653,22 @@ public class RestrictionOfSelectionFields {
                 .build();
     }
 
+    public RestrictionOfSelectionFields addPeepholePosition() {
+
+        List<PeepholePosition> positions = Arrays.asList(PeepholePosition.values());
+        for (PeepholePosition position : positions) {
+
+            peepholePosition.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.PEEPHOLE_POSITION)
+                    .itemId(position.ordinal())
+                    .firstItem(position.name())
+                    .build());
+        }
+        return this;
+    }
+
+    public void addPeepholePosition(@NonNull LimitationDoor lim) {
+
+        peepholePosition.add(lim.setNuulLazyFild());
+    }
 }

@@ -74,7 +74,6 @@ public class DoorsОrder {
         return false;
     }
 
-    ;
 
     public DoorsОrder() {
 

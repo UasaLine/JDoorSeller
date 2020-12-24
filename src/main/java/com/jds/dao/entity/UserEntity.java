@@ -75,11 +75,11 @@ public class UserEntity implements UserDetails {
         authorities.add(Role.USER);
     }
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
 
         boolean isAdmin = false;
-        for (Role role:authorities){
-            if (role == Role.ADMIN){
+        for (Role role : authorities) {
+            if (role == Role.ADMIN) {
                 isAdmin = true;
             }
         }

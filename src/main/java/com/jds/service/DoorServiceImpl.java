@@ -79,7 +79,7 @@ public class DoorServiceImpl implements DoorService {
     private DoorEntity allowEditing(DoorEntity door, int orderId) {
         DoorsОrder doorsОrder = orderService.getOrder(orderId);
         if (doorsОrder.getStatus() == OrderStatus.CALC) {
-            door.setTemplate(templateService.getTemplateFromLimits(String.valueOf(door.getDoorType().getId())));
+            door.setTemplate(templateService.getTemplate(String.valueOf(door.getDoorType().getId())));
         }
         return door;
     }
@@ -382,7 +382,7 @@ public class DoorServiceImpl implements DoorService {
 
         doorEntity.setDoorType(doorType);
 
-        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(typeId));
+        RestrictionOfSelectionFields template = templateService.getTemplate(String.valueOf(typeId));
         doorEntity.setTemplate(template);
 
         doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));

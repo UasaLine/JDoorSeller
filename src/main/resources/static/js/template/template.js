@@ -10,7 +10,7 @@ jQuery("document").ready(function () {
     //new Template instans
     function getDoorTemplate(id) {
         $.ajax({
-            url: "item/" + id,
+            url: location.origin + "/templates/" + id,
             dataType: "json",
             success: function (data) {
                 template = data.template;
@@ -135,6 +135,9 @@ jQuery("document").ready(function () {
         installFromTemplateFurnitur("lowerInLockDecor");
         installFromTemplateFurnitur("lowerOutLockDecor");
 
+        installFromTemplateFurnitur("peephole");
+        installFromTemplateFurnitur("peepholePosition");
+
         installFromTemplateFurnitur("closer");
         installFromTemplateFurnitur("endDoorLock");
 
@@ -177,6 +180,8 @@ jQuery("document").ready(function () {
         fillInFurniture("lowerOutLockDecor");
         fillInFurniture("closer");
         fillInFurniture("endDoorLock");
+        fillInFurniture("peephole");
+        fillInFurniture("peepholePosition");
 
         fillInFurniture("typeDoorGlass");
         fillInFurniture("toning");
@@ -654,6 +659,30 @@ jQuery("document").ready(function () {
 
     //additionally furnitur
 
+    $("#peepholeDiv").change(".peepholeSelect", function () {
+        addNewFieldAndfillInforFurnitur("peephole"); //nameJavaObject
+    });
+    $("#peepholeDiv").on("click", ".peepholeLineCheckbox", function () {
+        if ($(this).is(":checked")) {
+            switchOffAll("peephole");
+            $(this).prop("checked", true);
+            saveInJavaObjectColorAndFurnitur("peephole");
+        } else {
+            saveInJavaObjectColorAndFurnitur("peephole");
+        }
+    });
+    $("#peepholePositionDiv").change(".peepholePositionSelect", function () {
+        addNewFieldAndfillInforFurnitur("peepholePosition"); //nameJavaObject
+    });
+    $("#peepholePositionDiv").on("click", ".peepholePositionLineCheckbox", function () {
+        if ($(this).is(":checked")) {
+            switchOffAll("peepholePosition");
+            $(this).prop("checked", true);
+            saveInJavaObjectColorAndFurnitur("peepholePosition");
+        } else {
+            saveInJavaObjectColorAndFurnitur("peepholePosition");
+        }
+    });
     $("#closerDiv").change(".closerSelect", function () {
         addNewFieldAndfillInforFurnitur("closer"); //nameJavaObject
     });
@@ -735,7 +764,7 @@ jQuery("document").ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "item",
+            url: location.origin + '/templates',
             contentType: "application/json",
             data: templateJSON,
             success: function (data) {
@@ -784,7 +813,7 @@ jQuery("document").ready(function () {
 
     function grtListDoorClassToSelect() {
         $.ajax({
-            url: location.origin + "/class/list",
+            url: location.origin + "/classes",
             dataType: "json",
             success: function (data) {
                 doorClassList = data;
@@ -1685,7 +1714,7 @@ jQuery("document").ready(function () {
     }
 
     function toList() {
-        location.pathname = "templates";
+        location.pathname = "templates/page-list";
     }
 
     function getIdFromUrl() {
