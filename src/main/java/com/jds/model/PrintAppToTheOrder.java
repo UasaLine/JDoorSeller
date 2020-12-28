@@ -94,8 +94,8 @@ public class PrintAppToTheOrder {
         if (door.getFurnitureKit().getNightLock() != 0) {
             furniture.add(new ParamApp("Ночной замок:", String.valueOf(door.getFurnitureKit().getNightLock())));
         }
-        if (door.getFurnitureKit().getPeephole() != 0) {
-            furniture.add(new ParamApp("Дверной глазок:", String.valueOf(door.getFurnitureKit().getPeephole())));
+        if (door.getFurnitureKit().getPeephole() != null) {
+            furniture.add(new ParamApp("Дверной глазок:", String.valueOf(door.getFurnitureKit().getPeephole().getName())));
         }
         if (door.getFurnitureKit().getAmplifierCloser() != 0) {
             furniture.add(new ParamApp("Усилитель:", String.valueOf(door.getFurnitureKit().getAmplifierCloser())));

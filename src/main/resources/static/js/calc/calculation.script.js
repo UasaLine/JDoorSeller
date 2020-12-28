@@ -42,7 +42,7 @@ jQuery("document").ready(function () {
     Door.getColorInstans();
 
     if (id > 0) {
-        getNewDoorInstans(false);
+        getNewDoorInstance(false);
     } else {
         getClassList();
     }
@@ -78,7 +78,7 @@ jQuery("document").ready(function () {
         typeId = $(this).attr("data");
 
         pickOut(this);
-        getNewDoorInstans(false);
+        getNewDoorInstance(false);
 
     });
 
@@ -111,7 +111,7 @@ jQuery("document").ready(function () {
     $(".div_images_DoorGlass").on("click", function () {
         setDoorGlassImg($(this).attr("Item"), $(this).attr("data"));
         RepresentationManager.showFieldValue($(this).children("span").html());
-        if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет"){
+        if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет") {
             resetDoorGlassField();
         }
         Door.draw(door, 1);
@@ -124,11 +124,11 @@ jQuery("document").ready(function () {
     });
 
     $(".div_images_furniture").on("click", function () {
-        setDoorFurniture(
+        setDoorFurnitureById(
             $(this).attr("Item"),
             $(this).attr("data"),
-            door.furnitureKit
-        );
+            door.furnitureKit);
+
         RepresentationManager.showAllFieldsValues(door);
         pickOut(this);
         if (goTo != "") {
@@ -141,15 +141,15 @@ jQuery("document").ready(function () {
 
         let nameJavaField = $(this).attr("Item");
         let idJavaObject = $(this).attr("data");
-        let javaObject = findObject(nameJavaField, idJavaObject);
+        let javaObject = findObjectById(nameJavaField, idJavaObject);
 
         setDoorFurnitureByObject(javaObject, nameJavaField, door.shieldKit);
 
-        if (nameJavaField == "shieldColor"){
+        if (nameJavaField == "shieldColor") {
             clearRelatedFieldsForImage(javaObject);
         }
 
-        if (nameJavaField == "shieldDesign"){
+        if (nameJavaField == "shieldDesign") {
             clearGlass(javaObject);
         }
 
@@ -170,7 +170,19 @@ jQuery("document").ready(function () {
     InnerOpen.init();
 
     $(".ios-toggle").on("click", function () {
-        var isRepRun = true;
+
+        let needRepresentationRun = true;
+        const item = $(this).attr("Item");
+        const available = $('#name' + item).attr('available');
+
+        if (available == "no" || available == undefined) {
+            if ($(this).is(":checked")) {
+                $(this).prop("checked", false);
+            } else {
+                $(this).prop("checked", true);
+            }
+            return;
+        }
 
         if (currentItem == "metal") {
             oneEnableAllDisable("metal", this);
@@ -201,54 +213,49 @@ jQuery("document").ready(function () {
         } else if (currentItem == "sideDoorOpen") {
             if ($(this).is(":checked")) {
                 oneEnableAllDisable($(this).attr("Item"), this);
-                isRepRun = true;
+                needRepresentationRun = true;
             }
         } else if (currentItem == "additionalDoorSettings") {
-            isRepRun = false;
-        } else if (currentItem == "doorGlass") {
-            // if ($(this).is(":checked")) {
-            //     $(".input_doorGlass_div").attr("show", "is_alive_lement");
-            //     setDoorField("isDoorGlass", 1);
-            //     isRepRun = false;
-            // } else {
-            //     $(".input_doorGlass_div").attr("show", "ghost_lement");
-            //     setDoorField("isDoorGlass", 0);
-            // }
-        } else if (currentItem == "additionally") {
-            if ($(this).attr("available") == "yes") {
-                if ($(this).attr("item") == "nightLock") {
-                    if ($(this).is(":checked")) {
-                        setDoorFurniture($(this).attr("Item"), $(this).attr("data"));
-                    } else {
-                        setDoorFurniture($(this).attr("Item"), 0);
-                    }
-                } else if ($(this).attr("item") == "peephole") {
-                    if ($(this).is(":checked")) {
-                        setDoorFurniture($(this).attr("Item"), $(this).attr("data"));
-                    } else {
-                        setDoorFurniture($(this).attr("Item"), 0);
-                    }
-                } else if ($(this).attr("item") == "amplifierCloser") {
-                    if ($(this).is(":checked")) {
-                        setDoorFurniture($(this).attr("Item"), $(this).attr("data"));
-                    } else {
-                        setDoorFurniture($(this).attr("Item"), 0);
-                    }
-                }
-            } else {
+            needRepresentationRun = false;
+
+            if ($(this).attr("item") == "peepholePosition") {
                 if ($(this).is(":checked")) {
-                    $(this).prop("checked", false);
+                    setDoorFurnitureByObject(
+                        'CENTER',
+                        'peepholePosition',
+                        door.furnitureKit);
                 } else {
-                    $(this).prop("checked", true);
+                    setDoorFurnitureByObject(
+                        'NOT_CENTER',
+                        'peepholePosition',
+                        door.furnitureKit);
                 }
             }
+
+        } else if (currentItem == "additionally") {
+
+            if ($(this).attr("item") == "nightLock") {
+                if ($(this).is(":checked")) {
+                    setDoorFurnitureById($(this).attr("Item"), $(this).attr("data"));
+                } else {
+                    setDoorFurnitureById($(this).attr("Item"), 0);
+                }
+            } else if ($(this).attr("item") == "amplifierCloser") {
+                if ($(this).is(":checked")) {
+                    setDoorFurnitureById($(this).attr("Item"), $(this).attr("data"));
+                } else {
+                    setDoorFurnitureById($(this).attr("Item"), 0);
+                }
+            }
+
         }
 
-        if (isRepRun) {
+        if (needRepresentationRun) {
             RepresentationManager.showFieldValue($(this).attr("data"));
             Door.draw(door, 1);
         }
     });
+
 
     $("#buttonCalculateCostShow").on("click", function () {
         PriceComponent.deleteRow();
@@ -360,7 +367,7 @@ jQuery("document").ready(function () {
         }
     );
 
-    //select namber
+//select namber
     $("#select_set").on("click", function () {
         SizingDrum.setSize();
     });
@@ -454,9 +461,9 @@ jQuery("document").ready(function () {
 
     });
 
-    //--------------------------------------
-    //setter
-    //--------------------------------------
+//--------------------------------------
+//setter
+//--------------------------------------
 
     function setDoorField(fieldName, value) {
         door[fieldName] = value;
@@ -464,7 +471,7 @@ jQuery("document").ready(function () {
     }
 
     function setDoorGlassImg(fieldName, value) {
-        var furn = findObject(fieldName, value);
+        var furn = findObjectById(fieldName, value);
         door.doorGlass[fieldName] = furn;
     }
 
@@ -473,10 +480,10 @@ jQuery("document").ready(function () {
     }
 
     function resetDoorGlassField() {
-        Door.setGlass("glassWidth",0);
-        Door.setGlass("glassHeight",0);
-        Door.setGlass("leftGlassPosition",0);
-        Door.setGlass("bottomGlassPosition",0);
+        Door.setGlass("glassWidth", 0);
+        Door.setGlass("glassHeight", 0);
+        Door.setGlass("leftGlassPosition", 0);
+        Door.setGlass("bottomGlassPosition", 0);
         setDoorGlassField("toning", null);
         setDoorGlassField("armor", null);
         $(".vertical_menu_button_rigtht#" + "toning" + "Show strong").html("");
@@ -486,23 +493,23 @@ jQuery("document").ready(function () {
         door.doorGlass.space = 0;
     }
 
-    function setDoorFurniture(fieldName, value, doorKit) {
-        setDoorFurnitureByObject(findObject(fieldName, value), fieldName, doorKit)
+    function setDoorFurnitureById(fieldName, id, doorKit) {
+        setDoorFurnitureByObject(findObjectById(fieldName, id), fieldName, doorKit)
     }
 
     function setDoorFurnitureByObject(object, fieldName, doorKit) {
         doorKit[fieldName] = object;
     }
 
-    function findObject(name, value) {
-        if (name == "lowerLockCylinder" || name == "topLockCylinder") {
-            name = "lockCylinder";
+    function findObjectById(tabName, id) {
+        if (tabName == "lowerLockCylinder" || tabName == "topLockCylinder") {
+            tabName = "lockCylinder";
         }
 
-        var sizeRest = availableFurnitureList[name].length;
-        var tab = availableFurnitureList[name];
+        let sizeRest = availableFurnitureList[tabName].length;
+        let tab = availableFurnitureList[tabName];
         for (var i = 0; i < sizeRest; ++i) {
-            if (tab[i].id == value) {
+            if (tab[i].id == id) {
                 return tab[i];
             }
         }
@@ -573,9 +580,9 @@ jQuery("document").ready(function () {
         }
     }
 
-    //--------------------------------------
-    //periodic installation
-    //--------------------------------------
+//--------------------------------------
+//periodic installation
+//--------------------------------------
 
     function toOrder() {
         location.href = "order?orderId=" + orderId;
@@ -773,14 +780,16 @@ jQuery("document").ready(function () {
         }
     }
 
-    function displayListOfItems(nameTab, tab, bias, postfixName) {
+    function displayListOfItems(nameTab, tab, bias, postfixName, item = nameTab) {
         if (tab != null) {
             let offsetTab = PaginationPage.generate(tab, bias, 'toolbarPage');
+            $('#itemNo').attr("Item", item);
             for (var i = 0; i < offsetTab.amountElements; ++i) {
                 var sel = "#" + nameTab;
                 if (i + offsetTab.biasInt < offsetTab.tabSize) {
                     $(sel + "Div" + i).attr("show", "is_alive_lement");
                     $(sel + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
+                    $(sel + "Div" + i).attr("Item", item);
                     $(sel + "Img" + i).attr("src", tab[i + offsetTab.biasInt].picturePathFirst);
                     $(sel + "Span" + i).text(tab[i + offsetTab.biasInt].name);
                 } else {
@@ -795,31 +804,31 @@ jQuery("document").ready(function () {
 
     function displayGlass() {
         //if (door.isDoorGlass == 1) {
-            //$("#checkboxdoorGlass0").prop("checked", true);
-            $(".input_doorGlass_div").attr("show", "is_alive_lement");
+        //$("#checkboxdoorGlass0").prop("checked", true);
+        $(".input_doorGlass_div").attr("show", "is_alive_lement");
 
-            if (door.doorGlass.typeDoorGlass !== null) {
-                currentItem = "typeDoorGlass";
-                RepresentationManager.showFieldValue(door.doorGlass.typeDoorGlass.name);
-            }
-            if (door.doorGlass.toning !== null) {
-                currentItem = "toning";
-                RepresentationManager.showFieldValue(door.doorGlass.toning.name);
-            }
-            if (door.doorGlass.armor !== null) {
-                currentItem = "armor";
-                RepresentationManager.showFieldValue(door.doorGlass.armor.name);
-            }
+        if (door.doorGlass.typeDoorGlass !== null) {
+            currentItem = "typeDoorGlass";
+            RepresentationManager.showFieldValue(door.doorGlass.typeDoorGlass.name);
+        }
+        if (door.doorGlass.toning !== null) {
+            currentItem = "toning";
+            RepresentationManager.showFieldValue(door.doorGlass.toning.name);
+        }
+        if (door.doorGlass.armor !== null) {
+            currentItem = "armor";
+            RepresentationManager.showFieldValue(door.doorGlass.armor.name);
+        }
 
-            currentItem = "glassWidth";
-            RepresentationManager.showFieldValue(door.doorGlass.glassWidth);
-            currentItem = "glassHeight";
-            RepresentationManager.showFieldValue(door.doorGlass.glassHeight);
-            currentItem = "leftGlassPosition";
-            RepresentationManager.showFieldValue(door.doorGlass.leftGlassPosition);
-            currentItem = "bottomGlassPosition";
-            RepresentationManager.showFieldValue(door.doorGlass.bottomGlassPosition);
-       // }
+        currentItem = "glassWidth";
+        RepresentationManager.showFieldValue(door.doorGlass.glassWidth);
+        currentItem = "glassHeight";
+        RepresentationManager.showFieldValue(door.doorGlass.glassHeight);
+        currentItem = "leftGlassPosition";
+        RepresentationManager.showFieldValue(door.doorGlass.leftGlassPosition);
+        currentItem = "bottomGlassPosition";
+        RepresentationManager.showFieldValue(door.doorGlass.bottomGlassPosition);
+        // }
     }
 
     function checkThCompletedFields() {
@@ -917,10 +926,10 @@ jQuery("document").ready(function () {
         return 0;
     }
 
-    function getNewDoorInstans(updateClassDiv) {
+    function getNewDoorInstance(updateClassDiv) {
         $.ajax({
-            url: "door",
-            data: {id: id, orderId: orderId, typid: typeId},
+            url: 'doors/' + (id == "" ? "0" : id),
+            data: {orderId: orderId, typeId: typeId},
             dataType: "json",
             success: function (data) {
                 door = data;
@@ -968,7 +977,9 @@ jQuery("document").ready(function () {
     }
 
     function glassShowIfIsExist(data) {
+
         if (data.typeDoorGlass.length > 0) {
+
             $("#doorGlass").attr("show", "is_alive_lement");
         } else {
             $("#doorGlass").attr("show", "ghost_lement");
@@ -1154,6 +1165,7 @@ jQuery("document").ready(function () {
         }
 
         if (currentItem == "additionalDoorSettings") {
+            fillChildBlockAdditionalSettings();
             $(".select_additionalDoorSettings").attr("show", "is_alive_lement");
         } else {
             $(".select_additionalDoorSettings").attr("show", "ghost_lement");
@@ -1214,7 +1226,6 @@ jQuery("document").ready(function () {
             goTo = "doorGlass";
 
             currentItemForDisplay = $("#namedoorGlass").html();
-            //currentItemDaughterForDisplay = $(item).html();
             currentItemForDisplayId = "doorGlass";
             displayListOfItems(currentItem, availableFurnitureList[currentItem], 0, '');
             PaginationPage.show();
@@ -1319,15 +1330,14 @@ jQuery("document").ready(function () {
             $(".select_additionally").attr("show", "ghost_lement");
         }
 
-        if (currentItem == "closer") {
-            $(".select_closer").attr("show", "is_alive_lement");
-            currentItemForDisplay = $("#nameadditionally").html();
-            currentItemDaughterForDisplay = $(item).html();
-            currentItemForDisplayId = "additionally";
-            displayListOfItems("closer", availableFurnitureList.closer, 0, '');
+        if (currentItem == "closer" || currentItem == "peephole") {
+            $(".select_item").attr("show", "is_alive_lement");
+            goTo = 'additionalDoorSettings';
+            currentItemForDisplayId = 'additionalDoorSettings';
+            displayListOfItems("item", availableFurnitureList[currentItem], 0, '', currentItem);
             PaginationPage.show();
         } else {
-            $(".select_closer").attr("show", "ghost_lement");
+            $(".select_item").attr("show", "ghost_lement");
         }
 
         if (currentItem == "endDoorLock") {
@@ -1469,8 +1479,8 @@ jQuery("document").ready(function () {
 
     function addToShieldGlassList() {
         let glassList = [];
-        for (let i = 0; i < availableFurnitureList.shieldGlass.length; i++){
-            if (availableFurnitureList.shieldGlass[i].containsDesign == door.shieldKit.shieldDesign.id){
+        for (let i = 0; i < availableFurnitureList.shieldGlass.length; i++) {
+            if (availableFurnitureList.shieldGlass[i].containsDesign == door.shieldKit.shieldDesign.id) {
                 glassList.push(availableFurnitureList.shieldGlass[i]);
             }
         }
@@ -1597,6 +1607,22 @@ jQuery("document").ready(function () {
         }
     }
 
+    function fillChildBlockAdditionalSettings() {
+        //peephole
+        let peephole = door.furnitureKit['peephole'];
+        Container2fields.setValueToFieldByItem('peephole', peephole ? peephole.name : '');
+
+        //peephole position
+        let peepholePosition = door.furnitureKit['peepholePosition'];
+        $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
+
+        //closer
+        let closer = door.furnitureKit['closer'];
+        Container2fields.setValueToFieldByItem('closer', closer ? closer.name : '')
+
+
+    }
+
     function showCylinderLock(name, itCylinderLock, cylinder) {
         if (itCylinderLock) {
             $("#" + name + "Cylinder").removeClass("ghost");
@@ -1683,9 +1709,10 @@ jQuery("document").ready(function () {
     }
 
     function clearGlass(javaObject) {
-        if (javaObject.containsDesign == 0){
+        if (javaObject.containsDesign == 0) {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         }
     }
 
 });
+

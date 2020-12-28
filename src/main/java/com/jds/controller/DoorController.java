@@ -30,9 +30,9 @@ public class DoorController {
         return "calculation";
     }
 
-    @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/doors/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity getDoor(@RequestParam(required = false, defaultValue = "0") String id,
+    public DoorEntity getDoor(@PathVariable String id,
                               @RequestParam(required = false, defaultValue = "0") String orderId,
                               @RequestParam(required = false, defaultValue = "0") String typeId) {
 

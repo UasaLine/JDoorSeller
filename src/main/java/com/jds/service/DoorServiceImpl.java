@@ -59,7 +59,6 @@ public class DoorServiceImpl implements DoorService {
 
         DoorEntity door;
 
-
         if (id > 0) {
             door = dAO.getDoor(id);
             door = allowEditing(door, orderId);
@@ -418,42 +417,43 @@ public class DoorServiceImpl implements DoorService {
         doorEntity.setDoorDesign(DoorDesign.instanceDesign(template.getColors(), template.getDesign(), colorDao));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
-                .topLock(defaultAndConvertToFurniture(template.getTopLock()))
-                .lowerLock(defaultAndConvertToFurniture(template.getLowerLock()))
-                .lockCylinder(defaultAndConvertToFurniture(template.getLowerLock()))
-                .handle(defaultAndConvertToFurniture(template.getHandle()))
-                .shieldColor(defaultAndConvertToImage(template.getShieldColor()))
-                .shieldDesign(defaultAndConvertToImage(template.getShieldDesign()))
-                .shieldGlass(defaultAndConvertToImage(template.getShieldGlass()))
+                .topLock(defaultAndGetFurniture(template.getTopLock()))
+                .lowerLock(defaultAndGetFurniture(template.getLowerLock()))
+                .lockCylinder(defaultAndGetFurniture(template.getLowerLock()))
+                .handle(defaultAndGetFurniture(template.getHandle()))
+                .shieldColor(defaultAndGetImage(template.getShieldColor()))
+                .shieldDesign(defaultAndGetImage(template.getShieldDesign()))
+                .shieldGlass(defaultAndGetImage(template.getShieldGlass()))
+                .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
+                .peephole(defaultAndGetFurniture(template.getPeephole()))
+                .closer(defaultAndGetFurniture(template.getCloser()))
                 .build();
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
-
-        /*
-        isDoorGlass
-        doorGlass
-
-        additionallyHingeMain
-        additionallyHingeNotMain
-        amplifierCloser
-       */
 
         return doorEntity;
 
     }
 
-    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
+    private List<DoorFurniture> defaultAndGetFurniture(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
                 .collect(Collectors.toList());
-        return furnitureService.convertToFurniture(defList);
+        return furnitureService.getFurnitureByLmit(defList);
     }
 
-    private List<ImageEntity> defaultAndConvertToImage(List<LimitationDoor> listLim) {
+    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
+        return listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .map(DoorFurniture::newInstance)
+                .collect(Collectors.toList());
+    }
+
+    private List<ImageEntity> defaultAndGetImage(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
                 .collect(Collectors.toList());
-        return furnitureService.convertToImage(defList);
+        return furnitureService.getImageByLimit(defList);
     }
 
     public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
