@@ -17,6 +17,12 @@ public class DoorClassController {
     @Autowired
     private MaineService service;
 
+    @GetMapping(value = "/classes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<DoorClass> getDoorClasses() {
+        return service.getDoorClass();
+    }
+
     @GetMapping(value = "/doorclass")
     public String getDoorClass(@RequestParam(required = false) String classId, Model model) throws Exception {
 
@@ -51,7 +57,7 @@ public class DoorClassController {
 
     @DeleteMapping(value = "/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public int deleteDoorclass(Model model, @RequestParam(required = false) String classId) throws Exception {
+    public int deleteDoorClass(Model model, @RequestParam(required = false) String classId) throws Exception {
 
         service.deleteDoorClass(classId);
         return 1;

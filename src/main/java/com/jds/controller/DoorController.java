@@ -3,7 +3,7 @@ package com.jds.controller;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.LineSpecification;
-import com.jds.service.DoorServ;
+import com.jds.service.DoorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import java.util.List;
 public class DoorController {
 
     @Autowired
-    private DoorServ service;
+    private DoorService service;
 
     @GetMapping(value = "/calculation")
     public String calculationPage(Model model,
@@ -30,15 +30,15 @@ public class DoorController {
         return "calculation";
     }
 
-    @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/doors/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity getDoor(@RequestParam(required = false, defaultValue = "0") String id,
+    public DoorEntity getDoor(@PathVariable String id,
                               @RequestParam(required = false, defaultValue = "0") String orderId,
-                              @RequestParam(required = false, defaultValue = "0") String typid) {
+                              @RequestParam(required = false, defaultValue = "0") String typeId) {
 
         return service.getDoor(Integer.parseInt(id),
                 Integer.parseInt(orderId),
-                Integer.parseInt(typid));
+                Integer.parseInt(typeId));
     }
 
 

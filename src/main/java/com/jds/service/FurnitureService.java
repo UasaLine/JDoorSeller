@@ -5,7 +5,6 @@ import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.repository.FurnitureRepository;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
-import com.jds.dao.repository.MainDAO;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.modelEnum.TypeOfFurniture;
@@ -13,7 +12,6 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,14 +42,14 @@ public class FurnitureService {
     }
 
     public List<TypeOfFurniture> getTypesFurniture() {
-        return new ArrayList<TypeOfFurniture>(Arrays.asList(TypeOfFurniture.values()));
+        return Arrays.asList(TypeOfFurniture.values());
     }
 
     public String deleteFurniture(@NonNull String id) {
 
         DoorFurniture furniture = repository.getFurnitureById(Integer.parseInt(id));
 
-        if (deleteCheckService.checkFurniture(furniture)){
+        if (deleteCheckService.checkFurniture(furniture)) {
             return null;
         } else {
             return repository.deleteFurniture(furniture);
@@ -59,52 +57,69 @@ public class FurnitureService {
     }
 
     public String saveFurniture(@NonNull DoorFurniture furniture) {
-        if (furniture.getName().equals(null)){
+        if (furniture.getName().equals(null)) {
             return null;
-        }else{
+        } else {
             repository.saveFurniture(furniture);
             return "ок";
         }
     }
 
     public AvailableFieldsForSelection getAvailableFields(String doorTypeId) {
-        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(doorTypeId));
+
+        RestrictionOfSelectionFields template = templateService.getTemplate(String.valueOf(doorTypeId));
+
         return AvailableFieldsForSelection.builder()
-                .topLock(convertToFurniture(template.getTopLock()))
-                .lowerLock(convertToFurniture(template.getLowerLock()))
 
-                .lockCylinder(convertToFurniture(template.getLockCylinder()))
+                .topLock(getFurnitureByLmit(template.getTopLock()))
+                .lowerLock(getFurnitureByLmit(template.getLowerLock()))
 
-                .topInLockDecor(convertToFurniture(template.getTopInLockDecor()))
-                .topOutLockDecor(convertToFurniture(template.getTopOutLockDecor()))
-                .lowerInLockDecor(convertToFurniture(template.getLowerInLockDecor()))
-                .lowerOutLockDecor(convertToFurniture(template.getLowerInLockDecor()))
+                .lockCylinder(getFurnitureByLmit(template.getLockCylinder()))
 
-                .handle(convertToFurniture(template.getHandle()))
+                .topInLockDecor(getFurnitureByLmit(template.getTopInLockDecor()))
+                .topOutLockDecor(getFurnitureByLmit(template.getTopOutLockDecor()))
+                .lowerInLockDecor(getFurnitureByLmit(template.getLowerInLockDecor()))
+                .lowerOutLockDecor(getFurnitureByLmit(template.getLowerInLockDecor()))
 
-                .shieldColor(convertToImage(template.getShieldColor()))
-                .shieldDesign(convertToImage(template.getShieldDesign()))
-                .shieldGlass(convertToImage(template.getShieldGlass()))
-                .typeDoorGlass(convertToFurniture(template.getTypeDoorGlass()))
-                .toning(convertToFurniture(template.getToning()))
-                .armor(convertToFurniture(template.getArmor()))
+                .handle(getFurnitureByLmit(template.getHandle()))
+
+                .shieldColor(getImageByLimit(template.getShieldColor()))
+                .shieldDesign(getImageByLimit(template.getShieldDesign()))
+                .shieldGlass(getImageByLimit(template.getShieldGlass()))
+
+                .typeDoorGlass(getFurnitureByLmit(template.getTypeDoorGlass()))
+                .toning(getFurnitureByLmit(template.getToning()))
+                .armor(getFurnitureByLmit(template.getArmor()))
+
+                .closer(getFurnitureByLmit(template.getCloser()))
+                .peephole(getFurnitureByLmit(template.getPeephole()))
+                .peepholePosition(convertToFurniture(template.getPeepholePosition()))
+
                 .build();
 
 
     }
 
-    public List<DoorFurniture> convertToFurniture(List<LimitationDoor> topLock) {
-        return topLock.stream()
+    public List<DoorFurniture> getFurnitureByLmit(List<LimitationDoor> limit) {
+        return limit.stream()
                 .map(lim -> repository.getFurnitureById(lim.getItemId()))
                 .peek(furniture -> furniture.clearNonSerializingFields())
                 .collect(Collectors.toList());
     }
 
-    public List<ImageEntity> convertToImage(List<LimitationDoor> topLock) {
-        return topLock.stream()
+    public List<ImageEntity> getImageByLimit(List<LimitationDoor> limit) {
+        return limit.stream()
                 .map(lim -> colorRepository.getColorById(lim.getItemId()))
                 .peek(image -> image.clearNonSerializingFields())
                 .collect(Collectors.toList());
     }
+
+    public List<DoorFurniture> convertToFurniture(List<LimitationDoor> limit) {
+        return limit.stream()
+                .map(DoorFurniture::newInstance)
+                .peek(image -> image.clearNonSerializingFields())
+                .collect(Collectors.toList());
+    }
+
 
 }

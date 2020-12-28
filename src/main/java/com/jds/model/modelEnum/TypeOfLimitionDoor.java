@@ -40,6 +40,7 @@ public enum TypeOfLimitionDoor {
     HANDLE,
     CLOSER,
     PEEPHOLE,
+    PEEPHOLE_POSITION,
     NIGHT_LOCK,
     THRESHOLD,
     END_DOOR_LOCK,
