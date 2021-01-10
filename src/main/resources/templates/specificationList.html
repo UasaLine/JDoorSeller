@@ -6,9 +6,8 @@
     <!-- Подключаем Bootstrap CSS -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
     <!-- your personal CSS -->
-    <script type="text/javascript" src="../js/shared/page-selector-class.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/colorList.js"></script>
+    <script type="text/javascript" src="js/specificationList.js"></script>
     <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
 </head>
@@ -201,18 +200,12 @@
 
         <div class="col">
 
-            <h1 class="display-4">Цвета</h1>
+            <h1 class="display-4">Спецификации</h1>
 
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-primary" id="addLine">Добавить</button>
                     <button type="button" class="btn btn-primary" id="deletLine">Удалить</button>
-                </div>
-                <div class="col-md-1 mb-3">
-                    <label for="typeOfImage">Тип цвета:</label>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <select class="form-control" id="typeOfImage"></select>
                 </div>
             </div>
 
@@ -220,19 +213,15 @@
                 <table class="Table">
                     <tr>
                         <th>id</th>
-                        <th>наименование</th>
-                        <th>цена</th>
-                        <th>id завода</th>
-                        <th>тип изобр-ния</th>
-                        <th>тип цвета двери</th>
+                        <th>имя</th>
+                        <th>модель двери</th>
+                        <th>количество материалов</th>
                     </tr>
-                    <tr th:each="color : ${List}">
-                        <td class="id" th:utext="${color.id}">..</td>
-                        <td th:utext="${color.name}">..</td>
-                        <td th:utext="${color.pricePaintingMeterOfSpace}">..</td>
-                        <td th:utext="${color.idManufacturerProgram}">..</td>
-                        <td class="type-line" th:utext="${color.typeOfImage}">..</td>
-                        <td th:utext="${color.typeOfDoorColor}">..</td>
+                    <tr th:each="specification : ${List}">
+                        <td class="id" th:utext="${specification.id}">..</td>
+                        <td th:utext="${specification.name}">..</td>
+                        <td th:utext="${specification.doorType.name}">..</td>
+                        <td th:utext="${1}">..</td>
                     </tr>
 
                 </table>

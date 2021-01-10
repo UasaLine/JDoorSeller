@@ -42,15 +42,23 @@ public class MaterialsService {
 
     public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
 
-        List<LineSpecification> lineSpecificationList = materialsDao.getLineSpecification(DoorTypeId);
+        List<LineSpecification> lineSpecificationList = materialsDao.getSpecification(DoorTypeId);
         lineSpecificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
         return lineSpecificationList;
 
     }
 
+    public List<SpecificationEntity> getLineSpecification() {
+
+        List<SpecificationEntity> specificationList = materialsDao.getSpecification();
+        //specificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
+        return specificationList;
+
+    }
+
     public List<LineSpecification> saveSpecification(@NonNull Specification specification) {
 
-        List<LineSpecification> lineSpecInBase = materialsDao.getLineSpecification(specification.getDoorType().getId());
+        List<LineSpecification> lineSpecInBase = materialsDao.getSpecification(specification.getDoorType().getId());
 
         List<LineSpecification> lineSpecifications = specification.getLineSpecifications();
         lineSpecifications.stream()
@@ -81,6 +89,37 @@ public class MaterialsService {
 
         lineSpecification.setId(newId);
 
+        return lineSpecification;
+    }
+
+    public SpecificationEntity saveSpecificationEntity(@NonNull SpecificationEntity specificationEntity) {
+
+        return materialsDao.saveSpecificationEntity(specificationEntity);
+    }
+
+    public SpecificationEntity getSpecificationEtity(String id) {
+        if ("0".equals(id)) {
+            return new SpecificationEntity();
+        }
+
+        SpecificationEntity spec = materialsDao.getSpecificationEntityById(Integer.parseInt(id));
+        spec.setDoorType(spec.getDoorType().clearNonSerializingFields());
+        spec.clearNonSerializingFields();
+
+        return spec;
+    }
+
+    public String deleteSpecificationEntity(@NonNull String id) {
+        SpecificationEntity specificationEntity = getSpecificationEtity(id);
+
+        return materialsDao.deleteSpecificationEntity(specificationEntity);
+    }
+
+    public LineSpecification saveSpecificationLine(@NonNull LineSpecification lineSpecification) {
+
+        SpecificationEntity specificationEntity = materialsDao.getSpecificationEntityById(lineSpecification.getSpecification().getId());
+        specificationEntity.addLine(lineSpecification);
+        materialsDao.saveSpecificationEntity(specificationEntity);
         return lineSpecification;
     }
 }

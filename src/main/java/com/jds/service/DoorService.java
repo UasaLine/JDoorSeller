@@ -553,7 +553,7 @@ public class DoorService implements DoorServ {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = materialsDAO.getLineSpecification(doorEntity.getDoorType().getId());
+        List<LineSpecification> lineSpec = materialsDAO.getSpecification(doorEntity.getDoorType().getId());
 
         lineSpec.stream()
                 .peek((lin) -> addFurKitToLineSpec(lineSpec, doorEntity))

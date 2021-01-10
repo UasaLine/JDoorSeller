@@ -60,7 +60,7 @@ public class MainController {
 
     @GetMapping(value = "/class/list", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<DoorClass> getDoorClassis(Model model) throws Exception {
+    public List<DoorClass> getDoorClassis() throws Exception {
         return service.getDoorClass();
     }
 
@@ -70,4 +70,5 @@ public class MainController {
 
         return service.getDoorClass();
     }
+
 }

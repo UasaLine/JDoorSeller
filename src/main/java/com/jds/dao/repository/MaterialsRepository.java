@@ -1,9 +1,7 @@
 package com.jds.dao.repository;
 
-import com.jds.dao.entity.LineSpecification;
-import com.jds.dao.entity.MaterialFormula;
-import com.jds.dao.entity.RawMaterials;
-import com.jds.dao.entity.SpecificationSetting;
+import com.jds.dao.entity.*;
+import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -75,7 +73,7 @@ public class MaterialsRepository {
         return setting;
     }
 
-    public List<LineSpecification> getLineSpecification(int id){
+    public List<LineSpecification> getSpecification(int id){
 
         Session session = sessionFactory.openSession();
 
@@ -84,6 +82,20 @@ public class MaterialsRepository {
                 .addEntity(LineSpecification.class)
                 .setParameter("id", id);
         List<LineSpecification> list = query.list();
+
+        session.close();
+
+        return list;
+    }
+
+    public List<SpecificationEntity> getSpecification(){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from specification";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SpecificationEntity.class);
+        List<SpecificationEntity> list = query.list();
 
         session.close();
 
@@ -215,5 +227,50 @@ public class MaterialsRepository {
         return specificationSettingList;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public SpecificationEntity saveSpecificationEntity(SpecificationEntity specification) {
 
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(specification);
+
+        return specification;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public LineSpecification saveLineSpecificationEntity(LineSpecification lineSpecification) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(lineSpecification);
+
+        return lineSpecification;
+    }
+
+
+    public SpecificationEntity getSpecificationEntityById(@NonNull int id) {
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from specification where id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(SpecificationEntity.class)
+                .setParameter("id", id);
+        List<SpecificationEntity> list = query.list();
+
+        session.close();
+
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return new SpecificationEntity();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String deleteSpecificationEntity(@NonNull SpecificationEntity specification) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(specification);
+
+        return "ok";
+
+    }
 }

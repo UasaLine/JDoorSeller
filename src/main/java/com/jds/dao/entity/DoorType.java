@@ -97,6 +97,7 @@ public class DoorType implements Comparable<DoorType> {
         limitationList = null;
         specificationSettings = null;
         doorEntityList = null;
+        lineSpecifications = null;
 
         return this;
     }
