@@ -1,4 +1,4 @@
-package com.jds.model;
+package com.jds.model.BackResponse;
 
 import lombok.Getter;
 import lombok.Setter;

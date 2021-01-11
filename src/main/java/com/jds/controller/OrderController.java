@@ -3,9 +3,10 @@ package com.jds.controller;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
 import com.jds.model.BackResponse.OrderResponse;
+import com.jds.model.BackResponse.Response;
+import com.jds.model.Exeption.ResponseException;
 import com.jds.model.modelEnum.OrderStatus;
 import com.jds.service.OrderService;
-import com.jds.service.TemplateService;
 import com.jds.service.UserServ;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -61,8 +63,7 @@ public class OrderController {
 
     @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorOrder getOrder(@RequestParam(required = false) String orderId) throws Exception {
-
+    public DoorOrder getOrder(@RequestParam(required = false) String orderId) {
         return orderService.getOrder(orderId);
     }
 
@@ -90,13 +91,21 @@ public class OrderController {
     }
 
     @Secured("ROLE_ONE_C")
-    @PostMapping(value = "/order/status")
-    public void setOrdersStatus(@RequestParam(required = false) String orderId,
-                                @RequestParam(required = false) String status,
-                                @RequestParam(required = false) String releasDate) throws Exception {
+    @PostMapping(value = "/orders/{orderId}/statuses/{status}")
+    @ResponseBody
+    public Response setOrdersStatus(@PathVariable String orderId,
+                                    @PathVariable String status,
+                                    @RequestParam() String releaseDate) throws ResponseException {
 
-        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId), status, new SimpleDateFormat("yyyy-MM-dd").parse(releasDate));
+        try {
+            boolean result = orderService.setStatus(
+                    Integer.parseInt(orderId),
+                    OrderStatus.parseForFactory(status),
+                    new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate));
 
+            return new Response(result, "ok");
+        } catch (ParseException | IllegalArgumentException e) {
+            throw new ResponseException(e.getMessage());
+        }
     }
-
 }

@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.Metal;
-import com.jds.model.ResponseAction;
+import com.jds.model.BackResponse.ResponseAction;
 import com.jds.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

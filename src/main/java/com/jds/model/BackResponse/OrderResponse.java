@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class OrderResponse extends BackResponse {
+public class OrderResponse extends Response {
     private DoorOrder data;
 
     public OrderResponse(DoorOrder order) {

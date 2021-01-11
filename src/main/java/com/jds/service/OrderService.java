@@ -10,6 +10,7 @@ import com.jds.model.modelEnum.OrderStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,15 +35,14 @@ public class OrderService {
         UserEntity user = userService.getCurrentUser();
         List<DoorOrder> orders;
 
-        if (user.isAdmin()){
+        if (user.isAdmin()) {
             orders = dAO.getOrders();
-        }
-        else {
+        } else {
             orders = dAO.getOrdersByUser(user);
         }
 
         orders.stream()
-                .peek((order)->clearNonSerializingFields(order))
+                .peek((order) -> clearNonSerializingFields(order))
                 .collect(Collectors.toList());
 
         return orders;
@@ -54,15 +54,14 @@ public class OrderService {
         List<DoorOrder> orders;
 
 
-        if (user.isAdmin() && status!=null){
+        if (user.isAdmin() && status != null) {
             orders = dAO.getOrdersByStatus(status.name());
-        }
-        else {
+        } else {
             orders = dAO.getOrdersByUser(user);
         }
 
         orders.stream()
-                .peek((order)->clearNonSerializingFields(order))
+                .peek((order) -> clearNonSerializingFields(order))
                 .collect(Collectors.toList());
 
         return orders;
@@ -73,13 +72,12 @@ public class OrderService {
         UserEntity user = userService.getUser(userId);
         List<DoorOrder> orders;
 
-        if (user!=null){
+        if (user != null) {
             orders = dAO.getOrdersByUser(user);
             orders.stream()
-                    .peek((order)->clearNonSerializingFields(order))
+                    .peek((order) -> clearNonSerializingFields(order))
                     .collect(Collectors.toList());
-        }
-        else {
+        } else {
             orders = new ArrayList<>();
         }
 
@@ -98,27 +96,26 @@ public class OrderService {
         if (id == 0) {
             return new DoorOrder();
         }
-        DoorOrder order =  dAO.getOrder(id);
+        DoorOrder order = dAO.getOrder(id);
         order.setStatusList(OrderStatus.statusList(order.getStatus()));
 
         return clearNonSerializingFields(order);
     }
 
-    public DoorOrder checkStatusAndSave(@NonNull DoorOrder order){
+    public DoorOrder checkStatusAndSave(@NonNull DoorOrder order) {
         OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getOrderId());
-        if(OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus){
+        if (OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus) {
             order.setSeller(userService.getCurrentUser());
-                return saveAndCalc(order);
-        }
-        else {
+            return saveAndCalc(order);
+        } else {
             return null;
         }
     }
 
-    public OrderResponse checkAccessAndSave(@NonNull DoorOrder order){
-        if ("admin".equals(userService.getCurrentUser().getUsername())){
+    public OrderResponse checkAccessAndSave(@NonNull DoorOrder order) {
+        if ("admin".equals(userService.getCurrentUser().getUsername())) {
             return new OrderResponse(false, "!save is not available for admin");
-        }else {
+        } else {
             return new OrderResponse(checkStatusAndSave(order));
         }
     }
@@ -164,36 +161,27 @@ public class OrderService {
 
     }
 
-    public void setStatusAndSaveOrder(@NonNull int id, @NonNull String status, Date releasDate){
+    public boolean setStatus(@NonNull int id,
+                             @NonNull OrderStatus status,
+                             @NonNull Date releaseDate) {
 
-       OrderStatus orderStatus = validationOrderStatus(status);
-       if (orderStatus!=null){
-           DoorOrder order = dAO.getOrder(id);
-           order.setStatus(orderStatus);
-           order.setReleasDate(releasDate);
-           save(order);
-       }
+        DoorOrder order = dAO.getOrder(id);
+        order.setStatus(status);
+        order.setReleasDate(releaseDate);
+        save(order);
+
+        return true;
     }
 
     private DoorOrder save(DoorOrder order) {
         return dAO.saveOrder(order);
     }
 
-    private OrderStatus validationOrderStatus(@NonNull String status){
-        if ("IN_WORK".equals(status)){
-            return OrderStatus.IN_WORK;
-        }
-        else if ("READY".equals(status)){
-            return OrderStatus.READY;
-        }
-        return null;
-    }
-
-    private OrderStatus statusOrderBaseByOrderId(int id){
-        if (id>0) {
+    private OrderStatus statusOrderBaseByOrderId(int id) {
+        if (id > 0) {
             DoorOrder orderInBase = dAO.getOrder(id);
             return orderInBase.getStatus();
-        }else {
+        } else {
             return OrderStatus.CALC;
         }
     }
