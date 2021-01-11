@@ -2,19 +2,25 @@ package com.jds.dao.entity;
 
 import com.jds.model.orderPrint.OrderDiscounts;
 import com.jds.model.modelEnum.OrderStatus;
-import org.aspectj.weaver.ast.Or;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.*;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "orders")
-public class DoorsОrder {
+public class DoorOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private int order_id;
+    private int orderId;
+
+    @Column(name = "seller_order_id")
+    private int sellerOrderId;
 
     @Column(name = "company")
     private String company;
@@ -74,8 +80,7 @@ public class DoorsОrder {
         return false;
     }
 
-
-    public DoorsОrder() {
+    public DoorOrder() {
 
         doors = new ArrayList<>();
         data = new java.sql.Date(new Date().getTime());
@@ -94,7 +99,7 @@ public class DoorsОrder {
         return 0;
     }
 
-    public DoorsОrder calculateTotal(UserSetting userSetting, OrderDiscounts orderDiscounts) {
+    public DoorOrder calculateTotal(UserSetting userSetting, OrderDiscounts orderDiscounts) {
 
         if (userSetting.getIncludesTax() != 0) {
             totalCostByDoors(userSetting.getSalesTax(), orderDiscounts);
@@ -121,128 +126,8 @@ public class DoorsОrder {
         }
     }
 
-    public int getId() {
-        return order_id;
-    }
-
-    public void setId(int order_id) {
-        this.order_id = order_id;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getPartner() {
-        return partner;
-    }
-
-    public void setPartner(String partner) {
-        this.partner = partner;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Date getReleasDate() {
-        return releasDate;
-    }
-
-    public void setReleasDate(Date releasDate) {
-        this.releasDate = releasDate;
-    }
-
-    public int getProductionStart() {
-        return productionStart;
-    }
-
-    public void setProductionStart(int productionStart) {
-        this.productionStart = productionStart;
-    }
-
-    public List<DoorEntity> getDoors() {
-        return doors;
-    }
-
-    public void setDoors(List<DoorEntity> doors) {
-        this.doors = doors;
-    }
-
-    public UserEntity getSeller() {
-        return seller;
-    }
-
-    public void setSeller(UserEntity seller) {
-        this.seller = seller;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public int getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(int totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public int getTotalTax() {
-        return totalTax;
-    }
-
-    public void setTotalTax(int totalTax) {
-        this.totalTax = totalTax;
-    }
-
     public void addDoor(DoorEntity door) {
         this.doors.add(door);
-    }
-
-    public int getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
-    }
-
-    public int getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(int totalQuantity) {
-        this.totalQuantity = totalQuantity;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public List<OrderStatus> getStatusList() {
-        return statusList;
-    }
-
-    public void setStatusList(List<OrderStatus> statusList) {
-        this.statusList = statusList;
     }
 
     public void addAllStatus() {

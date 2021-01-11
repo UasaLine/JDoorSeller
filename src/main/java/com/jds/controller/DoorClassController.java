@@ -45,7 +45,7 @@ public class DoorClassController {
                                 @RequestParam(required = false) boolean fireproofcheckbox,
                                 @RequestParam(required = false) boolean hotcheckbox,
                                 @RequestParam(required = false) String namePicture,
-                                Model model) throws Exception {
+                                Model model)  {
 
         service.saveOrUpdateDoorClass(classId, name, description,
                 fireproofcheckbox, hotcheckbox, namePicture);

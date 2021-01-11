@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,25 +23,23 @@ public class PrintController {
     @Autowired
     private OrderDiscountService orderDiscountService;
 
-    @GetMapping(value = "/orderprint")
-    public String getPrintOrder(Model model,
-                                @RequestParam(required = false) String orderId) throws Exception {
+    @GetMapping(value = "/print/order/{orderId}")
+    public String getPrintOrder(Model model, @PathVariable String orderId) {
 
         model.addAttribute("order", new OrderPrint(service.getOrder(orderId), orderDiscountService.getOrderDiscounts(orderId)));
         return "orderPrint";
     }
-    @GetMapping(value = "/doorsprint")
-    public String getPrintDoors(Model model,
-                                @RequestParam(required = false) String orderId) throws Exception {
 
-        model.addAttribute("orderId",orderId);
+    @GetMapping(value = "/print/doors/{orderId}")
+    public String getPrintDoors(Model model, @PathVariable String orderId) {
+
+        model.addAttribute("orderId", orderId);
         return "doorsPrint";
     }
 
-    @GetMapping(value = "/getPrintApp", produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/print/app/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<PrintAppToTheOrder> getPrintAppToTheOrder(Model model,
-                                                          @RequestParam String orderId) throws Exception {
+    public List<PrintAppToTheOrder> getPrintAppToTheOrder(@PathVariable String orderId) {
 
         return service.getPrintAppList(orderId);
     }

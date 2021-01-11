@@ -1,7 +1,7 @@
 package com.jds.model;
 
 import com.jds.dao.entity.DoorEntity;
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class PrintAppToTheOrder {
     public PrintAppToTheOrder() {
     }
 
-    public PrintAppToTheOrder(DoorEntity door, DoorsОrder order) {
+    public PrintAppToTheOrder(DoorEntity door, DoorOrder order) {
 
-        orderNumber = "Приложение к заказу №: " + order.getId() + " /1";
+        orderNumber = "Приложение к заказу №: " + order.getOrderId() + " /1";
         customer = "Клиент: " + order.getPartner();
         orderDate = "Дата заказа: " + order.getData();
 
@@ -43,7 +43,7 @@ public class PrintAppToTheOrder {
 
         appearance = new ArrayList<>();
         appearance.add(new ParamApp("Цвет двери:", String.valueOf(door.getDoorColor())));
-        if (door.getShieldKit() != null){
+        if (door.getShieldKit() != null) {
             appearance.add(new ParamApp("Дек.накладка:", door.getShieldKit().getShieldName()));
         }
         //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));

@@ -1,7 +1,6 @@
 class Door {
     static listColorsEntity;
-
-
+    static dirPath = "../../";
 
     static init() {
         Door.getColorInstans();
@@ -43,7 +42,7 @@ class Door {
                 //glassHeight
                 config.topGlassPosition = (door.heightDoor - door.doorGlass.glassHeight) / 10;
             } else {
-                config.topGlassPosition = ((door.heightDoor - Number(door.doorGlass.glassHeight) - Number(door.doorGlass.bottomGlassPosition))*2) / 10;
+                config.topGlassPosition = ((door.heightDoor - Number(door.doorGlass.glassHeight) - Number(door.doorGlass.bottomGlassPosition)) * 2) / 10;
             }
 
             config.leftGlassPosition = 0;
@@ -160,7 +159,7 @@ class Door {
         //let pathPicture = door.doorDesign.doorColor.picturePath;
         $("<img>")
             .attr("class", "color_door")
-            .attr("src", pathPicture)
+            .attr("src", Door.dirPath + pathPicture)
             .attr(
                 "style",
                 "width:" +
@@ -222,7 +221,7 @@ class Door {
 
             $("<img>")
                 .attr("class", "opening_side_images")
-                .attr("src", "images/Door/fanlight_in.png")
+                .attr("src", Door.dirPath +"images/Door/fanlight_in.png")
                 .attr(
                     "style",
                     "width:" +
@@ -248,8 +247,8 @@ class Door {
         return "#Leaf" + side + config.i;
     }
 
-    static reflectionPicture(door){
-        if (door.sideDoorOpen == "RIGHT"){
+    static reflectionPicture(door) {
+        if (door.sideDoorOpen == "RIGHT") {
             return 1;
         } else return -1;
     }
@@ -258,10 +257,10 @@ class Door {
         let scaleX = Door.reflectionPicture(door);
         $("<img>")
             .attr("class", "opening_side_images")
-            .attr("src", path)
+            .attr("src", Door.dirPath +path)
             .attr(
                 "style",
-                "width:" + config.width + "px; height:" + config.height + "px; transform: scale("+ scaleX +", 1)"
+                "width:" + config.width + "px; height:" + config.height + "px; transform: scale(" + scaleX + ", 1)"
             )
             .appendTo(containerLeaf);
     }
@@ -269,7 +268,7 @@ class Door {
     static createRelief(containerLeaf, config, side) {
         $("<img>")
             .attr("class", "opening_side_images")
-            .attr("src", "images/Door/" + config["sideOpening" + side] + ".png")
+            .attr("src", Door.dirPath +"images/Door/" + config["sideOpening" + side] + ".png")
             .attr(
                 "style",
                 "width:" + config.width + "px; height:" + config.height + "px;"
@@ -282,7 +281,7 @@ class Door {
         if (door.furnitureKit != null && door.furnitureKit.closer != null) {
             $("<img>")
                 .attr("class", "closer_images")
-                .attr("src", "" + door.furnitureKit.closer.sketchPathFirst)
+                .attr("src", Door.dirPath + + door.furnitureKit.closer.sketchPathFirst)
                 .appendTo(containerLeaf);
         }
     }
@@ -296,7 +295,7 @@ class Door {
                             "class",
                             "handle_images left_side" + config.leafCount + "_handle"
                         )
-                        .attr("src", "" + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 } else {
                     $("<img>")
@@ -304,7 +303,7 @@ class Door {
                             "class",
                             "handle_images rigth_side" + config.leafCount + "_handle mirrorX"
                         )
-                        .attr("src", "" + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 }
             }
@@ -316,7 +315,7 @@ class Door {
                             "class",
                             "handle_images rigth_side" + config.leafCount + "_handle mirrorX"
                         )
-                        .attr("src", "" + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 } else {
                     $("<img>")
@@ -324,7 +323,7 @@ class Door {
                             "class",
                             "handle_images left_side" + config.leafCount + "_handle"
                         )
-                        .attr("src", "" + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 }
             }
@@ -339,7 +338,7 @@ class Door {
         ) {
             $("<img>")
                 .attr("class", "stainlessSteelDoorstepL_images")
-                .attr("src", "images/findings/door handles sketch/000000001_R.png")
+                .attr("src", Door.dirPath +"images/findings/door handles sketch/000000001_R.png")
                 .appendTo(containerLeaf);
         }
     }
@@ -347,11 +346,11 @@ class Door {
     static createGlass(containerLeaf, config, door, key) {
         if (door.isDoorGlass == 1 && door.doorGlass != null) {
 
-            let leftPosition = key === "L" ? config.leftGlassPosition : config.leftGlassPositionInner ;
+            let leftPosition = key === "L" ? config.leftGlassPosition : config.leftGlassPositionInner;
 
             $("<img>")
                 .attr("class", "opening_side_images")
-                .attr("src", "images/Door/window.png")
+                .attr("src", Door.dirPath +"images/Door/window.png")
                 .attr(
                     "style",
                     "width:" +
@@ -376,7 +375,7 @@ class Door {
 
         $("<img>")
             .attr("class", "logo_brand_images_" + side)
-            .attr("src", "images/findings/logo.png")
+            .attr("src", Door.dirPath +"images/findings/logo.png")
             .appendTo(containerLeaf);
     }
 
@@ -388,17 +387,17 @@ class Door {
 
         $("<img>")
             .attr("class", "upper_hinge hinge_images_" + side)
-            .attr("src", "images/findings/sharnir.png")
+            .attr("src", Door.dirPath +"images/findings/sharnir.png")
             .appendTo(containerLeaf);
 
         $("<img>")
             .attr("class", "middle_hinge hinge_images_" + side)
-            .attr("src", "images/findings/sharnir.png")
+            .attr("src", Door.dirPath +"images/findings/sharnir.png")
             .appendTo(containerLeaf);
 
         $("<img>")
             .attr("class", "lower_hinge hinge_images_" + side)
-            .attr("src", "images/findings/sharnir.png")
+            .attr("src", Door.dirPath +"images/findings/sharnir.png")
             .appendTo(containerLeaf);
     }
 
@@ -410,7 +409,7 @@ class Door {
 
         $("<img>")
             .attr("class", "night_lock_images_" + side)
-            .attr("src", "images/findings/night_lock.png")
+            .attr("src", Door.dirPath +"images/findings/night_lock.png")
             .appendTo(containerLeaf);
     }
 
@@ -420,15 +419,15 @@ class Door {
             side = "L";
         }
         let imgKey;
-        if (door.furnitureKit.topInLockDecor == null){
-            imgKey ="images/findings/zamok.png";
+        if (door.furnitureKit.topInLockDecor == null) {
+            imgKey = "images/findings/zamok.png";
         } else {
             imgKey = door.furnitureKit.topInLockDecor.sketchPathFirst;
         }
         //images/findings/zamok.png
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", imgKey)
+            .attr("src", Door.dirPath +imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -439,15 +438,15 @@ class Door {
         }
 
         let imgKey;
-        if (door.furnitureKit.lowerInLockDecor == null){
-            imgKey ="images/findings/zamok.png";
+        if (door.furnitureKit.lowerInLockDecor == null) {
+            imgKey = "images/findings/zamok.png";
         } else {
             imgKey = door.furnitureKit.lowerInLockDecor.sketchPathFirst;
         }
 
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", imgKey)
+            .attr("src", Door.dirPath +imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -458,18 +457,18 @@ class Door {
         }
 
         let imgKey;
-        if (door.furnitureKit.topOutLockDecor == null){
-            imgKey ="images/findings/zamok.png";
+        if (door.furnitureKit.topOutLockDecor == null) {
+            imgKey = "images/findings/zamok.png";
         } else {
             imgKey = door.furnitureKit.topOutLockDecor.sketchPathFirst;
         }
 
-       // "images/findings/zamok.png"
+        // "images/findings/zamok.png"
         //door.furnitureKit.topOutLockDecor.sketchPathFirst;
 
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", imgKey)
+            .attr("src", Door.dirPath +imgKey)
             .appendTo(containerLeaf);
 
     }
@@ -481,15 +480,15 @@ class Door {
         }
 
         let imgKey;
-        if (door.furnitureKit.lowerOutLockDecor == null){
-            imgKey ="images/findings/zamok.png";
+        if (door.furnitureKit.lowerOutLockDecor == null) {
+            imgKey = "images/findings/zamok.png";
         } else {
             imgKey = door.furnitureKit.lowerOutLockDecor.sketchPathFirst;
         }
         //images/findings/zamokIn.png
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", imgKey)
+            .attr("src", Door.dirPath +imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -498,9 +497,9 @@ class Door {
             let scaleX = Door.reflectionPicture(door);
             $("<img>")
                 .attr("class", "shield_color")
-                .attr("src", door.shieldKit.shieldColor.picturePath)
+                .attr("src", Door.dirPath +door.shieldKit.shieldColor.picturePath)
                 .attr("style",
-                    "px; transform: scale("+ scaleX +", 1)")
+                    "px; transform: scale(" + scaleX + ", 1)")
                 .appendTo(containerLeaf);
         }
     }
@@ -511,7 +510,7 @@ class Door {
                 let scaleX = Door.reflectionPicture(door);
                 $("<img>")
                     .attr("class", "shield_design")
-                    .attr("src", door.shieldKit.shieldDesign.picturePath)
+                    .attr("src", Door.dirPath +door.shieldKit.shieldDesign.picturePath)
                     .attr("style",
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);
@@ -525,7 +524,7 @@ class Door {
                 let scaleX = Door.reflectionPicture(door);
                 $("<img>")
                     .attr("class", "shield_glass")
-                    .attr("src", door.shieldKit.shieldGlass.picturePath)
+                    .attr("src", Door.dirPath +door.shieldKit.shieldGlass.picturePath)
                     .attr("style",
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);
@@ -535,13 +534,13 @@ class Door {
 
     static getColorInstans() {
         $.ajax({
-            url: "color/doorColors",
+            url: location.origin + "/color/doorColors",
             dataType: "json",
             success: function (data) {
                 Door.listColorsEntity = data;
             },
             error: function (data) {
-                alert("!ERROR: типы фурнитуры получить не удалось:");
+                alert("!ERROR:   get colors (");
             },
         });
     }
