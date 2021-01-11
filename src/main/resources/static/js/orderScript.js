@@ -115,8 +115,7 @@ jQuery("document").ready(function () {
 
     function getOrder() {
         $.ajax({
-            url: location.origin + "/getOrder",
-            data: {orderId: orderId},
+            url: location.origin + '/orders/'+orderId,
             dataType: "json",
             success: function (data) {
                 order = data;
@@ -315,7 +314,7 @@ jQuery("document").ready(function () {
     }
 
     function toClose() {
-        location.pathname = "/orders/page-list";
+        location.pathname = "/pages/orders";
     }
 
     function oneEnableAllDisable(item) {

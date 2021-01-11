@@ -31,7 +31,7 @@ public class OrderController {
     private OrderService orderService;
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    @GetMapping(value = "/orders/page-list")
+    @GetMapping(value = "/pages/orders")
     public String getOrdersPage(Model model,
                                 @RequestParam(required = false, defaultValue = "0") String userId) {
 
@@ -51,7 +51,7 @@ public class OrderController {
         return "orders";
     }
 
-    @GetMapping(value = "/orders/{orderId}/page")
+    @GetMapping(value = "/pages/orders/{orderId}")
     public String getOrderPage(Model model, @PathVariable String orderId) {
 
         UserEntity user = userService.getCurrentUser();
@@ -61,10 +61,10 @@ public class OrderController {
         return "order";
     }
 
-    @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorOrder getOrder(@RequestParam(required = false) String orderId) {
-        return orderService.getOrder(orderId);
+    public DoorOrder getOrder(@PathVariable String id) {
+        return orderService.getOrder(id);
     }
 
     @PostMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)

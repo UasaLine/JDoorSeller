@@ -28,7 +28,7 @@ jQuery("document").ready(function () {
     });
 
     function getOrder(orderId) {
-        location.pathname  = '/orders/' + orderId + '/page';
+        location.pathname = '/pages/orders/' + orderId;
     }
 
     function deletOrder() {
