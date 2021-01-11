@@ -94,16 +94,33 @@ public class OrderController {
     @PostMapping(value = "/orders/{orderId}/statuses/{status}")
     @ResponseBody
     public Response setOrdersStatus(@PathVariable String orderId,
-                                    @PathVariable String status,
-                                    @RequestParam() String releaseDate) throws ResponseException {
+                                    @PathVariable String status) throws ResponseException {
 
         try {
             boolean result = orderService.setStatus(
                     Integer.parseInt(orderId),
-                    OrderStatus.parseForFactory(status),
-                    new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate));
+                    OrderStatus.parseForFactory(status));
 
             return new Response(result, "ok");
+
+        } catch (IllegalArgumentException e) {
+            throw new ResponseException(e.getMessage());
+        }
+    }
+
+    @Secured("ROLE_ONE_C")
+    @PostMapping(value = "/orders/{orderId}/release/{date}")
+    @ResponseBody
+    public Response setOrdersReleaseDate(@PathVariable String orderId,
+                                         @PathVariable String date) throws ResponseException {
+
+        try {
+            boolean result = orderService.setReleaseDate(
+                    Integer.parseInt(orderId),
+                    new SimpleDateFormat("yyyy-MM-dd").parse(date));
+
+            return new Response(result, "ok");
+
         } catch (ParseException | IllegalArgumentException e) {
             throw new ResponseException(e.getMessage());
         }

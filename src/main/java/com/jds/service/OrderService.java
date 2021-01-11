@@ -162,11 +162,19 @@ public class OrderService {
     }
 
     public boolean setStatus(@NonNull int id,
-                             @NonNull OrderStatus status,
-                             @NonNull Date releaseDate) {
+                             @NonNull OrderStatus status) {
 
         DoorOrder order = dAO.getOrder(id);
         order.setStatus(status);
+        save(order);
+
+        return true;
+    }
+
+    public boolean setReleaseDate(@NonNull int id,
+                                  @NonNull Date releaseDate) {
+
+        DoorOrder order = dAO.getOrder(id);
         order.setReleasDate(releaseDate);
         save(order);
 
