@@ -58,12 +58,6 @@ public class MainController {
         return "doorClassList";
     }
 
-    @GetMapping(value = "/class/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<DoorClass> getDoorClassis(Model model) throws Exception {
-        return service.getDoorClass();
-    }
-
     @GetMapping(value = "/availableGroups")
     @ResponseBody
     public List<DoorClass> getAavailableDoorClass() throws Exception {

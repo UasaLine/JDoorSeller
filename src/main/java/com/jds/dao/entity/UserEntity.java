@@ -62,7 +62,7 @@ public class UserEntity implements UserDetails {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
-    private List<DoorsОrder> orders;
+    private List<DoorOrder> orders;
 
     @Transient
     int orderCounter;

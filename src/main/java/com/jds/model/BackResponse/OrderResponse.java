@@ -1,6 +1,6 @@
 package com.jds.model.BackResponse;
 
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 
 public class OrderResponse extends BackResponse {
-    private DoorsОrder data;
+    private DoorOrder data;
 
-    public OrderResponse(DoorsОrder order) {
+    public OrderResponse(DoorOrder order) {
         this.data = order;
         setSuccess(true);
         setMessage("Ok");

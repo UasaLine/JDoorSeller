@@ -40,7 +40,7 @@ public class DoorServiceImpl implements DoorService {
     OrderDiscountService orderDiscountService;
 
     @Override
-    public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
+    public DoorEntity calculate(@NonNull DoorEntity door) {
 
         if (door.getDoorType().getPriceList() == 1) {
 
@@ -76,7 +76,7 @@ public class DoorServiceImpl implements DoorService {
     }
 
     private DoorEntity allowEditing(DoorEntity door, int orderId) {
-        DoorsОrder doorsОrder = orderService.getOrder(orderId);
+        DoorOrder doorsОrder = orderService.getOrder(orderId);
         if (doorsОrder.getStatus() == OrderStatus.CALC) {
             door.setTemplate(templateService.getTemplate(String.valueOf(door.getDoorType().getId())));
         }
@@ -510,10 +510,10 @@ public class DoorServiceImpl implements DoorService {
     }
 
     @Override
-    public DoorsОrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
+    public DoorOrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
 
         if (!orderId.isEmpty() && !orderId.equals("0") && !id.isEmpty() && !id.equals("0")) {
-            DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
+            DoorOrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
                 orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(orderId)));
@@ -531,7 +531,7 @@ public class DoorServiceImpl implements DoorService {
             return door;
         }
 
-        DoorsОrder order = orderDAO.getOrder(door.getOrderHolder());
+        DoorOrder order = orderDAO.getOrder(door.getOrderHolder());
         DoorEntity fineDoor = order.getDoors().stream()
                 .filter(doorItem -> doorItem.getId() == door.getId())
                 .findFirst()
@@ -542,7 +542,7 @@ public class DoorServiceImpl implements DoorService {
         }
 
         order.addDoor(door);
-        order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrder_id())));
+        order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrderId())));
         orderDAO.saveOrder(order);
         return door;
 

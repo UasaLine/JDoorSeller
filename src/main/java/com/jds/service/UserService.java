@@ -3,7 +3,7 @@ package com.jds.service;
 
 import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.repository.UserDAO;
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
@@ -98,7 +98,7 @@ public class UserService implements UserDetailsService, UserServ {
     }
 
     private void setOrderСounters(UserEntity user) {
-        List<DoorsОrder> orders = OrderdAO.getOrdersByUser(user);
+        List<DoorOrder> orders = OrderdAO.getOrdersByUser(user);
 
 
         user.setOrderCounter((int) orders.stream()

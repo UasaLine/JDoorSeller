@@ -292,16 +292,15 @@ jQuery("document").ready(function () {
 
     $("#buttonCalculate").on("click", function () {
         if (checkThCompletedFields()) {
-            var strJSON = JSON.stringify(door);
+            const doorJSON = JSON.stringify(door);
 
             $.ajax({
                 type: "POST",
-                url: "data",
+                url: location.origin + "/doors/price",
                 contentType: "application/json",
-                data: strJSON,
+                data: doorJSON,
                 dataType: "json",
                 success: function (data) {
-                    //alert('price is: ' + data.price);
                     door = data;
                     displayPrice();
                     calculateCostHide();
@@ -316,13 +315,13 @@ jQuery("document").ready(function () {
 
     $("#buttonSaveDoor").on("click", function () {
         if (checkThCompletedFields()) {
-            var strJSON = JSON.stringify(door);
+            const doorJSON = JSON.stringify(door);
 
             $.ajax({
                 type: "POST",
-                url: "saveDoor",
+                url: location.origin + "/doors",
                 contentType: "application/json",
-                data: strJSON,
+                data: doorJSON,
                 dataType: "json",
                 success: function (data) {
                     door.id = data.id;
@@ -336,13 +335,13 @@ jQuery("document").ready(function () {
 
     $("#SaveAndСlose").on("click", function () {
         if (checkThCompletedFields()) {
-            var strJSON = JSON.stringify(door);
+            const doorJSON = JSON.stringify(door);
 
             $.ajax({
                 type: "POST",
-                url: "saveDoor",
+                url: location.origin + "/doors",
                 contentType: "application/json",
-                data: strJSON,
+                data: doorJSON,
                 dataType: "json",
                 success: function (data) {
                     toOrder();
@@ -928,7 +927,7 @@ jQuery("document").ready(function () {
 
     function getNewDoorInstance(updateClassDiv) {
         $.ajax({
-            url: 'doors/' + (id == "" ? "0" : id),
+            url: location.origin + '/doors/' + (id == "" ? "0" : id),
             data: {orderId: orderId, typeId: typeId},
             dataType: "json",
             success: function (data) {
@@ -949,7 +948,7 @@ jQuery("document").ready(function () {
         }
 
         $.ajax({
-            url: "furniture/available-fields/" + typeId,
+            url: location.origin + "/furniture/available-fields/" + typeId,
             dataType: "json",
             success: function (data) {
                 availableFurnitureList = data;
@@ -963,7 +962,7 @@ jQuery("document").ready(function () {
 
     function getClassList() {
         $.ajax({
-            url: "class/list",
+            url: location.origin + "/classes",
             dataType: "json",
             success: function (data) {
                 classList = data;
