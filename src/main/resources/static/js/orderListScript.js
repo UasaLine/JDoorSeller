@@ -30,7 +30,7 @@ jQuery("document").ready(function () {
     });
 
     $(".sort-order").on("click", function () {
-        params.sort = $(this).attr("name");
+        params.addSort($(this).attr("name"));
         fillOrderList(params.get());
     });
 
@@ -114,7 +114,7 @@ jQuery("document").ready(function () {
     function addDynamicLine(order, i, arr) {
         $("<tr>")
             .attr('id', i)
-            .attr('class','dynamic_line')
+            .attr('class', 'dynamic_line')
             .appendTo('.Table');
 
         const line = '#' + i;

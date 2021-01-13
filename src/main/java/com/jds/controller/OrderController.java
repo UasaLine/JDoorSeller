@@ -6,6 +6,7 @@ import com.jds.model.backResponse.OrderResponse;
 import com.jds.model.backResponse.Response;
 import com.jds.model.Exeption.ResponseException;
 import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.enumClasses.SideSqlSorting;
 import com.jds.model.orders.OrderParamsDto;
 import com.jds.model.orders.filter.OrderFilterFactory;
 import com.jds.model.orders.sort.OrderSortFactory;
@@ -70,14 +71,15 @@ public class OrderController {
     @GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public List<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort,
+    public List<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort_field,
+                                     @RequestParam(required = false, defaultValue = "DESC") SideSqlSorting sort_side,
                                      @RequestParam(required = false) OrderStatus status,
                                      @RequestParam(required = false) String partner,
                                      @RequestParam(required = false) String ofDate,
                                      @RequestParam(required = false) String toDate) {
 
         OrderParamsDto params = OrderParamsDto.builder()
-                .sorter(sortFactory.sorter(sort))
+                .sorter(sortFactory.sorter(sort_field, sort_side))
                 .filter(filterFactory.filter(status, partner, ofDate, toDate))
                 .build();
 
