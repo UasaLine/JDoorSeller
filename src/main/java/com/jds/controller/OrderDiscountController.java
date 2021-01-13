@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.OrderDiscount;
-import com.jds.model.ResponseAction;
+import com.jds.model.backResponse.ResponseAction;
 import com.jds.service.OrderDiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

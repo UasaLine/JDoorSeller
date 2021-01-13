@@ -2,6 +2,9 @@ package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.orders.sort.OrderDateSorter;
+import com.jds.model.orders.sort.OrderSorter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -21,15 +24,23 @@ public class OrderDAO {
     private SessionFactory sessionFactory;
 
     public List<DoorOrder> getOrders() {
+        OrderSorter sorter = new OrderDateSorter(SideSqlSorting.DESC);
+        return getOrders(sorter);
+    }
+
+    public List<DoorOrder> getOrders(OrderSorter sorter) {
+
+        String sql = sorter.sort("select * from orders ");
 
         Session session = sessionFactory.openSession();
-
-        String sql = "select * from orders";
-        Query query = session.createSQLQuery(sql).addEntity(DoorOrder.class);
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorOrder.class);
 
         List<DoorOrder> list = query.list();
 
         session.close();
+
+        list.forEach(DoorOrder::clearNonSerializingFields);
 
         return list;
     }
@@ -38,7 +49,9 @@ public class OrderDAO {
 
         Session session = sessionFactory.openSession();
 
-        String sql = "select * from orders where status like :status";
+        String sql = "select * " +
+                "from orders " +
+                "where status like :status";
         Query query = session.createSQLQuery(sql)
                 .addEntity(DoorOrder.class)
                 .setParameter("status", status);
@@ -101,12 +114,13 @@ public class OrderDAO {
 
         session.close();
 
-        DoorOrder оrder = null;
+        DoorOrder order = null;
         if (list.size() > 0) {
-            оrder = list.get(0);
+            order = list.get(0);
         }
 
-        return оrder;
+        order.clearNonSerializingFields();
+        return order;
     }
 
     private int getNextSellerId(UserEntity seller) {

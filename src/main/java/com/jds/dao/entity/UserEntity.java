@@ -2,7 +2,7 @@ package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.Role;
-import com.jds.model.modelEnum.PriceGroups;
+import com.jds.model.enumClasses.PriceGroups;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 

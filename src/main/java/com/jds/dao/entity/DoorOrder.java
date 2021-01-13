@@ -1,7 +1,7 @@
 package com.jds.dao.entity;
 
-import com.jds.model.orderPrint.OrderDiscounts;
-import com.jds.model.modelEnum.OrderStatus;
+import com.jds.model.orders.OrderDiscounts;
+import com.jds.model.enumClasses.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -134,5 +134,11 @@ public class DoorOrder {
         this.statusList = OrderStatus.statusList(status);
     }
 
+    public void clearNonSerializingFields() {
+        seller.setOrders(null);
+        for (DoorEntity door : doors) {
+            door.clearNonSerializingFields();
+        }
+    }
 
 }

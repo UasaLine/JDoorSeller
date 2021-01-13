@@ -1,16 +1,18 @@
+let orders;
+
+
 jQuery("document").ready(function () {
 
     let currentId = 0;
+    let params = new ParamsFactory();
 
-    displayAdminAndUserField();
+    fillOrderList();
 
-    colorizeTheLines();
-
-    $("tr").on("dblclick", function () {
-        getOrder($(this).children(".id").text());
+    $("table").on("dblclick", 'tr', function () {
+        toOrder($(this).children(".id").text());
     });
 
-    $("tr").on("click", function () {
+    $("table").on("click", 'tr', function () {
         currentId = $(this).children(".id").text();
         oneEnableAllDisable(this);
     });
@@ -24,11 +26,16 @@ jQuery("document").ready(function () {
     });
 
     $("#addOrder").on("click", function () {
-        location.href = "order";
+        location.href = location.origin + "/pages/orders/0";
     });
 
-    function getOrder(orderId) {
-        location.pathname  = '/orders/' + orderId + '/page';
+    $(".sort-order").on("click", function () {
+        params.addSort($(this).attr("name"));
+        fillOrderList(params.get());
+    });
+
+    function toOrder(orderId) {
+        location.pathname = '/pages/orders/' + orderId;
     }
 
     function deletOrder() {
@@ -82,5 +89,54 @@ jQuery("document").ready(function () {
                 $(colorFlag[i]).addClass("greenFlag");
             }
         }
+    }
+
+    function fillOrderList(params = "") {
+        $.ajax({
+            type: "GET",
+            url: location.origin + '/orders' + params,
+            dataType: "json",
+            success: function (data) {
+                orders = data;
+                deleteAllDynamicLine();
+                orders.forEach(function (item, i, arr) {
+                    addDynamicLine(item, i, arr);
+                });
+                displayAdminAndUserField();
+                colorizeTheLines();
+            },
+            error: function (data) {
+                alert("!!!заказы получить не удалось error:");
+            },
+        });
+    }
+
+    function addDynamicLine(order, i, arr) {
+        $("<tr>")
+            .attr('id', i)
+            .attr('class', 'dynamic_line')
+            .appendTo('.Table');
+
+        const line = '#' + i;
+
+        addCell(order.sellerOrderId, 'seller_id', line);
+        addCell(order.orderId, 'id ghost accessAdmin', line);
+        addCell(order.status, 'colorFlag', line);
+        addCell(order.partner, '', line);
+        addCell(order.data, '', line);
+        addCell(order.releasDate, '', line);
+        addCell(order.totalQuantity, '', line);
+        addCell(order.totalAmount, '', line);
+    }
+
+    function addCell(text, className, line) {
+        $("<td>")
+            .attr('class', className)
+            .text(text)
+            .appendTo(line);
+    }
+
+    function deleteAllDynamicLine() {
+        $('.dynamic_line').remove();
     }
 });

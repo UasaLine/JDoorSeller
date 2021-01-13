@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
-import com.jds.model.modelEnum.PriceGroups;
-import com.jds.model.modelEnum.TypeOfFurniture;
-import com.jds.model.modelEnum.TypeOfSalaryConst;
+import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumClasses.TypeOfSalaryConst;
 import lombok.Getter;
 import lombok.Setter;
 

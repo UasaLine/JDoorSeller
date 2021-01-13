@@ -25,7 +25,7 @@ public class MainController {
     private UserServ userService;
 
     @GetMapping(value = "/")
-    public String updateDoorClass() {
+    public String getMainPage() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity principal = (UserEntity) authentication.getPrincipal();
@@ -33,7 +33,7 @@ public class MainController {
         if (principal.isAdmin()) {
             return "setting";
         }
-        return "redirect:orders";
+        return "redirect:/pages/orders";
     }
 
     @GetMapping(value = "/login")

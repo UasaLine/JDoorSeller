@@ -8,7 +8,7 @@ import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
-import com.jds.model.modelEnum.PriceGroups;
+import com.jds.model.enumClasses.PriceGroups;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
