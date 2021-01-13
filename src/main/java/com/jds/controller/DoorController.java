@@ -3,7 +3,7 @@ package com.jds.controller;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.LineSpecification;
-import com.jds.service.DoorServ;
+import com.jds.service.DoorService;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,7 +17,7 @@ import java.util.List;
 public class DoorController {
 
     @Autowired
-    private DoorServ service;
+    private DoorService service;
     @Autowired
     private MaineService maineService;
 
