@@ -43,4 +43,13 @@ public class LineSpecification {
 
     @Column(name = "write_off_operation")
     String writeOffOperation;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "specification")
+    private SpecificationEntity specification;
+
+    public LineSpecification clearNonSerializingFields(){
+        specification = null;
+        return this;
+    }
 }
