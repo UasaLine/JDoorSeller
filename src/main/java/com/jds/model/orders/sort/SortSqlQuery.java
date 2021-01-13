@@ -1,15 +1,11 @@
 package com.jds.model.orders.sort;
 
-import com.jds.model.enumClasses.SortingSqlOption;
+import com.jds.model.enumClasses.SideSqlSorting;
 
 abstract class SortSqlQuery {
-    protected SortingSqlOption option;
+    protected SideSqlSorting option;
 
-    SortSqlQuery(SortingSqlOption option) {
+    public SortSqlQuery(SideSqlSorting option) {
         this.option = option;
-    }
-
-    SortSqlQuery() {
-        this.option = SortingSqlOption.DESC;
     }
 }

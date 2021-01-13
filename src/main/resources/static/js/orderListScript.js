@@ -4,6 +4,7 @@ let orders;
 jQuery("document").ready(function () {
 
     let currentId = 0;
+    let params = new ParamsFactory();
 
     fillOrderList();
 
@@ -26,6 +27,11 @@ jQuery("document").ready(function () {
 
     $("#addOrder").on("click", function () {
         location.href = location.origin + "/pages/orders/0";
+    });
+
+    $(".sort-order").on("click", function () {
+        params.sort = $(this).attr("name");
+        fillOrderList(params.get());
     });
 
     function toOrder(orderId) {
@@ -85,15 +91,16 @@ jQuery("document").ready(function () {
         }
     }
 
-    function fillOrderList() {
+    function fillOrderList(params = "") {
         $.ajax({
             type: "GET",
-            url: location.origin + '/orders',
+            url: location.origin + '/orders' + params,
             dataType: "json",
             success: function (data) {
                 orders = data;
+                deleteAllDynamicLine();
                 orders.forEach(function (item, i, arr) {
-                    addLine(item, i, arr);
+                    addDynamicLine(item, i, arr);
                 });
                 displayAdminAndUserField();
                 colorizeTheLines();
@@ -104,9 +111,10 @@ jQuery("document").ready(function () {
         });
     }
 
-    function addLine(order, i, arr) {
+    function addDynamicLine(order, i, arr) {
         $("<tr>")
             .attr('id', i)
+            .attr('class','dynamic_line')
             .appendTo('.Table');
 
         const line = '#' + i;
@@ -126,5 +134,9 @@ jQuery("document").ready(function () {
             .attr('class', className)
             .text(text)
             .appendTo(line);
+    }
+
+    function deleteAllDynamicLine() {
+        $('.dynamic_line').remove();
     }
 });

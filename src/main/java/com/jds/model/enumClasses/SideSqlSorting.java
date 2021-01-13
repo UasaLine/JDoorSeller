@@ -1,5 +1,5 @@
 package com.jds.model.enumClasses;
 
-public enum SortingSqlOption {
+public enum SideSqlSorting {
     DESC, ASC
 }

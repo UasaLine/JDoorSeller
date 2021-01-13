@@ -2,6 +2,7 @@ package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.enumClasses.SideSqlSorting;
 import com.jds.model.orders.sort.OrderDateSorter;
 import com.jds.model.orders.sort.OrderSorter;
 import org.hibernate.Session;
@@ -23,7 +24,7 @@ public class OrderDAO {
     private SessionFactory sessionFactory;
 
     public List<DoorOrder> getOrders() {
-        OrderSorter sorter = new OrderDateSorter();
+        OrderSorter sorter = new OrderDateSorter(SideSqlSorting.DESC);
         return getOrders(sorter);
     }
 
