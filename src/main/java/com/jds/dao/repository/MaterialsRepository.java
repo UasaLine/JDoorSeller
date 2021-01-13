@@ -273,4 +273,21 @@ public class MaterialsRepository {
         return "ok";
 
     }
+
+    public LineSpecification getSpecificationLineById(@NonNull int id) {
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from line_specification where id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(LineSpecification.class)
+                .setParameter("id", id);
+        List<LineSpecification> list = query.list();
+
+        session.close();
+
+            return list.get(0);
+
+    }
+
 }

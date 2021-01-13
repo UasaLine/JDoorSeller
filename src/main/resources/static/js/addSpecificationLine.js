@@ -2,32 +2,54 @@ jQuery("document").ready(function () {
 
     let lineSpecifications;
     let specificationEtity;
-    getSpecificationEtity();
+    let id = $("#id").text();
+    let line_id = $("#line_id").text();
+
+    getLineSpecification();
 
     $("#close").on("click", function () {
-        getItem($(this).children(".id").text());
+        getItem();
     });
 
-    function getItem(id) {
-        let filtrValue = getFilterByIdScpecificationTypeFromUrl();
-        location.href = location.origin + "/specification/" + filtrValue;
-        //location.pathname = "specification/" + filtrValue;
+    $("#name").change(function () {
+        setField("name", $("#name").val());
+    });
+
+    $("#valueSpec").change(function () {
+        setField("value", $("#valueSpec").val());
+    });
+
+    $("#formula").change(function () {
+        setField("formula", $("#formula").val());
+    });
+
+    $("#nameObject").change(function () {
+        setField("independentName", $("#nameObject").val());
+    });
+
+    $("#releaseOperation").change(function () {
+        setField("releaseOperation", $("#releaseOperation").val());
+    });
+
+    $("#writeOffOperation").change(function () {
+        setField("writeOffOperation", $("#writeOffOperation").val());
+    });
+
+    function getItem() {
+        location.href = location.origin + "/specification/" + id;
 }
 
     function getFilterByIdScpecificationTypeFromUrl() {
-        let searchParams = new URLSearchParams(location.search);
-        if(searchParams.has('idSpecification')){
-            return searchParams.get('idSpecification');
-        }
-        return "";
+        return id;
     }
 
-    function getSpecificationEtity() {
+    function getLineSpecification() {
         $.ajax({
-            url: location.origin + "/specification/item/" + getFilterByIdScpecificationTypeFromUrl(),
+            url: location.origin + "/specification/" + id + "/line/" + line_id,
             dataType: "json",
             success: function (data) {
-                specificationEtity = data;
+                lineSpecifications = data;
+                fillInLineSpecification();
             },
             error: function (data) {
                 alert("!ERROR: данные о классах получить не удалось:" + data);
@@ -37,25 +59,17 @@ jQuery("document").ready(function () {
 
     $("#save").click(function () {
 
-            lineSpecifications = (
-                newInstansLineSpecification(
-                    $("#name").val(),
-                    $("#valueSpec").val(),
-                    $("#formula").val(),
-
-                )
-            );
-
         var templateJSON = JSON.stringify(lineSpecifications);
 
         $.ajax({
             type: "POST",
-            url: "line",
+            url: location.origin + "/specification/line/" + id,
             contentType: "application/json",
             data: templateJSON,
             dataType: "json",
             success: function (data) {
-                alert("request it OK");
+                //alert("request it OK");
+                getItem();
             },
             error: function (data) {
                 alert("error: request");
@@ -63,26 +77,26 @@ jQuery("document").ready(function () {
         });
     });
 
-    function newInstansLineSpecification(name, valueSpec, formula) {
-        var lim = new (function () {
-            this.doorType = specificationEtity.doorType;
-            this.materialId = "";
-            this.name = name;
-            this.value = parseFloat(valueSpec);
-            this.formula = formula;
-            this.specification = specificationEtity;
-            //this.independentName = nameObject;
+    function fillInLineSpecification() {
+        $("#name").val(lineSpecifications.name);
+        $("#valueSpec").val(lineSpecifications.value);
+        setValueInSelect("#formula", lineSpecifications.formula);
+        $("#nameObject").val(lineSpecifications.independentName);
+        $("#releaseOperation").val(lineSpecifications.releaseOperation);
+        $("#writeOffOperation").val(lineSpecifications.writeOffOperation);
+    }
 
-            // this.id = id;
-            // this.doorType = specification.doorType;
-            // this.materialId = materialId;
-            // this.name = name;
-            // this.value = parseFloat(value);
-            // this.formula = formula;
+    function setValueInSelect(jqSelect, value) {
+        var opt = $(jqSelect + " > option");
+        opt.each(function (indx, element) {
+            if ($(this).val() == value) {
+                $(this).attr("selected", "selected");
+            }
+        });
+    }
 
-
-        })();
-        return lim;
+    function setField(fieldName, value) {
+        lineSpecifications[fieldName] = value;
     }
 
 });

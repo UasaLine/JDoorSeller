@@ -97,12 +97,17 @@ public class MaterialsService {
         return materialsDao.saveSpecificationEntity(specificationEntity);
     }
 
-    public SpecificationEntity getSpecificationEtity(String id) {
+    public SpecificationEntity getSpecificationEntity(String id) {
         if ("0".equals(id)) {
             return new SpecificationEntity();
         }
 
-        SpecificationEntity spec = materialsDao.getSpecificationEntityById(Integer.parseInt(id));
+        return getSpecificationEntity(Integer.parseInt(id));
+    }
+
+    public SpecificationEntity getSpecificationEntity(int id) {
+
+        SpecificationEntity spec = materialsDao.getSpecificationEntityById(id);
         spec.setDoorType(spec.getDoorType().clearNonSerializingFields());
         spec.clearNonSerializingFields();
 
@@ -110,16 +115,44 @@ public class MaterialsService {
     }
 
     public String deleteSpecificationEntity(@NonNull String id) {
-        SpecificationEntity specificationEntity = getSpecificationEtity(id);
+        SpecificationEntity specificationEntity = getSpecificationEntity(id);
 
         return materialsDao.deleteSpecificationEntity(specificationEntity);
     }
 
-    public LineSpecification saveSpecificationLine(@NonNull LineSpecification lineSpecification) {
+    public LineSpecification saveSpecificationLine(@NonNull int specificationId, @NonNull LineSpecification lineSpecification) {
 
-        SpecificationEntity specificationEntity = materialsDao.getSpecificationEntityById(lineSpecification.getSpecification().getId());
-        specificationEntity.addLine(lineSpecification);
+        SpecificationEntity specificationEntity = getSpecificationEntity(specificationId);
+
+        lineSpecification.setDoorType(specificationEntity.getDoorType());
+
+        specificationEntity.putLine(lineSpecification);
+        specificationEntity.setSpecificationToAllLine(new SpecificationEntity(specificationId));
+
         materialsDao.saveSpecificationEntity(specificationEntity);
         return lineSpecification;
+    }
+
+    public LineSpecification getLineSpecification(@NonNull String line_id) {
+
+        LineSpecification lineSpecification;
+
+        if (line_id.equals("0")){
+            lineSpecification = new LineSpecification();
+            //lineSpecification.setSpecification(service.getSpecificationEtity(id));
+        }else {
+            lineSpecification = materialsDao.getSpecificationLineById(Integer.parseInt(line_id));
+            lineSpecification.setDoorType(null);
+            lineSpecification.setSpecification(null);
+        }
+
+        return lineSpecification;
+    }
+
+    public String deleteLineSpecification(@NonNull String lineId) {
+
+        LineSpecification lineSpecification = getLineSpecification(lineId);
+        materialsDao.deleteLineSpecification(lineSpecification);
+        return "ок";
     }
 }

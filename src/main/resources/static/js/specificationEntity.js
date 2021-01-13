@@ -2,19 +2,15 @@ jQuery("document").ready(function () {
     let doorClassList;
     let specificationEtity = {};
     let doorClassAllList = [];
-    let availableValues;
-    let changed = false;
     var lineSpecifications;
     let addLineBoolean = false;
     let itemId;
-
-    var specification;
+    let selectedLineId;
     var currentLine = 0;
 
     getListDoorClassToSelect();
     setSpecificationId("Спецификация");
     checkNewOrNot();
-    displayComponentVisibility();
 
     $("#name").change(function () {
         setField("name", $("#name").val());
@@ -43,7 +39,6 @@ jQuery("document").ready(function () {
             method: "DELETE",
             dataType: "json",
             success: function (data) {
-                //alert(data.status);
                 toList();
             },
             error: function (data) {
@@ -52,10 +47,23 @@ jQuery("document").ready(function () {
         });
     });
 
+    function deleteLineSpecification() {
+        $.ajax({
+            url: "line/" + selectedLineId,
+            method: "DELETE",
+            success: function (data) {
+            },
+            error: function (data) {
+                alert("!ERROR: елемнет удалить не удалось:");
+            },
+        });
+    }
+
     function saveSpecoficationEntity() {
         if (lineSpecifications != null) {
-            saveLineSpecification();
             specificationEtity.lineSpecifications = lineSpecifications;
+        }else {
+            specificationEtity.lineSpecifications = [];
         }
         let specification = JSON.stringify(specificationEtity);
 
@@ -116,7 +124,6 @@ jQuery("document").ready(function () {
         $("#name").val(specificationEtity.name);
         setValueInSelect("#modelOfDoor", specificationEtity.doorType.id);
         fillTabLine();
-        displayComponentVisibility();
 
     }
 
@@ -267,22 +274,7 @@ jQuery("document").ready(function () {
     }
 
     function displayComponentVisibility() {
-        //if (availableValues != null) {
-        $("#addLine").removeClass("disabled");
         $("#deletLine").removeClass("disabled");
-        //}
-    }
-
-    function newInstansLineSpecification(id, materialId, name, value, formula) {
-        var lim = new (function () {
-            this.id = id;
-            this.doorType = specificationEtity.doorType;
-            this.materialId = materialId;
-            this.name = name;
-            this.value = parseFloat(value);
-            this.formula = formula;
-        })();
-        return lim;
     }
 
     $(window).keydown(function (event) {
@@ -291,16 +283,8 @@ jQuery("document").ready(function () {
         }
     });
 
-    function getFilterByIdSpecification() {
-        return "?idSpecification=" + itemId;
-    }
-
-    function getFilterByDoorType() {
-        return "&idDoorType=" + specificationEtity.doorType.id;
-    }
-
     function toFormAddScpecLine(item) {
-        location.href = "addSpecificationLine" + "?idSpecification=" + item;
+        location.href =  location.origin + "/pages/specification/" + item + "/line/" + "0";
     }
 
     $("#addLine").click(function () {
@@ -316,15 +300,18 @@ jQuery("document").ready(function () {
         if ($(this).hasClass("disabled")) {
             return;
         }
-
+        if (selectedLineId != ""){
+            deleteLineSpecification();
+        }
         $("#line" + currentLine).remove();
-
-        displayComponentVisibility();
     });
 
     $("tbody").on("click", "tr", function () {
         currentLine = $(this).children(".position").text();
+        selectedLineId = $(this).children(".id").text();
+        $("#deletLine").removeClass("disabled");
         oneEnableAllDisable(this);
+        displayComponentVisibility();
     });
 
     function oneEnableAllDisable(item) {
@@ -337,27 +324,12 @@ jQuery("document").ready(function () {
         $(item).attr("pickOut", "on");
     }
 
-    function saveLineSpecification() {
+    $("tbody").on("dblclick", "tr", function () {
+        getItem($(this).children(".id").text());
+    });
 
-        var size = lineSpecifications.length;
-        lineSpecifications.splice(0, size);
-
-
-        var lineArr = $(".line");
-        for (var i = 0; i < lineArr.length; i++) {
-            var indexLine = $(lineArr[i]).children(".position").text();
-            var nameMaterial = $("#name" + indexLine).html();
-
-            lineSpecifications.push(
-                newInstansLineSpecification(
-                    $("#id" + indexLine).html(),
-                    0,
-                    nameMaterial,
-                    $("#value" + indexLine).html(),
-                    $("#formula" + indexLine).html()
-                )
-            );
-        }
+    function getItem(id) {
+        location.href =  location.origin + "/pages/specification/" + getIdFromUrl() + "/line/" + id;
     }
 
 });

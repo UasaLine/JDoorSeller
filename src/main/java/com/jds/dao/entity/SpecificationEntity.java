@@ -3,10 +3,12 @@ package com.jds.dao.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "specification")
@@ -41,4 +43,32 @@ public class SpecificationEntity {
         lineSpecifications.add(line);
     }
 
+    public void putLine(@NonNull LineSpecification line){
+        if (line.getId() > 0){
+            for (int i = 0; i < lineSpecifications.size(); i++){
+                if (lineSpecifications.get(i).getId() == line.getId()){
+                    lineSpecifications.set(i, line);
+                }
+            }
+        }else {
+            lineSpecifications.add(line);
+        }
+
+    }
+
+    public SpecificationEntity(int id) {
+        this.id = id;
+    }
+
+    public void setSpecificationToAllLine(SpecificationEntity spec){
+        lineSpecifications.stream()
+                .map(line -> setSpecification(line, spec))
+                .collect(Collectors.toList());
+    }
+
+    private LineSpecification setSpecification(LineSpecification lineSpecification, SpecificationEntity specificationEntity){
+        lineSpecification.setSpecification(specificationEntity);
+        lineSpecification.setDoorType(doorType);
+        return lineSpecification;
+    }
 }
