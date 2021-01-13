@@ -9,8 +9,6 @@ jQuery("document").ready(function () {
     var currentLine = 0;
 
     getListDoorClassToSelect();
-    setSpecificationId("Спецификация");
-    checkNewOrNot();
 
     $("#name").change(function () {
         setField("name", $("#name").val());
@@ -153,10 +151,12 @@ jQuery("document").ready(function () {
 
     function getListDoorClassToSelect() {
         $.ajax({
-            url: "/class/list",
+            url: "/classes",
             success: function (data) {
                 doorClassList = data;
                 fillInDoorClass(doorClassList);
+                setSpecificationId("Спецификация");
+                checkNewOrNot();
             },
             error: function (data) {
                 alert("!ERROR: данные о классах получить не удалось:" + data);

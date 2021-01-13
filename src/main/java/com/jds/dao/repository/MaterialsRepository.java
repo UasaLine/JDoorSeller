@@ -290,4 +290,19 @@ public class MaterialsRepository {
 
     }
 
+    public List<LineSpecification> getLineSpecification(int id){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from line_specification where doorType_id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(LineSpecification.class)
+                .setParameter("id", id);
+        List<LineSpecification> list = query.list();
+
+        session.close();
+
+        return list;
+    }
+
 }
