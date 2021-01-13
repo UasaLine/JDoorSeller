@@ -1,6 +1,6 @@
 package com.jds.controller;
 
-import com.jds.model.orderPrint.OrderPrint;
+import com.jds.model.orders.print.OrderPrint;
 import com.jds.model.PrintAppToTheOrder;
 import com.jds.service.OrderDiscountService;
 import com.jds.service.OrderService;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;

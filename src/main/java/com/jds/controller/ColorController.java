@@ -2,7 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
 import com.jds.model.image.ColorPicture;
-import com.jds.model.BackResponse.ResponseAction;
+import com.jds.model.backResponse.ResponseAction;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;

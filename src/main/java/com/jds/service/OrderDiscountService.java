@@ -2,7 +2,7 @@ package com.jds.service;
 
 import com.jds.dao.entity.OrderDiscount;
 import com.jds.dao.repository.OrderDiscountRepository;
-import com.jds.model.orderPrint.OrderDiscounts;
+import com.jds.model.orders.OrderDiscounts;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

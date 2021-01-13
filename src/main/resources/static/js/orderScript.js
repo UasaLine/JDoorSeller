@@ -100,7 +100,7 @@ jQuery("document").ready(function () {
 
     function getOrderDiscount() {
         $.ajax({
-            url: location.origin + "/orderDiscounts",
+            url: location.origin + "/orderDiscounts/",
             data: {orderId: orderId},
             dataType: "json",
             success: function (data) {

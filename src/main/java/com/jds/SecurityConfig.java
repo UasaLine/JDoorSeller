@@ -1,6 +1,5 @@
 package com.jds;
 
-import com.jds.model.Role;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

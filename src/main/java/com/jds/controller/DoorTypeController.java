@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.DoorClass;
-import com.jds.model.modelEnum.PriceGroups;
+import com.jds.model.enumClasses.PriceGroups;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

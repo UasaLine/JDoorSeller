@@ -584,7 +584,7 @@ jQuery("document").ready(function () {
 //--------------------------------------
 
     function toOrder() {
-        location.href = "order?orderId=" + orderId;
+        location.href = location.origin + '/pages/orders/' + orderId;
     }
 
     function displayPrice() {

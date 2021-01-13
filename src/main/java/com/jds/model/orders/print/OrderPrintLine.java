@@ -1,6 +1,7 @@
-package com.jds.model.orderPrint;
+package com.jds.model.orders.print;
 
 import com.jds.dao.entity.DoorEntity;
+import com.jds.model.orders.OrderDiscounts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

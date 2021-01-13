@@ -1,6 +1,4 @@
-package com.jds.model.modelEnum;
-
-import jdk.nashorn.internal.runtime.ParserException;
+package com.jds.model.enumClasses;
 
 import java.util.ArrayList;
 import java.util.List;

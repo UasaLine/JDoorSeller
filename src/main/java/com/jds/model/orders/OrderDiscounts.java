@@ -1,4 +1,4 @@
-package com.jds.model.orderPrint;
+package com.jds.model.orders;
 
 import com.jds.dao.entity.OrderDiscount;
 import lombok.Getter;

@@ -2,10 +2,14 @@ package com.jds.controller;
 
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
-import com.jds.model.BackResponse.OrderResponse;
-import com.jds.model.BackResponse.Response;
+import com.jds.model.backResponse.OrderResponse;
+import com.jds.model.backResponse.Response;
 import com.jds.model.Exeption.ResponseException;
-import com.jds.model.modelEnum.OrderStatus;
+import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.orders.OrderParamsDto;
+import com.jds.model.orders.filter.OrderFilterFactory;
+import com.jds.model.orders.sort.OrderSortFactory;
+import com.jds.model.orders.sort.OrderSortField;
 import com.jds.service.OrderService;
 import com.jds.service.UserServ;
 import org.slf4j.Logger;
@@ -23,12 +27,14 @@ import java.util.List;
 
 @Controller
 public class OrderController {
-
-
     @Autowired
     private UserServ userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderSortFactory sortFactory;
+    @Autowired
+    private OrderFilterFactory filterFactory;
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @GetMapping(value = "/pages/orders")
@@ -61,7 +67,25 @@ public class OrderController {
         return "order";
     }
 
+    @GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @ResponseBody
+    public List<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort,
+                                     @RequestParam(required = false) OrderStatus status,
+                                     @RequestParam(required = false) String partner,
+                                     @RequestParam(required = false) String ofDate,
+                                     @RequestParam(required = false) String toDate) {
+
+        OrderParamsDto params = OrderParamsDto.builder()
+                .sorter(sortFactory.sorter(sort))
+                .filter(filterFactory.filter(status, partner, ofDate, toDate))
+                .build();
+
+        return orderService.getOrders(params);
+    }
+
     @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
     public DoorOrder getOrder(@PathVariable String id) {
         return orderService.getOrder(id);
@@ -74,24 +98,16 @@ public class OrderController {
         return orderService.checkAccessAndSave(order);
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String deleteOrder(@PathVariable String id) {
-
-        return orderService.deleteOrder(id);
-    }
-
-    @Secured("ROLE_ONE_C")
     @PostMapping(value = "/loading/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ONE_C")
     @ResponseBody
-    public List<DoorOrder> getOrders() {
+    public List<DoorOrder> getToWorkOrders() {
 
         return orderService.getOrders(OrderStatus.TO_WORK);
     }
 
-    @Secured("ROLE_ONE_C")
     @PostMapping(value = "/orders/{orderId}/statuses/{status}")
+    @Secured("ROLE_ONE_C")
     @ResponseBody
     public Response setOrdersStatus(@PathVariable String orderId,
                                     @PathVariable String status) throws ResponseException {
@@ -108,8 +124,8 @@ public class OrderController {
         }
     }
 
-    @Secured("ROLE_ONE_C")
     @PostMapping(value = "/orders/{orderId}/release/{date}")
+    @Secured("ROLE_ONE_C")
     @ResponseBody
     public Response setOrdersReleaseDate(@PathVariable String orderId,
                                          @PathVariable String date) throws ResponseException {
@@ -124,5 +140,13 @@ public class OrderController {
         } catch (ParseException | IllegalArgumentException e) {
             throw new ResponseException(e.getMessage());
         }
+    }
+
+    @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @ResponseBody
+    public String deleteOrder(@PathVariable String id) {
+
+        return orderService.deleteOrder(id);
     }
 }

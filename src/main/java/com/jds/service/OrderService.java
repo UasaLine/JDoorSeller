@@ -4,9 +4,12 @@ import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
-import com.jds.model.BackResponse.OrderResponse;
+import com.jds.model.backResponse.OrderResponse;
 import com.jds.model.PrintAppToTheOrder;
-import com.jds.model.modelEnum.OrderStatus;
+import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.orders.OrderParamsDto;
+import com.jds.model.orders.filter.OrderFilter;
+import com.jds.model.orders.sort.OrderSorter;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,11 +44,11 @@ public class OrderService {
             orders = dAO.getOrdersByUser(user);
         }
 
-        orders.stream()
-                .peek((order) -> clearNonSerializingFields(order))
-                .collect(Collectors.toList());
-
         return orders;
+    }
+
+    public List<DoorOrder> getOrders(OrderParamsDto params) {
+        return dAO.getOrders(params.getSorter());
     }
 
     public List<DoorOrder> getOrders(OrderStatus status) {
@@ -70,6 +73,11 @@ public class OrderService {
     public List<DoorOrder> getOrders(@NonNull String userId) {
 
         UserEntity user = userService.getUser(userId);
+        return getOrders(user);
+    }
+
+    public List<DoorOrder> getOrders(UserEntity user) {
+
         List<DoorOrder> orders;
 
         if (user != null) {
@@ -84,22 +92,24 @@ public class OrderService {
         return orders;
     }
 
+
     public DoorOrder getOrder(String id) {
 
         int intId = Integer.parseInt(id);
         return getOrder(intId);
-
     }
 
     public DoorOrder getOrder(int id) {
 
+        DoorOrder order;
         if (id == 0) {
-            return new DoorOrder();
+            order = new DoorOrder();
+        } else {
+            order = dAO.getOrder(id);
         }
-        DoorOrder order = dAO.getOrder(id);
         order.setStatusList(OrderStatus.statusList(order.getStatus()));
 
-        return clearNonSerializingFields(order);
+        return order;
     }
 
     public DoorOrder checkStatusAndSave(@NonNull DoorOrder order) {
@@ -136,8 +146,6 @@ public class OrderService {
     }
 
     public static DoorOrder clearNonSerializingFields(DoorOrder order) {
-
-        //order.getSeller().setOrders(null);
 
         List<DoorEntity> doors = order.getDoors();
         for (DoorEntity door : doors) {

@@ -1,4 +1,4 @@
-package com.jds.model.BackResponse;
+package com.jds.model.backResponse;
 
 import com.jds.dao.entity.DoorOrder;
 import lombok.Getter;

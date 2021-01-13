@@ -3,14 +3,13 @@ package com.jds.dao.entity;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.SerializingFields;
-import com.jds.model.modelEnum.PeepholePosition;
+import com.jds.model.enumClasses.PeepholePosition;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter

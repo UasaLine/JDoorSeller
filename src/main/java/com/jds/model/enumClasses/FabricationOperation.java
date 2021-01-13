@@ -1,4 +1,4 @@
-package com.jds.model.modelEnum;
+package com.jds.model.enumClasses;
 
 public enum FabricationOperation {
     METAL_CUTTING,

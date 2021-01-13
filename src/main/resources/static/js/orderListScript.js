@@ -1,16 +1,17 @@
+let orders;
+
+
 jQuery("document").ready(function () {
 
     let currentId = 0;
 
-    displayAdminAndUserField();
+    fillOrderList();
 
-    colorizeTheLines();
-
-    $("tr").on("dblclick", function () {
-        getOrder($(this).children(".id").text());
+    $("table").on("dblclick", 'tr', function () {
+        toOrder($(this).children(".id").text());
     });
 
-    $("tr").on("click", function () {
+    $("table").on("click", 'tr', function () {
         currentId = $(this).children(".id").text();
         oneEnableAllDisable(this);
     });
@@ -24,10 +25,10 @@ jQuery("document").ready(function () {
     });
 
     $("#addOrder").on("click", function () {
-        location.href = "order";
+        location.href = location.origin + "/pages/orders/0";
     });
 
-    function getOrder(orderId) {
+    function toOrder(orderId) {
         location.pathname = '/pages/orders/' + orderId;
     }
 
@@ -82,5 +83,48 @@ jQuery("document").ready(function () {
                 $(colorFlag[i]).addClass("greenFlag");
             }
         }
+    }
+
+    function fillOrderList() {
+        $.ajax({
+            type: "GET",
+            url: location.origin + '/orders',
+            dataType: "json",
+            success: function (data) {
+                orders = data;
+                orders.forEach(function (item, i, arr) {
+                    addLine(item, i, arr);
+                });
+                displayAdminAndUserField();
+                colorizeTheLines();
+            },
+            error: function (data) {
+                alert("!!!заказы получить не удалось error:");
+            },
+        });
+    }
+
+    function addLine(order, i, arr) {
+        $("<tr>")
+            .attr('id', i)
+            .appendTo('.Table');
+
+        const line = '#' + i;
+
+        addCell(order.sellerOrderId, 'seller_id', line);
+        addCell(order.orderId, 'id ghost accessAdmin', line);
+        addCell(order.status, 'colorFlag', line);
+        addCell(order.partner, '', line);
+        addCell(order.data, '', line);
+        addCell(order.releasDate, '', line);
+        addCell(order.totalQuantity, '', line);
+        addCell(order.totalAmount, '', line);
+    }
+
+    function addCell(text, className, line) {
+        $("<td>")
+            .attr('class', className)
+            .text(text)
+            .appendTo(line);
     }
 });

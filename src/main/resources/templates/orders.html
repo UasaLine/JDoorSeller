@@ -164,18 +164,6 @@
                         <th>Кол-во</th>
                         <th>Сумма</th>
                     </tr>
-
-                    <tr th:each="order : ${orders}">
-                        <td class="seller_id"  th:utext="${order.sellerOrderId}">..</td>
-                        <td class="id ghost accessAdmin"  th:utext="${order.orderId}">..</td>
-                        <td class="colorFlag" th:utext="${order.status}">..</td>
-                        <td th:utext="${order.partner}">..</td>
-                        <td th:utext="${order.data}">..</td>
-                        <td th:utext="${order.releasDate}">..</td>
-                        <td th:utext="${order.totalQuantity}">..</td>
-                        <td th:utext="${order.totalAmount}">..</td>
-
-                    </tr>
                 </table>
             </div>
 

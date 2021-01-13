@@ -7,7 +7,7 @@ import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
-import com.jds.model.modelEnum.TypeOfFurniture;
+import com.jds.model.enumClasses.TypeOfFurniture;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

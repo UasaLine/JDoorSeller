@@ -4,16 +4,13 @@ import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
-import com.jds.model.image.Image;
-import com.jds.model.modelEnum.FabricationOperation;
-import com.jds.model.modelEnum.PeepholePosition;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
+import com.jds.model.enumClasses.PeepholePosition;
+import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
