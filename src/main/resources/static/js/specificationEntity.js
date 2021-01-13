@@ -35,7 +35,7 @@ jQuery("document").ready(function () {
 
     $("#delete").on("click", function () {
         $.ajax({
-            url: "" + getIdFromUrl(),
+            url: location.origin + "/specifications/" + getIdFromUrl(),
             method: "DELETE",
             dataType: "json",
             success: function (data) {
@@ -49,7 +49,7 @@ jQuery("document").ready(function () {
 
     function deleteLineSpecification() {
         $.ajax({
-            url: "line/" + selectedLineId,
+            url: location.origin + "/specification/line/" + selectedLineId,
             method: "DELETE",
             success: function (data) {
             },
@@ -68,7 +68,7 @@ jQuery("document").ready(function () {
         let specification = JSON.stringify(specificationEtity);
 
         $.ajax({
-            url: "item",
+            url: location.origin + "/specifications",
             method: "PUT",
             contentType: "application/json",
             data: specification,
@@ -99,7 +99,7 @@ jQuery("document").ready(function () {
     }
 
     function toList() {
-        location.pathname = "specificationList";
+        location.pathname = "pages/specifications";
     }
 
     function searchDoorType(doorClassId) {
@@ -138,7 +138,7 @@ jQuery("document").ready(function () {
 
     function getSpecificationEtity() {
         $.ajax({
-            url: "item/" + getIdFromUrl(),
+            url: location.origin + "/specifications/" + getIdFromUrl(),
             dataType: "json",
             success: function (data) {
                 specificationEtity = data;

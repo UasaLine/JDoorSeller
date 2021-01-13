@@ -36,7 +36,7 @@ jQuery("document").ready(function () {
     });
 
     function getItem() {
-        location.href = location.origin + "/specification/" + id;
+        location.href = location.origin + "/pages/specifications/" + id;
 }
 
     function getFilterByIdScpecificationTypeFromUrl() {
@@ -75,6 +75,25 @@ jQuery("document").ready(function () {
                 alert("error: request");
             },
         });
+    });
+
+    function deleteLineSpecification() {
+        $.ajax({
+            url: location.origin + "/specification/line/" + line_id,
+            method: "DELETE",
+            success: function (data) {
+                getItem();
+            },
+            error: function (data) {
+                alert("!ERROR: елемнет удалить не удалось:");
+            },
+        });
+    }
+
+    $("#delete").click(function () {
+        if (line_id != "0"){
+            deleteLineSpecification();
+        }
     });
 
     function fillInLineSpecification() {

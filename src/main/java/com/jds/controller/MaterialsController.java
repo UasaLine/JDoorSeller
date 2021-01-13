@@ -58,7 +58,7 @@ public class MaterialsController {
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/specificationList")
+    @GetMapping(value = "/pages/specifications")
     public String getSpecificationListPage(Model model) throws Exception {
 
         List<SpecificationEntity> list = service.getLineSpecification();
@@ -66,35 +66,29 @@ public class MaterialsController {
         return "specificationList";
     }
 
-    @GetMapping(value = "/specification/{id}")
+    @GetMapping(value = "/pages/specifications/{id}")
     public String getSpecificationPage(@PathVariable String id) throws Exception {
 
         return "specificationEntity";
     }
 
-    @PutMapping(value = "/specification/item", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SpecificationEntity saveSpecificationEntity(@RequestBody SpecificationEntity specificationEntity) {
 
-        if (specificationEntity.getLineSpecifications().size() != 0){
-            for (LineSpecification lineSpecification : specificationEntity.getLineSpecifications()){
-                lineSpecification.setSpecification(specificationEntity);
-                lineSpecification.getSpecification().setLineSpecifications(null);
-            }
-        }
         service.saveSpecificationEntity(specificationEntity);
 
         return specificationEntity;
     }
 
-    @GetMapping(value = "/specification/item/{id}")
+    @GetMapping(value = "/specifications/{id}")
     @ResponseBody
     public SpecificationEntity getSpecificationEntity (@PathVariable String id) {
 
         return service.getSpecificationEntity(id);
     }
 
-    @DeleteMapping(value = "/specification/{id}")
+    @DeleteMapping(value = "/specifications/{id}")
     @ResponseBody
     public ResponseAction deleteSpecification(@PathVariable String id) {
 

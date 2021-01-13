@@ -94,6 +94,13 @@ public class MaterialsService {
 
     public SpecificationEntity saveSpecificationEntity(@NonNull SpecificationEntity specificationEntity) {
 
+        if (specificationEntity.getLineSpecifications().size() != 0){
+            for (LineSpecification lineSpecification : specificationEntity.getLineSpecifications()){
+                lineSpecification.setSpecification(specificationEntity);
+                lineSpecification.getSpecification().setLineSpecifications(null);
+            }
+        }
+
         return materialsDao.saveSpecificationEntity(specificationEntity);
     }
 

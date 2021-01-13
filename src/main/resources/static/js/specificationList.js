@@ -8,14 +8,11 @@ jQuery("document").ready(function () {
     $("#deletLine").on("click", function () {
         if (curreiId !== 0) {
             $.ajax({
-                url: "specification/" + curreiId,
+                url: location.origin + "/specifications/" + curreiId,
                 method: "DELETE",
                 dataType: "json",
                 success: function (data) {
-
-                        location.pathname = "/specificationList";
-
-
+                    location.pathname = "/pages/specifications";
                 },
                 error: function (data) {
                     alert("!ERROR: елемнет удалить не удалось:");
@@ -31,7 +28,7 @@ jQuery("document").ready(function () {
     });
 
     $("#addLine").click(function () {
-        location.pathname = "/specification/0";
+        location.href = location.origin + "/pages/specifications/0";
     });
 
     $("#deletLine").click(function () {
@@ -39,7 +36,7 @@ jQuery("document").ready(function () {
     });
 
     function getItem(id) {
-        location.href = "specification/" + id;
+        location.href = location.origin + "/pages/specifications/" + id;
     }
 
     function oneEnableAllDisable(item) {
