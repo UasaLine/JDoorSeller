@@ -1,6 +1,7 @@
-package com.jds.model.orderPrint;
+package com.jds.model.orders.print;
 
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
+import com.jds.model.orders.OrderDiscounts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,8 +24,8 @@ public class OrderPrint {
     private int totalQuantity;
     private List<OrderPrintLine> doorsLine;
 
-    public OrderPrint(DoorsОrder order, OrderDiscounts ordersDiscounts) {
-        this.order_id = order.getOrder_id();
+    public OrderPrint(DoorOrder order, OrderDiscounts ordersDiscounts) {
+        this.order_id = order.getOrderId();
         this.data = order.getData();
         this.company = order.getCompany();
         this.partner = order.getPartner();

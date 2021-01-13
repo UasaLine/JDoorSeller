@@ -1,10 +1,9 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.DoorEntity;
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.LineSpecification;
-import com.jds.service.DoorServ;
-import com.jds.service.MaineService;
+import com.jds.service.DoorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,61 +16,58 @@ import java.util.List;
 public class DoorController {
 
     @Autowired
-    private DoorServ service;
-    @Autowired
-    private MaineService maineService;
+    private DoorService service;
 
-    @GetMapping(value = "/calculation")
+    @GetMapping(value = "/doors/{id}/page")
     public String calculationPage(Model model,
                                   @RequestParam(required = false) String orderId,
-                                  @RequestParam(required = false) String id,
-                                  @RequestParam(required = false) String typid) throws Exception {
+                                  @PathVariable String id,
+                                  @RequestParam(required = false) String typeid) {
+
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
-        model.addAttribute("typid", typid);
+        model.addAttribute("typid", typeid);
         return "calculation";
     }
 
-    @GetMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/doors/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity getDoor(@RequestParam(required = false, defaultValue = "0") String id,
+    public DoorEntity getDoor(@PathVariable String id,
                               @RequestParam(required = false, defaultValue = "0") String orderId,
-                              @RequestParam(required = false, defaultValue = "0") String typid) throws Exception {
+                              @RequestParam(required = false, defaultValue = "0") String typeId) {
 
         return service.getDoor(Integer.parseInt(id),
                 Integer.parseInt(orderId),
-                Integer.parseInt(typid));
+                Integer.parseInt(typeId));
     }
 
 
-    @PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/doors/price", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity calculateTheDoor(@RequestBody DoorEntity door) throws Exception {
+    public DoorEntity getPrice(@RequestBody DoorEntity door) {
 
-        return service.calculateTheDoor(door);
-
+        return service.calculate(door);
     }
 
-    @PostMapping(value = "/saveDoor", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/doors", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity saveDoor(Model model, @RequestBody DoorEntity door) throws Exception {
+    public DoorEntity saveDoor(@RequestBody DoorEntity door) {
 
         return service.saveDoor(door);
-
     }
 
-    @DeleteMapping(value = "/door", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/doors/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorsОrder deleteOrder(Model model,
-                                  @RequestParam(required = false) String orderId,
-                                  @RequestParam(required = false) String id) throws Exception {
+    public DoorOrder deleteOrder(
+            @RequestParam(required = false) String orderId,
+            @PathVariable String id) {
 
         return service.deleteDoorFromOrder(id, orderId);
     }
 
     @PostMapping(value = "/doorSpec", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) throws Exception {
+    public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) {
 
         return service.getSpecificationByDoorId(doorId);
     }

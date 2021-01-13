@@ -7,11 +7,14 @@ import com.jds.dao.repository.*;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.ShortTemplate;
-import com.jds.model.modelEnum.TypeOfFurniture;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
+import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,19 +31,20 @@ public class TemplateService {
     private ColorRepository colorDao;
     @Autowired
     private FurnitureRepository furnitureDao;
+    private Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
     public List<ShortTemplate> getTemplateList() {
 
         List<DoorType> list = mainDAO.getDoorTypeListFromLimitTable();
         return list.stream()
-                .map(type -> new ShortTemplate(type))
+                .map(ShortTemplate::new)
                 .collect(Collectors.toList());
     }
 
     public DoorTemplate getDoorTemplate(@NonNull String doorTypeId) {
 
         return DoorTemplate.builder()
-                .template(getTemplateFromLimits(doorTypeId))
+                .template(getTemplate(doorTypeId))
                 .restriction(getRestrictionOfSelectionFields(doorTypeId))
                 .build();
     }
@@ -86,6 +90,9 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.HANDLE, restriction.getHandle(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOCK_CYLINDER, restriction.getLockCylinder(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.PEEPHOLE, restriction.getPeephole(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.PEEPHOLE_POSITION, restriction.getPeepholePosition(), limitList);
+
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR, restriction.getTopInLockDecor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR, restriction.getTopOutLockDecor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR, restriction.getLowerInLockDecor(), limitList);
@@ -105,7 +112,7 @@ public class TemplateService {
 
     }
 
-    public RestrictionOfSelectionFields getTemplateFromLimits(@NonNull String doorTypeId) {
+    public RestrictionOfSelectionFields getTemplate(@NonNull String doorTypeId) {
 
         int intDoorTypeId = Integer.parseInt(doorTypeId);
 
@@ -116,7 +123,7 @@ public class TemplateService {
 
         limitList.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
-                .forEach((lim) -> RestrictionBuild(restriction, lim));
+                .forEach(lim -> restrictionBuild(restriction, lim));
         restriction.addShieldGlass(colorList);
         return restriction;
     }
@@ -146,6 +153,9 @@ public class TemplateService {
                 .addCloser(furnitureDao.getFurniture(TypeOfFurniture.CLOSER))
                 .addEndDoorLock(furnitureDao.getFurniture(TypeOfFurniture.END_DOOR_LOCK))
 
+                .addPeephole(furnitureDao.getFurniture(TypeOfFurniture.PEEPHOLE))
+                .addPeepholePosition()
+
                 .addGlass(furnitureDao.getFurniture(TypeOfFurniture.TYPE_GLASS))
                 .addToning(furnitureDao.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
                 .addArmor(furnitureDao.getFurniture(TypeOfFurniture.ARMOR_GLASS_PELLICLE))
@@ -156,112 +166,79 @@ public class TemplateService {
                 .addLowerOutLockDecor(furnitureDao.getFurniture(TypeOfFurniture.LOWER_OUT_LOCK_DECOR));
     }
 
-    public void saveAsLimitationDoor(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
-                                     @NonNull List<LimitationDoor> newlimList, List<LimitationDoor> oldLimitList) {
+    public void saveAsLimitationDoor(@NonNull DoorType doorType,
+                                     @NonNull TypeOfLimitionDoor type,
+                                     @NonNull List<LimitationDoor> newlimList,
+                                     List<LimitationDoor> oldLimitList) {
 
-
-        newlimList.stream().peek((lim) -> lim.setFildForSaveToDataBase(doorType, type, oldLimitList))
-                .forEach((lim) -> mainDAO.saveOrUpdateLimitationDoor(lim));
+        newlimList.stream()
+                .peek(lim -> lim.setFildForSaveToDataBase(doorType, type, oldLimitList))
+                .forEach(lim -> mainDAO.saveOrUpdateLimitationDoor(lim));
 
     }
 
     public void deleteAllDoorTemplate(@NonNull List<LimitationDoor> limitList) {
 
 
-        limitList.stream().forEach((limit) -> mainDAO.deleteLimit(limit));
+        limitList.stream().forEach(limit -> mainDAO.deleteLimit(limit));
 
     }
 
-    public void RestrictionBuild(@NonNull RestrictionOfSelectionFields restriction, @NonNull LimitationDoor lim) {
+    public void restrictionBuild(@NonNull RestrictionOfSelectionFields restriction, @NonNull LimitationDoor lim) {
 
-        if (TypeOfLimitionDoor.METAL_THICKNESS == lim.getTypeSettings()) {
-            restriction.addMetal(lim);
+        TypeOfLimitionDoor typeOfLimitionDoor = lim.getTypeSettings();
 
-        } else if (TypeOfLimitionDoor.WIDTH == lim.getTypeSettings()) {
-            restriction.addWidthDoor(lim);
-        } else if (TypeOfLimitionDoor.HEIGHT == lim.getTypeSettings()) {
-            restriction.addHeightDoor(lim);
+        switch (typeOfLimitionDoor) {
+            case METAL_THICKNESS: restriction.addMetal(lim);break;
 
-        } else if (TypeOfLimitionDoor.WIDTH_ACTIVE_LEAF == lim.getTypeSettings()) {
-            restriction.addWidthDoorLeaf(lim);
-        } else if (TypeOfLimitionDoor.HEIGHT_FANLIGHT == lim.getTypeSettings()) {
-            restriction.addHeightDoorFanlight(lim);
+            case WIDTH: restriction.addWidthDoor(lim);break;
+            case HEIGHT: restriction.addHeightDoor(lim);break;
+            case WIDTH_ACTIVE_LEAF: restriction.addWidthDoorLeaf(lim);break;
+            case HEIGHT_FANLIGHT: restriction.addHeightDoorFanlight(lim);break;
+            case DEPTH: restriction.addDeepnessDoor(lim);break;
+            case LEAF_THICKNESS: restriction.addThicknessDoorLeaf(lim);break;
+            case DOORSTEP: restriction.addDoorstep(lim);break;
+            case STAINLESS_STEEL_DOORSTEP: restriction.addStainlessSteelDoorstep(lim);break;
 
-        } else if (TypeOfLimitionDoor.DEPTH == lim.getTypeSettings()) {
-            restriction.addDeepnessDoor(lim);
-        } else if (TypeOfLimitionDoor.LEAF_THICKNESS == lim.getTypeSettings()) {
-            restriction.addThicknessDoorLeaf(lim);
+            case FIRST_SEALING_LINE: restriction.addFirstSealingLine(lim);break;
+            case SECOND_SEALING_LINE: restriction.addSecondSealingLine(lim);break;
+            case THIRD_SEALING_LINE: restriction.addThirdSealingLine(lim);break;
 
-        } else if (TypeOfLimitionDoor.DOORSTEP == lim.getTypeSettings()) {
-            restriction.addDoorstep(lim);
-        } else if (TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP == lim.getTypeSettings()) {
-            restriction.addStainlessSteelDoorstep(lim);
+            case TOP_DOOR_TRIM: restriction.addTopDoorTrim(lim);break;
+            case LEFT_DOOR_TRIM: restriction.addLeftDoorTrim(lim);break;
+            case RIGHT_DOOR_TRIM: restriction.addRightDoorTrim(lim);break;
+            case TOP_DOOR_TRIM_SIZE: restriction.addTopDoorTrimSize(lim);break;
+            case LEFT_DOOR_TRIM_SIZE: restriction.addLeftDoorTrimSize(lim);break;
+            case RIGHT_DOOR_TRIM_SIZE: restriction.addRightDoorTrimSize(lim);break;
 
-        } else if (TypeOfLimitionDoor.FIRST_SEALING_LINE == lim.getTypeSettings()) {
-            restriction.addFirstSealingLine(lim);
-        } else if (TypeOfLimitionDoor.SECOND_SEALING_LINE == lim.getTypeSettings()) {
-            restriction.addSecondSealingLine(lim);
-        } else if (TypeOfLimitionDoor.THIRD_SEALING_LINE == lim.getTypeSettings()) {
-            restriction.addThirdSealingLine(lim);
+            case COLOR_DOOR: restriction.addColors(lim);break;
+            case DESIGN_DOOR: restriction.addDesign(lim);break;
+            case SHIELD_COLOR: restriction.addShieldColor(lim);break;
+            case SHIELD_DESIGN: restriction.addShieldDesign(lim);break;
 
-        } else if (TypeOfLimitionDoor.TOP_DOOR_TRIM == lim.getTypeSettings()) {
-            restriction.addTopDoorTrim(lim);
-        } else if (TypeOfLimitionDoor.LEFT_DOOR_TRIM == lim.getTypeSettings()) {
-            restriction.addLeftDoorTrim(lim);
-        } else if (TypeOfLimitionDoor.RIGHT_DOOR_TRIM == lim.getTypeSettings()) {
-            restriction.addRightDoorTrim(lim);
+            case TOP_LOCK: restriction.addTopLock(lim);break;
+            case LOWER_LOCK: restriction.addLowerLock(lim);break;
+            case HANDLE: restriction.addHandle(lim);break;
+            case LOCK_CYLINDER: restriction.addLockCylinder(lim);break;
+            case TOP_IN_LOCK_DECOR: restriction.addTopInLockDecor(lim);break;
+            case TOP_OUT_LOCK_DECOR: restriction.addTopOutLockDecor(lim);break;
+            case LOWER_IN_LOCK_DECOR: restriction.addLowerInLockDecor(lim);break;
+            case LOWER_OUT_LOCK_DECOR: restriction.addLowerOutLockDecor(lim);break;
 
-        } else if (TypeOfLimitionDoor.TOP_DOOR_TRIM_SIZE == lim.getTypeSettings()) {
-            restriction.addTopDoorTrimSize(lim);
-        } else if (TypeOfLimitionDoor.LEFT_DOOR_TRIM_SIZE == lim.getTypeSettings()) {
-            restriction.addLeftDoorTrimSize(lim);
-        } else if (TypeOfLimitionDoor.RIGHT_DOOR_TRIM_SIZE == lim.getTypeSettings()) {
-            restriction.addRightDoorTrimSize(lim);
+            case CLOSER: restriction.addCloser(lim);break;
+            case END_DOOR_LOCK: restriction.addEndDoorLock(lim);break;
+            case PEEPHOLE: restriction.addPeephole(lim);break;
+            case PEEPHOLE_POSITION: restriction.addPeepholePosition(lim);break;
 
-        } else if (TypeOfLimitionDoor.COLOR_DOOR == lim.getTypeSettings()) {
-            restriction.addColors(lim);
-        } else if (TypeOfLimitionDoor.DESIGN_DOOR == lim.getTypeSettings()) {
-            restriction.addDesign(lim);
-        } else if (TypeOfLimitionDoor.SHIELD_COLOR == lim.getTypeSettings()) {
-            restriction.addShieldColor(lim);
-        } else if (TypeOfLimitionDoor.SHIELD_DESIGN == lim.getTypeSettings()) {
-            restriction.addShieldDesign(lim);
-
-        } else if (TypeOfLimitionDoor.TOP_LOCK == lim.getTypeSettings()) {
-            restriction.addTopLock(lim);
-        } else if (TypeOfLimitionDoor.LOWER_LOCK == lim.getTypeSettings()) {
-            restriction.addLowerLock(lim);
-        } else if (TypeOfLimitionDoor.HANDLE == lim.getTypeSettings()) {
-            restriction.addHandle(lim);
-        } else if (TypeOfLimitionDoor.LOCK_CYLINDER == lim.getTypeSettings()) {
-            restriction.addLockCylinder(lim);
-
-        } else if (TypeOfLimitionDoor.TOP_IN_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addTopInLockDecor(lim);
-        } else if (TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addTopOutLockDecor(lim);
-        } else if (TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addLowerInLockDecor(lim);
-        } else if (TypeOfLimitionDoor.LOWER_OUT_LOCK_DECOR == lim.getTypeSettings()) {
-            restriction.addLowerOutLockDecor(lim);
-
-        } else if (TypeOfLimitionDoor.CLOSER == lim.getTypeSettings()) {
-            restriction.addCloser(lim);
-        } else if (TypeOfLimitionDoor.END_DOOR_LOCK == lim.getTypeSettings()) {
-            restriction.addEndDoorLock(lim);
-        } else if (TypeOfLimitionDoor.TYPE_GLASS == lim.getTypeSettings()) {
-            restriction.addTypeDoorGlass(lim);
-        } else if (TypeOfLimitionDoor.TONING == lim.getTypeSettings()) {
-            restriction.addToning(lim);
-        } else if (TypeOfLimitionDoor.ARMOR == lim.getTypeSettings()) {
-            restriction.addArmor(lim);
-
-        } else if (TypeOfLimitionDoor.SIZE_COST_HEIGHT == lim.getTypeSettings()) {
-            restriction.addSizeCostHeight(lim);
-        } else if (TypeOfLimitionDoor.SIZE_COST_WIDTH == lim.getTypeSettings()) {
-            restriction.addSizeCostWidth(lim);
+            case TYPE_GLASS: restriction.addTypeDoorGlass(lim);break;
+            case TONING: restriction.addToning(lim);break;
+            case ARMOR: restriction.addArmor(lim);break;
+            case SIZE_COST_HEIGHT: restriction.addSizeCostHeight(lim);break;
+            case SIZE_COST_WIDTH: restriction.addSizeCostWidth(lim);break;
+            default:
+                logger.error("[restrictionBuild] typeOfLimitionDoor: {} - is not processed by the switch", typeOfLimitionDoor);
         }
-    }
+}
 
     public List<LimitationDoor> generateSizeDoor(@NonNull TypeOfLimitionDoor typeSettings) {
         List<LimitationDoor> size = new ArrayList<>();
@@ -288,13 +265,13 @@ public class TemplateService {
         return size;
     }
 
-    public static LimitationDoor getDefaultLine(List<LimitationDoor> list){
+    public static LimitationDoor getDefaultLine(List<LimitationDoor> list) {
         return list.stream()
                 .filter(line -> line.getDefaultValue() == 1)
                 .findFirst().orElse(new LimitationDoor());
     }
 
-    public static LimitationDoor getLineByItemId(List<LimitationDoor> list,int id){
+    public static LimitationDoor getLineByItemId(List<LimitationDoor> list, int id) {
         return list.stream()
                 .filter(line -> line.getItemId() == id)
                 .findFirst().orElse(new LimitationDoor());

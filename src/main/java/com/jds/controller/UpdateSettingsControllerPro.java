@@ -3,10 +3,12 @@ package com.jds.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jds.dao.repository.MainDAO;
+import com.jds.dao.repository.MaterialsRepository;
 import com.jds.dao.repository.MetalRepository;
 import com.jds.dao.entity.*;
 import com.jds.service.ColorService;
 import com.jds.service.MaineService;
+import com.jds.service.MaterialsService;
 import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,7 +25,13 @@ public class UpdateSettingsControllerPro {
     private MainDAO mainDAO;
 
     @Autowired
+    private MaterialsRepository materialsDAO;
+
+    @Autowired
     private MaineService service;
+
+    @Autowired
+    private MaterialsService materialsService;
 
     @Autowired
     private OrderService orderService;
@@ -178,7 +186,7 @@ public class UpdateSettingsControllerPro {
         ObjectMapper mapper = new ObjectMapper();
 
         SpecificationSetting setting = mapper.readValue(reader, SpecificationSetting.class);
-        service.saveSpecificationSetting(setting);
+        materialsService.saveSpecificationSetting(setting);
 
         return "jr";
     }
@@ -193,7 +201,7 @@ public class UpdateSettingsControllerPro {
         LineSpecification spec = mapper.readValue(reader, LineSpecification.class);
 
 
-        LineSpecification lineSpecification = mainDAO.saveLineSpecification(spec);
+        LineSpecification lineSpecification = materialsDAO.saveLineSpecification(spec);
 
         return "jr";
     }

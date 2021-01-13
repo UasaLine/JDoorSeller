@@ -1,7 +1,10 @@
 package com.jds.dao.repository;
 
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.orders.sort.OrderDateSorter;
+import com.jds.model.orders.sort.OrderSorter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,30 +23,40 @@ public class OrderDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<DoorsОrder> getOrders() {
+    public List<DoorOrder> getOrders() {
+        OrderSorter sorter = new OrderDateSorter(SideSqlSorting.DESC);
+        return getOrders(sorter);
+    }
+
+    public List<DoorOrder> getOrders(OrderSorter sorter) {
+
+        String sql = sorter.sort("select * from orders ");
 
         Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorOrder.class);
 
-        String sql = "select * from orders";
-        Query query = session.createSQLQuery(sql).addEntity(DoorsОrder.class);
-
-        List<DoorsОrder> list = query.list();
+        List<DoorOrder> list = query.list();
 
         session.close();
+
+        list.forEach(DoorOrder::clearNonSerializingFields);
 
         return list;
     }
 
-    public List<DoorsОrder> getOrdersByStatus(String status){
+    public List<DoorOrder> getOrdersByStatus(String status) {
 
         Session session = sessionFactory.openSession();
 
-        String sql = "select * from orders where status like :status";
+        String sql = "select * " +
+                "from orders " +
+                "where status like :status";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorsОrder.class)
+                .addEntity(DoorOrder.class)
                 .setParameter("status", status);
 
-        List<DoorsОrder> list = query.list();
+        List<DoorOrder> list = query.list();
 
         session.close();
 
@@ -51,16 +64,16 @@ public class OrderDAO {
 
     }
 
-    public List<DoorsОrder> getOrdersByUser(UserEntity user) {
+    public List<DoorOrder> getOrdersByUser(UserEntity user) {
 
         Session session = sessionFactory.openSession();
 
         String sql = "select * from orders where seller = :valId";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorsОrder.class)
-                .setParameter("valId",  user.getId());
+                .addEntity(DoorOrder.class)
+                .setParameter("valId", user.getId());
 
-        List<DoorsОrder> list = query.list();
+        List<DoorOrder> list = query.list();
 
         session.close();
 
@@ -68,44 +81,69 @@ public class OrderDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public DoorsОrder saveOrder(DoorsОrder Оrder) {
-
+    public DoorOrder saveOrder(DoorOrder order) {
+        if (order.getSellerOrderId() == 0) {
+            int nextSellerId = getNextSellerId(order.getSeller());
+            order.setSellerOrderId(nextSellerId);
+        }
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(Оrder);
+        session.saveOrUpdate(order);
 
-        return Оrder;
+        return order;
 
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteOrder(DoorsОrder order) {
+    public void deleteOrder(DoorOrder order) {
 
         Session session = sessionFactory.getCurrentSession();
         session.delete(order);
 
     }
 
-    public DoorsОrder getOrder(int id) {
+    public DoorOrder getOrder(int id) {
 
         Session session = sessionFactory.openSession();
 
         String sql;
         sql = "select * from orders where order_id = :log";
         Query query = session.createSQLQuery(sql)
-                .addEntity(DoorsОrder.class)
+                .addEntity(DoorOrder.class)
                 .setParameter("log", id);
-        List<DoorsОrder> list = query.list();
+        List<DoorOrder> list = query.list();
 
         session.close();
 
-        DoorsОrder оrder = null;
+        DoorOrder order = null;
         if (list.size() > 0) {
-            оrder = list.get(0);
+            order = list.get(0);
         }
 
-        return оrder;
+        order.clearNonSerializingFields();
+        return order;
     }
 
+    private int getNextSellerId(UserEntity seller) {
+        Session session = sessionFactory.openSession();
 
+        String sql = "select * " +
+                "from orders " +
+                "where seller = :sellerId " +
+                "ORDER BY seller_order_id DESC " +
+                "Limit 1";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorOrder.class)
+                .setParameter("sellerId", seller.getId());
+
+        List<DoorOrder> list = query.list();
+
+        int sellerId = 0;
+        if (list.size() > 0) {
+            sellerId = list.get(0).getSellerOrderId();
+        }
+        session.close();
+
+        return sellerId + 1;
+    }
 
 }

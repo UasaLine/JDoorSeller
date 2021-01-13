@@ -3,14 +3,12 @@ package com.jds.service;
 import com.jds.dao.repository.MainDAO;
 import com.jds.dao.entity.*;
 import com.jds.model.*;
-import com.jds.model.image.TypeOfDoorColor;
-import com.jds.model.modelEnum.PriceGroups;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
+import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.rmi.NotBoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,29 +69,15 @@ public class MaineService {
         return dAO.getDoorType(typeId);
     }
 
-    public List<DoorType> getTypeFromListById(List<DoorClass> DoorClassList, String classId) throws NotBoundException {
+    public List<DoorType> getTypesByClassId(@NonNull String classId) {
 
-        if (classId == null) {
-            classId = "1";
-        }
-        if (DoorClassList == null && DoorClassList.size() == 0) {
-            throw new NotBoundException("List DoorClassList empty!");
-        }
-        int intId = Integer.parseInt(classId);
+        int intClassId = Integer.parseInt(classId);
 
-        Optional<DoorClass> doorClass = DoorClassList.stream()
-                .filter((c) -> c.getId() == intId)
-                .findFirst();
+        DoorClass doorClass = dAO.getDoorClass(intClassId);
+        return doorClass.getDoorTypes().stream()
+                .sorted()
+                .collect(Collectors.toList());
 
-        if (doorClass.isPresent()) {
-            return doorClass.get().getDoorTypes();
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    public List<MaterialFormula> getMaterialFormulas() {
-        return dAO.getMaterialFormula();
     }
 
     public BendSetting saveBendSetting(BendSetting bendSetting) {
@@ -147,14 +131,14 @@ public class MaineService {
     public void saveAsLimitationDoorForColors(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
                                               List<LimitationDoor> colorList, List<LimitationDoor> oldLimitList) {
 
-        colorList.stream().forEach((color) -> dAO.saveOrUpdateLimitationDoor(color));
+        colorList.stream().forEach(color -> dAO.saveOrUpdateLimitationDoor(color));
 
     }
 
     public void saveAsLimitationDoorForFurniture(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
                                                  @NonNull List<DoorFurniture> furnitureList, List<LimitationDoor> oldLimitList) {
 
-        furnitureList.stream().forEach((furniture) -> dAO.saveOrUpdateLimitationDoor(LimitationDoor.getNewLimit(furniture, doorType, type, oldLimitList)));
+        furnitureList.stream().forEach(furniture -> dAO.saveOrUpdateLimitationDoor(LimitationDoor.getNewLimit(furniture, doorType, type, oldLimitList)));
 
     }
 
@@ -170,80 +154,17 @@ public class MaineService {
         return dAO.saveSalarySetting(setting);
     }
 
-    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
-        return dAO.saveSpecificationSetting(setting);
-    }
-
     public static int dooltranslateIntoInt(boolean value) {
-        if (value == true) {
+        if (value) {
             return 1;
         } else {
             return 0;
         }
     }
 
-    public Specification getSpecification(@NonNull String typeId) {
-        DoorType doorType = dAO.getDoorType(Integer.parseInt(typeId)).clearNonSerializingFields();
-        return Specification.builder()
-                .doorType(doorType)
-                .availableValues(dAO.getRawMaterials())
-                .lineSpecifications(getLineSpecification(doorType.getId()))
-                .build();
-    }
-
-    public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
-
-        List<LineSpecification> lineSpecificationList = dAO.getLineSpecification(DoorTypeId);
-        lineSpecificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
-        return lineSpecificationList;
-
-    }
-
-    public List<LineSpecification> saveSpecification(@NonNull Specification specification) {
-
-
-        List<LineSpecification> lineSpecInBase = dAO.getLineSpecification(specification.getDoorType().getId());
-
-        List<LineSpecification> lineSpecifications = specification.getLineSpecifications();
-        lineSpecifications.stream()
-                .peek((lineSpec) -> setIdLineSpecification(lineSpec, lineSpecInBase, specification.getAvailableValues()))
-                .forEach((lineSpec) -> dAO.saveLineSpecification(lineSpec));
-
-        lineSpecInBase.stream()
-                .forEach((lineSpec) -> dAO.deleteLineSpecification(lineSpec));
-
-        return lineSpecifications;
-    }
-
-    public LineSpecification setIdLineSpecification(@NonNull LineSpecification lineSpecification,
-                                                    @NonNull List<LineSpecification> oldLimitList,
-                                                    @NonNull List<RawMaterials> materials) {
-
-        int newId = 0;
-        if (oldLimitList.size() > 0) {
-            newId = oldLimitList.get(0).getId();
-            oldLimitList.remove(0);
-        }
-
-        for (RawMaterials material : materials) {
-            if (material.getName().equals(lineSpecification.getName())) {
-                lineSpecification.setMaterialId(material.getIdManufacturerProgram());
-            }
-        }
-
-        lineSpecification.setId(newId);
-
-        return lineSpecification;
-    }
-
-    public List<RawMaterials> getAllMaterials() {
-        return dAO.getRawMaterials();
-    }
-
-
     public String getClassId(@NonNull String typeId) {
 
-        if (typeId == "0") {
+        if ("0".equals(typeId)) {
             return "0";
         }
 
@@ -258,7 +179,7 @@ public class MaineService {
     }
 
 
-    public EnumSet<PriceGroups> getAllPriceGroup() {
+    public Set<PriceGroups> getAllPriceGroup() {
         return EnumSet.allOf(PriceGroups.class);
     }
 }

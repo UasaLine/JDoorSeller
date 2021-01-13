@@ -25,7 +25,7 @@ public class MainController {
     private UserServ userService;
 
     @GetMapping(value = "/")
-    public String updateDoorClass() {
+    public String getMainPage() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity principal = (UserEntity) authentication.getPrincipal();
@@ -33,7 +33,7 @@ public class MainController {
         if (principal.isAdmin()) {
             return "setting";
         }
-        return "redirect:orders";
+        return "redirect:/pages/orders";
     }
 
     @GetMapping(value = "/login")
@@ -58,53 +58,10 @@ public class MainController {
         return "doorClassList";
     }
 
-    @GetMapping(value = "/class/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<DoorClass> getDoorClassis(Model model) throws Exception {
-        return service.getDoorClass();
-    }
-
-    @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/specification")
-    public String getSpecificationPage(Model model) throws Exception {
-        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
-        return "specification";
-    }
-
-    @GetMapping(value = "/specificationbyid", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Specification getSpecification(@RequestParam(required = false) String typeId,
-                                          Model model) throws Exception {
-
-        return service.getSpecification(typeId);
-    }
-
-    @PostMapping(value = "/specification", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<LineSpecification> saveSpecification(@RequestBody Specification templateJSON) throws Exception {
-
-        return service.saveSpecification(templateJSON);
-
-    }
-
     @GetMapping(value = "/availableGroups")
     @ResponseBody
     public List<DoorClass> getAavailableDoorClass() throws Exception {
 
         return service.getDoorClass();
-
     }
-
-    @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/materials")
-    public String getMaterialPage() {
-        return "materialList";
-    }
-
-    @GetMapping(value = "/materialsList")
-    @ResponseBody
-    public List<RawMaterials> getAllMaterials() {
-        return service.getAllMaterials();
-    }
-
 }

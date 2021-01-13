@@ -1,4 +1,4 @@
-package com.jds.model.BackResponse;
+package com.jds.model.backResponse;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,16 +6,16 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class BackResponse {
+public class Response {
     private Boolean success;
     private String message;
 
-    public BackResponse(boolean success, String message) {
+    public Response(boolean success, String message) {
         this.success = success;
         this.message = message;
     }
 
-    public BackResponse() {
+    public Response() {
     }
 
 }

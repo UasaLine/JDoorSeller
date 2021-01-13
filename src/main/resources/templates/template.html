@@ -4,14 +4,14 @@
 <head>
     <title>door seller</title>
     <!-- Подключаем Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../css/bootstrap-4.3.1css/bootstrap.min.css">
 
-    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="../js/template/template.js"></script>
-    <script type="text/javascript" src="../js/template/size-cost-block.class.js"></script>
-    <script type="text/javascript" src="../js/template/validate.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/logoSett.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/displayCss.css"/>
+    <script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../js/template/template.js"></script>
+    <script type="text/javascript" src="../../js/template/size-cost-block.class.js"></script>
+    <script type="text/javascript" src="../../js/template/validate.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/displayCss.css"/>
 
 </head>
 <body>
@@ -19,7 +19,7 @@
 <!--header-->
 <div class="top_head">
     <div class="container-fluid" id="intro-dm">
-        <a th:href="@{/}"><img src="../images/Header_widht_1300_002 ltl.jpg"></a>
+        <a th:href="@{/}"><img src="../../images/Header_widht_1300_002 ltl.jpg"></a>
     </div>
 </div>
 
@@ -760,6 +760,38 @@
             </button>
 
             <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+
+                <!--peephole-->
+                <div id="peepholeDiv">
+                    <label for="peepholeSelect0">глазок:</label>
+                    <div class="row" id="peepholeLineDiv0">
+                        <div class="col-md-6 mb-3" id="peepholeLineSelect0">
+                            <select class="form-control peepholeSelect" id="peepholeSelect0" data="0">
+                            </select>
+                        </div>
+                        <div class="custom-control custom-switch" id="peepholeLineSwitch0">
+                            <input type="checkbox" class="custom-control-input peepholeLineCheckbox"
+                                   id="peepholeLineCheckbox0">
+                            <label class="custom-control-label" for="peepholeLineCheckbox0">default</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--peepholePosition-->
+                <div id="peepholePositionDiv">
+                    <label for="peepholeSelect0">позиция глазка на двреи:</label>
+                    <div class="row" id="peepholeLinePositionDiv0">
+                        <div class="col-md-6 mb-3" id="peepholePositionLineSelect0">
+                            <select class="form-control peepholePositionSelect" id="peepholePositionSelect0" data="0">
+                            </select>
+                        </div>
+                        <div class="custom-control custom-switch" id="peepholePositionLineSwitch0">
+                            <input type="checkbox" class="custom-control-input peepholePositionLineCheckbox"
+                                   id="peepholePositionLineCheckbox0">
+                            <label class="custom-control-label" for="peepholePositionLineCheckbox0">default</label>
+                        </div>
+                    </div>
+                </div>
 
                 <!--closer-->
                 <div id="closerDiv">

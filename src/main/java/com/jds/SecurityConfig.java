@@ -1,6 +1,5 @@
 package com.jds;
 
-import com.jds.model.Role;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/bootstrap-4.3.1css/*", "/js/*",
                         "/js/bootstrap-4.3.1js/*",
                         "/images/*", "/images/background/*",
-                        "/v2/api-docs","/swagger-ui.html","/swagger-resources/**",
+                        "/v2/api-docs", "/swagger-ui.html", "/swagger-resources/**",
                         "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

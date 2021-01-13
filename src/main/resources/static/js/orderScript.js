@@ -4,14 +4,13 @@ let order;
 jQuery("document").ready(function () {
 
     //getInstans order
-    var orderId = $("#order_id").text();
-    var currentDoorId = 0;
+    let orderId = getOrderIdFromDom();
+    let currentDoorId = 0;
 
     let buttonsManager = new ButtonsManager(
         'different_availability', 'CALC',
         'ready_availability', 'CLOSED');
 
-    setOrderId("Заказ");
     getOrderDiscount();
     getOrder();
 
@@ -45,7 +44,6 @@ jQuery("document").ready(function () {
     $("#delete").on("click", function () {
         deleteDoor();
         deleteIfExist();
-        //deleteOrderDiscount();
     });
 
     $("#deleteOrder").on("click", function () {
@@ -65,7 +63,7 @@ jQuery("document").ready(function () {
         $(".order_button_div").addClass("ghost");
         $(".orderToFactory_button_div").removeClass("ghost");
         $("#totalProfit").removeClass("ghost");
-        setOrderId("Заказ на завод");
+        setOrderNumberToHeader("Заказ на завод", order.sellerOrderId);
         fillOutOfTheObjectToFactory();
     });
 
@@ -73,7 +71,7 @@ jQuery("document").ready(function () {
         $(".order_button_div").removeClass("ghost");
         $(".orderToFactory_button_div").addClass("ghost");
         $("#totalProfit").addClass("ghost");
-        setOrderId("Заказ");
+        setOrderNumberToHeader("Заказ");
         fillOutOfTheObject();
     });
 
@@ -102,7 +100,7 @@ jQuery("document").ready(function () {
 
     function getOrderDiscount() {
         $.ajax({
-            url: "orderDiscounts",
+            url: location.origin + "/orderDiscounts/",
             data: {orderId: orderId},
             dataType: "json",
             success: function (data) {
@@ -110,24 +108,24 @@ jQuery("document").ready(function () {
                 orderDiscountList = data;
             },
             error: function (data) {
-                alert("error:" + data);
+                alert("!! error: не удалось получить скидки (");
             },
         });
     }
 
     function getOrder() {
         $.ajax({
-            url: "getOrder",
-            data: {orderId: orderId},
+            url: location.origin + '/orders/'+orderId,
             dataType: "json",
             success: function (data) {
                 order = data;
+                setOrderNumberToHeader("Заказ", order.sellerOrderId);
                 fillOutOfTheObject();
 
                 buttonsManager.turnOff(order.status);
             },
             error: function (data) {
-                alert("error:" + data);
+                alert("!! error: данные заказа получить не удалось (");
             },
         });
     }
@@ -262,17 +260,17 @@ jQuery("document").ready(function () {
     }
 
     function addDoor(orderId) {
-        location.href = "calculation?orderId=" + orderId;
+        location.href = location.origin + "/doors/0/page?orderId=" + orderId;
     }
 
     function saveOrder(add, close) {
         fillObject();
 
-        var strJSON = JSON.stringify(order);
+        let strJSON = JSON.stringify(order);
 
         $.ajax({
             type: "POST",
-            url: "order",
+            url: location.origin + "/orders",
             contentType: "application/json",
             data: strJSON,
             dataType: "json",
@@ -301,7 +299,7 @@ jQuery("document").ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "orderDiscount",
+            url: location.origin + "/orderDiscount",
             contentType: "application/json",
             data: strJSON,
             dataType: "json",
@@ -316,7 +314,7 @@ jQuery("document").ready(function () {
     }
 
     function toClose() {
-        location.href = "orders";
+        location.pathname = "/pages/orders";
     }
 
     function oneEnableAllDisable(item) {
@@ -330,7 +328,7 @@ jQuery("document").ready(function () {
     }
 
     function changeDoor() {
-        location.href = "calculation?orderId=" + orderId + "&id=" + currentDoorId;
+        location.href = location.origin + '/doors/' + currentDoorId + "/page?orderId=" + orderId;
     }
 
     function deleteIfExist() {
@@ -347,7 +345,7 @@ jQuery("document").ready(function () {
     function deleteOrderDiscount(orderDiscountId) {
         $.ajax({
             type: "DELETE",
-            url: "orderDiscount/" + orderDiscountId,
+            url: location.origin + "/orderDiscount/" + orderDiscountId,
             dataType: "json",
             success: function (data) {
 
@@ -361,7 +359,7 @@ jQuery("document").ready(function () {
     function deleteDoor() {
         $.ajax({
             type: "DELETE",
-            url: "door?id=" + currentDoorId + "&orderId=" + orderId,
+            url: location.origin + "/doors/" + currentDoorId + "?orderId=" + orderId,
             dataType: "json",
             success: function (data) {
                 alert("delete completed" + data);
@@ -377,7 +375,7 @@ jQuery("document").ready(function () {
     function deletOrder() {
         $.ajax({
             type: "DELETE",
-            url: "order?orderId=" + orderId,
+            url: location.origin + "/orders/" + orderId,
             dataType: "json",
             success: function (data) {
                 alert("delete completed" + data);
@@ -390,9 +388,10 @@ jQuery("document").ready(function () {
     }
 
     function deleteOrderDiscountByOrderId() {
+        // todo (Salagaev) что за URL такой интересный ?
         $.ajax({
             type: "DELETE",
-            url: "deleteOrderDiscountByOrderId?orderId=" + orderId,
+            url: location.origin + "/deleteOrderDiscountByOrderId?orderId=" + orderId,
             dataType: "json",
             success: function (data) {
             },
@@ -403,17 +402,15 @@ jQuery("document").ready(function () {
     }
 
     function printOrder() {
-        window.open("orderprint?orderId=" + orderId, '_blank');
-        //location.href = "orderprint?orderId=" + orderId;
+        window.open(location.origin + "/print/order/" + orderId, '_blank');
     }
 
     function printDoors() {
-        window.open("doorsprint?orderId=" + orderId, '_blank');
-        //location.href = "doorsprint?orderId=" + orderId;
+        window.open(location.origin + "/print/doors/" + orderId, '_blank');
     }
 
-    function setOrderId(name) {
-        $("#orderIdName").text(name + " №: " + orderId);
+    function setOrderNumberToHeader(name, namber) {
+        $("#orderIdName").text(name + " №: " + namber);
     }
 
     function fillStatus() {
@@ -442,5 +439,9 @@ jQuery("document").ready(function () {
                 $(this).attr("selected", "selected");
             }
         });
+    }
+
+    function getOrderIdFromDom() {
+        return $("#order_id").text();
     }
 });

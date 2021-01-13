@@ -14,8 +14,8 @@ class ButtonsManager {
         }
     }
 
-    turnOn (valueForComparison){
-        if (this.valueToLock2 == valueForComparison){
+    turnOn(valueForComparison) {
+        if (this.valueToLock2 == valueForComparison) {
             $('.' + this.buttonsClass2).each(function (index) {
                 $(this).removeAttr("disabled");
             });

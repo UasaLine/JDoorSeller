@@ -23,7 +23,7 @@ public class TemplateController {
     private MaineService maineService;
 
     @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/templates")
+    @GetMapping(value = "/templates/page-list")
     public String getTemplateList(Model model) {
 
         model.addAttribute("accountInfos", service.getTemplateList());
@@ -31,28 +31,27 @@ public class TemplateController {
         return "templateList";
     }
 
-    @GetMapping(value = "/templates/{typeId}")
+    @GetMapping(value = "/templates/{typeId}/page")
     public String getTemplate(@PathVariable String typeId,
-                              Model model) throws Exception {
+                              Model model) {
 
         model.addAttribute("typeId", typeId);
         model.addAttribute("classId", maineService.getClassId(typeId));
-
         return "template";
     }
 
-    @GetMapping(value = "/templates/item/{typeId}")
+    @GetMapping(value = "/templates/{typeId}")
     @ResponseBody
-    public DoorTemplate getTemplate(@PathVariable String typeId) throws Exception {
+    public DoorTemplate getTemplate(@PathVariable String typeId) {
+
         return service.getDoorTemplate(typeId);
     }
 
     @Secured("ROLE_ADMIN")
-    @PostMapping(value = "/templates/item", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/templates", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public void saveTemplate(@RequestBody RestrictionOfSelectionFields template) throws Exception {
+    public void saveTemplate(@RequestBody RestrictionOfSelectionFields template) {
 
         service.saveDoorTemplate(template);
-
     }
 }

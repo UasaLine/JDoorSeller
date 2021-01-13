@@ -1,4 +1,4 @@
-package com.jds.model.modelEnum;
+package com.jds.model.enumClasses;
 
 public enum PriceGroups {
     RETAIL_PRICE,

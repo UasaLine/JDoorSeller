@@ -663,3 +663,8 @@ tr:hover {
     margin-left: 0px;
     margin-right: 0px;
 }
+
+.sort-order:hover{
+    color: #696969;
+    background-color: #D3D3D3;
+}

@@ -1,15 +1,11 @@
 package com.jds.controller;
 
-import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.OrderDiscount;
-import com.jds.model.BackResponse.OrderResponse;
-import com.jds.model.ResponseAction;
-import com.jds.model.modelEnum.OrderStatus;
+import com.jds.model.backResponse.ResponseAction;
 import com.jds.service.OrderDiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
