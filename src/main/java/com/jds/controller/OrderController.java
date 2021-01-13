@@ -1,35 +1,48 @@
 package com.jds.controller;
 
-import com.jds.dao.entity.DoorsОrder;
+import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
-import com.jds.model.BackResponse.OrderResponse;
-import com.jds.model.modelEnum.OrderStatus;
+import com.jds.model.backResponse.OrderResponse;
+import com.jds.model.backResponse.Response;
+import com.jds.model.Exeption.ResponseException;
+import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.orders.OrderParamsDto;
+import com.jds.model.orders.filter.OrderFilterFactory;
+import com.jds.model.orders.sort.OrderSortFactory;
+import com.jds.model.orders.sort.OrderSortField;
 import com.jds.service.OrderService;
 import com.jds.service.UserServ;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
 public class OrderController {
-
-
     @Autowired
     private UserServ userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderSortFactory sortFactory;
+    @Autowired
+    private OrderFilterFactory filterFactory;
+    private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-
-    @GetMapping(value = "/orders")
+    @GetMapping(value = "/pages/orders")
     public String getOrdersPage(Model model,
-                                @RequestParam(required = false, defaultValue = "0") String userId) throws Exception {
+                                @RequestParam(required = false, defaultValue = "0") String userId) {
 
-        List<DoorsОrder> list;
+        List<DoorOrder> list;
         boolean report = false;
         if (!"0".equals(userId)) {
             list = orderService.getOrders(userId);
@@ -39,14 +52,14 @@ public class OrderController {
         }
 
         model.addAttribute("report", report);
-        model.addAttribute("accountInfos", list);
+        model.addAttribute("orders", list);
         model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
 
         return "orders";
     }
 
-    @GetMapping(value = "/order")
-    public String getOrderPage(Model model, @RequestParam(required = false) String orderId) throws Exception {
+    @GetMapping(value = "/pages/orders/{orderId}")
+    public String getOrderPage(Model model, @PathVariable String orderId) {
 
         UserEntity user = userService.getCurrentUser();
 
@@ -55,44 +68,87 @@ public class OrderController {
         return "order";
     }
 
-    @GetMapping(value = "/getOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public DoorsОrder getOrder(@RequestParam(required = false) String orderId) throws Exception {
+    public List<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort_field,
+                                     @RequestParam(required = false, defaultValue = "DESC") SideSqlSorting sort_side,
+                                     @RequestParam(required = false) OrderStatus status,
+                                     @RequestParam(required = false) String partner,
+                                     @RequestParam(required = false) String ofDate,
+                                     @RequestParam(required = false) String toDate) {
 
-        return orderService.getOrder(orderId);
+        OrderParamsDto params = OrderParamsDto.builder()
+                .sorter(sortFactory.sorter(sort_field, sort_side))
+                .filter(filterFactory.filter(status, partner, ofDate, toDate))
+                .build();
+
+        return orderService.getOrders(params);
     }
 
-    @PostMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public OrderResponse saveOrder(@RequestBody DoorsОrder order) throws Exception {
+    public DoorOrder getOrder(@PathVariable String id) {
+        return orderService.getOrder(id);
+    }
+
+    @PostMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public OrderResponse saveOrder(@RequestBody DoorOrder order) {
 
         return orderService.checkAccessAndSave(order);
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    @DeleteMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String deleteOrder(@RequestParam(required = false) String orderId) throws Exception {
-
-        return orderService.deleteOrder(orderId);
-    }
-
-    @Secured("ROLE_ONE_C")
     @PostMapping(value = "/loading/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ONE_C")
     @ResponseBody
-    public List<DoorsОrder> getOrders() throws Exception {
+    public List<DoorOrder> getToWorkOrders() {
 
         return orderService.getOrders(OrderStatus.TO_WORK);
     }
 
+    @PostMapping(value = "/orders/{orderId}/statuses/{status}")
     @Secured("ROLE_ONE_C")
-    @PostMapping(value = "/order/status")
-    public void setOrdersStatus(@RequestParam(required = false) String orderId,
-                                @RequestParam(required = false) String status,
-                                @RequestParam(required = false) String releasDate) throws Exception {
+    @ResponseBody
+    public Response setOrdersStatus(@PathVariable String orderId,
+                                    @PathVariable String status) throws ResponseException {
 
-        orderService.setStatusAndSaveOrder(Integer.parseInt(orderId), status, new SimpleDateFormat("yyyy-MM-dd").parse(releasDate));
+        try {
+            boolean result = orderService.setStatus(
+                    Integer.parseInt(orderId),
+                    OrderStatus.parseForFactory(status));
 
+            return new Response(result, "ok");
+
+        } catch (IllegalArgumentException e) {
+            throw new ResponseException(e.getMessage());
+        }
     }
 
+    @PostMapping(value = "/orders/{orderId}/release/{date}")
+    @Secured("ROLE_ONE_C")
+    @ResponseBody
+    public Response setOrdersReleaseDate(@PathVariable String orderId,
+                                         @PathVariable String date) throws ResponseException {
+
+        try {
+            boolean result = orderService.setReleaseDate(
+                    Integer.parseInt(orderId),
+                    new SimpleDateFormat("yyyy-MM-dd").parse(date));
+
+            return new Response(result, "ok");
+
+        } catch (ParseException | IllegalArgumentException e) {
+            throw new ResponseException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @ResponseBody
+    public String deleteOrder(@PathVariable String id) {
+
+        return orderService.deleteOrder(id);
+    }
 }

@@ -110,9 +110,11 @@ class Container2fields {
     }
 
     static setValueToField(value) {
-        $(".vertical_menu_button_rigtht#" + currentItem + "Show strong").html(
-            value
-        );
+        Container2fields.setValueToFieldByItem(currentItem,value)
+    }
+
+    static setValueToFieldByItem(item, value) {
+        $(".vertical_menu_button_rigtht#" + item + "Show strong").html(value);
     }
 
     static getTheNameOfTheDoorType(value) {
@@ -163,7 +165,11 @@ class Container2fields {
 class Container3fields {
     static setSizeValueToButton(fieldName) {
         let value;
-        if (fieldName == "glassWidth" || fieldName ==  "glassHeight" || fieldName ==  "leftGlassPosition" || fieldName ==  "bottomGlassPosition") {
+        if (fieldName == "glassWidth" ||
+            fieldName == "glassHeight" ||
+            fieldName == "leftGlassPosition" ||
+            fieldName == "bottomGlassPosition") {
+
             value = door.doorGlass[fieldName];
         } else {
             value = door[fieldName];

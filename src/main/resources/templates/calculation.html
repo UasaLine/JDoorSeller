@@ -4,27 +4,27 @@
 <head>
     <title>door seller</title>
     <!-- Подключаем Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet"  href="../css/bootstrap-4.3.1css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet"  href="../../css/bootstrap-4.3.1css/bootstrap.min.css">
     <!-- Подключаем CSS,js -->
-    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="../js/sizing-drum/sizing-drum.class.js"></script>
-    <script type="text/javascript" src="../js/calc/door.class.js"></script>
-    <script type="text/javascript" src="../js/calc/class-card-block.class.js"></script>
-    <script type="text/javascript" src="../js/calc/type-card-block.class.js"></script>
-    <script type="text/javascript" src="../js/calc/opening.classes.js"></script>
-    <script type="text/javascript" src="../js/calc/available-manager.class.js"></script>
-    <script type="text/javascript" src="../js/calc/representation-manager.class.js"></script>
-    <script type="text/javascript" src="../js/calc/number_selection.js"></script>
-    <script type="text/javascript" src="../js/calc/trim.class.js"></script>
-    <script type="text/javascript" src="../js/calc/calculation.script.js"></script>
-    <script type="text/javascript" src="../js/calc/price-сomponents.class.js"></script>
-    <script type="text/javascript" src="../js/calc/pagination.class.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/drawDoor.css"/>
-    <link rel="stylesheet" type="text/css" href="css/ios_checkbox.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/calcCss.css"/>
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
-    <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
-    <link rel="stylesheet" type="text/css" href="css/number_selection.css"/>
+    <script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../js/sizing-drum/sizing-drum.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/door.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/class-card-block.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/type-card-block.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/opening.classes.js"></script>
+    <script type="text/javascript" src="../../js/calc/available-manager.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/representation-manager.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/number_selection.js"></script>
+    <script type="text/javascript" src="../../js/calc/trim.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/calculation.script.js"></script>
+    <script type="text/javascript" src="../../js/calc/price-сomponents.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/pagination.class.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/drawDoor.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/ios_checkbox.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/calcCss.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/displayCss.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/number_selection.css"/>
 </head>
 <body>
 
@@ -32,7 +32,7 @@
 
     <!--header-->
     <div class="sword-cursor" id="intro-dm">
-        <a th:href="@{/}"><img src="images/Header_widht_1300-85_001.jpg"></a>
+        <a th:href="@{/}"><img src="../../images/Header_widht_1300-85_001.jpg"></a>
         <span id="orderId" th:text="${orderId}" show="ghost_lement"></span>
         <span id="id" th:text="${id}" show="ghost_lement"></span>
         <span id="typid" th:text="${typid}" show="ghost_lement"></span>
@@ -201,14 +201,6 @@
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" id="handleShow"><strong></strong></span>
-                    </div>
-                </div>
-                <div class="vertical_menu_button ghost" id="additionally">
-                    <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nameadditionally" available="yes"> ДОПОЛНИТЕЛЬНО</span>
-                    </div>
-                    <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" available="yes"><strong></strong></span>
                     </div>
                 </div>
                 <div class="vertical_menu_button" id="comment">
@@ -569,6 +561,41 @@
             <!--select_additionalDoorSettings-->
             <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
 
+                <!--peephole-->
+                <div class="vertical_menu_button" id="peephole">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namepeephole" available="no" >Глазок</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="peepholeShow"><strong></strong></span>
+                    </div>
+                </div>
+
+                <!--peephole position-->
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_peepholePosition">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namepeepholePosition" available="no"> <Strong>Глазок по центру двери</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkbox16" id="peepholePosition_checkbox" Item="peepholePosition" data=""
+                                   class="ios-toggle peepholePosition"/>
+                            <label for="peepholePosition_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--closer-->
+                <div class="vertical_menu_button" id="closer">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namecloser" available="no">Доводчик</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="closerShow"><strong></strong></span>
+                    </div>
+                </div>
+
+                <!--doorTrim-->
                 <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_doorTrim">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="namemainDoorTrim" available="no"> <Strong>Наличники</Strong></span>
@@ -1856,26 +1883,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="vertical_menu_checkbox" id="additionally_peephole">
-                    <div class="left_cell_checkbox">
-                        <span class="vertical_menu_button_left" id="nemepeephole" available="no">Глазок</span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <div class="toggles">
-                            <input type="checkbox" name="peephole_checkbox" id="peephole_checkbox" Item="peephole" data="1"
-                                   class="ios-toggle"/>
-                            <label for="peephole_checkbox" class="checkbox-label"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="vertical_menu_button" id="closer">
-                    <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namecloser" available="yes">Доводчик</span>
-                    </div>
-                    <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" id="closerShow"><strong></strong></span>
-                    </div>
-                </div>
                 <div class="vertical_menu_checkbox" id="additionally_amplifierCloser">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="nemeamplifierCloser" available="no">Пластина под доводчик</span>
@@ -1890,79 +1897,77 @@
                 </div>
             </div>
 
-            <!--closer-->
-            <div class="select_closer reduceAsAScroll" show="ghost_lement">
-                <div class="div_images_furniture" data="нет" Item="closer">
+            <!--item select-->
+            <div class="select_item reduceAsAScroll" show="ghost_lement">
+                <div class="div_images_furniture" id="itemNo" data="нет" Item="">
                     <img class="images_Color" src="images/null.png"><br>
                     <span>нет</span>
                 </div>
 
-                <div class="div_images_furniture" id="closerDiv0" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg0" src=""><br>
-                    <span class="small_font" id="closerSpan0"></span>
+                <div class="div_images_furniture" id="itemDiv0" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg0" src=""><br>
+                    <span class="small_font" id="itemSpan0"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv1" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg1" src=""><br>
-                    <span class="small_font" id="closerSpan1"></span>
+                <div class="div_images_furniture" id="itemDiv1" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg1" src=""><br>
+                    <span class="small_font" id="itemSpan1"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv2" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg2" src=""><br>
-                    <span class="small_font" id="closerSpan2"></span>
+                <div class="div_images_furniture" id="itemDiv2" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg2" src=""><br>
+                    <span class="small_font" id="itemSpan2"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv3" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg3" src=""><br>
-                    <span class="small_font" id="closerSpan3"></span>
+                <div class="div_images_furniture" id="itemDiv3" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg3" src=""><br>
+                    <span class="small_font" id="itemSpan3"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv4" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg4" src=""><br>
-                    <span class="small_font" id="closerSpan4"></span>
-                </div>
-
-                <div class="div_images_furniture" id="closerDiv5" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg5" src=""><br>
-                    <span class="small_font" id="closerSpan5"></span>
-                </div>
-                <div class="div_images_furniture" id="closerDiv6" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg6" src=""><br>
-                    <span class="small_font" id="closerSpan6"></span>
-                </div>
-                <div class="div_images_furniture" id="closerDiv7" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg7" src=""><br>
-                    <span class="small_font" id="closerSpan7"></span>
-                </div>
-                <div class="div_images_furniture" id="closerDiv8" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg8" src=""><br>
-                    <span class="small_font" id="closerSpan8"></span>
-                </div>
-                <div class="div_images_furniture" id="closerDiv9" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg9" src=""><br>
-                    <span class="small_font" id="closerSpan9"></span>
+                <div class="div_images_furniture" id="itemDiv4" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg4" src=""><br>
+                    <span class="small_font" id="itemSpan4"></span>
                 </div>
 
-                <div class="div_images_furniture" id="closerDiv10" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg10" src=""><br>
-                    <span class="small_font" id="closerSpan10"></span>
+                <div class="div_images_furniture" id="itemDiv5" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg5" src=""><br>
+                    <span class="small_font" id="itemSpan5"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv11" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg11" src=""><br>
-                    <span class="small_font" id="closerSpan11"></span>
+                <div class="div_images_furniture" id="itemDiv6" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg6" src=""><br>
+                    <span class="small_font" id="itemSpan6"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv12" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg12" src=""><br>
-                    <span class="small_font" id="closerSpan12"></span>
+                <div class="div_images_furniture" id="itemDiv7" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg7" src=""><br>
+                    <span class="small_font" id="itemSpan7"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv13" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg13" src=""><br>
-                    <span class="small_font" id="closerSpan13"></span>
+                <div class="div_images_furniture" id="itemDiv8" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg8" src=""><br>
+                    <span class="small_font" id="itemSpan8"></span>
                 </div>
-                <div class="div_images_furniture" id="closerDiv14" data="" Item="closer" show="ghost_lement">
-                    <img class="images_furniture" id="closerImg14" src=""><br>
-                    <span class="small_font" id="closerSpan14"></span>
+                <div class="div_images_furniture" id="itemDiv9" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg9" src=""><br>
+                    <span class="small_font" id="itemSpan9"></span>
                 </div>
 
+                <div class="div_images_furniture" id="itemDiv10" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg10" src=""><br>
+                    <span class="small_font" id="itemSpan10"></span>
+                </div>
+                <div class="div_images_furniture" id="itemDiv11" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg11" src=""><br>
+                    <span class="small_font" id="itemSpan11"></span>
+                </div>
+                <div class="div_images_furniture" id="itemDiv12" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg12" src=""><br>
+                    <span class="small_font" id="itemSpan12"></span>
+                </div>
+                <div class="div_images_furniture" id="itemDiv13" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg13" src=""><br>
+                    <span class="small_font" id="itemSpan13"></span>
+                </div>
+                <div class="div_images_furniture" id="itemDiv14" data="" Item="" show="ghost_lement">
+                    <img class="images_furniture" id="itemImg14" src=""><br>
+                    <span class="small_font" id="itemSpan14"></span>
+                </div>
 
             </div>
-
 
             <!--shieldKit-->
             <div class="select_shieldKit reduceAsAScroll" show="ghost_lement">

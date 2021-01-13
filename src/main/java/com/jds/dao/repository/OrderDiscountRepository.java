@@ -1,7 +1,5 @@
 package com.jds.dao.repository;
 
-import com.jds.dao.entity.DoorFurniture;
-import com.jds.dao.entity.DoorsОrder;
 import com.jds.dao.entity.OrderDiscount;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

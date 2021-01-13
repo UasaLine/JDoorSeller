@@ -3,14 +3,17 @@ package com.jds.dao.entity;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.SerializingFields;
+import com.jds.model.enumClasses.PeepholePosition;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "FurnitureKit")
 public class FurnitureKit implements SerializingFields {
@@ -67,24 +70,29 @@ public class FurnitureKit implements SerializingFields {
     @Column(name = "nightLock")
     private int nightLock;
 
-    @Column(name = "peephole")
-    private int peephole;
+    @ManyToOne()
+    @JoinColumn(name = "peephole")
+    private DoorFurniture peephole;
+
+    @Column(name = "peephole_position")
+    @Enumerated(EnumType.STRING)
+    private PeepholePosition peepholePosition = PeepholePosition.CENTER;
 
     @Column(name = "amplifierCloser")
     private int amplifierCloser;
 
-    @OneToOne(mappedBy = "furnitureKit",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "furnitureKit", fetch = FetchType.LAZY)
     private DoorEntity door;
 
-    public boolean exists(){
+    public boolean exists() {
 
-        if ((topLock!=null)||(lowerLock!=null)||(handle!=null)||(closer!=null)){
+        if ((topLock != null) || (lowerLock != null) || (handle != null) || (closer != null)) {
             return true;
         }
         return false;
     }
 
-    public static FurnitureKit instanceKit(@NonNull RestrictionOfSelectionFields template){
+    public static FurnitureKit instanceKit(@NonNull RestrictionOfSelectionFields template) {
         FurnitureKit kit = new FurnitureKit();
         kit.setTopLock(convertLimToShortFurniture(template.getTopLock()));
         kit.setLowerLock(convertLimToShortFurniture(template.getLowerLock()));
@@ -92,22 +100,34 @@ public class FurnitureKit implements SerializingFields {
         return kit;
     }
 
-    public static FurnitureKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields){
+    public static FurnitureKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields) {
         FurnitureKit kit = new FurnitureKit();
         kit.setTopLock(getFirst(AvailableFields.getTopLock()));
         kit.setLowerLock(getFirst(AvailableFields.getLowerLock()));
         kit.setHandle(getFirst(AvailableFields.getHandle()));
+        kit.setPeephole(getFirst(AvailableFields.getPeephole()));
+        kit.setPeepholePosition(
+                toPeepholePositionEnum(getFirst(AvailableFields.getPeepholePosition())));
+        kit.setCloser(getFirst(AvailableFields.getCloser()));
         return kit;
     }
 
-    private static DoorFurniture getFirst(List<DoorFurniture> furnitureList){
-        if(furnitureList.size()>0){
+    private static DoorFurniture getFirst(List<DoorFurniture> furnitureList) {
+        if (furnitureList != null && furnitureList.size() > 0) {
             return furnitureList.get(0);
         }
         return null;
     }
 
-    public static DoorFurniture convertLimToShortFurniture(@NonNull List<LimitationDoor> listLim){
+    private static PeepholePosition toPeepholePositionEnum(DoorFurniture doorFurniture) {
+        if (doorFurniture == null) {
+            return PeepholePosition.CENTER;
+        }
+        return PeepholePosition.valueOf(doorFurniture.getName());
+    }
+
+
+    public static DoorFurniture convertLimToShortFurniture(@NonNull List<LimitationDoor> listLim) {
 
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
@@ -121,179 +141,53 @@ public class FurnitureKit implements SerializingFields {
         return null;
     }
 
-    public FurnitureKit clearNonSerializingFields(){
+    public FurnitureKit clearNonSerializingFields() {
 
         door = null;
 
-        if(topLock!=null){
+        if (topLock != null) {
             topLock.setNuulLazyFild();
         }
-        if(topInLockDecor!=null){
+        if (topInLockDecor != null) {
             topInLockDecor.setNuulLazyFild();
         }
-        if(topOutLockDecor !=null){
+        if (topOutLockDecor != null) {
             topOutLockDecor.setNuulLazyFild();
         }
 
-        if(topLockCylinder !=null){
+        if (topLockCylinder != null) {
             topLockCylinder.setNuulLazyFild();
         }
 
 
-
-        if(lowerLock!=null){
+        if (lowerLock != null) {
             lowerLock.setNuulLazyFild();
         }
 
-        if(lowerInLockDecor !=null){
+        if (lowerInLockDecor != null) {
             lowerInLockDecor.setNuulLazyFild();
         }
-        if(lowerOutLockDecor !=null){
+        if (lowerOutLockDecor != null) {
             lowerOutLockDecor.setNuulLazyFild();
         }
 
-        if(lowerLockCylinder !=null){
+        if (lowerLockCylinder != null) {
             lowerLockCylinder.setNuulLazyFild();
         }
 
-        if(handle!=null){
+        if (handle != null) {
             handle.setNuulLazyFild();
         }
-        if(closer!=null){
+        if (closer != null) {
             closer.setNuulLazyFild();
         }
-        if(endDoorLock!=null){
+        if (endDoorLock != null) {
             endDoorLock.setNuulLazyFild();
         }
+        if (peephole != null) {
+            peephole.setNuulLazyFild();
+        }
         return this;
-    }
-
-    public DoorFurniture getCloser() {
-        return closer;
-    }
-
-    public void setCloser(DoorFurniture closer) {
-        this.closer = closer;
-    }
-
-    public DoorFurniture getTopLock() {
-        return topLock;
-    }
-
-    public void setTopLock(DoorFurniture topLock) {
-        this.topLock = topLock;
-    }
-
-    public DoorFurniture getLowerLock() {
-        return lowerLock;
-    }
-
-    public void setLowerLock(DoorFurniture lowerLock) {
-        this.lowerLock = lowerLock;
-    }
-
-    public DoorFurniture getHandle() {
-        return handle;
-    }
-
-    public void setHandle(DoorFurniture handle) {
-        this.handle = handle;
-    }
-
-    public DoorFurniture getLowerInLockDecor() {
-        return lowerInLockDecor;
-    }
-
-    public void setLowerInLockDecor(DoorFurniture lowerInLockDecor) {
-        this.lowerInLockDecor = lowerInLockDecor;
-    }
-
-    public DoorFurniture getLowerOutLockDecor() {
-        return lowerOutLockDecor;
-    }
-
-    public void setLowerOutLockDecor(DoorFurniture lowerOutLockDecor) {
-        this.lowerOutLockDecor = lowerOutLockDecor;
-    }
-
-    public DoorFurniture getTopOutLockDecor() {
-        return topOutLockDecor;
-    }
-
-    public void setTopOutLockDecor(DoorFurniture topOutLockDecor) {
-        this.topOutLockDecor = topOutLockDecor;
-    }
-
-    public DoorFurniture getTopLockCylinder() {
-        return topLockCylinder;
-    }
-
-    public void setTopLockCylinder(DoorFurniture topLockCylinder) {
-        this.topLockCylinder = topLockCylinder;
-    }
-
-    public DoorFurniture getLowerLockCylinder() {
-        return lowerLockCylinder;
-    }
-
-    public void setLowerLockCylinder(DoorFurniture lowerLockCylinder) {
-        this.lowerLockCylinder = lowerLockCylinder;
-    }
-
-    public int getNightLock() {
-        return nightLock;
-    }
-
-    public void setNightLock(int nightLock) {
-        this.nightLock = nightLock;
-    }
-
-    public int getPeephole() {
-        return peephole;
-    }
-
-    public void setPeephole(int peephole) {
-        this.peephole = peephole;
-    }
-
-    public int getAmplifierCloser() {
-        return amplifierCloser;
-    }
-
-    public void setAmplifierCloser(int amplifierCloser) {
-        this.amplifierCloser = amplifierCloser;
-    }
-
-    public DoorFurniture getEndDoorLock() {
-        return endDoorLock;
-    }
-
-    public void setEndDoorLock(DoorFurniture endDoorLock) {
-        this.endDoorLock = endDoorLock;
-    }
-
-    public DoorEntity getDoor() {
-        return door;
-    }
-
-    public void setDoor(DoorEntity door) {
-        this.door = door;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public DoorFurniture getTopInLockDecor() {
-        return topInLockDecor;
-    }
-
-    public void setTopInLockDecor(DoorFurniture topInLockDecor) {
-        this.topInLockDecor = topInLockDecor;
     }
 
     public boolean isContentFurniture(int id) {
@@ -352,13 +246,13 @@ public class FurnitureKit implements SerializingFields {
         return false;
     }
 
-    public int getFurnitureCost (List<LimitationDoor> furnitureKit , int furnId){
+    public int getFurnitureCost(List<LimitationDoor> furnitureKit, int furnId) {
 
         LimitationDoor lim = furnitureKit.stream()
-                .filter((p)-> p.getItemId() == furnId)
+                .filter((p) -> p.getItemId() == furnId)
                 .findFirst().orElse(null);
 
-        if (lim != null){
+        if (lim != null) {
             return lim.getCost();
         } else return 0;
     }

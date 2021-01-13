@@ -4,18 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
-import com.jds.model.modelEnum.PriceGroups;
-import com.jds.model.modelEnum.TypeOfFurniture;
-import com.jds.model.modelEnum.TypeOfSalaryConst;
-import lombok.Builder;
+import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumClasses.TypeOfSalaryConst;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Door")
@@ -113,7 +110,7 @@ public class DoorEntity implements SerializingFields {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "doors", fetch = FetchType.LAZY)
-    private List<DoorsОrder> orders;
+    private List<DoorOrder> orders;
 
     @Transient
     private List<Sheet> sheets;
@@ -366,7 +363,7 @@ public class DoorEntity implements SerializingFields {
     }
 
     public DoorEntity() {
-        this.orders = new ArrayList<DoorsОrder>();
+        this.orders = new ArrayList<DoorOrder>();
         this.availableDoorClass = new ArrayList<DoorClass>();
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();

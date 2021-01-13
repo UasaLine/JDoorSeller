@@ -29,6 +29,8 @@ class AvailableManager {
         this.makeAvailableIfExists("lowerOutLockDecor","");
 
         this.makeAvailableIfExists("closer","");
+        this.makeAvailableIfExists("peephole","");
+        this.makeAvailableIfExists("peepholePosition","");
 
         this.makeAvailableIfExists("typeDoorGlass","");
         this.makeAvailableIfExists("toning","");

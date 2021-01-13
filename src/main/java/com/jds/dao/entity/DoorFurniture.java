@@ -2,7 +2,7 @@ package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
 import com.jds.model.SerializingFields;
-import com.jds.model.modelEnum.TypeOfFurniture;
+import com.jds.model.enumClasses.TypeOfFurniture;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -126,6 +126,9 @@ public class DoorFurniture implements LimiItem, SerializingFields,Comparable<Doo
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "endDoorLock")
     private List<DoorFurniture> endDoorLock;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "peephole")
+    private List<DoorFurniture> peephole;
+
     public DoorFurniture() {
         idManufacturerProgram="";
         quantity = 0;
@@ -151,6 +154,10 @@ public class DoorFurniture implements LimiItem, SerializingFields,Comparable<Doo
         this.picturePathFirst = lim.getPicturePath();
     }
 
+    public static DoorFurniture newInstance(LimitationDoor limit){
+        return new DoorFurniture(limit);
+    }
+
     public DoorFurniture setNuulLazyFild() {
 
         setDoorType(null);
@@ -170,6 +177,7 @@ public class DoorFurniture implements LimiItem, SerializingFields,Comparable<Doo
         setHandle(null);
         setCloser(null);
         setEndDoorLock(null);
+        setPeephole(null);
         return this;
     }
 

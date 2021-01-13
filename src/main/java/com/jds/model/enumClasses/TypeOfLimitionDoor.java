@@ -1,4 +1,4 @@
-package com.jds.model.modelEnum;
+package com.jds.model.enumClasses;
 
 public enum TypeOfLimitionDoor {
     METAL_THICKNESS,
@@ -40,6 +40,7 @@ public enum TypeOfLimitionDoor {
     HANDLE,
     CLOSER,
     PEEPHOLE,
+    PEEPHOLE_POSITION,
     NIGHT_LOCK,
     THRESHOLD,
     END_DOOR_LOCK,

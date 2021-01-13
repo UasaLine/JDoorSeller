@@ -6,7 +6,7 @@ import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
-import com.jds.model.modelEnum.OrderStatus;
+import com.jds.model.enumClasses.OrderStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,6 @@ public class DoorServiceImpl implements DoorService {
     private OrderDAO orderDAO;
     @Autowired
     private MaterialsRepository materialsDAO;
-
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -41,7 +40,7 @@ public class DoorServiceImpl implements DoorService {
     OrderDiscountService orderDiscountService;
 
     @Override
-    public DoorEntity calculateTheDoor(@NonNull DoorEntity door) {
+    public DoorEntity calculate(@NonNull DoorEntity door) {
 
         if (door.getDoorType().getPriceList() == 1) {
 
@@ -56,15 +55,15 @@ public class DoorServiceImpl implements DoorService {
     }
 
     @Override
-    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typid) {
+    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typeId) {
 
         DoorEntity door;
 
         if (id > 0) {
             door = dAO.getDoor(id);
             door = allowEditing(door, orderId);
-        } else if (typid > 0) {
-            door = createNewDoorByTemplate(typid, id);
+        } else if (typeId > 0) {
+            door = createNewDoorByTemplate(typeId, id);
         } else {
             door = createNewDoorWithAvailableDoorClass();
         }
@@ -77,9 +76,9 @@ public class DoorServiceImpl implements DoorService {
     }
 
     private DoorEntity allowEditing(DoorEntity door, int orderId) {
-        DoorsОrder doorsОrder = orderService.getOrder(orderId);
+        DoorOrder doorsОrder = orderService.getOrder(orderId);
         if (doorsОrder.getStatus() == OrderStatus.CALC) {
-            door.setTemplate(templateService.getTemplateFromLimits(String.valueOf(door.getDoorType().getId())));
+            door.setTemplate(templateService.getTemplate(String.valueOf(door.getDoorType().getId())));
         }
         return door;
     }
@@ -382,7 +381,7 @@ public class DoorServiceImpl implements DoorService {
 
         doorEntity.setDoorType(doorType);
 
-        RestrictionOfSelectionFields template = templateService.getTemplateFromLimits(String.valueOf(typeId));
+        RestrictionOfSelectionFields template = templateService.getTemplate(String.valueOf(typeId));
         doorEntity.setTemplate(template);
 
         doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
@@ -418,42 +417,43 @@ public class DoorServiceImpl implements DoorService {
         doorEntity.setDoorDesign(DoorDesign.instanceDesign(template.getColors(), template.getDesign(), colorDao));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
-                .topLock(defaultAndConvertToFurniture(template.getTopLock()))
-                .lowerLock(defaultAndConvertToFurniture(template.getLowerLock()))
-                .lockCylinder(defaultAndConvertToFurniture(template.getLowerLock()))
-                .handle(defaultAndConvertToFurniture(template.getHandle()))
-                .shieldColor(defaultAndConvertToImage(template.getShieldColor()))
-                .shieldDesign(defaultAndConvertToImage(template.getShieldDesign()))
-                .shieldGlass(defaultAndConvertToImage(template.getShieldGlass()))
+                .topLock(defaultAndGetFurniture(template.getTopLock()))
+                .lowerLock(defaultAndGetFurniture(template.getLowerLock()))
+                .lockCylinder(defaultAndGetFurniture(template.getLowerLock()))
+                .handle(defaultAndGetFurniture(template.getHandle()))
+                .shieldColor(defaultAndGetImage(template.getShieldColor()))
+                .shieldDesign(defaultAndGetImage(template.getShieldDesign()))
+                .shieldGlass(defaultAndGetImage(template.getShieldGlass()))
+                .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
+                .peephole(defaultAndGetFurniture(template.getPeephole()))
+                .closer(defaultAndGetFurniture(template.getCloser()))
                 .build();
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
-
-        /*
-        isDoorGlass
-        doorGlass
-
-        additionallyHingeMain
-        additionallyHingeNotMain
-        amplifierCloser
-       */
 
         return doorEntity;
 
     }
 
-    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
+    private List<DoorFurniture> defaultAndGetFurniture(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
                 .collect(Collectors.toList());
-        return furnitureService.convertToFurniture(defList);
+        return furnitureService.getFurnitureByLmit(defList);
     }
 
-    private List<ImageEntity> defaultAndConvertToImage(List<LimitationDoor> listLim) {
+    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
+        return listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .map(DoorFurniture::newInstance)
+                .collect(Collectors.toList());
+    }
+
+    private List<ImageEntity> defaultAndGetImage(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
                 .filter(lim -> lim.isDefault())
                 .collect(Collectors.toList());
-        return furnitureService.convertToImage(defList);
+        return furnitureService.getImageByLimit(defList);
     }
 
     public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
@@ -510,10 +510,10 @@ public class DoorServiceImpl implements DoorService {
     }
 
     @Override
-    public DoorsОrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
+    public DoorOrder deleteDoorFromOrder(@NonNull String id, @NonNull String orderId) {
 
         if (!orderId.isEmpty() && !orderId.equals("0") && !id.isEmpty() && !id.equals("0")) {
-            DoorsОrder order = orderDAO.getOrder(Integer.parseInt(orderId));
+            DoorOrder order = orderDAO.getOrder(Integer.parseInt(orderId));
             int mess = order.deleteDoor(Integer.parseInt(id));
             if (mess == 1) {
                 orderDAO.saveOrder(order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(orderId)));
@@ -531,7 +531,7 @@ public class DoorServiceImpl implements DoorService {
             return door;
         }
 
-        DoorsОrder order = orderDAO.getOrder(door.getOrderHolder());
+        DoorOrder order = orderDAO.getOrder(door.getOrderHolder());
         DoorEntity fineDoor = order.getDoors().stream()
                 .filter(doorItem -> doorItem.getId() == door.getId())
                 .findFirst()
@@ -542,7 +542,7 @@ public class DoorServiceImpl implements DoorService {
         }
 
         order.addDoor(door);
-        order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrder_id())));
+        order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrderId())));
         orderDAO.saveOrder(order);
         return door;
 
@@ -553,7 +553,7 @@ public class DoorServiceImpl implements DoorService {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = materialsDAO.getSpecification(doorEntity.getDoorType().getId());
+        List<LineSpecification> lineSpec = materialsDAO.getLineSpecification(doorEntity.getDoorType().getId());
 
         lineSpec.stream()
                 .peek((lin) -> addFurKitToLineSpec(lineSpec, doorEntity))

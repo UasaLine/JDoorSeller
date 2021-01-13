@@ -15,7 +15,7 @@ jQuery("document").ready(function () {
   });
 
   function getTemplate(typeId) {
-    location.href = "templates/" + typeId;
+    location.href = typeId+"/page";
   }
 
   function oneEnableAllDisable(item) {

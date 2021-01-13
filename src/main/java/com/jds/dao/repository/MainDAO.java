@@ -3,8 +3,8 @@ package com.jds.dao.repository;
 import com.jds.dao.entity.*;
 import com.jds.model.FireproofDoor;
 import com.jds.model.image.TypeOfImage;
-import com.jds.model.modelEnum.TypeOfFurniture;
-import com.jds.model.modelEnum.TypeOfSalaryConst;
+import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumClasses.TypeOfSalaryConst;
 import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -59,7 +59,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteLimit(LimitationDoor limitationDoor ) {
+    public void deleteLimit(LimitationDoor limitationDoor) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(limitationDoor);
     }
@@ -131,13 +131,10 @@ public class MainDAO {
     }
 
 
-
     @Transactional(propagation = Propagation.REQUIRED)
     public DoorEntity saveDoor(DoorEntity door) {
 
-
         Session session = sessionFactory.getCurrentSession();
-
         session.saveOrUpdate(door);
 
         return door;
@@ -187,7 +184,7 @@ public class MainDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public LimitationDoor saveLimitationDoor(LimitationDoor limit){
+    public LimitationDoor saveLimitationDoor(LimitationDoor limit) {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(limit);
@@ -557,7 +554,7 @@ public class MainDAO {
         return salarySetting;
     }
 
-    public List<LimitationDoor> getLimitationDoor (int doorTypeId){
+    public List<LimitationDoor> getLimitationDoor(int doorTypeId) {
 
         Session session = sessionFactory.openSession();
 
@@ -576,7 +573,7 @@ public class MainDAO {
         return limitList;
     }
 
-    public List<DoorType> getDoorTypeListFromLimitTable (){
+    public List<DoorType> getDoorTypeListFromLimitTable() {
 
         Session session = sessionFactory.openSession();
 
@@ -596,7 +593,7 @@ public class MainDAO {
 
     }
 
-    public List<LimitationDoor> getLimitByTypeOfImages (TypeOfImage type){
+    public List<LimitationDoor> getLimitByTypeOfImages(TypeOfImage type) {
 
         Session session = sessionFactory.openSession();
 

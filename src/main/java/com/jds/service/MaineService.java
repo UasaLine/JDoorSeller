@@ -3,14 +3,12 @@ package com.jds.service;
 import com.jds.dao.repository.MainDAO;
 import com.jds.dao.entity.*;
 import com.jds.model.*;
-import com.jds.model.image.TypeOfDoorColor;
-import com.jds.model.modelEnum.PriceGroups;
-import com.jds.model.modelEnum.TypeOfLimitionDoor;
+import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.rmi.NotBoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,25 +69,15 @@ public class MaineService {
         return dAO.getDoorType(typeId);
     }
 
-    public List<DoorType> getTypeFromListById(List<DoorClass> DoorClassList, String classId) throws NotBoundException {
+    public List<DoorType> getTypesByClassId(@NonNull String classId) {
 
-        if (classId == null) {
-            classId = "1";
-        }
-        if (DoorClassList == null && DoorClassList.size() == 0) {
-            throw new NotBoundException("List DoorClassList empty!");
-        }
-        int intId = Integer.parseInt(classId);
+        int intClassId = Integer.parseInt(classId);
 
-        Optional<DoorClass> doorClass = DoorClassList.stream()
-                .filter((c) -> c.getId() == intId)
-                .findFirst();
+        DoorClass doorClass = dAO.getDoorClass(intClassId);
+        return doorClass.getDoorTypes().stream()
+                .sorted()
+                .collect(Collectors.toList());
 
-        if (doorClass.isPresent()) {
-            return doorClass.get().getDoorTypes();
-        } else {
-            return new ArrayList<>();
-        }
     }
 
     public BendSetting saveBendSetting(BendSetting bendSetting) {
@@ -143,14 +131,14 @@ public class MaineService {
     public void saveAsLimitationDoorForColors(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
                                               List<LimitationDoor> colorList, List<LimitationDoor> oldLimitList) {
 
-        colorList.stream().forEach((color) -> dAO.saveOrUpdateLimitationDoor(color));
+        colorList.stream().forEach(color -> dAO.saveOrUpdateLimitationDoor(color));
 
     }
 
     public void saveAsLimitationDoorForFurniture(@NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
                                                  @NonNull List<DoorFurniture> furnitureList, List<LimitationDoor> oldLimitList) {
 
-        furnitureList.stream().forEach((furniture) -> dAO.saveOrUpdateLimitationDoor(LimitationDoor.getNewLimit(furniture, doorType, type, oldLimitList)));
+        furnitureList.stream().forEach(furniture -> dAO.saveOrUpdateLimitationDoor(LimitationDoor.getNewLimit(furniture, doorType, type, oldLimitList)));
 
     }
 
@@ -167,7 +155,7 @@ public class MaineService {
     }
 
     public static int dooltranslateIntoInt(boolean value) {
-        if (value == true) {
+        if (value) {
             return 1;
         } else {
             return 0;
@@ -176,7 +164,7 @@ public class MaineService {
 
     public String getClassId(@NonNull String typeId) {
 
-        if (typeId == "0") {
+        if ("0".equals(typeId)) {
             return "0";
         }
 
@@ -191,7 +179,7 @@ public class MaineService {
     }
 
 
-    public EnumSet<PriceGroups> getAllPriceGroup() {
+    public Set<PriceGroups> getAllPriceGroup() {
         return EnumSet.allOf(PriceGroups.class);
     }
 

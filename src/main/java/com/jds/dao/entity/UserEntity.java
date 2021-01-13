@@ -2,7 +2,7 @@ package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jds.model.Role;
-import com.jds.model.modelEnum.PriceGroups;
+import com.jds.model.enumClasses.PriceGroups;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -62,7 +62,7 @@ public class UserEntity implements UserDetails {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
-    private List<DoorsОrder> orders;
+    private List<DoorOrder> orders;
 
     @Transient
     int orderCounter;
@@ -75,11 +75,11 @@ public class UserEntity implements UserDetails {
         authorities.add(Role.USER);
     }
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
 
         boolean isAdmin = false;
-        for (Role role:authorities){
-            if (role == Role.ADMIN){
+        for (Role role : authorities) {
+            if (role == Role.ADMIN) {
                 isAdmin = true;
             }
         }
