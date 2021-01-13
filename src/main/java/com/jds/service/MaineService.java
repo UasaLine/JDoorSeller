@@ -182,4 +182,12 @@ public class MaineService {
     public Set<PriceGroups> getAllPriceGroup() {
         return EnumSet.allOf(PriceGroups.class);
     }
+
+    public DoorType getDoorTypeclearNonSer(String typeId) {
+        if (typeId == null) {
+            return new DoorType();
+        }
+        DoorType doorType = getDoorType(Integer.parseInt(typeId));
+        return doorType.clearNonSerializingFields();
+    }
 }
