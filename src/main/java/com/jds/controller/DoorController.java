@@ -4,6 +4,7 @@ import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.LineSpecification;
 import com.jds.service.DoorService;
+import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ public class DoorController {
 
     @Autowired
     private DoorService service;
+    @Autowired
+    private MaineService maineService;
 
     @GetMapping(value = "/doors/{id}/page")
     public String calculationPage(Model model,

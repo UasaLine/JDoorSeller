@@ -6,20 +6,19 @@
     <!-- Подключаем Bootstrap CSS -->
     <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
     <!-- your personal CSS -->
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/specificationList.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="../css/displayCss.css"/>
-    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="../js/orderListScript.js"></script>
-    <script type="text/javascript" src="../js/paramsFactory.class.js"></script>
 </head>
 <body>
 
+<!-- header -->
 <div class="top_head">
     <div class="container-fluid" id="intro-dm">
         <a th:href="@{/}"><img src="../images/Header_widht_1300_002 ltl.jpg"></a>
     </div>
 </div>
-
 
 <div class="top_head">
     <div class="row">
@@ -33,7 +32,7 @@
                     </h6>
 
                     <li class="nav-item" id="orders">
-                        <a class="nav-link active" th:href="@{/pages/orders}">
+                        <a class="nav-link active" th:href="@{/orders}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-shopping-cart">
@@ -45,11 +44,11 @@
                         </a>
                     </li>
                     <!-- настройки -->
-                    <h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted accessAdmin ghost">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>настройки:</span>
                     </h6>
 
-                    <li class="nav-item accessAdmin ghost" id="templates">
+                    <li class="nav-item" id="templates">
                         <a class="nav-link active" th:href="@{/templates/page-list}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -60,7 +59,7 @@
                             Шаблоны <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="specification">
+                    <li class="nav-item" id="specificationList">
                         <a class="nav-link active" th:href="@{/pages/specifications}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -72,11 +71,11 @@
                         </a>
                     </li>
                     <!-- справочники: -->
-                    <h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted accessAdmin ghost">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>справочники:</span>
                     </h6>
 
-                    <li class="nav-item accessAdmin ghost" id="doorclasslist">
+                    <li class="nav-item" id="doorclasslist">
                         <a class="nav-link active" th:href="@{/doorclasslist}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -87,7 +86,7 @@
                             Классы
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="doortypelist">
+                    <li class="nav-item" id="doortypelist">
                         <a class="nav-link active" th:href="@{/doortypelist}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -98,7 +97,7 @@
                             Модели
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="materials">
+                    <li class="nav-item" id="materials">
                         <a class="nav-link active" th:href="@{/materials}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -109,7 +108,7 @@
                             Материалы
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="furniture">
+                    <li class="nav-item" id="furniture">
                         <a class="nav-link active" th:href="@{/furniture}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -120,7 +119,7 @@
                             Фурнитура
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="metalList">
+                    <li class="nav-item" id="metalList">
                         <a class="nav-link active" th:href="@{/metal}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -131,7 +130,7 @@
                             Металл
                         </a>
                     </li>
-                    <li class="nav-item accessAdmin ghost" id="colorList">
+                    <li class="nav-item" id="colorList">
                         <a class="nav-link active" th:href="@{/color}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -142,13 +141,12 @@
                             Цвета
                         </a>
                     </li>
-
                     <!-- прочее -->
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>прочее:</span>
                     </h6>
 
-                    <li class="nav-item accessAdmin ghost" id="users">
+                    <li class="nav-item" id="users">
                         <a class="nav-link active" th:href="@{/users}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -202,45 +200,30 @@
 
         <div class="col">
 
-            <h1 class="display-4">Заказы</h1>
+            <h1 class="display-4">Спецификации</h1>
 
-            <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
-            <span class="ghost" id="report" th:utext="${report}"></span>
-
-            <div class="row " id="buttonbar">
-
-                <div class="col-md-3 mb-3">
-                    <button type="button" class="btn btn-primary" id="addOrder">создать</button>
-                    <button type="button" class="btn btn-primary" id="buttonDeleteOrder">удалить</button>
-                </div>
-                <div class="col accessAdmin ghost">
-                    <select class="form-control" id="userselect">
-                    </select>
-                </div>
+            <div class="row">
                 <div class="col">
-                    <select class="form-control" id="doorclassselect">
-                    </select>
-                </div>
-                <div class="col">
-                    <input type="date" class="form-control" id="data1" placeholder="" value="" required="">
-                </div>
-                <div class="col">
-                    <input type="date" class="form-control" id="data2" placeholder="" value="" required="">
+                    <button type="button" class="btn btn-primary" id="addLine">Добавить</button>
+                    <button type="button" class="btn btn-primary" id="deletLine">Удалить</button>
                 </div>
             </div>
 
-            <div class="order-Table">
+            <div class="data-Table">
                 <table class="Table">
                     <tr>
-                        <th>№</th>
-                        <th class="ghost accessAdmin">id</th>
-                        <th class="sort-order" name="STATUS">Статус</th>
-                        <th>Контрагент</th>
-                        <th class="sort-order" name="DATE">Дата создания</th>
-                        <th class="sort-order" name="RELEASE_DATE">Дата готов-ти</th>
-                        <th>Кол-во</th>
-                        <th class="sort-order" name="SUM">Сумма</th>
+                        <th>id</th>
+                        <th>имя</th>
+                        <th>модель двери</th>
+                        <th>количество материалов</th>
                     </tr>
+                    <tr th:each="specification : ${List}">
+                        <td class="id" th:utext="${specification.id}">..</td>
+                        <td th:utext="${specification.name}">..</td>
+                        <td th:utext="${specification.doorType.name}">..</td>
+                        <td th:utext="${specification.lineSpecifications.size()}">..</td>
+                    </tr>
+
                 </table>
             </div>
 
@@ -248,6 +231,7 @@
 
     </div>
 </div>
+
 
 </body>
 </html>

@@ -2,16 +2,15 @@ package com.jds.controller;
 
 import com.jds.dao.entity.DoorClass;
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.dao.entity.DoorType;
+import com.jds.dao.entity.SpecificationEntity;
 import com.jds.service.MaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -87,5 +86,11 @@ public class DoorTypeController {
         model.addAttribute("doorTypeList", service.getTypesByClassId(classId));
 
         return "doorTypeList";
+    }
+
+    @GetMapping(value = "/doortype/item/{typeId}")
+    @ResponseBody
+        public DoorType getDoorType (@PathVariable String typeId) {
+        return service.getDoorTypeclearNonSer(typeId);
     }
 }
