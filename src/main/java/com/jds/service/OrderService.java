@@ -56,17 +56,18 @@ public class OrderService {
         UserEntity user = userService.getCurrentUser();
         List<DoorOrder> orders;
 
-
         if (user.isAdmin() && status != null) {
             orders = dAO.getOrdersByStatus(status.name());
         } else {
             orders = dAO.getOrdersByUser(user);
         }
 
-        orders.stream()
-                .peek((order) -> clearNonSerializingFields(order))
-                .collect(Collectors.toList());
+        return orders;
+    }
 
+    public List<DoorOrder> getAllOrders(OrderStatus status) {
+        List<DoorOrder> orders;
+        orders = dAO.getOrdersByStatus(status.name());
         return orders;
     }
 
@@ -82,16 +83,12 @@ public class OrderService {
 
         if (user != null) {
             orders = dAO.getOrdersByUser(user);
-            orders.stream()
-                    .peek((order) -> clearNonSerializingFields(order))
-                    .collect(Collectors.toList());
         } else {
             orders = new ArrayList<>();
         }
 
         return orders;
     }
-
 
     public DoorOrder getOrder(String id) {
 
