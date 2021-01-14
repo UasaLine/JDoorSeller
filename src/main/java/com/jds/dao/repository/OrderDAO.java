@@ -60,6 +60,7 @@ public class OrderDAO {
 
         session.close();
 
+        list.forEach(DoorOrder::clearNonSerializingFields);
         return list;
 
     }
@@ -76,7 +77,7 @@ public class OrderDAO {
         List<DoorOrder> list = query.list();
 
         session.close();
-
+        list.forEach(DoorOrder::clearNonSerializingFields);
         return list;
     }
 

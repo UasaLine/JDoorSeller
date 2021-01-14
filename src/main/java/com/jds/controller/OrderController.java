@@ -105,7 +105,7 @@ public class OrderController {
     @ResponseBody
     public List<DoorOrder> getToWorkOrders() {
 
-        return orderService.getOrders(OrderStatus.TO_WORK);
+        return orderService.getAllOrders(OrderStatus.TO_WORK);
     }
 
     @PostMapping(value = "/orders/{orderId}/statuses/{status}")
