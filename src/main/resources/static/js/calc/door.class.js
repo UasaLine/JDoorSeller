@@ -315,7 +315,7 @@ class Door {
                             "class",
                             "handle_images rigth_side" + config.leafCount + "_handle mirrorX"
                         )
-                        .attr("src", Door.dirPath + +door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 } else {
                     $("<img>")
@@ -323,7 +323,7 @@ class Door {
                             "class",
                             "handle_images left_side" + config.leafCount + "_handle"
                         )
-                        .attr("src", Door.dirPath + +door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 }
             }
