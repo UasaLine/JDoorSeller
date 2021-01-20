@@ -162,4 +162,43 @@ public class MaterialsService {
         materialsDao.deleteLineSpecification(lineSpecification);
         return "ок";
     }
+
+    public MaterialEntity saveMaterialsEntity(MaterialEntity materialEntity) {
+
+        MaterialEntity materialEntityBase = materialsDao.getMaterialsEntitybyIdMan(materialEntity.getIdManufacturerProgram());
+
+        if (materialEntityBase != null){
+            materialEntity.setId(materialEntityBase.getId());
+
+            List<MaterialEntity> materialComponentsList = materialEntity.getComponents().getMaterialList();
+
+            for(int i = 0; i < materialComponentsList.size(); i++){
+                MaterialEntity materialFromBase = materialsDao.getMaterialsEntitybyIdMan(materialComponentsList.get(i).getIdManufacturerProgram());
+                if (materialFromBase != null){
+                    materialComponentsList.get(i).setParent(new MaterialComponents(materialFromBase.getId()));
+                }else {
+                    materialComponentsList.get(i).setParent(new MaterialComponents(materialEntity.getId()));
+                }
+            }
+            materialEntity = materialsDao.saveMaterialsEntity(materialEntity);
+        }else {
+            materialEntity = materialsDao.saveMaterialsEntity(materialEntity);
+            List<MaterialEntity> materialComponentsList = materialEntity.getComponents().getMaterialList();
+
+            for(int i = 0; i < materialComponentsList.size(); i++){
+                MaterialEntity materialFromBase = materialsDao.getMaterialsEntitybyIdMan(materialComponentsList.get(i).getIdManufacturerProgram());
+                if (materialFromBase != null){
+                    materialComponentsList.get(i).setParent(new MaterialComponents(materialFromBase.getId()));
+                }else {
+                    materialComponentsList.get(i).setParent(new MaterialComponents(materialEntity.getId()));
+                }
+
+            }
+            materialEntity.getComponents().setMaterialList(materialComponentsList);
+            materialEntity = materialsDao.saveMaterialsEntity(materialEntity);
+
+        }
+
+       return materialEntity;
+    }
 }
