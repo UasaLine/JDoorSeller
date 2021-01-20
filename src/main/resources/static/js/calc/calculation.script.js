@@ -7,6 +7,7 @@ let selectSizeOpen = false;
 let average_widthDoorVal = 0;
 let maxSize_widthDoorVal = 0;
 let availableFurnitureList;
+const parentDir = "../../";
 
 
 jQuery("document").ready(function () {
@@ -707,7 +708,7 @@ jQuery("document").ready(function () {
                     if (Door.listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
-                            Door.listColorsEntity[a].picturePath
+                            parentDir + Door.listColorsEntity[a].picturePath
                         );
                     }
                 }
@@ -734,7 +735,7 @@ jQuery("document").ready(function () {
                 $("#images" + nameJava + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
                 $("#images" + nameJava + "Img" + i).attr(
                     "src",
-                    tab[i + offsetTab.biasInt].picturePath
+                    parentDir+tab[i + offsetTab.biasInt].picturePath
                 );
                 $("#images" + nameJava + "Span" + i).text(tab[i + offsetTab.biasInt].name);
             } else {
@@ -789,7 +790,7 @@ jQuery("document").ready(function () {
                     $(sel + "Div" + i).attr("show", "is_alive_lement");
                     $(sel + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
                     $(sel + "Div" + i).attr("Item", item);
-                    $(sel + "Img" + i).attr("src", tab[i + offsetTab.biasInt].picturePathFirst);
+                    $(sel + "Img" + i).attr("src",parentDir+ tab[i + offsetTab.biasInt].picturePathFirst);
                     $(sel + "Span" + i).text(tab[i + offsetTab.biasInt].name);
                 } else {
                     $(sel + "Div" + i).attr("show", "ghost_lement");
