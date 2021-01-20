@@ -121,5 +121,40 @@ public class FurnitureService {
                 .collect(Collectors.toList());
     }
 
+    //@todo dell only for test
+    public String setting() {
+        List<DoorFurniture> list = repository.getFurniture();
+        for (DoorFurniture doorFurniture : list) {
 
+            String path = doorFurniture.getPicturePathFirst();
+            if (!"".equals(path)) {
+                doorFurniture.setPicturePathFirst(
+                        slashReplacement(path)
+                );
+                repository.saveFurniture(doorFurniture);
+            }
+
+
+            path = doorFurniture.getSketchPathFirst();
+            if (!"".equals(path)) {
+                doorFurniture.setSketchPathFirst(
+                        slashReplacement(path)
+                );
+                repository.saveFurniture(doorFurniture);
+            }
+
+        }
+        return "ок";
+    }
+
+    //@todo dell only for test
+    private String slashReplacement(String path) {
+        String firstСharacter = path.substring(0, 1);
+        String stringForReplace = path;
+        if (firstСharacter.equals("\\")) {
+            stringForReplace = path.substring(1, path.length());
+        }
+        String resultString = stringForReplace.replace("\\", "/");
+        return resultString;
+    }
 }
