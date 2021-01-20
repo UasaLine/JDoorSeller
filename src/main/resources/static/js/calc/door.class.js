@@ -221,7 +221,7 @@ class Door {
 
             $("<img>")
                 .attr("class", "opening_side_images")
-                .attr("src", Door.dirPath +"images/Door/fanlight_in.png")
+                .attr("src", Door.dirPath + "images/Door/fanlight_in.png")
                 .attr(
                     "style",
                     "width:" +
@@ -257,7 +257,7 @@ class Door {
         let scaleX = Door.reflectionPicture(door);
         $("<img>")
             .attr("class", "opening_side_images")
-            .attr("src", Door.dirPath +path)
+            .attr("src", Door.dirPath + path)
             .attr(
                 "style",
                 "width:" + config.width + "px; height:" + config.height + "px; transform: scale(" + scaleX + ", 1)"
@@ -268,7 +268,7 @@ class Door {
     static createRelief(containerLeaf, config, side) {
         $("<img>")
             .attr("class", "opening_side_images")
-            .attr("src", Door.dirPath +"images/Door/" + config["sideOpening" + side] + ".png")
+            .attr("src", Door.dirPath + "images/Door/" + config["sideOpening" + side] + ".png")
             .attr(
                 "style",
                 "width:" + config.width + "px; height:" + config.height + "px;"
@@ -281,7 +281,7 @@ class Door {
         if (door.furnitureKit != null && door.furnitureKit.closer != null) {
             $("<img>")
                 .attr("class", "closer_images")
-                .attr("src", Door.dirPath + + door.furnitureKit.closer.sketchPathFirst)
+                .attr("src", Door.dirPath + +door.furnitureKit.closer.sketchPathFirst)
                 .appendTo(containerLeaf);
         }
     }
@@ -295,7 +295,7 @@ class Door {
                             "class",
                             "handle_images left_side" + config.leafCount + "_handle"
                         )
-                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 } else {
                     $("<img>")
@@ -303,7 +303,7 @@ class Door {
                             "class",
                             "handle_images rigth_side" + config.leafCount + "_handle mirrorX"
                         )
-                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 }
             }
@@ -315,7 +315,7 @@ class Door {
                             "class",
                             "handle_images rigth_side" + config.leafCount + "_handle mirrorX"
                         )
-                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + +door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 } else {
                     $("<img>")
@@ -323,7 +323,7 @@ class Door {
                             "class",
                             "handle_images left_side" + config.leafCount + "_handle"
                         )
-                        .attr("src", Door.dirPath + + door.furnitureKit.handle.sketchPathFirst)
+                        .attr("src", Door.dirPath + +door.furnitureKit.handle.sketchPathFirst)
                         .appendTo(containerLeaf);
                 }
             }
@@ -338,7 +338,7 @@ class Door {
         ) {
             $("<img>")
                 .attr("class", "stainlessSteelDoorstepL_images")
-                .attr("src", Door.dirPath +"images/findings/door handles sketch/000000001_R.png")
+                .attr("src", Door.dirPath + "images/findings/door handles sketch/000000001_R.png")
                 .appendTo(containerLeaf);
         }
     }
@@ -350,7 +350,7 @@ class Door {
 
             $("<img>")
                 .attr("class", "opening_side_images")
-                .attr("src", Door.dirPath +"images/Door/window.png")
+                .attr("src", Door.dirPath + "images/Door/window.png")
                 .attr(
                     "style",
                     "width:" +
@@ -375,7 +375,7 @@ class Door {
 
         $("<img>")
             .attr("class", "logo_brand_images_" + side)
-            .attr("src", Door.dirPath +"images/findings/logo.png")
+            .attr("src", Door.dirPath + "images/findings/logo.png")
             .appendTo(containerLeaf);
     }
 
@@ -387,17 +387,17 @@ class Door {
 
         $("<img>")
             .attr("class", "upper_hinge hinge_images_" + side)
-            .attr("src", Door.dirPath +"images/findings/sharnir.png")
+            .attr("src", Door.dirPath + "images/findings/sharnir.png")
             .appendTo(containerLeaf);
 
         $("<img>")
             .attr("class", "middle_hinge hinge_images_" + side)
-            .attr("src", Door.dirPath +"images/findings/sharnir.png")
+            .attr("src", Door.dirPath + "images/findings/sharnir.png")
             .appendTo(containerLeaf);
 
         $("<img>")
             .attr("class", "lower_hinge hinge_images_" + side)
-            .attr("src", Door.dirPath +"images/findings/sharnir.png")
+            .attr("src", Door.dirPath + "images/findings/sharnir.png")
             .appendTo(containerLeaf);
     }
 
@@ -409,7 +409,7 @@ class Door {
 
         $("<img>")
             .attr("class", "night_lock_images_" + side)
-            .attr("src", Door.dirPath +"images/findings/night_lock.png")
+            .attr("src", Door.dirPath + "images/findings/night_lock.png")
             .appendTo(containerLeaf);
     }
 
@@ -427,7 +427,7 @@ class Door {
         //images/findings/zamok.png
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", Door.dirPath +imgKey)
+            .attr("src", Door.dirPath + imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -446,7 +446,7 @@ class Door {
 
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", Door.dirPath +imgKey)
+            .attr("src", Door.dirPath + imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -468,7 +468,7 @@ class Door {
 
         $("<img>")
             .attr("class", "top_lock_decor lock_decor_" + side)
-            .attr("src", Door.dirPath +imgKey)
+            .attr("src", Door.dirPath + imgKey)
             .appendTo(containerLeaf);
 
     }
@@ -488,7 +488,7 @@ class Door {
         //images/findings/zamokIn.png
         $("<img>")
             .attr("class", "lower_lock_decor lock_decor_" + side)
-            .attr("src", Door.dirPath +imgKey)
+            .attr("src", Door.dirPath + imgKey)
             .appendTo(containerLeaf);
     }
 
@@ -497,7 +497,7 @@ class Door {
             let scaleX = Door.reflectionPicture(door);
             $("<img>")
                 .attr("class", "shield_color")
-                .attr("src", Door.dirPath +door.shieldKit.shieldColor.picturePath)
+                .attr("src", Door.dirPath + door.shieldKit.shieldColor.picturePath)
                 .attr("style",
                     "px; transform: scale(" + scaleX + ", 1)")
                 .appendTo(containerLeaf);
@@ -510,7 +510,7 @@ class Door {
                 let scaleX = Door.reflectionPicture(door);
                 $("<img>")
                     .attr("class", "shield_design")
-                    .attr("src", Door.dirPath +door.shieldKit.shieldDesign.picturePath)
+                    .attr("src", Door.dirPath + door.shieldKit.shieldDesign.picturePath)
                     .attr("style",
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);
@@ -524,7 +524,7 @@ class Door {
                 let scaleX = Door.reflectionPicture(door);
                 $("<img>")
                     .attr("class", "shield_glass")
-                    .attr("src", Door.dirPath +door.shieldKit.shieldGlass.picturePath)
+                    .attr("src", Door.dirPath + door.shieldKit.shieldGlass.picturePath)
                     .attr("style",
                         "px; transform: scale(" + scaleX + ", 1)")
                     .appendTo(containerLeaf);

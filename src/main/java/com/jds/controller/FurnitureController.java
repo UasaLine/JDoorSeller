@@ -75,4 +75,14 @@ public class FurnitureController {
 
     }
 
+    //@todo dell only for test
+    @GetMapping(value = "/furniture/setting")
+    @ResponseBody
+    public ResponseAction setting() {
+
+        return new ResponseAction(service.setting());
+
+    }
+
+
 }
