@@ -127,9 +127,10 @@ public class MaterialsController {
 
     @PostMapping(value = "/materials", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public MaterialEntity saveMaterialsEntity(@RequestBody MaterialEntity materialEntity) throws Exception {
+    public String saveMaterialsEntity(@RequestBody MaterialEntity materialEntity) throws Exception {
 
-        return service.saveMaterialsEntity(materialEntity);
+        service.saveMaterialsEntity(materialEntity);
+        return "ok";
     }
 
 }

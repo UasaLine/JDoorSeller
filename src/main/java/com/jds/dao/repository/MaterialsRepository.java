@@ -321,7 +321,7 @@ public class MaterialsRepository {
         return components;
     }
 
-    public MaterialEntity getMaterialsEntitybyIdMan(String idManufacturerProgram){
+    public MaterialEntity getMaterialsByManufactureId(String idManufacturerProgram){
 
         Session session = sessionFactory.openSession();
 

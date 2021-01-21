@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,9 +33,16 @@ public class MaterialEntity {
     private MaterialComponents components;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="components_parent_id", nullable=false)
+    @JoinColumn(name = "components_parent_id", nullable = false)
     private MaterialComponents parent;
 
     @Column(name = "price")
     private int price;
+
+    public void setParentToComponentAllItems(MaterialComponents components) {
+        this.components.setParentToAllMaterials(components);
+
+
+    }
+
 }

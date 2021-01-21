@@ -48,4 +48,10 @@ public class MaterialComponents {
     public void clearNonSerializingFields(){
 
     }
+
+    public void setParentToAllMaterials(MaterialComponents components) {
+        for(MaterialEntity materials : materialList){
+            materials.setParent(components);
+        }
+    }
 }
