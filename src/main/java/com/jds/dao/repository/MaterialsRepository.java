@@ -305,4 +305,38 @@ public class MaterialsRepository {
         return list;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public MaterialEntity saveMaterialsEntity(MaterialEntity materials) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(materials);
+
+        return materials;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public MaterialComponents saveComponents(MaterialComponents components) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(components);
+
+        return components;
+    }
+
+    public MaterialEntity getMaterialsByManufactureId(String idManufacturerProgram){
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from materials where id_manufacturer_program like :idManufacturerProgram";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(MaterialEntity.class)
+                .setParameter("idManufacturerProgram", idManufacturerProgram);
+        List<MaterialEntity> list = query.list();
+
+        session.close();
+
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+
+    }
 }
