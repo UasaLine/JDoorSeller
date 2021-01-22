@@ -94,8 +94,8 @@ public class MaterialsService {
 
     public SpecificationEntity saveSpecificationEntity(@NonNull SpecificationEntity specificationEntity) {
 
-        if (specificationEntity.getLineSpecifications().size() != 0){
-            for (LineSpecification lineSpecification : specificationEntity.getLineSpecifications()){
+        if (specificationEntity.getLineSpecifications().size() != 0) {
+            for (LineSpecification lineSpecification : specificationEntity.getLineSpecifications()) {
                 lineSpecification.setSpecification(specificationEntity);
                 lineSpecification.getSpecification().setLineSpecifications(null);
             }
@@ -144,10 +144,10 @@ public class MaterialsService {
 
         LineSpecification lineSpecification;
 
-        if (line_id.equals("0")){
+        if (line_id.equals("0")) {
             lineSpecification = new LineSpecification();
             //lineSpecification.setSpecification(service.getSpecificationEtity(id));
-        }else {
+        } else {
             lineSpecification = materialsDao.getSpecificationLineById(Integer.parseInt(line_id));
             lineSpecification.setDoorType(null);
             lineSpecification.setSpecification(null);
@@ -161,5 +161,40 @@ public class MaterialsService {
         LineSpecification lineSpecification = getLineSpecification(lineId);
         materialsDao.deleteLineSpecification(lineSpecification);
         return "ок";
+    }
+
+    public MaterialEntity saveMaterialsEntity(MaterialEntity materialEntity) {
+
+        MaterialEntity materialBase = materialsDao.getMaterialsByManufactureId(materialEntity.getIdManufacturerProgram());
+        int componentId = 0;
+
+        if (materialBase != null) {
+            materialEntity.setId(materialBase.getId());
+            componentId = materialBase.getComponents().getId();
+            materialEntity.getComponents().setId(componentId);
+        } else {
+            materialBase = materialsDao.saveMaterialsEntity(materialEntity);
+            componentId = materialBase.getComponents().getId();
+        }
+        materialEntity.setParentToComponentAllItems(new MaterialComponents(componentId));
+        materialEntity = checkInBaseExist(materialEntity);
+        materialEntity = materialsDao.saveMaterialsEntity(materialEntity);
+
+        return materialEntity;
+    }
+
+    public MaterialEntity checkInBaseExist(MaterialEntity materialEntity) {
+
+        List<MaterialEntity> materialComponentsList = materialEntity.getComponents().getMaterialList();
+        for (int i = 0; i < materialComponentsList.size(); i++) {
+            MaterialEntity material = materialComponentsList.get(i);
+            MaterialEntity materialFromBase = materialsDao.getMaterialsByManufactureId(material.getIdManufacturerProgram());
+            if (materialFromBase != null) {
+                material.setId(materialFromBase.getId());
+            } else {
+                material = materialsDao.saveMaterialsEntity(material);
+            }
+        }
+        return materialEntity;
     }
 }
