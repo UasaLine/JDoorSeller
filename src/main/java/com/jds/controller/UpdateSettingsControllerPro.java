@@ -6,10 +6,7 @@ import com.jds.dao.repository.MainDAO;
 import com.jds.dao.repository.MaterialsRepository;
 import com.jds.dao.repository.MetalRepository;
 import com.jds.dao.entity.*;
-import com.jds.service.ColorService;
-import com.jds.service.MaineService;
-import com.jds.service.MaterialsService;
-import com.jds.service.OrderService;
+import com.jds.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -41,6 +38,9 @@ public class UpdateSettingsControllerPro {
 
     @Autowired
     private ColorService colorService;
+
+    @Autowired
+    private SpecificationService specificationService;
 
     @PostMapping(value = "/update/doorclass", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -186,7 +186,7 @@ public class UpdateSettingsControllerPro {
         ObjectMapper mapper = new ObjectMapper();
 
         SpecificationSetting setting = mapper.readValue(reader, SpecificationSetting.class);
-        materialsService.saveSpecificationSetting(setting);
+        specificationService.saveSpecificationSetting(setting);
 
         return "jr";
     }

@@ -73,7 +73,7 @@ public class MaterialsRepository {
         return setting;
     }
 
-    public List<LineSpecification> getSpecification(int id){
+    public List<LineSpecification> getSpecification(int id) {
 
         Session session = sessionFactory.openSession();
 
@@ -88,7 +88,7 @@ public class MaterialsRepository {
         return list;
     }
 
-    public List<SpecificationEntity> getSpecification(){
+    public List<SpecificationEntity> getSpecification() {
 
         Session session = sessionFactory.openSession();
 
@@ -103,7 +103,7 @@ public class MaterialsRepository {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public LineSpecification  saveLineSpecification(LineSpecification lineSpec){
+    public LineSpecification saveLineSpecification(LineSpecification lineSpec) {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(lineSpec);
@@ -113,7 +113,7 @@ public class MaterialsRepository {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteLineSpecification(LineSpecification lineSpecification){
+    public void deleteLineSpecification(LineSpecification lineSpecification) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(lineSpecification);
     }
@@ -286,11 +286,11 @@ public class MaterialsRepository {
 
         session.close();
 
-            return list.get(0);
+        return list.get(0);
 
     }
 
-    public List<LineSpecification> getLineSpecification(int id){
+    public List<LineSpecification> getLineSpecification(int id) {
 
         Session session = sessionFactory.openSession();
 
@@ -320,7 +320,7 @@ public class MaterialsRepository {
         return components;
     }
 
-    public MaterialEntity getMaterialsByManufactureId(String idManufacturerProgram){
+    public MaterialEntity getMaterialsByManufactureId(String idManufacturerProgram) {
 
         Session session = sessionFactory.openSession();
 
@@ -337,5 +337,28 @@ public class MaterialsRepository {
         }
         return null;
 
+    }
+
+    public MaterialEntity getMaterial(int id) {
+        Session session = sessionFactory.openSession();
+        MaterialEntity material = session.get(MaterialEntity.class, id);
+        material.clearNonSerializingFields();
+        return material;
+    }
+
+    public List<MaterialEntity> getMaterials() {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from materials";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(MaterialEntity.class);
+        List<MaterialEntity> list = query.list();
+
+        session.close();
+
+        list.forEach(MaterialEntity::clearNonSerializingFields);
+
+        return list;
     }
 }

@@ -29,20 +29,17 @@ public class MaterialEntity {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "components",referencedColumnName = "id")
+    @JoinColumn(name = "components", referencedColumnName = "id")
     private MaterialComponents components;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "components_parent_id", nullable = false)
-    private MaterialComponents parent;
 
     @Column(name = "price")
     private int price;
 
-    public void setParentToComponentAllItems(MaterialComponents components) {
-        this.components.setParentToAllMaterials(components);
 
-
+    public void clearNonSerializingFields() {
+        if (components != null) {
+            components.setMaterial(null);
+        }
     }
 
 }

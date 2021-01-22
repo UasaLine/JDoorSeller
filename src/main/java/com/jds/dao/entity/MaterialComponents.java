@@ -22,33 +22,14 @@ public class MaterialComponents {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "materials_components",
+            joinColumns = {@JoinColumn(name = "components_id")},
+            inverseJoinColumns = {@JoinColumn(name = "materials_id")}
+    )
     private List<MaterialEntity> materialList;
 
     @OneToOne(mappedBy = "components")
     private MaterialEntity material;
-
-    public MaterialComponents(MaterialEntity material) {
-        this.material = material;
-
-        if (materialList == null) {
-            materialList = new ArrayList<>();
-        }
-        materialList.add(this.material);
-    }
-
-    public MaterialComponents(int id) {
-        this.id = id;
-    }
-
-
-    public void clearNonSerializingFields(){
-
-    }
-
-    public void setParentToAllMaterials(MaterialComponents components) {
-        for(MaterialEntity materials : materialList){
-            materials.setParent(components);
-        }
-    }
 }
