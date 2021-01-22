@@ -125,4 +125,12 @@ public class MaterialsController {
         return service.deleteLineSpecification(id);
     }
 
+    @PostMapping(value = "/materials", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String saveMaterialsEntity(@RequestBody MaterialEntity materialEntity) throws Exception {
+
+        service.saveMaterialsEntity(materialEntity);
+        return "ok";
+    }
+
 }
