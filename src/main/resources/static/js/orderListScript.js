@@ -41,7 +41,7 @@ jQuery("document").ready(function () {
     function deletOrder() {
         $.ajax({
             type: "DELETE",
-            url: "order?orderId=" + currentId,
+            url: location.origin + "/orders/" + currentId,
             dataType: "json",
             success: function (data) {
                 alert("delete completed" + data);
