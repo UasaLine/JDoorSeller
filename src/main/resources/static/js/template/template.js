@@ -1719,7 +1719,7 @@ jQuery("document").ready(function () {
 
     function getIdFromUrl() {
         var url = location.href;
-        var id = url.substring(url.lastIndexOf("/") + 1);
+        var id = url.substring(url.lastIndexOf("/") - 1,url.lastIndexOf("/"));
         return id;
     }
 

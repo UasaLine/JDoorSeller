@@ -11,7 +11,7 @@ jQuery("document").ready(function () {
   });
 
   $("#addLine").on("click", function () {
-    location.href = "templates/0";
+    location.href = location.origin + "/templates/0/page";
   });
 
   function getTemplate(typeId) {
