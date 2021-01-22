@@ -309,7 +309,6 @@ public class MaterialsRepository {
     public MaterialEntity saveMaterialsEntity(MaterialEntity materials) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(materials);
-
         return materials;
     }
 

@@ -26,23 +26,20 @@ public class MaterialComponents {
     private List<MaterialEntity> materialList;
 
     @OneToOne(mappedBy = "components")
-    private MaterialEntity materials;
+    private MaterialEntity material;
 
     public MaterialComponents(MaterialEntity material) {
-        materials = material;
+        this.material = material;
 
         if (materialList == null) {
             materialList = new ArrayList<>();
         }
-        materialList.add(materials);
+        materialList.add(this.material);
     }
-
-
 
     public MaterialComponents(int id) {
         this.id = id;
     }
-
 
 
     public void clearNonSerializingFields(){

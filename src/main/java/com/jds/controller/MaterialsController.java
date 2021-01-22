@@ -1,6 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.*;
+import com.jds.model.Exeption.ResponseException;
 import com.jds.model.Specification;
 import com.jds.model.backResponse.ResponseAction;
 import com.jds.service.MaterialsService;
@@ -83,7 +84,7 @@ public class MaterialsController {
 
     @GetMapping(value = "/specifications/{id}")
     @ResponseBody
-    public SpecificationEntity getSpecificationEntity (@PathVariable String id) {
+    public SpecificationEntity getSpecificationEntity(@PathVariable String id) {
 
         return service.getSpecificationEntity(id);
     }
@@ -127,9 +128,14 @@ public class MaterialsController {
 
     @PostMapping(value = "/materials", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String saveMaterialsEntity(@RequestBody MaterialEntity materialEntity) throws Exception {
+    public String saveMaterialsEntity(@RequestBody MaterialEntity material) throws ResponseException {
 
-        service.saveMaterialsEntity(materialEntity);
+        String manufacturerId = material.getManufacturerId();
+        if (manufacturerId == null || "".equals(manufacturerId)) {
+            throw new ResponseException("manufacturerId should not be empty");
+        }
+
+        service.saveMaterialsEntity(material);
         return "ok";
     }
 

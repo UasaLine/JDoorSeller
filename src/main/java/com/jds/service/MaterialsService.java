@@ -165,7 +165,7 @@ public class MaterialsService {
 
     public MaterialEntity saveMaterialsEntity(MaterialEntity materialEntity) {
 
-        MaterialEntity materialBase = materialsDao.getMaterialsByManufactureId(materialEntity.getIdManufacturerProgram());
+        MaterialEntity materialBase = materialsDao.getMaterialsByManufactureId(materialEntity.getManufacturerId());
         int componentId = 0;
 
         if (materialBase != null) {
@@ -188,7 +188,7 @@ public class MaterialsService {
         List<MaterialEntity> materialComponentsList = materialEntity.getComponents().getMaterialList();
         for (int i = 0; i < materialComponentsList.size(); i++) {
             MaterialEntity material = materialComponentsList.get(i);
-            MaterialEntity materialFromBase = materialsDao.getMaterialsByManufactureId(material.getIdManufacturerProgram());
+            MaterialEntity materialFromBase = materialsDao.getMaterialsByManufactureId(material.getManufacturerId());
             if (materialFromBase != null) {
                 material.setId(materialFromBase.getId());
             } else {
