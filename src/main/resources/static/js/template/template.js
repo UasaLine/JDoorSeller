@@ -1047,7 +1047,7 @@ jQuery("document").ready(function () {
                 }
 
                 elem = getNotCompletedFields(selector);
-                fillInFieldFromLimiForFurnitur(
+                fillInFieldFromLimiForFurnitur(nameJavaObject,
                     "#" + $(elem).attr("id"),
                     restriction[nameJavaObject]
                 );
@@ -1126,10 +1126,14 @@ jQuery("document").ready(function () {
         var elem = $("." + nameJavaObject + "Select");
         for (var i = 0; i < elem.length; ++i) {
             if (!$(elem[i]).val()) {
-                fillInFieldFromLimiForFurnitur(
+                fillInFieldFromLimiForFurnitur(nameJavaObject,
                     "#" + $(elem[i]).attr("id"),
                     restriction[nameJavaObject]
                 );
+            } else {
+                let valueElem = $(elem[i]).val();
+                fillInFieldFromLimiForFurnitur(nameJavaObject, "#" + $(elem[i]).attr("id"), restriction[nameJavaObject]);
+                setValueInSelectInt("#" + $(elem[i]).attr("id"), valueElem);
             }
         }
     }
@@ -1188,7 +1192,7 @@ jQuery("document").ready(function () {
         }
     }
 
-    function fillInFieldFromLimiForFurnitur(selector, table) {
+    function fillInFieldFromLimiForFurnitur(javaName, selector, table) {
         $(selector).empty();
 
         if (table != null) {
@@ -1198,15 +1202,17 @@ jQuery("document").ready(function () {
             }
 
             for (var i = 0; i < table.length; ++i) {
-                $(selector).append(
-                    $(
-                        "<option value=" +
-                        table[i].itemId +
-                        ">" +
-                        table[i].firstItem +
-                        "</option>"
-                    )
-                );
+                if (searchDoubleValue(javaName, table[i])) {
+                    $(selector).append(
+                        $(
+                            "<option value=" +
+                            table[i].itemId +
+                            ">" +
+                            table[i].firstItem +
+                            "</option>"
+                        )
+                    );
+                }
             }
         }
     }
@@ -1719,7 +1725,7 @@ jQuery("document").ready(function () {
 
     function getIdFromUrl() {
         var url = location.href;
-        var id = url.substring(url.lastIndexOf("/") + 1);
+        var id = url.substring(url.lastIndexOf("/") - 1,url.lastIndexOf("/"));
         return id;
     }
 

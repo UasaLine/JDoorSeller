@@ -278,14 +278,17 @@ jQuery("document").ready(function () {
                 if (!data.success) {
                     alert(data.message);
                 } else {
-                    $("#order_id").text(data.data.order_id);
+                    $("#order_id").text(data.data.orderId);
                     orderId = $("#order_id").text();
                     if (add == 1) {
                         addDoor(orderId);
+                    } else {
+                        toOrder();
                     }
                     if (close == 1) {
                         toClose();
                     }
+
                 }
             },
             error: function (data) {
@@ -315,6 +318,9 @@ jQuery("document").ready(function () {
 
     function toClose() {
         location.pathname = "/pages/orders";
+    }
+    function toOrder() {
+        location.pathname = "/pages/orders/" + orderId;
     }
 
     function oneEnableAllDisable(item) {

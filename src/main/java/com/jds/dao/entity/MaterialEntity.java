@@ -1,13 +1,13 @@
 package com.jds.dao.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +23,7 @@ public class MaterialEntity {
     private int id;
 
     @Column(name = "id_manufacturer_program")
-    private String idManufacturerProgram;
+    private String manufacturerId;
 
     @Column(name = "name")
     private String name;
@@ -32,17 +32,14 @@ public class MaterialEntity {
     @JoinColumn(name = "components", referencedColumnName = "id")
     private MaterialComponents components;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "components_parent_id", nullable = false)
-    private MaterialComponents parent;
-
     @Column(name = "price")
     private int price;
 
-    public void setParentToComponentAllItems(MaterialComponents components) {
-        this.components.setParentToAllMaterials(components);
 
-
+    public void clearNonSerializingFields() {
+        if (components != null) {
+            components.setMaterial(null);
+        }
     }
 
 }
