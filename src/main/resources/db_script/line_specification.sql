@@ -2,7 +2,6 @@ DROP TABLE line_specification;
 create table line_specification
 (
   id                  SERIAL PRIMARY KEY,
-  doorType_id         INT,
   material_id         CHARACTER VARYING(100),
   name                CHARACTER VARYING(100),
   value               real,

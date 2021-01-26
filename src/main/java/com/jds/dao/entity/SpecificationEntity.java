@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,33 +24,37 @@ public class SpecificationEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "doorType_id")
     private DoorType doorType;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "specification")
-    private List<LineSpecification> lineSpecifications;
+    private List<LineSpecification> lines;
 
-    public void clearNonSerializingFields(){
-        for (LineSpecification line : lineSpecifications){
-            line.setDoorType(null);
-            line.setSpecification(null);
+    public void clearNonSerializingFields() {
+        if (doorType != null) {
+            doorType.clearNonSerializingFields();
+        }
+        if (lines != null) {
+            for (LineSpecification line : lines) {
+                line.setSpecification(null);
+            }
         }
     }
 
-    public void addLine(LineSpecification line){
-        lineSpecifications.add(line);
+    public void addLine(LineSpecification line) {
+        lines.add(line);
     }
 
-    public void putLine(@NonNull LineSpecification line){
-        if (line.getId() > 0){
-            for (int i = 0; i < lineSpecifications.size(); i++){
-                if (lineSpecifications.get(i).getId() == line.getId()){
-                    lineSpecifications.set(i, line);
+    public void putLine(@NonNull LineSpecification line) {
+        if (line.getId() > 0) {
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).getId() == line.getId()) {
+                    lines.set(i, line);
                 }
             }
-        }else {
-            lineSpecifications.add(line);
+        } else {
+            lines.add(line);
         }
 
     }
@@ -60,15 +63,14 @@ public class SpecificationEntity {
         this.id = id;
     }
 
-    public void setSpecificationToAllLine(SpecificationEntity spec){
-        lineSpecifications.stream()
+    public void setSpecificationToAllLine(SpecificationEntity spec) {
+        lines.stream()
                 .map(line -> setSpecification(line, spec))
                 .collect(Collectors.toList());
     }
 
-    private LineSpecification setSpecification(LineSpecification lineSpecification, SpecificationEntity specificationEntity){
+    private LineSpecification setSpecification(LineSpecification lineSpecification, SpecificationEntity specificationEntity) {
         lineSpecification.setSpecification(specificationEntity);
-        lineSpecification.setDoorType(doorType);
         return lineSpecification;
     }
 }

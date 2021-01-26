@@ -73,14 +73,13 @@ public class MaterialsRepository {
         return setting;
     }
 
-    public List<LineSpecification> getSpecification(int id) {
+    public List<LineSpecification> getLineSpecificationList() {
 
         Session session = sessionFactory.openSession();
 
-        String sql = "select * from line_specification where doorType_id = :id";
+        String sql = "select * from line_specification";
         Query query = session.createSQLQuery(sql)
-                .addEntity(LineSpecification.class)
-                .setParameter("id", id);
+                .addEntity(LineSpecification.class);
         List<LineSpecification> list = query.list();
 
         session.close();
@@ -233,6 +232,7 @@ public class MaterialsRepository {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(specification);
 
+        specification.setSpecificationToAllLine(new SpecificationEntity(specification.getId()));
         return specification;
     }
 
@@ -288,21 +288,6 @@ public class MaterialsRepository {
 
         return list.get(0);
 
-    }
-
-    public List<LineSpecification> getLineSpecification(int id) {
-
-        Session session = sessionFactory.openSession();
-
-        String sql = "select * from line_specification where doorType_id = :id";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(LineSpecification.class)
-                .setParameter("id", id);
-        List<LineSpecification> list = query.list();
-
-        session.close();
-
-        return list;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

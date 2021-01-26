@@ -19,10 +19,6 @@ public class LineSpecification {
     @Column(name = "id", nullable = false)
     int id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "doorType_id")
-    DoorType doorType;
-
     @Column(name = "material_id")
     String materialId;
 
