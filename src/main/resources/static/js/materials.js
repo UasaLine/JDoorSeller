@@ -107,7 +107,7 @@ jQuery("document").ready(function () {
 
   function grtListDoorClassToSelect() {
     $.ajax({
-      url: "materialsList",
+      url: location.origin+"/materials",
       dataType: "json",
       success: function (data) {
         materialsList = data;
@@ -163,7 +163,7 @@ jQuery("document").ready(function () {
       addLine(
         materialsList[i].id,
         materialsList[i].name,
-        materialsList[i].idManufacturerProgram,
+        materialsList[i].manufacturerId,
         materialsList[i].price
       );
     }

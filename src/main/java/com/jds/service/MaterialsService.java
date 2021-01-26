@@ -1,7 +1,6 @@
 package com.jds.service;
 
 import com.jds.dao.entity.*;
-import com.jds.dao.repository.MainDAO;
 import com.jds.dao.repository.MaterialsRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,22 +34,24 @@ public class MaterialsService {
         } else {
             materialBase = repository.saveMaterialsEntity(materialEntity);
         }
-        materialEntity = checkInBaseExist(materialEntity);
+        materialEntity = checkComponentsInBaseExist(materialEntity);
         materialEntity = repository.saveMaterialsEntity(materialEntity);
 
         return materialEntity;
     }
 
-    public MaterialEntity checkInBaseExist(MaterialEntity materialEntity) {
-
-        List<MaterialEntity> materialComponentsList = materialEntity.getComponents().getMaterialList();
-        for (int i = 0; i < materialComponentsList.size(); i++) {
-            MaterialEntity material = materialComponentsList.get(i);
-            MaterialEntity materialFromBase = repository.getMaterialsByManufactureId(material.getManufacturerId());
-            if (materialFromBase != null) {
-                material.setId(materialFromBase.getId());
-            } else {
-                material = repository.saveMaterialsEntity(material);
+    public MaterialEntity checkComponentsInBaseExist(MaterialEntity materialEntity) {
+        MaterialComponents components = materialEntity.getComponents();
+        if (components != null) {
+            List<MaterialEntity> materialComponentsList = components.getMaterialList();
+            for (int i = 0; i < materialComponentsList.size(); i++) {
+                MaterialEntity material = materialComponentsList.get(i);
+                MaterialEntity materialFromBase = repository.getMaterialsByManufactureId(material.getManufacturerId());
+                if (materialFromBase != null) {
+                    material.setId(materialFromBase.getId());
+                } else {
+                    material = repository.saveMaterialsEntity(material);
+                }
             }
         }
         return materialEntity;
