@@ -176,6 +176,10 @@ jQuery("document").ready(function () {
         const item = $(this).attr("Item");
         const available = $('#name' + item).attr('available');
 
+        if (item == "innerOpen"){
+            return;
+        }
+
         if (available == "no" || available == undefined) {
             if ($(this).is(":checked")) {
                 $(this).prop("checked", false);
@@ -218,6 +222,28 @@ jQuery("document").ready(function () {
             }
         } else if (currentItem == "additionalDoorSettings") {
             needRepresentationRun = false;
+
+            if (item == "doorstep"){
+                if ($(this).is(":checked")){
+                    addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", true);
+                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                }else {
+                    setDoorField($(this).attr("Item"), 0);
+                    setDoorField("stainlessSteelDoorstep", 0);
+                    $("#stainlessSteelDoorstep_checkbox").prop("checked", false);
+                    addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", false);
+
+
+                }
+            }
+
+            if (item == "stainlessSteelDoorstep"){
+                if ($(this).is(":checked")){
+                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                }else {
+                    setDoorField($(this).attr("Item"), 0);
+                }
+            }
 
             if ($(this).attr("item") == "peepholePosition") {
                 if ($(this).is(":checked")) {
@@ -1712,6 +1738,15 @@ jQuery("document").ready(function () {
         if (javaObject.containsDesign == 0) {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         }
+    }
+
+    function addOrDelleteGhost(id, onOrOff) {
+        if (onOrOff){
+            $(id).removeClass("ghost");
+        }else {
+            $(id).addClass("ghost");
+        }
+
     }
 
 });
