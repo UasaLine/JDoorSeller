@@ -554,11 +554,10 @@ public class DoorServiceImpl implements DoorService {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = materialsDAO.getLineSpecification(doorEntity.getDoorType().getId());
+        List<LineSpecification> lineSpec = materialsDAO.getLineSpecificationList();
 
         lineSpec.stream()
-                .peek((lin) -> addFurKitToLineSpec(lineSpec, doorEntity))
-                .forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
+                .forEach((lin) -> addFurKitToLineSpec(lineSpec, doorEntity));
 
         return lineSpec;
 
@@ -619,7 +618,6 @@ public class DoorServiceImpl implements DoorService {
                 .name(furniture.getName())
                 .value(1)
                 .materialId(furniture.getIdManufacturerProgram())
-                .doorType(doorType)
                 .build());
 
 

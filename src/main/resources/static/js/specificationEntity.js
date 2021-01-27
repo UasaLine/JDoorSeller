@@ -2,11 +2,11 @@ jQuery("document").ready(function () {
     let doorClassList;
     let specificationEtity = {};
     let doorClassAllList = [];
-    var lineSpecifications;
+    let lineSpecifications;
     let addLineBoolean = false;
     let itemId;
     let selectedLineId;
-    var currentLine = 0;
+    let currentLine = 0;
 
     getListDoorClassToSelect();
 
@@ -59,9 +59,9 @@ jQuery("document").ready(function () {
 
     function saveSpecoficationEntity() {
         if (lineSpecifications != null) {
-            specificationEtity.lineSpecifications = lineSpecifications;
-        }else {
-            specificationEtity.lineSpecifications = [];
+            specificationEtity.lines = lineSpecifications;
+        } else {
+            specificationEtity.lines = [];
         }
         let specification = JSON.stringify(specificationEtity);
 
@@ -72,7 +72,7 @@ jQuery("document").ready(function () {
             data: specification,
             success: function (data) {
                 //alert(data);
-                if (addLineBoolean == true){
+                if (addLineBoolean == true) {
                     itemId = data.id;
                     toFormAddScpecLine(itemId);
                 } else {
@@ -88,7 +88,7 @@ jQuery("document").ready(function () {
 
     function checkNewOrNot() {
         if (getIdFromUrl() != 0) {
-            getSpecificationEtity();
+            getSpecificationEntity();
         }
     }
 
@@ -113,16 +113,17 @@ jQuery("document").ready(function () {
     }
 
     function getIdFromUrl() {
-        var url = location.href;
-        var id = url.substring(url.lastIndexOf("/") + 1);
+        const url = location.href;
+        const id = url.substring(url.lastIndexOf("/") + 1);
         return id;
     }
 
     function fillInSpecificationEntity() {
-        $("#name").val(specificationEtity.name);
-        setValueInSelect("#modelOfDoor", specificationEtity.doorType.id);
+        setName();
         fillTabLine();
-
+        if (specificationEtity.doorType){
+            setValueInSelect("#modelOfDoor", specificationEtity.doorType.id);
+        }
     }
 
     function setValueInSelect(jqSelect, value) {
@@ -134,24 +135,24 @@ jQuery("document").ready(function () {
         });
     }
 
-    function getSpecificationEtity() {
+    function getSpecificationEntity() {
         $.ajax({
             url: location.origin + "/specifications/" + getIdFromUrl(),
             dataType: "json",
             success: function (data) {
                 specificationEtity = data;
-                lineSpecifications = data.lineSpecifications;
+                lineSpecifications = data.lines;
                 fillInSpecificationEntity();
             },
             error: function (data) {
-                alert("!ERROR: данные о классах получить не удалось:" + data);
+                alert("!ERROR: спецификацию получить не удалось:" + data);
             },
         });
     }
 
     function getListDoorClassToSelect() {
         $.ajax({
-            url: "/classes",
+            url: location.origin + "/classes",
             success: function (data) {
                 doorClassList = data;
                 fillInDoorClass(doorClassList);
@@ -196,7 +197,6 @@ jQuery("document").ready(function () {
                 lineSpecifications[i].name,
                 lineSpecifications[i].value,
                 lineSpecifications[i].formula,
-                lineSpecifications[i].independentName,
                 lineSpecifications[i].releaseOperation,
                 lineSpecifications[i].writeOffOperation
             );
@@ -208,7 +208,6 @@ jQuery("document").ready(function () {
         newName,
         newValue,
         newformula,
-        independentName,
         releaseOperation,
         writeOffOperation
     ) {
@@ -240,11 +239,6 @@ jQuery("document").ready(function () {
             Position +
             '" >' +
             newformula +
-            "</td>" +
-            '<td class="vary_field text_input" id="independentName' +
-            Position +
-            '" >' +
-            independentName +
             "</td>" +
             '<td class="vary_field text_input" id="releaseOperation' +
             Position +
@@ -284,14 +278,14 @@ jQuery("document").ready(function () {
     });
 
     function toFormAddScpecLine(item) {
-        location.href =  location.origin + "/pages/specification/" + item + "/line/" + "0";
+        location.href = location.origin + "/pages/specification/" + item + "/line/" + "0";
     }
 
     $("#addLine").click(function () {
         addLineBoolean = true;
-        if (getIdFromUrl() == 0){
+        if (getIdFromUrl() == 0) {
             saveSpecoficationEntity();
-        }else {
+        } else {
             toFormAddScpecLine(getIdFromUrl());
         }
     });
@@ -300,7 +294,7 @@ jQuery("document").ready(function () {
         if ($(this).hasClass("disabled")) {
             return;
         }
-        if (selectedLineId != ""){
+        if (selectedLineId != "") {
             deleteLineSpecification();
         }
         $("#line" + currentLine).remove();
@@ -329,7 +323,11 @@ jQuery("document").ready(function () {
     });
 
     function getItem(id) {
-        location.href =  location.origin + "/pages/specification/" + getIdFromUrl() + "/line/" + id;
+        location.href = location.origin + "/pages/specification/" + getIdFromUrl() + "/line/" + id;
+    }
+
+    function setName() {
+        $("#name").val(specificationEtity.name);
     }
 
 });

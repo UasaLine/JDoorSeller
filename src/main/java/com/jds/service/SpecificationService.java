@@ -33,8 +33,7 @@ public class SpecificationService {
 
     public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
 
-        List<LineSpecification> lineSpecificationList = repository.getSpecification(DoorTypeId);
-        lineSpecificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
+        List<LineSpecification> lineSpecificationList = repository.getLineSpecificationList();
         return lineSpecificationList;
 
     }
@@ -49,7 +48,7 @@ public class SpecificationService {
 
     public List<LineSpecification> saveSpecification(@NonNull Specification specification) {
 
-        List<LineSpecification> lineSpecInBase = repository.getSpecification(specification.getDoorType().getId());
+        List<LineSpecification> lineSpecInBase = repository.getLineSpecificationList();
 
         List<LineSpecification> lineSpecifications = specification.getLineSpecifications();
         lineSpecifications.stream()
@@ -83,16 +82,15 @@ public class SpecificationService {
         return lineSpecification;
     }
 
-    public SpecificationEntity saveSpecificationEntity(@NonNull SpecificationEntity specificationEntity) {
+    public SpecificationEntity save(@NonNull SpecificationEntity spec) {
 
-        if (specificationEntity.getLineSpecifications().size() != 0) {
-            for (LineSpecification lineSpecification : specificationEntity.getLineSpecifications()) {
-                lineSpecification.setSpecification(specificationEntity);
-                lineSpecification.getSpecification().setLineSpecifications(null);
-            }
+        SpecificationEntity baseSpec = repository.getSpecificationByManufacturerId(spec.getManufacturerId());
+
+        if (baseSpec!=null){
+            spec.fullIdBySpecification(baseSpec);
         }
 
-        return repository.saveSpecificationEntity(specificationEntity);
+        return repository.saveSpecificationEntity(spec);
     }
 
     public SpecificationEntity getSpecificationEntity(String id) {
@@ -106,7 +104,6 @@ public class SpecificationService {
     public SpecificationEntity getSpecificationEntity(int id) {
 
         SpecificationEntity spec = repository.getSpecificationEntityById(id);
-        spec.setDoorType(spec.getDoorType().clearNonSerializingFields());
         spec.clearNonSerializingFields();
 
         return spec;
@@ -121,9 +118,6 @@ public class SpecificationService {
     public LineSpecification saveSpecificationLine(@NonNull int specificationId, @NonNull LineSpecification lineSpecification) {
 
         SpecificationEntity specificationEntity = getSpecificationEntity(specificationId);
-
-        lineSpecification.setDoorType(specificationEntity.getDoorType());
-
         specificationEntity.putLine(lineSpecification);
         specificationEntity.setSpecificationToAllLine(new SpecificationEntity(specificationId));
 
@@ -137,10 +131,8 @@ public class SpecificationService {
 
         if (line_id.equals("0")) {
             lineSpecification = new LineSpecification();
-            //lineSpecification.setSpecification(service.getSpecificationEtity(id));
         } else {
             lineSpecification = repository.getSpecificationLineById(Integer.parseInt(line_id));
-            lineSpecification.setDoorType(null);
             lineSpecification.setSpecification(null);
         }
 
