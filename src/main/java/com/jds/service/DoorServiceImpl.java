@@ -87,6 +87,7 @@ public class DoorServiceImpl implements DoorService {
                                                     @NonNull int discount,
                                                     @NonNull int retailMargin) {
 
+
         doorEntity.setCostList(new CostList());
 
         doorEntity = addPriceToCostList(doorEntity, discount);
