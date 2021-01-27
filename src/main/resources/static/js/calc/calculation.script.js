@@ -8,6 +8,7 @@ let average_widthDoorVal = 0;
 let maxSize_widthDoorVal = 0;
 let availableFurnitureList;
 const parentDir = "../../";
+let blockDoorStep = false;
 
 
 jQuery("document").ready(function () {
@@ -176,6 +177,10 @@ jQuery("document").ready(function () {
         const item = $(this).attr("Item");
         const available = $('#name' + item).attr('available');
 
+        if (item == "innerOpen") {
+            return;
+        }
+
         if (available == "no" || available == undefined) {
             if ($(this).is(":checked")) {
                 $(this).prop("checked", false);
@@ -218,6 +223,30 @@ jQuery("document").ready(function () {
             }
         } else if (currentItem == "additionalDoorSettings") {
             needRepresentationRun = false;
+
+            if (item == "doorstep") {
+                if ($(this).is(":checked")) {
+                    addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", true);
+                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                } else {
+                    setDoorField($(this).attr("Item"), 0);
+                    setDoorField("stainlessSteelDoorstep", 0);
+                    $("#stainlessSteelDoorstep_checkbox").prop("checked", false);
+                    addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", false);
+                }
+            }
+
+            if (item == "stainlessSteelDoorstep") {
+                if (blockDoorStep) {
+                    $(this).prop("checked", true);
+                }
+
+                if ($(this).is(":checked")) {
+                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                } else {
+                    setDoorField($(this).attr("Item"), 0);
+                }
+            }
 
             if ($(this).attr("item") == "peepholePosition") {
                 if ($(this).is(":checked")) {
@@ -735,7 +764,7 @@ jQuery("document").ready(function () {
                 $("#images" + nameJava + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
                 $("#images" + nameJava + "Img" + i).attr(
                     "src",
-                    parentDir+tab[i + offsetTab.biasInt].picturePath
+                    parentDir + tab[i + offsetTab.biasInt].picturePath
                 );
                 $("#images" + nameJava + "Span" + i).text(tab[i + offsetTab.biasInt].name);
             } else {
@@ -790,7 +819,7 @@ jQuery("document").ready(function () {
                     $(sel + "Div" + i).attr("show", "is_alive_lement");
                     $(sel + "Div" + i).attr("data", tab[i + offsetTab.biasInt].id);
                     $(sel + "Div" + i).attr("Item", item);
-                    $(sel + "Img" + i).attr("src",parentDir+ tab[i + offsetTab.biasInt].picturePathFirst);
+                    $(sel + "Img" + i).attr("src", parentDir + tab[i + offsetTab.biasInt].picturePathFirst);
                     $(sel + "Span" + i).text(tab[i + offsetTab.biasInt].name);
                 } else {
                     $(sel + "Div" + i).attr("show", "ghost_lement");
@@ -992,6 +1021,7 @@ jQuery("document").ready(function () {
         makeAvailable.makeFieldsAvailable();
 
         if (data != null) {
+            displayDoorStep(data);
             displayMetal(data);
             displayWidthDoorAndHeightDoor(data);
             displayheightDoorFanlight(data);
@@ -1712,6 +1742,57 @@ jQuery("document").ready(function () {
         if (javaObject.containsDesign == 0) {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         }
+    }
+
+    function addOrDelleteGhost(id, onOrOff) {
+        if (onOrOff) {
+            $(id).removeClass("ghost");
+        } else {
+            $(id).addClass("ghost");
+        }
+
+    }
+
+    function displayDoorStep(template) {
+        let stainlessList = template.stainlessSteelDoorstep;
+        let doorStepNot = false;
+        let doorStepNotDefault = false;
+        let doorStepYes = false;
+        let doorStepYesDefault = false;
+        if (stainlessList.length > 0) {
+            for (let i = 0; i < stainlessList.length; i++) {
+                if (searchValue(stainlessList[i], "startRestriction", 0)) {
+                    doorStepNot = true;
+                    if (searchValue(stainlessList[i], "defaultValue", 1)) {
+                        doorStepNotDefault = true;
+                    }
+                }
+                if (searchValue(stainlessList[i], "startRestriction", 1)) {
+                    doorStepYes = true;
+                    if (searchValue(stainlessList[i], "defaultValue", 1)) {
+                        doorStepYesDefault = true;
+                    }
+                }
+            }
+
+            if (doorStepYes && doorStepYesDefault && !doorStepNot && !doorStepNotDefault) {
+                blockDoorStep = true;
+            }
+
+            if (!doorStepYes && !doorStepYesDefault && doorStepNot && doorStepNotDefault) {
+                addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", false);
+            }
+
+            if (doorStepYes || doorStepNot) {
+                addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", true);
+            }
+        }
+    }
+
+    function searchValue(object, fieldName, value) {
+        if (object[fieldName] == value) {
+            return true;
+        } else return false;
     }
 
 });
