@@ -232,7 +232,8 @@ public class MaterialsRepository {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(specification);
 
-        specification.setSpecificationToAllLine(new SpecificationEntity(specification.getId()));
+        specification.setSpecificationToAllLine();
+
         return specification;
     }
 
@@ -244,7 +245,6 @@ public class MaterialsRepository {
 
         return lineSpecification;
     }
-
 
     public SpecificationEntity getSpecificationEntityById(@NonNull int id) {
         Session session = sessionFactory.openSession();
@@ -345,5 +345,13 @@ public class MaterialsRepository {
         list.forEach(MaterialEntity::clearNonSerializingFields);
 
         return list;
+    }
+
+    public SpecificationEntity getSpecificationByManufacturerId(String manufacturerId) {
+
+        Session session = sessionFactory.openSession();
+        return session.byNaturalId(SpecificationEntity.class)
+                .using("manufacturerId", manufacturerId)
+                .load();
     }
 }

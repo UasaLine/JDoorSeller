@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,10 @@ public class SpecificationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
+    @NaturalId
+    @Column(name = "manufacturer_id")
+    private String manufacturerId;
 
     @Column(name = "name")
     private String name;
@@ -63,7 +68,15 @@ public class SpecificationEntity {
         this.id = id;
     }
 
+    public void setSpecificationToAllLine() {
+
+        SpecificationEntity simpleSpec = new SpecificationEntity(id);
+        setSpecificationToAllLine(simpleSpec);
+
+    }
+
     public void setSpecificationToAllLine(SpecificationEntity spec) {
+
         lines.stream()
                 .map(line -> setSpecification(line, spec))
                 .collect(Collectors.toList());
@@ -72,5 +85,22 @@ public class SpecificationEntity {
     private LineSpecification setSpecification(LineSpecification lineSpecification, SpecificationEntity specificationEntity) {
         lineSpecification.setSpecification(specificationEntity);
         return lineSpecification;
+    }
+
+    public void fullIdBySpecification(SpecificationEntity spec) {
+
+        id = spec.getId();
+        List<LineSpecification> specLines = spec.getLines();
+
+        for (int i = 0; i < specLines.size(); i++) {
+            int lineId = specLines.get(i).getId();
+
+            if (lines.size() > i) {
+                lines.get(i).setId(lineId);
+            }
+        }
+
+        setSpecificationToAllLine();
+
     }
 }

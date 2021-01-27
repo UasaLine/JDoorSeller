@@ -82,7 +82,13 @@ public class SpecificationService {
         return lineSpecification;
     }
 
-    public SpecificationEntity saveSpecificationEntity(@NonNull SpecificationEntity spec) {
+    public SpecificationEntity save(@NonNull SpecificationEntity spec) {
+
+        SpecificationEntity baseSpec = repository.getSpecificationByManufacturerId(spec.getManufacturerId());
+
+        if (baseSpec!=null){
+            spec.fullIdBySpecification(baseSpec);
+        }
 
         return repository.saveSpecificationEntity(spec);
     }

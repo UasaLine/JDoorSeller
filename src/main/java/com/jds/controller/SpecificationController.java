@@ -2,11 +2,9 @@ package com.jds.controller;
 
 import com.jds.dao.entity.LineSpecification;
 import com.jds.dao.entity.SpecificationEntity;
-import com.jds.model.Specification;
+import com.jds.model.Exeption.ResponseException;
 import com.jds.model.backResponse.ResponseAction;
-import com.jds.service.MaterialsService;
 import com.jds.service.SpecificationService;
-import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
@@ -38,11 +36,16 @@ public class SpecificationController {
         return "specificationEntity";
     }
 
-    @PutMapping(value = "/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public SpecificationEntity saveSpecificationEntity(@RequestBody SpecificationEntity specificationEntity) {
+    public SpecificationEntity save(@RequestBody SpecificationEntity specification) {
 
-        return service.saveSpecificationEntity(specificationEntity);
+        String manufacturerId = specification.getManufacturerId();
+        if (manufacturerId == null || "".equals(manufacturerId)) {
+            throw new ResponseException("manufacturerId should not be empty");
+        }
+
+        return service.save(specification);
     }
 
     @GetMapping(value = "/specifications/{id}")
