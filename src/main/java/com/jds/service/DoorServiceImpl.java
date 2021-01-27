@@ -37,21 +37,17 @@ public class DoorServiceImpl implements DoorService {
     @Autowired
     private TemplateService templateService;
     @Autowired
-    OrderDiscountService orderDiscountService;
+    private OrderDiscountService orderDiscountService;
+    @Autowired
+    private SpecificationService specificationService;
 
     @Override
     public DoorEntity calculate(@NonNull DoorEntity door) {
 
-        if (door.getDoorType().getPriceList() == 1) {
-
-            return recalculateTheDoorByPriceList(door,
-                    userService.getCurrentUser().getDiscount(),
-                    userService.getUserSetting().getRetailMargin());
-
-        } else {
-            return recalculateTheDoorCompletely(door);
-        }
-
+        return recalculateByPrice(
+                door,
+                userService.getCurrentUser().getDiscount(),
+                userService.getUserSetting().getRetailMargin());
     }
 
     @Override
@@ -83,9 +79,9 @@ public class DoorServiceImpl implements DoorService {
         return door;
     }
 
-    public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
-                                                    @NonNull int discount,
-                                                    @NonNull int retailMargin) {
+    public DoorEntity recalculateByPrice(@NonNull DoorEntity doorEntity,
+                                         @NonNull int discount,
+                                         @NonNull int retailMargin) {
 
         doorEntity
                 .addPriceToCostList(discount)
@@ -96,9 +92,12 @@ public class DoorServiceImpl implements DoorService {
                 .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
 
+        specificationService.createSpecification(doorEntity);
+
         return addToOrderIfNotExist(doorEntity);
     }
 
+    //@TODO (salagaev) old calc method ..
     public DoorEntity recalculateTheDoorCompletely(DoorEntity door) {
 
 
@@ -341,7 +340,8 @@ public class DoorServiceImpl implements DoorService {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = materialsDAO.getLineSpecificationList();
+        //@TODO (salagaev) deprecate, to be removed
+        List<LineSpecification> lineSpec = new ArrayList<>();
 
         lineSpec.stream()
                 .forEach((lin) -> addFurKitToLineSpec(lineSpec, doorEntity));

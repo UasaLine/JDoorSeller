@@ -7,6 +7,8 @@ import lombok.NonNull;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,5 +107,30 @@ public class SpecificationEntity {
 
         setSpecificationToAllLine();
 
+    }
+
+    public SpecificationEntity cloneBySpecification() {
+
+        SpecificationEntity newSpec = new SpecificationEntity();
+        List<LineSpecification> newList = new ArrayList<>();
+        for (LineSpecification line : lines) {
+            newList.add(new LineSpecification(line));
+        }
+        newSpec.setLines(newList);
+        return newSpec;
+    }
+
+    public String doorTypeName() {
+        if (doorType != null) {
+            return doorType.getName();
+        }
+        return "-";
+    }
+
+    public String sizeLines() {
+        if (lines != null) {
+            return String.valueOf(lines.size());
+        }
+        return "-";
     }
 }

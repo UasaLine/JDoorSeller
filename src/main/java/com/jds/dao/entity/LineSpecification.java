@@ -41,8 +41,16 @@ public class LineSpecification {
     @JoinColumn(name = "specification")
     private SpecificationEntity specification;
 
-    public LineSpecification clearNonSerializingFields(){
+    public LineSpecification clearNonSerializingFields() {
         specification = null;
         return this;
+    }
+
+    public LineSpecification(LineSpecification line) {
+        materialId = line.materialId;
+        name = line.name;
+        value = line.value;
+        releaseOperation = line.releaseOperation;
+        writeOffOperation = line.writeOffOperation;
     }
 }
