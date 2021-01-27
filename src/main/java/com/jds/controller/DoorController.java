@@ -3,8 +3,10 @@ package com.jds.controller;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.LineSpecification;
+import com.jds.dao.entity.SpecificationEntity;
 import com.jds.service.DoorService;
 import com.jds.service.MaineService;
+import com.jds.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,7 @@ public class DoorController {
     @Autowired
     private DoorService service;
     @Autowired
-    private MaineService maineService;
+    private SpecificationService specificationService;
 
     @GetMapping(value = "/doors/{id}/page")
     public String calculationPage(Model model,
@@ -68,11 +70,12 @@ public class DoorController {
         return service.deleteDoorFromOrder(id, orderId);
     }
 
-    @PostMapping(value = "/doorSpec", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/doors/{id}/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<LineSpecification> getSpecificationByDoorId(@RequestParam(required = false) String doorId) {
+    public SpecificationEntity getDoor(@PathVariable String id) {
 
-        return service.getSpecificationByDoorId(doorId);
+        return specificationService.getSpecificationByDoorId(Integer.parseInt(id));
+
     }
 
 }

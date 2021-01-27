@@ -67,11 +67,11 @@ jQuery("document").ready(function () {
 
         $.ajax({
             url: location.origin + "/specifications",
-            method: "PUT",
+            method: "POST",
             contentType: "application/json",
             data: specification,
             success: function (data) {
-                //alert(data);
+
                 if (addLineBoolean == true) {
                     itemId = data.id;
                     toFormAddScpecLine(itemId);

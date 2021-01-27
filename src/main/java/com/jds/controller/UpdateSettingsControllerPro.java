@@ -177,33 +177,8 @@ public class UpdateSettingsControllerPro {
         return "jr";
     }
 
-    @PostMapping(value = "/update/specificationsetting", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String updateSpecificationSetting(@RequestParam(required = false) String dataJson) throws Exception {
 
 
-        StringReader reader = new StringReader(dataJson);
-        ObjectMapper mapper = new ObjectMapper();
 
-        SpecificationSetting setting = mapper.readValue(reader, SpecificationSetting.class);
-        specificationService.saveSpecificationSetting(setting);
-
-        return "jr";
-    }
-
-    @PostMapping(value = "/update/specification", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String setSpecification(@RequestParam(required = false) String dataJson) throws Exception {
-
-        StringReader reader = new StringReader(dataJson);
-        ObjectMapper mapper = new ObjectMapper();
-
-        LineSpecification spec = mapper.readValue(reader, LineSpecification.class);
-
-
-        LineSpecification lineSpecification = materialsDAO.saveLineSpecification(spec);
-
-        return "jr";
-    }
 
 }

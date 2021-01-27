@@ -3,6 +3,7 @@ package com.jds.service;
 import com.jds.dao.entity.*;
 import com.jds.dao.repository.MainDAO;
 import com.jds.dao.repository.MaterialsRepository;
+import com.jds.dao.repository.SpecificationRepository;
 import com.jds.model.Specification;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,7 @@ import java.util.List;
 public class SpecificationService {
 
     @Autowired
-    private MainDAO mainDAO;
-    @Autowired
-    private MaterialsRepository repository;
-
-    public SpecificationSetting saveSpecificationSetting(SpecificationSetting setting) {
-        return repository.saveSpecificationSetting(setting);
-    }
-
-    public Specification getSpecification(@NonNull String typeId) {
-        DoorType doorType = mainDAO.getDoorType(Integer.parseInt(typeId)).clearNonSerializingFields();
-        return Specification.builder()
-                .doorType(doorType)
-                .availableValues(repository.getRawMaterials())
-                .lineSpecifications(getLineSpecification(doorType.getId()))
-                .build();
-    }
+    private SpecificationRepository repository;
 
     public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
 
@@ -41,7 +27,6 @@ public class SpecificationService {
     public List<SpecificationEntity> getLineSpecification() {
 
         List<SpecificationEntity> specificationList = repository.getSpecification();
-        //specificationList.stream().forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
         return specificationList;
 
     }
@@ -86,7 +71,7 @@ public class SpecificationService {
 
         SpecificationEntity baseSpec = repository.getSpecificationByManufacturerId(spec.getManufacturerId());
 
-        if (baseSpec!=null){
+        if (baseSpec != null) {
             spec.fullIdBySpecification(baseSpec);
         }
 
@@ -146,5 +131,21 @@ public class SpecificationService {
         return "ок";
     }
 
+    public void createSpecification(DoorEntity doorEntity) {
 
+        int typeId = doorEntity.getDoorType().getId();
+
+        SpecificationEntity specificationTemplate = repository.getSpecificationEntityByDoorType(typeId);
+
+        SpecificationEntity newSpec = specificationTemplate.cloneBySpecification();
+        newSpec.setDoorId(doorEntity.getId());
+        newSpec.setManufacturerId(String.valueOf(doorEntity.getId()));
+        newSpec.setName(doorEntity.getName());
+
+        repository.saveSpecificationEntity(newSpec);
+    }
+
+    public SpecificationEntity getSpecificationByDoorId(int id) {
+        return repository.getSpecificationByDoorId(id);
+    }
 }
