@@ -29,6 +29,9 @@ public class SpecificationEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "door_id")
+    private int doorId;
+
     @ManyToOne()
     @JoinColumn(name = "doorType_id")
     private DoorType doorType;

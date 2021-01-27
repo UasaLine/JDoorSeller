@@ -7,12 +7,15 @@ import com.jds.model.cutting.Sheet;
 import com.jds.model.enumClasses.PriceGroups;
 import com.jds.model.enumClasses.TypeOfFurniture;
 import com.jds.model.enumClasses.TypeOfSalaryConst;
+import com.jds.service.TemplateService;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Door")
@@ -223,7 +226,7 @@ public class DoorEntity implements SerializingFields {
         if (shieldKit != null && !shieldKit.exists()) {
             shieldKit = null;
         }
-        if (doorDesign != null && ! doorDesign.exists()){
+        if (doorDesign != null && !doorDesign.exists()) {
             doorDesign = null;
         }
         return this;
@@ -309,11 +312,11 @@ public class DoorEntity implements SerializingFields {
                     200, false, cost);
 
             int costMarkup = doorGlass.getGlassCost(template.getTypeDoorGlass(), doorGlass.getTypeDoorGlass().getId());
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка на стекло: " + doorGlass.getTypeDoorGlass().getName(),
                         200, false, costMarkup);
             }
-            
+
             if (doorGlass.getToning() != null) {
 
                 cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace);
@@ -321,7 +324,7 @@ public class DoorEntity implements SerializingFields {
                         200, false, cost);
 
                 costMarkup = doorGlass.getGlassCost(template.getToning(), doorGlass.getToning().getId());
-                if (costMarkup != 0){
+                if (costMarkup != 0) {
                     costList.addLine("Наценка на тонировку: " + doorGlass.getToning().getName(),
                             200, false, costMarkup);
                 }
@@ -333,7 +336,7 @@ public class DoorEntity implements SerializingFields {
                         200, false, cost);
 
                 costMarkup = doorGlass.getGlassCost(template.getArmor(), doorGlass.getArmor().getId());
-                if (costMarkup != 0){
+                if (costMarkup != 0) {
                     costList.addLine("Наценка на броню: " + doorGlass.getArmor().getName(),
                             200, false, costMarkup);
                 }
@@ -354,7 +357,7 @@ public class DoorEntity implements SerializingFields {
         stringBuilder.append(" ");
         stringBuilder.append(widthDoor + " X " + heightDoor);
         stringBuilder.append(" (" + metal + " мм) " + sideDoorOpen + " " + doorColor);
-        if (shieldKit.exists()){
+        if (shieldKit.exists()) {
             stringBuilder.append(shieldKit.toString());
         }
         name = stringBuilder.toString();
@@ -512,7 +515,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getTopLock(), furnitureKit.getTopLock().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка верхний замок: ",
                         200, false, costMarkup);
             }
@@ -526,7 +529,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getTopInLockDecor(), furnitureKit.getTopInLockDecor().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка накладка верх. внутреняя: ",
                         200, false, costMarkup);
             }
@@ -539,7 +542,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getTopOutLockDecor(), furnitureKit.getTopOutLockDecor().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка накладка верх. внешняя: ",
                         200, false, costMarkup);
             }
@@ -553,7 +556,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getLockCylinder(), furnitureKit.getTopLockCylinder().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка цилиндр: ",
                         200, false, costMarkup);
             }
@@ -568,7 +571,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getLowerLock(), furnitureKit.getLowerLock().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка нижний замок: ",
                         200, false, costMarkup);
             }
@@ -581,7 +584,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getLowerInLockDecor(), furnitureKit.getLowerInLockDecor().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка накладка низ. внутренняя: ",
                         200, false, costMarkup);
             }
@@ -594,7 +597,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getLowerOutLockDecor(), furnitureKit.getLowerOutLockDecor().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка накладка низ. внешняя: ",
                         200, false, costMarkup);
             }
@@ -607,7 +610,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getLockCylinder(), furnitureKit.getLowerLockCylinder().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка цилиндр: ",
                         200, false, costMarkup);
             }
@@ -623,7 +626,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getHandle(), furnitureKit.getHandle().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка ручка: ",
                         200, false, costMarkup);
             }
@@ -637,7 +640,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getCloser(), furnitureKit.getCloser().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка доводчик: ",
                         200, false, costMarkup);
             }
@@ -651,7 +654,7 @@ public class DoorEntity implements SerializingFields {
 
             int costMarkup = furnitureKit.getFurnitureCost(template.getEndDoorLock(), furnitureKit.getEndDoorLock().getId());
 
-            if (costMarkup != 0){
+            if (costMarkup != 0) {
                 costList.addLine("Наценка торцевой шпингалет: ",
                         200, false, costMarkup);
             }
@@ -941,10 +944,215 @@ public class DoorEntity implements SerializingFields {
         return sealingLine;
     }
 
-    public String getTrimName(){
+    public String getTrimName() {
         String topTrim = String.valueOf(getTopDoorTrimSize());
         String lefTrim = String.valueOf(getLeftDoorTrimSize());
         String rightTrim = String.valueOf(getRightDoorTrimSize());
         return "лев: " + lefTrim + " верх: " + topTrim + " прав: " + rightTrim;
     }
+
+    public DoorEntity addPriceToCostList(int discount) {
+
+        costList = new CostList();
+        int retailPrice = (int) doorType.getRetailPrice();
+
+        costList.addLine("RetailPrice",
+                100,
+                false,
+                (int) retailPrice);
+
+        int discountCost = (int) ((retailPrice * discount) / 100);
+
+        costList.addLine("Discount",
+                100,
+                false,
+                (int) -discountCost);
+
+        return this;
+    }
+
+    public DoorEntity costOfChangesAtTemplate() {
+
+        addCostResizing();
+        addCostForColorChange();
+        addCostForShieldKitChange();
+        addCostForFurnitureKitChange();
+
+        return this;
+    }
+
+    private DoorEntity addCostResizing() {
+
+        int defaultWidth = template.getWidthDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
+        List<LineCostList> listWidth = new ArrayList<>();
+
+        if (widthDoor != defaultWidth) {
+            List<LimitationDoor> sizeCostWidth = template.getSizeCostWidth();
+            listWidth = sizeCostWidth.stream()
+                    .map((lim) -> toMarkup(lim, widthDoor, defaultWidth, false))
+                    .filter(line -> line.getCost() > 0)
+                    .collect(Collectors.toList());
+        }
+
+        List<LineCostList> listHeight = new ArrayList<>();
+        int Heightsize = heightDoor;
+        int defaultHeight = template.getHeightDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
+
+        if (Heightsize != defaultHeight) {
+            List<LimitationDoor> sizeCostHeight = template.getSizeCostHeight();
+            final boolean ALREADY_COUNTED = !listWidth.isEmpty();
+            listHeight = sizeCostHeight.stream()
+                    .map((lim) -> toMarkup(lim, Heightsize, defaultHeight, ALREADY_COUNTED))
+                    .filter(line -> line.getCost() > 0)
+                    .collect(Collectors.toList());
+        }
+
+        costList.addAllLine(listWidth);
+        costList.addAllLine(listHeight);
+
+        return this;
+    }
+
+    private DoorEntity addCostForColorChange() {
+
+        LimitationDoor defaultColor = TemplateService.getDefaultLine(template.getColors());
+
+        if (!defaultColor.getFirstItem().equals(doorColor)) {
+            LimitationDoor currentColorLim = template.getColors().stream()
+                    .filter(line -> line.getFirstItem().equals(doorColor))
+                    .findFirst()
+                    .orElse(new LimitationDoor());
+
+            costList.addLine(
+                    LimitationDoor.getDescription(currentColorLim),
+                    200,
+                    false,
+                    currentColorLim.getCost());
+        }
+
+        return this;
+    }
+
+    private DoorEntity addCostForShieldKitChange() {
+
+        ShieldKit kit = shieldKit;
+
+        ImageEntity shieldColor = kit.getShieldColor();
+        if (shieldColor != null) {
+
+            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
+                    template.getShieldColor()
+            );
+
+            if (defaultShieldColor.getItemId() != shieldColor.getId()) {
+
+                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
+                        template.getShieldColor(), shieldColor.getId()
+                );
+
+                costList.addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        200,
+                        false,
+                        currentColorLim.getCost());
+            }
+        }
+
+        ImageEntity shieldDesign = kit.getShieldDesign();
+        if (shieldDesign != null) {
+
+            LimitationDoor defaultShieldDesign = TemplateService.getDefaultLine(
+                    template.getShieldDesign()
+            );
+
+            if (defaultShieldDesign.getItemId() != shieldDesign.getId()) {
+
+                LimitationDoor currentDesignLim = TemplateService.getLineByItemId(
+                        template.getShieldDesign(), shieldDesign.getId()
+                );
+
+                costList.addLine(
+                        LimitationDoor.getDescription(currentDesignLim),
+                        200,
+                        false,
+                        currentDesignLim.getCost());
+            }
+        }
+
+        return this;
+    }
+
+    private DoorEntity addCostForFurnitureKitChange() {
+
+        FurnitureKit kit = furnitureKit;
+
+        addCostForFurniture(kit.getTopLock(), template.getTopLock());
+        addCostForFurniture(kit.getLowerLock(), template.getLowerLock());
+        //...
+
+        return this;
+
+    }
+
+    private LineCostList toMarkup(LimitationDoor lim, int size, int defaultSize, boolean alreadyCounted) {
+
+
+        int costStep = (int) lim.getStartRestriction();
+        int step = (int) lim.getStep();
+        int costForChange = alreadyCounted ? 0 : lim.getCost();
+
+        if (costStep > 0 && step > 0 && (costForChange > 0 || alreadyCounted)) {
+
+            int costDiff = ((size - defaultSize) / step) * costStep;
+
+            return new LineCostList(lim.getTypeSettings().toString() + " " + size +
+                    ", costForChange: " + costForChange +
+                    ", costDiff: " + costDiff,
+                    200,
+                    false,
+                    costForChange + costDiff);
+        }
+
+        return new LineCostList();
+    }
+
+    private DoorEntity addCostForFurniture(DoorFurniture furniture,
+                                           List<LimitationDoor> listOfFurniturLimit) {
+
+        if (furniture != null) {
+
+            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
+                    listOfFurniturLimit
+            );
+
+            if (defaultShieldColor.getItemId() != furniture.getId()) {
+
+                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
+                        listOfFurniturLimit, furniture.getId()
+                );
+
+                costList.addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        200,
+                        false,
+                        currentColorLim.getCost());
+            }
+        }
+
+        return this;
+    }
+
+    public DoorEntity addRetailMarginToCostList(int retailMargin) {
+
+        int discountPrice = costList.getTotalCost();
+        int priceWithMarkup = (int) ((discountPrice * retailMargin) / 100);
+
+        costList.addLine("PriceWithMarkup",
+                500,
+                false,
+                (int) priceWithMarkup);
+
+        return this;
+    }
+
 }
