@@ -100,7 +100,7 @@ public class OrderController {
         return orderService.checkAccessAndSave(order);
     }
 
-    @PostMapping(value = "/loading/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/to-work/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("ROLE_ONE_C")
     @ResponseBody
     public List<DoorOrder> getToWorkOrders() {
