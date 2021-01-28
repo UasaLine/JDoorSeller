@@ -177,6 +177,11 @@ jQuery("document").ready(function () {
         const item = $(this).attr("Item");
         const available = $('#name' + item).attr('available');
 
+
+        if (item == "mainDoorTrim") {
+            return;
+        }
+
         if (item == "innerOpen") {
             if (InnerOpen.checkAndHide()){
                 $(this).prop("checked", false);
