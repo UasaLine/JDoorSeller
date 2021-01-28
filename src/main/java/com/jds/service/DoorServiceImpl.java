@@ -37,21 +37,17 @@ public class DoorServiceImpl implements DoorService {
     @Autowired
     private TemplateService templateService;
     @Autowired
-    OrderDiscountService orderDiscountService;
+    private OrderDiscountService orderDiscountService;
+    @Autowired
+    private SpecificationService specificationService;
 
     @Override
     public DoorEntity calculate(@NonNull DoorEntity door) {
 
-        if (door.getDoorType().getPriceList() == 1) {
-
-            return recalculateTheDoorByPriceList(door,
-                    userService.getCurrentUser().getDiscount(),
-                    userService.getUserSetting().getRetailMargin());
-
-        } else {
-            return recalculateTheDoorCompletely(door);
-        }
-
+        return recalculateByPrice(
+                door,
+                userService.getCurrentUser().getDiscount(),
+                userService.getUserSetting().getRetailMargin());
     }
 
     @Override
@@ -83,234 +79,25 @@ public class DoorServiceImpl implements DoorService {
         return door;
     }
 
-    public DoorEntity recalculateTheDoorByPriceList(@NonNull DoorEntity doorEntity,
-                                                    @NonNull int discount,
-                                                    @NonNull int retailMargin) {
-
-
-        doorEntity.setCostList(new CostList());
-
-        doorEntity = addPriceToCostList(doorEntity, discount);
-
-        doorEntity = costOfChangesAtTemplate(doorEntity);
+    public DoorEntity recalculateByPrice(@NonNull DoorEntity doorEntity,
+                                         @NonNull int discount,
+                                         @NonNull int retailMargin) {
 
         doorEntity
+                .addPriceToCostList(discount)
+                .costOfChangesAtTemplate()
                 .calculateGlass()
-                .calculateFurniture();
-
-        doorEntity = addRetailMarginToCostList(doorEntity, retailMargin);
-
-        doorEntity
+                .calculateFurniture()
+                .addRetailMarginToCostList(retailMargin)
                 .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
+
+        specificationService.createSpecification(doorEntity);
 
         return addToOrderIfNotExist(doorEntity);
     }
 
-    private DoorEntity addRetailMarginToCostList(DoorEntity doorEntity, int retailMargin) {
-
-        int discountPrice = doorEntity.getCostList().getTotalCost();
-        int priceWithMarkup = (int) ((discountPrice * retailMargin) / 100);
-
-        doorEntity.getCostList().addLine("PriceWithMarkup",
-                500,
-                false,
-                (int) priceWithMarkup);
-
-        return doorEntity;
-    }
-
-    private DoorEntity addPriceToCostList(DoorEntity doorEntity, int discount) {
-
-        int retailPrice = (int) doorEntity.getDoorType().getRetailPrice();
-
-        doorEntity.getCostList().addLine("RetailPrice",
-                100,
-                false,
-                (int) retailPrice);
-
-        int discountCost = (int) ((retailPrice * discount) / 100);
-
-        doorEntity.getCostList().addLine("Discount",
-                100,
-                false,
-                (int) -discountCost);
-
-        return doorEntity;
-    }
-
-    private DoorEntity costOfChangesAtTemplate(DoorEntity doorEntity) {
-
-        addCostResizing(doorEntity);
-        addCostForColorChange(doorEntity);
-        addCostForShieldKitChange(doorEntity);
-        addCostForFurnitureKitChange(doorEntity);
-
-        return doorEntity;
-    }
-
-    private DoorEntity addCostForFurnitureKitChange(@NonNull DoorEntity doorEntity) {
-        FurnitureKit kit = doorEntity.getFurnitureKit();
-
-        addCostForFurniture(kit.getTopLock(), doorEntity.getTemplate().getTopLock(), doorEntity);
-        addCostForFurniture(kit.getLowerLock(), doorEntity.getTemplate().getLowerLock(), doorEntity);
-        //...
-
-        return doorEntity;
-
-    }
-
-    private DoorEntity addCostForFurniture(DoorFurniture furniture,
-                                           List<LimitationDoor> listOfFurniturLimit,
-                                           @NonNull DoorEntity doorEntity) {
-
-        if (furniture != null) {
-
-            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
-                    listOfFurniturLimit
-            );
-
-            if (defaultShieldColor.getItemId() != furniture.getId()) {
-
-                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
-                        listOfFurniturLimit, furniture.getId()
-                );
-
-                doorEntity.getCostList().addLine(
-                        LimitationDoor.getDescription(currentColorLim),
-                        200,
-                        false,
-                        currentColorLim.getCost());
-            }
-        }
-
-        return doorEntity;
-    }
-
-    private DoorEntity addCostForShieldKitChange(@NonNull DoorEntity doorEntity) {
-
-        ShieldKit kit = doorEntity.getShieldKit();
-
-        ImageEntity shieldColor = kit.getShieldColor();
-        if (shieldColor != null) {
-
-            LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
-                    doorEntity.getTemplate().getShieldColor()
-            );
-
-            if (defaultShieldColor.getItemId() != shieldColor.getId()) {
-
-                LimitationDoor currentColorLim = TemplateService.getLineByItemId(
-                        doorEntity.getTemplate().getShieldColor(), shieldColor.getId()
-                );
-
-                doorEntity.getCostList().addLine(
-                        LimitationDoor.getDescription(currentColorLim),
-                        200,
-                        false,
-                        currentColorLim.getCost());
-            }
-        }
-
-        ImageEntity shieldDesign = kit.getShieldDesign();
-        if (shieldDesign != null) {
-
-            LimitationDoor defaultShieldDesign = TemplateService.getDefaultLine(
-                    doorEntity.getTemplate().getShieldDesign()
-            );
-
-            if (defaultShieldDesign.getItemId() != shieldDesign.getId()) {
-
-                LimitationDoor currentDesignLim = TemplateService.getLineByItemId(
-                        doorEntity.getTemplate().getShieldDesign(), shieldDesign.getId()
-                );
-
-                doorEntity.getCostList().addLine(
-                        LimitationDoor.getDescription(currentDesignLim),
-                        200,
-                        false,
-                        currentDesignLim.getCost());
-            }
-        }
-
-        return doorEntity;
-    }
-
-    private DoorEntity addCostForColorChange(@NonNull DoorEntity doorEntity) {
-
-        LimitationDoor defaultColor = TemplateService.getDefaultLine(doorEntity.getTemplate().getColors());
-
-        if (!defaultColor.getFirstItem().equals(doorEntity.getDoorColor())) {
-            LimitationDoor currentColorLim = doorEntity.getTemplate().getColors().stream()
-                    .filter(line -> line.getFirstItem().equals(doorEntity.getDoorColor()))
-                    .findFirst()
-                    .orElse(new LimitationDoor());
-
-            doorEntity.getCostList().addLine(
-                    LimitationDoor.getDescription(currentColorLim),
-                    200,
-                    false,
-                    currentColorLim.getCost());
-        }
-
-        return doorEntity;
-    }
-
-    private DoorEntity addCostResizing(@NonNull DoorEntity doorEntity) {
-
-        int WidthSize = doorEntity.getWidthDoor();
-        int defaultWidth = doorEntity.getTemplate().getWidthDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
-        List<LineCostList> listWidth = new ArrayList<>();
-
-        if (WidthSize != defaultWidth) {
-            List<LimitationDoor> sizeCostWidth = doorEntity.getTemplate().getSizeCostWidth();
-            listWidth = sizeCostWidth.stream()
-                    .map((lim) -> toMarkup(lim, WidthSize, defaultWidth, false))
-                    .filter(line -> line.getCost() > 0)
-                    .collect(Collectors.toList());
-        }
-
-        List<LineCostList> listHeight = new ArrayList<>();
-        int Heightsize = doorEntity.getHeightDoor();
-        int defaultHeight = doorEntity.getTemplate().getHeightDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
-
-        if (Heightsize != defaultHeight) {
-            List<LimitationDoor> sizeCostHeight = doorEntity.getTemplate().getSizeCostHeight();
-            final boolean ALREADY_COUNTED = !listWidth.isEmpty();
-            listHeight = sizeCostHeight.stream()
-                    .map((lim) -> toMarkup(lim, Heightsize, defaultHeight, ALREADY_COUNTED))
-                    .filter(line -> line.getCost() > 0)
-                    .collect(Collectors.toList());
-        }
-
-        doorEntity.getCostList().addAllLine(listWidth);
-        doorEntity.getCostList().addAllLine(listHeight);
-
-        return doorEntity;
-    }
-
-    private LineCostList toMarkup(LimitationDoor lim, int size, int defaultSize, boolean alreadyCounted) {
-
-
-        int costStep = (int) lim.getStartRestriction();
-        int step = (int) lim.getStep();
-        int costForChange = alreadyCounted ? 0 : lim.getCost();
-
-        if (costStep > 0 && step > 0 && (costForChange > 0 || alreadyCounted)) {
-
-            int costDiff = ((size - defaultSize) / step) * costStep;
-
-            return new LineCostList(lim.getTypeSettings().toString() + " " + size +
-                    ", costForChange: " + costForChange +
-                    ", costDiff: " + costDiff,
-                    200,
-                    false,
-                    costForChange + costDiff);
-        }
-
-        return new LineCostList();
-    }
-
+    //@TODO (salagaev) old calc method ..
     public DoorEntity recalculateTheDoorCompletely(DoorEntity door) {
 
 
@@ -361,7 +148,6 @@ public class DoorServiceImpl implements DoorService {
         return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(door.getDoorType().getId()), door);
 
     }
-
 
     public DoorEntity createNewDoorWithAvailableDoorClass() {
 
@@ -554,11 +340,11 @@ public class DoorServiceImpl implements DoorService {
 
         DoorEntity doorEntity = dAO.getDoor(Integer.parseInt(doorId));
 
-        List<LineSpecification> lineSpec = materialsDAO.getLineSpecification(doorEntity.getDoorType().getId());
+        //@TODO (salagaev) deprecate, to be removed
+        List<LineSpecification> lineSpec = new ArrayList<>();
 
         lineSpec.stream()
-                .peek((lin) -> addFurKitToLineSpec(lineSpec, doorEntity))
-                .forEach((lin) -> lin.getDoorType().clearNonSerializingFields());
+                .forEach((lin) -> addFurKitToLineSpec(lineSpec, doorEntity));
 
         return lineSpec;
 
@@ -619,7 +405,6 @@ public class DoorServiceImpl implements DoorService {
                 .name(furniture.getName())
                 .value(1)
                 .materialId(furniture.getIdManufacturerProgram())
-                .doorType(doorType)
                 .build());
 
 

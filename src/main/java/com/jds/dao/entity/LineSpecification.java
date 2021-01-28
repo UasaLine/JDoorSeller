@@ -17,39 +17,40 @@ public class LineSpecification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    int id;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "doorType_id")
-    DoorType doorType;
+    private int id;
 
     @Column(name = "material_id")
-    String materialId;
+    private String materialId;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "value")
-    double value;
+    private double value;
 
     @Column(name = "formula")
-    String formula;
-
-    @Column(name = "independent_name")
-    String independentName;
+    private String formula;
 
     @Column(name = "release_operation")
-    String releaseOperation;
+    private String releaseOperation;
 
     @Column(name = "write_off_operation")
-    String writeOffOperation;
+    private String writeOffOperation;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specification")
     private SpecificationEntity specification;
 
-    public LineSpecification clearNonSerializingFields(){
+    public LineSpecification clearNonSerializingFields() {
         specification = null;
         return this;
+    }
+
+    public LineSpecification(LineSpecification line) {
+        materialId = line.materialId;
+        name = line.name;
+        value = line.value;
+        releaseOperation = line.releaseOperation;
+        writeOffOperation = line.writeOffOperation;
     }
 }

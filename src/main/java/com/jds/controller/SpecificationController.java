@@ -2,11 +2,9 @@ package com.jds.controller;
 
 import com.jds.dao.entity.LineSpecification;
 import com.jds.dao.entity.SpecificationEntity;
-import com.jds.model.Specification;
+import com.jds.model.Exeption.ResponseException;
 import com.jds.model.backResponse.ResponseAction;
-import com.jds.service.MaterialsService;
 import com.jds.service.SpecificationService;
-import com.jds.service.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
@@ -21,30 +19,6 @@ public class SpecificationController {
 
     @Autowired
     private SpecificationService service;
-    @Autowired
-    private UserServ userService;
-
-    @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/specification")
-    public String getSpecificationPage(Model model) throws Exception {
-        model.addAttribute("isAdnin", userService.getCurrentUser().isAdmin());
-        return "specification";
-    }
-
-    @GetMapping(value = "/specificationbyid", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Specification getSpecification(@RequestParam(required = false) String typeId,
-                                          Model model) throws Exception {
-
-        return service.getSpecification(typeId);
-    }
-
-    @PostMapping(value = "/specification", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<LineSpecification> saveSpecification(@RequestBody Specification templateJSON) throws Exception {
-
-        return service.saveSpecification(templateJSON);
-    }
 
     @Secured("ROLE_ADMIN")
     @GetMapping(value = "/pages/specifications")
@@ -55,19 +29,23 @@ public class SpecificationController {
         return "specificationList";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/pages/specifications/{id}")
     public String getSpecificationPage(@PathVariable String id) throws Exception {
 
         return "specificationEntity";
     }
 
-    @PutMapping(value = "/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public SpecificationEntity saveSpecificationEntity(@RequestBody SpecificationEntity specificationEntity) {
+    public SpecificationEntity save(@RequestBody SpecificationEntity specification) {
 
-        service.saveSpecificationEntity(specificationEntity);
+        String manufacturerId = specification.getManufacturerId();
+        if (manufacturerId == null || "".equals(manufacturerId)) {
+            throw new ResponseException("manufacturerId should not be empty");
+        }
 
-        return specificationEntity;
+        return service.save(specification);
     }
 
     @GetMapping(value = "/specifications/{id}")
@@ -78,14 +56,15 @@ public class SpecificationController {
     }
 
     @DeleteMapping(value = "/specifications/{id}")
+    @Secured("ROLE_ADMIN")
     @ResponseBody
     public ResponseAction deleteSpecification(@PathVariable String id) {
 
         return new ResponseAction(service.deleteSpecificationEntity(id));
     }
 
-    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/pages/specification/{id}/line/{line_id}")
+    @Secured("ROLE_ADMIN")
     public String getSpecificationLinePage(Model model, @PathVariable String id, @PathVariable String line_id) {
 
         model.addAttribute("id", id);
@@ -93,7 +72,6 @@ public class SpecificationController {
         return "specificationLine";
     }
 
-    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/specification/{id}/line/{line_id}")
     @ResponseBody
     public LineSpecification getSpecificationLine(@PathVariable String id, @PathVariable String line_id) {
@@ -102,12 +80,14 @@ public class SpecificationController {
     }
 
     @PostMapping(value = "/specification/line/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     @ResponseBody
     public LineSpecification saveSpecificationLine(@RequestBody LineSpecification lineSpecification, @PathVariable String id) throws Exception {
 
         return service.saveSpecificationLine(Integer.parseInt(id), lineSpecification);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping(value = "/specification/line/{id}")
     @ResponseBody
     public String deleteLineSpecification(@PathVariable String id) {
