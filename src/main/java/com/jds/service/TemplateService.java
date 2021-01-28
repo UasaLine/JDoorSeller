@@ -72,6 +72,7 @@ public class TemplateService {
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DOORSTEP, restriction.getDoorstep(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP, restriction.getStainlessSteelDoorstep(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.INTERNAL_OPENING, restriction.getInnerOpen(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.FIRST_SEALING_LINE, restriction.getFirstSealingLine(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SECOND_SEALING_LINE, restriction.getSecondSealingLine(), limitList);
@@ -199,6 +200,7 @@ public class TemplateService {
             case LEAF_THICKNESS: restriction.addThicknessDoorLeaf(lim);break;
             case DOORSTEP: restriction.addDoorstep(lim);break;
             case STAINLESS_STEEL_DOORSTEP: restriction.addStainlessSteelDoorstep(lim);break;
+            case INTERNAL_OPENING: restriction.addInnerOpen(lim); break;
 
             case FIRST_SEALING_LINE: restriction.addFirstSealingLine(lim);break;
             case SECOND_SEALING_LINE: restriction.addSecondSealingLine(lim);break;

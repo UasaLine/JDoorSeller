@@ -36,6 +36,7 @@ public class RestrictionOfSelectionFields {
 
     private List<LimitationDoor> doorstep = new ArrayList<>();
     private List<LimitationDoor> stainlessSteelDoorstep = new ArrayList<>();
+    private List<LimitationDoor> innerOpen = new ArrayList<>();
 
     private List<LimitationDoor> firstSealingLine = new ArrayList<>();
     private List<LimitationDoor> secondSealingLine = new ArrayList<>();
@@ -89,6 +90,10 @@ public class RestrictionOfSelectionFields {
         stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep", 1, 1,
                 1));
         stainlessSteelDoorstep.add(new LimitationDoor("stainlessSteelDoorstep", 0, 1,
+                0));
+        innerOpen.add(new LimitationDoor("innerOpen", 0, 1,
+                0));
+        innerOpen.add(new LimitationDoor("innerOpen", 1, 1,
                 0));
 
         firstSealingLine = new ArrayList<>();
@@ -171,6 +176,10 @@ public class RestrictionOfSelectionFields {
 
     public void addStainlessSteelDoorstep(@NonNull LimitationDoor stainlessSteelDoorstep) {
         this.stainlessSteelDoorstep.add(stainlessSteelDoorstep.setNuulLazyFild());
+    }
+
+    public void addInnerOpen(@NonNull LimitationDoor innerOpen) {
+        this.innerOpen.add(innerOpen.setNuulLazyFild());
     }
 
     public void addFirstSealingLine(@NonNull LimitationDoor lim) {
