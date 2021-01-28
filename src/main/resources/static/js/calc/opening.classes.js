@@ -48,11 +48,16 @@ class InnerOpen {
         });
     }
 
-    static checkAndHide(){
-        let hideInnerOpen = door.template.innerOpen[0].startRestriction;
-        if (hideInnerOpen == 1){
-            return true;
-        } else false;
+    static checkAndHide() {
+        if (door.template.innerOpen > 0) {
+            let hideInnerOpen = door.template.innerOpen[0].startRestriction;
+            if (hideInnerOpen == 1) {
+                return true;
+            } else false;
+        } else {
+            return false;
+        }
+
     }
 }
 
