@@ -11,6 +11,9 @@ class InnerOpen {
 
     }
     static clickCheckbox() {
+        if (InnerOpen.checkAndHide()){
+            return;
+        }
         let val = $(this).is(":checked");
         InnerOpen.showTypeImages(val);
         Door.set($(this).attr('Item'), val ? '0' : '');
@@ -43,6 +46,13 @@ class InnerOpen {
         $(".innerOpen_" + side).each(function () {
             $(this).removeClass('ghost');
         });
+    }
+
+    static checkAndHide(){
+        let hideInnerOpen = door.template.innerOpen[0].startRestriction;
+        if (hideInnerOpen == 1){
+            return true;
+        } else false;
     }
 }
 
