@@ -163,6 +163,7 @@ jQuery("document").ready(function () {
         fillInSealingLine("firstSealingLine");
         fillInSealingLine("secondSealingLine");
         fillInSealingLine("thirdSealingLine");
+        fillInInnerOpen("innerOpenDoorLineCheckbox0");
 
         fillInSelector(".topDoorTrimSelect", "topDoorTrim");
         fillInSelector(".leftDoorTrimSelect", "leftDoorTrim");
@@ -425,6 +426,27 @@ jQuery("document").ready(function () {
             } else {
                 saveInJavaObjectforRestrictionValue("stainlessSteelDoorstep");
             }
+        }
+    );
+
+    $("#innerOpenDoorLineCheckbox0").change(
+        ".innerOpenLineCheckbox",
+        function () {
+            var size;
+            if ($(this).is(":checked")){
+                size = template.innerOpen.length;
+                template.innerOpen.splice(0, size);
+                template["innerOpen"].push(
+                    findInRestriction(1, "innerOpen", 0)
+                );
+            } else {
+                size = template.innerOpen.length;
+                template.innerOpen.splice(0, size);
+                template["innerOpen"].push(
+                    findInRestriction(0, "innerOpen", 0)
+                );
+            }
+
         }
     );
 
@@ -1137,6 +1159,20 @@ jQuery("document").ready(function () {
             }
         }
     }
+
+    function fillInInnerOpen(nameJavaObject){
+        let elem = $("#" + nameJavaObject);
+        if (template.innerOpen.length > 0){
+            if (template.innerOpen[0].startRestriction == 1){
+                $(elem).prop("checked", true);
+            }
+        } else {
+            template["innerOpen"].push(
+                findInRestriction(0, "innerOpen", 0)
+            );
+        }
+    }
+    //fillInInnerOpen("innerOpenDoorLineCheckbox0");
 
     function fillInFieldFromLimit(selector, table) {
         $(selector).empty();

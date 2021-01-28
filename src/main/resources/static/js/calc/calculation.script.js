@@ -178,6 +178,10 @@ jQuery("document").ready(function () {
         const available = $('#name' + item).attr('available');
 
         if (item == "innerOpen") {
+            if (InnerOpen.checkAndHide()){
+                $(this).prop("checked", false);
+            }
+
             return;
         }
 
@@ -1021,6 +1025,8 @@ jQuery("document").ready(function () {
         makeAvailable.makeFieldsAvailable();
 
         if (data != null) {
+
+            displayInnerOpen(data);
             displayDoorStep(data);
             displayMetal(data);
             displayWidthDoorAndHeightDoor(data);
@@ -1789,6 +1795,15 @@ jQuery("document").ready(function () {
         }
     }
 
+    function displayInnerOpen(template){
+        if (!InnerOpen.checkAndHide()){
+            addOrDelleteGhost("#innerOpenDiv", true);
+        } else {
+            addOrDelleteGhost("#innerOpenDiv", false);
+        }
+
+    }
+
     function searchValue(object, fieldName, value) {
         if (object[fieldName] == value) {
             return true;
@@ -1796,4 +1811,6 @@ jQuery("document").ready(function () {
     }
 
 });
+
+
 
