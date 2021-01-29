@@ -39,7 +39,9 @@ class Trim {
                 if (!Trim.isAvailable($("#mainDoorTrim_checkbox"))) {
                     Trim.availableOff("mainDoorTrim", true);
                 } else {
-                    Trim.turnOffMain(true);
+                    if (Trim.anyOn()) {
+                        Trim.turnOffMain(true);
+                    }
                 }
             }
         }

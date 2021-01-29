@@ -531,7 +531,7 @@ jQuery("document").ready(function () {
         }
         fillInSelector(".leftDoorTrimSelect", "leftDoorTrim");
     });
-    $("#leftDoorTrimDiv").on("click", ".leftDoorTrimCheckbox", function () {
+    $("#leftDoorTrimDiv").on("click", ".leftDoorTrimLineCheckbox", function () {
         if ($(this).is(":checked")) {
             switchOffAll("leftDoorTrim");
             $(this).prop("checked", true);

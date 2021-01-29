@@ -178,9 +178,9 @@ jQuery("document").ready(function () {
         const available = $('#name' + item).attr('available');
 
 
-        if (item == "mainDoorTrim") {
-            return;
-        }
+        // if (item == "mainDoorTrim") {
+        //     return;
+        // }
 
         if (item == "innerOpen") {
             if (InnerOpen.checkAndHide()){
