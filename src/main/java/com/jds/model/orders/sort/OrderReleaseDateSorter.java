@@ -9,7 +9,9 @@ public class OrderReleaseDateSorter extends SortSqlQuery implements OrderSorter 
     }
 
     @Override
-    public String sort(String query) {
-        return query + "order by releasdate " + option;
+    public StringBuilder sort(StringBuilder query) {
+        query.append("order by releasdate ");
+        query.append(option);
+        return  query;
     }
 }

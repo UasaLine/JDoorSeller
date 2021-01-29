@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.Pagination;
 import com.jds.model.backResponse.OrderResponse;
 import com.jds.model.backResponse.Response;
 import com.jds.model.Exeption.ResponseException;
@@ -69,18 +70,21 @@ public class OrderController {
     }
 
     @GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
     public List<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort_field,
                                      @RequestParam(required = false, defaultValue = "DESC") SideSqlSorting sort_side,
                                      @RequestParam(required = false) OrderStatus status,
                                      @RequestParam(required = false) String partner,
                                      @RequestParam(required = false) String ofDate,
-                                     @RequestParam(required = false) String toDate) {
+                                     @RequestParam(required = false) String toDate,
+                                     @RequestParam(required = false, defaultValue = "10") String limit,
+                                     @RequestParam(required = false, defaultValue = "0") String offset) {
 
         OrderParamsDto params = OrderParamsDto.builder()
                 .sorter(sortFactory.sorter(sort_field, sort_side))
                 .filter(filterFactory.filter(status, partner, ofDate, toDate))
+                .pagination(new Pagination(limit, offset))
                 .build();
 
         return orderService.getOrders(params);

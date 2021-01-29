@@ -9,7 +9,9 @@ public class OrderDateSorter extends SortSqlQuery implements OrderSorter {
     }
 
     @Override
-    public String sort(String query) {
-        return query + "order by data " + option;
+    public StringBuilder sort(StringBuilder query) {
+        query.append("order by data ");
+        query.append(option);
+        return query;
     }
 }

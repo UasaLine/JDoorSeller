@@ -25,16 +25,19 @@ public class OrderDAO {
 
     public List<DoorOrder> getOrders() {
         OrderSorter sorter = new OrderDateSorter(SideSqlSorting.DESC);
-        return getOrders(sorter);
+        return getOrders(sorter, 1000, 0);
     }
 
-    public List<DoorOrder> getOrders(OrderSorter sorter) {
+    public List<DoorOrder> getOrders(OrderSorter sorter, int limit, int offset) {
 
-        String sql = sorter.sort("select * from orders ");
+        StringBuilder sql = sorter.sort(new StringBuilder("select * from orders "));
+        sql.append(" limit :limit offset :offset");
 
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery(sql)
-                .addEntity(DoorOrder.class);
+        Query query = session.createSQLQuery(sql.toString())
+                .addEntity(DoorOrder.class)
+                .setParameter("limit", limit)
+                .setParameter("offset", offset);
 
         List<DoorOrder> list = query.list();
 

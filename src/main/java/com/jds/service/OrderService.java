@@ -48,7 +48,10 @@ public class OrderService {
     }
 
     public List<DoorOrder> getOrders(OrderParamsDto params) {
-        return dAO.getOrders(params.getSorter());
+        return dAO.getOrders(
+                params.getSorter(),
+                params.getLimit(),
+                params.getOffset());
     }
 
     public List<DoorOrder> getOrders(OrderStatus status) {

@@ -9,7 +9,9 @@ public class OrderSumSorter extends SortSqlQuery implements OrderSorter {
     }
 
     @Override
-    public String sort(String query) {
-        return query + "order by totalamount " + option;
+    public StringBuilder sort(StringBuilder query) {
+        query.append("order by totalamount ");
+        query.append(option);
+        return query;
     }
 }
