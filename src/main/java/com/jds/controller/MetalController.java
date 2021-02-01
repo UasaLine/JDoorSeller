@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.Metal;
-import com.jds.model.backResponse.ResponseAction;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -41,17 +41,17 @@ public class MetalController {
 
     @PutMapping(value = "/metal/item")
     @ResponseBody
-    public ResponseAction saveMetal(@RequestBody Metal metal) {
+    public ResponseModel saveMetal(@RequestBody Metal metal) {
 
-        return new ResponseAction(service.saveMetal(metal));
+        return new ResponseModel(service.saveMetal(metal));
 
     }
 
     @DeleteMapping(value = "/metal/{id}")
     @ResponseBody
-    public ResponseAction deleteFurniture(@PathVariable String id) {
+    public ResponseModel deleteFurniture(@PathVariable String id) {
 
-        return new ResponseAction(service.deleteMetal(id));
+        return new ResponseModel(service.deleteMetal(id));
 
 
     }

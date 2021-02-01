@@ -3,9 +3,10 @@ package com.jds.controller;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
 import com.jds.model.Pagination;
-import com.jds.model.backResponse.OrderResponse;
-import com.jds.model.backResponse.Response;
 import com.jds.model.Exeption.ResponseException;
+import com.jds.model.backResponse.ResponseList;
+import com.jds.model.backResponse.ResponseMassage;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.enumClasses.SideSqlSorting;
 import com.jds.model.orders.OrderParamsDto;
@@ -72,14 +73,14 @@ public class OrderController {
     @GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     //@Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public List<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort_field,
-                                     @RequestParam(required = false, defaultValue = "DESC") SideSqlSorting sort_side,
-                                     @RequestParam(required = false) OrderStatus status,
-                                     @RequestParam(required = false) String partner,
-                                     @RequestParam(required = false) String ofDate,
-                                     @RequestParam(required = false) String toDate,
-                                     @RequestParam(required = false, defaultValue = "10") String limit,
-                                     @RequestParam(required = false, defaultValue = "0") String offset) {
+    public ResponseList<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort_field,
+                                             @RequestParam(required = false, defaultValue = "DESC") SideSqlSorting sort_side,
+                                             @RequestParam(required = false) OrderStatus status,
+                                             @RequestParam(required = false) String partner,
+                                             @RequestParam(required = false) String ofDate,
+                                             @RequestParam(required = false) String toDate,
+                                             @RequestParam(required = false, defaultValue = "10") String limit,
+                                             @RequestParam(required = false, defaultValue = "0") String offset) {
 
         OrderParamsDto params = OrderParamsDto.builder()
                 .sorter(sortFactory.sorter(sort_field, sort_side))
@@ -99,7 +100,7 @@ public class OrderController {
 
     @PostMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public OrderResponse saveOrder(@RequestBody DoorOrder order) {
+    public ResponseModel<DoorOrder> saveOrder(@RequestBody DoorOrder order) {
 
         return orderService.checkAccessAndSave(order);
     }
@@ -115,15 +116,15 @@ public class OrderController {
     @PostMapping(value = "/orders/{orderId}/statuses/{status}")
     @Secured("ROLE_ONE_C")
     @ResponseBody
-    public Response setOrdersStatus(@PathVariable String orderId,
-                                    @PathVariable String status) throws ResponseException {
+    public ResponseMassage setOrdersStatus(@PathVariable String orderId,
+                                           @PathVariable String status) throws ResponseException {
 
         try {
             boolean result = orderService.setStatus(
                     Integer.parseInt(orderId),
                     OrderStatus.parseForFactory(status));
 
-            return new Response(result, "ok");
+            return new ResponseMassage(result, "ok");
 
         } catch (IllegalArgumentException e) {
             throw new ResponseException(e.getMessage());
@@ -133,15 +134,15 @@ public class OrderController {
     @PostMapping(value = "/orders/{orderId}/release/{date}")
     @Secured("ROLE_ONE_C")
     @ResponseBody
-    public Response setOrdersReleaseDate(@PathVariable String orderId,
-                                         @PathVariable String date) throws ResponseException {
+    public ResponseMassage setOrdersReleaseDate(@PathVariable String orderId,
+                                                @PathVariable String date) throws ResponseException {
 
         try {
             boolean result = orderService.setReleaseDate(
                     Integer.parseInt(orderId),
                     new SimpleDateFormat("yyyy-MM-dd").parse(date));
 
-            return new Response(result, "ok");
+            return new ResponseMassage(result, "ok");
 
         } catch (ParseException | IllegalArgumentException e) {
             throw new ResponseException(e.getMessage());

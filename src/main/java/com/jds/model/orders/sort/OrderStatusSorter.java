@@ -1,16 +1,20 @@
 package com.jds.model.orders.sort;
 
+import com.jds.dao.entity.DoorOrder;
 import com.jds.model.enumClasses.SideSqlSorting;
 
-public class OrderStatusSorter extends SortSqlQuery implements OrderSorter {
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
+
+public class OrderStatusSorter extends SortDirection implements OrderSorter {
     public OrderStatusSorter(SideSqlSorting option) {
         super(option);
     }
 
     @Override
-    public StringBuilder sort(StringBuilder query) {
-        query.append("order by status ");
-        query.append(option);
-        return query;
+    public Order sort(CriteriaBuilder builder, Root<DoorOrder> root) {
+
+        return getDirection(builder, root, "status");
     }
 }

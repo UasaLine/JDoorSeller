@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/orderListScript.js"></script>
     <script type="text/javascript" src="../js/paramsFactory.class.js"></script>
+    <script type="text/javascript" src="../js/PaginationModels.class.js"></script>
 </head>
 <body>
 
@@ -207,27 +208,19 @@
             <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
             <span class="ghost" id="report" th:utext="${report}"></span>
 
-            <div class="row " id="buttonbar">
-
+            <nav class="row " id="buttonbar">
                 <div class="col-md-3 mb-3">
                     <button type="button" class="btn btn-primary" id="addOrder">создать</button>
                     <button type="button" class="btn btn-primary" id="buttonDeleteOrder">удалить</button>
                 </div>
-                <div class="col accessAdmin ghost">
-                    <select class="form-control" id="userselect">
-                    </select>
+                <div class="col-md-6 mb-6">
+
                 </div>
-                <div class="col">
-                    <select class="form-control" id="doorclassselect">
-                    </select>
+                <div class="col-md-3 mb-3 pagination-order" id="page-bar">
+                    <div class="btn-group" role="group" aria-label="Third group">
+                    </div>
                 </div>
-                <div class="col">
-                    <input type="date" class="form-control" id="data1" placeholder="" value="" required="">
-                </div>
-                <div class="col">
-                    <input type="date" class="form-control" id="data2" placeholder="" value="" required="">
-                </div>
-            </div>
+            </nav>
 
             <div class="order-Table">
                 <table class="Table">
@@ -243,7 +236,6 @@
                     </tr>
                 </table>
             </div>
-
         </div>
 
     </div>

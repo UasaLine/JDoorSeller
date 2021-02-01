@@ -1,17 +1,21 @@
 package com.jds.model.orders.sort;
 
+import com.jds.dao.entity.DoorOrder;
 import com.jds.model.enumClasses.SideSqlSorting;
 
-public class OrderReleaseDateSorter extends SortSqlQuery implements OrderSorter {
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
+
+public class OrderReleaseDateSorter extends SortDirection implements OrderSorter {
 
     public OrderReleaseDateSorter(SideSqlSorting option) {
         super(option);
     }
 
     @Override
-    public StringBuilder sort(StringBuilder query) {
-        query.append("order by releasdate ");
-        query.append(option);
-        return  query;
+    public Order sort(CriteriaBuilder builder, Root<DoorOrder> root) {
+
+        return getDirection(builder, root, "releasDate");
     }
 }

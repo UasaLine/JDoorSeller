@@ -1,12 +1,14 @@
 let orders;
+let total;
 
 
 jQuery("document").ready(function () {
 
     let currentId = 0;
-    let params = new ParamsFactory();
+    let urlParams = new ParamsFactory();
+    urlParams.limit = 12;
 
-    fillOrderList();
+    fillOrderList(urlParams.get());
 
     $("table").on("dblclick", 'tr', function () {
         toOrder($(this).children(".id").text());
@@ -30,8 +32,13 @@ jQuery("document").ready(function () {
     });
 
     $(".sort-order").on("click", function () {
-        params.addSort($(this).attr("name"));
-        fillOrderList(params.get());
+        urlParams.addSort($(this).attr("name"));
+        fillOrderList(urlParams.get());
+    });
+
+    $("#page-bar").on("click", '.dynamic_page', function () {
+        urlParams.offset = $(this).attr("data");
+        fillOrderList(urlParams.get());
     });
 
     function toOrder(orderId) {
@@ -91,19 +98,22 @@ jQuery("document").ready(function () {
         }
     }
 
-    function fillOrderList(params = "") {
+    function fillOrderList(StringParamsUrl = "") {
         $.ajax({
             type: "GET",
-            url: location.origin + '/orders' + params,
+            url: location.origin + '/orders' + StringParamsUrl,
             dataType: "json",
             success: function (data) {
-                orders = data;
+                orders = data.list;
+                total = data.total;
                 deleteAllDynamicLine();
                 orders.forEach(function (item, i, arr) {
                     addDynamicLine(item, i, arr);
                 });
                 displayAdminAndUserField();
                 colorizeTheLines();
+                PaginationModels.init(total, urlParams.limit, urlParams.offset);
+                PaginationModels.createPages('page-bar');
             },
             error: function (data) {
                 alert("!!!заказы получить не удалось error:");
