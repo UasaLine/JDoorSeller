@@ -152,9 +152,6 @@ public class SpecificationService {
 
             logger.error("door specification not found");
         }
-
-
-
     }
 
     public SpecificationEntity getSpecificationByDoorId(int id) {
