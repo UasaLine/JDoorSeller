@@ -149,8 +149,7 @@ public class SpecificationService {
 
             repository.saveSpecificationEntity(newSpec);
         } else {
-
-            logger.error("door specification not found");
+            logger.error("door specification not found, typeId: " + typeId);
         }
     }
 
