@@ -212,21 +212,21 @@ stainlessSteelDoorstep
 
 .peephole_images_R {
     position: absolute;
-    left: 20%;
+    left: 13%;
     top: 20%;
     z-index: 200;
 }
 
 .peephole_images_L {
     position: absolute;
-    right: 20%;
+    right: 12%;
     top: 20%;
     z-index: 200;
 }
 
 .lock_decor_R {
     position: absolute;
-    left: 12%;
+    left: 13%;
 }
 
 .lock_decor_L {
