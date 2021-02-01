@@ -45,8 +45,8 @@ public class OrderDAO {
                 sorter.sort(doorOrderListBuilder,orderRoot));
 
         List<DoorOrder> list = session.createQuery(doorOrderListCriteria)
-                .setFirstResult(offset)
                 .setMaxResults(limit)
+                .setFirstResult(offset)
                 .getResultList();
 
         list.forEach(DoorOrder::clearNonSerializingFields);
