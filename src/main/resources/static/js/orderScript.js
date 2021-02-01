@@ -278,8 +278,10 @@ jQuery("document").ready(function () {
                 if (!data.success) {
                     alert(data.message);
                 } else {
-                    $("#order_id").text(data.data.orderId);
-                    orderId = $("#order_id").text();
+                    if (data.data != null){
+                        $("#order_id").text(data.data.orderId);
+                        orderId = $("#order_id").text();
+                    }
                     if (add == 1) {
                         addDoor(orderId);
                     } else {
