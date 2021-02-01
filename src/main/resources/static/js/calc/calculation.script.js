@@ -177,11 +177,6 @@ jQuery("document").ready(function () {
         const item = $(this).attr("Item");
         const available = $('#name' + item).attr('available');
 
-
-        if (item == "mainDoorTrim") {
-            return;
-        }
-
         if (item == "innerOpen") {
             if (InnerOpen.checkAndHide()){
                 $(this).prop("checked", false);
@@ -231,7 +226,7 @@ jQuery("document").ready(function () {
                 needRepresentationRun = true;
             }
         } else if (currentItem == "additionalDoorSettings") {
-            needRepresentationRun = false;
+            //needRepresentationRun = false;
 
             if (item == "doorstep") {
                 if ($(this).is(":checked")) {
@@ -363,6 +358,9 @@ jQuery("document").ready(function () {
                 data: doorJSON,
                 dataType: "json",
                 success: function (data) {
+                    if (door.id == 0){
+                        toDoor(data.id);
+                    }
                     door.id = data.id;
                 },
                 error: function (data) {
@@ -624,6 +622,10 @@ jQuery("document").ready(function () {
 
     function toOrder() {
         location.href = location.origin + '/pages/orders/' + orderId;
+    }
+
+    function toDoor(doorId) {
+        location.href = location.origin + '/doors/' + doorId + "/page?orderId=" + orderId;
     }
 
     function displayPrice() {

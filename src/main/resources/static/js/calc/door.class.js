@@ -78,6 +78,7 @@ class Door {
             Door.createHinges(containerLeaf, door);
             Door.createTopOutLockDecor(containerLeaf, door);
             Door.createLowerOutLockDecor(containerLeaf, door);
+            Door.creatPeephole(containerLeaf, door, "L");
 
             //draw door R
             let containerR = Door.createContainer(i, "R");
@@ -96,6 +97,7 @@ class Door {
             Door.createShieldColor(containerLeafR, door);
             Door.createShieldDesign(containerLeafR, door);
             Door.createShieldGlass(containerLeafR, door);
+            Door.creatPeephole(containerLeafR, door, "R");
         }
     }
 
@@ -412,6 +414,46 @@ class Door {
             .attr("src", Door.dirPath + "images/findings/night_lock.png")
             .appendTo(containerLeaf);
     }
+
+    static creatPeephole(containerLeaf, door, inOutDoor) {
+        if (door.furnitureKit.peephole == null){
+            return;
+        }
+        let position = "";
+        if (door.furnitureKit.peepholePosition == "CENTER"){
+            position = "center_"
+        }
+        door.furnitureKit.peephole;
+        door.furnitureKit.peepholePosition;
+        let side;
+
+        if (door.sideDoorOpen == "RIGHT" ) {
+            if (inOutDoor == "L"){
+                side = "R";
+            } else {
+                side = "L";
+            }
+        } else {
+            if (inOutDoor == "L"){
+                side = "L";
+            } else {
+                side = "R";
+            }
+        }
+
+        let pathImages = door.furnitureKit.peephole.sketchPathFirst;
+
+        if (pathImages == ""){
+            pathImages = "images/findings/peephole_out.png";
+        }
+
+        $("<img>")
+            .attr("class", "peephole_images_" + position + side)
+            .attr("src", Door.dirPath + pathImages)
+            .appendTo(containerLeaf);
+    }
+
+
 
     static createTopInLockDecor(containerLeaf, door) {
         let side = "R";

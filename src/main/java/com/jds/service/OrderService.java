@@ -116,7 +116,10 @@ public class OrderService {
 
     public DoorOrder checkStatusAndSave(@NonNull DoorOrder order) {
         OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getOrderId());
-        if (OrderStatus.CALC == baseOrderStatus || OrderStatus.READY == baseOrderStatus) {
+
+        if (OrderStatus.CALC == baseOrderStatus
+                || OrderStatus.READY == baseOrderStatus) {
+
             order.setSeller(userService.getCurrentUser());
             return saveAndCalc(order);
         } else {
