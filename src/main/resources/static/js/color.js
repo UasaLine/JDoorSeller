@@ -144,7 +144,6 @@ jQuery("document").ready(function () {
             contentType: "application/json",
             data: furniture,
             success: function (data) {
-                //alert(data.status);
                 toList();
             },
             error: function (data) {
