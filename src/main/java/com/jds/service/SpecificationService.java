@@ -6,6 +6,8 @@ import com.jds.dao.repository.MaterialsRepository;
 import com.jds.dao.repository.SpecificationRepository;
 import com.jds.model.Specification;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class SpecificationService {
 
     @Autowired
     private SpecificationRepository repository;
+
+    private Logger logger = LoggerFactory.getLogger(SpecificationService.class);
 
     public List<LineSpecification> getLineSpecification(@NonNull int DoorTypeId) {
 
@@ -131,18 +135,22 @@ public class SpecificationService {
         return "ок";
     }
 
-    public void createSpecification(DoorEntity doorEntity) {
+    public void createSpecification(DoorEntity doorEntity)  {
 
         int typeId = doorEntity.getDoorType().getId();
 
         SpecificationEntity specificationTemplate = repository.getSpecificationEntityByDoorType(typeId);
 
-        SpecificationEntity newSpec = specificationTemplate.cloneBySpecification();
-        newSpec.setDoorId(doorEntity.getId());
-        newSpec.setManufacturerId(String.valueOf(doorEntity.getId()));
-        newSpec.setName(doorEntity.getName());
+        if (specificationTemplate != null){
+            SpecificationEntity newSpec = specificationTemplate.cloneBySpecification();
+            newSpec.setDoorId(doorEntity.getId());
+            newSpec.setManufacturerId(String.valueOf(doorEntity.getId()));
+            newSpec.setName(doorEntity.getName());
 
-        repository.saveSpecificationEntity(newSpec);
+            repository.saveSpecificationEntity(newSpec);
+        } else {
+            logger.error("door specification not found, typeId: " + typeId);
+        }
     }
 
     public SpecificationEntity getSpecificationByDoorId(int id) {
