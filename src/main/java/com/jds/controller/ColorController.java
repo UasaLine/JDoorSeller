@@ -2,7 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
 import com.jds.model.image.ColorPicture;
-import com.jds.model.backResponse.ResponseAction;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
@@ -63,9 +63,9 @@ public class ColorController {
 
     @PutMapping(value = "/color/item")
     @ResponseBody
-    public ResponseAction saveColor(@RequestBody ImageEntity color) {
+    public ResponseModel saveColor(@RequestBody ImageEntity color) {
 
-        return new ResponseAction(service.saveColor(color));
+        return new ResponseModel(service.saveColor(color));
 
     }
 
@@ -79,9 +79,9 @@ public class ColorController {
 
     @DeleteMapping(value = "/color/{id}")
     @ResponseBody
-    public ResponseAction deleteColor(@PathVariable String id) {
+    public ResponseModel deleteColor(@PathVariable String id) {
 
-        return new ResponseAction(service.deleteColor(id));
+        return new ResponseModel(service.deleteColor(id));
 
     }
 

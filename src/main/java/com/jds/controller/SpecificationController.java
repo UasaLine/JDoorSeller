@@ -3,7 +3,7 @@ package com.jds.controller;
 import com.jds.dao.entity.LineSpecification;
 import com.jds.dao.entity.SpecificationEntity;
 import com.jds.model.Exeption.ResponseException;
-import com.jds.model.backResponse.ResponseAction;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -58,9 +58,9 @@ public class SpecificationController {
     @DeleteMapping(value = "/specifications/{id}")
     @Secured("ROLE_ADMIN")
     @ResponseBody
-    public ResponseAction deleteSpecification(@PathVariable String id) {
+    public ResponseModel deleteSpecification(@PathVariable String id) {
 
-        return new ResponseAction(service.deleteSpecificationEntity(id));
+        return new ResponseModel(service.deleteSpecificationEntity(id));
     }
 
     @GetMapping(value = "/pages/specification/{id}/line/{line_id}")

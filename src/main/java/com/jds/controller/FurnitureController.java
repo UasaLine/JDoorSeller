@@ -2,7 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.model.AvailableFieldsForSelection;
-import com.jds.model.backResponse.ResponseAction;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.TypeOfFurniture;
 import com.jds.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +44,9 @@ public class FurnitureController {
 
     @PutMapping(value = "/furniture/item")
     @ResponseBody
-    public ResponseAction saveFurniture(@RequestBody DoorFurniture furniture) {
+    public ResponseModel saveFurniture(@RequestBody DoorFurniture furniture) {
 
-        return new ResponseAction(service.saveFurniture(furniture));
+        return new ResponseModel(service.saveFurniture(furniture));
 
     }
 
@@ -69,18 +69,18 @@ public class FurnitureController {
 
     @DeleteMapping(value = "/furniture/{id}")
     @ResponseBody
-    public ResponseAction deleteFurniture(@PathVariable String id) {
+    public ResponseModel deleteFurniture(@PathVariable String id) {
 
-        return new ResponseAction(service.deleteFurniture(id));
+        return new ResponseModel(service.deleteFurniture(id));
 
     }
 
     //@todo dell only for test
     @GetMapping(value = "/furniture/setting")
     @ResponseBody
-    public ResponseAction setting() {
+    public ResponseModel setting() {
 
-        return new ResponseAction(service.setting());
+        return new ResponseModel(service.setting());
 
     }
 

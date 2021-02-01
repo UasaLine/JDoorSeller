@@ -4,12 +4,12 @@ import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
-import com.jds.model.backResponse.OrderResponse;
+
 import com.jds.model.PrintAppToTheOrder;
+import com.jds.model.backResponse.ResponseList;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.orders.OrderParamsDto;
-import com.jds.model.orders.filter.OrderFilter;
-import com.jds.model.orders.sort.OrderSorter;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +47,13 @@ public class OrderService {
         return orders;
     }
 
-    public List<DoorOrder> getOrders(OrderParamsDto params) {
-        return dAO.getOrders(params.getSorter());
+    public ResponseList<DoorOrder> getOrders(OrderParamsDto params) {
+
+        List<DoorOrder> list = dAO.getOrders(params.getSorter(), params.getLimit(), params.getOffset());
+
+        long total = dAO.orderCountRows(params.getSorter(), params.getLimit(), params.getOffset());
+
+        return new ResponseList<>(true, "ok", list, total);
     }
 
     public List<DoorOrder> getOrders(OrderStatus status) {
@@ -122,11 +127,11 @@ public class OrderService {
         }
     }
 
-    public OrderResponse checkAccessAndSave(@NonNull DoorOrder order) {
+    public ResponseModel<DoorOrder> checkAccessAndSave(@NonNull DoorOrder order) {
         if ("admin".equals(userService.getCurrentUser().getUsername())) {
-            return new OrderResponse(false, "!save is not available for admin");
+            return new ResponseModel<>(false, "!save is not available for admin", null);
         } else {
-            return new OrderResponse(checkStatusAndSave(order));
+            return new ResponseModel<>(checkStatusAndSave(order));
         }
     }
 

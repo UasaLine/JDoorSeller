@@ -5,6 +5,7 @@ import com.jds.dao.entity.UserEntity;
 import com.jds.model.enumClasses.SideSqlSorting;
 import com.jds.model.orders.sort.OrderDateSorter;
 import com.jds.model.orders.sort.OrderSorter;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 
@@ -25,24 +29,45 @@ public class OrderDAO {
 
     public List<DoorOrder> getOrders() {
         OrderSorter sorter = new OrderDateSorter(SideSqlSorting.DESC);
-        return getOrders(sorter);
+        return getOrders(sorter, 1000, 0);
     }
 
-    public List<DoorOrder> getOrders(OrderSorter sorter) {
-
-        String sql = sorter.sort("select * from orders ");
+    public List<DoorOrder> getOrders(OrderSorter sorter, int limit, int offset) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery(sql)
-                .addEntity(DoorOrder.class);
 
-        List<DoorOrder> list = query.list();
+        CriteriaBuilder doorOrderListBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<DoorOrder> doorOrderListCriteria = doorOrderListBuilder.createQuery(DoorOrder.class);
+        Root<DoorOrder> orderRoot = doorOrderListCriteria.from(DoorOrder.class);
 
-        session.close();
+        doorOrderListCriteria.select(orderRoot);
+        doorOrderListCriteria.orderBy(
+                sorter.sort(doorOrderListBuilder,orderRoot));
+
+        List<DoorOrder> list = session.createQuery(doorOrderListCriteria)
+                .setMaxResults(limit)
+                .setFirstResult(offset)
+                .getResultList();
 
         list.forEach(DoorOrder::clearNonSerializingFields);
 
+        session.close();
         return list;
+
+    }
+
+    public long orderCountRows(OrderSorter sorter, int limit, int offset) {
+
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder totalBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> totalCriteria = totalBuilder.createQuery(Long.class);
+        totalCriteria.select(totalBuilder.count(totalCriteria.from(DoorOrder.class)));
+
+        long total = session.createQuery(totalCriteria).getSingleResult();
+
+        session.close();
+
+        return total;
     }
 
     public List<DoorOrder> getOrdersByStatus(String status) {
