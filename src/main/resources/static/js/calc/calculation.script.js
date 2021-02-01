@@ -358,6 +358,9 @@ jQuery("document").ready(function () {
                 data: doorJSON,
                 dataType: "json",
                 success: function (data) {
+                    if (door.id == 0){
+                        toDoor(data.id);
+                    }
                     door.id = data.id;
                 },
                 error: function (data) {
@@ -619,6 +622,10 @@ jQuery("document").ready(function () {
 
     function toOrder() {
         location.href = location.origin + '/pages/orders/' + orderId;
+    }
+
+    function toDoor(doorId) {
+        location.href = location.origin + '/doors/' + doorId + "/page?orderId=" + orderId;
     }
 
     function displayPrice() {

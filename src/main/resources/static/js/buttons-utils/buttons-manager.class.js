@@ -20,7 +20,7 @@ class ButtonsManager {
                 $(this).removeAttr("disabled");
             });
         } else {
-            this.turnOff(valueForComparison);
+           // this.turnOff(valueForComparison);
         }
     }
 
