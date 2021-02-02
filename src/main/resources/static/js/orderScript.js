@@ -48,7 +48,6 @@ jQuery("document").ready(function () {
 
     $("#deleteOrder").on("click", function () {
         deletOrder();
-        deleteOrderDiscountByOrderId();
     });
 
     $("#print").on("click", function () {
@@ -211,7 +210,7 @@ jQuery("document").ready(function () {
     }
 
     function searchOrderDiscount(door) {
-        let discont = orderDiscountList.find(item => (item.door_id == door.id & item.order_id == order.order_id));
+        let discont = orderDiscountList.find(item => (item.door_id == door.id & item.order_id == order.orderId));
         if (discont) {
             return discont.discount;
         } else {
@@ -387,7 +386,7 @@ jQuery("document").ready(function () {
             dataType: "json",
             success: function (data) {
                 alert("delete completed" + data);
-                location.href = "orders";
+                location.href = location.origin + "/pages/orders";
             },
             error: function (data) {
                 alert("delete error:" + data);

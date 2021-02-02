@@ -141,7 +141,7 @@ class LineEditor {
 
     static addOrderDiscount(door_id, discount, position) {
         let orderDiscount = {};
-        orderDiscount.order_id = order.order_id;
+        orderDiscount.order_id = order.orderId;
         orderDiscount.door_id = door_id;
         orderDiscount.discount = discount;
 
@@ -151,7 +151,7 @@ class LineEditor {
     static setOrderDiscount(door_id, discount, position) {
         let isExist = false;
         for (let i = 0; i < orderDiscountList.length; i++){
-            if (order.order_id == orderDiscountList[i].order_id & door_id == orderDiscountList[i].door_id){
+            if (order.orderId == orderDiscountList[i].order_id & door_id == orderDiscountList[i].door_id){
                 orderDiscountList[i].discount = discount;
                 isExist = true;
             }
