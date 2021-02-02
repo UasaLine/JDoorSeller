@@ -147,6 +147,7 @@
                             <th>Наименование</th>
                             <th>Тип фурнитуры</th>
                             <th>Цена</th>
+                            <th>id завода</th>
                         </tr>
                         <tr class="line" th:each="furniture : ${furnitureList}">
                             <td>#</td>
@@ -154,6 +155,7 @@
                             <td  th:utext="${furniture.name}">..</td>
                             <td class="type-line"  th:utext="${furniture.typeOfFurniture}">..</td>
                             <td  th:utext="${furniture.price}">..</td>
+                            <td  th:utext="${furniture.idManufacturerProgram}">..</td>
                         </tr>
                     </table>
 

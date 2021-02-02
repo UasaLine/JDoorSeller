@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.model.AvailableFieldsForSelection;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.TypeOfFurniture;
 import com.jds.service.FurnitureService;
@@ -19,8 +20,9 @@ public class FurnitureController {
     @Autowired
     private FurnitureService service;
 
-    @Secured("ROLE_ADMIN")
+
     @GetMapping(value = "/furniture")
+    @Secured("ROLE_ADMIN")
     public String getFurnitureListPage(Model model) {
 
         model.addAttribute("furnitureList", service.getFurnitureList());
@@ -37,17 +39,20 @@ public class FurnitureController {
     @ResponseBody
     public DoorFurniture getFurniture(@PathVariable String id) {
 
-
         return service.getDoorFurniture(id);
-
     }
 
     @PutMapping(value = "/furniture/item")
     @ResponseBody
-    public ResponseModel saveFurniture(@RequestBody DoorFurniture furniture) {
+    public ResponseMassage saveFurniture(@RequestBody DoorFurniture furniture) {
 
-        return new ResponseModel(service.saveFurniture(furniture));
-
+        if (furniture.getName() == null || "".equals(furniture.getName())) {
+            return new ResponseMassage(false, "the name must not be empty");
+        } else if (furniture.getIdManufacturerProgram().length() > 12) {
+            return new ResponseMassage(false, "idManufacturer must not exceed 12 characters");
+        }
+        service.saveFurniture(furniture);
+        return new ResponseMassage(true, "ok");
     }
 
 
