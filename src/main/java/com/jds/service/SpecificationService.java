@@ -1,8 +1,6 @@
 package com.jds.service;
 
 import com.jds.dao.entity.*;
-import com.jds.dao.repository.MainDAO;
-import com.jds.dao.repository.MaterialsRepository;
 import com.jds.dao.repository.SpecificationRepository;
 import com.jds.model.Specification;
 import lombok.NonNull;
@@ -135,22 +133,36 @@ public class SpecificationService {
         return "ок";
     }
 
-    public void createSpecification(DoorEntity doorEntity)  {
+    public void createSpecification(DoorEntity doorEntity) {
 
         int typeId = doorEntity.getDoorType().getId();
 
         SpecificationEntity specificationTemplate = repository.getSpecificationEntityByDoorType(typeId);
 
-        if (specificationTemplate != null){
-            SpecificationEntity newSpec = specificationTemplate.cloneBySpecification();
+        if (specificationTemplate != null) {
+
+
+            SpecificationEntity newSpec = new SpecificationEntity();
+            newSpec.setId(getIdFromBase(doorEntity.getId()));
             newSpec.setDoorId(doorEntity.getId());
             newSpec.setManufacturerId(String.valueOf(doorEntity.getId()));
             newSpec.setName(doorEntity.getName());
+            newSpec.addLineFromTemplate(specificationTemplate);
+            newSpec.addFurniture(doorEntity.getFurnitureKit());
+            newSpec.addColor(doorEntity.getDoorDesign());
 
             repository.saveSpecificationEntity(newSpec);
         } else {
             logger.error("door specification not found, typeId: " + typeId);
         }
+    }
+
+    private int getIdFromBase(int id) {
+        SpecificationEntity spec = repository.getSpecificationByDoorId(id);
+        if (spec != null) {
+            return spec.getId();
+        }
+        return 0;
     }
 
     public SpecificationEntity getSpecificationByDoorId(int id) {
