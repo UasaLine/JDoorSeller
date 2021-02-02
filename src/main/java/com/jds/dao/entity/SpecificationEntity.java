@@ -109,15 +109,12 @@ public class SpecificationEntity {
 
     }
 
-    public SpecificationEntity cloneBySpecification() {
+    public void addLineFromTemplate(SpecificationEntity spec) {
 
-        SpecificationEntity newSpec = new SpecificationEntity();
-        List<LineSpecification> newList = new ArrayList<>();
-        for (LineSpecification line : lines) {
-            newList.add(new LineSpecification(line));
+        lines = new ArrayList<>();
+        for (LineSpecification line : spec.lines) {
+            lines.add(new LineSpecification(line));
         }
-        newSpec.setLines(newList);
-        return newSpec;
     }
 
     public String doorTypeName() {
@@ -132,5 +129,37 @@ public class SpecificationEntity {
             return String.valueOf(lines.size());
         }
         return "-";
+    }
+
+    public void addFurniture(FurnitureKit furnitureKit) {
+
+        addLine(furnitureKit.getTopLock());
+        addLine(furnitureKit.getLowerLock());
+
+        addLine(furnitureKit.getHandle());
+
+        addLine(furnitureKit.getLowerInLockDecor());
+        addLine(furnitureKit.getLowerOutLockDecor());
+        addLine(furnitureKit.getTopInLockDecor());
+        addLine(furnitureKit.getTopOutLockDecor());
+
+        addLine(furnitureKit.getTopLockCylinder());
+        addLine(furnitureKit.getLowerLockCylinder());
+
+        addLine(furnitureKit.getPeephole());
+        addLine(furnitureKit.getEndDoorLock());
+    }
+
+    private void addLine(DoorFurniture furniture) {
+        if (furniture != null) {
+            lines.add(new LineSpecification(furniture));
+        }
+    }
+
+    public void addColor(DoorDesign doorDesign) {
+        ImageEntity color = doorDesign.getDoorColor();
+        if (color != null) {
+            lines.add(new LineSpecification(color));
+        }
     }
 }

@@ -53,4 +53,20 @@ public class LineSpecification {
         releaseOperation = line.releaseOperation;
         writeOffOperation = line.writeOffOperation;
     }
+
+    public LineSpecification(DoorFurniture furniture) {
+        materialId = furniture.getIdManufacturerProgram();
+        name = furniture.getName();
+        value = 1;
+        releaseOperation = "";
+        writeOffOperation = "";
+    }
+
+    public LineSpecification(ImageEntity color) {
+        materialId = color.getIdManufacturerProgram();
+        name = color.getName();
+        value = 1;
+        releaseOperation = "";
+        writeOffOperation = "";
+    }
 }

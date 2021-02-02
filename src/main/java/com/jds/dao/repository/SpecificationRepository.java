@@ -56,7 +56,9 @@ public class SpecificationRepository {
         session.close();
 
         if (list.size() > 0) {
-            return list.get(0);
+            SpecificationEntity spec = list.get(0);
+            spec.clearNonSerializingFields();
+            return spec;
         }
         return null;
     }
