@@ -371,6 +371,7 @@ public class DoorEntity implements SerializingFields {
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
         this.furnitureKit = new FurnitureKit();
+        this.setQuantity(1);
         doorLeaf = 1;
     }
 
