@@ -49,7 +49,7 @@ class InnerOpen {
     }
 
     static checkAndHide() {
-        if (door.template.innerOpen > 0) {
+        if (door.template.innerOpen.length > 0) {
             let hideInnerOpen = door.template.innerOpen[0].startRestriction;
             if (hideInnerOpen == 1) {
                 return true;
