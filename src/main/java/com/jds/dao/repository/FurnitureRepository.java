@@ -81,9 +81,10 @@ public class FurnitureRepository {
         return "ok";
     }
     @Transactional(propagation = Propagation.REQUIRED)
-    public String saveFurniture(DoorFurniture furniture) {
+    public DoorFurniture saveFurniture(DoorFurniture furniture) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(furniture);
-        return "ok";
+
+        return furniture;
     }
 }

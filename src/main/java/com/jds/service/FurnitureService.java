@@ -7,6 +7,8 @@ import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
+import com.jds.model.backResponse.Response;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.enumClasses.TypeOfFurniture;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,13 +58,10 @@ public class FurnitureService {
         }
     }
 
-    public String saveFurniture(@NonNull DoorFurniture furniture) {
-        if (furniture.getName().equals(null)) {
-            return null;
-        } else {
-            repository.saveFurniture(furniture);
-            return "ок";
-        }
+    public DoorFurniture saveFurniture(@NonNull DoorFurniture furniture) {
+
+
+            return repository.saveFurniture(furniture);
     }
 
     public AvailableFieldsForSelection getAvailableFields(String doorTypeId) {

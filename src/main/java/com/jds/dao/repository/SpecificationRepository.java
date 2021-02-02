@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -21,16 +24,22 @@ public class SpecificationRepository {
     public SpecificationEntity getSpecificationByManufacturerId(String manufacturerId) {
 
         Session session = sessionFactory.openSession();
-        return session.byNaturalId(SpecificationEntity.class)
+        SpecificationEntity spec = session.byNaturalId(SpecificationEntity.class)
                 .using("manufacturerId", manufacturerId)
                 .load();
+
+        session.close();
+
+        return spec;
     }
 
     public SpecificationEntity getSpecificationEntityById(@NonNull int id) {
         Session session = sessionFactory.openSession();
         SpecificationEntity specification = session.get(SpecificationEntity.class, id);
         specification.clearNonSerializingFields();
+
         session.close();
+
         return specification;
     }
 
@@ -98,8 +107,11 @@ public class SpecificationRepository {
 
         Session session = sessionFactory.openSession();
         LineSpecification lineSpecification = session.get(LineSpecification.class, id);
+
         lineSpecification.clearNonSerializingFields();
+
         session.close();
+
         return lineSpecification;
     }
 
@@ -121,15 +133,18 @@ public class SpecificationRepository {
 
         Session session = sessionFactory.openSession();
 
-        String sql = "select * from specification";
-        Query query = session.createSQLQuery(sql)
-                .addEntity(SpecificationEntity.class);
-        List<SpecificationEntity> list = query.list();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<SpecificationEntity> criteria = builder.createQuery(SpecificationEntity.class);
+        Root<SpecificationEntity> root = criteria.from(SpecificationEntity.class);
+        criteria.select(root);
+
+        criteria.where(builder.equal(root.get("doorId"), 0));
+        List<SpecificationEntity> list = session.createQuery(criteria).getResultList();
 
         session.close();
 
         list.forEach(SpecificationEntity::clearNonSerializingFields);
-
         return list;
     }
 
@@ -147,5 +162,6 @@ public class SpecificationRepository {
     public void deleteLineSpecification(LineSpecification lineSpecification) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(lineSpecification);
+
     }
 }
