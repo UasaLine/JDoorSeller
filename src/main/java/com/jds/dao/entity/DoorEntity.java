@@ -221,7 +221,7 @@ public class DoorEntity implements SerializingFields {
             doorGlass = null;
         }
         if (furnitureKit != null && !furnitureKit.exists()) {
-            furnitureKit = null;
+            //furnitureKit = null;
         }
         if (shieldKit != null && !shieldKit.exists()) {
             shieldKit = null;
