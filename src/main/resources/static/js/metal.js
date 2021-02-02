@@ -46,7 +46,7 @@ jQuery("document").ready(function () {
       contentType: "application/json",
       data: furniture,
       success: function (data) {
-        alert(data.status);
+        alert(data.model);
         toList();
       },
       error: function (data) {
@@ -65,7 +65,7 @@ jQuery("document").ready(function () {
       method: "DELETE",
       dataType: "json",
       success: function (data) {
-        alert(data.status);
+        alert(data.model);
         toList();
       },
       error: function (data) {
@@ -87,7 +87,7 @@ jQuery("document").ready(function () {
         fillByOject();
       },
       error: function (data) {
-        alert("!ERROR: елемнет фурнитуры получить не удалось:");
+        alert("!ERROR: елемнет получить не удалось:");
       },
     });
   }

@@ -278,8 +278,8 @@ jQuery("document").ready(function () {
                 if (!data.success) {
                     alert(data.message);
                 } else {
-                    if (data.data != null){
-                        $("#order_id").text(data.data.orderId);
+                    if (data.model != null){
+                        $("#order_id").text(data.model.orderId);
                         orderId = $("#order_id").text();
                     }
                     if (add == 1) {
@@ -294,7 +294,7 @@ jQuery("document").ready(function () {
                 }
             },
             error: function (data) {
-                alert("error: даписать не удалось:(");
+                alert("error: записать не удалось:(");
             },
         });
     }

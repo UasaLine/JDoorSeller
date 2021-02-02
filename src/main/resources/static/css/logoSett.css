@@ -668,3 +668,7 @@ tr:hover {
     color: #696969;
     background-color: #D3D3D3;
 }
+
+.pagination-order{
+    text-align: right;
+}

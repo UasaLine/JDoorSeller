@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.OrderDiscount;
-import com.jds.model.backResponse.ResponseAction;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.OrderDiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,8 +31,8 @@ public class OrderDiscountController {
 
     @DeleteMapping(value = "/orderDiscount/{id}")
     @ResponseBody
-    public ResponseAction deleteOrderDiscount(@PathVariable String id) {
+    public ResponseModel deleteOrderDiscount(@PathVariable String id) {
 
-        return new ResponseAction(orderDiscountService.deleteOrderDiscount(id));
+        return new ResponseModel(orderDiscountService.deleteOrderDiscount(id));
     }
 }
