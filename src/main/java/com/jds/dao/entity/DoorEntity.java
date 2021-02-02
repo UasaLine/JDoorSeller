@@ -31,7 +31,7 @@ public class DoorEntity implements SerializingFields {
     @Column(name = "name", length = 128, nullable = false)
     private String name;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doorType")
     private DoorType doorType;
 

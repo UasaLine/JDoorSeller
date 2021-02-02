@@ -42,11 +42,11 @@ public class OrderDAO {
 
         doorOrderListCriteria.select(orderRoot);
         doorOrderListCriteria.orderBy(
-                sorter.sort(doorOrderListBuilder,orderRoot));
+                sorter.sort(doorOrderListBuilder, orderRoot));
 
         List<DoorOrder> list = session.createQuery(doorOrderListCriteria)
                 .setMaxResults(limit)
-                .setFirstResult(offset)
+                .setFirstResult(offset * limit)
                 .getResultList();
 
         list.forEach(DoorOrder::clearNonSerializingFields);
