@@ -221,7 +221,7 @@ public class DoorEntity implements SerializingFields {
             doorGlass = null;
         }
         if (furnitureKit != null && !furnitureKit.exists()) {
-            furnitureKit = null;
+            //furnitureKit = null;
         }
         if (shieldKit != null && !shieldKit.exists()) {
             shieldKit = null;
@@ -371,6 +371,7 @@ public class DoorEntity implements SerializingFields {
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
         this.furnitureKit = new FurnitureKit();
+        this.setQuantity(1);
         doorLeaf = 1;
     }
 
