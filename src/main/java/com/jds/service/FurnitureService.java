@@ -94,6 +94,8 @@ public class FurnitureService {
                 .peephole(getFurnitureByLmit(template.getPeephole()))
                 .peepholePosition(convertToFurniture(template.getPeepholePosition()))
 
+                .nightLock(getFurnitureByLmit(template.getNightLock()))
+
                 .build();
 
 
