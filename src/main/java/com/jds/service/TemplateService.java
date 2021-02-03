@@ -236,6 +236,8 @@ public class TemplateService {
             case PEEPHOLE: restriction.addPeephole(lim);break;
             case PEEPHOLE_POSITION: restriction.addPeepholePosition(lim);break;
 
+            case NIGHT_LOCK: restriction.addNightLock(lim);break;
+
             case TYPE_GLASS: restriction.addTypeDoorGlass(lim);break;
             case TONING: restriction.addToning(lim);break;
             case ARMOR: restriction.addArmor(lim);break;

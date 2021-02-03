@@ -404,14 +404,23 @@ class Door {
     }
 
     static createNightLock(containerLeaf, door) {
+        if (door.furnitureKit.nightLock == null){
+            return;
+        }
         let side = "R";
         if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
+        let pathImages = door.furnitureKit.nightLock.sketchPathFirst;
+
+        if (pathImages == ""){
+            pathImages = "images/findings/night_lock.png";
+        }
+
         $("<img>")
             .attr("class", "night_lock_images_" + side)
-            .attr("src", Door.dirPath + "images/findings/night_lock.png")
+            .attr("src", Door.dirPath + pathImages)
             .appendTo(containerLeaf);
     }
 
@@ -423,8 +432,6 @@ class Door {
         if (door.furnitureKit.peepholePosition == "CENTER"){
             position = "center_"
         }
-        door.furnitureKit.peephole;
-        door.furnitureKit.peepholePosition;
         let side;
 
         if (door.sideDoorOpen == "RIGHT" ) {
