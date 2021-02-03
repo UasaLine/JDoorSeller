@@ -94,6 +94,8 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.PEEPHOLE, restriction.getPeephole(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.PEEPHOLE_POSITION, restriction.getPeepholePosition(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.NIGHT_LOCK, restriction.getNightLock(), limitList);
+
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR, restriction.getTopInLockDecor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR, restriction.getTopOutLockDecor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR, restriction.getLowerInLockDecor(), limitList);
@@ -156,6 +158,8 @@ public class TemplateService {
 
                 .addPeephole(furnitureDao.getFurniture(TypeOfFurniture.PEEPHOLE))
                 .addPeepholePosition()
+
+                .addNightLock(furnitureDao.getFurniture(TypeOfFurniture.NIGHT_LOCK))
 
                 .addGlass(furnitureDao.getFurniture(TypeOfFurniture.TYPE_GLASS))
                 .addToning(furnitureDao.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
