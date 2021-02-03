@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TemplateService {
+
     @Autowired
     private TemplateRepository dAO;
     @Autowired
@@ -29,8 +30,10 @@ public class TemplateService {
     private MetalRepository metalDao;
     @Autowired
     private ColorRepository colorDao;
+
     @Autowired
     private FurnitureRepository furnitureDao;
+
     private Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
     public List<ShortTemplate> getTemplateList() {
@@ -38,6 +41,7 @@ public class TemplateService {
         List<DoorType> list = mainDAO.getDoorTypeListFromLimitTable();
         return list.stream()
                 .map(ShortTemplate::new)
+                .sorted((o1,o2)-> o1.compareTo(o2))
                 .collect(Collectors.toList());
     }
 
