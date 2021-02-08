@@ -49,9 +49,15 @@ public class OrderService {
 
     public ResponseList<DoorOrder> getOrders(OrderParamsDto params) {
 
-        List<DoorOrder> list = dAO.getOrders(params.getSorter(), params.getLimit(), params.getOffset());
+        UserEntity user = userService.getCurrentUser();
+        int sellerId = 0;
+        if (!user.isAdmin()) {
+            sellerId = user.getId();
+        }
+        //@TODO add filter to getOrders
+        List<DoorOrder> list = dAO.getOrders(params.getSorter(), params.getLimit(), params.getOffset(), sellerId);
 
-        long total = dAO.orderCountRows(params.getSorter(), params.getLimit(), params.getOffset());
+        long total = dAO.orderCountRows(params.getSorter(), params.getLimit(), params.getOffset(), sellerId);
 
         return new ResponseList<>(true, "ok", list, total);
     }
