@@ -130,6 +130,7 @@ public class LimitationDoor implements Comparable<LimitationDoor> {
     }
 
     @Override
+    //@TODO (SALAGAEV) fix this shit
     public int compareTo(LimitationDoor lim) {
         if (this.getTypeSettings().name().equals(lim.getTypeSettings().name())) {
             if (lim.getFirstItem() != null) {
