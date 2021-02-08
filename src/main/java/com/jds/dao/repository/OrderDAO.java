@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -29,10 +30,10 @@ public class OrderDAO {
 
     public List<DoorOrder> getOrders() {
         OrderSorter sorter = new OrderDateSorter(SideSqlSorting.DESC);
-        return getOrders(sorter, 1000, 0);
+        return getOrders(sorter, 1000, 0, 0);
     }
 
-    public List<DoorOrder> getOrders(OrderSorter sorter, int limit, int offset) {
+    public List<DoorOrder> getOrders(OrderSorter sorter, int limit, int offset, int filter) {
 
         Session session = sessionFactory.openSession();
 
@@ -41,6 +42,11 @@ public class OrderDAO {
         Root<DoorOrder> orderRoot = doorOrderListCriteria.from(DoorOrder.class);
 
         doorOrderListCriteria.select(orderRoot);
+
+        if (filter>0){
+            doorOrderListCriteria.where(doorOrderListBuilder.equal(orderRoot.get("seller"),filter));
+        }
+
         doorOrderListCriteria.orderBy(
                 sorter.sort(doorOrderListBuilder, orderRoot));
 
@@ -56,14 +62,22 @@ public class OrderDAO {
 
     }
 
-    public long orderCountRows(OrderSorter sorter, int limit, int offset) {
+    public long orderCountRows(OrderSorter sorter, int limit, int offset,int filter) {
 
         Session session = sessionFactory.openSession();
-        CriteriaBuilder totalBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Long> totalCriteria = totalBuilder.createQuery(Long.class);
-        totalCriteria.select(totalBuilder.count(totalCriteria.from(DoorOrder.class)));
+        Long total;
 
-        long total = session.createQuery(totalCriteria).getSingleResult();
+        if (filter>0 ){
+            String countQ = "Select count (f.orderId) from DoorOrder f where f.seller.id = :id";
+            Query countQuery = session.createQuery(countQ);
+            countQuery.setParameter("id",filter);
+            total = (Long) countQuery.uniqueResult();
+        }
+        else {
+            String countQ = "Select count (f.orderId) from DoorOrder f ";
+            Query countQuery = session.createQuery(countQ);
+            total = (Long) countQuery.uniqueResult();
+        }
 
         session.close();
 
