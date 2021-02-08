@@ -129,7 +129,6 @@ public class TemplateService {
         restriction.setDoorTypeid(intDoorTypeId);
 
         limitList.stream()
-                .sorted((o1, o2) -> -o1.compareTo(o2))
                 .forEach(lim -> restrictionBuild(restriction, lim));
         restriction.addShieldGlass(colorList);
         return restriction;
