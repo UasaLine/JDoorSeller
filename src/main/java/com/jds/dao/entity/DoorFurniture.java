@@ -129,6 +129,9 @@ public class DoorFurniture implements LimiItem, SerializingFields,Comparable<Doo
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "peephole")
     private List<DoorFurniture> peephole;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nightLock")
+    private List<DoorFurniture> nightLock;
+
     public DoorFurniture() {
         idManufacturerProgram="";
         quantity = 0;
@@ -178,6 +181,7 @@ public class DoorFurniture implements LimiItem, SerializingFields,Comparable<Doo
         setCloser(null);
         setEndDoorLock(null);
         setPeephole(null);
+        setNightLock(null);
         return this;
     }
 

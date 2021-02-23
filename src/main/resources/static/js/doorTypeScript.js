@@ -5,7 +5,7 @@ jQuery("document").ready(function () {
   }
 
   $("#close").on("click", function () {
-    location.href = "doortypelist";
+    location.href = "/pages/doortype";
   });
 
   $("#priceList").on("click", function () {

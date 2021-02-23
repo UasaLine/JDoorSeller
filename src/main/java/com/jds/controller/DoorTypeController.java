@@ -59,8 +59,8 @@ public class DoorTypeController {
         return "doorType";
     }
 
-    @GetMapping(value = "/doortype")
-    public String getDoorType(@RequestParam(required = false) String typeId,
+    @GetMapping(value = "/pages/doortype/{typeId}")
+    public String getDoorType(@PathVariable String typeId,
                               @RequestParam(required = false) String classId,
                               Model model) throws Exception {
 
@@ -72,7 +72,7 @@ public class DoorTypeController {
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/doortypelist")
+    @GetMapping(value = "/pages/doortype")
     public String getDoorTypeList(Model model, @RequestParam(required = false) String classId) throws Exception {
 
         List<DoorClass> doorClassList = service.getDoorClass();

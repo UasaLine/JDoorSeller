@@ -67,8 +67,9 @@ public class FurnitureKit implements SerializingFields {
     @JoinColumn(name = "endDoorLock")
     private DoorFurniture endDoorLock;
 
-    @Column(name = "nightLock")
-    private int nightLock;
+    @ManyToOne()
+    @JoinColumn(name = "nightLock")
+    private DoorFurniture nightLock;
 
     @ManyToOne()
     @JoinColumn(name = "peephole")
@@ -186,6 +187,9 @@ public class FurnitureKit implements SerializingFields {
         }
         if (peephole != null) {
             peephole.setNuulLazyFild();
+        }
+        if (nightLock != null){
+            nightLock.setNuulLazyFild();
         }
         return this;
     }

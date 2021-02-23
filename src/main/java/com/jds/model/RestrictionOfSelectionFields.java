@@ -65,6 +65,8 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> peepholePosition = new ArrayList<>();
     private List<LimitationDoor> peepholeHeight = new ArrayList<>();
 
+    private List<LimitationDoor> nightLock = new ArrayList<>();
+
     private List<LimitationDoor> shieldColor = new ArrayList<>();
     private List<LimitationDoor> shieldDesign = new ArrayList<>();
     private List<LimitationDoor> shieldGlass = new ArrayList<>();
@@ -467,6 +469,11 @@ public class RestrictionOfSelectionFields {
         this.peephole.add(furniture.setNuulLazyFild());
     }
 
+    public void addNightLock(@NonNull LimitationDoor furniture) {
+
+        this.nightLock.add(furniture.setNuulLazyFild());
+    }
+
     public void addCloser(@NonNull LimitationDoor furniture) {
 
 
@@ -613,6 +620,17 @@ public class RestrictionOfSelectionFields {
             addPeephole(getLim(furniture, TypeOfLimitionDoor.PEEPHOLE));
         }
         peephole = peephole.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .collect(Collectors.toList());
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addNightLock(@NonNull List<DoorFurniture> furnitures) {
+        nightLock = new ArrayList<>();
+        for (DoorFurniture furniture : furnitures) {
+            addNightLock(getLim(furniture, TypeOfLimitionDoor.NIGHT_LOCK));
+        }
+        nightLock = nightLock.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
         return this;

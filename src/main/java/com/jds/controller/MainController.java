@@ -26,13 +26,6 @@ public class MainController {
 
     @GetMapping(value = "/")
     public String getMainPage() {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity principal = (UserEntity) authentication.getPrincipal();
-
-        if (principal.isAdmin()) {
-            return "setting";
-        }
         return "redirect:/pages/orders";
     }
 

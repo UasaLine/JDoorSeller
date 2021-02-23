@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TemplateService {
+
     @Autowired
     private TemplateRepository dAO;
     @Autowired
@@ -29,8 +30,10 @@ public class TemplateService {
     private MetalRepository metalDao;
     @Autowired
     private ColorRepository colorDao;
+
     @Autowired
     private FurnitureRepository furnitureDao;
+
     private Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
     public List<ShortTemplate> getTemplateList() {
@@ -38,6 +41,7 @@ public class TemplateService {
         List<DoorType> list = mainDAO.getDoorTypeListFromLimitTable();
         return list.stream()
                 .map(ShortTemplate::new)
+                .sorted((o1,o2)-> o1.compareTo(o2))
                 .collect(Collectors.toList());
     }
 
@@ -94,6 +98,8 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.PEEPHOLE, restriction.getPeephole(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.PEEPHOLE_POSITION, restriction.getPeepholePosition(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.NIGHT_LOCK, restriction.getNightLock(), limitList);
+
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_IN_LOCK_DECOR, restriction.getTopInLockDecor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TOP_OUT_LOCK_DECOR, restriction.getTopOutLockDecor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.LOWER_IN_LOCK_DECOR, restriction.getLowerInLockDecor(), limitList);
@@ -123,7 +129,6 @@ public class TemplateService {
         restriction.setDoorTypeid(intDoorTypeId);
 
         limitList.stream()
-                .sorted((o1, o2) -> -o1.compareTo(o2))
                 .forEach(lim -> restrictionBuild(restriction, lim));
         restriction.addShieldGlass(colorList);
         return restriction;
@@ -156,6 +161,8 @@ public class TemplateService {
 
                 .addPeephole(furnitureDao.getFurniture(TypeOfFurniture.PEEPHOLE))
                 .addPeepholePosition()
+
+                .addNightLock(furnitureDao.getFurniture(TypeOfFurniture.NIGHT_LOCK))
 
                 .addGlass(furnitureDao.getFurniture(TypeOfFurniture.TYPE_GLASS))
                 .addToning(furnitureDao.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
@@ -231,6 +238,8 @@ public class TemplateService {
             case END_DOOR_LOCK: restriction.addEndDoorLock(lim);break;
             case PEEPHOLE: restriction.addPeephole(lim);break;
             case PEEPHOLE_POSITION: restriction.addPeepholePosition(lim);break;
+
+            case NIGHT_LOCK: restriction.addNightLock(lim);break;
 
             case TYPE_GLASS: restriction.addTypeDoorGlass(lim);break;
             case TONING: restriction.addToning(lim);break;

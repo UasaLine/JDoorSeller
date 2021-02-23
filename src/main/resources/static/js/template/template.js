@@ -138,6 +138,8 @@ jQuery("document").ready(function () {
         installFromTemplateFurnitur("peephole");
         installFromTemplateFurnitur("peepholePosition");
 
+        installFromTemplateFurnitur("nightLock");
+
         installFromTemplateFurnitur("closer");
         installFromTemplateFurnitur("endDoorLock");
 
@@ -183,6 +185,8 @@ jQuery("document").ready(function () {
         fillInFurniture("endDoorLock");
         fillInFurniture("peephole");
         fillInFurniture("peepholePosition");
+
+        fillInFurniture("nightLock");
 
         fillInFurniture("typeDoorGlass");
         fillInFurniture("toning");
@@ -705,6 +709,22 @@ jQuery("document").ready(function () {
             saveInJavaObjectColorAndFurnitur("peepholePosition");
         }
     });
+
+    //addNighyLock furnitur
+
+    $("#nightLockDiv").change(".nightLockSelect", function () {
+        addNewFieldAndfillInforFurnitur("nightLock"); //nameJavaObject
+    });
+    $("#nightLockDiv").on("click", ".nightLockLineCheckbox", function () {
+        if ($(this).is(":checked")) {
+            switchOffAll("nightLock");
+            $(this).prop("checked", true);
+            saveInJavaObjectColorAndFurnitur("nightLock");
+        } else {
+            saveInJavaObjectColorAndFurnitur("nightLock");
+        }
+    });
+
     $("#closerDiv").change(".closerSelect", function () {
         addNewFieldAndfillInforFurnitur("closer"); //nameJavaObject
     });

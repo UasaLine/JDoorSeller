@@ -1373,7 +1373,7 @@ jQuery("document").ready(function () {
             $(".select_additionally").attr("show", "ghost_lement");
         }
 
-        if (currentItem == "closer" || currentItem == "peephole") {
+        if (currentItem == "closer" || currentItem == "peephole" || currentItem == "nightLock") {
             $(".select_item").attr("show", "is_alive_lement");
             goTo = 'additionalDoorSettings';
             currentItemForDisplayId = 'additionalDoorSettings';
@@ -1658,6 +1658,10 @@ jQuery("document").ready(function () {
         //peephole position
         let peepholePosition = door.furnitureKit['peepholePosition'];
         $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
+
+        //nightLock
+        let nightLock = door.furnitureKit['nightLock'];
+        Container2fields.setValueToFieldByItem('nightLock', nightLock ? nightLock.name : '');
 
         //closer
         let closer = door.furnitureKit['closer'];

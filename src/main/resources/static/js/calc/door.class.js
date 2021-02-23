@@ -72,7 +72,7 @@ class Door {
             Door.dinamicRelief(containerLeaf, config, door, "L");
             Door.createCloser(containerLeaf, config, door);
             Door.createHandle(containerLeaf, config, door, "L");
-            Door.createStep(containerLeaf, config, door);
+            Door.createStep(containerLeaf, config, door,"L");
             Door.createGlass(containerLeaf, config, door, "L");
             Door.createLogo(containerLeaf, door);
             Door.createHinges(containerLeaf, door);
@@ -89,7 +89,7 @@ class Door {
 
             Door.createRelief(containerLeafR, config, "R");
             Door.createHandle(containerLeafR, config, door, "R");
-            Door.createStep(containerLeafR, config, door);
+            Door.createStep(containerLeafR, config, door,"R");
             Door.createGlass(containerLeafR, config, door, "R");
             Door.createNightLock(containerLeafR, door);
             Door.createTopInLockDecor(containerLeafR, door);
@@ -332,14 +332,14 @@ class Door {
         }
     }
 
-    static createStep(containerLeaf, config, door) {
+    static createStep(containerLeaf, config, door,side) {
         if (
             door.furnitureKit != null &&
             door.stainlessSteelDoorstep != null &&
             door.stainlessSteelDoorstep != 0
         ) {
             $("<img>")
-                .attr("class", "stainlessSteelDoorstepL_images")
+                .attr("class", "stainlessSteelDoorstep"+side+"_images")
                 .attr("src", Door.dirPath + "images/findings/door handles sketch/000000001_R.png")
                 .appendTo(containerLeaf);
         }
@@ -404,14 +404,23 @@ class Door {
     }
 
     static createNightLock(containerLeaf, door) {
+        if (door.furnitureKit.nightLock == null){
+            return;
+        }
         let side = "R";
         if (door.sideDoorOpen == "RIGHT") {
             side = "L";
         }
 
+        let pathImages = door.furnitureKit.nightLock.sketchPathFirst;
+
+        if (pathImages == ""){
+            pathImages = "images/findings/night_lock.png";
+        }
+
         $("<img>")
             .attr("class", "night_lock_images_" + side)
-            .attr("src", Door.dirPath + "images/findings/night_lock.png")
+            .attr("src", Door.dirPath + pathImages)
             .appendTo(containerLeaf);
     }
 
@@ -423,8 +432,6 @@ class Door {
         if (door.furnitureKit.peepholePosition == "CENTER"){
             position = "center_"
         }
-        door.furnitureKit.peephole;
-        door.furnitureKit.peepholePosition;
         let side;
 
         if (door.sideDoorOpen == "RIGHT" ) {

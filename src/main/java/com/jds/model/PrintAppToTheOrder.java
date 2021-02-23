@@ -92,7 +92,7 @@ public class PrintAppToTheOrder {
             if (door.getFurnitureKit().getEndDoorLock() != null) {
                 furniture.add(new ParamApp("Торцевой дверной замок:", String.valueOf(door.getFurnitureKit().getEndDoorLock().getName())));
             }
-            if (door.getFurnitureKit().getNightLock() != 0) {
+            if (door.getFurnitureKit().getNightLock() != null) {
                 furniture.add(new ParamApp("Ночной замок:", String.valueOf(door.getFurnitureKit().getNightLock())));
             }
             if (door.getFurnitureKit().getPeephole() != null) {

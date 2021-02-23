@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Repository
 @Transactional
 public class FurnitureRepository {
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -80,10 +81,12 @@ public class FurnitureRepository {
         session.delete(furniture);
         return "ok";
     }
+
     @Transactional(propagation = Propagation.REQUIRED)
-    public String saveFurniture(DoorFurniture furniture) {
+    public DoorFurniture saveFurniture(DoorFurniture furniture) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(furniture);
-        return "ok";
+
+        return furniture;
     }
 }

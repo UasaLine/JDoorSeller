@@ -5,7 +5,7 @@ import lombok.*;
 @Setter
 @Getter
 @NoArgsConstructor
-public class ShortTemplate {
+public class ShortTemplate implements Comparable<ShortTemplate> {
 
     private int doorTypeId;
     private String typeName;
@@ -15,5 +15,11 @@ public class ShortTemplate {
         this.doorTypeId = doorType.getId();
         typeName = doorType.getName();
         className = doorType.getDoorClass().getName();
+    }
+
+    @Override
+    public int compareTo(ShortTemplate o) {
+        return typeName.compareTo(o.getTypeName());
+
     }
 }
