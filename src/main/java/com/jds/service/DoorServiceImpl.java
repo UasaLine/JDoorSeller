@@ -88,6 +88,7 @@ public class DoorServiceImpl implements DoorService {
                 .costOfChangesAtTemplate()
                 .calculateGlass()
                 .calculateFurniture()
+                .calculateStainlessSteelDoorstep()
                 .addRetailMarginToCostList(retailMargin)
                 .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
