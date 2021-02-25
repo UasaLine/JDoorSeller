@@ -1043,6 +1043,7 @@ jQuery("document").ready(function () {
             );
             setValueInSelectInt("#" + $(elem).attr("id"), table[i].startRestriction);
             setSwitchDefaultVal(elem, nameJavaObject, table[i].defaultValue);
+            setCostVal(elem, nameJavaObject, table[i].cost);
 
             if (allFieldsAreFilled(selector)) {
                 addField(nameJavaObject, "select", "Select");
@@ -1509,8 +1510,9 @@ jQuery("document").ready(function () {
         for (var i = 0; i < elem.length; ++i) {
             if ($(elem[i]).val()) {
                 var defaultVal = getDefVal(elem[i], nameFieldJavaObject);
+                let cost = getCostVal(elem[i], nameFieldJavaObject);
                 template[nameFieldJavaObject].push(
-                    findInRestriction($(elem[i]).val(), nameFieldJavaObject, defaultVal)
+                    findInRestriction($(elem[i]).val(), nameFieldJavaObject, defaultVal, cost)
                 );
             }
         }
@@ -1536,12 +1538,13 @@ jQuery("document").ready(function () {
     }
 
 
-    function findInRestriction(val, nameFieldJavaObject, defaultVal) {
+    function findInRestriction(val, nameFieldJavaObject, defaultVal, cost = 0) {
         var tab = restriction[nameFieldJavaObject];
         for (var i = 0; i < tab.length; ++i) {
             if (tab[i].startRestriction == val) {
                 var lim = tab[i];
                 lim.defaultValue = defaultVal;
+                lim.cost = cost;
                 return lim;
             }
         }

@@ -1156,4 +1156,19 @@ public class DoorEntity implements SerializingFields {
         return this;
     }
 
+    public DoorEntity calculateStainlessSteelDoorstep() {
+
+        if (this.stainlessSteelDoorstep == 1) {
+            int cost = 0;
+            List<LimitationDoor> tab = template.getStainlessSteelDoorstep();
+            for (LimitationDoor lim: tab){
+                if (lim.getStartRestriction() == 1){
+                    cost = lim.getCost();
+                    costList.addLine(lim.getFirstItem(), 200, false, cost);
+                    return this;
+                }
+            }
+        }
+        return this;
+    }
 }
