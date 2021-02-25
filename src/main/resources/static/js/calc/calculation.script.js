@@ -178,7 +178,7 @@ jQuery("document").ready(function () {
         const available = $('#name' + item).attr('available');
 
         if (item == "innerOpen") {
-            if (InnerOpen.checkAndHide()){
+            if (InnerOpen.checkAndHide()) {
                 $(this).prop("checked", false);
             }
 
@@ -358,7 +358,7 @@ jQuery("document").ready(function () {
                 data: doorJSON,
                 dataType: "json",
                 success: function (data) {
-                    if (door.id == 0){
+                    if (door.id == 0) {
                         toDoor(data.id);
                     }
                     door.id = data.id;
@@ -1659,6 +1659,13 @@ jQuery("document").ready(function () {
         let peepholePosition = door.furnitureKit['peepholePosition'];
         $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
 
+            tab = RestrictionOfSelectionFields.peepholePosition;
+            if (tab.length <= 1 || door.furnitureKit.peephole == null){
+                hideField("#additionalDoorSettings_peepholePosition");
+            } else {
+                showField("#additionalDoorSettings_peepholePosition");
+            }
+
         //nightLock
         let nightLock = door.furnitureKit['nightLock'];
         Container2fields.setValueToFieldByItem('nightLock', nightLock ? nightLock.name : '');
@@ -1806,8 +1813,8 @@ jQuery("document").ready(function () {
         }
     }
 
-    function displayInnerOpen(template){
-        if (!InnerOpen.checkAndHide()){
+    function displayInnerOpen(template) {
+        if (!InnerOpen.checkAndHide()) {
             addOrDelleteGhost("#innerOpenDiv", true);
         } else {
             addOrDelleteGhost("#innerOpenDiv", false);
@@ -1819,6 +1826,14 @@ jQuery("document").ready(function () {
         if (object[fieldName] == value) {
             return true;
         } else return false;
+    }
+
+    function hideField(nameField) {
+        $(nameField).hide();
+    }
+
+    function showField(nameField) {
+        $(nameField).show();
     }
 
 });

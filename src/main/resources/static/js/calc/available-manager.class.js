@@ -50,4 +50,5 @@ class AvailableManager {
     static makeUnavailable(name) {
         $("#name" + name).attr("available", "no");
     }
+
 }
