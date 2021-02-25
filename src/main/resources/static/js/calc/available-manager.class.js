@@ -36,6 +36,7 @@ class AvailableManager {
         this.makeAvailableIfExists("typeDoorGlass","");
         this.makeAvailableIfExists("toning","");
         this.makeAvailableIfExists("armor","");
+        this.makeAvailableIfExists("nightLock","");
     }
 
     makeAvailableIfExists(name,postfix) {

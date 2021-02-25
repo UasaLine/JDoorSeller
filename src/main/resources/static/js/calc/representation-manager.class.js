@@ -66,6 +66,9 @@ class Container2fields {
                 currentItem = "peepholeMenu";
                 Container2fields.setValueToField(Container2fields.getFurniture(value, "peephole"));
 
+                currentItem = "nightLock";
+                Container2fields.setValueToField(Container2fields.getFurniture(value, "nightLock"));
+
                 currentItem = "handle";
                 showValue = Container2fields.getFurniture(value, "handle");
             }

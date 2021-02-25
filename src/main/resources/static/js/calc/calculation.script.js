@@ -1677,10 +1677,6 @@ jQuery("document").ready(function () {
     }
 
     function fillChildBlockAdditionalSettings() {
-        //nightLock
-        let nightLock = door.furnitureKit['nightLock'];
-        Container2fields.setValueToFieldByItem('nightLock', nightLock ? nightLock.name : '');
-
         //closer
         let closer = door.furnitureKit['closer'];
         Container2fields.setValueToFieldByItem('closer', closer ? closer.name : '')

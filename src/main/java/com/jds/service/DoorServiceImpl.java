@@ -215,6 +215,7 @@ public class DoorServiceImpl implements DoorService {
                 .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
                 .peephole(defaultAndGetFurniture(template.getPeephole()))
                 .closer(defaultAndGetFurniture(template.getCloser()))
+                .nightLock(defaultAndGetFurniture(template.getNightLock()))
                 .build();
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
