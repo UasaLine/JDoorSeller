@@ -78,7 +78,7 @@ public class FurnitureService {
                 .topInLockDecor(getFurnitureByLmit(template.getTopInLockDecor()))
                 .topOutLockDecor(getFurnitureByLmit(template.getTopOutLockDecor()))
                 .lowerInLockDecor(getFurnitureByLmit(template.getLowerInLockDecor()))
-                .lowerOutLockDecor(getFurnitureByLmit(template.getLowerInLockDecor()))
+                .lowerOutLockDecor(getFurnitureByLmit(template.getLowerOutLockDecor()))
 
                 .handle(getFurnitureByLmit(template.getHandle()))
 
