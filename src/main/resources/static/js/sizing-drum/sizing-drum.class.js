@@ -126,6 +126,28 @@ class SizingDrum {
         selectSizeOpen = false;
     }
 
+    static setSizeByParam(number) {
+        if ($("#select_set").hasClass("notAvailable")) {
+            return;
+        }
+
+        var fieldName =  SizingDrum.getFieldNameFromInputId($("#nameSelectForm").attr("data"));
+
+        if (SizingDrum.checkGlassName(fieldName)){
+            Door.setGlass(fieldName,number);
+            Door.draw(door, 1);
+        }else {
+            Door.set(fieldName,number);
+            Door.draw(door, 1);
+        }
+
+        currentItem = fieldName;
+        RepresentationManager.showFieldValue(number);
+
+        closeSelect();
+        selectSizeOpen = false;
+    }
+
     static getFieldNameFromInputId(elemId){
 
         return elemId.replace('input_', '');
