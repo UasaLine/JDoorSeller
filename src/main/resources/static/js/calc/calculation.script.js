@@ -9,6 +9,7 @@ let maxSize_widthDoorVal = 0;
 let availableFurnitureList;
 const parentDir = "../../";
 let blockDoorStep = false;
+let currentNumberSize = 0;
 
 
 jQuery("document").ready(function () {
@@ -178,7 +179,7 @@ jQuery("document").ready(function () {
         const available = $('#name' + item).attr('available');
 
         if (item == "innerOpen") {
-            if (InnerOpen.checkAndHide()){
+            if (InnerOpen.checkAndHide()) {
                 $(this).prop("checked", false);
             }
 
@@ -358,7 +359,7 @@ jQuery("document").ready(function () {
                 data: doorJSON,
                 dataType: "json",
                 success: function (data) {
-                    if (door.id == 0){
+                    if (door.id == 0) {
                         toDoor(data.id);
                     }
                     door.id = data.id;
@@ -403,7 +404,7 @@ jQuery("document").ready(function () {
         }
     );
 
-//select namber
+    //select number
     $("#select_set").on("click", function () {
         SizingDrum.setSize();
     });
@@ -460,6 +461,7 @@ jQuery("document").ready(function () {
     $("#backHis").on("click", function () {
         backHistoryList();
     });
+
     $("#nextHis").on("click", function () {
         nextHistoryList();
     });
@@ -468,7 +470,7 @@ jQuery("document").ready(function () {
         if (!selectSizeOpen) {
             return;
         }
-        handleKeystroke(e);
+        processKey(e);
         checkForLimits();
     });
 
@@ -1562,11 +1564,12 @@ jQuery("document").ready(function () {
     }
 
     function addNumberToSize(umber) {
-        var currentNamber = $(".line").text();
+        currentNumberSize = $(".line").text();
         if (firstPress) {
-            currentNamber = "";
+            currentNumberSize = "";
         }
-        $(".line").text(currentNamber + umber);
+        currentNumberSize = currentNumberSize+ umber;
+        $(".line").text(currentNumberSize);
         firstPress = false;
     }
 
@@ -1578,29 +1581,31 @@ jQuery("document").ready(function () {
         firstPress = false;
     }
 
-    function handleKeystroke(e) {
-        if (e.which == 48) {
+    function processKey(e) {
+        if (e.which == 48 || e.which == 96) {
             addNumberToSize(0);
-        } else if (e.which == 49) {
+        } else if (e.which == 49 || e.which == 97) {
             addNumberToSize(1);
-        } else if (e.which == 50) {
+        } else if (e.which == 50 || e.which == 98) {
             addNumberToSize(2);
-        } else if (e.which == 51) {
+        } else if (e.which == 51 || e.which == 99) {
             addNumberToSize(3);
-        } else if (e.which == 52) {
+        } else if (e.which == 52 || e.which == 100) {
             addNumberToSize(4);
-        } else if (e.which == 53) {
+        } else if (e.which == 53 || e.which == 101) {
             addNumberToSize(5);
-        } else if (e.which == 54) {
+        } else if (e.which == 54 || e.which == 102) {
             addNumberToSize(6);
-        } else if (e.which == 55) {
+        } else if (e.which == 55 || e.which == 103) {
             addNumberToSize(7);
-        } else if (e.which == 56) {
+        } else if (e.which == 56 || e.which == 104) {
             addNumberToSize(8);
-        } else if (e.which == 57) {
+        } else if (e.which == 57 || e.which == 105) {
             addNumberToSize(9);
         } else if (e.which == 8) {
             deleteLastNumberInSize(); //backspace
+        } else if (e.which == 13){
+            SizingDrum.setSizeByParam(currentNumberSize);
         }
     }
 
@@ -1658,6 +1663,13 @@ jQuery("document").ready(function () {
         //peephole position
         let peepholePosition = door.furnitureKit['peepholePosition'];
         $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
+
+            tab = RestrictionOfSelectionFields.peepholePosition;
+            if (tab.length <= 1 || door.furnitureKit.peephole == null){
+                hideField("#additionalDoorSettings_peepholePosition");
+            } else {
+                showField("#additionalDoorSettings_peepholePosition");
+            }
 
         //nightLock
         let nightLock = door.furnitureKit['nightLock'];
@@ -1806,8 +1818,8 @@ jQuery("document").ready(function () {
         }
     }
 
-    function displayInnerOpen(template){
-        if (!InnerOpen.checkAndHide()){
+    function displayInnerOpen(template) {
+        if (!InnerOpen.checkAndHide()) {
             addOrDelleteGhost("#innerOpenDiv", true);
         } else {
             addOrDelleteGhost("#innerOpenDiv", false);
@@ -1819,6 +1831,14 @@ jQuery("document").ready(function () {
         if (object[fieldName] == value) {
             return true;
         } else return false;
+    }
+
+    function hideField(nameField) {
+        $(nameField).hide();
+    }
+
+    function showField(nameField) {
+        $(nameField).show();
     }
 
 });

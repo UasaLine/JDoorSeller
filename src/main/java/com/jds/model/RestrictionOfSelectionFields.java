@@ -684,7 +684,7 @@ public class RestrictionOfSelectionFields {
 
             peepholePosition.add(LimitationDoor.builder()
                     .typeSettings(TypeOfLimitionDoor.PEEPHOLE_POSITION)
-                    .itemId(position.ordinal())
+                    .itemId(position.ordinal() + 1)
                     .firstItem(position.name())
                     .build());
         }

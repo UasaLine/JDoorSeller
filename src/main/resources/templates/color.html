@@ -82,15 +82,15 @@
             </div>
 
             <!--type-of-door-color-->
-            <div class="col-md-6 mb-3">
-                <label for="typeOfDoorColor">Тип цвета двери:</label>
+            <div class="col-md-6 mb-3" id="additionalTypeDiv">
+                <label for="typeOfDoorColor">Тип цвета/дизайна:</label>
                 <select class="form-control" id="typeOfDoorColor" Enter type>
                 </select>
-                <small id="typeHelp" class="form-text text-muted">только для цветов дверей.</small>
+                <small id="typeHelp" class="form-text text-muted">только для цветов дверей и внутренних щитов.</small>
             </div>
 
             <!--color contains design-->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3" id="containsDesignSwitchDiv">
                 <div class="custom-control custom-switch" id="containsDesignSwitch">
                     <input type="checkbox" class="custom-control-input" id="containsDesign">
                     <label class="custom-control-label" for="containsDesign">содержит дизайн</label>
@@ -110,12 +110,30 @@
             </div>
 
             <!--smooth-->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3" id="smoothSwitchDiv">
                 <div class="custom-control custom-switch" id="smoothSwitch">
                     <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="smooth">
                     <label class="custom-control-label" for="smooth">Гладкая</label>
                 </div>
                 <small id="isUsedHelp" class="form-text text-muted">признак для расчетов стоимости и работ.</small>
+            </div>
+
+            <!--outWoodPanel-->
+            <div class="col-md-6 mb-3" id="outWoodPanelDiv">
+                <div class="custom-control custom-switch" id="outWoodPaneSwitch">
+                    <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="outWoodPanel">
+                    <label class="custom-control-label" for="outWoodPanel">внешняя накладка</label>
+                </div>
+                <small class="form-text text-muted">добавляет возможность указать маску для выбора ворм внешних панелей</small>
+            </div>
+
+            <!--maskPath-->
+            <div class="col-md-6 mb-3" id="outWoodMaskPathDiv">
+                <label for="picturePath">Маска:</label>
+                <select class="form-control" id="outWoodMaskPath"></select>
+                <small class="form-text text-muted">выберите файл маски</small>
+                <br>
+                <img id="mask_png" src="...">
             </div>
 
         </div>
@@ -124,15 +142,16 @@
         <br>
 
         <div class="form-group">
-            <!--picturePath-->
+
 
             <div class="col-md-6 mb-3" id="containsDesignGlass">
                 <select class="form-control" id="picturePathDesign" Enter type></select>
-                <small class="form-text text-muted">выберище щит для стекла</small>
+                <small class="form-text text-muted">выберите щит для стекла</small>
                 <br>
                 <img id="picturePathDesign_img" src="...">
             </div>
 
+            <!--picturePath-->
             <div class="col-md-6 mb-3">
                 <label for="picturePath">Картинка:</label>
                 <select class="form-control" id="picturePath" Enter type></select>
@@ -142,6 +161,7 @@
                 <small class="form-text text-muted"><strong>!ВНИМАНИЕ: по умолчанию картинка должна быть под ручку
                     справа</strong></small>
             </div>
+
         </div>
 
 
