@@ -1385,6 +1385,27 @@ jQuery("document").ready(function () {
             $(".select_item").attr("show", "ghost_lement");
         }
 
+        if (currentItem == "peepholeMenu"){
+            //peephole
+            let peephole = door.furnitureKit['peephole'];
+            Container2fields.setValueToFieldByItem('peephole', peephole ? peephole.name : '');
+
+            //peephole position
+            let peepholePosition = door.furnitureKit['peepholePosition'];
+            $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
+
+            tab = RestrictionOfSelectionFields.peepholePosition;
+            if (tab.length <= 1 || door.furnitureKit.peephole == null){
+                hideField("#additionalDoorSettings_peepholePosition");
+            } else {
+                showField("#additionalDoorSettings_peepholePosition");
+            }
+
+            $(".select_peepholeMenu").attr("show", "is_alive_lement");
+        } else {
+            $(".select_peepholeMenu").attr("show", "ghost_lement");
+        }
+
         if (currentItem == "endDoorLock") {
             $(".select_endDoorLock").attr("show", "is_alive_lement");
             currentItemForDisplay = $("#nameadditionally").html();
@@ -1656,21 +1677,6 @@ jQuery("document").ready(function () {
     }
 
     function fillChildBlockAdditionalSettings() {
-        //peephole
-        let peephole = door.furnitureKit['peephole'];
-        Container2fields.setValueToFieldByItem('peephole', peephole ? peephole.name : '');
-
-        //peephole position
-        let peepholePosition = door.furnitureKit['peepholePosition'];
-        $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
-
-            tab = RestrictionOfSelectionFields.peepholePosition;
-            if (tab.length <= 1 || door.furnitureKit.peephole == null){
-                hideField("#additionalDoorSettings_peepholePosition");
-            } else {
-                showField("#additionalDoorSettings_peepholePosition");
-            }
-
         //nightLock
         let nightLock = door.furnitureKit['nightLock'];
         Container2fields.setValueToFieldByItem('nightLock', nightLock ? nightLock.name : '');
