@@ -3,6 +3,7 @@ jQuery("document").ready(function () {
     var typeImageList;
     var typeDoorColorList;
     let colorListPictures;
+    let maskList;
     let shieldDesign;
 
     //new instans
@@ -19,9 +20,9 @@ jQuery("document").ready(function () {
 
     $("#typeOfImage").change(function () {
         setField("typeOfImage", $("#typeOfImage").val());
+
         if ($("#typeOfImage").val() != "") {
-            showContainsDesignGlass();
-            showContainsGlass();
+            showSettings(JavaObject.typeOfImage);
             getImageListFromServer();
             getShieldGlass();
         } else {
@@ -76,6 +77,23 @@ jQuery("document").ready(function () {
     }else {
             setField("containsDesign", 0);
             showPicture("#picturePathDesign_img", "");
+        }
+    });
+
+    $("#outWoodPanel").change(function () {
+        if ($(this).is(":checked")) {
+            setField("containsWoodPanel", 1);
+        } else {
+            setField("containsWoodPanel", 0);
+        }
+        showPathMask();
+    });
+
+    $("#outWoodMaskPath").change(function () {
+        if ($("#outWoodMaskPath").val() != "") {
+            setField("maskPath", getPictureColor($("#outWoodMaskPath").val(), maskList).path);
+        }else {
+            setField("maskPath", "");
         }
     });
 
@@ -195,21 +213,37 @@ jQuery("document").ready(function () {
         return id;
     }
 
-    function showContainsGlass() {
-        if(JavaObject.typeOfImage == "SHIELD_DESIGN"){
-            //$("#containsGlassDiv").hidden = false;
+    function showSettings(type){
+
+        hideAllSettings();
+
+        if(type == "SHIELD_DESIGN"){
             $("#containsGlassDiv").show();
-        } else {
-            $("#containsGlassDiv").hide();
-            //$("#containsGlassDiv").hidden = true;
+            $("#additionalTypeDiv").show();
+        } else if(type == "SHIELD_GLASS"){
+            $("#containsDesignGlass").show();
+        } else if (type == "DOOR_COLOR"){
+            $("#additionalTypeDiv").show();
+        } else if (type == 'DOOR_DESIGN'){
+            $("#outWoodPanelDiv").show();
         }
     }
 
-    function showContainsDesignGlass() {
-        if (JavaObject.typeOfImage == "SHIELD_GLASS") {
-            $("#containsDesignGlass").show();
+    function hideAllSettings() {
+        $("#containsGlassDiv").hide();
+        $("#containsDesignGlass").hide();
+        $("#smoothSwitchDiv").hide();
+        $("#additionalTypeDiv").hide();
+        $("#containsDesignSwitchDiv").hide();
+        $("#outWoodPanelDiv").hide();
+
+    }
+
+    function showPathMask() {
+        if ($("#outWoodPanel").is(":checked")) {
+            $('#outWoodMaskPathDiv').show();
         } else {
-            $("#containsDesignGlass").hide();
+            $('#outWoodMaskPathDiv').hide();
         }
     }
 
@@ -224,9 +258,9 @@ jQuery("document").ready(function () {
 
     function fillByOject() {
         if (JavaObject != null) {
-            showContainsDesignGlass();
-            showContainsGlass();
+
             if (JavaObject.typeOfImage != null) {
+                showSettings(JavaObject.typeOfImage);
                 getImageListFromServer();
                 getShieldGlass();
             }
@@ -247,6 +281,10 @@ jQuery("document").ready(function () {
             } else {
                 setCheckBox("#containsDesign", JavaObject.containsDesign);
             }
+
+            setCheckBox("#outWoodPanel", JavaObject.containsWoodPanel);
+            showPicture("#mask_png", JavaObject.maskPath);
+            showPathMask();
 
         }
     }

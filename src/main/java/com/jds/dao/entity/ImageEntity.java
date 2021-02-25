@@ -32,6 +32,9 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @Column(name = "picturePathFirst")
     private String picturePath;
 
+    @Column(name = "maskPath")
+    private String maskPath;
+
     @Column(name = "price")
     private int pricePaintingMeterOfSpace;
 
@@ -52,6 +55,9 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @Column(name = "containsGlass")
     private int containsGlass;
 
+    @Column(name = "containsWoodPanel")
+    private int containsWoodPanel;
+
     // kit
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
     private List<ImageEntity> shieldColor;
@@ -71,7 +77,7 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         smooth = 0;
     }
 
-    public ImageEntity clearNonSerializingFields(){
+    public ImageEntity clearNonSerializingFields() {
         this.setShieldColor(null);
         this.setShieldDesign(null);
         this.setDoorColor(null);
