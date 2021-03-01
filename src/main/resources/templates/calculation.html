@@ -203,6 +203,14 @@
                         <span class="vertical_menu_button_rigtht" id="handleShow"><strong></strong></span>
                     </div>
                 </div>
+                <div class="vertical_menu_button" id="peepholeMenu">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namepeepholeMenu" available="no"> ГЛАЗОК</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="peepholeMenuShow"><strong></strong></span>
+                    </div>
+                </div>
                 <div class="vertical_menu_button" id="comment">
                     <div class="left_cell">
                         <span class="vertical_menu_button_left" id="namecomment" available="no"> КОММЕНТАРИЙ</span>
@@ -560,31 +568,6 @@
 
             <!--select_additionalDoorSettings-->
             <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
-
-                <!--peephole-->
-                <div class="vertical_menu_button" id="peephole">
-                    <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namepeephole" available="no" >Глазок</span>
-                    </div>
-                    <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" id="peepholeShow"><strong></strong></span>
-                    </div>
-                </div>
-
-                <!--peephole position-->
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_peepholePosition">
-                    <div class="left_cell_checkbox">
-                        <span class="vertical_menu_button_left" id="namepeepholePosition" available="no"> <Strong>Глазок по центру двери</Strong></span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <div class="toggles">
-                            <input type="checkbox" name="checkbox16" id="peepholePosition_checkbox" Item="peepholePosition" data=""
-                                   class="ios-toggle peepholePosition"/>
-                            <label for="peepholePosition_checkbox" class="checkbox-label"></label>
-                        </div>
-                    </div>
-                </div>
-
                 <!--nightLock-->
                 <div class="vertical_menu_button" id="nightLock">
                     <div class="left_cell">
@@ -2228,6 +2211,33 @@
                     <span class="small_font" id="imagesshieldGlassSpan14"></span>
                 </div>
 
+            </div>
+
+            <!--select_peepholeMenu-->
+            <div class="select_peepholeMenu reduceAsAScroll" show="ghost_lement">
+                <!--peephole-->
+                <div class="vertical_menu_button" id="peephole">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namepeephole" available="no" >Глазок</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="peepholeShow"><strong></strong></span>
+                    </div>
+                </div>
+
+                <!--peephole position-->
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_peepholePosition">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namepeepholePosition" available="no"> <Strong>Глазок по центру двери</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="checkbox16" id="peepholePosition_checkbox" Item="peepholePosition" data=""
+                                   class="ios-toggle peepholePosition"/>
+                            <label for="peepholePosition_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!--comment-->

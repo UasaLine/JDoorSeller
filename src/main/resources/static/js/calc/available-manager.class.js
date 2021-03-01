@@ -30,6 +30,7 @@ class AvailableManager {
 
         this.makeAvailableIfExists("closer","");
         this.makeAvailableIfExists("peephole","");
+        this.makeAvailableIfExists("peephole","Menu");
         this.makeAvailableIfExists("peepholePosition","");
 
         this.makeAvailableIfExists("typeDoorGlass","");
