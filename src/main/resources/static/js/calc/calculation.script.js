@@ -182,16 +182,6 @@ jQuery("document").ready(function () {
             if (InnerOpen.checkAndHide()) {
                 $(this).prop("checked", false);
             }
-
-            return;
-        }
-
-        if (available == "no" || available == undefined) {
-            if ($(this).is(":checked")) {
-                $(this).prop("checked", false);
-            } else {
-                $(this).prop("checked", true);
-            }
             return;
         }
 
@@ -290,7 +280,6 @@ jQuery("document").ready(function () {
                     setDoorFurnitureById($(this).attr("Item"), 0);
                 }
             }
-
         }
 
         if (needRepresentationRun) {
@@ -298,7 +287,6 @@ jQuery("document").ready(function () {
             Door.draw(door, 1);
         }
     });
-
 
     $("#buttonCalculateCostShow").on("click", function () {
         PriceComponent.deleteRow();
