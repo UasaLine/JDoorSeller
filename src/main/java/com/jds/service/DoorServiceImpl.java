@@ -83,6 +83,10 @@ public class DoorServiceImpl implements DoorService {
                                          @NonNull int discount,
                                          @NonNull int retailMargin) {
 
+        if (doorEntity.isNew()) {
+            dAO.saveDoor(doorEntity);
+        }
+
         doorEntity
                 .addPriceToCostList(discount)
                 .costOfChangesAtTemplate()
@@ -293,6 +297,7 @@ public class DoorServiceImpl implements DoorService {
 
         door.createName();
         door.clearEmptyLinks();
+        calculate(door);
         door = dAO.saveDoor(door);
         return addToOrderIfNotExist(door);
 
