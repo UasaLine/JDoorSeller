@@ -133,15 +133,6 @@
                               id="sideDoorOpenShow"><strong></strong></span>
                     </div>
                 </div>
-                <div class="vertical_menu_button" id="additionalDoorSettings">
-                    <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="no"> ДОПОЛНИТЕЛЬНО</span>
-                    </div>
-                    <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" available="yes"
-                              id="additionalDoorSettingsShow"><strong></strong></span>
-                    </div>
-                </div>
 
                 <div class="vertical_menu_button" id="doorColor">
                     <div class="left_cell">
@@ -233,6 +224,16 @@
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" available="yes" id="commentShow"><strong></strong></span>
+                    </div>
+                </div>
+
+                <div class="vertical_menu_button" id="additionalDoorSettings">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="no"> НАЛИЧНИКИ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="additionalDoorSettingsShow"><strong></strong></span>
                     </div>
                 </div>
 
@@ -582,7 +583,7 @@
                 </div>
             </div>
 
-            <!--select_additionalDoorSettings-->
+            <!--select_doorTrim old [additionalDoorSettings]-->
             <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
                 <!--closer-->
                 <div class="vertical_menu_button" id="closer">
@@ -595,7 +596,7 @@
                 </div>
 
                 <!--doorTrim-->
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_doorTrim">
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_doorTrim" show="ghost_lement">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="namemainDoorTrim" available="yes"> <Strong>Наличники</Strong></span>
                     </div>
@@ -607,6 +608,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_topDoorTrim">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="nametopDoorTrim" available="no"> Верхний наличник</span>
@@ -614,7 +616,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="topDoorTrim_checkbox" id="topDoorTrim_checkbox" Item="topDoorTrim"
-                                   data="" class="ios-toggle trims"/>
+                                   data="" class="ios-toggle trims" disabled/>
                             <label for="topDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -635,7 +637,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="leftDoorTrim_checkbox" id="leftDoorTrim_checkbox"
-                                   Item="leftDoorTrim" data="" class="ios-toggle trims"/>
+                                   Item="leftDoorTrim" data="" class="ios-toggle trims" disabled/>
                             <label for="leftDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -657,7 +659,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="rightDoorTrim_checkbox" id="rightDoorTrim_checkbox"
-                                   Item="rightDoorTrim" data="" class="ios-toggle trims"/>
+                                   Item="rightDoorTrim" data="" class="ios-toggle trims" disabled/>
                             <label for="rightDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
