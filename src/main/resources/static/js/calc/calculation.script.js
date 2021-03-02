@@ -359,6 +359,8 @@ jQuery("document").ready(function () {
                         toDoor(data.id);
                     }
                     door.id = data.id;
+                    displayPrice();
+                    calculateCostHide();
                 },
                 error: function (data) {
                     alert("error:" + data);
