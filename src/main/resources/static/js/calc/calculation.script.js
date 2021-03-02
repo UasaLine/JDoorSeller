@@ -226,8 +226,23 @@ jQuery("document").ready(function () {
                 oneEnableAllDisable($(this).attr("Item"), this);
                 needRepresentationRun = true;
             }
-        } else if (currentItem == "additionalDoorSettings") {
-            //needRepresentationRun = false;
+        } else if (currentItem == "peepholeMenu") {
+
+            if ($(this).attr("item") == "peepholePosition") {
+                if ($(this).is(":checked")) {
+                    setDoorFurnitureByObject(
+                        'CENTER',
+                        'peepholePosition',
+                        door.furnitureKit);
+                } else {
+                    setDoorFurnitureByObject(
+                        'NOT_CENTER',
+                        'peepholePosition',
+                        door.furnitureKit);
+                }
+            }
+
+        } else if (currentItem == "stainlessSteelDoorstepMenu") {
 
             if (item == "doorstep") {
                 if ($(this).is(":checked")) {
@@ -245,26 +260,19 @@ jQuery("document").ready(function () {
                 if (blockDoorStep) {
                     $(this).prop("checked", true);
                 }
+                let boolValue = false;
 
                 if ($(this).is(":checked")) {
-                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                    setDoorField($(this).attr("Item"), 1);
+                    boolValue = true;
                 } else {
                     setDoorField($(this).attr("Item"), 0);
+                    boolValue = false;
                 }
-            }
 
-            if ($(this).attr("item") == "peepholePosition") {
-                if ($(this).is(":checked")) {
-                    setDoorFurnitureByObject(
-                        'CENTER',
-                        'peepholePosition',
-                        door.furnitureKit);
-                } else {
-                    setDoorFurnitureByObject(
-                        'NOT_CENTER',
-                        'peepholePosition',
-                        door.furnitureKit);
-                }
+                RepresentationManager.showFieldValue(boolValue);
+                Door.draw(door, 1);
+                needRepresentationRun = false;
             }
 
         } else if (currentItem == "additionally") {
@@ -1377,7 +1385,7 @@ jQuery("document").ready(function () {
 
         if (currentItem == "closer" || currentItem == "peephole" || currentItem == "nightLock") {
             $(".select_item").attr("show", "is_alive_lement");
-            goTo = 'additionalDoorSettings';
+            goTo = currentItem != "closer" ? 'additionalDoorSettings' : currentItem;
             currentItemForDisplayId = 'additionalDoorSettings';
             displayListOfItems("item", availableFurnitureList[currentItem], 0, '', currentItem);
             PaginationPage.show();
@@ -1385,7 +1393,7 @@ jQuery("document").ready(function () {
             $(".select_item").attr("show", "ghost_lement");
         }
 
-        if (currentItem == "peepholeMenu"){
+        if (currentItem == "peepholeMenu") {
             //peephole
             let peephole = door.furnitureKit['peephole'];
             Container2fields.setValueToFieldByItem('peephole', peephole ? peephole.name : '');
@@ -1395,7 +1403,7 @@ jQuery("document").ready(function () {
             $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
 
             tab = RestrictionOfSelectionFields.peepholePosition;
-            if (tab.length <= 1 || door.furnitureKit.peephole == null){
+            if (tab.length <= 1 || door.furnitureKit.peephole == null) {
                 hideField("#additionalDoorSettings_peepholePosition");
             } else {
                 showField("#additionalDoorSettings_peepholePosition");
@@ -1433,6 +1441,12 @@ jQuery("document").ready(function () {
             PaginationPage.show();
         } else {
             $(".select_lowerLockCylinder").attr("show", "ghost_lement");
+        }
+
+        if (currentItem == "stainlessSteelDoorstepMenu") {
+            $(".select_doorstep").attr("show", "is_alive_lement");
+        } else {
+            $(".select_doorstep").attr("show", "ghost_lement");
         }
 
         //shield
@@ -1589,7 +1603,7 @@ jQuery("document").ready(function () {
         if (firstPress) {
             currentNumberSize = "";
         }
-        currentNumberSize = currentNumberSize+ umber;
+        currentNumberSize = currentNumberSize + umber;
         $(".line").text(currentNumberSize);
         firstPress = false;
     }
@@ -1625,7 +1639,7 @@ jQuery("document").ready(function () {
             addNumberToSize(9);
         } else if (e.which == 8) {
             deleteLastNumberInSize(); //backspace
-        } else if (e.which == 13){
+        } else if (e.which == 13) {
             SizingDrum.setSizeByParam(currentNumberSize);
         }
     }
@@ -1677,10 +1691,6 @@ jQuery("document").ready(function () {
     }
 
     function fillChildBlockAdditionalSettings() {
-        //nightLock
-        let nightLock = door.furnitureKit['nightLock'];
-        Container2fields.setValueToFieldByItem('nightLock', nightLock ? nightLock.name : '');
-
         //closer
         let closer = door.furnitureKit['closer'];
         Container2fields.setValueToFieldByItem('closer', closer ? closer.name : '')
