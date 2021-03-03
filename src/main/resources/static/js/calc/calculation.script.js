@@ -737,6 +737,12 @@ jQuery("document").ready(function () {
 
     function displayColor(nameJava, tab, bias) {
 
+        getAllColorTypeOfDoor();
+        getColorByTypeOfDoor(Door.listColorsEntity[2].typeOfDoorColor);
+
+        PaginationPage.generateType(Door.listColorsEntity, bias, 'toolbarType');
+        PaginationPage.showField("#toolbarTypeDiv");
+
         let offsetTab = PaginationPage.generate(tab, bias, 'toolbarPage');
 
         for (var i = 0; i < offsetTab.amountElements; ++i) {
@@ -1839,6 +1845,32 @@ jQuery("document").ready(function () {
 
     function showField(nameField) {
         $(nameField).show();
+    }
+
+    function getAllColorTypeOfDoor() {
+        $.ajax({
+            url: location.origin + '/color/door-color/types',
+            dataType: "json",
+            success: function (data) {
+                data;
+            },
+            error: function (data) {
+                alert("error: getting the EnumColor failed !");
+            },
+        });
+    }
+
+    function getColorByTypeOfDoor(type) {
+        $.ajax({
+            url: location.origin + '/types/color/' + type,
+            dataType: "json",
+            success: function (data) {
+                data;
+            },
+            error: function (data) {
+                alert("error: getting the EnumColor failed !");
+            },
+        });
     }
 
 });
