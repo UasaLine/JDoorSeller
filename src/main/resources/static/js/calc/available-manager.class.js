@@ -32,14 +32,22 @@ class AvailableManager {
         this.makeAvailableIfExists("peephole","");
         this.makeAvailableIfExists("peephole","Menu");
         this.makeAvailableIfExists("peepholePosition","");
+        this.makeAvailableIfExistsInTemplate("stainlessSteelDoorstep","Menu");
 
         this.makeAvailableIfExists("typeDoorGlass","");
         this.makeAvailableIfExists("toning","");
         this.makeAvailableIfExists("armor","");
+        this.makeAvailableIfExists("nightLock","");
     }
 
     makeAvailableIfExists(name,postfix) {
         if (availableFurnitureList[name] && availableFurnitureList[name].length > 0) {
+            AvailableManager.makeAvailable(name + postfix);
+        }
+    }
+
+    makeAvailableIfExistsInTemplate(name,postfix) {
+        if (this.doorTemplate[name] && this.doorTemplate[name].length > 0) {
             AvailableManager.makeAvailable(name + postfix);
         }
     }

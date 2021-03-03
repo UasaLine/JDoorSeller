@@ -18,7 +18,7 @@ class RepresentationManager {
 class Container2fields {
     static buildValue(value) {
         if (!failureToSetValue) {
-            var showValue = "";
+            let showValue = "";
 
             //widthDoor
             if (currentItem == "widthDoor") {
@@ -66,6 +66,9 @@ class Container2fields {
                 currentItem = "peepholeMenu";
                 Container2fields.setValueToField(Container2fields.getFurniture(value, "peephole"));
 
+                currentItem = "nightLock";
+                Container2fields.setValueToField(Container2fields.getFurniture(value, "nightLock"));
+
                 currentItem = "handle";
                 showValue = Container2fields.getFurniture(value, "handle");
             }
@@ -86,10 +89,11 @@ class Container2fields {
             }
             //doorstep//DoorTrim
             else if (
-                currentItem == "doorstep" ||
-                currentItem == "stainlessSteelDoorstep"
+                currentItem == "stainlessSteelDoorstep" || currentItem == "stainlessSteelDoorstepMenu"
             ) {
                 Container2fields.fillCheckbox(currentItem, value);
+                showValue = value == true ? "НЕРЖ." : "В ЦВЕТ ДВЕРИ";
+                Container2fields.setValueToFieldByItem("stainlessSteelDoorstepMenu", showValue);
             } else if (
                 currentItem == "topDoorTrim" ||
                 currentItem == "leftDoorTrim" ||
@@ -113,7 +117,7 @@ class Container2fields {
     }
 
     static setValueToField(value) {
-        Container2fields.setValueToFieldByItem(currentItem,value)
+        Container2fields.setValueToFieldByItem(currentItem, value)
     }
 
     static setValueToFieldByItem(item, value) {

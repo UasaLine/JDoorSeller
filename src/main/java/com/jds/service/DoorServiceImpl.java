@@ -83,6 +83,10 @@ public class DoorServiceImpl implements DoorService {
                                          @NonNull int discount,
                                          @NonNull int retailMargin) {
 
+        if (doorEntity.isNew()) {
+            dAO.saveDoor(doorEntity);
+        }
+
         doorEntity
                 .addPriceToCostList(discount)
                 .costOfChangesAtTemplate()
@@ -215,6 +219,7 @@ public class DoorServiceImpl implements DoorService {
                 .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
                 .peephole(defaultAndGetFurniture(template.getPeephole()))
                 .closer(defaultAndGetFurniture(template.getCloser()))
+                .nightLock(defaultAndGetFurniture(template.getNightLock()))
                 .build();
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
@@ -292,6 +297,7 @@ public class DoorServiceImpl implements DoorService {
 
         door.createName();
         door.clearEmptyLinks();
+        calculate(door);
         door = dAO.saveDoor(door);
         return addToOrderIfNotExist(door);
 

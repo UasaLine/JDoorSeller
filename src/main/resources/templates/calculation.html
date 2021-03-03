@@ -133,15 +133,6 @@
                               id="sideDoorOpenShow"><strong></strong></span>
                     </div>
                 </div>
-                <div class="vertical_menu_button" id="additionalDoorSettings">
-                    <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="no"> ДОПОЛНИТЕЛЬНО</span>
-                    </div>
-                    <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" available="yes"
-                              id="additionalDoorSettingsShow"><strong></strong></span>
-                    </div>
-                </div>
 
                 <div class="vertical_menu_button" id="doorColor">
                     <div class="left_cell">
@@ -211,12 +202,38 @@
                         <span class="vertical_menu_button_rigtht" id="peepholeMenuShow"><strong></strong></span>
                     </div>
                 </div>
+                <div class="vertical_menu_button" id="stainlessSteelDoorstepMenu">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namestainlessSteelDoorstepMenu" available="no"> ПОРОГ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="stainlessSteelDoorstepMenuShow"><strong></strong></span>
+                    </div>
+                </div>
+                <div class="vertical_menu_button" id="nightLock">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="namenightLock" available="no"> НОЧНАЯ ЗАДВИЖКА</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" id="nightLockShow"><strong></strong></span>
+                    </div>
+                </div>
                 <div class="vertical_menu_button" id="comment">
                     <div class="left_cell">
                         <span class="vertical_menu_button_left" id="namecomment" available="no"> КОММЕНТАРИЙ</span>
                     </div>
                     <div align="right" class="right_cell">
                         <span class="vertical_menu_button_rigtht" available="yes" id="commentShow"><strong></strong></span>
+                    </div>
+                </div>
+
+                <div class="vertical_menu_button" id="additionalDoorSettings">
+                    <div class="left_cell">
+                        <span class="vertical_menu_button_left" id="nameadditionalDoorSettings" available="no"> НАЛИЧНИКИ</span>
+                    </div>
+                    <div align="right" class="right_cell">
+                        <span class="vertical_menu_button_rigtht" available="yes"
+                              id="additionalDoorSettingsShow"><strong></strong></span>
                     </div>
                 </div>
 
@@ -566,18 +583,8 @@
                 </div>
             </div>
 
-            <!--select_additionalDoorSettings-->
+            <!--select_doorTrim old [additionalDoorSettings]-->
             <div class="select_additionalDoorSettings reduceAsAScroll" show="ghost_lement">
-                <!--nightLock-->
-                <div class="vertical_menu_button" id="nightLock">
-                    <div class="left_cell">
-                        <span class="vertical_menu_button_left" id="namenightLock" available="yes" >Ночная задвижка</span>
-                    </div>
-                    <div align="right" class="right_cell">
-                        <span class="vertical_menu_button_rigtht" id="nightLockShow"><strong></strong></span>
-                    </div>
-                </div>
-
                 <!--closer-->
                 <div class="vertical_menu_button" id="closer">
                     <div class="left_cell">
@@ -589,7 +596,7 @@
                 </div>
 
                 <!--doorTrim-->
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_doorTrim">
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_doorTrim" show="ghost_lement">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="namemainDoorTrim" available="yes"> <Strong>Наличники</Strong></span>
                     </div>
@@ -601,6 +608,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="additionalDoorSettings_checkbox vertical_menu_checkbox" id="additionalDoorSettings_topDoorTrim">
                     <div class="left_cell_checkbox">
                         <span class="vertical_menu_button_left" id="nametopDoorTrim" available="no"> Верхний наличник</span>
@@ -608,7 +616,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="topDoorTrim_checkbox" id="topDoorTrim_checkbox" Item="topDoorTrim"
-                                   data="" class="ios-toggle trims"/>
+                                   data="" class="ios-toggle trims" disabled/>
                             <label for="topDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -629,7 +637,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="leftDoorTrim_checkbox" id="leftDoorTrim_checkbox"
-                                   Item="leftDoorTrim" data="" class="ios-toggle trims"/>
+                                   Item="leftDoorTrim" data="" class="ios-toggle trims" disabled/>
                             <label for="leftDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -651,7 +659,7 @@
                     <div align="right" class="right_cell_checkbox">
                         <div class="toggles">
                             <input type="checkbox" name="rightDoorTrim_checkbox" id="rightDoorTrim_checkbox"
-                                   Item="rightDoorTrim" data="" class="ios-toggle trims"/>
+                                   Item="rightDoorTrim" data="" class="ios-toggle trims" disabled/>
                             <label for="rightDoorTrim_checkbox" class="checkbox-label"></label>
                         </div>
                     </div>
@@ -663,35 +671,6 @@
                                 name="Размер:"
                                 data="0">Размер:
                         </button>
-                    </div>
-                </div>
-
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                     id="additionalDoorSettings_doorstep">
-                    <div class="left_cell_checkbox">
-                        <span class="vertical_menu_button_left" href="#" id="namedoorstep"
-                              available="yes"> <Strong>Порог</Strong></span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <div class="toggles">
-                            <input type="checkbox" name="doorstep_checkbox" id="doorstep_checkbox" Item="doorstep" data="1"
-                                   available="no" class="ios-toggle"/>
-                            <label for="doorstep_checkbox" class="checkbox-label"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
-                     id="additionalDoorSettings_stainlessSteelDoorstep">
-                    <div class="left_cell_checkbox">
-                        <span class="vertical_menu_button_left" id="namestainlessSteelDoorstep" available="yes"> Порог из нержавеющий сталли</span>
-                    </div>
-                    <div align="right" class="right_cell_checkbox">
-                        <div class="toggles">
-                            <input type="checkbox" name="stainlessSteelDoorstep_checkbox"
-                                   id="stainlessSteelDoorstep_checkbox" Item="stainlessSteelDoorstep" available="no"
-                                   data="1" class="ios-toggle"/>
-                            <label for="stainlessSteelDoorstep_checkbox" class="checkbox-label"></label>
-                        </div>
                     </div>
                 </div>
 
@@ -2211,6 +2190,38 @@
                     <span class="small_font" id="imagesshieldGlassSpan14"></span>
                 </div>
 
+            </div>
+
+            <!--doorstep-->
+            <div class="select_doorstep reduceAsAScroll" show="ghost_lement">
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_doorstep">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" href="#" id="namedoorstep"
+                              available="yes"> <Strong>Порог</Strong></span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="doorstep_checkbox" id="doorstep_checkbox" Item="doorstep" data="1"
+                                   available="no" class="ios-toggle"/>
+                            <label for="doorstep_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="additionalDoorSettings_checkbox vertical_menu_checkbox ghost"
+                     id="additionalDoorSettings_stainlessSteelDoorstep">
+                    <div class="left_cell_checkbox">
+                        <span class="vertical_menu_button_left" id="namestainlessSteelDoorstep" available="yes"> Порог из нержавеющий сталли</span>
+                    </div>
+                    <div align="right" class="right_cell_checkbox">
+                        <div class="toggles">
+                            <input type="checkbox" name="stainlessSteelDoorstep_checkbox"
+                                   id="stainlessSteelDoorstep_checkbox" Item="stainlessSteelDoorstep" available="no"
+                                   data="1" class="ios-toggle"/>
+                            <label for="stainlessSteelDoorstep_checkbox" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!--select_peepholeMenu-->

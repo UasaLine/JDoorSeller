@@ -110,6 +110,7 @@ public class FurnitureKit implements SerializingFields {
         kit.setPeepholePosition(
                 toPeepholePositionEnum(getFirst(AvailableFields.getPeepholePosition())));
         kit.setCloser(getFirst(AvailableFields.getCloser()));
+        kit.setNightLock(getFirst(AvailableFields.getNightLock()));
         return kit;
     }
 

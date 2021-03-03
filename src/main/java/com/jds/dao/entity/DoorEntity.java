@@ -304,7 +304,7 @@ public class DoorEntity implements SerializingFields {
 
     public DoorEntity calculateGlass() {
 
-        if (doorGlass.exists()) {
+        if (doorGlass != null && doorGlass.exists()) {
 
             double glassSpace = doorGlass.getSpace();
             int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace);
@@ -1161,8 +1161,8 @@ public class DoorEntity implements SerializingFields {
         if (this.stainlessSteelDoorstep == 1) {
             int cost = 0;
             List<LimitationDoor> tab = template.getStainlessSteelDoorstep();
-            for (LimitationDoor lim: tab){
-                if (lim.getStartRestriction() == 1){
+            for (LimitationDoor lim : tab) {
+                if (lim.getStartRestriction() == 1) {
                     cost = lim.getCost();
                     costList.addLine(lim.getFirstItem(), 200, false, cost);
                     return this;
@@ -1170,5 +1170,12 @@ public class DoorEntity implements SerializingFields {
             }
         }
         return this;
+    }
+
+    public boolean isNew() {
+        if (id == 0) {
+            return true;
+        }
+        return false;
     }
 }
