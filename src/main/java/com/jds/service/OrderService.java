@@ -5,7 +5,7 @@ import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
 
-import com.jds.model.PrintAppToTheOrder;
+import com.jds.model.DoorPrintView;
 import com.jds.model.backResponse.ResponseList;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -165,18 +164,17 @@ public class OrderService {
         return order;
     }
 
-    public List<PrintAppToTheOrder> getPrintAppList(String orderId) {
+    public List<DoorPrintView> getDoorPrintViews(int orderId) {
 
-        DoorOrder order = dAO.getOrder(Integer.parseInt(orderId));
+        DoorOrder order = dAO.getOrder(orderId);
         List<DoorEntity> doors = order.getDoors();
 
-        List<PrintAppToTheOrder> printAppList = new ArrayList<>();
+        List<DoorPrintView> doorPrintList = new ArrayList<>();
         for (DoorEntity door : doors) {
-            door.clearNonSerializingFields();
-            printAppList.add(new PrintAppToTheOrder(door, order));
+            doorPrintList.add(door.getPrintView(order));
         }
 
-        return printAppList;
+        return doorPrintList;
 
     }
 

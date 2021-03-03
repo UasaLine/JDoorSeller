@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.model.orders.print.OrderPrint;
-import com.jds.model.PrintAppToTheOrder;
+import com.jds.model.DoorPrintView;
 import com.jds.service.OrderDiscountService;
 import com.jds.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +29,18 @@ public class PrintController {
         return "orderPrint";
     }
 
-    @GetMapping(value = "/print/doors/{orderId}")
+    @GetMapping(value = "/print/page/doors/{orderId}")
     public String getPrintDoors(Model model, @PathVariable String orderId) {
 
         model.addAttribute("orderId", orderId);
         return "doorsPrint";
     }
 
-    @GetMapping(value = "/print/app/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/print/doors/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<PrintAppToTheOrder> getPrintAppToTheOrder(@PathVariable String orderId) {
+    public List<DoorPrintView> getDoorPrintViews(@PathVariable int orderId) {
 
-        return service.getPrintAppList(orderId);
+        return service.getDoorPrintViews(orderId);
     }
 
 }

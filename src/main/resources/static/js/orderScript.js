@@ -114,7 +114,7 @@ jQuery("document").ready(function () {
 
     function getOrder() {
         $.ajax({
-            url: location.origin + '/orders/'+orderId,
+            url: location.origin + '/orders/' + orderId,
             dataType: "json",
             success: function (data) {
                 order = data;
@@ -162,12 +162,12 @@ jQuery("document").ready(function () {
             "<th>#</th>" +
             "<th>id</th><th>" +
             "наименование</th><th>" +
-            "кол-во</th><th>" +
-            "металл</th><th>" +
+            "кол-во,шт</th><th>" +
+            "металл,мм</th><th>" +
             "цвет</th><th>" +
-            "цена</th><th>" +
-            "скидка</th><th>" +
-            "сумма</th></tr>"
+            "цена,руб</th><th>" +
+            "скидка,%</th><th>" +
+            "сумма,руб</th></tr>"
         );
 
         var doors = order.doors;
@@ -277,7 +277,7 @@ jQuery("document").ready(function () {
                 if (!data.success) {
                     alert(data.message);
                 } else {
-                    if (data.model != null){
+                    if (data.model != null) {
                         $("#order_id").text(data.model.orderId);
                         orderId = $("#order_id").text();
                     }
@@ -320,6 +320,7 @@ jQuery("document").ready(function () {
     function toClose() {
         location.pathname = "/pages/orders";
     }
+
     function toOrder() {
         location.pathname = "/pages/orders/" + orderId;
     }
@@ -413,7 +414,7 @@ jQuery("document").ready(function () {
     }
 
     function printDoors() {
-        window.open(location.origin + "/print/doors/" + orderId, '_blank');
+        window.open(location.origin + "/print/page/doors/" + orderId, '_blank');
     }
 
     function setOrderNumberToHeader(name, namber) {
