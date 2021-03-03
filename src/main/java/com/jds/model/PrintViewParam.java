@@ -1,13 +1,13 @@
 package com.jds.model;
 
-public class ParamApp {
+public class PrintViewParam {
     private String name;
     private String value;
 
-    public ParamApp() {
+    public PrintViewParam() {
     }
 
-    public ParamApp(String name, String value) {
+    public PrintViewParam(String name, String value) {
         this.name = name;
         this.value = value;
     }
