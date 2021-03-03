@@ -1,6 +1,8 @@
 package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorOrder;
+import com.jds.dao.entity.SellerSequence;
+import com.jds.dao.entity.SpecificationEntity;
 import com.jds.dao.entity.UserEntity;
 import com.jds.model.enumClasses.SideSqlSorting;
 import com.jds.model.orders.sort.OrderDateSorter;
@@ -43,8 +45,8 @@ public class OrderDAO {
 
         doorOrderListCriteria.select(orderRoot);
 
-        if (filter>0){
-            doorOrderListCriteria.where(doorOrderListBuilder.equal(orderRoot.get("seller"),filter));
+        if (filter > 0) {
+            doorOrderListCriteria.where(doorOrderListBuilder.equal(orderRoot.get("seller"), filter));
         }
 
         doorOrderListCriteria.orderBy(
@@ -62,18 +64,17 @@ public class OrderDAO {
 
     }
 
-    public long orderCountRows(OrderSorter sorter, int limit, int offset,int filter) {
+    public long orderCountRows(OrderSorter sorter, int limit, int offset, int filter) {
 
         Session session = sessionFactory.openSession();
         Long total;
 
-        if (filter>0 ){
+        if (filter > 0) {
             String countQ = "Select count (f.orderId) from DoorOrder f where f.seller.id = :id";
             Query countQuery = session.createQuery(countQ);
-            countQuery.setParameter("id",filter);
+            countQuery.setParameter("id", filter);
             total = (Long) countQuery.uniqueResult();
-        }
-        else {
+        } else {
             String countQ = "Select count (f.orderId) from DoorOrder f ";
             Query countQuery = session.createQuery(countQ);
             total = (Long) countQuery.uniqueResult();
@@ -122,11 +123,19 @@ public class OrderDAO {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public DoorOrder saveOrder(DoorOrder order) {
-        if (order.getSellerOrderId() == 0) {
-            int nextSellerId = getNextSellerId(order.getSeller());
-            order.setSellerOrderId(nextSellerId);
-        }
+
         Session session = sessionFactory.getCurrentSession();
+
+        if (!order.isSellerOrderIdExists()) {
+
+            int sellerId = order.getSeller().getId();
+            SellerSequence sequence = getSellerSequenceBySellerId(sellerId);
+
+            order.setSellerOrderId(sequence.nextId());
+
+            session.saveOrUpdate(sequence);
+        }
+
         session.saveOrUpdate(order);
 
         return order;
@@ -163,7 +172,7 @@ public class OrderDAO {
         return order;
     }
 
-    private int getNextSellerId(UserEntity seller) {
+    private int getLastSellerId(int sellerId) {
         Session session = sessionFactory.openSession();
 
         String sql = "select * " +
@@ -173,17 +182,32 @@ public class OrderDAO {
                 "Limit 1";
         Query query = session.createSQLQuery(sql)
                 .addEntity(DoorOrder.class)
-                .setParameter("sellerId", seller.getId());
+                .setParameter("sellerId", sellerId);
 
         List<DoorOrder> list = query.list();
 
-        int sellerId = 0;
+        int orderSellerId = 0;
         if (list.size() > 0) {
-            sellerId = list.get(0).getSellerOrderId();
+            orderSellerId = list.get(0).getSellerOrderId();
         }
         session.close();
 
-        return sellerId + 1;
+        return orderSellerId;
+    }
+
+    public SellerSequence getSellerSequenceBySellerId(int sellerId) {
+
+        Session session = sessionFactory.openSession();
+        SellerSequence sequence = session.byNaturalId(SellerSequence.class)
+                .using("sellerId", sellerId)
+                .load();
+
+        session.close();
+
+        if (sequence == null) {
+            sequence = new SellerSequence(sellerId, getLastSellerId(sellerId));
+        }
+        return sequence;
     }
 
 }

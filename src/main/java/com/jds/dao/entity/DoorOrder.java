@@ -141,4 +141,11 @@ public class DoorOrder {
         }
     }
 
+    public boolean isSellerOrderIdExists() {
+        if (sellerOrderId == 0){
+            return false;
+        }
+        return true;
+    }
+
 }
