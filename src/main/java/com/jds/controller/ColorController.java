@@ -12,9 +12,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.net.ftp.FtpDirEntry;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.jds.model.image.TypeOfImage.*;
@@ -111,4 +113,13 @@ public class ColorController {
         }
         return list;
     }
+
+    @GetMapping(value = "/types/color/{type}")
+    @ResponseBody
+    public List<ImageEntity> getColorOfTypeDoor(@PathVariable TypeOfDoorColor type) {
+
+        return service.getColorsTypeDoor(type);
+    }
+
+
 }

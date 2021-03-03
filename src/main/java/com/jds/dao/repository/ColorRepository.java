@@ -1,6 +1,8 @@
 package com.jds.dao.repository;
 
 import com.jds.dao.entity.ImageEntity;
+import com.jds.model.image.Image;
+import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import lombok.NonNull;
 import org.hibernate.Session;
@@ -63,15 +65,19 @@ public class ColorRepository {
     public List<ImageEntity> getDoorColors() {
         return getImage(TypeOfImage.DOOR_COLOR);
     }
+
     public List<ImageEntity> getDoorDesign() {
         return getImage(TypeOfImage.DOOR_DESIGN);
     }
+
     public List<ImageEntity> getShieldColor() {
         return getImage(TypeOfImage.SHIELD_COLOR);
     }
+
     public List<ImageEntity> getShieldDesign() {
         return getImage(TypeOfImage.SHIELD_DESIGN);
     }
+
     public List<ImageEntity> getShieldGlass() {
         return getImage(TypeOfImage.SHIELD_GLASS);
     }
@@ -161,6 +167,22 @@ public class ColorRepository {
 
         return "ok";
 
+    }
+
+    public List<ImageEntity> getColorByType(TypeOfDoorColor type) {
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_colors where typeOfDoorColor like :typeOfDoorColor";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(ImageEntity.class)
+                .setParameter("typeOfDoorColor", type.toString());
+        List<ImageEntity> doorColorsList = query.list();
+
+        session.close();
+
+        doorColorsList.forEach(ImageEntity::clearNonSerializingFields);
+        return doorColorsList;
     }
 
 }
