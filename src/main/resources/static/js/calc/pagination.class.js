@@ -70,11 +70,4 @@ class PaginationPage {
         $("#toolbarPageDiv").addClass("ghost");
     }
 
-    static showField (field){
-        $(field).removeClass("ghost");
-    }
-
-    static hideField (field){
-        $(field).addClass("ghost");
-    }
 }

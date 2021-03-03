@@ -3,31 +3,21 @@ class TypePages {
     }
 
     static generate(tab, bias, idMasterDiv) {
-        let offsetTab = new TypePages();
-        offsetTab.tabSize = tab.length;
 
-        offsetTab.type = [];
-        let typeList = [];
+        $(".toolbarTypeButton").remove();
 
-        //offsetTab.amountElements = PaginationPage.AMOUNT_ELEMENTS_IN_PAGE;
-        offsetTab.amountPag = Math.ceil(
-            offsetTab.tabSize / offsetTab.amountElements
-        );
-        offsetTab.biasInt = Number.parseInt(bias) * offsetTab.amountElements;
-
-        $(".toolbarPageButton").remove();
-
-        if (offsetTab.amountPag > 0) {
-            for (let i = 0; i < offsetTab.amountPag; ++i) {
+        if (tab.length > 0) {
+            for (let i = 0; i < tab.length; ++i) {
                 $("<button>")
                     .attr("type", "button")
-                    .attr("class", "btn btn-outline-dark toolbarPageButton")
-                    .attr("data", i)
-                    .text("LUX" + i + 1)
+                    .attr("class", "btn btn-outline-dark toolbarTypeButton")
+                    .attr("data", tab[i])
+                    .text(tab[i])
                     .appendTo("#" + idMasterDiv);
             }
         }
-        return offsetTab;
+        currentColorType = tab[0];
+        return tab[0];
 
     }
 

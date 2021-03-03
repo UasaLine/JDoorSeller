@@ -10,6 +10,7 @@ let availableFurnitureList;
 const parentDir = "../../";
 let blockDoorStep = false;
 let currentNumberSize = 0;
+let currentColorType = null;
 
 
 jQuery("document").ready(function () {
@@ -477,7 +478,10 @@ jQuery("document").ready(function () {
 
     $(".toolbarPage").on("click", ".toolbarPageButton", function () {
         if (currentItem == "doorColor") {
-            displayColor("doorColor", door.template.colors, parseInt($(this).attr('data')));
+            if (currentColorType) {
+                getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
+            }
+            //displayColor("doorColor", door.template.colors, parseInt($(this).attr('data')));
         } else if (currentItem == "shieldColor" || currentItem == "shieldDesign") {
             displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
         } else if (currentItem == "topLock" ||
@@ -737,12 +741,6 @@ jQuery("document").ready(function () {
 
     function displayColor(nameJava, tab, bias) {
 
-        getAllColorTypeOfDoor();
-        getColorByTypeOfDoor(Door.listColorsEntity[2].typeOfDoorColor);
-
-        PaginationPage.generateType(Door.listColorsEntity, bias, 'toolbarType');
-        PaginationPage.showField("#toolbarTypeDiv");
-
         let offsetTab = PaginationPage.generate(tab, bias, 'toolbarPage');
 
         for (var i = 0; i < offsetTab.amountElements; ++i) {
@@ -750,19 +748,19 @@ jQuery("document").ready(function () {
                 $("#images" + nameJava + "Div" + i).attr("show", "is_alive_lement");
                 $("#images" + nameJava + "Div" + i).attr(
                     "data",
-                    tab[i + offsetTab.biasInt].firstItem
+                    tab[i + offsetTab.biasInt].name
                 );
-                for (let a = 0; a < Door.listColorsEntity.length; a++) {
-                    if (Door.listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
+                for (let a = 0; a < tab.length; a++) {
+                    if (tab[a].id == tab[i + offsetTab.biasInt].id) {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
-                            parentDir + Door.listColorsEntity[a].picturePath
+                            parentDir + tab[a].picturePath
                         );
                     }
                 }
 
                 $("#images" + nameJava + "Span" + i).text(
-                    tab[i + offsetTab.biasInt].firstItem
+                    tab[i + offsetTab.biasInt].name
                 );
             } else {
                 $("#images" + nameJava + "Div" + i).attr("show", "ghost_lement");
@@ -1225,7 +1223,10 @@ jQuery("document").ready(function () {
         if (currentItem == "doorColor") {
             setСurrentColor();
             $(".select_doorColor").attr("show", "is_alive_lement");
-            displayColor("doorColor", door.template.colors, 0);
+
+            getAllColorTypeOfDoor();
+
+            //displayColor("doorColor", door.template.colors, 0);
             PaginationPage.show();
         } else {
             $(".select_doorColor").attr("show", "ghost_lement");
@@ -1481,6 +1482,7 @@ jQuery("document").ready(function () {
 
         if (!hasAParination(currentItem)) {
             PaginationPage.hide();
+            TypePages.hide();
         }
     }
 
@@ -1574,7 +1576,7 @@ jQuery("document").ready(function () {
         if (firstPress) {
             currentNumberSize = "";
         }
-        currentNumberSize = currentNumberSize+ umber;
+        currentNumberSize = currentNumberSize + umber;
         $(".line").text(currentNumberSize);
         firstPress = false;
     }
@@ -1610,7 +1612,7 @@ jQuery("document").ready(function () {
             addNumberToSize(9);
         } else if (e.which == 8) {
             deleteLastNumberInSize(); //backspace
-        } else if (e.which == 13){
+        } else if (e.which == 13) {
             SizingDrum.setSizeByParam(currentNumberSize);
         }
     }
@@ -1670,12 +1672,12 @@ jQuery("document").ready(function () {
         let peepholePosition = door.furnitureKit['peepholePosition'];
         $('#peepholePosition_checkbox').prop("checked", peepholePosition == 'CENTER' ? true : false);
 
-            tab = RestrictionOfSelectionFields.peepholePosition;
-            if (tab.length <= 1 || door.furnitureKit.peephole == null){
-                hideField("#additionalDoorSettings_peepholePosition");
-            } else {
-                showField("#additionalDoorSettings_peepholePosition");
-            }
+        tab = RestrictionOfSelectionFields.peepholePosition;
+        if (tab.length <= 1 || door.furnitureKit.peephole == null) {
+            hideField("#additionalDoorSettings_peepholePosition");
+        } else {
+            showField("#additionalDoorSettings_peepholePosition");
+        }
 
         //nightLock
         let nightLock = door.furnitureKit['nightLock'];
@@ -1774,7 +1776,7 @@ jQuery("document").ready(function () {
     }
 
     function clearGlass(javaObject) {
-        if (javaObject.containsDesign == 0) {
+        if (javaObject == null || javaObject.containsDesign == 0) {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         }
     }
@@ -1852,7 +1854,11 @@ jQuery("document").ready(function () {
             url: location.origin + '/color/door-color/types',
             dataType: "json",
             success: function (data) {
-                data;
+                let listTypeOfDoorColor = data;
+                let beginType = TypePages.generate(listTypeOfDoorColor, 0, 'toolbarType');
+                TypePages.show();
+                getColorByTypeOfDoor(beginType);
+
             },
             error: function (data) {
                 alert("error: getting the EnumColor failed !");
@@ -1860,18 +1866,27 @@ jQuery("document").ready(function () {
         });
     }
 
-    function getColorByTypeOfDoor(type) {
+    function getColorByTypeOfDoor(type, bias = 0) {
         $.ajax({
             url: location.origin + '/types/color/' + type,
             dataType: "json",
             success: function (data) {
-                data;
+                displayColor("doorColor", data, bias);
             },
             error: function (data) {
                 alert("error: getting the EnumColor failed !");
             },
         });
     }
+
+    $(".toolbarType").on("click", ".toolbarTypeButton", function () {
+
+        if (currentItem == "doorColor") {
+            currentColorType = $(this).attr('data');
+            getColorByTypeOfDoor($(this).attr('data'));
+        }
+
+    });
 
 });
 
