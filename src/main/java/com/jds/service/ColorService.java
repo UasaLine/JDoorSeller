@@ -159,4 +159,8 @@ public class ColorService {
     public ColorPicture colorAdPicture(int id, String name, String path) {
         return new ColorPicture(id, name, path);
     }
+
+    public List<ImageEntity> getColorsTypeDoor(TypeOfDoorColor type) {
+       return dAO.getColorByType(type);
+    }
 }

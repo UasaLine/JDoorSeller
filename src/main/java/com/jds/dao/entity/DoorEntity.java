@@ -1178,4 +1178,8 @@ public class DoorEntity implements SerializingFields {
         }
         return false;
     }
+
+    public DoorPrintView getPrintView(DoorOrder order){
+        return new DoorPrintView(this, order);
+    }
 }

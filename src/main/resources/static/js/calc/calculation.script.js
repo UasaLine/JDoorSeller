@@ -10,6 +10,7 @@ let availableFurnitureList;
 const parentDir = "../../";
 let blockDoorStep = false;
 let currentNumberSize = 0;
+let currentColorType = null;
 
 
 jQuery("document").ready(function () {
@@ -475,7 +476,9 @@ jQuery("document").ready(function () {
 
     $(".toolbarPage").on("click", ".toolbarPageButton", function () {
         if (currentItem == "doorColor") {
-            displayColor("doorColor", door.template.colors, parseInt($(this).attr('data')));
+            if (currentColorType) {
+                getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
+            }
         } else if (currentItem == "shieldColor" || currentItem == "shieldDesign") {
             displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
         } else if (currentItem == "topLock" ||
@@ -742,19 +745,19 @@ jQuery("document").ready(function () {
                 $("#images" + nameJava + "Div" + i).attr("show", "is_alive_lement");
                 $("#images" + nameJava + "Div" + i).attr(
                     "data",
-                    tab[i + offsetTab.biasInt].firstItem
+                    tab[i + offsetTab.biasInt].name
                 );
-                for (let a = 0; a < Door.listColorsEntity.length; a++) {
-                    if (Door.listColorsEntity[a].id == tab[i + offsetTab.biasInt].itemId) {
+                for (let a = 0; a < tab.length; a++) {
+                    if (tab[a].id == tab[i + offsetTab.biasInt].id) {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
-                            parentDir + Door.listColorsEntity[a].picturePath
+                            parentDir + tab[a].picturePath
                         );
                     }
                 }
 
                 $("#images" + nameJava + "Span" + i).text(
-                    tab[i + offsetTab.biasInt].firstItem
+                    tab[i + offsetTab.biasInt].name
                 );
             } else {
                 $("#images" + nameJava + "Div" + i).attr("show", "ghost_lement");
@@ -1041,7 +1044,7 @@ jQuery("document").ready(function () {
             displayDeepnessDoorAndThicknessDoorLeaf(data);
 
             colors = data.colors;
-            displayColor("doorColor", data.colors, 0);
+            //displayColor("doorColor", data.colors, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
             displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
             displayImage("shieldGlass", addToShieldGlassList(), 0);
@@ -1217,7 +1220,10 @@ jQuery("document").ready(function () {
         if (currentItem == "doorColor") {
             setСurrentColor();
             $(".select_doorColor").attr("show", "is_alive_lement");
-            displayColor("doorColor", door.template.colors, 0);
+
+            getAllColorTypeOfDoor();
+
+            //displayColor("doorColor", door.template.colors, 0);
             PaginationPage.show();
         } else {
             $(".select_doorColor").attr("show", "ghost_lement");
@@ -1375,7 +1381,7 @@ jQuery("document").ready(function () {
 
         if (currentItem == "closer" || currentItem == "peephole" || currentItem == "nightLock") {
             $(".select_item").attr("show", "is_alive_lement");
-            goTo = currentItem != "closer" ? 'additionalDoorSettings' : currentItem;
+            goTo = currentItem == "closer" ? 'additionalDoorSettings' : currentItem;
             currentItemForDisplayId = 'additionalDoorSettings';
             displayListOfItems("item", availableFurnitureList[currentItem], 0, '', currentItem);
             PaginationPage.show();
@@ -1500,6 +1506,7 @@ jQuery("document").ready(function () {
 
         if (!hasAParination(currentItem)) {
             PaginationPage.hide();
+            TypePages.hide();
         }
     }
 
@@ -1774,7 +1781,7 @@ jQuery("document").ready(function () {
     }
 
     function clearGlass(javaObject) {
-        if (javaObject.containsDesign == 0) {
+        if (javaObject == null || javaObject.containsDesign == 0) {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
         }
     }
@@ -1846,6 +1853,45 @@ jQuery("document").ready(function () {
     function showField(nameField) {
         $(nameField).show();
     }
+
+    function getAllColorTypeOfDoor() {
+        $.ajax({
+            url: location.origin + '/color/door-color/types',
+            dataType: "json",
+            success: function (data) {
+                let listTypeOfDoorColor = data;
+                let beginType = TypePages.generate(listTypeOfDoorColor, 0, 'toolbarType');
+                TypePages.show();
+                getColorByTypeOfDoor(beginType);
+
+            },
+            error: function (data) {
+                alert("error: getting the EnumColor failed !");
+            },
+        });
+    }
+
+    function getColorByTypeOfDoor(type, bias = 0) {
+        $.ajax({
+            url: location.origin + '/types/color/' + type,
+            dataType: "json",
+            success: function (data) {
+                displayColor("doorColor", data, bias);
+            },
+            error: function (data) {
+                alert("error: getting the EnumColor failed !");
+            },
+        });
+    }
+
+    $(".toolbarType").on("click", ".toolbarTypeButton", function () {
+
+        if (currentItem == "doorColor") {
+            currentColorType = $(this).attr('data');
+            getColorByTypeOfDoor($(this).attr('data'));
+        }
+
+    });
 
 });
 

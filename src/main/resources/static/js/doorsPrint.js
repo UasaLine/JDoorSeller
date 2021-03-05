@@ -1,12 +1,12 @@
 jQuery("document").ready(function () {
     var orderId = $("#shadowId").text();
     Door.init();
+    Door.dirPath = "../../../";
 
     $.ajax({
-        url: location.origin + "/print/app/" + orderId,
+        url: location.origin + "/print/doors/" + orderId,
         dataType: "json",
         success: function (data) {
-            //alert('it\'s ok');
             drawADoor(data);
         },
         error: function (data) {
