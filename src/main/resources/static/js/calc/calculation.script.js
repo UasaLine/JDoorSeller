@@ -1044,7 +1044,7 @@ jQuery("document").ready(function () {
             displayDeepnessDoorAndThicknessDoorLeaf(data);
 
             colors = data.colors;
-            displayColor("doorColor", data.colors, 0);
+            //displayColor("doorColor", data.colors, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
             displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
             displayImage("shieldGlass", addToShieldGlassList(), 0);
