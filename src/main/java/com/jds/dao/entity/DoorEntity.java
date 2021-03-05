@@ -1179,7 +1179,14 @@ public class DoorEntity implements SerializingFields {
         return false;
     }
 
-    public DoorPrintView getPrintView(DoorOrder order){
+    public DoorPrintView getPrintView(DoorOrder order) {
         return new DoorPrintView(this, order);
+    }
+
+    public String doorstepView() {
+        if (stainlessSteelDoorstep == 1) {
+            return "нержавейка";
+        }
+        return "в цвет двери";
     }
 }
