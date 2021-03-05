@@ -1381,7 +1381,7 @@ jQuery("document").ready(function () {
 
         if (currentItem == "closer" || currentItem == "peephole" || currentItem == "nightLock") {
             $(".select_item").attr("show", "is_alive_lement");
-            goTo = currentItem != "closer" ? 'additionalDoorSettings' : currentItem;
+            goTo = currentItem == "closer" ? 'additionalDoorSettings' : currentItem;
             currentItemForDisplayId = 'additionalDoorSettings';
             displayListOfItems("item", availableFurnitureList[currentItem], 0, '', currentItem);
             PaginationPage.show();
