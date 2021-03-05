@@ -114,11 +114,11 @@ jQuery("document").ready(function () {
                 .attr("id", "signature" + i)
                 .appendTo("#optionsDiv" + i);
             $("<span>")
-                .text("Исполнитель___________")
+                .text("Продавец___________")
                 .appendTo("#signature" + i);
             $("<span>")
                 .attr("class", "customer_signature")
-                .text("Заказчик___________")
+                .text("Покупатель___________")
                 .appendTo("#signature" + i);
         }
     }
