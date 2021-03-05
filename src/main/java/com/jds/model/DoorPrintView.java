@@ -55,7 +55,7 @@ public class DoorPrintView {
 
         internalView = new ArrayList<>();
 
-        internalView.add(new PrintViewParam("Порог:", String.valueOf(door.getDoorstep())));
+        internalView.add(new PrintViewParam("Порог:", door.doorstepView()));
         internalView.add(new PrintViewParam("Наличник:", (door.getTopDoorTrim() == 1) ? door.getTrimName() : "нет"));
         internalView.add(new PrintViewParam("Цвет накладки:", "нет"));
 
