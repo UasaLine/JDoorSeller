@@ -9,6 +9,9 @@ import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.ui.MainSidePanel;
+import com.jds.model.ui.PanelGroup;
+import com.jds.model.ui.SidePanelGroupEnum;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -201,5 +204,15 @@ public class UserService implements UserDetailsService, UserServ {
 
     public Set<Role> getRoles() {
         return EnumSet.allOf(Role.class);
+    }
+
+    public MainSidePanel getSidePanel() {
+        MainSidePanel SidePanel = new MainSidePanel();
+
+        SidePanel.add(PanelGroup.instance(SidePanelGroupEnum.MAIN));
+        SidePanel.add(PanelGroup.instance(SidePanelGroupEnum.SETTING));
+        SidePanel.add(PanelGroup.instance(SidePanelGroupEnum.OTHER));
+
+        return SidePanel;
     }
 }

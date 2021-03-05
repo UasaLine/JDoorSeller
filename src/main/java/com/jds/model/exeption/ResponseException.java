@@ -1,4 +1,4 @@
-package com.jds.model.Exeption;
+package com.jds.model.exeption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
