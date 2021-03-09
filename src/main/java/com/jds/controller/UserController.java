@@ -101,7 +101,7 @@ public class UserController {
     @GetMapping(value = "users/ui/panel", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public MainSidePanel getSidePanel(){
-        return service.getSidePanel();
+        return service.getSidePanel(service.getCurrentUser());
     }
 
 }
