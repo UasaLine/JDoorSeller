@@ -29,7 +29,7 @@ public class DoorPrintView {
     public DoorPrintView(DoorEntity door, DoorOrder order) {
 
         orderNumber = "Приложение к заказу №: " + order.getOrderId() + " /1";
-        customer = "Клиент: " + order.getPartner();
+        customer = "Покупатель: " + order.getPartner();
         orderDate = "Дата заказа: " + order.getData();
 
         this.door = door;
@@ -47,18 +47,17 @@ public class DoorPrintView {
 
         appearance = new ArrayList<>();
         appearance.add(new PrintViewParam("Цвет двери:", String.valueOf(door.getDoorColor())));
-        if (door.getShieldKit() != null) {
-            appearance.add(new PrintViewParam("Дек.накладка:", door.getShieldKit().getShieldName()));
-        }
+        appearance.add(new PrintViewParam("Дек.накладка:", "нет"));
         //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));
         appearance.add(new PrintViewParam("Стекло:", (door.getDoorGlass() != null) ? "да" : "нет"));
 
         internalView = new ArrayList<>();
-
-        internalView.add(new PrintViewParam("Порог:", String.valueOf(door.getDoorstep())));
+        internalView.add(new PrintViewParam("Порог:", door.doorstepView()));
         internalView.add(new PrintViewParam("Наличник:", (door.getTopDoorTrim() == 1) ? door.getTrimName() : "нет"));
-        internalView.add(new PrintViewParam("Цвет накладки:", "нет"));
 
+        if (door.getShieldKit() != null) {
+            internalView.add(new PrintViewParam("Дек.накладка:", door.getShieldKit().getShieldName()));
+        }
 
         furniture = new ArrayList<>();
         if (door.getFurnitureKit() != null) {
