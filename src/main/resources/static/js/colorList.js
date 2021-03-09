@@ -2,6 +2,7 @@ jQuery("document").ready(function () {
     var curreiId = 0;
     var types;
 
+    PanelBuilder.build();
 
     getFilterList();
 

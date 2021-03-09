@@ -1,4 +1,7 @@
 jQuery("document").ready(function () {
+
+  PanelBuilder.build();
+
   displayAdminaAndUserField();
 
   if ($("#includesTaxInt").val() == 1) {
