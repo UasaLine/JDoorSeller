@@ -1,7 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.*;
-import com.jds.model.Exeption.ResponseException;
+import com.jds.model.exeption.ResponseException;
 import com.jds.service.MaterialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,6 +1,8 @@
 jQuery("document").ready(function () {
-  var curreiId = 0;
-  var types;
+  let curreiId = 0;
+  let types;
+
+  PanelBuilder.build();
 
   getFilterList();
 

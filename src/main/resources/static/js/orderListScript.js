@@ -8,6 +8,8 @@ jQuery("document").ready(function () {
     let urlParams = new ParamsFactory();
     urlParams.limit = 12;
 
+    PanelBuilder.build();
+
     fillOrderList(urlParams.get());
 
     $("table").on("dblclick", 'tr', function () {
