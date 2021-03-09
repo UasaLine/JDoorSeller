@@ -19,7 +19,7 @@ public class MaterialsRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<MaterialFormula> getMaterialFormula() {
+    public List<MaterialFormula> getAllFormulas() {
 
         Session session = sessionFactory.openSession();
 
@@ -108,6 +108,7 @@ public class MaterialsRepository {
         Session session = sessionFactory.openSession();
         MaterialEntity material = session.get(MaterialEntity.class, id);
         material.clearNonSerializingFields();
+        session.close();
         return material;
     }
 
@@ -127,5 +128,11 @@ public class MaterialsRepository {
         return list;
     }
 
+    public MaterialFormula fineFormula(int id) {
+        Session session = sessionFactory.openSession();
+        MaterialFormula formula = session.get(MaterialFormula.class, id);
+        session.close();
+        return formula;
+    }
 
 }

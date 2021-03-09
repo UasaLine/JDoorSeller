@@ -17,8 +17,9 @@ public class MaterialsController {
     @Autowired
     private MaterialsService service;
 
-    @Secured("ROLE_ADMIN")
+
     @GetMapping(value = "/pages/materials")
+    @Secured("ROLE_ADMIN")
     public String getMaterialPage() {
         return "materialList";
     }
@@ -56,4 +57,27 @@ public class MaterialsController {
         return service.getRawMaterials();
     }
 
+    @GetMapping(value = "/pages/materials/formulas")
+    @Secured("ROLE_ADMIN")
+    public String getFormulaPage() {
+        return "formulaList";
+    }
+
+    @GetMapping(value = "/materials/formulas")
+    @ResponseBody
+    public List<MaterialFormula> getAllFormula() {
+        return service.getAllFormulas();
+    }
+
+    @GetMapping(value = "/materials/formulas/{id}")
+    @ResponseBody
+    public MaterialFormula getFormula(@PathVariable int id) {
+        return service.fineFormula(id);
+    }
+
+    @GetMapping(value = "/pages/materials/formulas/{id}")
+    @Secured("ROLE_ADMIN")
+    public String getFormulaPages(@PathVariable String id) {
+        return "formula";
+    }
 }

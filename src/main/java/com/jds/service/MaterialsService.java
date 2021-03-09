@@ -18,10 +18,6 @@ public class MaterialsService {
         return repository.getRawMaterials();
     }
 
-    public List<MaterialFormula> getMaterialFormulas() {
-        return repository.getMaterialFormula();
-    }
-
     public MaterialEntity saveMaterialsEntity(MaterialEntity materialEntity) {
 
         MaterialEntity materialBase = repository.getMaterialsByManufactureId(materialEntity.getManufacturerId());
@@ -63,5 +59,13 @@ public class MaterialsService {
 
     public List<MaterialEntity> getMaterials() {
         return repository.getMaterials();
+    }
+
+    public List<MaterialFormula> getAllFormulas() {
+        return repository.getAllFormulas();
+    }
+
+    public MaterialFormula fineFormula(int id) {
+        return repository.fineFormula(id);
     }
 }
