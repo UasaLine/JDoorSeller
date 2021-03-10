@@ -5,6 +5,7 @@ jQuery("document").ready(function () {
     let id = $("#id").text();
     let line_id = $("#line_id").text();
 
+    getFormulas();
     getLineSpecification();
 
     $("#close").on("click", function () {
@@ -37,7 +38,7 @@ jQuery("document").ready(function () {
 
     function getItem() {
         location.href = location.origin + "/pages/specifications/" + id;
-}
+    }
 
     function getFilterByIdScpecificationTypeFromUrl() {
         return id;
@@ -53,6 +54,19 @@ jQuery("document").ready(function () {
             },
             error: function (data) {
                 alert("!ERROR: данные о классах получить не удалось:" + data);
+            },
+        });
+    }
+
+    function getFormulas() {
+        $.ajax({
+            url: location.origin + "/materials/formulas",
+            dataType: "json",
+            success: function (data) {
+                fillFormulaSelect(data);
+            },
+            error: function (data) {
+                alert("!ERROR: данные о формулах получить не удалось:" + data);
             },
         });
     }
@@ -91,7 +105,7 @@ jQuery("document").ready(function () {
     }
 
     $("#delete").click(function () {
-        if (line_id != "0"){
+        if (line_id != "0") {
             deleteLineSpecification();
         }
     });
@@ -118,5 +132,18 @@ jQuery("document").ready(function () {
         lineSpecifications[fieldName] = value;
     }
 
+    function fillFormulaSelect(list) {
+        if (list != null) {
+            $("#formula").empty();
+
+            $("#formula").append($("<option></option>"));
+
+            for (var i = 0; i < list.length; ++i) {
+                $("#formula").append(
+                    $("<option value=" + list[i].id + ">" + list[i].name + "</option>")
+                );
+            }
+        }
+    }
 });
 

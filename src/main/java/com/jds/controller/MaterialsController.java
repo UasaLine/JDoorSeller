@@ -86,7 +86,6 @@ public class MaterialsController {
         return service.saveFormula(formula);
     }
 
-
     @GetMapping(value = "/pages/materials/formulas/{id}")
     @Secured("ROLE_ADMIN")
     public String getFormulaPages(@PathVariable String id) {

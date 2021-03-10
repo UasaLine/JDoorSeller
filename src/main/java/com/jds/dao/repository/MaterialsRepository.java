@@ -24,7 +24,7 @@ public class MaterialsRepository {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from material_formula ";
+        sql = "select * from material_formula ORDER BY name";
         Query query = session.createSQLQuery(sql)
                 .addEntity(MaterialFormula.class);
         List<MaterialFormula> materialFormulas = query.list();
