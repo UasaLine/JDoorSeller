@@ -2,11 +2,12 @@ package com.jds.service;
 
 import com.jds.dao.entity.*;
 import com.jds.dao.repository.MaterialsRepository;
+import com.jds.model.enumClasses.MaterialFormulaType;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MaterialsService {
@@ -76,5 +77,20 @@ public class MaterialsService {
 
     public MaterialFormula saveFormula(MaterialFormula formula) {
         return repository.saveFormula(formula);
+    }
+
+    public Set<MaterialFormulaType> getAllFormulaTypes() {
+        return EnumSet.allOf(MaterialFormulaType.class);
+    }
+
+    public List<String> getAllFormulaTypesOptions(MaterialFormulaType type) {
+
+        List<String> list = new ArrayList<>();
+
+        if (type == MaterialFormulaType.DOOR) {
+            list = DoorEntity.options();
+        }
+
+        return list;
     }
 }

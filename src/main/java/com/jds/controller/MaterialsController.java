@@ -2,6 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.*;
 import com.jds.model.backResponse.ResponseMassage;
+import com.jds.model.enumClasses.MaterialFormulaType;
 import com.jds.model.exeption.ResponseException;
 import com.jds.service.MaterialsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MaterialsController {
@@ -97,4 +99,17 @@ public class MaterialsController {
         service.deleteFormula(id);
         return new ResponseMassage(true,"ok");
     }
+
+    @GetMapping(value = "/materials/formulas/types")
+    @ResponseBody
+    public Set<MaterialFormulaType> getAllFormulaTypes() {
+        return service.getAllFormulaTypes();
+    }
+
+    @GetMapping(value = "/materials/formulas/types/{type}/options")
+    @ResponseBody
+    public List<String> getAllFormulaTypesOptions(@PathVariable MaterialFormulaType type) {
+        return service.getAllFormulaTypesOptions(type);
+    }
+
 }

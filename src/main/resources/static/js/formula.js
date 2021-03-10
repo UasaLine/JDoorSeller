@@ -1,7 +1,7 @@
 jQuery("document").ready(function () {
 
     let formulaJavaObject;
-
+    let types;
     //new instance
     getFormulaJavaObject();
 
@@ -55,18 +55,34 @@ jQuery("document").ready(function () {
         setField("calculationFormula1", $("#formula").val());
     });
 
+    $("#typeOfFormula").change(function () {
+
+        let type = $("#typeOfFormula").val();
+
+        $.ajax({
+            url: "/materials/formulas/types/" + type + "/options",
+            dataType: "json",
+            success: function (data) {
+                fillOption(data);
+            },
+            error: function (data) {
+                alert("!ERROR: типы фурнитуры получить не удалось:");
+            },
+        });
+    });
+
     function getFormulaJavaObject() {
-        // $.ajax({
-        //     url: "types",
-        //     dataType: "json",
-        //     success: function (data) {
-        //         types = data;
-        //         fillInTypes();
-        //     },
-        //     error: function (data) {
-        //         alert("!ERROR: типы фурнитуры получить не удалось:");
-        //     },
-        // });
+        $.ajax({
+            url: "/materials/formulas/types",
+            dataType: "json",
+            success: function (data) {
+                types = data;
+                fillInTypes();
+            },
+            error: function (data) {
+                alert("!ERROR: типы фурнитуры получить не удалось:");
+            },
+        });
 
         $.ajax({
             url: "/materials/formulas/" + getIdFromUrl(),
@@ -101,5 +117,37 @@ jQuery("document").ready(function () {
 
     function setField(fieldName, value) {
         formulaJavaObject[fieldName] = value;
+    }
+
+    function fillInTypes() {
+        if (types != null) {
+            $("#typeOfFormula").empty();
+
+            $("#typeOfFormula").append($("<option></option>"));
+
+            for (var i = 0; i < types.length; ++i) {
+                $("#typeOfFormula").append(
+                    $("<option value=" + types[i] + ">" + types[i] + "</option>")
+                );
+            }
+        }
+    }
+
+    function fillOption(list) {
+        $("<div>")
+            .attr("class", "col-sm")
+            .attr("id", "optionDiv1")
+            .appendTo("#option");
+        $("<ul>")
+            .attr("class", "list-group list-group-flush")
+            .attr("id", "optionUl1")
+            .appendTo("#optionDiv1");
+
+        list.forEach(function (item, i, arr) {
+            $("<li>")
+                .attr("class", "list-group-item list-group-item-secondary")
+                .text(item)
+                .appendTo("#optionUl1");
+        })
     }
 });
