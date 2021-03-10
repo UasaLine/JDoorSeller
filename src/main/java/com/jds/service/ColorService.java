@@ -98,24 +98,10 @@ public class ColorService {
 
     public List<TypeView> getImageTypeDoorColors(int doorTypeId, TypeOfLimitionDoor typeSettings) {
 
-        List<LimitationDoor> listImages = templateRepository.getLimitationDoors(doorTypeId, typeSettings);
-        List<TypeView> listType = EnumSet.allOf(TypeOfDoorColor.class).stream()
-                .map(TypeView::new)
-                .collect(Collectors.toList());
-
-        //getButtonsByTemplate(listImages, listType);
-
         return EnumSet.allOf(TypeOfDoorColor.class).stream()
                 .map(TypeView::new)
                 .collect(Collectors.toList());
     }
-
-    public void getButtonsByTemplate(List<LimitationDoor> listImages, List<TypeView> listType){
-        listImages.get(0);
-        listType.get(0);
-    }
-
-
 
     public List<TypeView> getImageTypeShieldDesign() {
         return EnumSet.allOf(TypeOfShieldDesign.class).stream()

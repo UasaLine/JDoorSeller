@@ -96,7 +96,7 @@ public class ColorController {
     @ResponseBody
     public List<TypeView> getImageTypeDoorColor(@PathVariable int doorTypeId) {
 
-        return service.getImageTypeDoorColors(doorTypeId, TypeOfLimitionDoor.COLOR_DOOR);
+        return service.getImageTypeDoorColor();
 
     }
 
