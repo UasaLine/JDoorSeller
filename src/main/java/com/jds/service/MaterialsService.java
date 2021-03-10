@@ -68,4 +68,13 @@ public class MaterialsService {
     public MaterialFormula fineFormula(int id) {
         return repository.fineFormula(id);
     }
+
+    public void deleteFormula(int id) {
+        MaterialFormula formula = repository.fineFormula(id);
+        repository.deleteFormula(formula);
+    }
+
+    public MaterialFormula saveFormula(MaterialFormula formula) {
+        return repository.saveFormula(formula);
+    }
 }

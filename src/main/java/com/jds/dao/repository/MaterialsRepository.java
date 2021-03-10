@@ -129,10 +129,30 @@ public class MaterialsRepository {
     }
 
     public MaterialFormula fineFormula(int id) {
+
+        if (id == 0) {
+            return new MaterialFormula();
+        }
+
         Session session = sessionFactory.openSession();
         MaterialFormula formula = session.get(MaterialFormula.class, id);
+
         session.close();
-        return formula;
+
+        return formula.clearNonSerializingFields();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteFormula(MaterialFormula formula) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(formula);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public MaterialFormula saveFormula(MaterialFormula formula) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(formula);
+
+        return formula;
+    }
 }

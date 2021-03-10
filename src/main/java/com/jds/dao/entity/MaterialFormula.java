@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -110,5 +111,12 @@ public class MaterialFormula {
         condition = condition.replace("P5",String.valueOf(door.getAmplifierCloser()));
 
         return condition;
+    }
+
+    public MaterialFormula clearNonSerializingFields() {
+
+        specificationSettings = new ArrayList<>();
+
+        return this;
     }
 }

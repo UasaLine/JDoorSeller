@@ -1,12 +1,14 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.*;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.exeption.ResponseException;
 import com.jds.service.MaterialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,7 +61,8 @@ public class MaterialsController {
 
     @GetMapping(value = "/pages/materials/formulas")
     @Secured("ROLE_ADMIN")
-    public String getFormulaPage() {
+    public String getFormulaPage(Model model) {
+        model.addAttribute("formulaList", service.getAllFormulas());
         return "formulaList";
     }
 
@@ -75,9 +78,23 @@ public class MaterialsController {
         return service.fineFormula(id);
     }
 
+    @PostMapping(value = "/materials/formulas")
+    @ResponseBody
+    public MaterialFormula saveFormula(@RequestBody MaterialFormula formula) {
+        return service.saveFormula(formula);
+    }
+
+
     @GetMapping(value = "/pages/materials/formulas/{id}")
     @Secured("ROLE_ADMIN")
     public String getFormulaPages(@PathVariable String id) {
         return "formula";
+    }
+
+    @DeleteMapping(value = "/materials/formulas/{id}")
+    @ResponseBody
+    public ResponseMassage deleteFormula(@PathVariable int id) {
+        service.deleteFormula(id);
+        return new ResponseMassage(true,"ok");
     }
 }
