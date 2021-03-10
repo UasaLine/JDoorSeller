@@ -4,6 +4,7 @@ import com.jds.model.LimiItem;
 import com.jds.model.SerializingFields;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
+import com.jds.model.image.TypeOfShieldDesign;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +50,10 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @Enumerated(EnumType.STRING)
     private TypeOfDoorColor typeOfDoorColor;
 
+    @Column(name = "typeOfShieldDesign")
+    @Enumerated(EnumType.STRING)
+    private TypeOfShieldDesign typeOfShieldDesign;
+
     @Column(name = "containsDesign")
     private int containsDesign;
 
@@ -93,5 +98,15 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @Override
     public int compareTo(ImageEntity imageEntity) {
         return imageEntity.getName().toUpperCase().compareTo(this.getName().toUpperCase());
+    }
+
+    public String getViewAdditionalType(){
+
+        if (typeOfImage == TypeOfImage.DOOR_COLOR){
+            return typeOfDoorColor != null ? typeOfDoorColor.toString() : "";
+        } if(typeOfImage == TypeOfImage.SHIELD_DESIGN){
+            return typeOfShieldDesign != null ? typeOfShieldDesign.toString() : "";
+        }
+        return "";
     }
 }

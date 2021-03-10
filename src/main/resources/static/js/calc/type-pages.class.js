@@ -11,13 +11,14 @@ class TypePages {
                 $("<button>")
                     .attr("type", "button")
                     .attr("class", "btn btn-outline-dark toolbarTypeButton")
-                    .attr("data", tab[i])
-                    .text(tab[i])
+                    .attr("data", tab[i].type)
+                    .text(tab[i].name)
                     .appendTo("#" + idMasterDiv);
             }
         }
-        currentColorType = tab[0];
-        return tab[0];
+        if (tab[0]){
+            currentColorType = tab[0].type;
+        }
 
     }
 
