@@ -129,8 +129,14 @@ public class ColorService {
     }
 
     public List<ColorPicture> getImageFileList(TypeOfImage type) {
+        return getImageFileList(type.getPath());
+    }
 
-        String picDirName = type.getPath();
+    public List<ColorPicture> getMaskFileList(TypeOfImage type) {
+        return getImageFileList(type.getMaskPath());
+    }
+
+    public List<ColorPicture> getImageFileList(String picDirName) {
 
         File PicDirFile = new File(ColorPicture.pathToFolderPictures(picDirName));
         if (!PicDirFile.exists()) {
@@ -149,11 +155,13 @@ public class ColorService {
                         list.add(new ColorPicture(
                                 i,
                                 elem2.getName(),
-                                ColorPicture.PROJECT_IMAGE_DIR_PATH + elem.getName() + "/" + elem2.getName()));
+                                picDirName + elem.getName() + "/" + elem2.getName()));
                     }
                 }
             } else if (elem.isFile()) {
-                list.add(new ColorPicture(i, elem.getName()));
+                list.add(new ColorPicture(
+                        i, elem.getName(),
+                        picDirName + elem.getName()));
             }
         }
 
