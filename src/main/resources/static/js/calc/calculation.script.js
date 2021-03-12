@@ -481,7 +481,6 @@ jQuery("document").ready(function () {
             }
         } else if (currentItem == "shieldColor" || currentItem == "shieldDesign") {
             getShieldByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
-            //displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
         } else if (currentItem == "topLock" ||
             currentItem == "lowerLock" ||
             currentItem == "handle" ||
@@ -1858,7 +1857,7 @@ jQuery("document").ready(function () {
 
     function getAllColorTypeOfDoor(doorTypeId) {
         $.ajax({
-            url: location.origin + '/doorType/' + doorTypeId + '/colors/types/button',
+            url: location.origin + '/doorType/' + doorTypeId + '/colors/types/buttons',
             dataType: "json",
             success: function (data) {
                 let listTypeOfDoorColor = data;
@@ -1876,7 +1875,7 @@ jQuery("document").ready(function () {
     function getColorByTypeOfDoor(type, bias = 0) {
         doorTypeId = door.doorType.id;
         $.ajax({
-            url: location.origin + '/doorType/'+ doorTypeId + '/colors/' + type,
+            url: location.origin + '/doorType/'+ doorTypeId + '/' + type + '/colors',
             dataType: "json",
             success: function (data) {
                 displayColor("doorColor", data, bias);
@@ -1901,7 +1900,7 @@ jQuery("document").ready(function () {
 
     function getAllTypeShieldDesign() {
         $.ajax({
-            url: location.origin + '/color/types/shield',
+            url: location.origin + '/colors/shield-designs/types/buttons',
             dataType: "json",
             success: function (data) {
                 let listTypeOfDoorColor = data;
@@ -1919,7 +1918,7 @@ jQuery("document").ready(function () {
     function getShieldByTypeOfDoor(type, bias = 0) {
         doorTypeId = door.doorType.id;
         $.ajax({
-            url: location.origin + '/doorType/'+ doorTypeId + '/shield/' + type,
+            url: location.origin + '/doorType/'+ doorTypeId + '/' + type + '/shield-design',
             dataType: "json",
             success: function (data) {
                 displayImage("shieldDesign", data, bias);

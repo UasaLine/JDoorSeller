@@ -177,7 +177,7 @@ public class ColorService {
         return new ColorPicture(id, name, path);
     }
 
-    public List<ImageEntity> getColorsTypeDoor(int doorTypeId, TypeOfDoorColor type) {
+    public List<ImageEntity> getColorsByType(int doorTypeId, TypeOfDoorColor type) {
 
         List<LimitationDoor> listLim = templateRepository.getLimitationDoors(doorTypeId, TypeOfLimitionDoor.COLOR_DOOR);
 

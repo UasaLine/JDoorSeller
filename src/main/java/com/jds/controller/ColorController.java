@@ -1,7 +1,6 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
-import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import com.jds.model.image.*;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.ColorService;
@@ -92,7 +91,7 @@ public class ColorController {
 
     }
 
-    @GetMapping(value = "/doorType/{doorTypeId}/colors/types/button")
+    @GetMapping(value = "/doorType/{doorTypeId}/colors/types/buttons")
     @ResponseBody
     public List<TypeView> getImageTypeDoorColor(@PathVariable int doorTypeId) {
 
@@ -100,7 +99,7 @@ public class ColorController {
 
     }
 
-    @GetMapping(value = "/color/types/shield")
+    @GetMapping(value = "/colors/shield-designs/types/buttons")
     @ResponseBody
     public List<TypeView> getAllTypeShieldDesign() {
 
@@ -119,14 +118,14 @@ public class ColorController {
         return list;
     }
 
-    @GetMapping(value = "/doorType/{doorTypeId}/colors/{type}")
+    @GetMapping(value = "/doorType/{doorTypeId}/{type}/colors")
     @ResponseBody
     public List<ImageEntity> getColorByType(@PathVariable int doorTypeId, @PathVariable TypeOfDoorColor type) {
 
-        return service.getColorsTypeDoor(doorTypeId, type);
+        return service.getColorsByType(doorTypeId, type);
     }
 
-    @GetMapping(value = "/doorType/{doorTypeId}/shield/{type}")
+    @GetMapping(value = "/doorType/{doorTypeId}/{type}/shield-design")
     @ResponseBody
     public List<ImageEntity> getShieldDesignByType(@PathVariable int doorTypeId, @PathVariable TypeOfShieldDesign type) {
 

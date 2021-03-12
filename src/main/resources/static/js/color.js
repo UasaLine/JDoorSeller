@@ -360,7 +360,7 @@ jQuery("document").ready(function () {
 
     function getTypeListShield() {
         $.ajax({
-            url: location.origin + "/color/types/shield",
+            url: location.origin + "/colors/shield-designs/types/buttons",
             dataType: "json",
             success: function (data) {
                 typeDoorColorList = data;
