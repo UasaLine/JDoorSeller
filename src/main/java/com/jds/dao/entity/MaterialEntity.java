@@ -35,7 +35,6 @@ public class MaterialEntity {
     @Column(name = "price")
     private int price;
 
-
     public void clearNonSerializingFields() {
         if (components != null) {
             components.setMaterial(null);

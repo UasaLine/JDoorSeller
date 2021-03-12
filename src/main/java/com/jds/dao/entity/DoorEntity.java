@@ -1189,4 +1189,18 @@ public class DoorEntity implements SerializingFields {
         }
         return "в цвет двери";
     }
+
+    public static List<String> options() {
+        List<String> list = new ArrayList<>();
+
+        list.add("WIDTH - ширина двери,мм");
+        list.add("HEIGHT - высота двери,мм");
+        list.add("LEAF - количество створок,[1,2]");
+        list.add("DEEPNESS - глубина двери,мм");
+        list.add("THICKNESS - толщина полотна,мм");
+        list.add("STEP - порог,[0,1]");
+        list.add("STAINLESS_STEEL - порог из нержавейки,[0,1]");
+
+        return list;
+    }
 }
