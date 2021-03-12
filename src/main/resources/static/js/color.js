@@ -19,12 +19,19 @@ jQuery("document").ready(function () {
     });
 
     $("#typeOfImage").change(function () {
-        setField("typeOfImage", $("#typeOfImage").val());
+        const type = $("#typeOfImage").val();
 
-        if ($("#typeOfImage").val() != "") {
+        setField("typeOfImage", type);
+
+        if (type != "") {
             showSettings(JavaObject.typeOfImage);
             getImageListFromServer();
             getShieldGlass();
+            if (type == "DOOR_COLOR"){
+                getTypeListColor();
+            } else if (type == "SHIELD_DESIGN"){
+                getTypeListShield();
+            }
         } else {
             fillInTypes("#picturePath", "");
             showPicture("#picturePath_img", "");
@@ -33,7 +40,13 @@ jQuery("document").ready(function () {
     });
 
     $("#typeOfDoorColor").change(function () {
-        setField("typeOfDoorColor", $("#typeOfDoorColor").val());
+
+        const type = $("#typeOfImage").val();
+        if (type == "DOOR_COLOR"){
+            setField("typeOfDoorColor", $("#typeOfDoorColor").val());
+        } else if (type == "SHIELD_DESIGN"){
+            setField("typeOfShieldDesign", $("#typeOfDoorColor").val());
+        }
     });
 
     $("#smooth").change(function () {
@@ -275,7 +288,16 @@ jQuery("document").ready(function () {
             $("#pricePaintingMeterOfSpace").val(JavaObject.pricePaintingMeterOfSpace);
             setValueInSelect("#typeOfImage", JavaObject.typeOfImage);
 
-            setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
+            if(JavaObject.typeOfImage){
+                const type = $("#typeOfImage").val();
+                if (type == "DOOR_COLOR"){
+                    getTypeListColor();
+                    //setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
+                } else if (type == "SHIELD_DESIGN"){
+                    getTypeListShield()
+                    //setValueInSelect("#typeOfDoorColor", JavaObject.typeOfShieldDesign);
+                }
+            }
 
             if (JavaObject.typeOfImage == "SHIELD_GLASS"){
             } else {
@@ -318,12 +340,32 @@ jQuery("document").ready(function () {
                 alert("!ERROR: типы изображений получить не удалось:");
             },
         });
+
+    }
+
+    function getTypeListColor() {
         $.ajax({
-            url: location.origin + "/color/door-color/types",
+            url: location.origin + "/color/types/color",
             dataType: "json",
             success: function (data) {
                 typeDoorColorList = data;
-                fillInTypes("#typeOfDoorColor", typeDoorColorList);
+                fillInTypesName("#typeOfDoorColor", typeDoorColorList);
+                setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
+            },
+            error: function (data) {
+                alert("!ERROR: типы дверных цветов получить не удалось:");
+            },
+        });
+    }
+
+    function getTypeListShield() {
+        $.ajax({
+            url: location.origin + "/colors/shield-designs/types/buttons",
+            dataType: "json",
+            success: function (data) {
+                typeDoorColorList = data;
+                fillInTypesName("#typeOfDoorColor", typeDoorColorList);
+                setValueInSelect("#typeOfDoorColor", JavaObject.typeOfShieldDesign);
             },
             error: function (data) {
                 alert("!ERROR: типы дверных цветов получить не удалось:");
@@ -366,6 +408,20 @@ jQuery("document").ready(function () {
             for (var i = 0; i < types.length; ++i) {
                 $(selectNmae).append(
                     $("<option value=" + types[i] + ">" + types[i] + "</option>")
+                );
+            }
+        }
+    }
+
+    function fillInTypesName(selectNmae, types) {
+        if (types != null) {
+            $(selectNmae).empty();
+
+            $(selectNmae).append($("<option></option>"));
+
+            for (var i = 0; i < types.length; ++i) {
+                $(selectNmae).append(
+                    $("<option value=" + types[i].type + ">" + types[i].name + "</option>")
                 );
             }
         }

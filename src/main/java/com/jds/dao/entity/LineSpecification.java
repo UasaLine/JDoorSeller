@@ -28,8 +28,9 @@ public class LineSpecification {
     @Column(name = "value")
     private double value;
 
-    @Column(name = "formula")
-    private String formula;
+    @OneToOne
+    @JoinColumn(name = "formula")
+    private MaterialFormula formula;
 
     @Column(name = "release_operation")
     private String releaseOperation;

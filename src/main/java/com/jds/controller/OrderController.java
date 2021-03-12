@@ -3,7 +3,7 @@ package com.jds.controller;
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
 import com.jds.model.Pagination;
-import com.jds.model.Exeption.ResponseException;
+import com.jds.model.exeption.ResponseException;
 import com.jds.model.backResponse.ResponseList;
 import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;

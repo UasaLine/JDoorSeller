@@ -1,5 +1,7 @@
 jQuery("document").ready(function () {
 
+    PanelBuilder.build();
+
     $("tr").on("click", function () {
         curreiId = $(this).children(".id").text();
         oneEnableAllDisable(this);

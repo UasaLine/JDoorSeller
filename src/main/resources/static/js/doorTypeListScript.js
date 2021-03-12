@@ -1,6 +1,8 @@
 jQuery("document").ready(function () {
-    var typeId = 0;
-    var classId = $("#currentClassId").attr("value");
+    let typeId = 0;
+    let classId = $("#currentClassId").attr("value");
+
+    PanelBuilder.build();
 
     changeListGroupItem(".list-group-item");
 

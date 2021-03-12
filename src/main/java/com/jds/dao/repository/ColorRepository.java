@@ -4,6 +4,7 @@ import com.jds.dao.entity.ImageEntity;
 import com.jds.model.image.Image;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
+import com.jds.model.image.TypeOfShieldDesign;
 import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -140,7 +141,7 @@ public class ColorRepository {
         session.close();
 
         if (list.size() > 0) {
-            return list.get(0);
+            return list.get(0).clearNonSerializingFields();
         }
         return new ImageEntity();
     }
@@ -185,4 +186,19 @@ public class ColorRepository {
         return doorColorsList;
     }
 
+    public List<ImageEntity> getShieldByType(TypeOfShieldDesign type) {
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from door_colors where typeOfShieldDesign like :typeOfShieldDesign";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(ImageEntity.class)
+                .setParameter("typeOfShieldDesign", type.toString());
+        List<ImageEntity> doorColorsList = query.list();
+
+        session.close();
+
+        doorColorsList.forEach(ImageEntity::clearNonSerializingFields);
+        return doorColorsList;
+    }
 }

@@ -2,11 +2,12 @@ package com.jds.service;
 
 import com.jds.dao.entity.*;
 import com.jds.dao.repository.MaterialsRepository;
+import com.jds.model.enumClasses.MaterialFormulaType;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MaterialsService {
@@ -16,10 +17,6 @@ public class MaterialsService {
 
     public List<RawMaterials> getRawMaterials() {
         return repository.getRawMaterials();
-    }
-
-    public List<MaterialFormula> getMaterialFormulas() {
-        return repository.getMaterialFormula();
     }
 
     public MaterialEntity saveMaterialsEntity(MaterialEntity materialEntity) {
@@ -63,5 +60,37 @@ public class MaterialsService {
 
     public List<MaterialEntity> getMaterials() {
         return repository.getMaterials();
+    }
+
+    public List<MaterialFormula> getAllFormulas() {
+        return repository.getAllFormulas();
+    }
+
+    public MaterialFormula fineFormula(int id) {
+        return repository.fineFormula(id);
+    }
+
+    public void deleteFormula(int id) {
+        MaterialFormula formula = repository.fineFormula(id);
+        repository.deleteFormula(formula);
+    }
+
+    public MaterialFormula saveFormula(MaterialFormula formula) {
+        return repository.saveFormula(formula);
+    }
+
+    public Set<MaterialFormulaType> getAllFormulaTypes() {
+        return EnumSet.allOf(MaterialFormulaType.class);
+    }
+
+    public List<String> getAllFormulaTypesOptions(MaterialFormulaType type) {
+
+        List<String> list = new ArrayList<>();
+
+        if (type == MaterialFormulaType.DOOR) {
+            list = DoorEntity.options();
+        }
+
+        return list;
     }
 }

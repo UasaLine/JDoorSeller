@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>rim configurator</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="../../../css/bootstrap-4.3.1css/bootstrap.min.css"/>
+
+    <!-- your personal CSS -->
+    <script type="text/javascript" src="../../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/formula.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/displayCss.css"/>
+</head>
+<body>
+
+        <div class="top_head">
+            <div class="container-fluid" id="intro-dm">
+                <a th:href="@{/}"><img src="../../../images/Header_widht_1300_002 ltl.jpg"></a>
+            </div>
+        </div>
+
+        <div class="top_head">
+            <div class="form-group">
+
+                <h1 class="display-4">Формула</h1>
+
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <button type="button" class="btn btn-primary" id="save">сохранить</button>
+                        <button type="button" class="btn btn-primary" id="close">закрыть</button>
+                        <button type="button" class="btn btn-primary" id="delete">удалить</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <!--name-->
+                    <div class="col-md-6 mb-3">
+                        <label for="nameFormula">Наименование:</label>
+                        <input type="text" class="form-control" id="nameFormula" aria-describedby="nameHelp" placeholder="Enter name">
+                        <small id="nameHelp" class="form-text text-muted">Наименование формулы</small>
+                    </div>
+
+                    <!--type-of-Formula-->
+                    <div class="col-md-6 mb-3">
+                        <label for="typeOfFormula">Тип формулы:</label>
+                        <select class="form-control" id="typeOfFormula"  Enter type>
+                        </select>
+                        <small id="typeHelp" class="form-text text-muted">тип формулы</small>
+                    </div>
+
+                    <div class="row" id="option">
+                    </div>
+
+                    <!--condition-->
+                    <div class="col-md-6 mb-3">
+                        <label for="condition">условие:</label>
+                        <input type="text" class="form-control" id="condition" aria-describedby="conditionHelp" placeholder="Enter condition">
+                        <small id="conditionHelp" class="form-text text-muted">условие при котором формула срабатывает</small>
+                    </div>
+
+                    <!--formula-->
+                    <div class="col-md-6 mb-3">
+                        <label for="formula">текстовое представление формулы:</label>
+                        <input type="text" class="form-control" id="formula" aria-describedby="commentHelp" placeholder="Enter formula">
+                        <small id="commentHelp" class="form-text text-muted">текст формулы</small>
+                    </div>
+
+                    <!--defaultValue-->
+                    <div class="col-md-6 mb-3">
+                        <label for="defaultValue">значение по умолчанию:</label>
+                        <input type="number" class="form-control" id="defaultValue" aria-describedby="defaultValueHelp" placeholder="Enter default Value">
+                        <small id="defaultValueHelp" class="form-text text-muted">значение при не выполнении условия</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 jQuery("document").ready(function () {
   var curreiId = 0;
 
+  PanelBuilder.build();
+
   $("tr").on("dblclick", function () {
     getTemplate($(this).children(".id").text());
   });

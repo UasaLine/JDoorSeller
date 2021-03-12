@@ -9,6 +9,7 @@ import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.ui.*;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -121,7 +122,7 @@ public class UserService implements UserDetailsService, UserServ {
 
         if (userId == "0" && (username == "" || password == "")) {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
-        } else if (userId != "0" && password == ""){
+        } else if (userId != "0" && password == "") {
             password = dAO.getUser(Integer.parseInt(userId)).getPassword();
         }
 
@@ -201,5 +202,18 @@ public class UserService implements UserDetailsService, UserServ {
 
     public Set<Role> getRoles() {
         return EnumSet.allOf(Role.class);
+    }
+
+    public MainSidePanel getSidePanel(UserEntity user) {
+
+        UiBuilder uiBuilder;
+
+        if (user.isAdmin()) {
+            uiBuilder = new AdminUiBuilder();
+        } else {
+            uiBuilder = new SellerUiBuilder();
+        }
+
+        return uiBuilder.mainSidePanel();
     }
 }

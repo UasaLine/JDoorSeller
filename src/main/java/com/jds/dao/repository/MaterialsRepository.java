@@ -19,12 +19,12 @@ public class MaterialsRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<MaterialFormula> getMaterialFormula() {
+    public List<MaterialFormula> getAllFormulas() {
 
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from material_formula ";
+        sql = "select * from material_formula ORDER BY name";
         Query query = session.createSQLQuery(sql)
                 .addEntity(MaterialFormula.class);
         List<MaterialFormula> materialFormulas = query.list();
@@ -108,6 +108,7 @@ public class MaterialsRepository {
         Session session = sessionFactory.openSession();
         MaterialEntity material = session.get(MaterialEntity.class, id);
         material.clearNonSerializingFields();
+        session.close();
         return material;
     }
 
@@ -127,5 +128,31 @@ public class MaterialsRepository {
         return list;
     }
 
+    public MaterialFormula fineFormula(int id) {
 
+        if (id == 0) {
+            return new MaterialFormula();
+        }
+
+        Session session = sessionFactory.openSession();
+        MaterialFormula formula = session.get(MaterialFormula.class, id);
+
+        session.close();
+
+        return formula.clearNonSerializingFields();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteFormula(MaterialFormula formula) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(formula);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public MaterialFormula saveFormula(MaterialFormula formula) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(formula);
+
+        return formula;
+    }
 }

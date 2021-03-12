@@ -4,6 +4,7 @@ import com.jds.dao.entity.UserEntity;
 
 import com.jds.model.Role;
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.ui.MainSidePanel;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -95,6 +96,12 @@ public class UserController {
     @ResponseBody
     public Set<Role> getRoles() throws Exception {
         return service.getRoles();
+    }
+
+    @GetMapping(value = "users/ui/panel", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public MainSidePanel getSidePanel(){
+        return service.getSidePanel(service.getCurrentUser());
     }
 
 }

@@ -121,7 +121,7 @@ jQuery("document").ready(function () {
     function fillInSpecificationEntity() {
         setName();
         fillTabLine();
-        if (specificationEtity.doorType){
+        if (specificationEtity.doorType) {
             setValueInSelect("#modelOfDoor", specificationEtity.doorType.id);
         }
     }
@@ -196,9 +196,9 @@ jQuery("document").ready(function () {
                 lineSpecifications[i].id,
                 lineSpecifications[i].name,
                 lineSpecifications[i].value,
-                lineSpecifications[i].formula,
-                lineSpecifications[i].releaseOperation,
-                lineSpecifications[i].writeOffOperation
+                lineSpecifications[i].formula ? lineSpecifications[i].formula.name : "-",
+                lineSpecifications[i].releaseOperation ? lineSpecifications[i].releaseOperation : "-",
+                lineSpecifications[i].writeOffOperation ? lineSpecifications[i].writeOffOperation : '-'
             );
         }
     }

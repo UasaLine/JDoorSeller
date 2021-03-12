@@ -74,13 +74,8 @@
                     <th>Операция выпуска</th>
                     <th>Операция списания</th>
                 </tr>
-                <tr th:each="s : ${spec}">
-                    <td>#</td>
-                    <td th:utext="${s.id}">..</td>
-                    <td class="vary_field text_select" th:utext="${s.name}">..</td>
-                    <td class="vary_field text_input" th:utext="${s.condition1}">..</td>
-                    <td class="vary_field text_input" th:utext="${s.calculationFormula1}">..</td>
-
+                <tr>
+                    <!--filled in js fillTabLine()-->
                 </tr>
             </table>
 

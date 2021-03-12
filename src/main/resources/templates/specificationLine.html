@@ -40,17 +40,18 @@
         <!--id-and-id-manufacturer-program-->
         <div class="form-group">
 
+            <!--nameObject-->
+            <div class="col-md-6 mb-3">
+                <label for="material">Материал:</label>
+                <select class="form-control" id="material" Enter type>
+                </select>
+            </div>
+
             <!--name-->
             <div class="col-md-6 mb-3">
                 <label for="name">Наименование:</label>
                 <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
                        placeholder="Enter name">
-            </div>
-            <!--value-->
-            <div class="col-md-6 mb-3">
-                <label for="valueSpec">Значение:</label>
-                <input type="text" class="form-control" id="valueSpec" aria-describedby="valueHelp"
-                       placeholder="Enter value">
             </div>
 
             <!--formula-->
@@ -60,12 +61,11 @@
                 </select>
             </div>
 
-            <!--nameObject-->
+            <!--value-->
             <div class="col-md-6 mb-3">
-                <label for="nameObject">Имя объекта:</label>
-                <input type="text" class="form-control" id="nameObject" aria-describedby="nameObjectHelp"
+                <label for="valueSpec">Значение:</label>
+                <input type="text" class="form-control" id="valueSpec" aria-describedby="valueHelp"
                        placeholder="Enter value">
-                <small id="nameObjectHelp" class="form-text text-muted">имя объекта</small>
             </div>
 
             <!--release_operation-->

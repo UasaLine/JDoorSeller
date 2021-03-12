@@ -2,7 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.LineSpecification;
 import com.jds.dao.entity.SpecificationEntity;
-import com.jds.model.Exeption.ResponseException;
+import com.jds.model.exeption.ResponseException;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;

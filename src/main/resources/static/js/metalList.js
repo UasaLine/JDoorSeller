@@ -1,5 +1,7 @@
 jQuery("document").ready(function () {
-  var curreiId = 0;
+  let curreiId = 0;
+
+  PanelBuilder.build();
 
   $("tr").on("dblclick", function () {
     getItem($(this).children(".id").text());
