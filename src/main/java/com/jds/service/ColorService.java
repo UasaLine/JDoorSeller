@@ -1,10 +1,11 @@
 package com.jds.service;
 
+import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
-import com.jds.model.image.ColorPicture;
-import com.jds.model.image.TypeOfDoorColor;
-import com.jds.model.image.TypeOfImage;
+import com.jds.dao.repository.TemplateRepository;
+import com.jds.model.enumClasses.TypeOfLimitionDoor;
+import com.jds.model.image.*;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.jds.model.image.TypeOfImage.DOOR_COLOR;
@@ -26,6 +25,9 @@ public class ColorService {
     private ColorRepository dAO;
 
     @Autowired
+    private TemplateRepository templateRepository;
+
+    @Autowired
     private DeleteCheckService deleteCheckService;
 
     public List<ImageEntity> getColors() {
@@ -35,19 +37,19 @@ public class ColorService {
     public List<ImageEntity> getColorsType(Enum type) {
         List<ImageEntity> list = dAO.getImages();
         List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
-                for(int i = 0; i < list.size(); i++){
-                    if (list.get(i).getTypeOfImage() == type){
-                        listReturn.add(list.get(i));
-                    }
-                }
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getTypeOfImage() == type) {
+                listReturn.add(list.get(i));
+            }
+        }
         return listReturn;
     }
 
     public List<ImageEntity> getColorsTypeIfContainsGlassTrue(Enum type) {
         List<ImageEntity> list = dAO.getImagesContainsGlass();
         List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
-        for(int i = 0; i < list.size(); i++){
-            if (list.get(i).getTypeOfImage() == type){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getTypeOfImage() == type) {
                 listReturn.add(list.get(i));
             }
         }
@@ -77,7 +79,7 @@ public class ColorService {
 
         ImageEntity color = getColor(id);
 
-        if (deleteCheckService.checkColor(color)){
+        if (deleteCheckService.checkColor(color)) {
             return null;
         } else {
             return dAO.deleteColor(color);
@@ -88,8 +90,23 @@ public class ColorService {
         return EnumSet.allOf(TypeOfImage.class);
     }
 
-    public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
-        return EnumSet.allOf(TypeOfDoorColor.class);
+    public List<TypeView> getImageTypeDoorColor() {
+        return EnumSet.allOf(TypeOfDoorColor.class).stream()
+                .map(TypeView::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<TypeView> getImageTypeDoorColors(int doorTypeId, TypeOfLimitionDoor typeSettings) {
+
+        return EnumSet.allOf(TypeOfDoorColor.class).stream()
+                .map(TypeView::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<TypeView> getImageTypeShieldDesign() {
+        return EnumSet.allOf(TypeOfShieldDesign.class).stream()
+                .map(TypeView::new)
+                .collect(Collectors.toList());
     }
 
     public String addFileExtension(@NonNull String colorPath, @NonNull String extension) {
@@ -160,7 +177,22 @@ public class ColorService {
         return new ColorPicture(id, name, path);
     }
 
-    public List<ImageEntity> getColorsTypeDoor(TypeOfDoorColor type) {
-       return dAO.getColorByType(type);
+    public List<ImageEntity> getColorsByType(int doorTypeId, TypeOfDoorColor type) {
+
+        List<LimitationDoor> listLim = templateRepository.getLimitationDoors(doorTypeId, TypeOfLimitionDoor.COLOR_DOOR);
+
+        return listLim.stream()
+                .map(lim -> dAO.getColorById(lim.getItemId()))
+                .filter(elem -> elem.getTypeOfDoorColor() == type)
+                .collect(Collectors.toList());
+    }
+
+    public List<ImageEntity> getShieldDesignByType(int doorTypeId, TypeOfShieldDesign type) {
+        List<LimitationDoor> listLim = templateRepository.getLimitationDoors(doorTypeId, TypeOfLimitionDoor.SHIELD_DESIGN);
+
+        return listLim.stream()
+                .map(lim -> dAO.getColorById(lim.getItemId()))
+                .filter(elem -> elem.getTypeOfShieldDesign() == type)
+                .collect(Collectors.toList());
     }
 }

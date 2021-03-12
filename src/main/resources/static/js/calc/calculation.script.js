@@ -480,7 +480,7 @@ jQuery("document").ready(function () {
                 getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
             }
         } else if (currentItem == "shieldColor" || currentItem == "shieldDesign") {
-            displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
+            getShieldByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
         } else if (currentItem == "topLock" ||
             currentItem == "lowerLock" ||
             currentItem == "handle" ||
@@ -1046,7 +1046,7 @@ jQuery("document").ready(function () {
             colors = data.colors;
             //displayColor("doorColor", data.colors, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
-            displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
+            //displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
             displayImage("shieldGlass", addToShieldGlassList(), 0);
 
             displayadditionalDoorSettings(data);
@@ -1221,7 +1221,7 @@ jQuery("document").ready(function () {
             setСurrentColor();
             $(".select_doorColor").attr("show", "is_alive_lement");
 
-            getAllColorTypeOfDoor();
+            getAllColorTypeOfDoor(door.doorType.id);
 
             //displayColor("doorColor", door.template.colors, 0);
             PaginationPage.show();
@@ -1477,7 +1477,8 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#nameshieldKit").html();
 
             currentItemForDisplayId = "shieldKit";
-            displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
+            getAllTypeShieldDesign();
+            //displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
             PaginationPage.show();
         } else {
             $(".select_shieldDesign").attr("show", "ghost_lement");
@@ -1854,15 +1855,15 @@ jQuery("document").ready(function () {
         $(nameField).show();
     }
 
-    function getAllColorTypeOfDoor() {
+    function getAllColorTypeOfDoor(doorTypeId) {
         $.ajax({
-            url: location.origin + '/color/door-color/types',
+            url: location.origin + '/doorType/' + doorTypeId + '/colors/types/buttons',
             dataType: "json",
             success: function (data) {
                 let listTypeOfDoorColor = data;
-                let beginType = TypePages.generate(listTypeOfDoorColor, 0, 'toolbarType');
+                TypePages.generate(listTypeOfDoorColor, 0, 'toolbarType');
                 TypePages.show();
-                getColorByTypeOfDoor(beginType);
+                getColorByTypeOfDoor(currentColorType);
 
             },
             error: function (data) {
@@ -1872,8 +1873,9 @@ jQuery("document").ready(function () {
     }
 
     function getColorByTypeOfDoor(type, bias = 0) {
+        doorTypeId = door.doorType.id;
         $.ajax({
-            url: location.origin + '/types/color/' + type,
+            url: location.origin + '/doorType/'+ doorTypeId + '/' + type + '/colors',
             dataType: "json",
             success: function (data) {
                 displayColor("doorColor", data, bias);
@@ -1889,9 +1891,43 @@ jQuery("document").ready(function () {
         if (currentItem == "doorColor") {
             currentColorType = $(this).attr('data');
             getColorByTypeOfDoor($(this).attr('data'));
+        } else if (currentItem == "shieldDesign") {
+            currentColorType = $(this).attr('data');
+            getShieldByTypeOfDoor($(this).attr('data'));
         }
 
     });
+
+    function getAllTypeShieldDesign() {
+        $.ajax({
+            url: location.origin + '/colors/shield-designs/types/buttons',
+            dataType: "json",
+            success: function (data) {
+                let listTypeOfDoorColor = data;
+                TypePages.generate(listTypeOfDoorColor, 0, 'toolbarType');
+                TypePages.show();
+                getShieldByTypeOfDoor(currentColorType);
+
+            },
+            error: function (data) {
+                alert("error: getting the EnumColor failed !");
+            },
+        });
+    }
+
+    function getShieldByTypeOfDoor(type, bias = 0) {
+        doorTypeId = door.doorType.id;
+        $.ajax({
+            url: location.origin + '/doorType/'+ doorTypeId + '/' + type + '/shield-design',
+            dataType: "json",
+            success: function (data) {
+                displayImage("shieldDesign", data, bias);
+            },
+            error: function (data) {
+                alert("error: getting the shieldType failed !");
+            },
+        });
+    }
 
 });
 

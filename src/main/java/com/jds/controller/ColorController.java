@@ -1,10 +1,8 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
-import com.jds.model.image.ColorPicture;
+import com.jds.model.image.*;
 import com.jds.model.backResponse.ResponseModel;
-import com.jds.model.image.TypeOfDoorColor;
-import com.jds.model.image.TypeOfImage;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,11 +10,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.net.ftp.FtpDirEntry;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.jds.model.image.TypeOfImage.*;
@@ -95,11 +91,19 @@ public class ColorController {
 
     }
 
-    @GetMapping(value = "/color/door-color/types")
+    @GetMapping(value = "/doorType/{doorTypeId}/colors/types/buttons")
     @ResponseBody
-    public EnumSet<TypeOfDoorColor> getImageTypeDoorColor() {
+    public List<TypeView> getImageTypeDoorColor(@PathVariable int doorTypeId) {
 
         return service.getImageTypeDoorColor();
+
+    }
+
+    @GetMapping(value = "/colors/shield-designs/types/buttons")
+    @ResponseBody
+    public List<TypeView> getAllTypeShieldDesign() {
+
+        return service.getImageTypeShieldDesign();
 
     }
 
@@ -114,11 +118,26 @@ public class ColorController {
         return list;
     }
 
-    @GetMapping(value = "/types/color/{type}")
+    @GetMapping(value = "/doorType/{doorTypeId}/{type}/colors")
     @ResponseBody
-    public List<ImageEntity> getColorOfTypeDoor(@PathVariable TypeOfDoorColor type) {
+    public List<ImageEntity> getColorByType(@PathVariable int doorTypeId, @PathVariable TypeOfDoorColor type) {
 
-        return service.getColorsTypeDoor(type);
+        return service.getColorsByType(doorTypeId, type);
+    }
+
+    @GetMapping(value = "/doorType/{doorTypeId}/{type}/shield-design")
+    @ResponseBody
+    public List<ImageEntity> getShieldDesignByType(@PathVariable int doorTypeId, @PathVariable TypeOfShieldDesign type) {
+
+        return service.getShieldDesignByType(doorTypeId, type);
+    }
+
+    @GetMapping(value = "/color/types/color")
+    @ResponseBody
+    public List<TypeView> getAllTypeDoorColor() {
+
+        return service.getImageTypeDoorColor();
+
     }
 
 
