@@ -1,5 +1,6 @@
 package com.jds.service;
 
+import com.jds.controller.OrderController;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
@@ -7,6 +8,8 @@ import com.jds.dao.repository.TemplateRepository;
 import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import com.jds.model.image.*;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +26,11 @@ public class ColorService {
 
     @Autowired
     private ColorRepository dAO;
-
     @Autowired
     private TemplateRepository templateRepository;
-
     @Autowired
     private DeleteCheckService deleteCheckService;
+    private Logger logger = LoggerFactory.getLogger(ColorService.class);
 
     public List<ImageEntity> getColors() {
         return dAO.getImages();
@@ -67,7 +69,7 @@ public class ColorService {
 
     public String saveColor(@NonNull ImageEntity colors) {
         String colorPath = colors.getPicturePath();
-        String colorDirectory = getPathDirectoryByImageType(colors.getTypeOfImage());
+        String colorDirectory = colors.getTypeOfImage().getPath();
         if (colorPath != null && !colorPath.contains(colorDirectory)) {
             colors.setPicturePath(colorDirectory + addFileExtension(colorPath, FileExtensionByImageType(colors.getTypeOfImage())));
         }
@@ -126,43 +128,32 @@ public class ColorService {
         return "";
     }
 
-    private String getPathDirectoryByImageType(@NonNull TypeOfImage type) {
-        if (DOOR_COLOR == type)
-            return "images/Door/AColor1/";
-        else if (TypeOfImage.SHIELD_COLOR == type)
-            return "images/shield sketch/";
-        else if (TypeOfImage.SHIELD_DESIGN == type)
-            return "images/shield sketch/design/";
-        else if (TypeOfImage.DOOR_DESIGN == type)
-            return "images/Door/design/";
-        else if (TypeOfImage.SHIELD_GLASS == type)
-            return "images/Door/shieldGlass/";
-        return "";
-    }
+    public List<ColorPicture> getImageFileList(TypeOfImage type) {
 
-    public List<ColorPicture> getImageFileList(String type) {
+        String picDirName = type.getPath();
 
-        String pathImageDir = getPathDirectoryByImageType(TypeOfImage.valueOf(type));
-        Path rootLocation = Paths.get("");
-        File dir = new File(rootLocation + "src/main/resources/static/" + pathImageDir);
-        if (!dir.exists()) {
-            System.out.println("!EROR: file is not defaund" + dir.getAbsolutePath());
+        File PicDirFile = new File(ColorPicture.pathToFolderPictures(picDirName));
+        if (!PicDirFile.exists()) {
+            logger.error(String.format("!ERROR: directory is not found  %s", PicDirFile.getAbsolutePath()));
         }
 
         List<ColorPicture> list = new ArrayList<>();
         int i = 0;
-        for (File elem : dir.listFiles()) {
+        for (File elem : PicDirFile.listFiles()) {
             i++;
             if (elem.isDirectory()) {
-                File dirParent = new File(rootLocation + "src/main/resources/static/" + pathImageDir + elem.getName());
+                File dirParent = new File(ColorPicture.pathToFolderPictures(picDirName + elem.getName()));
                 for (File elem2 : dirParent.listFiles()) {
                     i++;
                     if (elem2.isFile()) {
-                        list.add(colorAdPicture(i, elem2.getName(), pathImageDir + elem.getName() + "/" + elem2.getName()));
+                        list.add(new ColorPicture(
+                                i,
+                                elem2.getName(),
+                                ColorPicture.PROJECT_IMAGE_DIR_PATH + elem.getName() + "/" + elem2.getName()));
                     }
                 }
             } else if (elem.isFile()) {
-                list.add(colorAdPicture(i, elem.getName(), pathImageDir + elem.getName()));
+                list.add(new ColorPicture(i, elem.getName()));
             }
         }
 
@@ -171,10 +162,6 @@ public class ColorService {
                 .collect(Collectors.toList());
 
         return list;
-    }
-
-    public ColorPicture colorAdPicture(int id, String name, String path) {
-        return new ColorPicture(id, name, path);
     }
 
     public List<ImageEntity> getColorsByType(int doorTypeId, TypeOfDoorColor type) {
