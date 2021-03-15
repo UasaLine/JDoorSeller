@@ -74,6 +74,9 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_COLOR, restriction.getShieldColor(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SHIELD_DESIGN, restriction.getShieldDesign(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.OUT_SHIELD_COLOR, restriction.getOutShieldColor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.OUT_SHIELD_DESIGN, restriction.getOutShieldDesign(), limitList);
+
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.DOORSTEP, restriction.getDoorstep(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.STAINLESS_STEEL_DOORSTEP, restriction.getStainlessSteelDoorstep(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.INTERNAL_OPENING, restriction.getInnerOpen(), limitList);
@@ -152,6 +155,9 @@ public class TemplateService {
                 .stuffShieldColor(colorDao.getShieldColor())
                 .stuffShieldDesign(colorDao.getShieldDesign())
 
+                .stuffOutShieldColor(colorDao.getShieldColor())
+                .stuffOutShieldDesign(colorDao.getShieldDesign())
+
                 .addTopLock(furnitureDao.getFurniture(TypeOfFurniture.TOP_LOCK))
                 .addLowerLock(furnitureDao.getFurniture(TypeOfFurniture.LOWER_LOCK))
                 .addHendle(furnitureDao.getFurniture(TypeOfFurniture.HANDLE))
@@ -224,6 +230,9 @@ public class TemplateService {
             case DESIGN_DOOR: restriction.addDesign(lim);break;
             case SHIELD_COLOR: restriction.addShieldColor(lim);break;
             case SHIELD_DESIGN: restriction.addShieldDesign(lim);break;
+
+            case OUT_SHIELD_COLOR: restriction.addOutShieldColor(lim);break;
+            case OUT_SHIELD_DESIGN: restriction.addOutShieldDesign(lim);break;
 
             case TOP_LOCK: restriction.addTopLock(lim);break;
             case LOWER_LOCK: restriction.addLowerLock(lim);break;
