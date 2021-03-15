@@ -1036,6 +1036,9 @@ public class DoorEntity implements SerializingFields {
 
     private DoorEntity addCostForShieldKitChange() {
 
+        if (shieldKit == null){
+            return this;
+        }
         ShieldKit kit = shieldKit;
 
         ImageEntity shieldColor = kit.getShieldColor();
