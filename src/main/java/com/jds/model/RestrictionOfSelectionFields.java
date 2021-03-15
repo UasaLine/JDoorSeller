@@ -71,6 +71,9 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> shieldDesign = new ArrayList<>();
     private List<LimitationDoor> shieldGlass = new ArrayList<>();
 
+    private List<LimitationDoor> outShieldColor = new ArrayList<>();
+    private List<LimitationDoor> outShieldDesign = new ArrayList<>();
+
     private List<LimitationDoor> typeDoorGlass = new ArrayList<>();
     private List<LimitationDoor> toning = new ArrayList<>();
     private List<LimitationDoor> armor = new ArrayList<>();
@@ -293,6 +296,23 @@ public class RestrictionOfSelectionFields {
         return this;
     }
 
+    public RestrictionOfSelectionFields stuffOutShieldColor(@NonNull List<ImageEntity> colors) {
+
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addOutShieldColor(color));
+        return this;
+    }
+
+    public RestrictionOfSelectionFields stuffOutShieldDesign(@NonNull List<ImageEntity> colors) {
+
+        colors.stream()
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach((color) -> addOutShieldDesign(color));
+        return this;
+    }
+
+
     public void addShieldColor(@NonNull ImageEntity color) {
         if (color != null) {
             this.shieldColor.add(LimitationDoor.builder()
@@ -305,9 +325,45 @@ public class RestrictionOfSelectionFields {
         }
     }
 
+    public void addOutShieldColor(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.outShieldColor.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.OUT_SHIELD_COLOR)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .secondItem(String.valueOf(color.getContainsDesign()))
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
+    }
+
+    public void addOutShieldDesign(@NonNull ImageEntity color) {
+        if (color != null) {
+            this.outShieldDesign.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.OUT_SHIELD_DESIGN)
+                    .itemId(color.getId())
+                    .firstItem(color.getName())
+                    .secondItem(String.valueOf(color.getContainsDesign()))
+                    .picturePath(color.getPicturePath())
+                    .build());
+        }
+    }
+
     public void addShieldColor(@NonNull LimitationDoor color) {
 
         this.shieldColor.add(color.setNuulLazyFild());
+
+    }
+
+    public void addOutShieldColor(@NonNull LimitationDoor color) {
+
+        this.outShieldColor.add(color.setNuulLazyFild());
+
+    }
+
+    public void addOutShieldDesign(@NonNull LimitationDoor color) {
+
+        this.outShieldDesign.add(color.setNuulLazyFild());
 
     }
 
