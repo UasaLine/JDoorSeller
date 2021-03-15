@@ -46,7 +46,7 @@ public class ColorController {
     }
 
     @GetMapping(value = "/color/{id}")
-    public String getMetalPage(@PathVariable String id) throws Exception {
+    public String getColorPage(@PathVariable String id) throws Exception {
 
         return "color";
     }
