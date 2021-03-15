@@ -73,6 +73,10 @@ jQuery("document").ready(function () {
         clearFromBlock(".colorsSelect", ".colorsLineCheckbox");
         clearFromBlock(".shieldColorSelect", ".shieldColorLineCheckbox");
         clearFromBlock(".shieldDesignSelect", ".shieldDesignLineCheckbox");
+
+        clearFromBlock(".outShieldColorSelect", ".outShieldColorLineCheckbox");
+        clearFromBlock(".outShieldDesignSelect", ".outShieldDesignLineCheckbox");
+
         clearFromBlock(".topLockSelect", ".topLockLineCheckbox");
         clearFromBlock(".lowerLockSelect", ".lowerLockLineCheckbox");
         clearFromBlock(".lockCylinderSelect", ".lockCylinderLineCheckbox");
@@ -109,6 +113,7 @@ jQuery("document").ready(function () {
         installFromTemplateMetal();
         installFromTemplateColor(template.colors, "colors");
         installFromTemplateDesign(template.design, "design");
+        showDependentItems();
 
         installFromTemplateSelect("doorstep");
         installFromTemplateSelect("stainlessSteelDoorstep");
@@ -350,6 +355,7 @@ jQuery("document").ready(function () {
     $("#DesignDiv").change(".designSelect", function () {
         saveInJavaObjectColorAndFurnitur("design");
         fillInDesign("design", restriction.design);
+        showDependentItems();
     });
 
     $("#outShieldColorDiv").change(".outShieldColorSelect", function () {
@@ -360,7 +366,7 @@ jQuery("document").ready(function () {
             saveInJavaObjectColorAndFurnitur("outShieldColor");
             if (allFieldsAreFilled(".outShieldColorSelect")) {
                 //addSelectField('colors');
-                addField("shieldColor", "select", "Select");
+                addField("outShieldColor", "select", "Select");
             }
             fillInFurniture("outShieldColor");
         }
@@ -383,7 +389,7 @@ jQuery("document").ready(function () {
             saveInJavaObjectColorAndFurnitur("outShieldDesign");
             if (allFieldsAreFilled(".outShieldDesignSelect")) {
                 //addSelectField('colors');
-                addField("shieldDesign", "select", "Select");
+                addField("outShieldDesign", "select", "Select");
             }
             fillInFurniture("outShieldDesign");
         }
@@ -1868,5 +1874,48 @@ jQuery("document").ready(function () {
         let copyTypeId = $("#fillFromTemplate").val();
         clearFromTemplateAfterSelectingType();
         getDoorTemplate(copyTypeId);
+    }
+
+    function showDependentItems() {
+
+        if (template.design.length > 0) {
+            let response = getImageEntity(template.design[0].itemId);
+            const imageEntity = response.responseJSON;
+            if (imageEntity.containsWoodPanel == 1) {
+                $("#outShieldMenuButton").show();
+                $("#collapseTen").show();
+
+                fillInFurniture("outShieldColor");
+                fillInFurniture("outShieldDesign");
+            } else {
+                $("#outShieldMenuButton").hide();
+                $("#collapseTen").hide();
+
+                clearFromBlock(".outShieldColorSelect", ".outShieldColorLineCheckbox");
+                clearFromBlock(".outShieldDesignSelect", ".outShieldDesignLineCheckbox");
+                clearTemplateArrayByFieldName("outShieldColor");
+                clearTemplateArrayByFieldName("outShieldDesign");
+            }
+        }
+
+    }
+
+    function getImageEntity(id) {
+        return $.ajax({
+            url: location.origin + "/color/item/" + id,
+            dataType: "json",
+            async: false,
+            success: function (color) {
+                return color;
+            },
+            error: function (data) {
+                alert("!ERROR: imageEntity по itemId получить не удалось:");
+            },
+        });
+    }
+
+    function clearTemplateArrayByFieldName(nameField) {
+        var size = template[nameFieldJavaObject].length;
+        template[nameFieldJavaObject].splice(0, size);
     }
 });
