@@ -81,17 +81,19 @@ stainlessSteelDoorstep
 .stainlessSteelDoorstepL_images {
     position: absolute;
     height: 2.3%;
-    width: 81.8%;
-    left: 9.5%;
+    width: 81.2%;
+    left: 9.7%;
     top: 97.6%;
+    z-index: 160;
 }
 
 .stainlessSteelDoorstepR_images {
     position: absolute;
-    height: 3%;
+    height: 3.5%;
     width: 83%;
-    left: 9.5%;
-    top: 97.1%;
+    left: 8.5%;
+    top: 96.5%;
+    z-index: 160;
 }
 
 .sizeDoorSpan {
@@ -269,4 +271,13 @@ stainlessSteelDoorstep
     width: 82.5%;
     position: absolute;
     z-index: 101;
+}
+
+.color_mask {
+    top: 0%;
+    left: 0%;
+    height: 92.5%;
+    width: 82.5%;
+    position: absolute;
+    z-index: 100;
 }

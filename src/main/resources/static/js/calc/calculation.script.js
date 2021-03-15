@@ -632,7 +632,10 @@ jQuery("document").ready(function () {
     }
 
     function displayPrice() {
-        $("#price").text("Цена: " + door.priceWithMarkup);
+        if (door.priceWithMarkup != 0){
+            $("#price").text(door.priceWithMarkup);
+            $("<span>").attr("class" , "rub").text("Р").appendTo("#price");
+        }
         //door.costList.totalCost;
         $(".decryption").remove();
 
