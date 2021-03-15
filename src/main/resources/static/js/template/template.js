@@ -150,6 +150,9 @@ jQuery("document").ready(function () {
         installFromTemplateFurnitur("shieldColor");
         installFromTemplateFurnitur("shieldDesign");
 
+        installFromTemplateFurnitur("outShieldColor");
+        installFromTemplateFurnitur("outShieldDesign");
+
         SizeCostBlock.setValueToDom();
 
     }
@@ -194,6 +197,9 @@ jQuery("document").ready(function () {
 
         fillInFurniture("shieldColor");
         fillInFurniture("shieldDesign");
+
+        fillInFurniture("outShieldColor");
+        fillInFurniture("outShieldDesign");
     }
 
     $("#doorclassselect").change(function () {
@@ -346,6 +352,52 @@ jQuery("document").ready(function () {
         fillInDesign("design", restriction.design);
     });
 
+    $("#outShieldColorDiv").change(".outShieldColorSelect", function () {
+        if (checkForAllSelect("outShieldColor")) {
+            deleteFields("outShieldColor");
+            installFromTemplateColor(restriction.shieldColor, "outShieldColor");
+        } else {
+            saveInJavaObjectColorAndFurnitur("outShieldColor");
+            if (allFieldsAreFilled(".outShieldColorSelect")) {
+                //addSelectField('colors');
+                addField("shieldColor", "select", "Select");
+            }
+            fillInFurniture("outShieldColor");
+        }
+    });
+    $("#outShieldColorDiv").on("click", ".outShieldColorLineCheckbox", function () {
+        if ($(this).is(":checked")) {
+            switchOffAll("outShieldColor");
+            $(this).prop("checked", true);
+            saveInJavaObjectColorAndFurnitur("outShieldColor");
+        } else {
+            saveInJavaObjectColorAndFurnitur("outShieldColor");
+        }
+    });
+
+    $("#outShieldDesignDiv").change(".outShieldDesignSelect", function () {
+        if (checkForAllSelect("outShieldDesign")) {
+            deleteFields("outShieldDesign");
+            installFromTemplateColor(restriction.shieldDesign, "outShieldDesign");
+        } else {
+            saveInJavaObjectColorAndFurnitur("outShieldDesign");
+            if (allFieldsAreFilled(".outShieldDesignSelect")) {
+                //addSelectField('colors');
+                addField("shieldDesign", "select", "Select");
+            }
+            fillInFurniture("outShieldDesign");
+        }
+    });
+    $("#outShieldDesignDiv").on("click", ".outShieldDesignLineCheckbox", function () {
+        if ($(this).is(":checked")) {
+            switchOffAll("outShieldDesign");
+            $(this).prop("checked", true);
+            saveInJavaObjectColorAndFurnitur("outShieldDesign");
+        } else {
+            saveInJavaObjectColorAndFurnitur("outShieldDesign");
+        }
+    });
+
     $("#shieldColorDiv").change(".shieldColorSelect", function () {
         if (checkForAllSelect("shieldColor")) {
             deleteFields("shieldColor");
@@ -437,7 +489,7 @@ jQuery("document").ready(function () {
         ".innerOpenLineCheckbox",
         function () {
             var size;
-            if ($(this).is(":checked")){
+            if ($(this).is(":checked")) {
                 size = template.innerOpen.length;
                 template.innerOpen.splice(0, size);
                 template["innerOpen"].push(
@@ -1181,10 +1233,10 @@ jQuery("document").ready(function () {
         }
     }
 
-    function fillInInnerOpen(nameJavaObject){
+    function fillInInnerOpen(nameJavaObject) {
         let elem = $("#" + nameJavaObject);
-        if (template.innerOpen.length > 0){
-            if (template.innerOpen[0].startRestriction == 1){
+        if (template.innerOpen.length > 0) {
+            if (template.innerOpen[0].startRestriction == 1) {
                 $(elem).prop("checked", true);
             }
         } else {
@@ -1193,6 +1245,7 @@ jQuery("document").ready(function () {
             );
         }
     }
+
     //fillInInnerOpen("innerOpenDoorLineCheckbox0");
 
     function fillInFieldFromLimit(selector, table) {
@@ -1784,7 +1837,7 @@ jQuery("document").ready(function () {
 
     function getIdFromUrl() {
         var url = location.href;
-        var id = url.substring(url.lastIndexOf("/") - 1,url.lastIndexOf("/"));
+        var id = url.substring(url.lastIndexOf("/") - 1, url.lastIndexOf("/"));
         return id;
     }
 
