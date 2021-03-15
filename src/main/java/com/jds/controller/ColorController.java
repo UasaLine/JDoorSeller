@@ -69,10 +69,16 @@ public class ColorController {
 
     @GetMapping(value = "/color/image-file-list/{imageType}")
     @ResponseBody
-    public List<ColorPicture> getColorList(@PathVariable String imageType) {
+    public List<ColorPicture> getColorList(@PathVariable TypeOfImage imageType) {
 
         return service.getImageFileList(imageType);
+    }
 
+    @GetMapping(value = "/color/image-file-list/{imageType}/masks")
+    @ResponseBody
+    public List<ColorPicture> getMasksList(@PathVariable TypeOfImage imageType) {
+
+        return service.getMaskFileList(imageType);
     }
 
     @DeleteMapping(value = "/color/{id}")
@@ -139,6 +145,4 @@ public class ColorController {
         return service.getImageTypeDoorColor();
 
     }
-
-
 }
