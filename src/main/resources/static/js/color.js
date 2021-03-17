@@ -112,6 +112,17 @@ jQuery("document").ready(function () {
         showPicture("#mask_png", JavaObject.maskPath);
     });
 
+    $("#containsOtherColor").change(function () {
+        if ($(this).is(":checked")) {
+            setField("containsOtherColor", 1);
+        } else {
+            setField("containsOtherColor", 0);
+            setField("maskPath", "");
+        }
+        showMask();
+    });
+
+
     function getPictureColor(idPicture, picturesList) {
         for (let i = 0; i < picturesList.length; i++) {
             if (picturesList[i].id == idPicture) {
@@ -129,11 +140,16 @@ jQuery("document").ready(function () {
     }
 
     function getPictureMaskPath(pathPicture) {
+        const defaultResponce = {id: 0};
+        if (pathPicture == null) {
+            return defaultResponce;
+        }
         for (let i = 0; i < imageMaskPathList.length; i++) {
             if (imageMaskPathList[i].path == pathPicture) {
                 return imageMaskPathList[i];
             }
         }
+        return defaultResponce;
     }
 
     function getImageListFromServer() {
@@ -260,6 +276,7 @@ jQuery("document").ready(function () {
         if (type == "SHIELD_DESIGN") {
             $("#containsGlassDiv").show();
             $("#additionalTypeDiv").show();
+            $("#containsOtherColorDiv").show();
         } else if (type == "SHIELD_GLASS") {
             $("#containsDesignGlass").show();
         } else if (type == "DOOR_COLOR") {
@@ -276,17 +293,19 @@ jQuery("document").ready(function () {
         $("#additionalTypeDiv").hide();
         $("#containsDesignSwitchDiv").hide();
         $("#outWoodPanelDiv").hide();
+        $("#containsOtherColorDiv").hide();
 
     }
 
     function showMask() {
-        if ($("#outWoodPanel").is(":checked")) {
+        if ($("#outWoodPanel").is(":checked") || $("#containsOtherColor").is(":checked")) {
             $('#outWoodMaskPathDiv').show();
             $('#mask_png').show();
         } else {
             $('#outWoodMaskPathDiv').hide();
             $('#mask_png').hide();
         }
+
     }
 
     function getPictureShieldDesign(idItem) {
@@ -342,8 +361,10 @@ jQuery("document").ready(function () {
 
             setCheckBox("#outWoodPanel", JavaObject.containsWoodPanel);
             showPicture("#mask_png", JavaObject.maskPath);
-            showMask();
 
+            setCheckBox("#containsOtherColor", JavaObject.containsOtherColor);
+
+            showMask();
         }
     }
 
