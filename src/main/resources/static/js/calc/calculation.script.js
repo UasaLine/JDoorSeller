@@ -107,9 +107,27 @@ jQuery("document").ready(function () {
 
     $(".div_images_Color").on("click", function () {
         setDoorField($(this).attr("Item"), $(this).attr("data"));
+
+        let javaObject = findColorObjectByName($(this).attr("data"));
+        setDoorFurnitureByObject(javaObject, "doorColor", door.doorDesign);
         RepresentationManager.showFieldValue($(this).attr("data"));
         Door.draw(door, 1);
         pickOut(this);
+    });
+
+    $(".div_images_design").on("click", function () {
+        let nameJavaField = $(this).attr("Item");
+        let idJavaObject = $(this).attr("data");
+        let javaObject = findObjectById(nameJavaField, idJavaObject);
+
+        setDoorDesignField(javaObject, nameJavaField);
+
+        RepresentationManager.showAllFieldsValues(door);
+        pickOut(this);
+        if (goTo != "") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
     });
 
     $(".div_images_DoorGlass").on("click", function () {
@@ -509,6 +527,11 @@ jQuery("document").ready(function () {
         failureToSetValue = false;
     }
 
+    function setDoorDesignField(value, fieldName) {
+        door.doorDesign[fieldName] = value;
+        failureToSetValue = false;
+    }
+
     function setDoorGlassImg(fieldName, value) {
         var furn = findObjectById(fieldName, value);
         door.doorGlass[fieldName] = furn;
@@ -553,6 +576,18 @@ jQuery("document").ready(function () {
             }
         }
         return null;
+    }
+
+    function findColorObjectByName(name) {
+        let tab = [];
+
+        if (Door.listColorsEntity && Door.listColorsEntity.length > 0){
+            tab = Door.listColorsEntity.filter(function (color){
+               return color.name == name;
+            })
+        }
+
+        return tab.length > 0 ? tab[0] : null;
     }
 
     function getFirstAttr(attr) {
@@ -1047,9 +1082,8 @@ jQuery("document").ready(function () {
             displayDeepnessDoorAndThicknessDoorLeaf(data);
 
             colors = data.colors;
-            //displayColor("doorColor", data.colors, 0);
+            displayImage("outShieldColor", availableFurnitureList.outShieldColor, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
-            //displayImage("shieldDesign", availableFurnitureList.shieldDesign, 0);
             displayImage("shieldGlass", addToShieldGlassList(), 0);
 
             displayadditionalDoorSettings(data);
@@ -1448,6 +1482,27 @@ jQuery("document").ready(function () {
             $(".select_doorstep").attr("show", "ghost_lement");
         }
 
+        //outShieldKit
+        if (currentItem == "outShieldKit") {
+            fillChildBlockOutShield("outShieldColor");
+            $(".select_outShieldKit").attr("show", "is_alive_lement");
+        } else {
+            $(".select_outShieldKit").attr("show", "ghost_lement");
+        }
+
+        //outShieldColor
+        if (currentItem == "outShieldColor") {
+            goTo = "outShieldKit";
+            currentItemForDisplay = $("#nameoutShieldKit").html();
+
+            //currentItemForDisplayId = "outShieldKit";
+            $(".select_outShieldColor").attr("show", "is_alive_lement");
+            displayImage("outShieldColor", availableFurnitureList.outShieldColor, 0);
+            PaginationPage.show();
+        } else {
+            $(".select_outShieldColor").attr("show", "ghost_lement");
+        }
+
         //shield
 
         if (currentItem == "shieldKit") {
@@ -1691,6 +1746,16 @@ jQuery("document").ready(function () {
         }
     }
 
+    function fillChildBlockOutShield(name) {
+        var jObject = door.doorDesign[name];
+        if (jObject != null) {
+            $("#" + name + "Show").html(jObject.name);
+        } else {
+            $("#" + name + "Show").html("");
+        }
+    }
+
+
     function fillChildBlockAdditionalSettings() {
         //closer
         let closer = door.furnitureKit['closer'];
@@ -1933,6 +1998,3 @@ jQuery("document").ready(function () {
     }
 
 });
-
-
-

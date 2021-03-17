@@ -175,26 +175,31 @@ class Door {
     }
 
     static createOutShield(container, config) {
-        if (door.doorDesign.doorDesign.containsWoodPanel == 1) {
-            let pathPicture = door.doorDesign.doorDesign.picturePath;
-            const pathMask = door.doorDesign.doorDesign.maskPath;
-            let scaleX = Door.reflectionPicture(door);
+        if (door.doorDesign.doorDesign != null) {
+            if (door.doorDesign.doorDesign.containsWoodPanel == 1) {
+                let pathPicture = null;
+                if (door.doorDesign.outShieldColor != null) {
+                    pathPicture = door.doorDesign.outShieldColor.picturePath;
+                }
 
-            $("<img>")
-                .attr("class", "color_mask")
-                .attr("src", Door.dirPath + pathPicture)
-                .attr(
-                    "style",
-                    "width:" +
-                    config.width +
-                    "px; height:" +
-                    (config.doorFanlightHeight + config.height) +
-                    "px;" + "-webkit-mask-box-image: url(" + Door.dirPath + pathMask + ");" +
-                    "transform: scale(" + scaleX + ", 1)"
-                )
-                .appendTo(container);
+                const pathMask = door.doorDesign.doorDesign.maskPath;
+                let scaleX = Door.reflectionPicture(door);
+
+                $("<img>")
+                    .attr("class", "color_mask")
+                    .attr("src", Door.dirPath + pathPicture)
+                    .attr(
+                        "style",
+                        "width:" +
+                        config.width +
+                        "px; height:" +
+                        (config.doorFanlightHeight + config.height) +
+                        "px;" + "-webkit-mask-box-image: url(" + Door.dirPath + pathMask + ");" +
+                        "transform: scale(" + scaleX + ", 1)"
+                    )
+                    .appendTo(container);
+            }
         }
-
     }
 
     static createTrims(container, config, door) {
