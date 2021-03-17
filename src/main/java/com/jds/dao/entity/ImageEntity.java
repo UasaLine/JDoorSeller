@@ -93,11 +93,6 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         return this;
     }
 
-    public ImageEntity setNuulLazyFild() {
-        this.typeOfImage = null;
-        return this;
-    }
-
     @Override
     public int compareTo(ImageEntity imageEntity) {
         return imageEntity.getName().toUpperCase().compareTo(this.getName().toUpperCase());
