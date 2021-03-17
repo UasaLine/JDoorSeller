@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.controller.OrderController;
+import com.jds.dao.entity.LimitationColors;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -189,5 +187,29 @@ public class ColorService {
                 .map(lim -> dAO.getColorById(lim.getItemId()))
                 .filter(elem -> elem.getTypeOfShieldDesign() == type)
                 .collect(Collectors.toList());
+    }
+
+
+    public List<ImageEntity> fineLimitationByMasterId(int id) {
+        List<LimitationColors> limList = dAO.fineLimitationByMasterId(id);
+        return limList.stream()
+                .map(lim -> dAO.getColorById(lim.getSlaveId()))
+                .collect(Collectors.toList());
+    }
+
+    public void putLimitationByMasterId(int id, List<ImageEntity> limList) {
+
+        deleteLimitationByMasterId(id);
+
+        ImageEntity master = new ImageEntity(id);
+        for (ImageEntity lim : limList) {
+            dAO.putLimitation(new LimitationColors(master, lim));
+        }
+
+    }
+
+    public void deleteLimitationByMasterId(int id) {
+        List<LimitationColors> oldLimList = dAO.fineLimitationByMasterId(id);
+        dAO.deleteLimit(oldLimList);
     }
 }

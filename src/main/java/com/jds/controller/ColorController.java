@@ -1,6 +1,8 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
+import com.jds.dao.entity.LimitationColors;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.image.*;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.ColorService;
@@ -144,5 +146,31 @@ public class ColorController {
 
         return service.getImageTypeDoorColor();
 
+    }
+
+    @GetMapping(value = "/colors/{id}/limitations")
+    @ResponseBody
+    public List<ImageEntity> getLimitation(@PathVariable int id) {
+
+        return service.fineLimitationByMasterId(id);
+
+    }
+
+    @PostMapping(value = "/colors/{id}/limitations")
+    @ResponseBody
+    public ResponseMassage putLimitation(@PathVariable int id, @RequestBody List<ImageEntity> limits) {
+
+        service.putLimitationByMasterId(id, limits);
+
+        return new ResponseMassage(true, "ок");
+    }
+
+    @DeleteMapping(value = "/colors/{id}/limitations")
+    @ResponseBody
+    public ResponseMassage deleteLimitation(@PathVariable int id) {
+
+        service.deleteLimitationByMasterId(id);
+
+        return new ResponseMassage(true, "ок");
     }
 }

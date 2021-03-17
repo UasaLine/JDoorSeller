@@ -84,6 +84,9 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         pricePaintingMeterOfSpace = 0;
         smooth = 0;
     }
+    public ImageEntity(int id){
+        this.id = id;
+    }
 
     public ImageEntity clearNonSerializingFields() {
         this.setShieldColor(null);

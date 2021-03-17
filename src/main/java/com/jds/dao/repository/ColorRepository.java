@@ -1,6 +1,7 @@
 package com.jds.dao.repository;
 
 import com.jds.dao.entity.ImageEntity;
+import com.jds.dao.entity.LimitationColors;
 import com.jds.model.image.Image;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
@@ -200,5 +201,45 @@ public class ColorRepository {
 
         doorColorsList.forEach(ImageEntity::clearNonSerializingFields);
         return doorColorsList;
+    }
+
+    public List<LimitationColors> fineLimitationByMasterId(int id) {
+
+        Session session = sessionFactory.openSession();
+
+        String sql;
+        sql = "select * from limiting_colors where master_id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(LimitationColors.class)
+                .setParameter("id", id);
+        List<LimitationColors> list = query.list();
+
+        session.close();
+
+        return list;
+
+    }
+
+    public void putLimitation(LimitationColors lim) {
+    }
+
+    public String deleteLimit(List<LimitationColors> LimList) {
+
+        if (LimList != null) {
+            for (LimitationColors lim : LimList) {
+                deleteLimit(lim);
+            }
+        }
+        return "ok";
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String deleteLimit(@NonNull LimitationColors lim) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(lim);
+
+        return "ok";
+
     }
 }
