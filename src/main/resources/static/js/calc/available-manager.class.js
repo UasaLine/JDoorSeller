@@ -14,6 +14,8 @@ class AvailableManager {
             AvailableManager.makeAvailable("sideDoorOpen");
         }
 
+        this.makeAvailableIfExistsByHtmlName("outShieldColor","outShieldKit");
+
         this.makeAvailableIfExists("topLock","kit");
         this.makeAvailableIfExists("lowerLock","kit");
 
@@ -43,6 +45,12 @@ class AvailableManager {
     makeAvailableIfExists(name,postfix) {
         if (availableFurnitureList[name] && availableFurnitureList[name].length > 0) {
             AvailableManager.makeAvailable(name + postfix);
+        }
+    }
+
+    makeAvailableIfExistsByHtmlName(name,postfix) {
+        if (availableFurnitureList[name] && availableFurnitureList[name].length > 0) {
+            AvailableManager.makeAvailable(postfix);
         }
     }
 

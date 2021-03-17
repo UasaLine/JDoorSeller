@@ -82,6 +82,7 @@ public class FurnitureService {
 
                 .handle(getFurnitureByLmit(template.getHandle()))
 
+                .outShieldColor(getImageByLimit(template.getOutShieldColor()))
                 .shieldColor(getImageByLimit(template.getShieldColor()))
                 .shieldDesign(getImageByLimit(template.getShieldDesign()))
                 .shieldGlass(getImageByLimit(template.getShieldGlass()))

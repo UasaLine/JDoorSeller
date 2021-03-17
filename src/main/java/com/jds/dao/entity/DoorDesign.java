@@ -28,23 +28,20 @@ public class DoorDesign {
     @JoinColumn(name = "door_design")
     private ImageEntity doorDesign;
 
-    @OneToOne(mappedBy = "doorDesign",fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JoinColumn(name = "out_shield")
+    private ImageEntity outShieldColor;
+
+    @OneToOne(mappedBy = "doorDesign", fetch = FetchType.LAZY)
     private DoorEntity door;
 
-    public static DoorDesign instanceDesign(@NonNull List<LimitationDoor> listLim, @NonNull List<LimitationDoor> templateDesign, ColorRepository colorDao) {
+    public static DoorDesign instanceDesign(ImageEntity doorColor, ImageEntity doorDesign, ImageEntity outShieldColor) {
         DoorDesign design = new DoorDesign();
 
-        List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .collect(Collectors.toList());
+        design.setDoorColor(doorColor);
+        design.setDoorDesign(doorDesign);
+        design.setOutShieldColor(outShieldColor);
 
-
-        if (defList.size() == 1) {
-            design.setDoorColor(colorDao.getColorById(defList.get(0).getItemId()));
-        }
-        if (templateDesign.size() == 1) {
-            design.setDoorDesign(colorDao.getColorById(templateDesign.get(0).getItemId()));
-        }
         design.clearNonSerializingFields();
         return design;
     }
@@ -65,11 +62,14 @@ public class DoorDesign {
 
     public DoorDesign clearNonSerializingFields() {
         door = null;
-        if (doorColor!=null){
+        if (doorColor != null) {
             doorColor.clearNonSerializingFields();
         }
-        if (doorDesign !=null){
+        if (doorDesign != null) {
             doorDesign.clearNonSerializingFields();
+        }
+        if (outShieldColor != null) {
+            outShieldColor.clearNonSerializingFields();
         }
 
         return this;
