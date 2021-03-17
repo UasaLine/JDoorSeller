@@ -751,4 +751,24 @@ public class RestrictionOfSelectionFields {
 
         peepholePosition.add(lim.setNuulLazyFild());
     }
+
+    public LimitationDoor getDefaultDoorColor(){
+            List<LimitationDoor> defList = colors.stream()
+                    .filter(lim -> lim.isDefault())
+                    .collect(Collectors.toList());
+
+            return defList.size() > 0 ? defList.get(0) : null;
+    }
+
+    public LimitationDoor getDefaultDoorDesign() {
+            return design.size() > 0 ? design.get(0) : null;
+    }
+
+    public LimitationDoor getDefaultOutShieldColor() {
+        List<LimitationDoor> defList = outShieldColor.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        return defList.size() > 0 ? defList.get(0) : null;
+    }
 }

@@ -205,8 +205,18 @@ public class DoorServiceImpl implements DoorService {
         //price
         //discountPrice
         //priceWithMarkup
+
         doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
-        doorEntity.setDoorDesign(DoorDesign.instanceDesign(template.getColors(), template.getDesign(), colorDao));
+
+        LimitationDoor defaultDoorColor = template.getDefaultDoorColor();
+        LimitationDoor defaultDoorDesign = template.getDefaultDoorDesign();
+        LimitationDoor defaultOutShieldColor = template.getDefaultOutShieldColor();
+
+        doorEntity.setDoorDesign(DoorDesign.instanceDesign(
+                defaultDoorColor != null ? colorDao.getColorById(defaultDoorColor.getItemId()) : null,
+                defaultDoorDesign != null ? colorDao.getColorById(defaultDoorDesign.getItemId()) : null,
+                defaultOutShieldColor != null ? colorDao.getColorById(defaultOutShieldColor.getItemId()) : null
+                ));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
                 .topLock(defaultAndGetFurniture(template.getTopLock()))

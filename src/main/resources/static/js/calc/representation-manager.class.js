@@ -72,6 +72,29 @@ class Container2fields {
                 currentItem = "handle";
                 showValue = Container2fields.getFurniture(value, "handle");
             }
+            //outShieldColor
+                else if (currentItem == "doorDesign" || currentItem == "doorColor"){
+                    if (door.doorDesign){
+
+                        if (door.doorDesign.outShieldColor){
+                            currentItem = "outShieldKit";
+                            showValue = door.doorDesign.outShieldColor.name;
+                            Container2fields.setValueToField(showValue);
+                        }
+                        if (door.doorDesign.outShieldDesign) {
+                            showValue = showValue + " / " + door.doorDesign.outShieldDesign.name;
+                            Container2fields.setValueToField(showValue);
+                        }
+
+                        if (door.doorDesign.doorColor){
+                            currentItem = "doorColor";
+                            showValue = Container2fields.getFurniture(door.doorDesign, "doorColor");
+
+                        }
+                    }
+
+            }
+
             //shieldKit
             else if (currentItem == "shieldKit") {
                 if (door.shieldKit != null) {

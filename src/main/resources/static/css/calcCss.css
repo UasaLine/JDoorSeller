@@ -83,6 +83,10 @@
   display: inline-block;
 }
 
+.div_images_design{
+  display: inline-block;
+}
+
 #costCalcForm{
   width: 1000px;
   position: absolute; top: 300px;
