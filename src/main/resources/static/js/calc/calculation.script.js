@@ -130,6 +130,22 @@ jQuery("document").ready(function () {
         }
     });
 
+    $(".div_images_over").on("click", function () {
+        let nameJavaField = $(this).attr("Item");
+        let idJavaObject = $(this).attr("data");
+        let javaObject = findObjectById("shieldColor", idJavaObject);
+
+        setDoorFurnitureByObject(javaObject, nameJavaField, door.shieldKit);
+
+        RepresentationManager.showAllFieldsValues(door);
+        pickOut(this);
+        if (goTo != "") {
+            currentItem = goTo;
+            hideShowField(true);
+        }
+    });
+
+
     $(".div_images_DoorGlass").on("click", function () {
         setDoorGlassImg($(this).attr("Item"), $(this).attr("data"));
         RepresentationManager.showFieldValue($(this).children("span").html());
@@ -173,6 +189,10 @@ jQuery("document").ready(function () {
 
         if (nameJavaField == "shieldDesign") {
             clearGlass(javaObject);
+        }
+
+        if (nameJavaField == "shieldDesign") {
+            clearShieldKitField(javaObject, "shieldOverColor");
         }
 
         RepresentationManager.showAllFieldsValues(door);
@@ -1085,6 +1105,7 @@ jQuery("document").ready(function () {
             displayImage("outShieldColor", availableFurnitureList.outShieldColor, 0);
             displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
             displayImage("shieldGlass", addToShieldGlassList(), 0);
+            displayImage("shieldOverColor", availableFurnitureList.shieldColor, 0);
 
             displayadditionalDoorSettings(data);
             displayListOfItems("topLock", availableFurnitureList.topLock, 0, "kit");
@@ -1509,6 +1530,7 @@ jQuery("document").ready(function () {
             fillChildBlockShield("shieldColor");
             fillChildBlockShield("shieldDesign");
             fillChildBlockShield("shieldGlass");
+            fillChildBlockShield("shieldOverColor");
             displayChildFields();
             showShieldGlass();
 
@@ -1540,6 +1562,18 @@ jQuery("document").ready(function () {
             PaginationPage.show();
         } else {
             $(".select_shieldDesign").attr("show", "ghost_lement");
+        }
+
+        if (currentItem == "shieldOverColor") {
+            $(".select_shieldOverColor").attr("show", "is_alive_lement");
+            goTo = "shieldKit";
+            currentItemForDisplay = $("#nameshieldKit").html();
+
+            currentItemForDisplayId = "shieldKit";
+            displayImage("shieldOverColor", availableFurnitureList.shieldColor, 0);
+            PaginationPage.show();
+        } else {
+            $(".select_shieldOverColor").attr("show", "ghost_lement");
         }
 
         if (currentItem == "shieldGlass") {
@@ -1827,6 +1861,7 @@ jQuery("document").ready(function () {
     function clearRelatedFieldsForImage(javaObject) {
         if (javaObject == null || (javaObject.typeOfImage == "SHIELD_COLOR" && javaObject.containsDesign == 1)) {
             setDoorFurnitureByObject(null, "shieldDesign", door.shieldKit)
+            setDoorFurnitureByObject(null, "shieldOverColor", door.shieldKit)
         }
     }
 
@@ -1836,6 +1871,13 @@ jQuery("document").ready(function () {
             $("#shieldDesign").attr("show", "ghost_lement");
         } else {
             $("#shieldDesign").attr("show", "is_alive_lement");
+        }
+        let shieldDesign = door.shieldKit.shieldDesign;
+        if (shieldDesign == null || (shieldDesign != null && shieldDesign.containsOtherColor == 0)) {
+            $("#shieldOverColor").attr("show", "ghost_lement");
+            setDoorFurnitureByObject(null, "shieldOverColor", door.shieldKit);
+        } else {
+            $("#shieldOverColor").attr("show", "is_alive_lement");
         }
     }
 
@@ -1852,6 +1894,12 @@ jQuery("document").ready(function () {
     function clearGlass(javaObject) {
         if (javaObject == null || javaObject.containsDesign == 0) {
             setDoorFurnitureByObject(null, "shieldGlass", door.shieldKit);
+        }
+    }
+
+    function clearShieldKitField(javaObject, name) {
+        if (javaObject == null || javaObject.containsWoodPanel == 0) {
+            setDoorFurnitureByObject(null, name, door.shieldKit);
         }
     }
 

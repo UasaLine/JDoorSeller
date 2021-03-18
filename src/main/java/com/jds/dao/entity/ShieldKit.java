@@ -27,6 +27,10 @@ public class ShieldKit {
     private ImageEntity shieldDesign;
 
     @ManyToOne()
+    @JoinColumn(name = "shield_over_color")
+    private ImageEntity shieldOverColor;
+
+    @ManyToOne()
     @JoinColumn(name = "shieldGlass")
     private ImageEntity shieldGlass;
 
@@ -65,6 +69,9 @@ public class ShieldKit {
         }
         if (shieldGlass != null) {
             shieldGlass.clearNonSerializingFields();
+        }
+        if (shieldOverColor != null) {
+            shieldOverColor.clearNonSerializingFields();
         }
         return this;
     }

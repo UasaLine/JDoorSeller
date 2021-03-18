@@ -73,7 +73,7 @@ class Door {
             Door.dinamicRelief(containerLeaf, config, door, "L");
             Door.createCloser(containerLeaf, config, door);
             Door.createHandle(containerLeaf, config, door, "L");
-            Door.createStep(containerLeaf, config, door,"L");
+            Door.createStep(containerLeaf, config, door, "L");
             Door.createGlass(containerLeaf, config, door, "L");
             Door.createLogo(containerLeaf, door);
             Door.createHinges(containerLeaf, door);
@@ -90,13 +90,15 @@ class Door {
 
             Door.createRelief(containerLeafR, config, "R");
             Door.createHandle(containerLeafR, config, door, "R");
-            Door.createStep(containerLeafR, config, door,"R");
+            Door.createStep(containerLeafR, config, door, "R");
             Door.createGlass(containerLeafR, config, door, "R");
             Door.createNightLock(containerLeafR, door);
             Door.createTopInLockDecor(containerLeafR, door);
             Door.createLowerInLockDecor(containerLeafR, door);
             Door.createShieldColor(containerLeafR, door);
             Door.createShieldDesign(containerLeafR, door);
+            Door.createShieldOverColor(containerLeafR, door);
+
             Door.createShieldGlass(containerLeafR, door);
             Door.creatPeephole(containerLeafR, door, "R");
         }
@@ -178,11 +180,11 @@ class Door {
         if (door.doorDesign.doorDesign != null) {
             if (door.doorDesign.doorDesign.containsWoodPanel == 1) {
                 let pathPicture = null;
+                let pathMask = null;
                 if (door.doorDesign.outShieldColor != null) {
                     pathPicture = door.doorDesign.outShieldColor.picturePath;
+                    pathMask = door.doorDesign.doorDesign.maskPath;
                 }
-
-                const pathMask = door.doorDesign.doorDesign.maskPath;
                 let scaleX = Door.reflectionPicture(door);
 
                 $("<img>")
@@ -361,14 +363,14 @@ class Door {
         }
     }
 
-    static createStep(containerLeaf, config, door,side) {
+    static createStep(containerLeaf, config, door, side) {
         if (
             door.furnitureKit != null &&
             door.stainlessSteelDoorstep != null &&
             door.stainlessSteelDoorstep != 0
         ) {
             $("<img>")
-                .attr("class", "stainlessSteelDoorstep"+side+"_images")
+                .attr("class", "stainlessSteelDoorstep" + side + "_images")
                 .attr("src", Door.dirPath + "images/findings/door handles sketch/000000001_R.png")
                 .appendTo(containerLeaf);
         }
@@ -433,7 +435,7 @@ class Door {
     }
 
     static createNightLock(containerLeaf, door) {
-        if (door.furnitureKit.nightLock == null){
+        if (door.furnitureKit.nightLock == null) {
             return;
         }
         let side = "R";
@@ -443,7 +445,7 @@ class Door {
 
         let pathImages = door.furnitureKit.nightLock.sketchPathFirst;
 
-        if (pathImages == ""){
+        if (pathImages == "") {
             pathImages = "images/findings/night_lock.png";
         }
 
@@ -454,23 +456,23 @@ class Door {
     }
 
     static creatPeephole(containerLeaf, door, inOutDoor) {
-        if (door.furnitureKit.peephole == null){
+        if (door.furnitureKit.peephole == null) {
             return;
         }
         let position = "";
-        if (door.furnitureKit.peepholePosition == "CENTER"){
+        if (door.furnitureKit.peepholePosition == "CENTER") {
             position = "center_"
         }
         let side;
 
-        if (door.sideDoorOpen == "RIGHT" ) {
-            if (inOutDoor == "L"){
+        if (door.sideDoorOpen == "RIGHT") {
+            if (inOutDoor == "L") {
                 side = "R";
             } else {
                 side = "L";
             }
         } else {
-            if (inOutDoor == "L"){
+            if (inOutDoor == "L") {
                 side = "L";
             } else {
                 side = "R";
@@ -479,7 +481,7 @@ class Door {
 
         let pathImages = door.furnitureKit.peephole.sketchPathFirst;
 
-        if (pathImages == ""){
+        if (pathImages == "") {
             pathImages = "images/findings/peephole_out.png";
         }
 
@@ -488,7 +490,6 @@ class Door {
             .attr("src", Door.dirPath + pathImages)
             .appendTo(containerLeaf);
     }
-
 
 
     static createTopInLockDecor(containerLeaf, door) {
@@ -579,6 +580,32 @@ class Door {
                 .attr("style",
                     "px; transform: scale(" + scaleX + ", 1)")
                 .appendTo(containerLeaf);
+        }
+    }
+
+    static createShieldOverColor(containerLeaf, door) {
+        if (door.shieldKit != null && door.shieldKit.shieldColor != null) {
+            if (door.shieldKit.shieldDesign) {
+                if (door.shieldKit.shieldDesign.containsOtherColor == 1) {
+                    let scaleX = Door.reflectionPicture(door);
+
+                    let pathImage = null;
+                    let pathMask =null;
+                    if (door.shieldKit.shieldOverColor != null){
+                        pathImage = door.shieldKit.shieldOverColor.picturePath;
+                        pathMask = door.shieldKit.shieldDesign.maskPath;
+                    }
+                    $("<img>")
+                        .attr("class", "shield_over_color")
+                        .attr("src", Door.dirPath + pathImage)
+                        .attr(
+                            "style",
+                            "-webkit-mask-box-image: url(" + Door.dirPath + pathMask + ");" +
+                            "transform: scale(" + scaleX + ", 1)"
+                        )
+                        .appendTo(containerLeaf);
+                }
+            }
         }
     }
 
