@@ -1,6 +1,7 @@
 package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.image.*;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.service.ColorService;
@@ -22,8 +23,9 @@ public class ColorController {
     @Autowired
     private ColorService service;
 
+
+    @GetMapping(value = "/pages/colors")
     @Secured("ROLE_ADMIN")
-    @GetMapping(value = "/color")
     public String getMetalListPage(Model model) throws Exception {
         List<ImageEntity> list = service.getColors();
 
@@ -35,23 +37,20 @@ public class ColorController {
         return "colorList";
     }
 
-    @GetMapping(value = "color/doorColors", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/colors", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<ImageEntity> getDoorColorsList() {
-        List<ImageEntity> list = service.getColorsType(DOOR_COLOR);
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).clearNonSerializingFields();
-        }
-        return list;
+    public List<ImageEntity> getDoorColors(
+            @RequestParam(required = false, defaultValue = "DOOR_COLOR") TypeOfImage type) {
+        return service.getImagesByType(type);
     }
 
-    @GetMapping(value = "/color/{id}")
+    @GetMapping(value = "/pages/colors/{id}")
     public String getColorPage(@PathVariable String id) throws Exception {
 
         return "color";
     }
 
-    @GetMapping(value = "/color/item/{id}")
+    @GetMapping(value = "/colors/{id}")
     @ResponseBody
     public ImageEntity getColor(@PathVariable String id) {
 
@@ -59,7 +58,7 @@ public class ColorController {
 
     }
 
-    @PutMapping(value = "/color/item")
+    @PutMapping(value = "/colors")
     @ResponseBody
     public ResponseModel saveColor(@RequestBody ImageEntity color) {
 
@@ -94,7 +93,6 @@ public class ColorController {
     public EnumSet<TypeOfImage> getImageTypeList() {
 
         return service.getImageTypeList();
-
     }
 
     @GetMapping(value = "/doorType/{doorTypeId}/colors/types/buttons")
@@ -144,5 +142,30 @@ public class ColorController {
 
         return service.getImageTypeDoorColor();
 
+    }
+
+    @GetMapping(value = "/colors/{id}/limitations")
+    @ResponseBody
+    public List<ImageEntity> getLimitation(@PathVariable int id) {
+
+        return service.fineLimitationByMasterId(id);
+    }
+
+    @PutMapping(value = "/colors/{id}/limitations")
+    @ResponseBody
+    public ResponseMassage putLimitation(@PathVariable int id, @RequestBody List<ImageEntity> limits) {
+
+        service.putLimitationByMasterId(id, limits);
+
+        return new ResponseMassage(true, "ок");
+    }
+
+    @DeleteMapping(value = "/colors/{id}/limitations")
+    @ResponseBody
+    public ResponseMassage deleteLimitation(@PathVariable int id) {
+
+        service.deleteLimitationByMasterId(id);
+
+        return new ResponseMassage(true, "ок");
     }
 }

@@ -1,10 +1,13 @@
 jQuery("document").ready(function () {
+
     var JavaObject;
     var typeImageList;
     var typeDoorColorList;
     let colorListPictures;
     let imageMaskPathList;
     let shieldDesign;
+    let allImageForLimit;
+    let javaLimitList = [];
 
     //new instans
     getTypeList();
@@ -25,12 +28,14 @@ jQuery("document").ready(function () {
 
         if (type != "") {
             showSettings(JavaObject.typeOfImage);
-            getImageListFromServer();
+            getImageFileListFromServer();
+            getAllImagesFromServer();
             getShieldGlass();
             if (type == "DOOR_COLOR") {
                 getTypeListColor();
             } else if (type == "SHIELD_DESIGN") {
                 getTypeListShield();
+                addLine(".limitLine");
             }
         } else {
             fillInTypes("#picturePath", "");
@@ -122,6 +127,10 @@ jQuery("document").ready(function () {
         showMask();
     });
 
+    $("#limitDiv").change(".limitLine", function () {
+        saveToServerList(".limitLine");
+        addLine(".limitLine");
+    });
 
     function getPictureColor(idPicture, picturesList) {
         for (let i = 0; i < picturesList.length; i++) {
@@ -132,11 +141,14 @@ jQuery("document").ready(function () {
     }
 
     function getPictureColorPath(pathPicture) {
-        for (let i = 0; i < colorListPictures.length; i++) {
-            if (colorListPictures[i].path == pathPicture) {
-                return colorListPictures[i];
+        if (colorListPictures) {
+            for (let i = 0; i < colorListPictures.length; i++) {
+                if (colorListPictures[i].path == pathPicture) {
+                    return colorListPictures[i];
+                }
             }
         }
+        return {id: 0};
     }
 
     function getPictureMaskPath(pathPicture) {
@@ -152,7 +164,7 @@ jQuery("document").ready(function () {
         return defaultResponce;
     }
 
-    function getImageListFromServer() {
+    function getImageFileListFromServer() {
         return $.ajax({
             url: location.origin + "/color/image-file-list/" + JavaObject.typeOfImage,
             dataType: "json",
@@ -163,7 +175,7 @@ jQuery("document").ready(function () {
                 return data;
             },
             error: function (data) {
-                alert("!ERROR: изображений получить не удалось:");
+                alert("!ERROR: файлы изображений получить не удалось:");
             },
         });
     }
@@ -209,21 +221,16 @@ jQuery("document").ready(function () {
     });
 
     $("#save").on("click", function () {
-        var furniture = JSON.stringify(JavaObject);
 
-        $.ajax({
-            url: "item",
-            method: "PUT",
-            dataType: "json",
-            contentType: "application/json",
-            data: furniture,
-            success: function (data) {
-                toList();
-            },
-            error: function (data) {
-                alert("!ERROR: елемнет записать не удалось:");
-            },
-        });
+        let res = sendJavaObjectToServer();
+        let id = res.responseJSON.model.id;
+        res = sendLimitToServer(id);
+
+        if (JavaObject.id == 0) {
+            toPage(id);
+        } else {
+            toList();
+        }
     });
 
     $("#close").on("click", function () {
@@ -246,19 +253,23 @@ jQuery("document").ready(function () {
     });
 
     function toList() {
-        location.pathname = "color";
+        location.pathname = "/pages/colors";
+    }
+
+    function toPage(id) {
+        location.pathname = "/pages/colors/" + id;
     }
 
     function getJavaObject() {
         $.ajax({
-            url: "item/" + getIdFromUrl(),
+            url: "/colors/" + getIdFromUrl(),
             dataType: "json",
             success: function (data) {
                 JavaObject = data;
                 fillByOject();
             },
             error: function (data) {
-                alert("!ERROR: елемнет фурнитуры получить не удалось:");
+                alert("!ERROR: main image получить не удалось:");
             },
         });
     }
@@ -277,6 +288,8 @@ jQuery("document").ready(function () {
             $("#containsGlassDiv").show();
             $("#additionalTypeDiv").show();
             $("#containsOtherColorDiv").show();
+            $("#limitDiv").show();
+            $("#limitChapter").show();
         } else if (type == "SHIELD_GLASS") {
             $("#containsDesignGlass").show();
         } else if (type == "DOOR_COLOR") {
@@ -294,7 +307,8 @@ jQuery("document").ready(function () {
         $("#containsDesignSwitchDiv").hide();
         $("#outWoodPanelDiv").hide();
         $("#containsOtherColorDiv").hide();
-
+        $("#limitDiv").hide();
+        $("#limitChapter").hide();
     }
 
     function showMask() {
@@ -316,16 +330,15 @@ jQuery("document").ready(function () {
         }
     }
 
-
     function fillByOject() {
         if (JavaObject != null) {
 
             if (JavaObject.typeOfImage != null) {
-                showSettings(JavaObject.typeOfImage);
-                let responce = getImageListFromServer();
+                let responce = getImageFileListFromServer();
                 responce = getImageMaskListFromServer();
                 getShieldGlass();
             }
+            showSettings(JavaObject.typeOfImage);
 
             $("#id").val(JavaObject.id);
             $("#idManufacturerProgram").val(JavaObject.idManufacturerProgram);
@@ -346,8 +359,10 @@ jQuery("document").ready(function () {
                     getTypeListColor();
                     setValueInSelect("#typeOfDoorColor", JavaObject.typeOfDoorColor);
                 } else if (type == "SHIELD_DESIGN") {
-                    getTypeListShield()
+                    getTypeListShield();
                     setValueInSelect("#typeOfDoorColor", JavaObject.typeOfShieldDesign);
+                    const res = getAllImagesFromServer();
+                    getLimitsFromServer();
                 }
             }
 
@@ -367,7 +382,6 @@ jQuery("document").ready(function () {
             showMask();
         }
     }
-
 
     function getShieldGlass() {
         if (JavaObject.typeOfImage == "SHIELD_GLASS") {
@@ -397,7 +411,6 @@ jQuery("document").ready(function () {
                 alert("!ERROR: типы изображений получить не удалось:");
             },
         });
-
     }
 
     function getTypeListColor() {
@@ -486,9 +499,158 @@ jQuery("document").ready(function () {
             }
         });
     }
+
+    function getAllImagesFromServer() {
+        return $.ajax({
+            url: location.origin + "/colors",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                allImageForLimit = data;
+                return data;
+            },
+            error: function (data) {
+                alert("!ERROR: список цветов для ограничений получить не удалось:");
+            },
+        });
+    }
+
+    function saveToServerList(selector) {
+        //delete all
+        const size = javaLimitList.length;
+        javaLimitList.splice(0, size);
+
+        const elemList = $(selector);
+        for (let i = 0; i < elemList.length; ++i) {
+            if ($(elemList[i]).val()) {
+                const id = $(elemList[i]).val();
+                javaLimitList.push({id: id});
+            }
+        }
+    }
+
+    function fillAllSelectLimitByJavaList() {
+        javaLimitList.forEach(function (item, i, arr) {
+            const newLineSelector = createLineLimit();
+            fillSelectLimit(newLineSelector);
+            setValueInSelectInt(newLineSelector, item.id);
+        });
+
+        addLine(".limitLine");
+    }
+
+    function fillSelectLimit(selectName) {
+
+        if (allImageForLimit != null) {
+
+            $(selectName).empty();
+
+            $(selectName).append($("<option></option>"));
+
+            for (var i = 0; i < allImageForLimit.length; ++i) {
+                $(selectName).append(
+                    $("<option value=" + allImageForLimit[i].id + ">" + allImageForLimit[i].name + "</option>")
+                );
+            }
+        }
+    }
+
+    function addLine(selector) {
+        if (isAllLineFill(selector)) {
+            const newLineSelector = createLineLimit();
+            fillSelectLimit(newLineSelector);
+        }
+    }
+
+    function isAllLineFill(selector) {
+        const listElem = $(selector)
+            .filter(function (index) {
+                return $(this).val() == "";
+            })
+
+        return listElem.length == 0;
+    }
+
+    function createLineLimit() {
+        const index = $(".limitLine").length + 1;
+        const id = "limit" + index;
+
+        $("<select>")
+            .attr("class", "form-control limitLine")
+            .attr("id", id)
+            .appendTo("#limitColDiv");
+
+        return "#" + id;
+    }
+
+    function sendLimitToServer(id) {
+        let list = JSON.stringify(javaLimitList);
+
+        return $.ajax({
+            url: "/colors/" + id + "/limitations",
+            method: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: list,
+            async: false,
+            success: function (data) {
+                return data;
+            },
+            error: function (data) {
+                alert("!ERROR: ограничения для дизайна записать не удалось :");
+            },
+        });
+    }
+
+    function sendJavaObjectToServer() {
+        let furniture = JSON.stringify(JavaObject);
+
+        return $.ajax({
+            url: "/colors",
+            method: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: furniture,
+            async: false,
+            success: function (data) {
+                return data;
+            },
+            error: function (data) {
+                alert("!ERROR: елемнет записать не удалось:");
+            },
+        });
+    }
+
+    function setValueInSelectInt(jqSelect, value) {
+        let opt = $(jqSelect + " > option");
+        opt.each(function (indx, element) {
+            if ($(this).val() == value) {
+                $(this).attr("selected", "selected");
+            }
+        });
+    }
+
+    function getLimitsFromServer() {
+        const id = JavaObject.id;
+
+        if (id && id != 0) {
+            $.ajax({
+                url: location.origin + "/colors/" + id + "/limitations",
+                dataType: "json",
+                success: function (data) {
+                    javaLimitList = data;
+                    fillAllSelectLimitByJavaList();
+                },
+                error: function (data) {
+                    alert("!ERROR: ограничения получить не удалось:");
+                },
+            });
+        }
+
+    }
 });
 
 function showPicture(divSelect, value) {
-    $(divSelect).attr("src", "../" + value);
+    $(divSelect).attr("src", "../../" + value);
 }
 

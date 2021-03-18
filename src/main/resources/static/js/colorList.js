@@ -20,7 +20,7 @@ jQuery("document").ready(function () {
     });
 
     $("#addLine").on("click", function () {
-        location.pathname = "/color/0";
+        location.pathname = "/pages/colors/0";
     });
 
     $("#deletLine").on("click", function () {
@@ -30,10 +30,10 @@ jQuery("document").ready(function () {
                 method: "DELETE",
                 dataType: "json",
                 success: function (data) {
-                    if (data.status == null){
+                    if (data.status == null) {
                         alert("этот цвет используеться");
-                    }else {
-                        location.pathname = "/color";
+                    } else {
+                        location.pathname = "/colors";
                     }
 
                 },
@@ -46,22 +46,22 @@ jQuery("document").ready(function () {
         }
     });
 
-  function getFilterByTypeImagesfromUrl() {
-    let searchParams = new URLSearchParams(location.search);
-    if(searchParams.has('typeOfImage')){
-      let filtrValue = searchParams.get('typeOfImage');
-      PageSelector.setValueInSelect("#typeOfImage", filtrValue);
+    function getFilterByTypeImagesfromUrl() {
+        let searchParams = new URLSearchParams(location.search);
+        if (searchParams.has('typeOfImage')) {
+            let filtrValue = searchParams.get('typeOfImage');
+            PageSelector.setValueInSelect("#typeOfImage", filtrValue);
 
-      filterOut();
+            filterOut();
+        }
     }
-  }
 
     function getFilterByTypeImages() {
         return "?typeOfImage=" + $("#typeOfImage").val();
     }
 
     function getItem(id) {
-        location.href = "color/" + id + getFilterByTypeImages();
+        location.href = "/pages/colors/" + id + getFilterByTypeImages();
     }
 
     function oneEnableAllDisable(item) {
@@ -76,7 +76,7 @@ jQuery("document").ready(function () {
 
     function getFilterList() {
         $.ajax({
-            url: "image/types",
+            url: "/image/types",
             dataType: "json",
             success: function (data) {
                 types = data;
