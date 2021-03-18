@@ -34,18 +34,11 @@ public class ColorService {
         return dAO.getImages();
     }
 
-    public List<ImageEntity> getColorsType(Enum type) {
-        List<ImageEntity> list = dAO.getImages();
-        List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getTypeOfImage() == type) {
-                listReturn.add(list.get(i));
-            }
-        }
-        return listReturn;
+    public List<ImageEntity> getImagesByType(TypeOfImage type) {
+        return dAO.getImages(type);
     }
 
-    public List<ImageEntity> getColorsTypeIfContainsGlassTrue(Enum type) {
+    public List<ImageEntity> getColorsTypeIfContainsGlassTrue(TypeOfImage type) {
         List<ImageEntity> list = dAO.getImagesContainsGlass();
         List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
         for (int i = 0; i < list.size(); i++) {
@@ -65,14 +58,13 @@ public class ColorService {
         return dAO.getColorById(Integer.parseInt(id)).clearNonSerializingFields();
     }
 
-    public String saveColor(@NonNull ImageEntity colors) {
+    public ImageEntity saveColor(@NonNull ImageEntity colors) {
         String colorPath = colors.getPicturePath();
         String colorDirectory = colors.getTypeOfImage().getPath();
         if (colorPath != null && !colorPath.contains(colorDirectory)) {
             colors.setPicturePath(colorDirectory + addFileExtension(colorPath, FileExtensionByImageType(colors.getTypeOfImage())));
         }
-        dAO.saveColors(colors);
-        return "ok";
+        return dAO.saveColors(colors);
     }
 
     public String deleteColor(@NonNull String id) {

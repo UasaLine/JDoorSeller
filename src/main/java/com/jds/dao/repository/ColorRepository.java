@@ -2,7 +2,6 @@ package com.jds.dao.repository;
 
 import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.LimitationColors;
-import com.jds.model.image.Image;
 import com.jds.model.image.TypeOfDoorColor;
 import com.jds.model.image.TypeOfImage;
 import com.jds.model.image.TypeOfShieldDesign;
@@ -65,26 +64,26 @@ public class ColorRepository {
     }
 
     public List<ImageEntity> getDoorColors() {
-        return getImage(TypeOfImage.DOOR_COLOR);
+        return getImages(TypeOfImage.DOOR_COLOR);
     }
 
     public List<ImageEntity> getDoorDesign() {
-        return getImage(TypeOfImage.DOOR_DESIGN);
+        return getImages(TypeOfImage.DOOR_DESIGN);
     }
 
     public List<ImageEntity> getShieldColor() {
-        return getImage(TypeOfImage.SHIELD_COLOR);
+        return getImages(TypeOfImage.SHIELD_COLOR);
     }
 
     public List<ImageEntity> getShieldDesign() {
-        return getImage(TypeOfImage.SHIELD_DESIGN);
+        return getImages(TypeOfImage.SHIELD_DESIGN);
     }
 
     public List<ImageEntity> getShieldGlass() {
-        return getImage(TypeOfImage.SHIELD_GLASS);
+        return getImages(TypeOfImage.SHIELD_GLASS);
     }
 
-    private List<ImageEntity> getImage(TypeOfImage typeImage) {
+    public List<ImageEntity> getImages(TypeOfImage typeImage) {
 
         Session session = sessionFactory.openSession();
 
@@ -93,11 +92,13 @@ public class ColorRepository {
         Query query = session.createSQLQuery(sql)
                 .addEntity(ImageEntity.class)
                 .setParameter("typeofimage", typeImage.toString());
-        List<ImageEntity> doorColorsList = query.list();
+        List<ImageEntity> imageList = query.list();
 
         session.close();
 
-        return doorColorsList;
+        imageList.forEach(image -> image.clearNonSerializingFields());
+
+        return imageList;
     }
 
     public List<ImageEntity> getImages() {
@@ -220,7 +221,10 @@ public class ColorRepository {
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void putLimitation(LimitationColors lim) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(lim);
     }
 
     public String deleteLimit(List<LimitationColors> LimList) {
