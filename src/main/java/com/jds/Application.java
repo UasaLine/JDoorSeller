@@ -33,6 +33,9 @@ public class Application {
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
+
+        System.out.println(" *********** SQL ***********"+dataSource.toString());
+
         Properties properties = new Properties();
 
         // See: application.properties
