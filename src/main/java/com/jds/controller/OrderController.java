@@ -71,7 +71,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
     public ResponseList<DoorOrder> getOrders(@RequestParam(required = false, defaultValue = "DATE") OrderSortField sort_field,
                                              @RequestParam(required = false, defaultValue = "DESC") SideSqlSorting sort_side,
