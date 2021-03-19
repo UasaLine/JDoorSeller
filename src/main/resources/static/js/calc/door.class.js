@@ -584,28 +584,27 @@ class Door {
     }
 
     static createShieldOverColor(containerLeaf, door) {
-        if (door.shieldKit != null && door.shieldKit.shieldColor != null) {
-            if (door.shieldKit.shieldDesign) {
-                if (door.shieldKit.shieldDesign.containsOtherColor == 1) {
-                    let scaleX = Door.reflectionPicture(door);
+        if (door.shieldKit != null &&
+            door.shieldKit.shieldColor != null &&
+            door.shieldKit.shieldDesign &&
+            door.shieldKit.shieldDesign.containsOtherColor == 1) {
+            let scaleX = Door.reflectionPicture(door);
 
-                    let pathImage = null;
-                    let pathMask =null;
-                    if (door.shieldKit.shieldOverColor != null){
-                        pathImage = door.shieldKit.shieldOverColor.picturePath;
-                        pathMask = door.shieldKit.shieldDesign.maskPath;
-                    }
-                    $("<img>")
-                        .attr("class", "shield_over_color")
-                        .attr("src", Door.dirPath + pathImage)
-                        .attr(
-                            "style",
-                            "-webkit-mask-box-image: url(" + Door.dirPath + pathMask + ");" +
-                            "transform: scale(" + scaleX + ", 1)"
-                        )
-                        .appendTo(containerLeaf);
-                }
+            let pathImage = null;
+            let pathMask = null;
+            if (door.shieldKit.shieldOverColor != null) {
+                pathImage = door.shieldKit.shieldOverColor.picturePath;
+                pathMask = door.shieldKit.shieldDesign.maskPath;
             }
+            $("<img>")
+                .attr("class", "shield_over_color")
+                .attr("src", Door.dirPath + pathImage)
+                .attr(
+                    "style",
+                    "-webkit-mask-box-image: url(" + Door.dirPath + pathMask + ");" +
+                    "transform: scale(" + scaleX + ", 1)"
+                )
+                .appendTo(containerLeaf);
         }
     }
 
