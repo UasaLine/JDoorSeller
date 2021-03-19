@@ -668,7 +668,10 @@ jQuery("document").ready(function () {
 
     function displayPrice() {
         if (door.priceWithMarkup != 0){
-            $("#price").text(door.priceWithMarkup);
+            let str = String(door.priceWithMarkup);
+            let str1 = str.slice(str.length-3, str.length);
+            let str2 = str.slice(0 , str.length-3);
+            $("#price").text(str2 + " " + str1);
             $("<span>").attr("class" , "rub").text("Р").appendTo("#price");
         }
         //door.costList.totalCost;
