@@ -255,13 +255,22 @@ stainlessSteelDoorstep
     z-index: 100;
 }
 
+.shield_over_color {
+    top: 3.5%;
+    left: 9%;
+    height: 92.5%;
+    width: 82.5%;
+    position: absolute;
+    z-index: 110;
+}
+
 .shield_design {
     top: 3.5%;
     left: 9%;
     height: 92.5%;
     width: 82.5%;
     position: absolute;
-    z-index: 101;
+    z-index: 102;
 }
 
 .shield_glass {
