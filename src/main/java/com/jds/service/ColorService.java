@@ -1,6 +1,6 @@
 package com.jds.service;
 
-import com.jds.controller.OrderController;
+import com.jds.dao.entity.LimitationColors;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,18 +34,11 @@ public class ColorService {
         return dAO.getImages();
     }
 
-    public List<ImageEntity> getColorsType(Enum type) {
-        List<ImageEntity> list = dAO.getImages();
-        List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getTypeOfImage() == type) {
-                listReturn.add(list.get(i));
-            }
-        }
-        return listReturn;
+    public List<ImageEntity> getImagesByType(TypeOfImage type) {
+        return dAO.getImages(type);
     }
 
-    public List<ImageEntity> getColorsTypeIfContainsGlassTrue(Enum type) {
+    public List<ImageEntity> getColorsTypeIfContainsGlassTrue(TypeOfImage type) {
         List<ImageEntity> list = dAO.getImagesContainsGlass();
         List<ImageEntity> listReturn = new ArrayList<ImageEntity>();
         for (int i = 0; i < list.size(); i++) {
@@ -67,14 +58,13 @@ public class ColorService {
         return dAO.getColorById(Integer.parseInt(id)).clearNonSerializingFields();
     }
 
-    public String saveColor(@NonNull ImageEntity colors) {
+    public ImageEntity saveColor(@NonNull ImageEntity colors) {
         String colorPath = colors.getPicturePath();
         String colorDirectory = colors.getTypeOfImage().getPath();
         if (colorPath != null && !colorPath.contains(colorDirectory)) {
             colors.setPicturePath(colorDirectory + addFileExtension(colorPath, FileExtensionByImageType(colors.getTypeOfImage())));
         }
-        dAO.saveColors(colors);
-        return "ok";
+        return dAO.saveColors(colors);
     }
 
     public String deleteColor(@NonNull String id) {
@@ -189,5 +179,29 @@ public class ColorService {
                 .map(lim -> dAO.getColorById(lim.getItemId()))
                 .filter(elem -> elem.getTypeOfShieldDesign() == type)
                 .collect(Collectors.toList());
+    }
+
+
+    public List<ImageEntity> fineLimitationByMasterId(int id) {
+        List<LimitationColors> limList = dAO.fineLimitationByMasterId(id);
+        return limList.stream()
+                .map(lim -> dAO.getColorById(lim.getSlaveId()))
+                .collect(Collectors.toList());
+    }
+
+    public void putLimitationByMasterId(int id, List<ImageEntity> limList) {
+
+        deleteLimitationByMasterId(id);
+
+        ImageEntity master = new ImageEntity(id);
+        for (ImageEntity lim : limList) {
+            dAO.putLimitation(new LimitationColors(master, lim));
+        }
+
+    }
+
+    public void deleteLimitationByMasterId(int id) {
+        List<LimitationColors> oldLimList = dAO.fineLimitationByMasterId(id);
+        dAO.deleteLimit(oldLimList);
     }
 }

@@ -4,20 +4,20 @@
 <head>
     <title>door seller</title>
     <!-- Подключаем Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../css/bootstrap-4.3.1css/bootstrap.min.css">
 
     <!-- your personal CSS -->
-    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="../js/color.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/logoSett.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/displayCss.css"/>
+    <script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../js/color.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/displayCss.css"/>
 
 </head>
 <body>
 
 <div class="top_head">
     <div class="container-fluid" id="intro-dm">
-        <a th:href="@{/}"><img src="../images/Header_widht_1300_002 ltl.jpg"></a>
+        <a th:href="@{/}"><img src="../../images/Header_widht_1300_002 ltl.jpg"></a>
     </div>
 </div>
 
@@ -134,7 +134,8 @@
                     <input type="checkbox" class="custom-control-input topLockLineCheckbox" id="containsOtherColor">
                     <label class="custom-control-label" for="containsOtherColor">содержит дополнительный цвет</label>
                 </div>
-                <small class="form-text text-muted">добавляет возможность указать маску для выбора дополнительного цвета</small>
+                <small class="form-text text-muted">добавляет возможность указать маску для выбора дополнительного
+                    цвета</small>
             </div>
 
             <!--maskPath-->
@@ -161,7 +162,7 @@
 
             <!--picturePath-->
             <div class="col-md-6 mb-3">
-                <label for="picturePath">Картинка:</label>
+
                 <select class="form-control" id="picturePath" Enter type></select>
                 <small class="form-text text-muted">цвет для выбора и отображения в заказах.</small>
                 <br>
@@ -173,6 +174,15 @@
 
         </div>
 
+        <h4 class="chapter" id="limitChapter">Ограничения</h4>
+        <br>
+
+        <div class="form-group" id="limitDiv">
+            <!--limit-->
+            <div class="col-md-6 mb-3" id="limitColDiv">
+                <label for="picturePath">Ограничить выбор этими цветами:</label>
+            </div>
+        </div>
 
         <h4 class="chapter">Настройки стоимости</h4>
         <br>
@@ -186,6 +196,7 @@
                 <small id="priceHelp" class="form-text text-muted">Цена за метр квадратный.</small>
             </div>
         </div>
+
 
     </div>
 </div>

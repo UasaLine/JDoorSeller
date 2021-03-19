@@ -612,7 +612,7 @@ class Door {
 
     static getColorInstans() {
         $.ajax({
-            url: location.origin + "/color/doorColors",
+            url: location.origin + "/colors",
             dataType: "json",
             success: function (data) {
                 Door.listColorsEntity = data;
