@@ -39,7 +39,7 @@ public class DoorOrder {
     @Column(name = "productionStart")
     private int productionStart;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "doors_orders",
             joinColumns = {@JoinColumn(name = "order_id")},
@@ -139,6 +139,11 @@ public class DoorOrder {
         for (DoorEntity door : doors) {
             door.clearNonSerializingFields();
         }
+    }
+
+    public void clearLAZY() {
+        seller.setOrders(null);
+        doors = null;
     }
 
     public boolean isSellerOrderIdExists() {
