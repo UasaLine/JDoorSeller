@@ -686,9 +686,24 @@ jQuery("document").ready(function () {
         location.href = location.origin + '/doors/' + doorId + "/page?orderId=" + orderId;
     }
 
+    function priceToString(price) {
+        let str = String(price);
+        let str3 = str.slice(str.length-3, str.length);
+        let str2 = str.slice(0 , str.length-3);
+        let str1 = "";
+        if (str2.length > 3){
+            str2 = str.slice(str.length-6, str.length-3);
+            str1 = str.slice(0, str.length-6);
+            return str1 + "'" + str2 + "'" + str3;
+        } else {
+            return str2 + "'" + str3;
+        }
+    }
+
     function displayPrice() {
         if (door.priceWithMarkup != 0){
-            $("#price").text(door.priceWithMarkup);
+            let price = priceToString(door.priceWithMarkup);
+            $("#price").text(price);
             $("<span>").attr("class" , "rub").text("Р").appendTo("#price");
         }
         //door.costList.totalCost;
@@ -810,7 +825,7 @@ jQuery("document").ready(function () {
                         $("#images" + nameJava + "Img" + i).attr(
                             "src",
                             parentDir + tab[a].picturePath
-                        );
+                        )
                     }
                 }
 
