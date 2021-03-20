@@ -11,6 +11,7 @@ const parentDir = "../../";
 let blockDoorStep = false;
 let currentNumberSize = 0;
 let currentColorType = null;
+let javaLimitList = [];
 
 
 jQuery("document").ready(function () {
@@ -185,14 +186,13 @@ jQuery("document").ready(function () {
 
         if (nameJavaField == "shieldColor") {
             clearRelatedFieldsForImage(javaObject);
-        }
-
-        if (nameJavaField == "shieldDesign") {
+        } else if (nameJavaField == "shieldDesign") {
             clearGlass(javaObject);
+            clearShieldKitField(javaObject, "shieldOverColor");
         }
 
-        if (nameJavaField == "shieldDesign") {
-            clearShieldKitField(javaObject, "shieldOverColor");
+        if (javaObject && javaObject.containsLimit == 1) {
+            fillColorsByLimit(javaObject.id);
         }
 
         RepresentationManager.showAllFieldsValues(door);
@@ -538,6 +538,18 @@ jQuery("document").ready(function () {
 
     });
 
+    $(".toolbarType").on("click", ".toolbarTypeButton", function () {
+
+        if (currentItem == "doorColor") {
+            currentColorType = $(this).attr('data');
+            getColorByTypeOfDoor($(this).attr('data'));
+        } else if (currentItem == "shieldDesign") {
+            currentColorType = $(this).attr('data');
+            getShieldByTypeOfDoor($(this).attr('data'));
+        }
+
+    });
+
 //--------------------------------------
 //setter
 //--------------------------------------
@@ -595,15 +607,23 @@ jQuery("document").ready(function () {
                 return tab[i];
             }
         }
+
+        sizeRest = javaLimitList.length;
+        tab = javaLimitList;
+        for (var i = 0; i < sizeRest; ++i) {
+            if (tab[i].id == id) {
+                return tab[i];
+            }
+        }
         return null;
     }
 
     function findColorObjectByName(name) {
         let tab = [];
 
-        if (Door.listColorsEntity && Door.listColorsEntity.length > 0){
-            tab = Door.listColorsEntity.filter(function (color){
-               return color.name == name;
+        if (Door.listColorsEntity && Door.listColorsEntity.length > 0) {
+            tab = Door.listColorsEntity.filter(function (color) {
+                return color.name == name;
             })
         }
 
@@ -688,12 +708,12 @@ jQuery("document").ready(function () {
 
     function priceToString(price) {
         let str = String(price);
-        let str3 = str.slice(str.length-3, str.length);
-        let str2 = str.slice(0 , str.length-3);
+        let str3 = str.slice(str.length - 3, str.length);
+        let str2 = str.slice(0, str.length - 3);
         let str1 = "";
-        if (str2.length > 3){
-            str2 = str.slice(str.length-6, str.length-3);
-            str1 = str.slice(0, str.length-6);
+        if (str2.length > 3) {
+            str2 = str.slice(str.length - 6, str.length - 3);
+            str1 = str.slice(0, str.length - 6);
             return str1 + "'" + str2 + "'" + str3;
         } else {
             return str2 + "'" + str3;
@@ -701,10 +721,10 @@ jQuery("document").ready(function () {
     }
 
     function displayPrice() {
-        if (door.priceWithMarkup != 0){
+        if (door.priceWithMarkup != 0) {
             let price = priceToString(door.priceWithMarkup);
             $("#price").text(price);
-            $("<span>").attr("class" , "rub").text("Р").appendTo("#price");
+            $("<span>").attr("class", "rub").text("Р").appendTo("#price");
         }
         //door.costList.totalCost;
         $(".decryption").remove();
@@ -1560,7 +1580,16 @@ jQuery("document").ready(function () {
             currentItemForDisplay = $("#nameshieldKit").html();
 
             currentItemForDisplayId = "shieldKit";
-            displayImage("shieldColor", availableFurnitureList.shieldColor, 0);
+            let colorsList = [];
+            if (door.shieldKit &&
+                door.shieldKit.shieldDesign &&
+                door.shieldKit.shieldDesign.containsLimit == 1) {
+                colorsList = javaLimitList;
+            } else {
+                colorsList = availableFurnitureList.shieldColor;
+            }
+
+            displayImage("shieldColor", colorsList, 0);
             PaginationPage.show();
         } else {
             $(".select_shieldColor").attr("show", "ghost_lement");
@@ -2006,7 +2035,7 @@ jQuery("document").ready(function () {
     function getColorByTypeOfDoor(type, bias = 0) {
         doorTypeId = door.doorType.id;
         $.ajax({
-            url: location.origin + '/doorType/'+ doorTypeId + '/' + type + '/colors',
+            url: location.origin + '/doorType/' + doorTypeId + '/' + type + '/colors',
             dataType: "json",
             success: function (data) {
                 displayColor("doorColor", data, bias);
@@ -2016,18 +2045,6 @@ jQuery("document").ready(function () {
             },
         });
     }
-
-    $(".toolbarType").on("click", ".toolbarTypeButton", function () {
-
-        if (currentItem == "doorColor") {
-            currentColorType = $(this).attr('data');
-            getColorByTypeOfDoor($(this).attr('data'));
-        } else if (currentItem == "shieldDesign") {
-            currentColorType = $(this).attr('data');
-            getShieldByTypeOfDoor($(this).attr('data'));
-        }
-
-    });
 
     function getAllTypeShieldDesign() {
         $.ajax({
@@ -2049,7 +2066,7 @@ jQuery("document").ready(function () {
     function getShieldByTypeOfDoor(type, bias = 0) {
         doorTypeId = door.doorType.id;
         $.ajax({
-            url: location.origin + '/doorType/'+ doorTypeId + '/' + type + '/shield-design',
+            url: location.origin + '/doorType/' + doorTypeId + '/' + type + '/shield-design',
             dataType: "json",
             success: function (data) {
                 displayImage("shieldDesign", data, bias);
@@ -2060,4 +2077,31 @@ jQuery("document").ready(function () {
         });
     }
 
+    function fillColorsByLimit(id) {
+        getLimitsFromServer(id);
+    }
+
+    function getLimitsFromServer(id) {
+        if (id && id != 0) {
+            $.ajax({
+                url: location.origin + "/colors/" + id + "/limitations",
+                dataType: "json",
+                success: function (data) {
+                    javaLimitList = data;
+                    if (javaLimitList && javaLimitList.length > 0) {
+                        const colorFromLimit = javaLimitList[0];
+                        setDoorFurnitureByObject(colorFromLimit, "shieldColor", door.shieldKit);
+                        clearRelatedFieldsForImage(colorFromLimit);
+                        RepresentationManager.showAllFieldsValues(door);
+                        alert("Для выбраного дизайна ограничен выбор цветов!");
+                        fillChildBlockShield("shieldColor");
+                    }
+                },
+                error: function (data) {
+                    alert("!ERROR: ограничения получить не удалось:");
+                },
+            });
+        }
+
+    }
 });
