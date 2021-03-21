@@ -1888,28 +1888,33 @@ jQuery("document").ready(function () {
                 fillInFurniture("outShieldColor");
                 fillInFurniture("outShieldDesign");
             } else {
-                $("#outShieldMenuButton").hide();
-                $("#collapseTen").hide();
-
-                clearFromBlock(".outShieldColorSelect", ".outShieldColorLineCheckbox");
-                clearFromBlock(".outShieldDesignSelect", ".outShieldDesignLineCheckbox");
-                clearTemplateArrayByFieldName("outShieldColor");
-                clearTemplateArrayByFieldName("outShieldDesign");
+                clearOutShield();
             }
+        }else {
+            clearOutShield();
         }
+    }
 
+    function clearOutShield() {
+        $("#outShieldMenuButton").hide();
+        $("#collapseTen").hide();
+
+        clearFromBlock(".outShieldColorSelect", ".outShieldColorLineCheckbox");
+        clearFromBlock(".outShieldDesignSelect", ".outShieldDesignLineCheckbox");
+        clearTemplateArrayByFieldName("outShieldColor");
+        clearTemplateArrayByFieldName("outShieldDesign");
     }
 
     function getImageEntity(id) {
         return $.ajax({
-            url: location.origin + "/color/item/" + id,
+            url: location.origin + "/colors/" + id,
             dataType: "json",
             async: false,
             success: function (color) {
                 return color;
             },
             error: function (data) {
-                alert("!ERROR: imageEntity по itemId получить не удалось:");
+                alert("!ERROR: imageEntity по id получить не удалось:");
             },
         });
     }
