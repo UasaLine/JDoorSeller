@@ -88,7 +88,7 @@ public class ColorRepository {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from door_colors where typeofimage like :typeofimage";
+        sql = "select * from door_colors where typeofimage like :typeofimage ORDER BY name ASC ";
         Query query = session.createSQLQuery(sql)
                 .addEntity(ImageEntity.class)
                 .setParameter("typeofimage", typeImage.toString());
