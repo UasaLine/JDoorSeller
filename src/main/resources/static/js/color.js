@@ -121,6 +121,7 @@ jQuery("document").ready(function () {
     $("#containsOtherColor").change(function () {
         if ($(this).is(":checked")) {
             setField("containsOtherColor", 1);
+            getImageMaskListFromServer();
         } else {
             setField("containsOtherColor", 0);
             setField("maskPath", "");
@@ -503,7 +504,7 @@ jQuery("document").ready(function () {
 
     function getAllImagesFromServer() {
         return $.ajax({
-            url: location.origin + "/colors",
+            url: location.origin + "/colors?type=SHIELD_COLOR",
             dataType: "json",
             async: false,
             success: function (data) {

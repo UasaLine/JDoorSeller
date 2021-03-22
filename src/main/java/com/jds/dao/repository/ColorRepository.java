@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -96,9 +97,10 @@ public class ColorRepository {
 
         session.close();
 
-        imageList.forEach(image -> image.clearNonSerializingFields());
-
-        return imageList;
+        return imageList.stream()
+                .sorted()
+                .map(image -> image.clearNonSerializingFields())
+                .collect(Collectors.toList());
     }
 
     public List<ImageEntity> getImages() {

@@ -513,12 +513,12 @@ jQuery("document").ready(function () {
 
 
     $(".toolbarPage").on("click", ".toolbarPageButton", function () {
-        if (currentItem == "doorColor") {
-            if (currentColorType) {
-                getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
-            }
-        } else if (currentItem == "shieldColor" || currentItem == "shieldDesign") {
+        if (currentItem == "doorColor" && currentColorType) {
+            getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
+        } else if (currentItem == "shieldDesign") {
             getShieldByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
+        } else if (currentItem == "shieldColor") {
+            displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
         } else if (currentItem == "topLock" ||
             currentItem == "lowerLock" ||
             currentItem == "handle" ||

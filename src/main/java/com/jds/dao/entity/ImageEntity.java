@@ -93,7 +93,8 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         pricePaintingMeterOfSpace = 0;
         smooth = 0;
     }
-    public ImageEntity(int id){
+
+    public ImageEntity(int id) {
         this.id = id;
     }
 
@@ -109,14 +110,15 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
 
     @Override
     public int compareTo(ImageEntity imageEntity) {
-        return imageEntity.getName().toUpperCase().compareTo(this.getName().toUpperCase());
+        return name.compareTo(imageEntity.getName());
     }
 
-    public String getViewAdditionalType(){
+    public String getViewAdditionalType() {
 
-        if (typeOfImage == TypeOfImage.DOOR_COLOR){
+        if (typeOfImage == TypeOfImage.DOOR_COLOR) {
             return typeOfDoorColor != null ? typeOfDoorColor.toString() : "";
-        } if(typeOfImage == TypeOfImage.SHIELD_DESIGN){
+        }
+        if (typeOfImage == TypeOfImage.SHIELD_DESIGN) {
             return typeOfShieldDesign != null ? typeOfShieldDesign.toString() : "";
         }
         return "";
