@@ -504,7 +504,7 @@ jQuery("document").ready(function () {
 
     function getAllImagesFromServer() {
         return $.ajax({
-            url: location.origin + "/colors",
+            url: location.origin + "/colors?type=SHIELD_COLOR",
             dataType: "json",
             async: false,
             success: function (data) {
