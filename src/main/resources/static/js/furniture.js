@@ -1,8 +1,10 @@
 jQuery("document").ready(function () {
-    var furnitureJavaObject;
-    var types;
+    let furnitureJavaObject;
+    let types;
+    let sketchPathList = [];
+    let picPathList = [];
 
-    //new instans
+    //new instance
     getFurnitureJavaObject();
 
     $("#idManufacturFurniture").change(function () {
@@ -15,6 +17,8 @@ jQuery("document").ready(function () {
 
     $("#typeOfFurniture").change(function () {
         setField("typeOfFurniture", $("#typeOfFurniture").val());
+        getPicPathFromServer();
+        getSketchPathFromServer();
     });
 
     $("#itCylinderLock").on("click", function () {
@@ -30,11 +34,23 @@ jQuery("document").ready(function () {
     });
 
     $("#picturePathFirst").change(function () {
-        setField("picturePathFirst", $("#picturePathFirst").val());
+        if ($("#picturePath").val() != "") {
+            setField("picturePathFirst", getPictureColor($("#picturePathFirst").val(), picPathList).path);
+            showPicture("#picturePathFirstSrc", getPictureColor($("#picturePathFirst").val(), picPathList).path);
+        } else {
+            setField("picturePathFirst", "");
+            showPicture("#picturePathFirstSrc", "");
+        }
     });
 
     $("#sketchPathFirst").change(function () {
-        setField("sketchPathFirst", $("#sketchPathFirst").val());
+        if ($("#picturePath").val() != "") {
+            setField("sketchPathFirst", getPictureColor($("#sketchPathFirst").val(), sketchPathList).path);
+            showPicture("#sketchPathFirstSrc", getPictureColor($("#sketchPathFirst").val(), sketchPathList).path);
+        } else {
+            setField("sketchPathFirst", "");
+            showPicture("#sketchPathFirstSrc", "");
+        }
     });
 
     $("#price").change(function () {
@@ -130,12 +146,25 @@ jQuery("document").ready(function () {
             );
             $("#nameFurniture").val(furnitureJavaObject.name);
             setValueInSelect("#typeOfFurniture", furnitureJavaObject.typeOfFurniture);
+            if (furnitureJavaObject.typeOfFurniture) {
+                let responce = getPicPathFromServer();
+                responce = getSketchPathFromServer();
+            }
             setCheckBox("#itCylinderLock", furnitureJavaObject.itCylinderLock);
             $("#comment").val(furnitureJavaObject.comment);
-            $("#picturePathFirst").val(furnitureJavaObject.picturePathFirst);
-            $("#sketchPathFirst").val(furnitureJavaObject.sketchPathFirst);
+
             $("#price").val(furnitureJavaObject.price);
             $("#priceComit").val(furnitureJavaObject.priceComit);
+
+            setValueInSelect("#picturePathFirst", getPictureColorPath(
+                furnitureJavaObject.picturePathFirst,
+                picPathList).id);
+            setValueInSelect("#sketchPathFirst", getPictureColorPath(
+                furnitureJavaObject.sketchPathFirst,
+                sketchPathList).id);
+
+            showPicture("#sketchPathFirstSrc", furnitureJavaObject.sketchPathFirst);
+            showPicture("#picturePathFirstSrc", furnitureJavaObject.picturePathFirst);
         }
     }
 
@@ -170,5 +199,81 @@ jQuery("document").ready(function () {
         if (value == 1) {
             $(name).prop("checked", true);
         }
+    }
+
+    function showPicture(divSelect, value) {
+        $(divSelect).attr("src", "../" + value);
+    }
+
+    function getPicPathFromServer() {
+        let type = furnitureJavaObject.typeOfFurniture;
+        if (type) {
+            return $.ajax({
+                url: "/furniture/pic/path/" + type,
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    picPathList = data;
+                    fillInSelector("#picturePathFirst", data);
+                    return data;
+                },
+                error: function (data) {
+                    alert("!ERROR: список картинок получить не удалось:");
+                },
+            });
+        }
+    }
+
+    function getSketchPathFromServer() {
+        let type = furnitureJavaObject.typeOfFurniture;
+        if (type) {
+            return $.ajax({
+                url: "/furniture/sketch/path/" + type,
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    sketchPathList = data;
+                    fillInSelector("#sketchPathFirst", data);
+                    return data;
+                },
+                error: function (data) {
+                    alert("!ERROR: список картинок получить не удалось:");
+                },
+            });
+        }
+    }
+
+    function fillInSelector(selectName, types) {
+        if (types != null) {
+            $(selectName).empty();
+
+            $(selectName).append($("<option></option>"));
+
+            for (var i = 0; i < types.length; ++i) {
+                $(selectName).append(
+                    $("<option value=" + types[i].id + ">" + types[i].name + "</option>")
+                );
+            }
+
+        }
+    }
+
+    function getPictureColor(idPicture, picturesList) {
+        for (let i = 0; i < picturesList.length; i++) {
+            if (picturesList[i].id == idPicture) {
+                return picturesList[i];
+            }
+        }
+    }
+
+    function getPictureColorPath(pathPicture, list) {
+        if (list) {
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].path == pathPicture) {
+                    return list[i];
+                }
+            }
+        }
+        return {id: 0};
     }
 });
