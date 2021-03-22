@@ -57,7 +57,7 @@ public class OrderDAO {
                 .setFirstResult(offset * limit)
                 .getResultList();
 
-        list.forEach(DoorOrder::clearNonSerializingFields);
+        list.forEach(DoorOrder::clearLAZY);
 
         session.close();
         return list;
@@ -97,10 +97,10 @@ public class OrderDAO {
                 .setParameter("status", status);
 
         List<DoorOrder> list = query.list();
+        list.forEach(DoorOrder::clearNonSerializingFields);
 
         session.close();
 
-        list.forEach(DoorOrder::clearNonSerializingFields);
         return list;
 
     }
@@ -116,8 +116,9 @@ public class OrderDAO {
 
         List<DoorOrder> list = query.list();
 
-        session.close();
         list.forEach(DoorOrder::clearNonSerializingFields);
+        session.close();
+
         return list;
     }
 
@@ -161,14 +162,13 @@ public class OrderDAO {
                 .setParameter("log", id);
         List<DoorOrder> list = query.list();
 
-        session.close();
-
         DoorOrder order = null;
         if (list.size() > 0) {
             order = list.get(0);
+            order.clearNonSerializingFields();
         }
+        session.close();
 
-        order.clearNonSerializingFields();
         return order;
     }
 

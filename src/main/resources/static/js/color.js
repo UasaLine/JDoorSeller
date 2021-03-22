@@ -519,12 +519,14 @@ jQuery("document").ready(function () {
         //delete all
         const size = javaLimitList.length;
         javaLimitList.splice(0, size);
+        setContainsLimitFalse();
 
         const elemList = $(selector);
         for (let i = 0; i < elemList.length; ++i) {
             if ($(elemList[i]).val()) {
                 const id = $(elemList[i]).val();
                 javaLimitList.push({id: id});
+                setContainsLimitTrue();
             }
         }
     }
@@ -647,6 +649,16 @@ jQuery("document").ready(function () {
             });
         }
 
+    }
+
+    function setContainsLimitTrue() {
+        if (JavaObject.containsLimit == 0) {
+            JavaObject.containsLimit = 1;
+        }
+    }
+
+    function setContainsLimitFalse() {
+        JavaObject.containsLimit = 0;
     }
 });
 

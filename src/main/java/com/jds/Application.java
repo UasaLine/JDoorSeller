@@ -33,6 +33,7 @@ public class Application {
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
+
         Properties properties = new Properties();
 
         // See: application.properties

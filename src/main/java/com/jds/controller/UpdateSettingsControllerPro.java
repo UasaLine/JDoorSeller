@@ -177,8 +177,13 @@ public class UpdateSettingsControllerPro {
         return "jr";
     }
 
+    @PostMapping(value = "/update/colors/path", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateSalarySetting() throws Exception {
 
+        colorService.fixPath();
 
-
+        return "ok";
+    }
 
 }

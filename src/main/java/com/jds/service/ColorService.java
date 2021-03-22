@@ -204,4 +204,30 @@ public class ColorService {
         List<LimitationColors> oldLimList = dAO.fineLimitationByMasterId(id);
         dAO.deleteLimit(oldLimList);
     }
+
+    public void fixPath() {
+        List<ImageEntity> list = dAO.getImages();
+        for (ImageEntity image : list) {
+            boolean needSave = false;
+            String path = image.getPicturePath();
+            if (path != null && path.contains("shield sketch")) {
+                String newPath = path.replace("shield sketch", "shield-sketch");
+                image.setPicturePath(newPath);
+                needSave = true;
+                logger.info(newPath);
+            }
+            path = image.getMaskPath();
+            if (path != null && path.contains("shield sketch")) {
+                String newPath = path.replace("shield sketch", "shield-sketch");
+                image.setMaskPath(newPath);
+                needSave = true;
+                logger.info(newPath);
+            }
+
+            if (needSave) {
+                dAO.saveColors(image);
+                logger.info(image.toString());
+            }
+        }
+    }
 }
