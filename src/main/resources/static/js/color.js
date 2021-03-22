@@ -121,6 +121,7 @@ jQuery("document").ready(function () {
     $("#containsOtherColor").change(function () {
         if ($(this).is(":checked")) {
             setField("containsOtherColor", 1);
+            getImageMaskListFromServer();
         } else {
             setField("containsOtherColor", 0);
             setField("maskPath", "");
