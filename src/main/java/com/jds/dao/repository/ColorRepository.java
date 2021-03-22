@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -88,7 +89,7 @@ public class ColorRepository {
         Session session = sessionFactory.openSession();
 
         String sql;
-        sql = "select * from door_colors where typeofimage like :typeofimage ORDER BY name ASC ";
+        sql = "select * from door_colors where typeofimage like :typeofimage";
         Query query = session.createSQLQuery(sql)
                 .addEntity(ImageEntity.class)
                 .setParameter("typeofimage", typeImage.toString());
@@ -96,9 +97,10 @@ public class ColorRepository {
 
         session.close();
 
-        imageList.forEach(image -> image.clearNonSerializingFields());
-
-        return imageList;
+        return imageList.stream()
+                .sorted()
+                .map(image -> image.clearNonSerializingFields())
+                .collect(Collectors.toList());
     }
 
     public List<ImageEntity> getImages() {
