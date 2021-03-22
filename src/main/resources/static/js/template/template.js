@@ -1890,7 +1890,7 @@ jQuery("document").ready(function () {
             } else {
                 clearOutShield();
             }
-        }else {
+        } else {
             clearOutShield();
         }
     }
@@ -1920,7 +1920,7 @@ jQuery("document").ready(function () {
     }
 
     function clearTemplateArrayByFieldName(nameField) {
-        var size = template[nameFieldJavaObject].length;
-        template[nameFieldJavaObject].splice(0, size);
+        var size = template[nameField].length;
+        template[nameField].splice(0, size);
     }
 });
