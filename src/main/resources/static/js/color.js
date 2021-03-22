@@ -101,6 +101,7 @@ jQuery("document").ready(function () {
     $("#outWoodPanel").change(function () {
         if ($(this).is(":checked")) {
             setField("containsWoodPanel", 1);
+            getImageMaskListFromServer();
         } else {
             setField("containsWoodPanel", 0);
             setField("maskPath", "");
