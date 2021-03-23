@@ -5,6 +5,7 @@ import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.image.ColorPicture;
 import com.jds.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -80,14 +81,19 @@ public class FurnitureController {
 
     }
 
-    //@todo dell only for test
-    @GetMapping(value = "/furniture/setting")
+    @GetMapping(value = "/furniture/pic/path/{type}")
     @ResponseBody
-    public ResponseModel setting() {
+    public List<ColorPicture> getPicFilePathByType(@PathVariable TypeOfFurniture type) {
 
-        return new ResponseModel(service.setting());
+        return service.getPicByType(type);
 
     }
+    @GetMapping(value = "/furniture/sketch/path/{type}")
+    @ResponseBody
+    public List<ColorPicture> getSketchFilePathByType(@PathVariable TypeOfFurniture type) {
 
+        return service.getSketchByType(type);
+
+    }
 
 }

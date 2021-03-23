@@ -10,6 +10,7 @@ import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.backResponse.Response;
 import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.image.ColorPicture;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class FurnitureService {
     private FurnitureRepository repository;
     @Autowired
     private ColorRepository colorRepository;
+    @Autowired
+    private ColorService colorService;
     @Autowired
     private TemplateService templateService;
     @Autowired
@@ -83,6 +86,8 @@ public class FurnitureService {
                 .handle(getFurnitureByLmit(template.getHandle()))
 
                 .outShieldColor(getImageByLimit(template.getOutShieldColor()))
+                .outShieldDesign(getImageByLimit(template.getOutShieldDesign()))
+
                 .shieldColor(getImageByLimit(template.getShieldColor()))
                 .shieldDesign(getImageByLimit(template.getShieldDesign()))
                 .shieldGlass(getImageByLimit(template.getShieldGlass()))
@@ -98,8 +103,6 @@ public class FurnitureService {
                 .nightLock(getFurnitureByLmit(template.getNightLock()))
 
                 .build();
-
-
     }
 
     public List<DoorFurniture> getFurnitureByLmit(List<LimitationDoor> limit) {
@@ -123,40 +126,13 @@ public class FurnitureService {
                 .collect(Collectors.toList());
     }
 
-    //@todo dell only for test
-    public String setting() {
-        List<DoorFurniture> list = repository.getFurniture();
-        for (DoorFurniture doorFurniture : list) {
-
-            String path = doorFurniture.getPicturePathFirst();
-            if (!"".equals(path)) {
-                doorFurniture.setPicturePathFirst(
-                        slashReplacement(path)
-                );
-                repository.saveFurniture(doorFurniture);
-            }
 
 
-            path = doorFurniture.getSketchPathFirst();
-            if (!"".equals(path)) {
-                doorFurniture.setSketchPathFirst(
-                        slashReplacement(path)
-                );
-                repository.saveFurniture(doorFurniture);
-            }
-
-        }
-        return "ок";
+    public List<ColorPicture> getPicByType(TypeOfFurniture type) {
+        return colorService.getImageFileList(type.getPicPath());
     }
 
-    //@todo dell only for test
-    private String slashReplacement(String path) {
-        String firstСharacter = path.substring(0, 1);
-        String stringForReplace = path;
-        if (firstСharacter.equals("\\")) {
-            stringForReplace = path.substring(1, path.length());
-        }
-        String resultString = stringForReplace.replace("\\", "/");
-        return resultString;
+    public List<ColorPicture> getSketchByType(TypeOfFurniture type) {
+        return colorService.getImageFileList(type.getSketchPath());
     }
 }

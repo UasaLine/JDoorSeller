@@ -1541,6 +1541,8 @@ jQuery("document").ready(function () {
         //outShieldKit
         if (currentItem == "outShieldKit") {
             fillChildBlockOutShield("outShieldColor");
+            fillChildBlockOutShield("outShieldDesign");
+            displayOutShieldChildFields();
             $(".select_outShieldKit").attr("show", "is_alive_lement");
         } else {
             $(".select_outShieldKit").attr("show", "ghost_lement");
@@ -1557,6 +1559,18 @@ jQuery("document").ready(function () {
             PaginationPage.show();
         } else {
             $(".select_outShieldColor").attr("show", "ghost_lement");
+        }
+
+        //outShieldDesign
+        if (currentItem == "outShieldDesign") {
+            goTo = "outShieldKit";
+            currentItemForDisplay = $("#nameoutShieldKit").html();
+
+            $(".select_outShieldDesign").attr("show", "is_alive_lement");
+            displayImage("outShieldDesign", availableFurnitureList.outShieldDesign, 0);
+            PaginationPage.show();
+        } else {
+            $(".select_outShieldDesign").attr("show", "ghost_lement");
         }
 
         //shield
@@ -1922,6 +1936,17 @@ jQuery("document").ready(function () {
             setDoorFurnitureByObject(null, "shieldOverColor", door.shieldKit);
         } else {
             $("#shieldOverColor").attr("show", "is_alive_lement");
+        }
+    }
+
+    function displayOutShieldChildFields() {
+        if (door.doorDesign.outShieldDesign ||
+            (availableFurnitureList &&
+                availableFurnitureList.outShieldDesign &&
+                availableFurnitureList.outShieldDesign.length > 0)) {
+            $("#outShieldDesign").attr("show", "is_alive_lement");
+        } else {
+            $("#outShieldDesign").attr("show", "ghost_lement");
         }
     }
 
