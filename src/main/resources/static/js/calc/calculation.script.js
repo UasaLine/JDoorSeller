@@ -1542,6 +1542,7 @@ jQuery("document").ready(function () {
         if (currentItem == "outShieldKit") {
             fillChildBlockOutShield("outShieldColor");
             fillChildBlockOutShield("outShieldDesign");
+            displayOutShieldChildFields();
             $(".select_outShieldKit").attr("show", "is_alive_lement");
         } else {
             $(".select_outShieldKit").attr("show", "ghost_lement");
@@ -1923,6 +1924,17 @@ jQuery("document").ready(function () {
             setDoorFurnitureByObject(null, "shieldOverColor", door.shieldKit);
         } else {
             $("#shieldOverColor").attr("show", "is_alive_lement");
+        }
+    }
+
+    function displayOutShieldChildFields() {
+        if (door.doorDesign.outShieldDesign ||
+            (availableFurnitureList &&
+                availableFurnitureList.outShieldDesign &&
+                availableFurnitureList.outShieldDesign.length > 0)) {
+            $("#outShieldDesign").attr("show", "is_alive_lement");
+        } else {
+            $("#outShieldDesign").attr("show", "ghost_lement");
         }
     }
 

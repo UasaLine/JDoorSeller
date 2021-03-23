@@ -108,6 +108,7 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         this.setDoorDesign(null);
         this.setOutShieldColor(null);
         this.setShieldOverColor(null);
+        this.setOutShieldDesign(null);
         return this;
     }
 
