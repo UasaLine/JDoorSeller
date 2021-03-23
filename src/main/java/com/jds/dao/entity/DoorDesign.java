@@ -32,6 +32,10 @@ public class DoorDesign {
     @JoinColumn(name = "out_shield")
     private ImageEntity outShieldColor;
 
+    @ManyToOne()
+    @JoinColumn(name = "out_shield_design")
+    private ImageEntity outShieldDesign;
+
     @OneToOne(mappedBy = "doorDesign", fetch = FetchType.LAZY)
     private DoorEntity door;
 
@@ -70,6 +74,9 @@ public class DoorDesign {
         }
         if (outShieldColor != null) {
             outShieldColor.clearNonSerializingFields();
+        }
+        if (outShieldDesign != null) {
+            outShieldDesign.clearNonSerializingFields();
         }
 
         return this;
