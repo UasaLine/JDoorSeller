@@ -1561,6 +1561,18 @@ jQuery("document").ready(function () {
             $(".select_outShieldColor").attr("show", "ghost_lement");
         }
 
+        //outShieldDesign
+        if (currentItem == "outShieldDesign") {
+            goTo = "outShieldKit";
+            currentItemForDisplay = $("#nameoutShieldKit").html();
+
+            $(".select_outShieldDesign").attr("show", "is_alive_lement");
+            displayImage("outShieldDesign", availableFurnitureList.outShieldDesign, 0);
+            PaginationPage.show();
+        } else {
+            $(".select_outShieldDesign").attr("show", "ghost_lement");
+        }
+
         //shield
 
         if (currentItem == "shieldKit") {
