@@ -211,11 +211,13 @@ public class DoorServiceImpl implements DoorService {
         LimitationDoor defaultDoorColor = template.getDefaultDoorColor();
         LimitationDoor defaultDoorDesign = template.getDefaultDoorDesign();
         LimitationDoor defaultOutShieldColor = template.getDefaultOutShieldColor();
+        LimitationDoor defaultOutShieldDesign = template.getDefaultOutShieldDesign();
 
         doorEntity.setDoorDesign(DoorDesign.instanceDesign(
                 defaultDoorColor != null ? colorDao.getColorById(defaultDoorColor.getItemId()) : null,
                 defaultDoorDesign != null ? colorDao.getColorById(defaultDoorDesign.getItemId()) : null,
-                defaultOutShieldColor != null ? colorDao.getColorById(defaultOutShieldColor.getItemId()) : null
+                defaultOutShieldColor != null ? colorDao.getColorById(defaultOutShieldColor.getItemId()) : null,
+                defaultOutShieldDesign != null ? colorDao.getColorById(defaultOutShieldDesign.getItemId()) : null
                 ));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()

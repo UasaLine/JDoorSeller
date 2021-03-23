@@ -86,6 +86,8 @@ public class FurnitureService {
                 .handle(getFurnitureByLmit(template.getHandle()))
 
                 .outShieldColor(getImageByLimit(template.getOutShieldColor()))
+                .outShieldDesign(getImageByLimit(template.getOutShieldDesign()))
+
                 .shieldColor(getImageByLimit(template.getShieldColor()))
                 .shieldDesign(getImageByLimit(template.getShieldDesign()))
                 .shieldGlass(getImageByLimit(template.getShieldGlass()))
@@ -101,8 +103,6 @@ public class FurnitureService {
                 .nightLock(getFurnitureByLmit(template.getNightLock()))
 
                 .build();
-
-
     }
 
     public List<DoorFurniture> getFurnitureByLmit(List<LimitationDoor> limit) {

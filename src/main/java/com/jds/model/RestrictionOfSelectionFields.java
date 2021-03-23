@@ -771,4 +771,12 @@ public class RestrictionOfSelectionFields {
 
         return defList.size() > 0 ? defList.get(0) : null;
     }
+
+    public LimitationDoor getDefaultOutShieldDesign() {
+        List<LimitationDoor> defList = outShieldDesign.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        return defList.size() > 0 ? defList.get(0) : null;
+    }
 }

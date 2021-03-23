@@ -89,6 +89,9 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "outShieldColor")
     private List<ImageEntity> outShieldColor;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "outShieldDesign")
+    private List<ImageEntity> outShieldDesign;
+
     public ImageEntity() {
         pricePaintingMeterOfSpace = 0;
         smooth = 0;
@@ -105,6 +108,7 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
         this.setDoorDesign(null);
         this.setOutShieldColor(null);
         this.setShieldOverColor(null);
+        this.setOutShieldDesign(null);
         return this;
     }
 
