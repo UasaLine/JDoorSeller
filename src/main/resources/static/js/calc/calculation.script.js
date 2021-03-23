@@ -1541,6 +1541,7 @@ jQuery("document").ready(function () {
         //outShieldKit
         if (currentItem == "outShieldKit") {
             fillChildBlockOutShield("outShieldColor");
+            fillChildBlockOutShield("outShieldDesign");
             $(".select_outShieldKit").attr("show", "is_alive_lement");
         } else {
             $(".select_outShieldKit").attr("show", "ghost_lement");
