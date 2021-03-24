@@ -610,7 +610,7 @@ class Door {
     }
 
     static createShieldDesign(containerLeaf, door) {
-        if (door.shieldKit != null && door.shieldKit.shieldDesign != null) {
+        if (door.shieldKit != null && door.shieldKit.shieldDesign != null && door.shieldKit.shieldColor != null) {
             if (door.shieldKit.shieldColor.containsDesign == 0) {
                 let scaleX = Door.reflectionPicture(door);
                 $("<img>")
