@@ -797,6 +797,7 @@ jQuery("document").ready(function () {
         if (data.thicknessDoorLeaf.length > 1) {
             $("#namethicknessDoorLeaf").attr("available", "yes");
         }
+        Door.draw(door, 1);
     }
 
     function writeInCheckbox(nameItem, tab) {
@@ -809,7 +810,6 @@ jQuery("document").ready(function () {
                 setDoorField(nameItem, tab[i].startRestriction);
                 currentItem = nameItem;
                 RepresentationManager.showFieldValue(tab[i].startRestriction);
-                Door.draw(door, 1);
             }
         }
     }
@@ -1707,9 +1707,11 @@ jQuery("document").ready(function () {
 
     function addToShieldGlassList() {
         let glassList = [];
-        for (let i = 0; i < availableFurnitureList.shieldGlass.length; i++) {
-            if (availableFurnitureList.shieldGlass[i].containsDesign == door.shieldKit.shieldDesign.id) {
-                glassList.push(availableFurnitureList.shieldGlass[i]);
+        if (door.shieldKit != null && door.shieldKit.shieldDesign != null) {
+            for (let i = 0; i < availableFurnitureList.shieldGlass.length; i++) {
+                if (availableFurnitureList.shieldGlass[i].containsDesign == door.shieldKit.shieldDesign.id) {
+                    glassList.push(availableFurnitureList.shieldGlass[i]);
+                }
             }
         }
         return glassList;
