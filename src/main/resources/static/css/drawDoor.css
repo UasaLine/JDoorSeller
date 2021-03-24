@@ -187,6 +187,7 @@ stainlessSteelDoorstep
     left: 13%;
     top: 43%;
     z-index: 200;
+    width: 13px;
 }
 
 .night_lock_images_L {
@@ -194,6 +195,7 @@ stainlessSteelDoorstep
     right: 13%;
     top: 43%;
     z-index: 200;
+    width: 13px;
 }
 
 .peephole_images_center_R {
@@ -202,6 +204,7 @@ stainlessSteelDoorstep
     transform: translate(-50%, 0%);
     top: 20%;
     z-index: 200;
+    width: 9px;
 }
 
 .peephole_images_center_L {
@@ -210,6 +213,7 @@ stainlessSteelDoorstep
     transform: translate(-50%, 0%);
     top: 20%;
     z-index: 200;
+    width: 9px;
 }
 
 .peephole_images_R {
@@ -217,6 +221,7 @@ stainlessSteelDoorstep
     left: 13%;
     top: 20%;
     z-index: 200;
+    width: 9px;
 }
 
 .peephole_images_L {
@@ -224,15 +229,18 @@ stainlessSteelDoorstep
     right: 12%;
     top: 20%;
     z-index: 200;
+    width: 9px;
 }
 
 .lock_decor_R {
     position: absolute;
+    width: 13px;
     left: 13%;
 }
 
 .lock_decor_L {
     position: absolute;
+    width: 13px;
     right: 12%;
 }
 
