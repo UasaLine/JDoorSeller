@@ -187,6 +187,7 @@ stainlessSteelDoorstep
     left: 13%;
     top: 43%;
     z-index: 200;
+    width: 13px;
 }
 
 .night_lock_images_L {
@@ -194,6 +195,7 @@ stainlessSteelDoorstep
     right: 13%;
     top: 43%;
     z-index: 200;
+    width: 13px;
 }
 
 .peephole_images_center_R {
