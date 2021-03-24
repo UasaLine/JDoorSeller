@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -43,7 +44,10 @@ public class ShieldKit {
         kit.setShieldColor(getFirst(AvailableFields.getShieldColor()));
         kit.setShieldDesign(getFirst(AvailableFields.getShieldDesign()));
         if (kit.getShieldDesign() != null && kit.getShieldDesign().getContainsGlass() == 1){
-                kit.setShieldGlass(getFirst(AvailableFields.getShieldGlass()));
+            ImageEntity glassDefault = AvailableFields.getShieldGlass().stream()
+                    .filter((img)-> img.getContainsDesign() == kit.getShieldDesign().getId())
+                    .findFirst().orElse(null);
+                kit.setShieldGlass(glassDefault);
         }
 
         return kit;
