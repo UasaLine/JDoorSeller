@@ -483,7 +483,7 @@ class Door {
         let pathImages = door.furnitureKit.peephole.sketchPathFirst;
 
         if (pathImages == "") {
-            pathImages = "images/findings/peephole_out.png";
+            pathImages = "images/findings/sketch/peephole/peephole_out.png";
         }
 
         $("<img>")
@@ -500,7 +500,7 @@ class Door {
         }
         let imgKey;
         if (door.furnitureKit.topInLockDecor == null) {
-            imgKey = "images/findings/zamok.png";
+            imgKey = "images/findings/sketch/lock-decor/oval-cylinder.png";
         } else {
             imgKey = door.furnitureKit.topInLockDecor.sketchPathFirst;
         }
@@ -519,7 +519,7 @@ class Door {
 
         let imgKey;
         if (door.furnitureKit.lowerInLockDecor == null) {
-            imgKey = "images/findings/zamok.png";
+            imgKey = "images/findings/sketch/lock-decor/oval-suval.png";
         } else {
             imgKey = door.furnitureKit.lowerInLockDecor.sketchPathFirst;
         }
@@ -538,7 +538,7 @@ class Door {
 
         let imgKey;
         if (door.furnitureKit.topOutLockDecor == null) {
-            imgKey = "images/findings/zamok.png";
+            imgKey = "images/findings/sketch/lock-decor/oval-cylinder.png";
         } else {
             imgKey = door.furnitureKit.topOutLockDecor.sketchPathFirst;
         }
@@ -561,7 +561,7 @@ class Door {
 
         let imgKey;
         if (door.furnitureKit.lowerOutLockDecor == null) {
-            imgKey = "images/findings/zamok.png";
+            imgKey = "images/findings/sketch/lock-decor/oval-suval.png";
         } else {
             imgKey = door.furnitureKit.lowerOutLockDecor.sketchPathFirst;
         }
