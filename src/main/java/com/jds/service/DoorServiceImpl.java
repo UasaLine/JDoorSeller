@@ -227,7 +227,7 @@ public class DoorServiceImpl implements DoorService {
                 .handle(defaultAndGetFurniture(template.getHandle()))
                 .shieldColor(defaultAndGetImage(template.getShieldColor()))
                 .shieldDesign(defaultAndGetImage(template.getShieldDesign()))
-                .shieldGlass(defaultAndGetImage(template.getShieldGlass()))
+                .shieldGlass(furnitureService.getImageByLimit((template.getShieldGlass())))
                 .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
                 .peephole(defaultAndGetFurniture(template.getPeephole()))
                 .closer(defaultAndGetFurniture(template.getCloser()))
