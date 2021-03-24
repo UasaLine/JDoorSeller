@@ -41,7 +41,10 @@ public class ShieldKit {
         ShieldKit kit = new ShieldKit();
         kit.setShieldColor(getFirst(AvailableFields.getShieldColor()));
         kit.setShieldDesign(getFirst(AvailableFields.getShieldDesign()));
-        kit.setShieldGlass(getFirst(AvailableFields.getShieldGlass()));
+        if (kit.getShieldDesign() != null && kit.getShieldDesign().getContainsGlass() == 1){
+                kit.setShieldGlass(getFirst(AvailableFields.getShieldGlass()));
+        }
+
         return kit;
     }
 
