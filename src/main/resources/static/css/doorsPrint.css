@@ -66,3 +66,7 @@ td:first-child {
 #shadowId {
   display: none;
 }
+img {
+  vertical-align: middle;
+  border-style: none;
+}
