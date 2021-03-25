@@ -11,6 +11,9 @@ import com.jds.service.TemplateService;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,6 +25,10 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class DoorEntity implements SerializingFields {
+
+    @Transient
+    @JsonIgnore
+    private Logger logger = LoggerFactory.getLogger(DoorEntity.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -1036,7 +1043,7 @@ public class DoorEntity implements SerializingFields {
 
     private DoorEntity addCostForShieldKitChange() {
 
-        if (shieldKit == null){
+        if (shieldKit == null) {
             return this;
         }
         ShieldKit kit = shieldKit;
@@ -1205,5 +1212,14 @@ public class DoorEntity implements SerializingFields {
         list.add("STAINLESS_STEEL - порог из нержавейки,[0,1]");
 
         return list;
+    }
+
+    public String getOutShieldName() {
+        if (doorDesign != null) {
+            return doorDesign.getOutShieldName();
+        } else {
+            logger.warn(String.format("doorId: %s doorDesign is null", id));
+            return "";
+        }
     }
 }

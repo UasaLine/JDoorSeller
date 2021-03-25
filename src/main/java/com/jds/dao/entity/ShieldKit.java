@@ -97,7 +97,8 @@ public class ShieldKit {
         String shieldColorString = (getShieldColor() != null) ? getShieldColor().getName() : "";
         String shieldDesignString = (getShieldDesign() != null) ? " ( " + getShieldDesign().getName() + " ) " : "";
         String shieldGlassString = (getShieldGlass() != null) ? getShieldGlass().getName() : "";
-        return shieldColorString + shieldDesignString + shieldGlassString;
+        String shieldOverColorString = (getShieldOverColor() != null) ? ", " + getShieldOverColor().getName() : "";
+        return shieldColorString + shieldDesignString + shieldGlassString + shieldOverColorString;
     }
 
 }
