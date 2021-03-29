@@ -797,7 +797,7 @@ jQuery("document").ready(function () {
         if (data.thicknessDoorLeaf.length > 1) {
             $("#namethicknessDoorLeaf").attr("available", "yes");
         }
-        Door.draw(door, 1);
+        //Door.draw(door, 1);
     }
 
     function writeInCheckbox(nameItem, tab) {
