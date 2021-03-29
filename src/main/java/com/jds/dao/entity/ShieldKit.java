@@ -94,10 +94,12 @@ public class ShieldKit {
     }
 
     public String getShieldName(){
-        String shieldColorString = (getShieldColor() != null) ? getShieldColor().getName() : "";
-        String shieldDesignString = (getShieldDesign() != null) ? " ( " + getShieldDesign().getName() + " ) " : "";
-        String shieldGlassString = (getShieldGlass() != null) ? getShieldGlass().getName() : "";
-        return shieldColorString + shieldDesignString + shieldGlassString;
+        StringBuffer name = new StringBuffer();
+        name.append((getShieldColor() != null) ? getShieldColor().getName() : "");
+        name.append((getShieldDesign() != null) ? " ( " + getShieldDesign().getName() + " ) " : "");
+        name.append((getShieldGlass() != null) ? getShieldGlass().getName() : "");
+        name.append((getShieldOverColor() != null) ? ", " + getShieldOverColor().getName() : "");
+        return name.toString();
     }
 
 }
