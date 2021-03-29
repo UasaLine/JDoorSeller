@@ -87,4 +87,19 @@ public class DoorDesign {
         return this;
     }
 
+    public String getOutShieldName(){
+        StringBuffer name = new StringBuffer("");
+        if (outShieldColor != null) {
+            name.append(outShieldColor.getName());
+            if (outShieldDesign != null) {
+                name.append("(");
+                name.append(outShieldDesign.getName());
+                name.append(")");
+            }
+        } else {
+            name.append("нет");
+        }
+        return name.toString();
+    }
+
 }
