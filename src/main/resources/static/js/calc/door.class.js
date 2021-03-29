@@ -177,7 +177,7 @@ class Door {
         //let pathPicture = door.doorDesign.doorColor.picturePath;
         $("<img>")
             .attr("class", "wait_image")
-            .attr("src", Door.dirPath + "images/wait.gif")
+            .attr("src", Door.dirPath + "images/wait2.gif")
             .appendTo(container);
     }
 
