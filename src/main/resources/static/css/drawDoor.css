@@ -306,7 +306,7 @@ stainlessSteelDoorstep
     background-color: white;
     position: absolute;
     z-index: 600;
-    animation: animation 0.5s 0.5s both;
+    animation: animation 0.5s 0.7s both;
 }
 
 @keyframes animation {
@@ -319,12 +319,10 @@ stainlessSteelDoorstep
 }
 
 .wait_image {
-    width: 180px;
-    height: 180px;
     top: 30%;
-    left: 60%;
+    left: 65%;
     border: none;
     position: absolute;
     z-index: 601;
-    animation: animation 0.05s 0.6s both;
+    animation: animation 0.1s 0.7s both;
 }
