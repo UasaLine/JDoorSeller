@@ -4,7 +4,7 @@ public enum TypeOfDoorColor implements TypeName {
     MOIRE("Муар"),
     SILK("Шелк"),
     RAL("Рал"),
-    BOUCLE("Блеск");
+    BOUCLE("Букле");
 
     private final String name;
 

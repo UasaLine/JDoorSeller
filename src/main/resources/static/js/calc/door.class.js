@@ -63,6 +63,8 @@ class Door {
             //draw door L
             let container = Door.createContainer(i, "L");
 
+            Door.createHideDoor(container, config);
+            Door.createWaitImages(container, config);
             Door.createСolor(container, config);
             Door.createOutShield(container, config, door);
             Door.createOutShieldDesign(container, door);
@@ -102,6 +104,8 @@ class Door {
 
             Door.createShieldGlass(containerLeafR, door);
             Door.creatPeephole(containerLeafR, door, "R");
+
+            //$(".hide_door").removeClass("hide_door");
         }
     }
 
@@ -158,6 +162,23 @@ class Door {
                 return listColors[i].picturePath;
             }
         }
+    }
+
+    static createHideDoor(container, config) {
+        //let pathPicture = Door.getPicturePath(config.color);
+        //let pathPicture = door.doorDesign.doorColor.picturePath;
+        $("<div>")
+            .attr("class", "hide_door element")
+            .appendTo(container);
+    }
+
+    static createWaitImages(container, config) {
+        //let pathPicture = Door.getPicturePath(config.color);
+        //let pathPicture = door.doorDesign.doorColor.picturePath;
+        $("<img>")
+            .attr("class", "wait_image")
+            .attr("src", Door.dirPath + "images/wait.gif")
+            .appendTo(container);
     }
 
     static createСolor(container, config) {
