@@ -67,11 +67,8 @@ jQuery("document").ready(function () {
     });
 
     $("#backToOrder").on("click", function () {
-        $(".order_button_div").removeClass("ghost");
-        $(".orderToFactory_button_div").addClass("ghost");
-        $("#totalProfit").addClass("ghost");
-        setOrderNumberToHeader("Заказ");
-        fillOutOfTheObject();
+
+        backToOrder();
     });
 
     $("#status").change(function () {
@@ -95,6 +92,11 @@ jQuery("document").ready(function () {
     $("#goToWork").on("click", function () {
         order.status = "TO_WORK";
         fillStatus();
+
+        backToOrder();
+
+        saveOrder(0, 0);
+        saveOrderDiscount(0, 0);
     });
 
     function getOrderDiscount() {
@@ -173,7 +175,6 @@ jQuery("document").ready(function () {
         var doors = order.doors;
         var position = 1;
         for (var j = 0; j < doors.length; ++j) {
-            let discount = searchOrderDiscount(doors[j]);
             $(".Table > tbody").append(
                 "<tr class='edit_line'>" +
                 '<td class="position">' +
@@ -198,23 +199,14 @@ jQuery("document").ready(function () {
                 doors[j].priceWithMarkup +
                 "</td>" +
                 '<td class="vary_field text_input discount_line">' +
-                discount +
+                Discounts.findPercent(doors[j]) +
                 "</td>" +
                 '<td class="total_line">' +
-                (doors[j].priceWithMarkup - Math.floor(doors[j].priceWithMarkup * discount / 100)) * doors[j].quantity +
+                (doors[j].priceWithMarkup - Discounts.findMoney(doors[j])) * doors[j].quantity +
                 "</td>" +
                 "</tr>"
             );
             position++;
-        }
-    }
-
-    function searchOrderDiscount(door) {
-        let discont = orderDiscountList.find(item => (item.door_id == door.id & item.order_id == order.orderId));
-        if (discont) {
-            return discont.discount;
-        } else {
-            return 0;
         }
     }
 
@@ -230,26 +222,27 @@ jQuery("document").ready(function () {
             "Цена с наценкой</th></tr>"
         );
 
-        var doors = order.doors;
-        var totalAmount = 0;
-        var totalProfit = 0;
+        let doors = order.doors;
+        let totalAmount = 0;
+        let totalProfit = 0;
         for (var j = 0; j < doors.length; ++j) {
             totalAmount = totalAmount + doors[j].discountPrice;
-            totalProfit =
-                totalProfit + (doors[j].priceWithMarkup - doors[j].discountPrice);
+            const priceWithMarkup = (doors[j].priceWithMarkup - Discounts.findMoney(doors[j]));
+            const ProfitByDoor = (priceWithMarkup - doors[j].discountPrice);
+            totalProfit = totalProfit + (ProfitByDoor * doors[j].quantity);
             $(".Table > tbody").append(
                 '<tr><td class="id">' +
                 doors[j].id +
                 "</td><td>" +
                 doors[j].name +
                 "</td><td>" +
-                1 +
+                doors[j].quantity +
                 "</td><td>" +
                 doors[j].discountPrice +
                 "</td><td>" +
-                (doors[j].priceWithMarkup - doors[j].discountPrice) +
+                ProfitByDoor +
                 "</td><td>" +
-                doors[j].priceWithMarkup +
+                priceWithMarkup +
                 "</td></tr>"
             );
         }
@@ -452,4 +445,29 @@ jQuery("document").ready(function () {
     function getOrderIdFromDom() {
         return $("#order_id").text();
     }
+
+    function backToOrder() {
+        $(".order_button_div").removeClass("ghost");
+        $(".orderToFactory_button_div").addClass("ghost");
+        $("#totalProfit").addClass("ghost");
+        setOrderNumberToHeader("Заказ", order.sellerOrderId);
+        fillOutOfTheObject();
+    }
 });
+
+class Discounts {
+
+    static findPercent(door) {
+        let discount = orderDiscountList.find(item => (item.door_id == door.id & item.order_id == order.orderId));
+        if (discount) {
+            return discount.discount;
+        } else {
+            return 0;
+        }
+    }
+
+    static findMoney(door) {
+        const discount = Discounts.findPercent(door);
+        return Math.floor(door.priceWithMarkup * discount / 100);
+    }
+}
