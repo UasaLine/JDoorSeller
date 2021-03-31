@@ -221,18 +221,26 @@ public class DoorServiceImpl implements DoorService {
                 ));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
+
                 .topLock(defaultAndGetFurniture(template.getTopLock()))
                 .lowerLock(defaultAndGetFurniture(template.getLowerLock()))
+                .topOutLockDecor(defaultAndGetFurniture(template.getTopOutLockDecor()))
+                .topInLockDecor(defaultAndGetFurniture(template.getTopInLockDecor()))
+                .lowerOutLockDecor(defaultAndGetFurniture(template.getLowerOutLockDecor()))
+                .lowerInLockDecor(defaultAndGetFurniture(template.getLowerInLockDecor()))
                 .lockCylinder(defaultAndGetFurniture(template.getLowerLock()))
                 .handle(defaultAndGetFurniture(template.getHandle()))
+
                 .shieldColor(defaultAndGetImage(template.getShieldColor()))
                 .shieldDesign(defaultAndGetImage(template.getShieldDesign()))
                 .shieldGlass(furnitureService.getImageByLimit((template.getShieldGlass())))
+
                 .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
                 .peephole(defaultAndGetFurniture(template.getPeephole()))
                 .closer(defaultAndGetFurniture(template.getCloser()))
                 .nightLock(defaultAndGetFurniture(template.getNightLock()))
                 .build();
+
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
 
