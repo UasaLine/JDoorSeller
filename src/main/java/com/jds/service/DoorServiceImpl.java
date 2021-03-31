@@ -64,7 +64,7 @@ public class DoorServiceImpl implements DoorService {
             door = createNewDoorWithAvailableDoorClass();
         }
 
-        if (orderId != 0 && door.getId() == 0) {
+        if (orderId != 0) {
             door.setOrderHolder(orderId);
         }
 
@@ -343,15 +343,13 @@ public class DoorServiceImpl implements DoorService {
                 .findFirst()
                 .orElse(null);
 
-        if (fineDoor != null) {
-            return door;
-        }
-
-        order.addDoor(door);
         order.calculateTotal(userService.getUserSetting(), orderDiscountService.getOrderDiscounts(String.valueOf(order.getOrderId())));
+
+        if (fineDoor == null) {
+            order.addDoor(door);
+        }
         orderDAO.saveOrder(order);
         return door;
-
     }
 
     @Override

@@ -66,7 +66,7 @@ class Door {
             Door.createHideDoor(container, config);
             Door.createWaitImages(container, config);
             Door.createСolor(container, config);
-            Door.createOutShield(container, config);
+            Door.createOutShield(container, config, door);
             Door.createOutShieldDesign(container, door);
             Door.createTrims(container, config, door);
             Door.createFanlight(container, config, "L");
@@ -198,7 +198,7 @@ class Door {
             .appendTo(container);
     }
 
-    static createOutShield(container, config) {
+    static createOutShield(container, config, door) {
         if (door.doorDesign.doorDesign != null) {
             if (door.doorDesign.doorDesign.containsWoodPanel == 1) {
                 let pathPicture = null;
@@ -646,13 +646,13 @@ class Door {
 
     static createOutShieldDesign(containerLeaf, door) {
         if (door.doorDesign != null && door.doorDesign.outShieldDesign != null) {
-                let scaleX = Door.reflectionPicture(door);
-                $("<img>")
-                    .attr("class", "shield_design")
-                    .attr("src", Door.dirPath + door.doorDesign.outShieldDesign.picturePath)
-                    .attr("style",
-                        "px; transform: scale(" + scaleX + ", 1)")
-                    .appendTo(containerLeaf);
+            let scaleX = Door.reflectionPicture(door);
+            $("<img>")
+                .attr("class", "shield_design")
+                .attr("src", Door.dirPath + door.doorDesign.outShieldDesign.picturePath)
+                .attr("style",
+                    "px; transform: scale(" + scaleX + ", 1)")
+                .appendTo(containerLeaf);
         }
     }
 
