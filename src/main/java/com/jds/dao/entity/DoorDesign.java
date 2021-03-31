@@ -87,12 +87,12 @@ public class DoorDesign {
         return this;
     }
 
-    public String getOutShieldName(){
+    public String getOutShieldName() {
         StringBuffer name = new StringBuffer("");
         if (outShieldColor != null) {
             name.append(outShieldColor.getName());
             if (outShieldDesign != null) {
-                name.append("(");
+                name.append(" (");
                 name.append(outShieldDesign.getName());
                 name.append(")");
             }
@@ -102,4 +102,20 @@ public class DoorDesign {
         return name.toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(doorColor.getName());
+
+        if (outShieldColor != null) {
+            builder.append(" + ");
+            builder.append(outShieldColor.getName());
+        }
+        if (outShieldDesign != null) {
+            builder.append(" (");
+            builder.append(outShieldDesign.getName());
+            builder.append(") ");
+        }
+        return builder.toString();
+    }
 }
