@@ -1651,6 +1651,7 @@ jQuery("document").ready(function () {
 
         if (currentItem == "comment") {
             $(".select_comment").attr("show", "is_alive_lement");
+            $("#commentTextarea").text(door.comment);
         } else {
             $(".select_comment").attr("show", "ghost_lement");
         }
