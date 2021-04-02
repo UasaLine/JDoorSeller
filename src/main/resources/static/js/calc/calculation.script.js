@@ -1698,7 +1698,10 @@ jQuery("document").ready(function () {
             'typeDoorGlass' == currentItem ||
             'toning' == currentItem ||
             'armor' == currentItem ||
-            'doorGlass' == currentItem
+            'doorGlass' == currentItem||
+            'outShieldColor' == currentItem ||
+            'shieldOverColor' == currentItem ||
+            'outShieldDesign' == currentItem
         ) {
             return true;
         }
