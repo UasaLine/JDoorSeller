@@ -43,11 +43,11 @@ public class ShieldKit {
         ShieldKit kit = new ShieldKit();
         kit.setShieldColor(getFirst(AvailableFields.getShieldColor()));
         kit.setShieldDesign(getFirst(AvailableFields.getShieldDesign()));
-        if (kit.getShieldDesign() != null && kit.getShieldDesign().getContainsGlass() == 1){
+        if (kit.getShieldDesign() != null && kit.getShieldDesign().getContainsGlass() == 1) {
             ImageEntity glassDefault = AvailableFields.getShieldGlass().stream()
-                    .filter((img)-> img.getContainsDesign() == kit.getShieldDesign().getId())
+                    .filter((img) -> img.getContainsDesign() == kit.getShieldDesign().getId())
                     .findFirst().orElse(null);
-                kit.setShieldGlass(glassDefault);
+            kit.setShieldGlass(glassDefault);
         }
 
         return kit;
@@ -87,19 +87,31 @@ public class ShieldKit {
     @Override
     public String toString() {
 
-        String shieldColorName = shieldColor != null ? shieldColor.getName() + " " : "";
-        String shieldDesignName = shieldDesign != null ? " ( " + shieldDesign.getName() + " )" : "";
+        StringBuilder builder = new StringBuilder();
 
-        return " - " + shieldColorName + shieldDesignName;
+        if (shieldColor != null) {
+            builder.append(shieldColor.getName());
+        }
+        if (shieldOverColor != null) {
+            builder.append(" ( ");
+            builder.append(shieldOverColor.getName());
+            builder.append(" ) ");
+        }
+        if (shieldDesign != null) {
+            builder.append(" ( ");
+            builder.append(shieldDesign.getName());
+            builder.append(" ) ");
+        }
+
+        if (shieldGlass != null) {
+            builder.append(shieldGlass.getName());
+        }
+
+        return builder.toString();
     }
 
-    public String getShieldName(){
-        StringBuffer name = new StringBuffer();
-        name.append((getShieldColor() != null) ? getShieldColor().getName() : "");
-        name.append((getShieldDesign() != null) ? " ( " + getShieldDesign().getName() + " ) " : "");
-        name.append((getShieldGlass() != null) ? getShieldGlass().getName() : "");
-        name.append((getShieldOverColor() != null) ? ", " + getShieldOverColor().getName() : "");
-        return name.toString();
+    public String getShieldName() {
+        return toString();
     }
 
 }

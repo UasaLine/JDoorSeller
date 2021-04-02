@@ -104,13 +104,28 @@ public class FurnitureKit implements SerializingFields {
     public static FurnitureKit instanceKit(@NonNull AvailableFieldsForSelection AvailableFields) {
         FurnitureKit kit = new FurnitureKit();
         kit.setTopLock(getFirst(AvailableFields.getTopLock()));
+        kit.setTopOutLockDecor(getFirst(AvailableFields.getTopOutLockDecor()));
+        kit.setTopInLockDecor(getFirst(AvailableFields.getTopInLockDecor()));
+
         kit.setLowerLock(getFirst(AvailableFields.getLowerLock()));
+        kit.setLowerOutLockDecor(getFirst(AvailableFields.getLowerOutLockDecor()));
+        kit.setLowerInLockDecor(getFirst(AvailableFields.getLowerInLockDecor()));
+
+        if (kit.isTopCylinderLock()) {
+            kit.setTopLockCylinder(getFirst(AvailableFields.getLockCylinder()));
+        }
+
+        if (kit.isLowerCylinderLock()) {
+            kit.setLowerLockCylinder(getFirst(AvailableFields.getLockCylinder()));
+        }
+
         kit.setHandle(getFirst(AvailableFields.getHandle()));
         kit.setPeephole(getFirst(AvailableFields.getPeephole()));
         kit.setPeepholePosition(
                 toPeepholePositionEnum(getFirst(AvailableFields.getPeepholePosition())));
         kit.setCloser(getFirst(AvailableFields.getCloser()));
         kit.setNightLock(getFirst(AvailableFields.getNightLock()));
+
         return kit;
     }
 
@@ -189,7 +204,7 @@ public class FurnitureKit implements SerializingFields {
         if (peephole != null) {
             peephole.setNuulLazyFild();
         }
-        if (nightLock != null){
+        if (nightLock != null) {
             nightLock.setNuulLazyFild();
         }
         return this;
@@ -260,5 +275,19 @@ public class FurnitureKit implements SerializingFields {
         if (lim != null) {
             return lim.getCost();
         } else return 0;
+    }
+
+    public boolean isTopCylinderLock() {
+        if (topLock != null) {
+            return topLock.getItCylinderLock() == 1;
+        }
+        return false;
+    }
+
+    public boolean isLowerCylinderLock() {
+        if (lowerLock != null) {
+            return lowerLock.getItCylinderLock() == 1;
+        }
+        return false;
     }
 }

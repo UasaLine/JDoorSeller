@@ -129,7 +129,7 @@ jQuery("document").ready(function () {
         var sizeslength = tabl.length;
         for (var j = 0; j < sizeslength; ++j) {
             $("#" + nameTabl).append(
-                '<tr><td class="id">' +
+                '<tr><td>' +
                 tabl[j].name +
                 "</td><td>" +
                 tabl[j].value +

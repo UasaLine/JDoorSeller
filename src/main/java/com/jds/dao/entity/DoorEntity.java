@@ -362,11 +362,24 @@ public class DoorEntity implements SerializingFields {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(doorType.getNameForPrint());
         stringBuilder.append(" ");
-        stringBuilder.append(widthDoor + " X " + heightDoor);
-        stringBuilder.append(" (" + metal + " мм) " + sideDoorOpen + " " + doorColor);
+        stringBuilder.append(widthDoor);
+        stringBuilder.append(" X ");
+        stringBuilder.append(heightDoor);
+        stringBuilder.append(" (");
+        stringBuilder.append(metal);
+        stringBuilder.append(" мм) ");
+        stringBuilder.append(sideDoorOpen);
+        stringBuilder.append(" ");
+
+        if (doorDesign != null) {
+            stringBuilder.append(doorDesign.toString());
+        }
+
         if (shieldKit != null && shieldKit.exists()) {
+            stringBuilder.append(" - ");
             stringBuilder.append(shieldKit.toString());
         }
+
         name = stringBuilder.toString();
         return this;
 
