@@ -12,8 +12,10 @@ import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.orders.OrderParamsDto;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -150,6 +152,13 @@ public class OrderService {
 
     public String deleteOrder(String orderId) {
         DoorOrder order = dAO.getOrder(Integer.parseInt(orderId));
+
+
+        //CALC("расчет"),
+        //TO_WORK("в работу"),
+        //IN_WORK("в работе"),
+        //READY("готов"),
+        //CLOSED("закрыт");
         dAO.deleteOrder(order);
         orderDiscountService.deleteOrderDiscountByOrderId(orderId);
         return String.valueOf(order.getOrderId());
