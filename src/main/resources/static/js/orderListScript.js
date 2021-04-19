@@ -48,7 +48,7 @@ jQuery("document").ready(function () {
 
     $("#modal_yes").on("click", function () {
         $('#modal-id').hide();
-        deletOrder();
+        deleteOrder();
     });
 
     $("#modal_no").on("click", function () {
@@ -63,7 +63,7 @@ jQuery("document").ready(function () {
         location.pathname = '/pages/orders/' + orderId;
     }
 
-    function deletOrder() {
+    function deleteOrder() {
         $.ajax({
             type: "DELETE",
             url: location.origin + "/orders/" + currentId,

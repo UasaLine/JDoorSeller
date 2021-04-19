@@ -7,11 +7,11 @@ import java.util.List;
 
 public enum OrderStatus implements TypeName {
 
-    CALC("Расчет"),
-    TO_WORK("В обработке"),
-    IN_WORK("В работе"),
-    READY("Готов"),
-    CLOSED("Закрыт");
+    CALC("РАСЧЕТ"),
+    TO_WORK("ЗАПУЩЕН"),
+    IN_WORK("В_РАБОТЕ"),
+    READY("ГОТОВ"),
+    CLOSED("ЗАКРЫТ");
 
     private final String name;
 
