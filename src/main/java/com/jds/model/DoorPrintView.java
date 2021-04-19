@@ -49,7 +49,7 @@ public class DoorPrintView {
         appearance.add(new PrintViewParam("Цвет двери:", String.valueOf(door.getDoorColor())));
         appearance.add(new PrintViewParam("Дек.накладка:", door.getOutShieldName()));
         //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));
-        appearance.add(new PrintViewParam("Стекло:", (door.getDoorGlass() != null) ? "да" : "нет"));
+        appearance.add(new PrintViewParam("Стекло:", (door.getDoorGlass() != null) ? "Да" : "Нет"));
 
         internalView = new ArrayList<>();
         internalView.add(new PrintViewParam("Порог:", door.doorstepView()));

@@ -1208,9 +1208,9 @@ public class DoorEntity implements SerializingFields {
 
     public String doorstepView() {
         if (stainlessSteelDoorstep == 1) {
-            return "нержавейка";
+            return "Нержавейка";
         }
-        return "в цвет двери";
+        return "В цвет двери";
     }
 
     public static List<String> options() {

@@ -10,6 +10,8 @@ jQuery("document").ready(function () {
 
     PanelBuilder.build();
 
+    const statuses = Enum.init('/orders/statuses');
+
     fillOrderList(urlParams.get());
 
     $("table").on("dblclick", 'tr', function () {
@@ -46,7 +48,7 @@ jQuery("document").ready(function () {
 
     $("#modal_yes").on("click", function () {
         $('#modal-id').hide();
-        deletOrder();
+        deleteOrder();
     });
 
     $("#modal_no").on("click", function () {
@@ -61,7 +63,7 @@ jQuery("document").ready(function () {
         location.pathname = '/pages/orders/' + orderId;
     }
 
-    function deletOrder() {
+    function deleteOrder() {
         $.ajax({
             type: "DELETE",
             url: location.origin + "/orders/" + currentId,
@@ -117,6 +119,7 @@ jQuery("document").ready(function () {
     }
 
     function fillOrderList(StringParamsUrl = "") {
+
         $.ajax({
             type: "GET",
             url: location.origin + '/orders' + StringParamsUrl,
@@ -149,7 +152,7 @@ jQuery("document").ready(function () {
 
         addCell(order.sellerOrderId, 'seller_id', line);
         addCell(order.orderId, 'id ghost accessAdmin', line);
-        addCell(order.status, 'colorFlag', line);
+        addCell(statuses.name(order.status), 'colorFlag', line);
         addCell(order.partner, '', line);
         addCell(order.data, '', line);
         addCell(order.releasDate, '', line);

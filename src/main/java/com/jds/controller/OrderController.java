@@ -9,6 +9,7 @@ import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.image.TypeView;
 import com.jds.model.orders.OrderParamsDto;
 import com.jds.model.orders.filter.OrderFilterFactory;
 import com.jds.model.orders.sort.OrderSortFactory;
@@ -155,5 +156,11 @@ public class OrderController {
     public ResponseMassage deleteOrder(@PathVariable String id) {
 
         return orderService.deleteOrder(id);
+    }
+
+    @GetMapping(value = "/orders/statuses", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<TypeView> allStatuses() {
+        return orderService.allStatuses();
     }
 }
