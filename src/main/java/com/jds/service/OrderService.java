@@ -9,6 +9,8 @@ import com.jds.model.DoorPrintView;
 import com.jds.model.backResponse.ResponseList;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.image.TypeOfDoorColor;
+import com.jds.model.image.TypeView;
 import com.jds.model.orders.OrderParamsDto;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -209,5 +213,11 @@ public class OrderService {
         } else {
             return OrderStatus.CALC;
         }
+    }
+
+    public List<TypeView> allStatuses() {
+        return EnumSet.allOf(OrderStatus.class).stream()
+                .map(TypeView::new)
+                .collect(Collectors.toList());
     }
 }
