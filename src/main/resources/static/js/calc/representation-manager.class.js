@@ -108,6 +108,8 @@ class Container2fields {
             } else if (currentItem == "comment") {
                 if (value != null && value.length > 20) {
                     showValue = value.slice(0, 20) + "..";
+                }else {
+                    showValue = value;
                 }
             }
             //doorstep//DoorTrim

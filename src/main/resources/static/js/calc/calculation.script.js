@@ -517,7 +517,9 @@ jQuery("document").ready(function () {
             getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
         } else if (currentItem == "shieldDesign") {
             getShieldByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));
-        } else if (currentItem == "shieldColor") {
+        } else if (currentItem == "shieldColor" ||
+            currentItem == "outShieldColor" ||
+            currentItem == "outShieldDesign") {
             displayImage(currentItem, availableFurnitureList[currentItem], parseInt($(this).attr('data')));
         } else if (currentItem == "topLock" ||
             currentItem == "lowerLock" ||
@@ -1651,6 +1653,7 @@ jQuery("document").ready(function () {
 
         if (currentItem == "comment") {
             $(".select_comment").attr("show", "is_alive_lement");
+            $("#commentTextarea").text(door.comment);
         } else {
             $(".select_comment").attr("show", "ghost_lement");
         }
@@ -1698,7 +1701,10 @@ jQuery("document").ready(function () {
             'typeDoorGlass' == currentItem ||
             'toning' == currentItem ||
             'armor' == currentItem ||
-            'doorGlass' == currentItem
+            'doorGlass' == currentItem ||
+            'outShieldColor' == currentItem ||
+            'shieldOverColor' == currentItem ||
+            'outShieldDesign' == currentItem
         ) {
             return true;
         }
