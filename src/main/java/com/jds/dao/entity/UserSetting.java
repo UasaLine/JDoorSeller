@@ -28,4 +28,12 @@ public class UserSetting {
     @Column(name = "includestax")
     private int includesTax;
 
+    public UserSetting(int userId) {
+        id = userId;
+        //set default
+        retailMargin = 30;
+        salesTax = 20;
+        includesTax = 1;
+    }
+
 }

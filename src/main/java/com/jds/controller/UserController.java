@@ -3,7 +3,9 @@ package com.jds.controller;
 import com.jds.dao.entity.UserEntity;
 
 import com.jds.model.Role;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.image.TypeOfImage;
 import com.jds.model.ui.MainSidePanel;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -88,7 +87,7 @@ public class UserController {
                                    @RequestParam(required = false) int salesTax,
                                    @RequestParam(required = false) boolean includesTax) throws Exception {
 
-        service.saveUserSetting(retailMargin,salesTax,includesTax);
+        service.saveCurrentUserSetting(retailMargin,salesTax,includesTax);
         return "redirect:usersetting";
     }
 
@@ -102,6 +101,13 @@ public class UserController {
     @ResponseBody
     public MainSidePanel getSidePanel(){
         return service.getSidePanel(service.getCurrentUser());
+    }
+
+    @DeleteMapping(value = "users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
+    @ResponseBody
+    public ResponseMassage delete(@PathVariable int id){
+        return service.delete(id);
     }
 
 }
