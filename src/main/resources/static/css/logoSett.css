@@ -2,7 +2,7 @@
 /* top */
 /* ------------------------------------------------ */
 
-body{
+body {
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
 
@@ -81,17 +81,16 @@ body{
     margin: 0 auto;
 }
 
-.chapter{
+.chapter {
     background-color: #373a3c;
     color: white;
-    height:45px;
-    padding-left:10px;
+    height: 45px;
+    padding-left: 10px;
     margin-bottom: -0.2rem;
 }
 
 h4,
-.h4
- {
+.h4 {
     line-height: 1.7;
 }
 
@@ -175,7 +174,7 @@ tr:hover {
     max-width: 1300px;
     margin: 0 auto;
     position: relative;
-    //font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+/ / font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     text-decoration: none;
 }
 
@@ -184,14 +183,14 @@ tr:hover {
     max-width: 1297px;
     margin: 0 auto;
     position: relative;
-    //font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+/ / font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     text-decoration: none;
     color: #000000;
 }
 
 
-.reduceAsAScroll{
-    width:99%;
+.reduceAsAScroll {
+    width: 99%;
 }
 
 .daughter_container25 {
@@ -589,48 +588,51 @@ tr:hover {
 /* card */
 /* ------------------------------------------------- */
 
-.card{
-    float:left;
+.card {
+    float: left;
     width: 98%;
-    margin-left:3px;
-    margin-bottom:3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
 }
 
 .images_door_class {
     padding: 5px 5px 5px 5px;
-    width:30%;
-    margin-top:1px;
+    width: 30%;
+    margin-top: 1px;
     vertical-align: top;
 }
 
 .card:hover {
-    border:1px solid white;
+    border: 1px solid white;
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
 
-.images_door_class_p{
-    width:60%;
+.images_door_class_p {
+    width: 60%;
     display: inline-block;
     font-size: 21px;
-    text-align:center;
+    text-align: center;
 }
-.card-body{
+
+.card-body {
     font-size: 15px;
 }
 
-.typeLine:hover{
+.typeLine:hover {
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
 
-.redColor{
+.redColor {
     color: red;
 }
-.notAvailable{
+
+.notAvailable {
     color: grey;
 }
-.line_spec{
-    margin-left:15px;
-    display:block;
+
+.line_spec {
+    margin-left: 15px;
+    display: block;
 }
 
 .nav-link {
@@ -643,32 +645,39 @@ tr:hover {
     color: #999;
 }
 
-.sword-cursor{
+.sword-cursor {
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
-.textComit{
+
+.textComit {
     color: grey;
 }
-.greenFlag{
-    //color: forestgreen;
+
+.greenFlag {
+/ / color: forestgreen;
     background-color: lawngreen;
 }
 
 /*bootstrap*/
-.container-fluid{
+.container-fluid {
     padding-left: 0px;
     padding-right: 0px;
 }
-.row{
+
+.row {
     margin-left: 0px;
     margin-right: 0px;
 }
 
-.sort-order:hover{
+.sort-order:hover {
     color: #696969;
     background-color: #D3D3D3;
 }
 
-.pagination-order{
+.pagination-order {
     text-align: right;
+}
+
+.modal {
+    top: 30%;
 }
