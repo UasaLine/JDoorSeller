@@ -648,7 +648,7 @@ class Door {
         if (door.doorDesign != null && door.doorDesign.outShieldDesign != null) {
             let scaleX = Door.reflectionPicture(door);
             $("<img>")
-                .attr("class", "shield_design")
+                .attr("class", "shield_out_design")
                 .attr("src", Door.dirPath + door.doorDesign.outShieldDesign.picturePath)
                 .attr("style",
                     "px; transform: scale(" + scaleX + ", 1)")
