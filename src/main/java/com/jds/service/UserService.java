@@ -8,7 +8,9 @@ import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.orders.sort.OrderSorter;
 import com.jds.model.ui.*;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,17 +101,11 @@ public class UserService implements UserDetailsService, UserServ {
     }
 
     private void setOrderСounters(UserEntity user) {
-        List<DoorOrder> orders = OrderdAO.getOrdersByUser(user);
+        long orderCount = OrderdAO.orderCountRows(null, 0, 0, user.getId());
+        user.setOrderCounter((int) orderCount);
 
-
-        user.setOrderCounter((int) orders.stream()
-                .count()
-        );
-
-        user.setWorkOrderCounter((int) orders.stream()
-                .filter(order -> order.isWorking())
-                .count()
-        );
+        long isWorkingOrderCountRows = OrderdAO.isWorkingOrderCountRows(user.getId());
+        user.setWorkOrderCounter((int) isWorkingOrderCountRows);
     }
 
     public void saveUser(@NonNull String userId,
@@ -131,7 +127,7 @@ public class UserService implements UserDetailsService, UserServ {
 
         int idInt = Integer.parseInt(userId);
 
-        dAO.saveOrUpdateUser(UserEntity.builder()
+        int id = dAO.saveOrUpdateUser(UserEntity.builder()
                 .id(idInt)
                 .username(username)
                 .password(insertPassword(password))
@@ -144,6 +140,8 @@ public class UserService implements UserDetailsService, UserServ {
                 .priceGroup(priceGroups)
                 .role(role)
                 .build());
+
+        dAO.saveUserSetting(new UserSetting(id));
     }
 
     public String insertPassword(String pass) {
@@ -189,15 +187,15 @@ public class UserService implements UserDetailsService, UserServ {
         return dAO.getUserSetting(getCurrentUser().getId());
     }
 
-    public void saveUserSetting(int retailMargin, int salesTax, boolean includesTax) {
+    public void saveCurrentUserSetting(int retailMargin, int salesTax, boolean includesTax) {
+
         dAO.saveUserSetting(
                 UserSetting.builder()
                         .id(getCurrentUser().getId())
                         .retailMargin(retailMargin)
                         .salesTax(salesTax)
                         .includesTax(maineService.booleanToInt(includesTax))
-                        .build()
-        );
+                        .build());
     }
 
     public Set<Role> getRoles() {
@@ -215,5 +213,11 @@ public class UserService implements UserDetailsService, UserServ {
         }
 
         return uiBuilder.mainSidePanel();
+    }
+
+    public ResponseMassage delete(int id) {
+        UserEntity user = dAO.getUser(id);
+        dAO.delete(user);
+        return new ResponseMassage(true, "ok");
     }
 }
