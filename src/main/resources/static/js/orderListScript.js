@@ -22,8 +22,9 @@ jQuery("document").ready(function () {
     });
 
     $("#buttonDeleteOrder").on("click", function () {
+
         if (currentId != 0) {
-            deletOrder();
+            $('#modal-id').show();
         } else {
             alert("!выбери заказ");
         }
@@ -43,6 +44,19 @@ jQuery("document").ready(function () {
         fillOrderList(urlParams.get());
     });
 
+    $("#modal_yes").on("click", function () {
+        $('#modal-id').hide();
+        deletOrder();
+    });
+
+    $("#modal_no").on("click", function () {
+        $('#modal-id').hide();
+    });
+
+    $("#modal_close").on("click", function () {
+        $('#modal-id').hide();
+    });
+
     function toOrder(orderId) {
         location.pathname = '/pages/orders/' + orderId;
     }
@@ -53,11 +67,13 @@ jQuery("document").ready(function () {
             url: location.origin + "/orders/" + currentId,
             dataType: "json",
             success: function (data) {
-                alert("delete completed" + data);
+                if (!data.success) {
+                    alert(data.message);
+                }
                 location.href = "orders";
             },
             error: function (data) {
-                alert("delete error:" + data);
+                alert("delete error: " + data);
             },
         });
     }
