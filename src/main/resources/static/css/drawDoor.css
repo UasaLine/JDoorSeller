@@ -281,6 +281,15 @@ stainlessSteelDoorstep
     z-index: 102;
 }
 
+.shield_out_design {
+    top: 4.8%;
+    left: 9%;
+    height: 92.5%;
+    width: 82.5%;
+    position: absolute;
+    z-index: 102;
+}
+
 .shield_glass {
     top: 3.5%;
     left: 9%;
