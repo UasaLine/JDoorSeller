@@ -342,7 +342,37 @@ tr:hover {
     background-color: #696969;
 }
 
+.div_images_Image:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_Image[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
+.div_images_over:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_over[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
 .div_images_Color[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
+.div_images_design:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_design[check ="checkbox"] {
     color: #FFFFFF;
 }
 
