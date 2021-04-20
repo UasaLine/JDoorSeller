@@ -5,13 +5,23 @@ class IosPicker {
     open = false;
     currentId = '';
     item;
+    defaultValue;
+    min;
+    max;
+    step = 5;
+    valueList;
 
     constructor(setValue, pickerId, item) {
         this.open = true;
-        this.iosPickerInit(setValue, pickerId, item);
+        this.defaultValue = setValue;
+        this.min = SizingDrum.minValueFromRestriction(item);
+        this.max = SizingDrum.maxValueFromRestriction(item);
         this.currentId = pickerId;
         this.item = item;
         this.firstPress = true;
+        this.valueList = [];
+        this.iosPickerInit(setValue, pickerId, item);
+
     }
 
     setToDoor() {
@@ -83,9 +93,9 @@ class IosPicker {
         } else if (e.which == 8) {
             this.delete(); //backspace
         } else if (e.which == 13) {
-            if (!this.firstPress){
+            if (!this.firstPress) {
                 needToSet.item = this.item;
-                needToSet.value = this.currentNumber;
+                needToSet.value = this.checkValue(this.currentNumber);
             }
             this.iosPickerInit(needToSet.value, this.currentId, this.item);
             this.setToDoor();
@@ -104,27 +114,25 @@ class IosPicker {
 
     iosPickerInit(setValue, pickerId, item) {
 
-        const min = SizingDrum.minValueFromRestriction(item);
-        const max = SizingDrum.maxValueFromRestriction(item);
         const sound = $("#scrollSoundClip")[0];
 
-        let currentValue = min;
+        let currentValue = this.min;
         let arrForPicker = [];
         let defaultIndex = 0;
         let index = 0;
-        const step = 5;
 
-        while (currentValue < max) {
+
+        while (currentValue < this.max) {
             arrForPicker.push(currentValue);
             if (currentValue == setValue) {
                 defaultIndex = index;
             }
-            currentValue = currentValue + step;
+            currentValue = currentValue + this.step;
             index = index + 1;
         }
 
         needToSet.item = item;
-
+        this.valueList = arrForPicker;
         $("#" + pickerId).picker({
             data: arrForPicker,
             lineHeight: 40,
@@ -137,4 +145,20 @@ class IosPicker {
         })
     }
 
+    checkValue(value) {
+        if (value > this.max || value < this.min) {
+            alert("Значение не доступно! доступные значения от " + this.min + " до " + this.max);
+            return this.defaultValue;
+        }
+
+        let fineValue = this.valueList.filter(function (elem) {
+            return elem == value;
+        });
+        if (fineValue.length == 0) {
+            alert("Значение не доступно! введите значение из списка");
+            return this.defaultValue;
+        }
+
+        return value;
+    }
 }
