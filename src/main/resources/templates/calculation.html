@@ -20,16 +20,20 @@
     <script type="text/javascript" src="../../js/calc/price-сomponents.class.js"></script>
     <script type="text/javascript" src="../../js/calc/pagination.class.js"></script>
     <script type="text/javascript" src="../../js/calc/type-pages.class.js"></script>
+    <script type="text/javascript" src="../../js/shared/jquery.ios.picker.js"></script>
+    <script type="text/javascript" src="../../js/shared/ios-picker-class.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/drawDoor.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/ios_checkbox.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/calcCss.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/logoSett.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/displayCss.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/number_selection.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/ios.picker.css"/>
 </head>
 <body>
 
 <div class="top_head">
+
 
     <!--header-->
     <div class="sword-cursor" id="intro-dm">
@@ -358,18 +362,20 @@
             <!--widthDoor-->
             <div class="select_widthDoor reduceAsAScroll" show="ghost_lement">
 
-                <div class="input_div" id="widthDoorDiv">
-                    <div>
-                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                                id="input_widthDoor"
-                                name="Ширина (L):"
-                                data="0">Ширина (L):
-                        </button>
-                    </div>
-                </div>
+<!--                <div class="input_div" id="widthDoorDiv">-->
+<!--                    <div>-->
+<!--                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"-->
+<!--                                id="input_widthDoor"-->
+<!--                                name="Ширина (L):"-->
+<!--                                data="0">Ширина (L):-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>div-->
+                <span class="vertical_menu_button_left" >ШИРИНА (L):</span>
+                <div id="widthDoor_picker"></div>
                 <!--DoorLeaf="1"-->
                 <div class="images_div" DoorLeaf="1" show="ghost_lement">
-                    <img class="images_widthDoor" src="../../images/size-description/v2/Width1.jpg">
+                    <img class="images_widthDoor size_pic" src="../../images/size-description/v2/Width1.jpg">
                     <div class="description_images_door_class"> Ширина двери по коробу в милиметрах.</div>
                 </div>
                 <!--DoorLeaf="2"-->
@@ -396,18 +402,20 @@
             <!--heightDoor-->
             <div class="select_heightDoor reduceAsAScroll" show="ghost_lement">
 
-                <div class="input_div" id="heightDoorDiv">
-                    <div>
-                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
-                                id="input_heightDoor"
-                                name="Высота (H):"
-                                data="0">Высота (H):
-                        </button>
-                    </div>
-                </div>
+<!--                <div class="input_div" id="heightDoorDiv">-->
+<!--                    <div>-->
+<!--                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"-->
+<!--                                id="input_heightDoor"-->
+<!--                                name="Высота (H):"-->
+<!--                                data="0">Высота (H):-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <span class="vertical_menu_button_left" >ВЫСОТА (H):</span>
+                <div id="heightDoor_picker"></div>
                 <!--DoorLeaf="1"-->
                 <div class="images_div" DoorLeaf="1" show="ghost_lement">
-                    <img class="images_widthDoor" src="../../images/size-description/v2/Height1.jpg">
+                    <img class="images_widthDoor size_pic" src="../../images/size-description/v2/Height1.jpg">
                     <div class="description_images_door_class"> Высота двери по коробу в милиметрах.</div>
                 </div>
                 <!--DoorLeaf="2"-->
@@ -2671,7 +2679,7 @@
     </div>
 
     <!--number_selection-->
-    <div class="android_main_contener sword-cursor" show="ghost_lement">
+    <div class="android_main_contener sword-cursor" id="cal" show="ghost_lement">
         <div class="android_hader">
             <span id="nameSelectForm" data="">ширина</span>
         </div>
@@ -2724,8 +2732,12 @@
         </div>
     </div>
 
-    <audio id="mySoundClip">
-        <source src="audio/sword_saund 2.mp3"></source>
+    <audio id="swordSoundClip">
+        <source src="../../audio/sword_saund 2.mp3"></source>
+        Ваш браузер не поддерживает замечательный элемент audio.
+    </audio>
+    <audio id="scrollSoundClip">
+        <source src="../../audio/scroll.mp3"></source>
         Ваш браузер не поддерживает замечательный элемент audio.
     </audio>
 </div>
