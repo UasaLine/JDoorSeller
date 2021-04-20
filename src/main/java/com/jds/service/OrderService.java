@@ -159,17 +159,16 @@ public class OrderService {
 
     public ResponseMassage deleteOrder(String orderId) {
         DoorOrder order = dAO.getOrder(Integer.parseInt(orderId));
-        //here is my code. ели он CALC или статус CLOSED - проверить что пользователь был не админ тогда удалить, а если  админ  то не удадляем.
         UserEntity user = userService.getCurrentUser();
         if(user.isAdmin()==true) {
             return new ResponseMassage(false, "Удаление не возможно для админа");
-        } else if(order.getStatus() == OrderStatus.CALC || order.getStatus() == OrderStatus.CLOSED) {
+        } else if(order.getStatus()==OrderStatus.CALC||order.getStatus()==OrderStatus.CLOSED) {
             dAO.deleteOrder(order);
             orderDiscountService.deleteOrderDiscountByOrderId(orderId);
             return new ResponseMassage(true, "ok");
         } else {
-            return new ResponseMassage(false, "Удаление не возможно, удалить можно только статус " +
-                    " CALC" + "CLOSED");
+            return new ResponseMassage(false, "Удаление не возможно, удалить можно только статус " + " "
+                    + " CALC" + "  " + "CLOSED");
         }
 
     }

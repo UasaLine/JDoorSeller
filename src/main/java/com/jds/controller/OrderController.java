@@ -152,7 +152,7 @@ public class OrderController {
     @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public ResponseMassage deleteOrder(@PathVariable String id) {  ///стринг на респолнш
+    public ResponseMassage deleteOrder(@PathVariable String id) {
 
         return orderService.deleteOrder(id);
     }
