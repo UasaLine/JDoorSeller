@@ -524,7 +524,6 @@ jQuery("document").ready(function () {
             }
         });
 
-
         $(".toolbarPage").on("click", ".toolbarPageButton", function () {
             if (currentItem == "doorColor" && currentColorType) {
                 getColorByTypeOfDoor(currentColorType, parseInt($(this).attr('data')));

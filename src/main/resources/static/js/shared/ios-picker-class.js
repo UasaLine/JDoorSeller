@@ -83,16 +83,16 @@ class IosPicker {
         } else if (e.which == 8) {
             this.delete(); //backspace
         } else if (e.which == 13) {
-            needToSet.item = this.item;
-            needToSet.value = this.currentNumber;
+            if (!this.firstPress){
+                needToSet.item = this.item;
+                needToSet.value = this.currentNumber;
+            }
+            this.iosPickerInit(needToSet.value, this.currentId, this.item);
             this.setToDoor();
-            this.iosPickerInit(this.currentNumber, this.currentId, this.item);
+            this.firstPress = true;
         }
         sound.play();
     }
-
-
-
 
     clear() {
         if (this.currentId != '') {
