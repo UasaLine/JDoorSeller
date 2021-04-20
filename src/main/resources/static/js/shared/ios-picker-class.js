@@ -10,6 +10,8 @@ class IosPicker {
     max;
     step = 5;
     valueList;
+    lineHeight = 45;
+
 
     constructor(setValue, pickerId, item) {
         this.open = true;
@@ -46,7 +48,7 @@ class IosPicker {
 
         $("#" + this.currentId).picker({
             data: [this.currentNumber],
-            lineHeight: 40,
+            lineHeight: this.lineHeight,
             selected: 0
         }, function (selectValue) {
         })
@@ -61,7 +63,7 @@ class IosPicker {
 
         $("#" + this.currentId).picker({
             data: [this.currentNumber],
-            lineHeight: 40,
+            lineHeight: this.lineHeight,
             selected: 0
         }, function (selectValue) {
         })
@@ -135,10 +137,10 @@ class IosPicker {
         this.valueList = arrForPicker;
         $("#" + pickerId).picker({
             data: arrForPicker,
-            lineHeight: 40,
+            lineHeight: this.lineHeight,
             selected: defaultIndex
         }, function (selectValue) {
-            if (setValue != selectValue) {
+            if (needToSet.value != selectValue) {
                 sound.play();
                 needToSet.value = selectValue;
             }
