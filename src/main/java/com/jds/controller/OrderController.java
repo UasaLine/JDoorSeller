@@ -142,7 +142,7 @@ public class OrderController {
                     Integer.parseInt(orderId),
                     new SimpleDateFormat("yyyy-MM-dd").parse(date));
 
-            return new ResponseMassage(result, "ok");
+            return new ResponseMassage(result, "ok"); //
 
         } catch (ParseException | IllegalArgumentException e) {
             throw new ResponseException(e.getMessage());
@@ -152,7 +152,7 @@ public class OrderController {
     @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public String deleteOrder(@PathVariable String id) {
+    public ResponseMassage deleteOrder(@PathVariable String id) {  ///стринг на респолнш
 
         return orderService.deleteOrder(id);
     }

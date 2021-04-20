@@ -8,6 +8,7 @@ import com.jds.dao.repository.UserDAO;
 import com.jds.model.DoorPrintView;
 import com.jds.model.Role;
 import com.jds.model.backResponse.ResponseList;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.orders.OrderParamsDto;
@@ -45,7 +46,7 @@ public class OrderService {
         UserEntity user = userService.getCurrentUser();
         List<DoorOrder> orders;
 
-        if (user.isAdmin()) {
+        if(user.isAdmin()) {
             orders = dAO.getOrders();
         } else {
             orders = dAO.getOrdersByUser(user);
@@ -58,7 +59,7 @@ public class OrderService {
 
         UserEntity user = userService.getCurrentUser();
         int sellerId = 0;
-        if (!user.isAdmin()) {
+        if(! user.isAdmin()) {
             sellerId = user.getId();
         }
         //@TODO add filter to getOrders
@@ -74,7 +75,7 @@ public class OrderService {
         UserEntity user = userService.getCurrentUser();
         List<DoorOrder> orders;
 
-        if (user.isAdmin() && status != null) {
+        if(user.isAdmin()&&status!=null) {
             orders = dAO.getOrdersByStatus(status.name());
         } else {
             orders = dAO.getOrdersByUser(user);
@@ -99,7 +100,7 @@ public class OrderService {
 
         List<DoorOrder> orders;
 
-        if (user != null) {
+        if(user!=null) {
             orders = dAO.getOrdersByUser(user);
         } else {
             orders = new ArrayList<>();
@@ -117,7 +118,7 @@ public class OrderService {
     public DoorOrder getOrder(int id) {
 
         DoorOrder order;
-        if (id == 0) {
+        if(id==0) {
             order = new DoorOrder();
         } else {
             order = dAO.getOrder(id);
@@ -130,8 +131,8 @@ public class OrderService {
     public DoorOrder checkStatusAndSave(@NonNull DoorOrder order) {
         OrderStatus baseOrderStatus = statusOrderBaseByOrderId(order.getOrderId());
 
-        if (OrderStatus.CALC == baseOrderStatus
-                || OrderStatus.READY == baseOrderStatus) {
+        if(OrderStatus.CALC==baseOrderStatus
+                ||OrderStatus.READY==baseOrderStatus) {
 
             order.setSeller(userService.getCurrentUser());
             return saveAndCalc(order);
@@ -141,7 +142,7 @@ public class OrderService {
     }
 
     public ResponseModel<DoorOrder> checkAccessAndSave(@NonNull DoorOrder order) {
-        if ("admin".equals(userService.getCurrentUser().getUsername())) {
+        if("admin".equals(userService.getCurrentUser().getUsername())) {
             return new ResponseModel<>(false, "!save is not available for admin", null);
         } else {
             return new ResponseModel<>(checkStatusAndSave(order));
@@ -156,18 +157,20 @@ public class OrderService {
         return dAO.saveOrder(order);
     }
 
-    public String deleteOrder(String orderId) {
+    public ResponseMassage deleteOrder(String orderId) {
         DoorOrder order = dAO.getOrder(Integer.parseInt(orderId));
         //here is my code. ели он CALC или статус CLOSED - проверить что пользователь был не админ тогда удалить, а если  админ  то не удадляем.
         UserEntity user = userService.getCurrentUser();
-        if(! (! ((order.getStatus() == OrderStatus.CALC) ||
-                (order.getStatus() == OrderStatus.CLOSED))||
-                ! (user.isAdmin() == false)))
-        {
+        if(user.isAdmin()==true) {
+            return new ResponseMassage(false, "Удаление не возможно для админа");
+        } else if(order.getStatus() == OrderStatus.CALC || order.getStatus() == OrderStatus.CLOSED) {
             dAO.deleteOrder(order);
             orderDiscountService.deleteOrderDiscountByOrderId(orderId);
+            return new ResponseMassage(true, "ok");
+        } else {
+            return new ResponseMassage(false, "Удаление не возможно, удалить можно только статус " +
+                    " CALC" + "CLOSED");
         }
-        return String.valueOf(order.getOrderId());
 
     }
 
@@ -219,7 +222,7 @@ public class OrderService {
     }
 
     private OrderStatus statusOrderBaseByOrderId(int id) {
-        if (id > 0) {
+        if(id > 0) {
             DoorOrder orderInBase = dAO.getOrder(id);
             return orderInBase.getStatus();
         } else {

@@ -53,7 +53,7 @@ jQuery("document").ready(function () {
             url: location.origin + "/orders/" + currentId,
             dataType: "json",
             success: function (data) {
-                alert("delete completed" + data);
+                alert(data.message);
                 location.href = "orders";
             },
             error: function (data) {
