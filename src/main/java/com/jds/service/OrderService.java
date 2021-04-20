@@ -1,19 +1,27 @@
 package com.jds.service;
 
+import com.jds.controller.UserController;
+import com.jds.dao.entity.*;
 import com.jds.dao.repository.OrderDAO;
-import com.jds.dao.entity.DoorEntity;
-import com.jds.dao.entity.DoorOrder;
-import com.jds.dao.entity.UserEntity;
 
+import com.jds.dao.repository.UserDAO;
 import com.jds.model.DoorPrintView;
+import com.jds.model.Role;
 import com.jds.model.backResponse.ResponseList;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.orders.OrderParamsDto;
+import com.jds.model.ui.SellerUiBuilder;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import lombok.NonNull;
+import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
+import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -150,9 +158,17 @@ public class OrderService {
 
     public String deleteOrder(String orderId) {
         DoorOrder order = dAO.getOrder(Integer.parseInt(orderId));
-        dAO.deleteOrder(order);
-        orderDiscountService.deleteOrderDiscountByOrderId(orderId);
+        //here is my code. ели он CALC или статус CLOSED - проверить что пользователь был не админ тогда удалить, а если  админ  то не удадляем.
+        UserEntity user = userService.getCurrentUser();
+        if(! (! ((order.getStatus() == OrderStatus.CALC) ||
+                (order.getStatus() == OrderStatus.CLOSED))||
+                ! (user.isAdmin() == false)))
+        {
+            dAO.deleteOrder(order);
+            orderDiscountService.deleteOrderDiscountByOrderId(orderId);
+        }
         return String.valueOf(order.getOrderId());
+
     }
 
     public static DoorOrder clearNonSerializingFields(DoorOrder order) {
