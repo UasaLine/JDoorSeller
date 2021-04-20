@@ -320,6 +320,14 @@ tr:hover {
 .images_Color {
     height: 150px;
     margin: 3px;
+    outline: 0.5px solid #dcdcdc;
+}
+
+.images_Color_furniture {
+    margin: 3px;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
 }
 
 .div_images_Color {
@@ -333,7 +341,37 @@ tr:hover {
     background-color: #696969;
 }
 
+.div_images_Image:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_Image[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
+.div_images_over:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_over[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
 .div_images_Color[check ="checkbox"] {
+    color: #FFFFFF;
+}
+
+.div_images_design:hover {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #696969;
+}
+
+.div_images_design[check ="checkbox"] {
     color: #FFFFFF;
 }
 
