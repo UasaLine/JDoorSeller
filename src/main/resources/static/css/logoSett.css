@@ -3,7 +3,50 @@
 /* ------------------------------------------------ */
 
 body{
-    cursor: url(/images/Fable_Sword.gif), pointer;
+    cursor: url(/images/Fable_Sword.png), pointer;
+}
+
+.btn:hover {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.btn {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.nav-link:hover {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+img {
+    cursor: url(/images/Fable_Sword.png), default;
+}
+
+.form-control:hover{
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+label{
+    cursor: url(/images/Fable_Sword.png), default;
+}
+
+.Table{
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+.images_Color {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.vertical_menu_button:hover {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.vertical_menu_button {
+    cursor: url(/images/Fable_Sword.png), default;
+}
+
+.checkbox-label {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
 }
 
 .top_head {
@@ -11,6 +54,12 @@ body{
     max-width: 1300px;
     margin: 0 auto;
     position: relative;
+}
+
+.box_element {
+    height: 100%;
+    position: absolute;
+    width: 100%;
 }
 
 .header_logo {
@@ -55,7 +104,6 @@ body{
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     color: #373a3c;
     text-decoration: none;
-    cursor: url(/images/Fable_Sword.gif), pointer;
     border-bottom: 1px solid #373a3c;
 }
 
@@ -382,7 +430,6 @@ tr:hover {
     padding: 10px 0px 0px 10px;
     left: 5px;
     top: 9px;
-    cursor: url(/images/Fable_Sword.gif), pointer;;
     z-index: 12;
 }
 
@@ -416,7 +463,6 @@ tr:hover {
     position: absolute;
     left: 158px;
     top: 9px;
-    cursor: url(/images/Fable_Sword.gif), pointer;;
     z-index: 12;
 }
 
@@ -487,7 +533,6 @@ tr:hover {
 }
 
 .button_cap_menu:hover {
-    cursor: url(/images/Fable_Sword.gif), pointer;;
     text-decoration: none;
     font-size: 20px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
@@ -543,7 +588,6 @@ tr:hover {
 }
 
 .pag:hover {
-    cursor: url(/images/Fable_Sword.gif), pointer;;
 }
 
 .headerLine {
@@ -605,7 +649,6 @@ tr:hover {
 
 .card:hover {
     border:1px solid white;
-    cursor: url(/images/Fable_Sword.gif), pointer;
 }
 
 .images_door_class_p{
@@ -619,7 +662,6 @@ tr:hover {
 }
 
 .typeLine:hover{
-    cursor: url(/images/Fable_Sword.gif), pointer;
 }
 
 .redColor{
@@ -644,7 +686,7 @@ tr:hover {
 }
 
 .sword-cursor{
-    cursor: url(/images/Fable_Sword.gif), pointer;
+
 }
 .textComit{
     color: grey;
