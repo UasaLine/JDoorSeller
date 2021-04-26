@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../js/paramsFactory.class.js"></script>
     <script type="text/javascript" src="../js/PaginationModels.class.js"></script>
     <script type="text/javascript" src="../js/ui/panel-builder.class.js"></script>
+    <script type="text/javascript" src="../js/shared/enum-class.js"></script>
 </head>
 <body>
 
@@ -68,6 +69,23 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal-id">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Вы уверены, что хотите удалить?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" id="modal_close">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="modal_no" data-dismiss="modal">Нет</button>
+                <button type="button" class="btn btn-primary" id="modal_yes">Да</button>
+            </div>
+        </div>
     </div>
 </div>
 

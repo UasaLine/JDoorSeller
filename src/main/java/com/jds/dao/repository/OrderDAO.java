@@ -4,6 +4,7 @@ import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.SellerSequence;
 import com.jds.dao.entity.SpecificationEntity;
 import com.jds.dao.entity.UserEntity;
+import com.jds.model.enumClasses.OrderStatus;
 import com.jds.model.enumClasses.SideSqlSorting;
 import com.jds.model.orders.sort.OrderDateSorter;
 import com.jds.model.orders.sort.OrderSorter;
@@ -78,6 +79,26 @@ public class OrderDAO {
             String countQ = "Select count (f.orderId) from DoorOrder f ";
             Query countQuery = session.createQuery(countQ);
             total = (Long) countQuery.uniqueResult();
+        }
+
+        session.close();
+
+        return total;
+    }
+
+    public long isWorkingOrderCountRows(int filter) {
+
+        Session session = sessionFactory.openSession();
+        long total;
+
+        if (filter > 0) {
+            String countQ = "Select count (f.orderId) from DoorOrder f where f.seller.id = :id and f.status = :status";
+            Query countQuery = session.createQuery(countQ);
+            countQuery.setParameter("id", filter);
+            countQuery.setParameter("status", OrderStatus.TO_WORK);
+            total = (Long) countQuery.uniqueResult();
+        } else {
+            total = 0;
         }
 
         session.close();

@@ -2,10 +2,11 @@ let indentGlass = 20;
 
 class SizingDrum {
 
-    static init(){
+    static init() {
         $(".select_size").on("click", SizingDrum.click);
     }
-    static click(){
+
+    static click() {
 
     }
 
@@ -13,24 +14,28 @@ class SizingDrum {
 
         let nameField = SizingDrum.getFieldNameFromInputId(elemId);
 
-        if (SizingDrum.checkGlassName(nameField)){
+        if (SizingDrum.checkGlassName(nameField)) {
             return SizingDrum.sizeLimMinGlass(nameField);
         }
 
-        var tab = RestrictionOfSelectionFields[nameField];
+        return SizingDrum.minValueFromRestriction(nameField);
 
-        var tabMin = tab[0].startRestriction;
+    }
+
+    static minValueFromRestriction(nameField) {
+        let tab = RestrictionOfSelectionFields[nameField];
+
+        let tabMin = tab[0].startRestriction;
 
         for (var i = 0; i < tab.length; i++) {
             if (tab[i].pairOfValues == 0) {
                 if (tabMin > tab[i].startRestriction) {
                     tabMin = tab[i].startRestriction;
                 }
-                } else {
-                    tabMin = tab[i].startRestriction;
+            } else {
+                tabMin = tab[i].startRestriction;
             }
         }
-        //alert(tabMin);
         return tabMin;
     }
 
@@ -38,10 +43,14 @@ class SizingDrum {
 
         let nameField = SizingDrum.getFieldNameFromInputId(elemId);
 
-        if (SizingDrum.checkGlassName(nameField)){
+        if (SizingDrum.checkGlassName(nameField)) {
             return SizingDrum.sizeLimMaxGlass(nameField);
         }
+        return SizingDrum.maxValueFromRestriction(nameField);
 
+    }
+
+    static maxValueFromRestriction(nameField) {
         var tab = RestrictionOfSelectionFields[nameField];
 
         var tabMax = tab[0].startRestriction;
@@ -51,50 +60,48 @@ class SizingDrum {
                 if (tabMax < tab[i].startRestriction) {
                     tabMax = tab[i].startRestriction;
                 }
-            }else {
-                    tabMax = tab[i].stopRestriction;
-               }
+            } else {
+                tabMax = tab[i].stopRestriction;
             }
-
-        //alert(tabMax);
+        }
         return tabMax;
     }
 
-    static sizeLimMinGlass(nameField){
-        if (nameField == "glassWidth"){
+    static sizeLimMinGlass(nameField) {
+        if (nameField == "glassWidth") {
             return 300;
         }
-        if (nameField ==  "glassHeight"){
+        if (nameField == "glassHeight") {
             return 600;
         }
-        if (nameField ==  "leftGlassPosition"){
+        if (nameField == "leftGlassPosition") {
             return 0;
         }
-        if (nameField ==  "bottomGlassPosition"){
+        if (nameField == "bottomGlassPosition") {
             return 0;
         }
     }
 
-    static sizeLimMaxGlass(nameField){
-        if (nameField == "glassWidth"){
+    static sizeLimMaxGlass(nameField) {
+        if (nameField == "glassWidth") {
             return door.widthDoor - door.doorGlass.leftGlassPosition - indentGlass;
         }
-        if (nameField ==  "glassHeight"){
-            return door.heightDoor - door.doorGlass.bottomGlassPosition- indentGlass;
+        if (nameField == "glassHeight") {
+            return door.heightDoor - door.doorGlass.bottomGlassPosition - indentGlass;
         }
-        if (nameField ==  "leftGlassPosition"){
+        if (nameField == "leftGlassPosition") {
             return door.widthDoor - door.doorGlass.glassWidth - indentGlass;
         }
-        if (nameField ==  "bottomGlassPosition"){
-            return door.heightDoor - door.doorGlass.glassHeight- indentGlass;
+        if (nameField == "bottomGlassPosition") {
+            return door.heightDoor - door.doorGlass.glassHeight - indentGlass;
         }
     }
 
-    static checkGlassName(fieldName){
+    static checkGlassName(fieldName) {
         if (fieldName == "glassWidth" ||
-            fieldName ==  "glassHeight" ||
-            fieldName ==  "leftGlassPosition" ||
-            fieldName ==  "bottomGlassPosition"){
+            fieldName == "glassHeight" ||
+            fieldName == "leftGlassPosition" ||
+            fieldName == "bottomGlassPosition") {
             return true;
         } else false;
     }
@@ -109,13 +116,13 @@ class SizingDrum {
             $(".counter_line.numberR.line").text()
         );
 
-        var fieldName =  SizingDrum.getFieldNameFromInputId($("#nameSelectForm").attr("data"));
+        var fieldName = SizingDrum.getFieldNameFromInputId($("#nameSelectForm").attr("data"));
 
-        if (SizingDrum.checkGlassName(fieldName)){
-            Door.setGlass(fieldName,number);
+        if (SizingDrum.checkGlassName(fieldName)) {
+            Door.setGlass(fieldName, number);
             Door.draw(door, 1);
-        }else {
-            Door.set(fieldName,number);
+        } else {
+            Door.set(fieldName, number);
             Door.draw(door, 1);
         }
 
@@ -131,13 +138,13 @@ class SizingDrum {
             return;
         }
 
-        var fieldName =  SizingDrum.getFieldNameFromInputId($("#nameSelectForm").attr("data"));
+        var fieldName = SizingDrum.getFieldNameFromInputId($("#nameSelectForm").attr("data"));
 
-        if (SizingDrum.checkGlassName(fieldName)){
-            Door.setGlass(fieldName,number);
+        if (SizingDrum.checkGlassName(fieldName)) {
+            Door.setGlass(fieldName, number);
             Door.draw(door, 1);
-        }else {
-            Door.set(fieldName,number);
+        } else {
+            Door.set(fieldName, number);
             Door.draw(door, 1);
         }
 
@@ -148,7 +155,7 @@ class SizingDrum {
         selectSizeOpen = false;
     }
 
-    static getFieldNameFromInputId(elemId){
+    static getFieldNameFromInputId(elemId) {
 
         return elemId.replace('input_', '');
     }

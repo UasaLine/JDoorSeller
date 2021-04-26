@@ -7,8 +7,11 @@ import com.jds.dao.entity.UserEntity;
 
 import com.jds.model.DoorPrintView;
 import com.jds.model.backResponse.ResponseList;
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.image.TypeOfDoorColor;
+import com.jds.model.image.TypeView;
 import com.jds.model.orders.OrderParamsDto;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -148,11 +153,23 @@ public class OrderService {
         return dAO.saveOrder(order);
     }
 
-    public String deleteOrder(String orderId) {
+    public ResponseMassage deleteOrder(String orderId) {
+
         DoorOrder order = dAO.getOrder(Integer.parseInt(orderId));
-        dAO.deleteOrder(order);
+
+        OrderStatus status = order.getStatus();
+        UserEntity user = userService.getCurrentUser();
+        if (user.isAdmin()) {
+            return new ResponseMassage(false, "not available for the Admin role");
+        } else if (status != OrderStatus.CALC &&
+                status != OrderStatus.CLOSED) {
+            return new ResponseMassage(false, "deletion is available for status: CALC, CLOSED");
+        } else
+
+            dAO.deleteOrder(order);
         orderDiscountService.deleteOrderDiscountByOrderId(orderId);
-        return String.valueOf(order.getOrderId());
+
+        return new ResponseMassage(true, "ok");
     }
 
     public static DoorOrder clearNonSerializingFields(DoorOrder order) {
@@ -209,5 +226,11 @@ public class OrderService {
         } else {
             return OrderStatus.CALC;
         }
+    }
+
+    public List<TypeView> allStatuses() {
+        return EnumSet.allOf(OrderStatus.class).stream()
+                .map(TypeView::new)
+                .collect(Collectors.toList());
     }
 }
