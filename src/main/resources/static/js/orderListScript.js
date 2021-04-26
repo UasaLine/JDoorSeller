@@ -10,6 +10,8 @@ jQuery("document").ready(function () {
 
     PanelBuilder.build();
 
+    const statuses = Enum.init('/orders/statuses');
+
     fillOrderList(urlParams.get());
 
     $("table").on("dblclick", 'tr', function () {
@@ -22,8 +24,9 @@ jQuery("document").ready(function () {
     });
 
     $("#buttonDeleteOrder").on("click", function () {
+
         if (currentId != 0) {
-            deletOrder();
+            $('#modal-id').show();
         } else {
             alert("!выбери заказ");
         }
@@ -43,21 +46,36 @@ jQuery("document").ready(function () {
         fillOrderList(urlParams.get());
     });
 
+    $("#modal_yes").on("click", function () {
+        $('#modal-id').hide();
+        deleteOrder();
+    });
+
+    $("#modal_no").on("click", function () {
+        $('#modal-id').hide();
+    });
+
+    $("#modal_close").on("click", function () {
+        $('#modal-id').hide();
+    });
+
     function toOrder(orderId) {
         location.pathname = '/pages/orders/' + orderId;
     }
 
-    function deletOrder() {
+    function deleteOrder() {
         $.ajax({
             type: "DELETE",
             url: location.origin + "/orders/" + currentId,
             dataType: "json",
             success: function (data) {
-                alert("delete completed" + data);
+                if (!data.success) {
+                    alert(data.message);
+                }
                 location.href = "orders";
             },
             error: function (data) {
-                alert("delete error:" + data);
+                alert("delete error: " + data);
             },
         });
     }
@@ -101,6 +119,7 @@ jQuery("document").ready(function () {
     }
 
     function fillOrderList(StringParamsUrl = "") {
+
         $.ajax({
             type: "GET",
             url: location.origin + '/orders' + StringParamsUrl,
@@ -133,7 +152,7 @@ jQuery("document").ready(function () {
 
         addCell(order.sellerOrderId, 'seller_id', line);
         addCell(order.orderId, 'id ghost accessAdmin', line);
-        addCell(order.status, 'colorFlag', line);
+        addCell(statuses.name(order.status), 'colorFlag', line);
         addCell(order.partner, '', line);
         addCell(order.data, '', line);
         addCell(order.releasDate, '', line);

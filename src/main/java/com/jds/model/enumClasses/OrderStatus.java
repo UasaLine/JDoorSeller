@@ -1,15 +1,17 @@
 package com.jds.model.enumClasses;
 
+import com.jds.model.image.TypeName;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public enum OrderStatus {
+public enum OrderStatus implements TypeName {
 
-    CALC("расчет"),
-    TO_WORK("в работу"),
-    IN_WORK("в работе"),
-    READY("готов"),
-    CLOSED("закрыт");
+    CALC("РАСЧЕТ"),
+    TO_WORK("ЗАПУЩЕН"),
+    IN_WORK("В_РАБОТЕ"),
+    READY("ГОТОВ"),
+    CLOSED("ЗАКРЫТ");
 
     private final String name;
 

@@ -11,6 +11,8 @@ jQuery("document").ready(function () {
         'different_availability', 'CALC',
         'ready_availability', 'CLOSED');
 
+    const statuses = Enum.init('/orders/statuses');
+
     getOrderDiscount();
     getOrder();
 
@@ -425,7 +427,7 @@ jQuery("document").ready(function () {
                     "<option value=" +
                     order.statusList[i] +
                     ">" +
-                    order.statusList[i] +
+                    statuses.name(order.statusList[i]) +
                     "</option>"
                 )
             );

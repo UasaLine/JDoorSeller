@@ -6,8 +6,8 @@
     <!-- Подключаем Bootstrap CSS -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap-4.3.1css/bootstrap.min.css">
     <!-- your personal CSS -->
-    <link rel="stylesheet" type="text/css" href="css/logoSett.css" />
-    <link rel="stylesheet" type="text/css" href="css/displayCss.css" />
+    <link rel="stylesheet" type="text/css" href="css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="css/displayCss.css"/>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/user/userSetting.js"></script>
     <script type="text/javascript" src="../js/ui/panel-builder.class.js"></script>
@@ -29,38 +29,41 @@
         <div class="col">
 
             <form th:action="@{/usersetting}" method="post">
-                    <h1 class="display-4">Настройки пользователя</h1>
+                <h1 class="display-4">Настройки пользователя</h1>
 
-                    <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
+                <span class="ghost" id="isAdmin" th:utext="${isAdnin}"></span>
 
-                    <button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
-                    <button type="submit" class="btn btn-primary btn-lg " id="saveUserSetting">сохранить</button>
+                <button type="button" class="btn btn-primary btn-lg " id="close">закрыть</button>
+                <button type="submit" class="btn btn-primary btn-lg " id="saveUserSetting">сохранить</button>
 
-                    <br>
-                    <br>
+                <br>
+                <br>
 
-                    <div class="col">
-                        <label for="retailMargin">Розничная наценка в %:</label>
-                        <input type="number" class="form-control" name="retailMargin" id="retailMargin"  placeholder="%" th:value="${setting.retailMargin}" >
-                    </div>
+                <div class="col">
+                    <label for="retailMargin">Розничная наценка в %:</label>
+                    <input type="number" min="0" max="99" class="form-control" name="retailMargin" id="retailMargin"
+                           placeholder="%" th:value="${setting.retailMargin}">
+                </div>
 
-                    <div class="col">
-                        <label for="salesTax">Ставка НДС:</label>
-                        <input type="number" class="form-control" name="salesTax" id="salesTax"  placeholder="%" th:value="${setting.salesTax}" >
-                    </div>
+                <div class="col">
+                    <label for="salesTax">Ставка НДС:</label>
+                    <input type="number" class="form-control" name="salesTax" id="salesTax" placeholder="%"
+                           th:value="${setting.salesTax}">
+                </div>
 
-                    <div class="custom-control custom-switch" >
-                        <input type="number" class="ghost"  id="includesTaxInt" th:value="${setting.includesTax}" >
-                        <input type="checkbox" class="custom-control-input" name="includesTax"  id="includesTax">
+                <div class="col">
+                    <div class="custom-control custom-switch">
+                        <input type="number" class="ghost" id="includesTaxInt" th:value="${setting.includesTax}">
+                        <input type="checkbox" class="custom-control-input" name="includesTax" id="includesTax">
                         <label class="custom-control-label" for="includesTax">Цена включает налог НДС:</label>
                     </div>
-                    </form>
+                </div>
+            </form>
 
         </div>
 
     </div>
 </div>
-
 
 
 </body>
