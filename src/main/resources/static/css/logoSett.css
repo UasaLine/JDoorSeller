@@ -6,6 +6,49 @@ body{
     cursor: url(/images/Fable_Sword.gif), pointer;
 }
 
+.btn:hover {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.btn {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.nav-link:hover {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+img {
+    cursor: url(/images/Fable_Sword.png), default;
+}
+
+.form-control:hover{
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+label{
+    cursor: url(/images/Fable_Sword.png), default;
+}
+
+.Table{
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+.images_Color {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.vertical_menu_button:hover {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
+.vertical_menu_button {
+    cursor: url(/images/Fable_Sword.png), default;
+}
+
+.checkbox-label {
+    cursor: url(/images/Fable_Sword_point.png), pointer;
+}
+
 .top_head {
     width: 100%;
     max-width: 1300px;
