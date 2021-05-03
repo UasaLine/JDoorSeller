@@ -719,6 +719,7 @@ tr:hover {
 .nav-link {
     font-weight: 500;
     color: #333;
+    cursor: url(/images/Fable_Sword.png), pointer;
 }
 
 .feather {
