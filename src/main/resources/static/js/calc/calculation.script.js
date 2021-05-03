@@ -16,7 +16,7 @@ let needToSet = {
     item: "",
     value: ""
 };
-
+let makeAvailable;
 
 
 jQuery("document").ready(function () {
@@ -197,6 +197,14 @@ jQuery("document").ready(function () {
             } else if (nameJavaField == "shieldDesign") {
                 clearGlass(javaObject);
                 clearShieldKitField(javaObject, "shieldOverColor");
+
+                if (javaObject &&
+                    javaObject.peepholeOnlyEdge == 1 &&
+                    door.furnitureKit.peepholePosition == "CENTER") {
+                    installPeepholeAtTheEdge();
+                } else {
+                    makeAvailable.makeAvailableIfExists("peepholePosition", "");
+                }
             }
 
             if (javaObject && javaObject.containsLimit == 1) {
@@ -1147,7 +1155,7 @@ jQuery("document").ready(function () {
 
         function fillInTheFieldsToTheTemplate(data) {
             glassShowIfIsExist(data);
-            const makeAvailable = new AvailableManager(data, availableFurnitureList);
+            makeAvailable = new AvailableManager(data, availableFurnitureList);
             makeAvailable.makeFieldsAvailable();
 
             if (data != null) {
@@ -1237,7 +1245,7 @@ jQuery("document").ready(function () {
         function hideShowField(addHistory, newCurrentItem = null) {
 
 
-            if (iosPicker){
+            if (iosPicker) {
                 iosPicker.clear();
             }
 
@@ -2209,5 +2217,16 @@ jQuery("document").ready(function () {
             })
         }
 
+        function installPeepholeAtTheEdge() {
+            alert("Для выбранного щита установка глазка по центру исключена!");
+            AvailableManager.disabledCheckbox('peepholePosition');
+            AvailableManager.makeUnavailable('peepholePosition');
+
+            setDoorFurnitureByObject(
+                'NOT_CENTER',
+                'peepholePosition',
+                door.furnitureKit);
+
+        }
     }
 );
