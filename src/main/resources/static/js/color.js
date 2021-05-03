@@ -9,7 +9,7 @@ jQuery("document").ready(function () {
     let allImageForLimit;
     let javaLimitList = [];
 
-    //new instans
+    //new instance
     getTypeList();
     getJavaObject();
 
@@ -132,6 +132,14 @@ jQuery("document").ready(function () {
     $("#limitDiv").change(".limitLine", function () {
         saveToServerList(".limitLine");
         addLine(".limitLine");
+    });
+
+    $("#peepholeOnlyEdge").change(function () {
+        if ($(this).is(":checked")) {
+            setField("peepholeOnlyEdge", 1);
+        } else {
+            setField("peepholeOnlyEdge", 0);
+        }
     });
 
     function getPictureColor(idPicture, picturesList) {
@@ -292,6 +300,7 @@ jQuery("document").ready(function () {
             $("#containsOtherColorDiv").show();
             $("#limitDiv").show();
             $("#limitChapter").show();
+            $("#peepholeOnlyEdgeDiv").show();
         } else if (type == "SHIELD_GLASS") {
             $("#containsDesignGlass").show();
         } else if (type == "DOOR_COLOR") {
@@ -311,6 +320,8 @@ jQuery("document").ready(function () {
         $("#containsOtherColorDiv").hide();
         $("#limitDiv").hide();
         $("#limitChapter").hide();
+        $("#limitChapter").hide();
+        $("#peepholeOnlyEdgeDiv").hide();
     }
 
     function showMask() {
@@ -380,6 +391,7 @@ jQuery("document").ready(function () {
             showPicture("#mask_png", JavaObject.maskPath);
 
             setCheckBox("#containsOtherColor", JavaObject.containsOtherColor);
+            setCheckBox("#peepholeOnlyEdge", JavaObject.peepholeOnlyEdge);
 
             showMask();
         }
