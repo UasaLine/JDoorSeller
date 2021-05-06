@@ -22,6 +22,7 @@ public class DoorPrintView {
     private List<PrintViewParam> appearance;
     private List<PrintViewParam> internalView;
     private List<PrintViewParam> furniture;
+    private int customerPrice;
 
     public DoorPrintView() {
     }

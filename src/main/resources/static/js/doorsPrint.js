@@ -1,7 +1,9 @@
 jQuery("document").ready(function () {
-    var orderId = $("#shadowId").text();
+    let orderId = $("#shadowId").text();
     Door.init();
     Door.dirPath = "../../../";
+
+    const responce = Discounts.init(orderId);
 
     $.ajax({
         url: location.origin + "/print/doors/" + orderId,
@@ -59,9 +61,9 @@ jQuery("document").ready(function () {
                 '<tr><td class="id">' +
                 data[i].door.name +
                 "</td><td>" +
-                1 +
+                data[i].door.quantity +
                 "</td><td>" +
-                data[i].door.priceWithMarkup +
+                (data[i].door.priceWithMarkup - Discounts.findMoney(data[i].door)) * data[i].door.quantity +
                 "</td></tr>"
             );
 
@@ -99,6 +101,7 @@ jQuery("document").ready(function () {
                 .appendTo("#optionsDiv" + i);
             $("<div>")
                 .attr("class", "comment")
+                .text(data[i].door.comment)
                 .appendTo("#optionsDiv" + i);
 
             $("<span>")

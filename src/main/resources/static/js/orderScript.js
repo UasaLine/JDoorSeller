@@ -1,4 +1,3 @@
-let orderDiscountList = [];
 let order;
 
 jQuery("document").ready(function () {
@@ -13,7 +12,7 @@ jQuery("document").ready(function () {
 
     const statuses = Enum.init('/orders/statuses');
 
-    getOrderDiscount();
+    const syncResponse = Discounts.init(orderId);
     getOrder();
 
     $("#saveOrder").on("click", function () {
@@ -100,21 +99,6 @@ jQuery("document").ready(function () {
         saveOrder(0, 0);
         saveOrderDiscount(0, 0);
     });
-
-    function getOrderDiscount() {
-        $.ajax({
-            url: location.origin + "/orderDiscounts/",
-            data: {orderId: orderId},
-            dataType: "json",
-            success: function (data) {
-                orderDiscountList = [];
-                orderDiscountList = data;
-            },
-            error: function (data) {
-                alert("!! error: не удалось получить скидки (");
-            },
-        });
-    }
 
     function getOrder() {
         $.ajax({
@@ -293,8 +277,9 @@ jQuery("document").ready(function () {
         });
     }
 
+    //@TODO salagae  move methods to the discount class
     function saveOrderDiscount(add, close) {
-        var strJSON = JSON.stringify(orderDiscountList);
+        var strJSON = JSON.stringify(Discounts.orderDiscountList);
 
         $.ajax({
             type: "POST",
@@ -303,8 +288,7 @@ jQuery("document").ready(function () {
             data: strJSON,
             dataType: "json",
             success: function (data) {
-                orderDiscountList = [];
-                orderDiscountList = data;
+                Discounts.init(orderId);
             },
             error: function (data) {
                 alert("error: даписать не удалось:(");
@@ -335,10 +319,10 @@ jQuery("document").ready(function () {
     }
 
     function deleteIfExist() {
-        orderDiscountList.forEach(function (item, i, arr) {
+        Discounts.orderDiscountList.forEach(function (item, i, arr) {
             if (item.order_id == orderId & item.door_id == currentDoorId) {
                 deleteOrderDiscount(item.id);
-                orderDiscountList.splice(i, 1);
+                Discounts.orderDiscountList.splice(i, 1);
                 return;
             }
         })
@@ -456,20 +440,3 @@ jQuery("document").ready(function () {
         fillOutOfTheObject();
     }
 });
-
-class Discounts {
-
-    static findPercent(door) {
-        let discount = orderDiscountList.find(item => (item.door_id == door.id & item.order_id == order.orderId));
-        if (discount) {
-            return discount.discount;
-        } else {
-            return 0;
-        }
-    }
-
-    static findMoney(door) {
-        const discount = Discounts.findPercent(door);
-        return Math.floor(door.priceWithMarkup * discount / 100);
-    }
-}
