@@ -99,6 +99,7 @@ jQuery("document").ready(function () {
                 .appendTo("#optionsDiv" + i);
             $("<div>")
                 .attr("class", "comment")
+                .text(data[i].door.comment)
                 .appendTo("#optionsDiv" + i);
 
             $("<span>")
