@@ -171,10 +171,11 @@ jQuery("document").ready(function () {
         });
 
         $(".div_images_furniture").on("click", function () {
-            setDoorFurnitureById(
-                $(this).attr("Item"),
-                $(this).attr("data"),
-                door.furnitureKit);
+            const item = $(this).attr("Item");
+            const itemData = $(this).attr("data");
+
+            setDoorFurnitureById(item, itemData, door.furnitureKit);
+            clearDependentFurniture(item, itemData, door.furnitureKit);
 
             RepresentationManager.showAllFieldsValues(door);
             pickOut(this);
@@ -1864,8 +1865,8 @@ jQuery("document").ready(function () {
             //show
             var javaFurniture = door.furnitureKit[name];
             var cylinder = door.furnitureKit[name + "Cylinder"];
-            var inLockDecor = door.furnitureKit[position + "InLockDecor"];
-            var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
+            // var inLockDecor = door.furnitureKit[position + "InLockDecor"];
+            // var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
             var inLockDecor = door.furnitureKit[position + "InLockDecor"];
             var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
 
@@ -1934,8 +1935,9 @@ jQuery("document").ready(function () {
             var value = "no";
             if (show) {
                 value = "yes";
-                showDecorationLock(position, side, decor);
             }
+            showDecorationLock(position, side, decor);
+
             $("#name" + position + side + "LockDecor").attr("available", value);
             $("#name" + position + side + "LockDecor").attr("available", value);
         }
@@ -2226,6 +2228,19 @@ jQuery("document").ready(function () {
                 'NOT_CENTER',
                 'peepholePosition',
                 door.furnitureKit);
+
+        }
+
+        function clearDependentFurniture(item, itemData, furnitureKit) {
+            if (item === 'topLock' && itemData == 'нет') {
+                furnitureKit.topInLockDecor = null;
+                furnitureKit.topOutLockDecor = null;
+                furnitureKit.topLockCylinder = null;
+            } else if (item === 'lowerLock' && itemData == 'нет') {
+                furnitureKit.lowerInLockDecor = null;
+                furnitureKit.lowerOutLockDecor = null;
+                furnitureKit.lowerLockCylinder = null;
+            }
 
         }
     }
