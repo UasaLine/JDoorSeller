@@ -25,14 +25,15 @@ public class UserDAO {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void saveOrUpdateUser(UserEntity user) {
+    public int saveOrUpdateUser(UserEntity user) {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(user);
+        return user.getId();
 
     }
 
-    public UserEntity getUser(int id){
+    public UserEntity getUser(int id) {
 
         Session session = sessionFactory.openSession();
 
@@ -45,13 +46,13 @@ public class UserDAO {
 
         session.close();
 
-        if (list.size() > 0) {
+        if(list.size() > 0) {
             return list.get(0);
         }
         return null;
     }
 
-    public List<UserEntity> getUsers(){
+    public List<UserEntity> getUsers() {
 
         Session session = sessionFactory.openSession();
 
@@ -66,27 +67,27 @@ public class UserDAO {
         return list;
     }
 
-    public UserEntity getUserByName(String name){
+    public UserEntity getUserByName(String name) {
 
-            Session session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
-            String sql;
-            sql = "select * from users where login like :log";
-            Query query = session.createSQLQuery(sql)
-                    .addEntity(UserEntity.class)
-                    .setParameter("log", name);
-            List<UserEntity> list = query.list();
+        String sql;
+        sql = "select * from users where login like :log";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(UserEntity.class)
+                .setParameter("log", name);
+        List<UserEntity> list = query.list();
 
-            session.close();
+        session.close();
 
-            if (list.size() > 0) {
-                return list.get(0);
-            }
-            return null;
+        if(list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
 
     }
 
-    public UserSetting getUserSetting (int id){
+    public UserSetting getUserSetting(int id) {
         Session session = sessionFactory.openSession();
 
         String sql;
@@ -98,7 +99,7 @@ public class UserDAO {
 
         session.close();
 
-        if (list.size() > 0) {
+        if(list.size() > 0) {
             return list.get(0);
         }
         return new UserSetting();
@@ -109,6 +110,20 @@ public class UserDAO {
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(setting);
-
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void delete(UserEntity userEntity) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(userEntity);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteSetting(UserSetting userSetting) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(userSetting);
+    }
+
+
+
 }

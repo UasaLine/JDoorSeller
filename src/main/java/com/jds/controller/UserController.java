@@ -3,6 +3,8 @@ package com.jds.controller;
 import com.jds.dao.entity.UserEntity;
 
 import com.jds.model.Role;
+import com.jds.model.backResponse.ResponseMassage;
+import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumClasses.PriceGroups;
 import com.jds.model.ui.MainSidePanel;
 import com.jds.service.UserService;
@@ -11,10 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.service.ResponseMessage;
 
 
 import java.util.List;
@@ -37,22 +37,22 @@ public class UserController {
 
     @Secured("ROLE_ADMIN")
     @GetMapping(value = "/user")
-    public String getUser(Model model,@RequestParam(defaultValue = "0") String userId) throws Exception {
+    public String getUser(Model model, @RequestParam(defaultValue = "0") String userId) throws Exception {
 
         UserEntity user = service.getUser(userId);
         model.addAttribute("userId", userId);
 
-        if (user!=null){
-            model.addAttribute("user",user);
+        if(user!=null) {
+            model.addAttribute("user", user);
         }
 
         return "user";
 
     }
 
-    @Secured("ROLE_ADMIN")
+    //    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/users")
-    public String saveUser(Model model,@RequestParam(required = false) String username,
+    public String saveUser(Model model, @RequestParam(required = false) String username,
                            @RequestParam(required = false) String userId,
                            @RequestParam(required = false) String password,
                            @RequestParam(required = false) int discount,
@@ -88,7 +88,7 @@ public class UserController {
                                    @RequestParam(required = false) int salesTax,
                                    @RequestParam(required = false) boolean includesTax) throws Exception {
 
-        service.saveUserSetting(retailMargin,salesTax,includesTax);
+        service.saveUserSetting(retailMargin, salesTax, includesTax);
         return "redirect:usersetting";
     }
 
@@ -100,8 +100,19 @@ public class UserController {
 
     @GetMapping(value = "users/ui/panel", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public MainSidePanel getSidePanel(){
+    public MainSidePanel getSidePanel() {
         return service.getSidePanel(service.getCurrentUser());
     }
+
+    @DeleteMapping(value = "/users/{id}")
+    @ResponseBody
+    public ResponseMassage deleteUsers(@PathVariable int id) {
+        service.delite(id);
+
+        return new ResponseMassage(true, "ok");
+
+
+    }
+
 
 }

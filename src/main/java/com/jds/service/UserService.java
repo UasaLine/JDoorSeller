@@ -8,6 +8,7 @@ import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
+import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.enumClasses.PriceGroups;
 import com.jds.model.ui.*;
 import lombok.NonNull;
@@ -45,7 +46,7 @@ public class UserService implements UserDetailsService, UserServ {
     public UserEntity userHoldder(String username) {
 
 
-        if (username.equals("admin")) {
+        if(username.equals("admin")) {
 
             List<Role> roleList = new ArrayList<>();
             roleList.add(Role.ADMIN);
@@ -64,7 +65,7 @@ public class UserService implements UserDetailsService, UserServ {
         }
 
         UserEntity user = dAO.getUserByName(username);
-        if (user != null) {
+        if(user!=null) {
             List<Role> roleList = new ArrayList<>();
             roleList.add(user.getRole());
 
@@ -119,11 +120,12 @@ public class UserService implements UserDetailsService, UserServ {
                          boolean enabledСheckbox,
                          PriceGroups priceGroups,
                          Role role) {
-
-        if (userId == "0" && (username == "" || password == "")) {
+        boolean nedeEncode = true;
+        if(userId=="0"&&(username==""||password=="")) {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
-        } else if (userId != "0" && password == "") {
+        } else if(userId!="0"&&password=="") {
             password = dAO.getUser(Integer.parseInt(userId)).getPassword();
+            nedeEncode = false;
         }
 
         List<Role> roleList = new ArrayList<>();
@@ -131,10 +133,10 @@ public class UserService implements UserDetailsService, UserServ {
 
         int idInt = Integer.parseInt(userId);
 
-        dAO.saveOrUpdateUser(UserEntity.builder()
+        int newId = dAO.saveOrUpdateUser(UserEntity.builder()
                 .id(idInt)
                 .username(username)
-                .password(insertPassword(password))
+                .password(insertPassword(password,nedeEncode))
                 .authorities(roleList)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -144,10 +146,24 @@ public class UserService implements UserDetailsService, UserServ {
                 .priceGroup(priceGroups)
                 .role(role)
                 .build());
+
+        if(idInt==0) {
+            dAO.saveUserSetting(UserSetting.builder()
+                    .id(newId)
+                    .includesTax(1)
+                    .retailMargin(30)
+                    .salesTax(20)
+                    .build());
+        }
+
     }
 
-    public String insertPassword(String pass) {
-        if (pass == "") {
+    public String insertPassword(String pass, boolean nedeEncode) {
+        if(nedeEncode==false) {
+            return pass;
+        }
+
+        if(pass=="") {
             return getCurrentUser().getPassword();
         } else {
             return new BCryptPasswordEncoder().encode(pass);
@@ -159,9 +175,9 @@ public class UserService implements UserDetailsService, UserServ {
         int idInt = Integer.parseInt(userId);
 
 
-        if (idInt == 9300) {
+        if(idInt==9300) {
             return userHoldder("admin");
-        } else if (idInt == 0) {
+        } else if(idInt==0) {
             return UserEntity.builder()
                     .username("newUser")
                     .build();
@@ -208,12 +224,22 @@ public class UserService implements UserDetailsService, UserServ {
 
         UiBuilder uiBuilder;
 
-        if (user.isAdmin()) {
+        if(user.isAdmin()) {
             uiBuilder = new AdminUiBuilder();
         } else {
             uiBuilder = new SellerUiBuilder();
         }
 
         return uiBuilder.mainSidePanel();
+
+    }
+
+    public void delite(int id) {
+        UserEntity userEntity = dAO.getUser(id);
+        dAO.delete(userEntity);
+        UserSetting userSetting = dAO.getUserSetting(id);
+        dAO.deleteSetting(userSetting);
+
     }
 }
+

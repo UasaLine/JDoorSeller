@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/bootstrap-4.3.1js/*",
                         "/images/*", "/images/background/*",
                         "/v2/api-docs", "/swagger-ui.html", "/swagger-resources/**", "/update/colors/**",
-                        "/webjars/**").permitAll()
+                        "/webjars/**","/users/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
