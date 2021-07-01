@@ -2,6 +2,7 @@ package com.jds.dao.entity;
 
 import com.jds.dao.repository.ColorRepository;
 import com.jds.model.AvailableFieldsForSelection;
+import com.jds.model.enumClasses.YesOrNo;
 import lombok.*;
 
 import javax.persistence.*;
@@ -97,7 +98,9 @@ public class DoorDesign {
                 name.append(")");
             }
         } else {
-            name.append("нет");
+            name.append(
+                    YesOrNo.NO.getName()
+            );
         }
         return name.toString();
     }
