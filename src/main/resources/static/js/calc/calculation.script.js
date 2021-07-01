@@ -280,11 +280,15 @@ jQuery("document").ready(function () {
                             'CENTER',
                             'peepholePosition',
                             door.furnitureKit);
+                        needRepresentationRun = false;
+                        Door.draw(door, 1);
                     } else {
                         setDoorFurnitureByObject(
                             'NOT_CENTER',
                             'peepholePosition',
                             door.furnitureKit);
+                        needRepresentationRun = false;
+                        Door.draw(door, 1);
                     }
                 }
 
