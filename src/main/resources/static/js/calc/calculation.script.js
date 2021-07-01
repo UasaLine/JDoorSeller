@@ -53,9 +53,13 @@ jQuery("document").ready(function () {
         let modalOpen = false;
 
         Door.getColorInstans();
+        makeAvailable = new AvailableManager($("#order_change_available").text());
 
         if (id > 0) {
             getNewDoorInstance(false);
+            if (makeAvailable.changeAvailable) {
+                getClassList();
+            }
         } else {
             getClassList();
         }
@@ -91,7 +95,7 @@ jQuery("document").ready(function () {
             typeId = $(this).attr("data");
 
             pickOut(this);
-            getNewDoorInstance(false);
+            getNewDoorInstanceByTypeId(false);
 
         });
 
@@ -1095,8 +1099,16 @@ jQuery("document").ready(function () {
         }
 
         function getNewDoorInstance(updateClassDiv) {
+            getDoorInstance(updateClassDiv, id, orderId, typeId)
+        }
+
+        function getNewDoorInstanceByTypeId(updateClassDiv) {
+            getDoorInstance(updateClassDiv, '0', orderId, typeId)
+        }
+
+        function getDoorInstance(updateClassDiv, id = '0', orderId, typeId) {
             $.ajax({
-                url: location.origin + '/doors/' + (id == "" ? "0" : id),
+                url: location.origin + '/doors/' + id,
                 data: {orderId: orderId, typeId: typeId},
                 dataType: "json",
                 success: function (data) {
@@ -1146,8 +1158,7 @@ jQuery("document").ready(function () {
 
         function glassShowIfIsExist(data) {
 
-            if (data.typeDoorGlass.length > 0) {
-
+            if (data && data.typeDoorGlass && data.typeDoorGlass.length > 0) {
                 $("#doorGlass").attr("show", "is_alive_lement");
             } else {
                 $("#doorGlass").attr("show", "ghost_lement");
@@ -1156,7 +1167,7 @@ jQuery("document").ready(function () {
 
         function fillInTheFieldsToTheTemplate(data) {
             glassShowIfIsExist(data);
-            makeAvailable = new AvailableManager(data, availableFurnitureList);
+            makeAvailable.setTemplate(data, availableFurnitureList);
             makeAvailable.makeFieldsAvailable();
 
             if (data != null) {
