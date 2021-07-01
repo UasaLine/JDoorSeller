@@ -37,6 +37,8 @@ public class UserService implements UserDetailsService, UserServ {
     private MaineService maineService;
 
     private static final String ADMIN_NAME = "admin";
+    private static final String ADMIN_PASS =
+            "$2a$10$DMD6ILHkU12.yg7Xup91XO/ByVVV5Y3G1c/lct8nZNAnxUS9gJ9Ei";
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,16 +48,14 @@ public class UserService implements UserDetailsService, UserServ {
 
     public UserEntity userHolder(String username) {
 
-
         if (ADMIN_NAME.equals(username)) {
-
             List<Role> roleList = new ArrayList<>();
             roleList.add(Role.ADMIN);
 
             return UserEntity.builder()
                     .id(9300)
                     .username(username)
-                    .password("$2a$10$DMD6ILHkU12.yg7Xup91XO/ByVVV5Y3G1c/lct8nZNAnxUS9gJ9Ei")
+                    .password(ADMIN_PASS)
                     .authorities(roleList)
                     .accountNonExpired(true)
                     .accountNonLocked(true)
