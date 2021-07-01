@@ -3,7 +3,7 @@
 /* ------------------------------------------------ */
 
 body{
-    cursor: url(/images/Fable_Sword.gif), pointer;
+    cursor: url(/images/Fable_Sword.png), pointer;
 }
 
 .btn:hover {
@@ -719,6 +719,7 @@ tr:hover {
 .nav-link {
     font-weight: 500;
     color: #333;
+    cursor: url(/images/Fable_Sword.png), pointer;
 }
 
 .feather {

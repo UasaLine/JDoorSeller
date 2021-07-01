@@ -16,7 +16,7 @@ let needToSet = {
     item: "",
     value: ""
 };
-
+let makeAvailable;
 
 
 jQuery("document").ready(function () {
@@ -171,10 +171,11 @@ jQuery("document").ready(function () {
         });
 
         $(".div_images_furniture").on("click", function () {
-            setDoorFurnitureById(
-                $(this).attr("Item"),
-                $(this).attr("data"),
-                door.furnitureKit);
+            const item = $(this).attr("Item");
+            const itemData = $(this).attr("data");
+
+            setDoorFurnitureById(item, itemData, door.furnitureKit);
+            clearDependentFurniture(item, itemData, door.furnitureKit);
 
             RepresentationManager.showAllFieldsValues(door);
             pickOut(this);
@@ -197,6 +198,14 @@ jQuery("document").ready(function () {
             } else if (nameJavaField == "shieldDesign") {
                 clearGlass(javaObject);
                 clearShieldKitField(javaObject, "shieldOverColor");
+
+                if (javaObject &&
+                    javaObject.peepholeOnlyEdge == 1 &&
+                    door.furnitureKit.peepholePosition == "CENTER") {
+                    installPeepholeAtTheEdge();
+                } else {
+                    makeAvailable.makeAvailableIfExists("peepholePosition", "");
+                }
             }
 
             if (javaObject && javaObject.containsLimit == 1) {
@@ -1147,7 +1156,7 @@ jQuery("document").ready(function () {
 
         function fillInTheFieldsToTheTemplate(data) {
             glassShowIfIsExist(data);
-            const makeAvailable = new AvailableManager(data, availableFurnitureList);
+            makeAvailable = new AvailableManager(data, availableFurnitureList);
             makeAvailable.makeFieldsAvailable();
 
             if (data != null) {
@@ -1237,7 +1246,7 @@ jQuery("document").ready(function () {
         function hideShowField(addHistory, newCurrentItem = null) {
 
 
-            if (iosPicker){
+            if (iosPicker) {
                 iosPicker.clear();
             }
 
@@ -1856,8 +1865,8 @@ jQuery("document").ready(function () {
             //show
             var javaFurniture = door.furnitureKit[name];
             var cylinder = door.furnitureKit[name + "Cylinder"];
-            var inLockDecor = door.furnitureKit[position + "InLockDecor"];
-            var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
+            // var inLockDecor = door.furnitureKit[position + "InLockDecor"];
+            // var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
             var inLockDecor = door.furnitureKit[position + "InLockDecor"];
             var outLockDecor = door.furnitureKit[position + "OutLockDecor"];
 
@@ -1926,8 +1935,9 @@ jQuery("document").ready(function () {
             var value = "no";
             if (show) {
                 value = "yes";
-                showDecorationLock(position, side, decor);
             }
+            showDecorationLock(position, side, decor);
+
             $("#name" + position + side + "LockDecor").attr("available", value);
             $("#name" + position + side + "LockDecor").attr("available", value);
         }
@@ -2209,5 +2219,29 @@ jQuery("document").ready(function () {
             })
         }
 
+        function installPeepholeAtTheEdge() {
+            alert("Для выбранного щита установка глазка по центру исключена!");
+            AvailableManager.disabledCheckbox('peepholePosition');
+            AvailableManager.makeUnavailable('peepholePosition');
+
+            setDoorFurnitureByObject(
+                'NOT_CENTER',
+                'peepholePosition',
+                door.furnitureKit);
+
+        }
+
+        function clearDependentFurniture(item, itemData, furnitureKit) {
+            if (item === 'topLock' && itemData == 'нет') {
+                furnitureKit.topInLockDecor = null;
+                furnitureKit.topOutLockDecor = null;
+                furnitureKit.topLockCylinder = null;
+            } else if (item === 'lowerLock' && itemData == 'нет') {
+                furnitureKit.lowerInLockDecor = null;
+                furnitureKit.lowerOutLockDecor = null;
+                furnitureKit.lowerLockCylinder = null;
+            }
+
+        }
     }
 );

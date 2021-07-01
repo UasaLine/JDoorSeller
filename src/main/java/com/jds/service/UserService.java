@@ -115,11 +115,12 @@ public class UserService implements UserDetailsService, UserServ {
                          boolean enabledСheckbox,
                          PriceGroups priceGroups,
                          Role role) {
-
+        boolean needToEncode = true;
         if (userId == "0" && (username == "" || password == "")) {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
         } else if (userId != "0" && password == "") {
             password = dAO.getUser(Integer.parseInt(userId)).getPassword();
+            needToEncode = false;
         }
 
         List<Role> roleList = new ArrayList<>();
@@ -130,7 +131,7 @@ public class UserService implements UserDetailsService, UserServ {
         int id = dAO.saveOrUpdateUser(UserEntity.builder()
                 .id(idInt)
                 .username(username)
-                .password(insertPassword(password))
+                .password(insertPassword(password, needToEncode))
                 .authorities(roleList)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -144,11 +145,13 @@ public class UserService implements UserDetailsService, UserServ {
         dAO.saveUserSetting(new UserSetting(id));
     }
 
-    public String insertPassword(String pass) {
+    public String insertPassword(String pass, boolean needToEncode) {
         if (pass == "") {
             return getCurrentUser().getPassword();
-        } else {
+        } else if (needToEncode) {
             return new BCryptPasswordEncoder().encode(pass);
+        } else {
+            return pass;
         }
     }
 

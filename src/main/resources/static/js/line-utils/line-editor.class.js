@@ -145,14 +145,14 @@ class LineEditor {
         orderDiscount.door_id = door_id;
         orderDiscount.discount = discount;
 
-        orderDiscountList.push(orderDiscount);
+        Discounts.orderDiscountList.push(orderDiscount);
     }
 
     static setOrderDiscount(door_id, discount, position) {
         let isExist = false;
-        for (let i = 0; i < orderDiscountList.length; i++){
-            if (order.orderId == orderDiscountList[i].order_id & door_id == orderDiscountList[i].door_id){
-                orderDiscountList[i].discount = discount;
+        for (let i = 0; i < Discounts.orderDiscountList.length; i++){
+            if (order.orderId == Discounts.orderDiscountList[i].order_id & door_id == Discounts.orderDiscountList[i].door_id){
+                Discounts.orderDiscountList[i].discount = discount;
                 isExist = true;
             }
         }

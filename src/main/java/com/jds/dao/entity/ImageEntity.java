@@ -69,6 +69,9 @@ public class ImageEntity implements LimiItem, SerializingFields, Comparable<Imag
     @Column(name = "containsLimit")
     private int containsLimit;
 
+    @Column(name = "peepholeOnlyEdge")
+    private int peepholeOnlyEdge;
+
     // kit
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shieldColor")
     private List<ImageEntity> shieldColor;
