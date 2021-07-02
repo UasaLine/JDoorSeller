@@ -3,14 +3,12 @@ package com.jds.service;
 
 import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.repository.UserDAO;
-import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.UserEntity;
 import com.jds.dao.entity.UserSetting;
 import com.jds.model.Role;
 
 import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.enumClasses.PriceGroups;
-import com.jds.model.orders.sort.OrderSorter;
 import com.jds.model.ui.*;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,28 +32,30 @@ public class UserService implements UserDetailsService, UserServ {
     @Autowired
     private UserDAO dAO;
     @Autowired
-    private OrderDAO OrderdAO;
+    private OrderDAO orderDAO;
     @Autowired
     private MaineService maineService;
+
+    private static final String ADMIN_NAME = "admin";
+    private static final String ADMIN_PASS =
+            "$2a$10$DMD6ILHkU12.yg7Xup91XO/ByVVV5Y3G1c/lct8nZNAnxUS9gJ9Ei";
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        return userHoldder(username);
+        return userHolder(username);
     }
 
-    public UserEntity userHoldder(String username) {
+    public UserEntity userHolder(String username) {
 
-
-        if (username.equals("admin")) {
-
+        if (ADMIN_NAME.equals(username)) {
             List<Role> roleList = new ArrayList<>();
             roleList.add(Role.ADMIN);
 
             return UserEntity.builder()
                     .id(9300)
                     .username(username)
-                    .password("$2a$10$DMD6ILHkU12.yg7Xup91XO/ByVVV5Y3G1c/lct8nZNAnxUS9gJ9Ei")
+                    .password(ADMIN_PASS)
                     .authorities(roleList)
                     .accountNonExpired(true)
                     .accountNonLocked(true)
@@ -91,20 +91,20 @@ public class UserService implements UserDetailsService, UserServ {
         roleList.add(Role.USER);
 
         list.stream()
-                .peek((user) -> setEnabledAndRole(user, roleList))
-                .peek((user) -> setOrderСounters(user))
+                .peek(user -> setEnabledAndRole(user, roleList))
+                .peek(this::setOrderCount)
                 .collect(Collectors.toList());
 
-        list.add(userHoldder("admin"));
+        list.add(userHolder(ADMIN_NAME));
 
         return list;
     }
 
-    private void setOrderСounters(UserEntity user) {
-        long orderCount = OrderdAO.orderCountRows(null, 0, 0, user.getId());
+    private void setOrderCount(UserEntity user) {
+        long orderCount = orderDAO.orderCountRows(null, 0, 0, user.getId());
         user.setOrderCounter((int) orderCount);
 
-        long isWorkingOrderCountRows = OrderdAO.isWorkingOrderCountRows(user.getId());
+        long isWorkingOrderCountRows = orderDAO.isWorkingOrderCountRows(user.getId());
         user.setWorkOrderCounter((int) isWorkingOrderCountRows);
     }
 
@@ -112,13 +112,14 @@ public class UserService implements UserDetailsService, UserServ {
                          @NonNull String username,
                          @NonNull String password,
                          int discount,
-                         boolean enabledСheckbox,
+                         boolean enabledCheckbox,
                          PriceGroups priceGroups,
                          Role role) {
+
         boolean needToEncode = true;
-        if (userId == "0" && (username == "" || password == "")) {
+        if ("0".equals(userId) && ("".equals(username) || "".equals(password))) {
             throw new IllegalArgumentException("username or password in saveUser can not be empty!");
-        } else if (userId != "0" && password == "") {
+        } else if (!"0".equals(userId) && "".equals(password)) {
             password = dAO.getUser(Integer.parseInt(userId)).getPassword();
             needToEncode = false;
         }
@@ -137,7 +138,7 @@ public class UserService implements UserDetailsService, UserServ {
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
                 .discount(discount)
-                .enabled(enabledСheckbox)
+                .enabled(enabledCheckbox)
                 .priceGroup(priceGroups)
                 .role(role)
                 .build());
@@ -146,7 +147,7 @@ public class UserService implements UserDetailsService, UserServ {
     }
 
     public String insertPassword(String pass, boolean needToEncode) {
-        if (pass == "") {
+        if ("".equals(pass)) {
             return getCurrentUser().getPassword();
         } else if (needToEncode) {
             return new BCryptPasswordEncoder().encode(pass);
@@ -161,7 +162,7 @@ public class UserService implements UserDetailsService, UserServ {
 
 
         if (idInt == 9300) {
-            return userHoldder("admin");
+            return userHolder(ADMIN_NAME);
         } else if (idInt == 0) {
             return UserEntity.builder()
                     .username("newUser")
@@ -169,7 +170,7 @@ public class UserService implements UserDetailsService, UserServ {
         }
 
         UserEntity user = dAO.getUser(idInt);
-        setOrderСounters(user);
+        setOrderCount(user);
 
         return user;
 

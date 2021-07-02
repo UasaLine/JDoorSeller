@@ -6,6 +6,7 @@ import com.jds.dao.entity.LineSpecification;
 import com.jds.dao.entity.SpecificationEntity;
 import com.jds.service.DoorService;
 import com.jds.service.MaineService;
+import com.jds.service.OrderService;
 import com.jds.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +23,8 @@ public class DoorController {
     private DoorService service;
     @Autowired
     private SpecificationService specificationService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping(value = "/doors/{id}/page")
     public String calculationPage(Model model,
@@ -32,18 +35,17 @@ public class DoorController {
         model.addAttribute("orderId", orderId);
         model.addAttribute("id", id);
         model.addAttribute("typid", typeid);
+        model.addAttribute("changeAvailable", orderService.changeAvailable(orderId));
         return "calculation";
     }
 
     @GetMapping(value = "/doors/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DoorEntity getDoor(@PathVariable String id,
-                              @RequestParam(required = false, defaultValue = "0") String orderId,
-                              @RequestParam(required = false, defaultValue = "0") String typeId) {
+    public DoorEntity getDoor(@PathVariable int id,
+                              @RequestParam(required = false, defaultValue = "0") int orderId,
+                              @RequestParam(required = false, defaultValue = "0") int typeId) {
 
-        return service.getDoor(Integer.parseInt(id),
-                Integer.parseInt(orderId),
-                Integer.parseInt(typeId));
+        return service.getDoor(id, orderId, typeId);
     }
 
 
