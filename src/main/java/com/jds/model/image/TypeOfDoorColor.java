@@ -2,6 +2,7 @@ package com.jds.model.image;
 
 public enum TypeOfDoorColor implements TypeName {
     MOIRE("Муар"),
+    ANTIQUE("Антик"),
     SILK("Шелк"),
     RAL("Рал"),
     BOUCLE("Букле");
