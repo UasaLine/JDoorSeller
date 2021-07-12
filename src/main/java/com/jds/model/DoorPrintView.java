@@ -2,6 +2,7 @@ package com.jds.model;
 
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
+import com.jds.model.enumClasses.YesOrNo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,7 +51,7 @@ public class DoorPrintView {
         appearance.add(new PrintViewParam("Цвет двери:", String.valueOf(door.getDoorColor())));
         appearance.add(new PrintViewParam("Дек.накладка:", door.getOutShieldName()));
         //appearance.add(new ParamApp("Доп.петля:", (door.getAdditionallyHingeMain() == 1 ? "да" : "нет")));
-        appearance.add(new PrintViewParam("Стекло:", (door.getDoorGlass() != null) ? "Да" : "Нет"));
+        appearance.add(new PrintViewParam("Стекло:", (door.getDoorGlass() != null) ? YesOrNo.YES.getName() : YesOrNo.NO.getName()));
 
         internalView = new ArrayList<>();
         internalView.add(new PrintViewParam("Порог:", door.doorstepView()));
