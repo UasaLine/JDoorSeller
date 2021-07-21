@@ -233,4 +233,12 @@ public class OrderService {
                 .map(TypeView::new)
                 .collect(Collectors.toList());
     }
+
+    public String changeAvailable(String orderId) {
+        int intOrderId = Integer.parseInt(orderId);
+        if (OrderStatus.CALC == statusOrderBaseByOrderId(intOrderId)) {
+            return "true";
+        }
+        return "false";
+    }
 }
