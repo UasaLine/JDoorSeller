@@ -581,6 +581,13 @@ jQuery("document").ready(function () {
 
         });
 
+        $("#modal_ok").on("click", function () {
+            $('#modal-id').hide();
+        });
+
+        $("#modal_close").on("click", function () {
+            $('#modal-id').hide();
+        });
 
 // window.addEventListener('scroll', function () {
 //     if (modalOpen) {
@@ -2188,7 +2195,8 @@ jQuery("document").ready(function () {
                             setDoorFurnitureByObject(colorFromLimit, "shieldColor", door.shieldKit);
                             clearRelatedFieldsForImage(colorFromLimit);
                             RepresentationManager.showAllFieldsValues(door);
-                            alert("Для выбраного дизайна ограничен выбор цветов!");
+                            $('#modal-title').text("Для выбраного дизайна ограничен выбор цветов!");
+                            $('#modal-id').show();
                             fillChildBlockShield("shieldColor");
                         }
                     },
@@ -2235,7 +2243,8 @@ jQuery("document").ready(function () {
         }
 
         function installPeepholeAtTheEdge() {
-            alert("Для выбранного щита установка глазка по центру исключена!");
+            $('#modal-title').text("Для выбранного щита установка глазка по центру исключена!");
+            $('#modal-id').show();
             AvailableManager.disabledCheckbox('peepholePosition');
             AvailableManager.makeUnavailable('peepholePosition');
 
