@@ -977,14 +977,14 @@ public class DoorEntity implements SerializingFields {
         costList = new CostList();
         int retailPrice = (int) doorType.getRetailPrice();
 
-        costList.addLine("RetailPrice",
+        costList.addLine("Розничная цена",
                 100,
                 false,
                 (int) retailPrice);
 
         int discountCost = (int) ((retailPrice * discount) / 100);
 
-        costList.addLine("Discount",
+        costList.addLine("Скидка",
                 100,
                 false,
                 (int) -discountCost);
@@ -1129,9 +1129,9 @@ public class DoorEntity implements SerializingFields {
 
             int costDiff = ((size - defaultSize) / step) * costStep;
 
-            return new LineCostList(lim.getTypeSettings().toString() + " " + size +
-                    ", costForChange: " + costForChange +
-                    ", costDiff: " + costDiff,
+            return new LineCostList(lim.getTypeSettings().getName() + " " + size +
+                    ", Цена за изменение: " + costForChange +
+                    ", шаг цены: " + costDiff,
                     200,
                     false,
                     costForChange + costDiff);
@@ -1171,7 +1171,7 @@ public class DoorEntity implements SerializingFields {
         int discountPrice = costList.getTotalCost();
         int priceWithMarkup = (int) ((discountPrice * retailMargin) / 100);
 
-        costList.addLine("PriceWithMarkup",
+        costList.addLine("Цена с наценкой",
                 500,
                 false,
                 (int) priceWithMarkup);
@@ -1187,7 +1187,7 @@ public class DoorEntity implements SerializingFields {
             for (LimitationDoor lim : tab) {
                 if (lim.getStartRestriction() == 1) {
                     cost = lim.getCost();
-                    costList.addLine(lim.getFirstItem(), 200, false, cost);
+                    costList.addLine("Порог из нержавейки", 200, false, cost);
                     return this;
                 }
             }

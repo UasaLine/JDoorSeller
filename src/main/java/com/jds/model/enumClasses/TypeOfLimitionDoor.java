@@ -1,67 +1,79 @@
 package com.jds.model.enumClasses;
 
 public enum TypeOfLimitionDoor {
-    METAL_THICKNESS,
+    METAL_THICKNESS("Металл"),
 
-    WIDTH,
-    HEIGHT,
-    WIDTH_ACTIVE_LEAF,
-    DEPTH,
-    LEAF_THICKNESS,
+    WIDTH("Ширина"),
+    HEIGHT("Высота"),
+    WIDTH_ACTIVE_LEAF("Ширина активной створки"),
+    DEPTH("Глубина"),
+    LEAF_THICKNESS("Толщина металла"),
 
-    INTERNAL_OPENING,
+    INTERNAL_OPENING("Внутренее открывание"),
 
-    FANLIGHT,
-    HEIGHT_FANLIGHT,
+    FANLIGHT("Фрамуга"),
+    HEIGHT_FANLIGHT("Высота фрамуги"),
 
-    COLOR_DOOR,
-    DESIGN_DOOR,
-    COLOR_WOOD_PANEL,
+    COLOR_DOOR("Цвет двери"),
+    DESIGN_DOOR("Дизайн двери"),
+    COLOR_WOOD_PANEL("Цвет деревянной панели"),
 
-    DOORSTEP,
-    STAINLESS_STEEL_DOORSTEP,
+    DOORSTEP("Порог"),
+    STAINLESS_STEEL_DOORSTEP("Порог из нержавейки"),
 
-    FIRST_SEALING_LINE,
-    SECOND_SEALING_LINE,
-    THIRD_SEALING_LINE,
+    FIRST_SEALING_LINE("Первый уплотнитель"),
+    SECOND_SEALING_LINE("Второй уплотнитель"),
+    THIRD_SEALING_LINE("Третий уплотнитель"),
 
-    TOP_DOOR_TRIM,
-    LEFT_DOOR_TRIM,
-    RIGHT_DOOR_TRIM,
+    TOP_DOOR_TRIM("Верхний наличник"),
+    LEFT_DOOR_TRIM("Левый наличник"),
+    RIGHT_DOOR_TRIM("Правый наличник"),
 
-    TOP_DOOR_TRIM_SIZE,
-    LEFT_DOOR_TRIM_SIZE,
-    RIGHT_DOOR_TRIM_SIZE,
+    TOP_DOOR_TRIM_SIZE("Размер верхнего наличника"),
+    LEFT_DOOR_TRIM_SIZE("Размер левого наличника"),
+    RIGHT_DOOR_TRIM_SIZE("Размер правого наличника"),
 
-    STYROFOAM,
+    STYROFOAM("Пена"),
 
-    TOP_LOCK,
-    LOWER_LOCK,
-    HANDLE,
-    CLOSER,
-    PEEPHOLE,
-    PEEPHOLE_POSITION,
-    NIGHT_LOCK,
-    THRESHOLD,
-    END_DOOR_LOCK,
-    LOCK_CYLINDER,
+    TOP_LOCK("Верхний замок"),
+    LOWER_LOCK("Нижний замок"),
+    HANDLE("Ручка"),
+    CLOSER("Довотчик"),
+    PEEPHOLE("Глазок"),
+    PEEPHOLE_POSITION("Позиция глазка"),
+    NIGHT_LOCK("Ночная задвижка"),
+    THRESHOLD("Порог"),
+    END_DOOR_LOCK("Замок"),
+    LOCK_CYLINDER("Цилиндр"),
 
-    TOP_IN_LOCK_DECOR,
-    TOP_OUT_LOCK_DECOR,
-    LOWER_IN_LOCK_DECOR,
-    LOWER_OUT_LOCK_DECOR,
+    TOP_IN_LOCK_DECOR("Верхняя внутренняя накладка"),
+    TOP_OUT_LOCK_DECOR("Верхняя внешняя накладка"),
+    LOWER_IN_LOCK_DECOR("Нижняя внутренняя накладка"),
+    LOWER_OUT_LOCK_DECOR("Нижняя внешняя накладка"),
 
-    TYPE_GLASS,
-    TONING,
-    ARMOR,
+    TYPE_GLASS("Тип Стекла"),
+    TONING("Тонировка"),
+    ARMOR("Броня"),
 
-    SHIELD_COLOR,
-    SHIELD_DESIGN,
-    SHIELD_GLASS,
+    SHIELD_COLOR("Цвет щита"),
+    SHIELD_DESIGN("Дизайн щита"),
+    SHIELD_GLASS("Стекло щита"),
 
-    OUT_SHIELD_COLOR,
-    OUT_SHIELD_DESIGN,
+    OUT_SHIELD_COLOR("Цвет внешнего щита"),
+    OUT_SHIELD_DESIGN("Дизайн внешнего щита"),
 
-    SIZE_COST_WIDTH,
-    SIZE_COST_HEIGHT
+    SIZE_COST_WIDTH("Цена ширины"),
+    SIZE_COST_HEIGHT("Цена высоты");
+
+    private String name;
+
+    TypeOfLimitionDoor(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+
 }
