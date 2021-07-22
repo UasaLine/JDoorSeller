@@ -9,7 +9,7 @@ public enum OrderStatus implements TypeName {
 
     CALC("РАСЧЕТ"),
     TO_WORK("ЗАПУЩЕН"),
-    IN_WORK("В_РАБОТЕ"),
+    IN_WORK("В РАБОТЕ"),
     READY("ГОТОВ"),
     CLOSED("ЗАКРЫТ");
 
