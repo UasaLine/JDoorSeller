@@ -116,6 +116,7 @@ public class OrderService {
         DoorOrder order;
         if (id == 0) {
             order = new DoorOrder();
+            order.setCompany(userService.getCurrentUser().getUsername());
         } else {
             order = dAO.getOrder(id);
         }
