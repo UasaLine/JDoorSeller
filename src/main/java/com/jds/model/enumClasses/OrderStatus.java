@@ -8,7 +8,7 @@ import java.util.List;
 public enum OrderStatus implements TypeName {
 
     CALC("РАСЧЕТ"),
-    TO_WORK("ЗАПУЩЕН"),
+    TO_WORK("Отправлен"),
     IN_WORK("В РАБОТЕ"),
     READY("ГОТОВ"),
     CLOSED("ЗАКРЫТ");
