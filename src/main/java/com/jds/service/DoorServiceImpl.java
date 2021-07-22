@@ -228,7 +228,7 @@ public class DoorServiceImpl implements DoorService {
                 .topInLockDecor(defaultAndGetFurniture(template.getTopInLockDecor()))
                 .lowerOutLockDecor(defaultAndGetFurniture(template.getLowerOutLockDecor()))
                 .lowerInLockDecor(defaultAndGetFurniture(template.getLowerInLockDecor()))
-                .lockCylinder(defaultAndGetFurniture(template.getLowerLock()))
+                .lockCylinder(defaultAndGetFurniture(template.getLockCylinder()))
                 .handle(defaultAndGetFurniture(template.getHandle()))
 
                 .shieldColor(defaultAndGetImage(template.getShieldColor()))

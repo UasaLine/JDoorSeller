@@ -40,6 +40,7 @@
         <span id="orderId" th:text="${orderId}" show="ghost_lement"></span>
         <span id="id" th:text="${id}" show="ghost_lement"></span>
         <span id="typid" th:text="${typid}" show="ghost_lement"></span>
+        <span class="ghost" id="order_change_available" th:text="${changeAvailable}"></span>
     </div>
 
     <div class="additional_data sword-cursor" show="ghost_lement">
@@ -361,16 +362,16 @@
             <!--widthDoor-->
             <div class="select_widthDoor reduceAsAScroll" show="ghost_lement">
 
-<!--                <div class="input_div" id="widthDoorDiv">-->
-<!--                    <div>-->
-<!--                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"-->
-<!--                                id="input_widthDoor"-->
-<!--                                name="Ширина (L):"-->
-<!--                                data="0">Ширина (L):-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>div-->
-                <span class="vertical_menu_button_left" >ШИРИНА (L):</span>
+                <!--                <div class="input_div" id="widthDoorDiv">-->
+                <!--                    <div>-->
+                <!--                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"-->
+                <!--                                id="input_widthDoor"-->
+                <!--                                name="Ширина (L):"-->
+                <!--                                data="0">Ширина (L):-->
+                <!--                        </button>-->
+                <!--                    </div>-->
+                <!--                </div>div-->
+                <span class="vertical_menu_button_left">ШИРИНА (L):</span>
                 <div id="widthDoor_picker"></div>
                 <!--DoorLeaf="1"-->
                 <div class="images_div" DoorLeaf="1" show="ghost_lement">
@@ -401,16 +402,16 @@
             <!--heightDoor-->
             <div class="select_heightDoor reduceAsAScroll" show="ghost_lement">
 
-<!--                <div class="input_div" id="heightDoorDiv">-->
-<!--                    <div>-->
-<!--                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"-->
-<!--                                id="input_heightDoor"-->
-<!--                                name="Высота (H):"-->
-<!--                                data="0">Высота (H):-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <span class="vertical_menu_button_left" >ВЫСОТА (H):</span>
+                <!--                <div class="input_div" id="heightDoorDiv">-->
+                <!--                    <div>-->
+                <!--                        <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"-->
+                <!--                                id="input_heightDoor"-->
+                <!--                                name="Высота (H):"-->
+                <!--                                data="0">Высота (H):-->
+                <!--                        </button>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <span class="vertical_menu_button_left">ВЫСОТА (H):</span>
                 <div id="heightDoor_picker"></div>
                 <!--DoorLeaf="1"-->
                 <div class="images_div" DoorLeaf="1" show="ghost_lement">
@@ -1774,7 +1775,7 @@
 
             <!--lowerLockCylinder-->
             <div class="select_lowerLockCylinder reduceAsAScroll" show="ghost_lement">
-                <div class="div_images_furniture" data="нет" Item="lowerlockCylinder">
+                <div class="div_images_furniture" data="нет" Item="lowerLockCylinder">
                     <img class="images_Color_furniture" src="../../images/null_quad.png"><br>
                     <span>нет</span>
                 </div>
@@ -2741,6 +2742,23 @@
         <source src="../../audio/scroll.mp3"></source>
         Ваш браузер не поддерживает замечательный элемент audio.
     </audio>
+
+    <!--    modal-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-id">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modal_close">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modal_ok">ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
