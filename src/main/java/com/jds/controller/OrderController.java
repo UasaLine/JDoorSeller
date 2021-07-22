@@ -95,7 +95,7 @@ public class OrderController {
     @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseBody
-    public DoorOrder getOrder(@PathVariable String id) {
+    public DoorOrder getOrder(@PathVariable int id) {
         return orderService.getOrder(id);
     }
 

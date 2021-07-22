@@ -179,6 +179,7 @@ jQuery("document").ready(function () {
             const itemData = $(this).attr("data");
 
             setDoorFurnitureById(item, itemData, door.furnitureKit);
+            setDependentFurniture(item, itemData, door.furnitureKit);
             clearDependentFurniture(item, itemData, door.furnitureKit);
 
             RepresentationManager.showAllFieldsValues(door);
@@ -2266,6 +2267,34 @@ jQuery("document").ready(function () {
                 furnitureKit.lowerLockCylinder = null;
             }
 
+        }
+
+        function setDependentFurniture(item, itemData, furnitureKit) {
+
+            if ((item === 'topLock' || item === 'lowerLock') && itemData != 'нет') {
+                let availableFurniture = new AvailableFurniture(availableFurnitureList, RestrictionOfSelectionFields);
+                const isDefault = availableFurniture.isDefault(item, itemData);
+
+                if (isDefault && item === 'topLock') {
+                    let id = availableFurniture.getDefaultId('topInLockDecor');
+                    setDoorFurnitureById('topInLockDecor', id, door.furnitureKit);
+
+                    id = availableFurniture.getDefaultId('topOutLockDecor');
+                    setDoorFurnitureById('topOutLockDecor', id, door.furnitureKit);
+
+                    id = availableFurniture.getDefaultId('topLockCylinder');
+                    setDoorFurnitureById('topLockCylinder', id, door.furnitureKit);
+                } else if (isDefault && item === 'lowerLock') {
+                    let id = availableFurniture.getDefaultId('lowerInLockDecor');
+                    setDoorFurnitureById('lowerInLockDecor', id, door.furnitureKit);
+
+                    id = availableFurniture.getDefaultId('lowerOutLockDecor');
+                    setDoorFurnitureById('lowerOutLockDecor', id, door.furnitureKit);
+
+                    id = availableFurniture.getDefaultId('lowerLockCylinder');
+                    setDoorFurnitureById('lowerLockCylinder', id, door.furnitureKit);
+                }
+            }
         }
     }
 );
