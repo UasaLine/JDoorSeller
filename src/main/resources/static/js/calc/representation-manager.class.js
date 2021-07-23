@@ -73,25 +73,28 @@ class Container2fields {
                 showValue = Container2fields.getFurniture(value, "handle");
             }
             //outShieldColor
-                else if (currentItem == "doorDesign" || currentItem == "doorColor"){
-                    if (door.doorDesign){
+            else if (currentItem == "doorDesign" || currentItem == "doorColor") {
+                if (door.doorDesign) {
 
-                        if (door.doorDesign.outShieldColor){
-                            currentItem = "outShieldKit";
-                            showValue = door.doorDesign.outShieldColor.name;
-                            Container2fields.setValueToField(showValue);
-                        }
-                        if (door.doorDesign.outShieldDesign) {
-                            showValue = showValue + " / " + door.doorDesign.outShieldDesign.name;
-                            Container2fields.setValueToField(showValue);
-                        }
-
-                        if (door.doorDesign.doorColor){
-                            currentItem = "doorColor";
-                            showValue = Container2fields.getFurniture(door.doorDesign, "doorColor");
-
-                        }
+                    currentItem = "outShieldKit";
+                    if (door.doorDesign.outShieldColor) {
+                        showValue = door.doorDesign.outShieldColor.name;
+                    } else {
+                        showValue = "";
                     }
+                    Container2fields.setValueToField(showValue);
+
+                    if (door.doorDesign.outShieldDesign) {
+                        showValue = showValue + " / " + door.doorDesign.outShieldDesign.name;
+                        Container2fields.setValueToField(showValue);
+                    }
+
+                    if (door.doorDesign.doorColor) {
+                        currentItem = "doorColor";
+                        showValue = Container2fields.getFurniture(door.doorDesign, "doorColor");
+
+                    }
+                }
 
             }
 
@@ -108,7 +111,7 @@ class Container2fields {
             } else if (currentItem == "comment") {
                 if (value != null && value.length > 20) {
                     showValue = value.slice(0, 20) + "..";
-                }else {
+                } else {
                     showValue = value;
                 }
             }
