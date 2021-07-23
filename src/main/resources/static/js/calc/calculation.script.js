@@ -711,6 +711,15 @@ jQuery("document").ready(function () {
             }
         }
 
+        function allCheckBoxDisable(Item) {
+            var elems = $('.ios-toggle[Item="' + Item + '"]');
+            var elemsTotal = elems.length;
+
+            for (var i = 0; i < elemsTotal; ++i) {
+                    $(elems[i]).prop("checked", false);
+            }
+        }
+
         function allDisable(className) {
             //all is ghost_lement
             var elems = $("." + className + "");
