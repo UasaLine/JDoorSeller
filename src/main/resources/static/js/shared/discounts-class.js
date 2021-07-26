@@ -50,4 +50,28 @@ class Discounts {
             },
         });
     }
+
+    static findRubles(door){
+        let discount = Discounts.orderDiscountList.find(item => (item.door_id == door.id & item.order_id == Discounts.orderId));
+        if (discount) {
+            return TranslationOfDiscounts.rubles(door.quantity, door.priceWithMarkup, discount.discount);
+        } else {
+            return 0;
+        }
+    }
+}
+
+
+class TranslationOfDiscounts {
+    static percent(quantity, price, rubDiscount) {
+        let summ = price * quantity;
+        let percent = rubDiscount * 100 / summ;
+        return percent;
+    }
+
+    static rubles(quantity, price, discount) {
+        let summ = price * quantity;
+        let rubDiscount = discount * summ / 100;
+        return rubDiscount.toFixed(0);
+    }
 }

@@ -155,6 +155,7 @@ jQuery("document").ready(function () {
             "цвет</th><th>" +
             "цена,руб</th><th>" +
             "скидка,%</th><th>" +
+            "скидка,руб</th><th>" +
             "сумма,руб</th></tr>"
         );
 
@@ -186,6 +187,9 @@ jQuery("document").ready(function () {
                 "</td>" +
                 '<td class="vary_field text_input discount_line">' +
                 Discounts.findPercent(doors[j]) +
+                "</td>" +
+                '<td class="vary_field text_input discount_line_rub">' +
+                Discounts.findRubles(doors[j]) +
                 "</td>" +
                 '<td class="total_line">' +
                 (doors[j].priceWithMarkup - Discounts.findMoney(doors[j])) * doors[j].quantity +
@@ -277,7 +281,7 @@ jQuery("document").ready(function () {
         });
     }
 
-    //@TODO salagae  move methods to the discount class
+    //@TODO salagaev  move methods to the discount class
     function saveOrderDiscount(add, close) {
         var strJSON = JSON.stringify(Discounts.orderDiscountList);
 

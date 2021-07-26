@@ -24,13 +24,13 @@ public class OrderDiscount {
     private int door_id;
 
     @Column(name = "discount")
-    private int discount;
+    private double discount;
 
     public OrderDiscount clearNonSerializingFields() {
-        if (order_id != 0){
+        if (order_id != 0) {
             order_id = 0;
         }
-        if (door_id != 0){
+        if (door_id != 0) {
             door_id = 0;
         }
         return this;

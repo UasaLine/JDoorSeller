@@ -42,9 +42,10 @@ class LineEditor {
             LineEditor.addInput(jsOb);
             $("#edit").focus();
             $("#edit").blur(function () {
-                var val = $(this).val();
+                let val = $(this).val();
+                const isRub = $(jsOb).hasClass("discount_line_rub");
                 $(this).parent().empty().text(val);
-                LineEditor.countTotal();
+                LineEditor.countTotal(isRub);
             });
         }
     }
@@ -117,14 +118,24 @@ class LineEditor {
         return "";
     }
 
-    static countTotal() {
+    static countTotal(isRub = false) {
         let tab_total = 0;
         $('.edit_line').each(function () {
             let quantity = $(this).children('.quantity_line').text();
             let price = $(this).children('.price_line').text();
 
             let discount = $(this).children('.discount_line').text();
-            let priceDiscount = price -  Math.floor(price*discount/100);
+            let discountAsRub = $(this).children('.discount_line_rub').text();
+
+            if (isRub) {
+                discount = TranslationOfDiscounts.percent(quantity, price, discountAsRub);
+                $(this).children('.discount_line').text(discount);
+            } else {
+                discountAsRub = TranslationOfDiscounts.rubles(quantity, price, discount);
+                $(this).children('.discount_line_rub').text(discountAsRub);
+            }
+
+            let priceDiscount = price - Math.floor(price * discount / 100);
             let totalItem = $(this).children('.total_line');
             let door_id = $(this).children('.id').text();
 
@@ -150,14 +161,14 @@ class LineEditor {
 
     static setOrderDiscount(door_id, discount, position) {
         let isExist = false;
-        for (let i = 0; i < Discounts.orderDiscountList.length; i++){
-            if (order.orderId == Discounts.orderDiscountList[i].order_id & door_id == Discounts.orderDiscountList[i].door_id){
+        for (let i = 0; i < Discounts.orderDiscountList.length; i++) {
+            if (order.orderId == Discounts.orderDiscountList[i].order_id & door_id == Discounts.orderDiscountList[i].door_id) {
                 Discounts.orderDiscountList[i].discount = discount;
                 isExist = true;
             }
         }
-        if (!isExist){
-            if (discount != 0){
+        if (!isExist) {
+            if (discount != 0) {
                 LineEditor.addOrderDiscount(door_id, discount, position)
             }
         }

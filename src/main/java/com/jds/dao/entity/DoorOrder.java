@@ -119,7 +119,7 @@ public class DoorOrder {
 
         for (DoorEntity door : doors) {
 
-            int discount = orderDiscounts.getByDoorId(door.getId());
+            double discount = orderDiscounts.getByDoorId(door.getId());
             totalQuantity = totalQuantity + door.getQuantity();
             totalAmount += (door.getPriceWithMarkup() - Math.round(door.getPriceWithMarkup() * discount / 100)) * door.getQuantity();
             totalTax += ((door.getPriceWithMarkup() - Math.round((door.getPriceWithMarkup() * discount / 100))) * door.getQuantity()) * tax / (100 + tax);

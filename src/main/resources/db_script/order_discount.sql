@@ -4,6 +4,5 @@ create table order_discount
     id           SERIAL PRIMARY KEY,
     order_id  INT,
     door_id INT,
-    discount INT
-
+    discount double precision
 );
