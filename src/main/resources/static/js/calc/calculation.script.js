@@ -1654,8 +1654,8 @@ jQuery("document").ready(function () {
             //shield
 
             if (currentItem == "shieldKit") {
-                fillChildBlockShield("shieldColor");
                 fillChildBlockShield("shieldDesign");
+                fillChildBlockShield("shieldColor");
                 fillChildBlockShield("shieldGlass");
                 fillChildBlockShield("shieldOverColor");
                 displayChildFields();
@@ -1760,8 +1760,8 @@ jQuery("document").ready(function () {
         }
 
         function hasAParination() {
-            if ("shieldColor" == currentItem ||
-                "shieldDesign" == currentItem ||
+            if ("shieldDesign" == currentItem ||
+                "shieldColor" == currentItem ||
                 "shieldGlass" == currentItem ||
                 "doorColor" == currentItem ||
                 'topLock' == currentItem ||
@@ -2018,6 +2018,7 @@ jQuery("document").ready(function () {
             } else {
                 $("#shieldDesign").attr("show", "is_alive_lement");
             }
+
             let shieldDesign = door.shieldKit.shieldDesign;
             if (shieldDesign == null || (shieldDesign != null && shieldDesign.containsOtherColor == 0)) {
                 $("#shieldOverColor").attr("show", "ghost_lement");
