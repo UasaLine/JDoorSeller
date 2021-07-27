@@ -68,6 +68,8 @@ class AvailableManager {
     makeAvailableIfExistsByHtmlName(name, postfix) {
         if (availableFurnitureList[name] && availableFurnitureList[name].length > 0) {
             AvailableManager.makeAvailable(postfix);
+        } else {
+            AvailableManager.makeUnavailable(postfix);
         }
     }
 
