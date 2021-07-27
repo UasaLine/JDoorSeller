@@ -15,7 +15,7 @@ public class OrderPrintLine implements Comparable<OrderPrintLine> {
     private String name;
     private int quantity;
     private int priceWithMarkup;
-    private int discount;
+    private double discount;
     private int totalPrice;
 
     public OrderPrintLine(DoorEntity door, OrderDiscounts orderDiscounts) {
@@ -24,8 +24,11 @@ public class OrderPrintLine implements Comparable<OrderPrintLine> {
         this.quantity = door.getQuantity();
         this.priceWithMarkup = door.getPriceWithMarkup();
 
-        this.discount = orderDiscounts.getByDoorId(door.getId());
-        this.totalPrice = (priceWithMarkup - Math.round(priceWithMarkup * discount / 100)) * quantity;
+        int sum = priceWithMarkup * quantity;
+        double discountAsPercent = orderDiscounts.getByDoorId(door.getId());
+
+        this.discount = Math.floor(sum * discountAsPercent) / 100;
+        this.totalPrice = (int) (priceWithMarkup - Math.round(priceWithMarkup * discountAsPercent / 100)) * quantity;
     }
 
     @Override

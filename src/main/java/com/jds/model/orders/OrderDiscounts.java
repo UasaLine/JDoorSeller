@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Getter
@@ -17,7 +16,7 @@ public class OrderDiscounts {
         this.ordersDiscountsList = ordersDiscountsList;
     }
 
-    public int getByDoorId (int door_id){
+    public double getByDoorId (int door_id){
 
         OrderDiscount orderDiscount = ordersDiscountsList.stream()
                 .filter((dis)-> dis.getDoor_id() == (door_id))
