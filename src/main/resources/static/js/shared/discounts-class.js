@@ -59,6 +59,10 @@ class Discounts {
             return 0;
         }
     }
+
+    static findPercentForVieW(door) {
+        return Discounts.findPercent(door).toFixed(3);
+    }
 }
 
 

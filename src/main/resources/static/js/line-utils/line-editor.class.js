@@ -129,7 +129,7 @@ class LineEditor {
 
             if (isRub) {
                 discount = TranslationOfDiscounts.percent(quantity, price, discountAsRub);
-                $(this).children('.discount_line').text(discount);
+                $(this).children('.discount_line').text(discount.toFixed(3));
             } else {
                 discountAsRub = TranslationOfDiscounts.rubles(quantity, price, discount);
                 $(this).children('.discount_line_rub').text(discountAsRub);

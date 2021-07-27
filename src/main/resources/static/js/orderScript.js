@@ -186,7 +186,7 @@ jQuery("document").ready(function () {
                 doors[j].priceWithMarkup +
                 "</td>" +
                 '<td class="vary_field text_input discount_line">' +
-                Discounts.findPercent(doors[j]) +
+                Discounts.findPercentForVieW(doors[j]) +
                 "</td>" +
                 '<td class="vary_field text_input discount_line_rub">' +
                 Discounts.findRubles(doors[j]) +
