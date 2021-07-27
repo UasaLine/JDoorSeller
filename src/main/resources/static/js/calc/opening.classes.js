@@ -5,13 +5,15 @@ class InnerOpen {
 
 
     }
-    static updateView(){
-        $('#innerOpenCheckboxId').prop("checked", door.innerOpen>0);
-        InnerOpen.showTypeImages(door.innerOpen>0);
+
+    static updateView() {
+        $('#innerOpenCheckboxId').prop("checked", door.innerOpen > 0);
+        InnerOpen.showTypeImages(door.innerOpen > 0);
 
     }
+
     static clickCheckbox() {
-        if (InnerOpen.checkAndHide()){
+        if (InnerOpen.checkAndHide()) {
             return;
         }
         let val = $(this).is(":checked");
@@ -37,12 +39,13 @@ class InnerOpen {
         }
     }
 
-    static hide(side){
+    static hide(side) {
         $(".innerOpen_" + side).each(function () {
             $(this).addClass('ghost');
         });
     }
-    static show(side){
+
+    static show(side) {
         $(".innerOpen_" + side).each(function () {
             $(this).removeClass('ghost');
         });
@@ -62,11 +65,18 @@ class InnerOpen {
 }
 
 class SideOpen {
+
+    static  LEFT = 'LEFT';
+    static  RIGHT = 'RIGHT';
+
     static init() {
         $(".openCheckbox").click(SideOpen.clickCheckbox);
     }
 
-    static updateView(){
+    static updateView() {
+        $("[data = " + this.LEFT + "]").prop("checked", false);
+        $("[data = " + this.RIGHT + "]").prop("checked", false);
+
         $("[data = " + door.sideDoorOpen + "]").prop("checked", true);
     }
 

@@ -66,17 +66,20 @@ public class DoorPrintView {
             if (door.getFurnitureKit().getTopLock() != null) {
                 furniture.add(new PrintViewParam("Верхний замок:", String.valueOf(door.getFurnitureKit().getTopLock().getName())));
             }
+            if (door.getFurnitureKit().getTopLockCylinder() != null) {
+                furniture.add(new PrintViewParam("Цилиндр:", String.valueOf(door.getFurnitureKit().getTopLockCylinder().getName())));
+            }
             if (door.getFurnitureKit().getTopInLockDecor() != null) {
                 furniture.add(new PrintViewParam("Внутренняя накладка", String.valueOf(door.getFurnitureKit().getTopInLockDecor().getName())));
             }
             if (door.getFurnitureKit().getTopOutLockDecor() != null) {
                 furniture.add(new PrintViewParam("Внешняя накладка:", String.valueOf(door.getFurnitureKit().getTopOutLockDecor().getName())));
             }
-            if (door.getFurnitureKit().getTopLockCylinder() != null) {
-                furniture.add(new PrintViewParam("Цилиндр:", String.valueOf(door.getFurnitureKit().getTopLockCylinder().getName())));
-            }
             if (door.getFurnitureKit().getLowerLock() != null) {
                 furniture.add(new PrintViewParam("Нижний замок:", String.valueOf(door.getFurnitureKit().getLowerLock().getName())));
+            }
+            if (door.getFurnitureKit().getLowerLockCylinder() != null) {
+                furniture.add(new PrintViewParam("Цилиндр:", String.valueOf(door.getFurnitureKit().getLowerLockCylinder().getName())));
             }
             if (door.getFurnitureKit().getLowerInLockDecor() != null) {
                 furniture.add(new PrintViewParam("Внутренняя накладка:", String.valueOf(door.getFurnitureKit().getLowerInLockDecor().getName())));
@@ -84,10 +87,6 @@ public class DoorPrintView {
             if (door.getFurnitureKit().getLowerOutLockDecor() != null) {
                 furniture.add(new PrintViewParam("Внешняя накладка:", String.valueOf(door.getFurnitureKit().getLowerOutLockDecor().getName())));
             }
-            if (door.getFurnitureKit().getLowerLockCylinder() != null) {
-                furniture.add(new PrintViewParam("Цилиндр:", String.valueOf(door.getFurnitureKit().getLowerLockCylinder().getName())));
-            }
-
             if (door.getFurnitureKit().getHandle() != null) {
                 furniture.add(new PrintViewParam("Ручка:", String.valueOf(door.getFurnitureKit().getHandle().getName())));
             }

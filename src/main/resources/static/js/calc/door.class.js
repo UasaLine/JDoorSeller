@@ -86,6 +86,7 @@ class Door {
 
             //draw door R
             let containerR = Door.createContainer(i, "R");
+            Door.createHideDoor(containerR, config);
             Door.createСolor(containerR, config);
             Door.createFanlight(containerR, config, "R");
 
@@ -165,10 +166,16 @@ class Door {
     }
 
     static createHideDoor(container, config) {
-        //let pathPicture = Door.getPicturePath(config.color);
-        //let pathPicture = door.doorDesign.doorColor.picturePath;
         $("<div>")
             .attr("class", "hide_door element")
+            .attr(
+                "style",
+                "width:" +
+                config.width +
+                "px; height:" +
+                (config.doorFanlightHeight + config.height) +
+                "px;"
+            )
             .appendTo(container);
     }
 

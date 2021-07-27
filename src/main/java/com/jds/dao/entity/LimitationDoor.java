@@ -126,7 +126,7 @@ public class LimitationDoor implements Comparable<LimitationDoor> {
     }
 
     public static String getDescription(LimitationDoor lim) {
-        return lim.getTypeSettings() + " " + lim.getFirstItem();
+        return lim.getTypeSettings().getName() + " " + lim.getFirstItem();
     }
 
     @Override
