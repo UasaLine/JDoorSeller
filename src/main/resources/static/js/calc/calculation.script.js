@@ -361,14 +361,14 @@ jQuery("document").ready(function () {
             let idRow = "";
             let idColName = "";
             for (let i = 0; i < cost.length; i++) {
-                if (cost[i].cost != 0){
-                idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "row" + i);
-                idColName = PriceComponent.addLineColumn(idRow, "col-9", "colName" + i);
-                costOutput = cost[i].name;
-                $("#" + idColName).text(costOutput);
-                idColName = PriceComponent.addLineColumn(idRow, "col", "colCost" + i);
-                costOutput = cost[i].cost;
-                $("#" + idColName).text(costOutput);
+                if (cost[i].cost != 0) {
+                    idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "row" + i);
+                    idColName = PriceComponent.addLineColumn(idRow, "col-9", "colName" + i);
+                    costOutput = cost[i].name;
+                    $("#" + idColName).text(costOutput);
+                    idColName = PriceComponent.addLineColumn(idRow, "col", "colCost" + i);
+                    costOutput = cost[i].cost;
+                    $("#" + idColName).text(costOutput);
                 }
             }
             idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete totalColorLine", "rowTotalCost");
@@ -717,7 +717,7 @@ jQuery("document").ready(function () {
             var elemsTotal = elems.length;
 
             for (var i = 0; i < elemsTotal; ++i) {
-                    $(elems[i]).prop("checked", false);
+                $(elems[i]).prop("checked", false);
             }
         }
 
@@ -803,7 +803,9 @@ jQuery("document").ready(function () {
         function displayMetal(data) {
             allDisable("metal_checkbox");
 
-            for (var i = 0; i < data.metal.length; ++i) {
+            let metalLength = data.metal.length;
+
+            for (var i = 0; i < metalLength; ++i) {
                 $("#metal" + i).attr("show", "is_alive_lement");
                 $("#nememetal" + i).text(data.metal[i].firstItem);
                 $("#checkboxmetal" + i).attr("data", data.metal[i].firstItem);
@@ -817,7 +819,9 @@ jQuery("document").ready(function () {
                     RepresentationManager.showFieldValue($("#checkboxmetal" + i).attr("data"));
                 }
             }
-            $("#namemetal").attr("available", "yes");
+            if (metalLength > 1) {
+                $("#namemetal").attr("available", "yes");
+            }
         }
 
         function displayWidthDoorAndHeightDoor(data) {
