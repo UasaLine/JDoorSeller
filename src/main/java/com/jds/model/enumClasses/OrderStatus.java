@@ -31,6 +31,9 @@ public enum OrderStatus implements TypeName {
 
         List<OrderStatus> list = new ArrayList<>();
         switch (orderStatus) {
+            case TO_WORK:
+                list.add(TO_WORK);
+                break;
             case IN_WORK:
                 list.add(IN_WORK);
                 break;
@@ -40,7 +43,6 @@ public enum OrderStatus implements TypeName {
                 break;
             default:
                 list.add(CALC);
-                list.add(TO_WORK);
                 list.add(CLOSED);
                 break;
         }

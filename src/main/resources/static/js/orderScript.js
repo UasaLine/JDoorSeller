@@ -92,12 +92,13 @@ jQuery("document").ready(function () {
 
     $("#goToWork").on("click", function () {
         order.status = "TO_WORK";
-        fillStatus();
-
-        backToOrder();
 
         saveOrder(0, 0);
         saveOrderDiscount(0, 0);
+
+        backToOrder();
+
+        getOrder();
     });
 
     function getOrder() {
