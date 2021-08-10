@@ -93,10 +93,10 @@ jQuery("document").ready(function () {
     $("#goToWork").on("click", function () {
         order.status = "TO_WORK";
 
+        backToOrder();
+
         saveOrder(0, 0);
         saveOrderDiscount(0, 0);
-
-        backToOrder();
 
         getOrder();
     });
