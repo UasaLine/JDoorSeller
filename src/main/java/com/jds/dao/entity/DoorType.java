@@ -48,13 +48,13 @@ public class DoorType implements Comparable<DoorType> {
     double retailPrice;
 
     @Column(name = "wholesalePriceFromStock1")
-    double  wholesalePriceFromStock1;
+    double wholesalePriceFromStock1;
 
     @Column(name = "wholesalePriceFromStock2")
-    double  wholesalePriceFromStock2;
+    double wholesalePriceFromStock2;
 
     @Column(name = "wholesalePriceFromOrder")
-    double  wholesalePriceFromOrder;
+    double wholesalePriceFromOrder;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doorType", cascade = CascadeType.ALL)
@@ -292,5 +292,9 @@ public class DoorType implements Comparable<DoorType> {
     @Override
     public int compareTo(DoorType doorType) {
         return this.getName().compareTo(doorType.getName());
+    }
+
+    public static boolean isNotNew(int typeId) {
+        return typeId > 0;
     }
 }

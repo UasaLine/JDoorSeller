@@ -388,7 +388,7 @@ public class MainDAO {
         if (doorsList.size() > 0) {
             door = doorsList.get(0).initKitFields();
         }
-        return door;
+        return door.clearNonSerializingFields();
     }
 
     public List<DoorEntity> getDoors() {
@@ -508,7 +508,7 @@ public class MainDAO {
         if (list.size() > 0) {
             doorType = list.get(0);
         }
-        return doorType;
+        return doorType.clearNonSerializingFields();
     }
 
     public List<DoorType> getDoorType() {

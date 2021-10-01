@@ -1235,4 +1235,8 @@ public class DoorEntity implements SerializingFields {
             return "";
         }
     }
+
+    public static boolean isNotNew(int doorId) {
+        return doorId > 0;
+    }
 }
