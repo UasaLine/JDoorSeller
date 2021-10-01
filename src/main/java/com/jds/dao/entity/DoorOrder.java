@@ -147,10 +147,14 @@ public class DoorOrder {
     }
 
     public boolean isSellerOrderIdExists() {
-        if (sellerOrderId == 0){
+        if (sellerOrderId == 0) {
             return false;
         }
         return true;
+    }
+
+    public static boolean isNotNew(int orderId) {
+        return orderId > 0;
     }
 
 }

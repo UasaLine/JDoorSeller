@@ -7,6 +7,7 @@ import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
 import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.enumClasses.SideDoorOpen;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,32 +52,39 @@ public class DoorServiceImpl implements DoorService {
     }
 
     @Override
-    public DoorEntity getDoor(@NonNull int id, @NonNull int orderId, @NonNull int typeId) {
+    public DoorEntity getDoor(@NonNull int doorId, @NonNull int orderId, @NonNull int typeId) {
 
         DoorEntity door;
 
-        if (id > 0) {
-            door = dAO.getDoor(id);
-            door = allowEditing(door, orderId);
-        } else if (typeId > 0) {
-            door = createNewDoorByTemplate(typeId, id);
+        if (DoorEntity.isNotNew(doorId)) {
+            door = getDoorFromDao(doorId, orderId);
+
+        } else if (DoorType.isNotNew(typeId)) {
+            door = createNewDoorByTemplate(typeId, doorId);
+
         } else {
             door = createNewDoorWithAvailableDoorClass();
         }
 
-        if (orderId != 0) {
+        if (DoorOrder.isNotNew(orderId)) {
             door.setOrderHolder(orderId);
         }
 
         return door.clearNonSerializingFields();
     }
 
-    private DoorEntity allowEditing(DoorEntity door, int orderId) {
-        DoorOrder doorsОrder = orderService.getOrder(orderId);
-        if (doorsОrder.getStatus() == OrderStatus.CALC) {
+    private DoorEntity getDoorFromDao(int doorId, int orderId) {
+        DoorEntity door = dAO.getDoor(doorId);
+        allowEditing(door, orderId);
+        return door;
+    }
+
+    private void allowEditing(DoorEntity door, int orderId) {
+        DoorOrder order = orderService.getOrder(orderId);
+        if (order.getStatus() == OrderStatus.CALC) {
             door.setTemplate(templateService.getTemplate(String.valueOf(door.getDoorType().getId())));
         }
-        return door;
+
     }
 
     public DoorEntity recalculateByPrice(@NonNull DoorEntity doorEntity,
@@ -172,6 +180,7 @@ public class DoorServiceImpl implements DoorService {
         doorEntity.addAvailableDoorClass(dAO.getAvailableDoorClass());
 
         doorEntity.setDoorType(doorType);
+        doorEntity.setSideDoorOpen(SideDoorOpen.RIGHT.toString());
 
         RestrictionOfSelectionFields template = templateService.getTemplate(String.valueOf(typeId));
         doorEntity.setTemplate(template);
@@ -181,11 +190,10 @@ public class DoorServiceImpl implements DoorService {
         doorEntity.setHeightDoor(findInTemplateSize(template.getHeightDoor()));
         doorEntity.setDoorLeaf(doorType.getDoorLeaf());
         doorEntity.setActiveDoorLeafWidth(findInTemplateSize(template.getWidthDoorLeaf()));
-        //doorEntity.setDoorFanlightHeight
+
         doorEntity.setDeepnessDoor((int) findInTemplateRestriction(template.getDeepnessDoor()));
         doorEntity.setThicknessDoorLeaf((int) findInTemplateRestriction(template.getThicknessDoorLeaf()));
-        //sideDoorOpen
-        //innerDoorOpen;
+
 
         doorEntity.setDoorstep((int) findInTemplateRestriction(template.getDoorstep()));
         doorEntity.setStainlessSteelDoorstep((int) findInTemplateRestriction(template.getStainlessSteelDoorstep()));
@@ -218,7 +226,7 @@ public class DoorServiceImpl implements DoorService {
                 defaultDoorDesign != null ? colorDao.getColorById(defaultDoorDesign.getItemId()) : null,
                 defaultOutShieldColor != null ? colorDao.getColorById(defaultOutShieldColor.getItemId()) : null,
                 defaultOutShieldDesign != null ? colorDao.getColorById(defaultOutShieldDesign.getItemId()) : null
-                ));
+        ));
 
         AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
 
@@ -431,7 +439,6 @@ public class DoorServiceImpl implements DoorService {
                 .value(1)
                 .materialId(furniture.getIdManufacturerProgram())
                 .build());
-
 
     }
 }
