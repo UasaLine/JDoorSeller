@@ -1,6 +1,10 @@
 package com.jds;
 
+import com.jds.controller.OrderController;
+import com.jds.model.tools.EnvChecker;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -25,8 +29,13 @@ public class Application {
 
     @Autowired
     private Environment env;
+    private static Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     public static void main(String[] args) throws Throwable {
+        if (!EnvChecker.sql()) {
+            logger.error("EnvChecker: the application is not running");
+            return;
+        }
         SpringApplication.run(Application.class, args);
     }
 
