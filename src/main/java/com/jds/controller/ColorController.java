@@ -2,8 +2,12 @@ package com.jds.controller;
 
 import com.jds.dao.entity.ImageEntity;
 import com.jds.model.backResponse.ResponseMassage;
-import com.jds.model.image.*;
 import com.jds.model.backResponse.ResponseModel;
+import com.jds.model.image.ColorPicture;
+import com.jds.model.image.TypeOfImage;
+import com.jds.model.image.TypeView;
+import com.jds.model.image.TypeOfDoorColor;
+import com.jds.model.image.TypeOfShieldDesign;
 import com.jds.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,11 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.jds.model.image.TypeOfImage.*;
+import static com.jds.model.image.TypeOfImage.SHIELD_DESIGN;
 
 @Controller
 public class ColorController {
@@ -26,11 +30,11 @@ public class ColorController {
 
     @GetMapping(value = "/pages/colors")
     @Secured("ROLE_ADMIN")
-    public String getMetalListPage(Model model) throws Exception {
+    public String getMetalListPage(Model model) {
         List<ImageEntity> list = service.getColors();
 
         list = list.stream()
-                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .sorted()
                 .collect(Collectors.toList());
 
         model.addAttribute("List", list);
@@ -45,7 +49,7 @@ public class ColorController {
     }
 
     @GetMapping(value = "/pages/colors/{id}")
-    public String getColorPage(@PathVariable String id) throws Exception {
+    public String getColorPage(@PathVariable String id) {
 
         return "color";
     }
@@ -60,9 +64,9 @@ public class ColorController {
 
     @PutMapping(value = "/colors")
     @ResponseBody
-    public ResponseModel saveColor(@RequestBody ImageEntity color) {
+    public ResponseModel<ImageEntity> saveColor(@RequestBody ImageEntity color) {
 
-        return new ResponseModel(service.saveColor(color));
+        return new ResponseModel<>(service.saveColor(color));
 
     }
 
@@ -82,15 +86,15 @@ public class ColorController {
 
     @DeleteMapping(value = "/color/{id}")
     @ResponseBody
-    public ResponseModel deleteColor(@PathVariable String id) {
+    public ResponseModel<String> deleteColor(@PathVariable String id) {
 
-        return new ResponseModel(service.deleteColor(id));
+        return new ResponseModel<>(service.deleteColor(id));
 
     }
 
     @GetMapping(value = "/image/types")
     @ResponseBody
-    public EnumSet<TypeOfImage> getImageTypeList() {
+    public Set<TypeOfImage> getImageTypeList() {
 
         return service.getImageTypeList();
     }
