@@ -28,8 +28,6 @@ public class DoorServiceImpl implements DoorService {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private FurnitureService furnitureService;
-    @Autowired
     private UserService userService;
     @Autowired
     private MetalRepository metalDao;
@@ -60,10 +58,11 @@ public class DoorServiceImpl implements DoorService {
             door = getDoorFromDao(doorId, orderId);
 
         } else if (DoorType.isNotNew(typeId)) {
-            door = createNewDoorByTemplate(typeId, doorId);
+            door = templateService.newDoor(typeId, doorId);
 
         } else {
-            door = createNewDoorWithAvailableDoorClass();
+            door = new DoorEntity();
+            door.addAvailableDoorClass(dAO.getAvailableDoorClass());
         }
 
         if (DoorOrder.isNotNew(orderId)) {
@@ -75,16 +74,11 @@ public class DoorServiceImpl implements DoorService {
 
     private DoorEntity getDoorFromDao(int doorId, int orderId) {
         DoorEntity door = dAO.getDoor(doorId);
-        allowEditing(door, orderId);
-        return door;
-    }
-
-    private void allowEditing(DoorEntity door, int orderId) {
         DoorOrder order = orderService.getOrder(orderId);
         if (order.getStatus() == OrderStatus.CALC) {
             door.setTemplate(templateService.getTemplate(String.valueOf(door.getDoorType().getId())));
         }
-
+        return door;
     }
 
     public DoorEntity recalculateByPrice(@NonNull DoorEntity doorEntity,
@@ -160,164 +154,6 @@ public class DoorServiceImpl implements DoorService {
 
         return DoorPart.getDoopPartsList(dAO.getSizeOfDoorPartsList(door.getDoorType().getId()), door);
 
-    }
-
-    public DoorEntity createNewDoorWithAvailableDoorClass() {
-
-        DoorEntity door = new DoorEntity();
-        door.addAvailableDoorClass(dAO.getAvailableDoorClass());
-
-        return door;
-    }
-
-    public DoorEntity createNewDoorByTemplate(@NonNull int typeId, @NonNull int id) {
-
-
-        DoorType doorType = dAO.getDoorType(typeId);
-
-        DoorEntity doorEntity = new DoorEntity();
-        doorEntity.setId(id);
-        doorEntity.addAvailableDoorClass(dAO.getAvailableDoorClass());
-
-        doorEntity.setDoorType(doorType);
-        doorEntity.setSideDoorOpen(SideDoorOpen.RIGHT.toString());
-
-        RestrictionOfSelectionFields template = templateService.getTemplate(String.valueOf(typeId));
-        doorEntity.setTemplate(template);
-
-        doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
-        doorEntity.setWidthDoor(findInTemplateSize(template.getWidthDoor()));
-        doorEntity.setHeightDoor(findInTemplateSize(template.getHeightDoor()));
-        doorEntity.setDoorLeaf(doorType.getDoorLeaf());
-        doorEntity.setActiveDoorLeafWidth(findInTemplateSize(template.getWidthDoorLeaf()));
-
-        doorEntity.setDeepnessDoor((int) findInTemplateRestriction(template.getDeepnessDoor()));
-        doorEntity.setThicknessDoorLeaf((int) findInTemplateRestriction(template.getThicknessDoorLeaf()));
-
-
-        doorEntity.setDoorstep((int) findInTemplateRestriction(template.getDoorstep()));
-        doorEntity.setStainlessSteelDoorstep((int) findInTemplateRestriction(template.getStainlessSteelDoorstep()));
-
-        doorEntity.setTopDoorTrim((int) findInTemplateRestriction(template.getTopDoorTrim()));
-        doorEntity.setLeftDoorTrim((int) findInTemplateRestriction(template.getLeftDoorTrim()));
-        doorEntity.setRightDoorTrim((int) findInTemplateRestriction(template.getRightDoorTrim()));
-
-        doorEntity.setTopDoorTrimSize(findInTemplateSize(template.getTopDoorTrimSize()));
-        doorEntity.setLeftDoorTrimSize(findInTemplateSize(template.getLeftDoorTrimSize()));
-        doorEntity.setRightDoorTrimSize(findInTemplateSize(template.getRightDoorTrimSize()));
-
-        //sealingLine
-        doorEntity.setFirstSealingLine((int) findInTemplateRestriction(template.getFirstSealingLine()));
-        doorEntity.setSecondSealingLine((int) findInTemplateRestriction(template.getSecondSealingLine()));
-        doorEntity.setThirdSealingLine((int) findInTemplateRestriction(template.getThirdSealingLine()));
-        //price
-        //discountPrice
-        //priceWithMarkup
-
-        doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
-
-        LimitationDoor defaultDoorColor = template.getDefaultDoorColor();
-        LimitationDoor defaultDoorDesign = template.getDefaultDoorDesign();
-        LimitationDoor defaultOutShieldColor = template.getDefaultOutShieldColor();
-        LimitationDoor defaultOutShieldDesign = template.getDefaultOutShieldDesign();
-
-        doorEntity.setDoorDesign(DoorDesign.instanceDesign(
-                defaultDoorColor != null ? colorDao.getColorById(defaultDoorColor.getItemId()) : null,
-                defaultDoorDesign != null ? colorDao.getColorById(defaultDoorDesign.getItemId()) : null,
-                defaultOutShieldColor != null ? colorDao.getColorById(defaultOutShieldColor.getItemId()) : null,
-                defaultOutShieldDesign != null ? colorDao.getColorById(defaultOutShieldDesign.getItemId()) : null
-        ));
-
-        AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
-
-                .topLock(defaultAndGetFurniture(template.getTopLock()))
-                .lowerLock(defaultAndGetFurniture(template.getLowerLock()))
-                .topOutLockDecor(defaultAndGetFurniture(template.getTopOutLockDecor()))
-                .topInLockDecor(defaultAndGetFurniture(template.getTopInLockDecor()))
-                .lowerOutLockDecor(defaultAndGetFurniture(template.getLowerOutLockDecor()))
-                .lowerInLockDecor(defaultAndGetFurniture(template.getLowerInLockDecor()))
-                .lockCylinder(defaultAndGetFurniture(template.getLockCylinder()))
-                .handle(defaultAndGetFurniture(template.getHandle()))
-
-                .shieldColor(defaultAndGetImage(template.getShieldColor()))
-                .shieldDesign(defaultAndGetImage(template.getShieldDesign()))
-                .shieldGlass(furnitureService.getImageByLimit((template.getShieldGlass())))
-
-                .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
-                .peephole(defaultAndGetFurniture(template.getPeephole()))
-                .closer(defaultAndGetFurniture(template.getCloser()))
-                .nightLock(defaultAndGetFurniture(template.getNightLock()))
-                .build();
-
-        doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
-        doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
-
-        return doorEntity;
-
-    }
-
-    private List<DoorFurniture> defaultAndGetFurniture(List<LimitationDoor> listLim) {
-        List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .collect(Collectors.toList());
-        return furnitureService.getFurnitureByLmit(defList);
-    }
-
-    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
-        return listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .map(DoorFurniture::newInstance)
-                .collect(Collectors.toList());
-    }
-
-    private List<ImageEntity> defaultAndGetImage(List<LimitationDoor> listLim) {
-        List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .collect(Collectors.toList());
-        return furnitureService.getImageByLimit(defList);
-    }
-
-    public double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
-
-        List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .collect(Collectors.toList());
-
-        if (defList.size() == 1) {
-            return defList.get(0).getStartRestriction();
-        }
-
-        return 0;
-    }
-
-    public String findInTemplateColor(@NonNull List<LimitationDoor> listLim) {
-
-        List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .collect(Collectors.toList());
-
-        if (defList.size() == 1) {
-            return defList.get(0).getFirstItem();
-        }
-
-        return "";
-    }
-
-    public int findInTemplateSize(@NonNull List<LimitationDoor> listLim) {
-
-        List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
-                .collect(Collectors.toList());
-
-        if (defList.size() == 1) {
-            if (defList.get(0).getPairOfValues() == 1) {
-                return defList.get(0).getDefaultValue();
-            } else {
-                return (int) defList.get(0).getStartRestriction();
-            }
-        }
-
-        return 0;
     }
 
     @Override
