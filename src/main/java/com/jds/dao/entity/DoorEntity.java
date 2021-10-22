@@ -972,10 +972,10 @@ public class DoorEntity implements SerializingFields {
         return "лев: " + lefTrim + " верх: " + topTrim + " прав: " + rightTrim;
     }
 
-    public DoorEntity addPriceToCostList(int discount) {
+    public DoorEntity addPriceToCostList(int discount, PriceGroups priceGroup) {
 
         costList = new CostList();
-        int retailPrice = (int) doorType.getRetailPrice();
+        int retailPrice = (int) doorType.getPrice(priceGroup);
 
         costList.addLine("Розничная цена",
                 100,

@@ -1,5 +1,6 @@
 package com.jds.service;
 
+import com.jds.controller.PrintController;
 import com.jds.dao.repository.OrderDAO;
 import com.jds.dao.repository.UserDAO;
 import com.jds.dao.entity.UserEntity;
@@ -157,22 +158,22 @@ public class UserService implements UserDetailsService, UserServ {
 
     public UserEntity getUser(@NonNull String userId) {
 
-        int idInt = Integer.parseInt(userId);
+        return getUser(Integer.parseInt(userId));
+    }
 
+    public UserEntity getUser(@NonNull int userId) {
 
-        if (idInt == 9300) {
+        if (userId == 9300) {
             return userHolder(ADMIN_NAME);
-        } else if (idInt == 0) {
+        } else if (userId == 0) {
             return UserEntity.builder()
                     .username("newUser")
                     .build();
         }
 
-        UserEntity user = dAO.getUser(idInt);
+        UserEntity user = dAO.getUser(userId);
         setOrderCount(user);
-
         return user;
-
     }
 
     public void setEnabledAndRole(UserEntity user, List<Role> roleList) {
@@ -222,5 +223,11 @@ public class UserService implements UserDetailsService, UserServ {
         UserEntity user = dAO.getUser(id);
         dAO.delete(user);
         return new ResponseMassage(true, "ok");
+    }
+
+    public PriceGroups getCurrentUserPriceGroup() {
+        int userId = getCurrentUser().getId();
+        UserEntity userEntityWithFreshSetting = getUser(userId);
+        return userEntityWithFreshSetting.getPriceGroup();
     }
 }

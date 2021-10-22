@@ -1,12 +1,12 @@
 package com.jds.service;
 
-import com.jds.dao.entity.DoorType;
-import com.jds.dao.entity.ImageEntity;
-import com.jds.dao.entity.LimitationDoor;
+import com.jds.dao.entity.*;
 import com.jds.dao.repository.*;
+import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.ShortTemplate;
+import com.jds.model.enumClasses.SideDoorOpen;
 import com.jds.model.enumClasses.TypeOfFurniture;
 import com.jds.model.enumClasses.TypeOfLimitionDoor;
 import lombok.NonNull;
@@ -23,16 +23,15 @@ import java.util.stream.Collectors;
 public class TemplateService {
 
     @Autowired
-    private TemplateRepository dAO;
-    @Autowired
     private MainDAO mainDAO;
     @Autowired
     private MetalRepository metalDao;
     @Autowired
     private ColorRepository colorDao;
-
     @Autowired
     private FurnitureRepository furnitureDao;
+    @Autowired
+    private FurnitureService furnitureService;
 
     private Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
@@ -296,5 +295,155 @@ public class TemplateService {
                 .filter(line -> line.getItemId() == id)
                 .findFirst().orElse(new LimitationDoor());
     }
+
+    public DoorEntity newDoor(@NonNull int typeId, @NonNull int id) {
+
+        DoorType doorType = mainDAO.getDoorType(typeId);
+
+        DoorEntity doorEntity = new DoorEntity();
+        doorEntity.setId(id);
+        doorEntity.addAvailableDoorClass(mainDAO.getAvailableDoorClass());
+
+        doorEntity.setDoorType(doorType);
+        doorEntity.setSideDoorOpen(SideDoorOpen.RIGHT.toString());
+
+        RestrictionOfSelectionFields template = getTemplate(String.valueOf(typeId));
+        doorEntity.setTemplate(template);
+
+        doorEntity.setMetal(findInTemplateRestriction(template.getMetal()));
+        doorEntity.setWidthDoor(findInTemplateSize(template.getWidthDoor()));
+        doorEntity.setHeightDoor(findInTemplateSize(template.getHeightDoor()));
+        doorEntity.setDoorLeaf(doorType.getDoorLeaf());
+        doorEntity.setActiveDoorLeafWidth(findInTemplateSize(template.getWidthDoorLeaf()));
+
+        doorEntity.setDeepnessDoor((int) findInTemplateRestriction(template.getDeepnessDoor()));
+        doorEntity.setThicknessDoorLeaf((int) findInTemplateRestriction(template.getThicknessDoorLeaf()));
+
+
+        doorEntity.setDoorstep((int) findInTemplateRestriction(template.getDoorstep()));
+        doorEntity.setStainlessSteelDoorstep((int) findInTemplateRestriction(template.getStainlessSteelDoorstep()));
+
+        doorEntity.setTopDoorTrim((int) findInTemplateRestriction(template.getTopDoorTrim()));
+        doorEntity.setLeftDoorTrim((int) findInTemplateRestriction(template.getLeftDoorTrim()));
+        doorEntity.setRightDoorTrim((int) findInTemplateRestriction(template.getRightDoorTrim()));
+
+        doorEntity.setTopDoorTrimSize(findInTemplateSize(template.getTopDoorTrimSize()));
+        doorEntity.setLeftDoorTrimSize(findInTemplateSize(template.getLeftDoorTrimSize()));
+        doorEntity.setRightDoorTrimSize(findInTemplateSize(template.getRightDoorTrimSize()));
+
+        //sealingLine
+        doorEntity.setFirstSealingLine((int) findInTemplateRestriction(template.getFirstSealingLine()));
+        doorEntity.setSecondSealingLine((int) findInTemplateRestriction(template.getSecondSealingLine()));
+        doorEntity.setThirdSealingLine((int) findInTemplateRestriction(template.getThirdSealingLine()));
+        //price
+        //discountPrice
+        //priceWithMarkup
+
+        doorEntity.setDoorColor(findInTemplateColor(template.getColors()));
+
+        LimitationDoor defaultDoorColor = template.getDefaultDoorColor();
+        LimitationDoor defaultDoorDesign = template.getDefaultDoorDesign();
+        LimitationDoor defaultOutShieldColor = template.getDefaultOutShieldColor();
+        LimitationDoor defaultOutShieldDesign = template.getDefaultOutShieldDesign();
+
+        doorEntity.setDoorDesign(DoorDesign.instanceDesign(
+                defaultDoorColor != null ? colorDao.getColorById(defaultDoorColor.getItemId()) : null,
+                defaultDoorDesign != null ? colorDao.getColorById(defaultDoorDesign.getItemId()) : null,
+                defaultOutShieldColor != null ? colorDao.getColorById(defaultOutShieldColor.getItemId()) : null,
+                defaultOutShieldDesign != null ? colorDao.getColorById(defaultOutShieldDesign.getItemId()) : null
+        ));
+
+        AvailableFieldsForSelection availableFields = AvailableFieldsForSelection.builder()
+
+                .topLock(defaultAndGetFurniture(template.getTopLock()))
+                .lowerLock(defaultAndGetFurniture(template.getLowerLock()))
+                .topOutLockDecor(defaultAndGetFurniture(template.getTopOutLockDecor()))
+                .topInLockDecor(defaultAndGetFurniture(template.getTopInLockDecor()))
+                .lowerOutLockDecor(defaultAndGetFurniture(template.getLowerOutLockDecor()))
+                .lowerInLockDecor(defaultAndGetFurniture(template.getLowerInLockDecor()))
+                .lockCylinder(defaultAndGetFurniture(template.getLockCylinder()))
+                .handle(defaultAndGetFurniture(template.getHandle()))
+
+                .shieldColor(defaultAndGetImage(template.getShieldColor()))
+                .shieldDesign(defaultAndGetImage(template.getShieldDesign()))
+                .shieldGlass(furnitureService.getImageByLimit((template.getShieldGlass())))
+
+                .peepholePosition(defaultAndConvertToFurniture(template.getPeepholePosition()))
+                .peephole(defaultAndGetFurniture(template.getPeephole()))
+                .closer(defaultAndGetFurniture(template.getCloser()))
+                .nightLock(defaultAndGetFurniture(template.getNightLock()))
+                .build();
+
+        doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
+        doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
+
+        return doorEntity;
+
+    }
+
+    private double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+            return defList.get(0).getStartRestriction();
+        }
+
+        return 0;
+    }
+
+    private String findInTemplateColor(@NonNull List<LimitationDoor> listLim) {
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+            return defList.get(0).getFirstItem();
+        }
+
+        return "";
+    }
+
+    private int findInTemplateSize(@NonNull List<LimitationDoor> listLim) {
+
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+
+        if (defList.size() == 1) {
+            if (defList.get(0).getPairOfValues() == 1) {
+                return defList.get(0).getDefaultValue();
+            } else {
+                return (int) defList.get(0).getStartRestriction();
+            }
+        }
+
+        return 0;
+    }
+
+    private List<DoorFurniture> defaultAndGetFurniture(List<LimitationDoor> listLim) {
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+        return furnitureService.getFurnitureByLmit(defList);
+    }
+
+    private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
+        return listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .map(DoorFurniture::newInstance)
+                .collect(Collectors.toList());
+    }
+
+    private List<ImageEntity> defaultAndGetImage(List<LimitationDoor> listLim) {
+        List<LimitationDoor> defList = listLim.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
+        return furnitureService.getImageByLimit(defList);
+    }
+
 
 }
