@@ -54,7 +54,7 @@ public class UserController {
     public String saveUser(Model model,@RequestParam(required = false) String username,
                            @RequestParam(required = false) String userId,
                            @RequestParam(required = false) String password,
-                           @RequestParam(required = false) int discount,
+                           @RequestParam(required = false, defaultValue = "0") int discount,
                            @RequestParam(required = false) boolean enabledСheckbox,
                            @RequestParam(required = false) PriceGroups priceGroups,
                            @RequestParam(required = false) Role role) throws Exception {

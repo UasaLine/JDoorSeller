@@ -7,6 +7,7 @@ import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
 import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.enumClasses.PriceGroups;
 import com.jds.model.enumClasses.SideDoorOpen;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,7 @@ public class DoorServiceImpl implements DoorService {
         }
 
         doorEntity
-                .addPriceToCostList(discount)
+                .addPriceToCostList(discount, userService.getCurrentUserPriceGroup())
                 .costOfChangesAtTemplate()
                 .calculateGlass()
                 .calculateFurniture()

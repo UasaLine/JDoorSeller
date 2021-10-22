@@ -1,12 +1,18 @@
 package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jds.model.enumClasses.PriceGroups;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Door_Type")
+@Getter
+@Setter
 public class DoorType implements Comparable<DoorType> {
 
     @Id
@@ -129,94 +135,6 @@ public class DoorType implements Comparable<DoorType> {
         //empty constructor
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNamePicture() {
-        return namePicture;
-    }
-
-    public void setNamePicture(String namePicture) {
-        this.namePicture = namePicture;
-    }
-
-    public int getDoorLeaf() {
-        return doorLeaf;
-    }
-
-    public void setDoorLeaf(int doorLeaf) {
-        this.doorLeaf = doorLeaf;
-    }
-
-    public String getNameForPrint() {
-        return nameForPrint;
-    }
-
-    public void setNameForPrint(String nameForPrint) {
-        this.nameForPrint = nameForPrint;
-    }
-
-    public String getNameForPrintInternalOpening() {
-        return nameForPrintInternalOpening;
-    }
-
-    public void setNameForPrintInternalOpening(String nameForPrintInternalOpening) {
-        this.nameForPrintInternalOpening = nameForPrintInternalOpening;
-    }
-
-    public int getDaysToRelease() {
-        return daysToRelease;
-    }
-
-    public void setDaysToRelease(int daysToRelease) {
-        this.daysToRelease = daysToRelease;
-    }
-
-    public int getMarkUp() {
-        return markUp;
-    }
-
-    public void setMarkUp(int markUp) {
-        this.markUp = markUp;
-    }
-
-    public int getMarkUpGlassPackage() {
-        return markUpGlassPackage;
-    }
-
-    public void setMarkUpGlassPackage(int markUpGlassPackage) {
-        this.markUpGlassPackage = markUpGlassPackage;
-    }
-
-    public int getDS() {
-        return DS;
-    }
-
-    public void setDS(int DS) {
-        this.DS = DS;
-    }
-
-    public DoorClass getDoorClass() {
-        return doorClass;
-    }
-
-    public void setDoorClass(DoorClass doorClass) {
-        this.doorClass = doorClass;
-    }
-
     public List<LimitationDoor> getLimitationList() {
         return limitationList;
     }
@@ -241,46 +159,6 @@ public class DoorType implements Comparable<DoorType> {
         this.specificationSettings = specificationSettings;
     }
 
-    public int getPriceList() {
-        return priceList;
-    }
-
-    public void setPriceList(int priceList) {
-        this.priceList = priceList;
-    }
-
-    public double getRetailPrice() {
-        return retailPrice;
-    }
-
-    public void setRetailPrice(double retailPrice) {
-        this.retailPrice = retailPrice;
-    }
-
-    public double getWholesalePriceFromStock1() {
-        return wholesalePriceFromStock1;
-    }
-
-    public void setWholesalePriceFromStock1(double wholesalePriceFromStock1) {
-        this.wholesalePriceFromStock1 = wholesalePriceFromStock1;
-    }
-
-    public double getWholesalePriceFromStock2() {
-        return wholesalePriceFromStock2;
-    }
-
-    public void setWholesalePriceFromStock2(double wholesalePriceFromStock2) {
-        this.wholesalePriceFromStock2 = wholesalePriceFromStock2;
-    }
-
-    public double getWholesalePriceFromOrder() {
-        return wholesalePriceFromOrder;
-    }
-
-    public void setWholesalePriceFromOrder(double wholesalePriceFromOrder) {
-        this.wholesalePriceFromOrder = wholesalePriceFromOrder;
-    }
-
     public List<DoorEntity> getDoorEntityList() {
         return doorEntityList;
     }
@@ -296,5 +174,48 @@ public class DoorType implements Comparable<DoorType> {
 
     public static boolean isNotNew(int typeId) {
         return typeId > 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DoorType)) return false;
+        DoorType doorType = (DoorType) o;
+        return id == doorType.id &&
+                Double.compare(doorType.wholesalePriceFromStock1, wholesalePriceFromStock1) == 0 &&
+                Double.compare(doorType.wholesalePriceFromStock2, wholesalePriceFromStock2) == 0 &&
+                Double.compare(doorType.wholesalePriceFromOrder, wholesalePriceFromOrder) == 0 &&
+                name.equals(doorType.name) &&
+                Objects.equals(bendSettings, doorType.bendSettings) &&
+                Objects.equals(doorFurnitures, doorType.doorFurnitures) &&
+                Objects.equals(doorClass, doorType.doorClass) &&
+                Objects.equals(sizeOfDoorPartsList, doorType.sizeOfDoorPartsList) &&
+                Objects.equals(limitationList, doorType.limitationList) &&
+                Objects.equals(specificationSettings, doorType.specificationSettings) &&
+                Objects.equals(doorEntityList, doorType.doorEntityList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    public double getPrice(PriceGroups priceGroups) {
+        double price = 0;
+        switch (priceGroups) {
+            case RETAIL_PRICE:
+                price = getRetailPrice();
+                break;
+            case WHOLESALE_PRICE:
+                price = getWholesalePriceFromStock1();
+                break;
+            case PRICE_OVER_1_MILLION_PER_MONTH:
+                price = getWholesalePriceFromStock2();
+                break;
+            case WHOLESALE_PRICE_ON_PREPAYMENT:
+                price = getWholesalePriceFromOrder();
+                break;
+        }
+        return price;
     }
 }
