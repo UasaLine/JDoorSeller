@@ -9,7 +9,7 @@ class Door {
     static set(fieldName, value) {
         door[fieldName] = value;
         failureToSetValue = false;
-
+        Price.erase();
     }
 
     static setGlass(fieldName, value) {
@@ -17,8 +17,12 @@ class Door {
         failureToSetValue = false;
     }
 
-
     static draw(door, i) {
+        Door.drawDoor(door, i);
+        Door.displayPrice(door);
+    }
+
+    static drawDoor(door, i) {
         let sideDoorOpen = door.sideDoorOpen;
         let config = new Object();
         config.color = door.doorColor;
@@ -687,5 +691,57 @@ class Door {
                 alert("!ERROR:   get colors (");
             },
         });
+    }
+
+    static displayPrice(door) {
+
+        if (door.priceWithMarkup !== 0) {
+            let price = Price.ToString(door.priceWithMarkup);
+            $("#price").show();
+            $("#price").text(price);
+            $("<span>").attr("class", "rub").text("Р").appendTo("#price");
+        }
+        else {
+            $("#price").hide();
+        }
+
+        //door.costList.totalCost;
+        $(".decryption").remove();
+
+        if (door.costList !== null) {
+            var tab = door.costList.list;
+            var size = tab.length;
+            for (var i = 0; i < size; ++i) {
+                $("<sran>")
+                    .attr("class", "decryption")
+                    .text("" + tab[i].name + " - " + tab[i].cost)
+                    .appendTo("#calculateResultDiv");
+                $("<br>").attr("class", "decryption").appendTo("#calculateResultDiv");
+            }
+        }
+    }
+
+    static priceErase(){
+        Price.erase();
+    }
+}
+
+class Price {
+    static ToString(price) {
+        let str = String(price);
+        let str3 = str.slice(str.length - 3, str.length);
+        let str2 = str.slice(0, str.length - 3);
+        let str1 = "";
+        if (str2.length > 3) {
+            str2 = str.slice(str.length - 6, str.length - 3);
+            str1 = str.slice(0, str.length - 6);
+            return str1 + "'" + str2 + "'" + str3;
+        } else {
+            return str2 + "'" + str3;
+        }
+    }
+
+    static erase() {
+        door.priceWithMarkup = 0;
     }
 }

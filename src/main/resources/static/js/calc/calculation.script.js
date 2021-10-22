@@ -71,7 +71,7 @@ jQuery("document").ready(function () {
                 currentItem = "doorClass";
                 hideShowField(true);
             }
-            displayPrice();
+            Door.displayPrice(door);
         }
 
         //--------------------------------------
@@ -119,7 +119,7 @@ jQuery("document").ready(function () {
         });
 
         $(".div_images_Color").on("click", function () {
-            setDoorField($(this).attr("Item"), $(this).attr("data"));
+            Door.set($(this).attr("Item"), $(this).attr("data"));
 
             let javaObject = findColorObjectByName($(this).attr("data"));
             setDoorFurnitureByObject(javaObject, "doorColor", door.doorDesign);
@@ -226,7 +226,7 @@ jQuery("document").ready(function () {
         });
 
         $("#commentTextarea").change(function () {
-            setDoorField("comment", $(this).val());
+            Door.set("comment", $(this).val());
             RepresentationManager.showAllFieldsValues(door);
         });
 
@@ -248,7 +248,7 @@ jQuery("document").ready(function () {
 
             if (currentItem == "metal") {
                 oneEnableAllDisable("metal", this);
-                setDoorField($(this).attr("Item"), $(this).attr("data"));
+                Door.set($(this).attr("Item"), $(this).attr("data"));
             } else if (currentItem == "heightDoor") {
                 if ($(this).is(":checked")) {
                     fanlight = 1;
@@ -259,18 +259,18 @@ jQuery("document").ready(function () {
                     );
                 } else {
                     fanlight = 0;
-                    setDoorField("doorFanlightHeight", 0);
+                    Door.set("doorFanlightHeight", 0);
                     $('[fanlight="1"]').attr("show", "ghost_lement");
                 }
             } else if (currentItem == "deepnessDoor") {
                 if ($(this).is(":checked")) {
                     oneEnableAllDisable("deepnessDoor", this);
-                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                    Door.set($(this).attr("Item"), $(this).attr("data"));
                 }
             } else if (currentItem == "thicknessDoorLeaf") {
                 if ($(this).is(":checked")) {
                     oneEnableAllDisable("thicknessDoorLeaf", this);
-                    setDoorField($(this).attr("Item"), $(this).attr("data"));
+                    Door.set($(this).attr("Item"), $(this).attr("data"));
                 }
             } else if (currentItem == "sideDoorOpen") {
                 if ($(this).is(":checked")) {
@@ -302,10 +302,10 @@ jQuery("document").ready(function () {
                 if (item == "doorstep") {
                     if ($(this).is(":checked")) {
                         addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", true);
-                        setDoorField($(this).attr("Item"), $(this).attr("data"));
+                        Door.set($(this).attr("Item"), $(this).attr("data"));
                     } else {
-                        setDoorField($(this).attr("Item"), 0);
-                        setDoorField("stainlessSteelDoorstep", 0);
+                        Door.set($(this).attr("Item"), 0);
+                        Door.set("stainlessSteelDoorstep", 0);
                         $("#stainlessSteelDoorstep_checkbox").prop("checked", false);
                         addOrDelleteGhost("#additionalDoorSettings_stainlessSteelDoorstep", false);
                     }
@@ -318,10 +318,10 @@ jQuery("document").ready(function () {
                     let boolValue = false;
 
                     if ($(this).is(":checked")) {
-                        setDoorField($(this).attr("Item"), 1);
+                        Door.set($(this).attr("Item"), 1);
                         boolValue = true;
                     } else {
-                        setDoorField($(this).attr("Item"), 0);
+                        Door.set($(this).attr("Item"), 0);
                         boolValue = false;
                     }
 
@@ -399,7 +399,7 @@ jQuery("document").ready(function () {
                     dataType: "json",
                     success: function (data) {
                         door = data;
-                        displayPrice();
+                        Door.displayPrice(door);
                         calculateCostHide();
                     },
                     error: function (data) {
@@ -425,7 +425,7 @@ jQuery("document").ready(function () {
                             toDoor(data.id);
                         }
                         door.id = data.id;
-                        displayPrice();
+                        Door.displayPrice(door);
                         calculateCostHide();
                     },
                     error: function (data) {
@@ -602,24 +602,21 @@ jQuery("document").ready(function () {
 //setter
 //--------------------------------------
 
-
-        function setDoorField(fieldName, value) {
-            door[fieldName] = value;
-            failureToSetValue = false;
-        }
-
         function setDoorDesignField(value, fieldName) {
             door.doorDesign[fieldName] = value;
             failureToSetValue = false;
+            Door.priceErase();
         }
 
         function setDoorGlassImg(fieldName, value) {
             var furn = findObjectById(fieldName, value);
             door.doorGlass[fieldName] = furn;
+            Door.priceErase();
         }
 
         function setDoorGlassField(fieldName, value) {
             door.doorGlass[fieldName] = value;
+            Door.priceErase();
         }
 
         function resetDoorGlassField() {
@@ -642,6 +639,7 @@ jQuery("document").ready(function () {
 
         function setDoorFurnitureByObject(object, fieldName, doorKit) {
             doorKit[fieldName] = object;
+            Door.priceErase();
         }
 
         function findObjectById(tabName, id) {
@@ -764,42 +762,6 @@ jQuery("document").ready(function () {
             location.href = location.origin + '/doors/' + doorId + "/page?orderId=" + orderId;
         }
 
-        function priceToString(price) {
-            let str = String(price);
-            let str3 = str.slice(str.length - 3, str.length);
-            let str2 = str.slice(0, str.length - 3);
-            let str1 = "";
-            if (str2.length > 3) {
-                str2 = str.slice(str.length - 6, str.length - 3);
-                str1 = str.slice(0, str.length - 6);
-                return str1 + "'" + str2 + "'" + str3;
-            } else {
-                return str2 + "'" + str3;
-            }
-        }
-
-        function displayPrice() {
-            if (door.priceWithMarkup != 0) {
-                let price = priceToString(door.priceWithMarkup);
-                $("#price").text(price);
-                $("<span>").attr("class", "rub").text("Р").appendTo("#price");
-            }
-            //door.costList.totalCost;
-            $(".decryption").remove();
-
-            if (door.costList !== null) {
-                var tab = door.costList.list;
-                var size = tab.length;
-                for (var i = 0; i < size; ++i) {
-                    $("<sran>")
-                        .attr("class", "decryption")
-                        .text("" + tab[i].name + " - " + tab[i].cost)
-                        .appendTo("#calculateResultDiv");
-                    $("<br>").attr("class", "decryption").appendTo("#calculateResultDiv");
-                }
-            }
-        }
-
         function displayMetal(data) {
             allDisable("metal_checkbox");
 
@@ -811,7 +773,7 @@ jQuery("document").ready(function () {
                 $("#checkboxmetal" + i).attr("data", data.metal[i].firstItem);
                 if (data.metal[i].defaultValue == 1) {
                     $("#checkboxmetal" + i).prop("checked", true);
-                    setDoorField(
+                    Door.set(
                         $("#checkboxmetal" + i).attr("Item"),
                         $("#checkboxmetal" + i).attr("data")
                     );
@@ -869,7 +831,7 @@ jQuery("document").ready(function () {
                 $("#checkbox" + nameItem + i).attr("data", tab[i].startRestriction);
                 if (tab[i].defaultValue == 1) {
                     $("#checkbox" + nameItem + i).prop("checked", true);
-                    setDoorField(nameItem, tab[i].startRestriction);
+                    Door.set(nameItem, tab[i].startRestriction);
                     currentItem = nameItem;
                     RepresentationManager.showFieldValue(tab[i].startRestriction);
                 }
@@ -1001,8 +963,6 @@ jQuery("document").ready(function () {
         }
 
         function displayGlass() {
-            //if (door.isDoorGlass == 1) {
-            //$("#checkboxdoorGlass0").prop("checked", true);
             $(".input_doorGlass_div").attr("show", "is_alive_lement");
 
             if (door.doorGlass.typeDoorGlass !== null) {
