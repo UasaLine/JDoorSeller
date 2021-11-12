@@ -353,7 +353,7 @@ jQuery("document").ready(function () {
             }
         });
 
-        $("#buttonCalculateCostShow").on("click", function () {
+        $("#showCalculationCostListButton").on("click", function () {
             PriceComponent.deleteRow();
             let cost = door.costList.costList;
             if (cost.length == 0) return;
