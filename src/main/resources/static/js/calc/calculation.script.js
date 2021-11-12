@@ -591,6 +591,15 @@ jQuery("document").ready(function () {
             $('#modal-id').hide();
         });
 
+        $("#widthDoor_picker").on("dblclick", function () {
+            iosPicker.setCurrentValue();
+        });
+
+        $("#heightDoor_picker").on("dblclick", function () {
+            iosPicker.setCurrentValue();
+        });
+
+
 // window.addEventListener('scroll', function () {
 //     if (modalOpen) {
 //         // alert(pageYOffset);

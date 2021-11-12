@@ -99,9 +99,7 @@ class IosPicker {
                 needToSet.item = this.item;
                 needToSet.value = this.checkValue(this.currentNumber);
             }
-            this.iosPickerInit(needToSet.value, this.currentId, this.item);
-            this.setToDoor();
-            this.firstPress = true;
+            this.setCurrentValue();
         }
         sound.play();
     }
@@ -162,5 +160,11 @@ class IosPicker {
         }
 
         return value;
+    }
+
+    setCurrentValue() {
+        this.iosPickerInit(needToSet.value, this.currentId, this.item);
+        this.setToDoor();
+        this.firstPress = true;
     }
 }
