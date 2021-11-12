@@ -700,9 +700,12 @@ class Door {
             $("#price").show();
             $("#price").text(price);
             $("<span>").attr("class", "rub").text("Р").appendTo("#price");
+
+            $("#showCalculationCostListButton").show();
         }
         else {
             $("#price").hide();
+            $("#showCalculationCostListButton").hide();
         }
 
         //door.costList.totalCost;
