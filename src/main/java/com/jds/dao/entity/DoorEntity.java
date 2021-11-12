@@ -5,15 +5,14 @@ import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.enumClasses.SideDoorOpen;
 import com.jds.model.enumClasses.TypeOfFurniture;
 import com.jds.model.enumClasses.TypeOfSalaryConst;
 import com.jds.service.TemplateService;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -368,7 +367,7 @@ public class DoorEntity implements SerializingFields {
         stringBuilder.append(" (");
         stringBuilder.append(metal);
         stringBuilder.append(" мм) ");
-        stringBuilder.append(sideDoorOpen);
+        stringBuilder.append(getSideOpenAsRU());
         stringBuilder.append(" ");
 
         if (doorDesign != null) {
@@ -1238,5 +1237,15 @@ public class DoorEntity implements SerializingFields {
 
     public static boolean isNotNew(int doorId) {
         return doorId > 0;
+    }
+
+    public String getSideOpenAsRU() {
+
+        if (SideDoorOpen.RIGHT.toString().equals(sideDoorOpen)) {
+            return SideDoorOpen.RIGHT.ru();
+        } else if (SideDoorOpen.LEFT.toString().equals(sideDoorOpen)) {
+            return SideDoorOpen.LEFT.ru();
+        }
+        return sideDoorOpen;
     }
 }

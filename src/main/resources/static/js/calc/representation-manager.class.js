@@ -40,10 +40,11 @@ class Container2fields {
             }
             //sideDoorOpen
             else if (currentItem == "sideDoorOpen") {
+                let sideOpen = Door.sideOpenAsRu(door.sideDoorOpen);
                 if (door.innerOpen && door.innerOpen != 0) {
-                    showValue = "" + door.sideDoorOpen + " [внутренняя # " + door.innerOpen + "]";
-                } else if (door.sideDoorOpen && door.sideDoorOpen != 0) {
-                    showValue = "" + door.sideDoorOpen;
+                    showValue = "" + sideOpen + " [внутренняя # " + door.innerOpen + "]";
+                } else if (sideOpen && sideOpen != 0) {
+                    showValue = "" + sideOpen;
                 }
             }
             //doorClass

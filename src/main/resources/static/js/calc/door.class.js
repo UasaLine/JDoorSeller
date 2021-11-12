@@ -702,8 +702,7 @@ class Door {
             $("<span>").attr("class", "rub").text("Р").appendTo("#price");
 
             $("#showCalculationCostListButton").show();
-        }
-        else {
+        } else {
             $("#price").hide();
             $("#showCalculationCostListButton").hide();
         }
@@ -724,8 +723,18 @@ class Door {
         }
     }
 
-    static priceErase(){
+    static priceErase() {
         Price.erase();
+    }
+
+    static sideOpenAsRu(sideOpen) {
+        let result = sideOpen;
+        if (sideOpen === "LEFT") {
+            result = "ЛЕВОЕ";
+        } else if (sideOpen === "RIGHT") {
+            result = "ПРАВОЕ";
+        }
+        return result;
     }
 }
 
