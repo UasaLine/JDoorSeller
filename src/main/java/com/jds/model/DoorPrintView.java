@@ -42,7 +42,7 @@ public class DoorPrintView {
         sizes.add(new PrintViewParam("Высота:", String.valueOf(door.getHeightDoor())));
         sizes.add(new PrintViewParam("Глубина:", String.valueOf(door.getDeepnessDoor())));
         sizes.add(new PrintViewParam("Толщина полотна:", String.valueOf(door.getThicknessDoorLeaf())));
-        sizes.add(new PrintViewParam("Открывание:", String.valueOf(door.getSideDoorOpen())));
+        sizes.add(new PrintViewParam("Открывание:", String.valueOf(door.getSideOpenAsRU())));
         sizes.add(new PrintViewParam("Внутреннее открывание:", String.valueOf(door.getInnerOpen())));
         //sizes.add(new ParamApp("Ширина активной створки:", String.valueOf(door.getActiveDoorLeafWidth())));
         //sizes.add(new ParamApp("Высота фрамуги:", String.valueOf(door.getDoorFanlightHeight())));
