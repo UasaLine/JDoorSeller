@@ -164,17 +164,13 @@ public class MaineService {
 
     public String getClassId(@NonNull String typeId) {
 
-        if ("0".equals(typeId)) {
-            return "0";
-        }
-
-        DoorType type = dAO.getDoorType(Integer.parseInt(typeId));
-
         String response = "0";
-        if (type.getId() > 0) {
-            response = String.valueOf(type.getDoorClass().getId());
+        if (!"0".equals(typeId)) {
+            DoorClass doorClass = dAO.getDoorClassByDoorTypeId(Integer.parseInt(typeId));
+            if (doorClass != null) {
+                response = String.valueOf(doorClass.getId());
+            }
         }
-
         return response;
     }
 

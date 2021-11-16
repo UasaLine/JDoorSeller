@@ -491,6 +491,30 @@ public class MainDAO {
 
     }
 
+    public DoorClass getDoorClassByDoorTypeId(int id) {
+
+        Session session = sessionFactory.openSession();
+
+        String sql = "select * from door_class " +
+                "INNER JOIN  door_type ON door_class.id = door_type.doorclass " +
+                "WHERE door_type.id = :id";
+        Query query = session.createSQLQuery(sql)
+                .addEntity(DoorClass.class)
+                .setParameter("id", id);
+
+        List<DoorClass> list = query.list();
+
+        session.close();
+
+        DoorClass doorClass = new DoorClass();
+        if (list.size() > 0) {
+            doorClass = list.get(0);
+        }
+
+        return doorClass;
+
+    }
+
     public DoorType getDoorType(int id) {
 
         Session session = sessionFactory.openSession();
