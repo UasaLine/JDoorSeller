@@ -1,7 +1,7 @@
 package com.jds.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jds.model.enumClasses.PriceGroups;
+import com.jds.model.enumModels.PriceGroups;
 import lombok.Getter;
 import lombok.Setter;
 

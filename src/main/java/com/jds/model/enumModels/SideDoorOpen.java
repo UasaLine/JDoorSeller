@@ -1,4 +1,4 @@
-package com.jds.model.enumClasses;
+package com.jds.model.enumModels;
 
 public enum SideDoorOpen {
     LEFT("ЛЕВОЕ"),

@@ -1,6 +1,6 @@
 package com.jds.model.orders.filter;
 
-import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.enumModels.OrderStatus;
 import lombok.Getter;
 
 @Getter

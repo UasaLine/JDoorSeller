@@ -1,7 +1,7 @@
 package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
-import com.jds.model.enumClasses.TypeOfLimitionDoor;
+import com.jds.model.enumModels.TypeOfLimitionDoor;
 import lombok.*;
 
 import javax.persistence.*;
@@ -83,7 +83,7 @@ public class LimitationDoor implements Comparable<LimitationDoor> {
                                          @NonNull List<LimitationDoor> oldLimitList) {
 
         int newId = 0;
-        if (oldLimitList.size() > 0) {
+        if (!oldLimitList.isEmpty()) {
             newId = oldLimitList.get(0).getId();
             oldLimitList.remove(0);
         }
@@ -98,7 +98,7 @@ public class LimitationDoor implements Comparable<LimitationDoor> {
     public static LimitationDoor getNewLimit(@NonNull LimiItem item, @NonNull DoorType doorType, @NonNull TypeOfLimitionDoor type,
                                              @NonNull List<LimitationDoor> oldLimitList) {
         int newId = 0;
-        if (oldLimitList.size() > 0) {
+        if (!oldLimitList.isEmpty()) {
             newId = oldLimitList.get(0).getId();
             oldLimitList.remove(0);
         }
@@ -119,10 +119,7 @@ public class LimitationDoor implements Comparable<LimitationDoor> {
     }
 
     public boolean isDefault() {
-        if (this.defaultValue > 0) {
-            return true;
-        }
-        return false;
+        return this.defaultValue > 0;
     }
 
     public static String getDescription(LimitationDoor lim) {

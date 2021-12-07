@@ -2,7 +2,7 @@ package com.jds.dao.entity;
 
 import com.jds.model.LimiItem;
 import com.jds.model.SerializingFields;
-import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumModels.TypeOfFurniture;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

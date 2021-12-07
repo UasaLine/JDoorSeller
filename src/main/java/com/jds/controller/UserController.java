@@ -4,8 +4,7 @@ import com.jds.dao.entity.UserEntity;
 
 import com.jds.model.Role;
 import com.jds.model.backResponse.ResponseMassage;
-import com.jds.model.enumClasses.PriceGroups;
-import com.jds.model.image.TypeOfImage;
+import com.jds.model.enumModels.PriceGroups;
 import com.jds.model.ui.MainSidePanel;
 import com.jds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

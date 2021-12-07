@@ -1,4 +1,4 @@
-package com.jds.model.enumClasses;
+package com.jds.model.enumModels;
 
 public enum TypeOfLimitionDoor {
     METAL_THICKNESS("Металл"),
@@ -8,6 +8,7 @@ public enum TypeOfLimitionDoor {
     WIDTH_ACTIVE_LEAF("Ширина активной створки"),
     DEPTH("Глубина"),
     LEAF_THICKNESS("Толщина металла"),
+    STANDARD_SIZE("стандартные размеры"),
 
     INTERNAL_OPENING("Внутренее открывание"),
 

@@ -1,6 +1,6 @@
 package com.jds.dao.entity;
 
-import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumModels.TypeOfFurniture;
 
 import javax.persistence.*;
 import java.util.List;

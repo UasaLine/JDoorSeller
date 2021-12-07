@@ -2,13 +2,11 @@ package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorOrder;
 import com.jds.dao.entity.SellerSequence;
-import com.jds.dao.entity.SpecificationEntity;
 import com.jds.dao.entity.UserEntity;
-import com.jds.model.enumClasses.OrderStatus;
-import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.enumModels.OrderStatus;
+import com.jds.model.enumModels.SideSqlSorting;
 import com.jds.model.orders.sort.OrderDateSorter;
 import com.jds.model.orders.sort.OrderSorter;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -19,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 

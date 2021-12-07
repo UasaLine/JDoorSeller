@@ -5,7 +5,7 @@ import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.repository.TemplateRepository;
-import com.jds.model.enumClasses.TypeOfLimitionDoor;
+import com.jds.model.enumModels.TypeOfLimitionDoor;
 import com.jds.model.image.*;
 import lombok.NonNull;
 import org.slf4j.Logger;

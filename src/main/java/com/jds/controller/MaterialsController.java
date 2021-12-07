@@ -2,7 +2,7 @@ package com.jds.controller;
 
 import com.jds.dao.entity.*;
 import com.jds.model.backResponse.ResponseMassage;
-import com.jds.model.enumClasses.MaterialFormulaType;
+import com.jds.model.enumModels.MaterialFormulaType;
 import com.jds.model.exeption.ResponseException;
 import com.jds.service.MaterialsService;
 import org.springframework.beans.factory.annotation.Autowired;

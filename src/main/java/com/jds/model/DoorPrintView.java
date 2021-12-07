@@ -2,7 +2,7 @@ package com.jds.model;
 
 import com.jds.dao.entity.DoorEntity;
 import com.jds.dao.entity.DoorOrder;
-import com.jds.model.enumClasses.YesOrNo;
+import com.jds.model.enumModels.YesOrNo;
 import lombok.Getter;
 import lombok.Setter;
 
