@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Table(name = "Door")
 @Getter
 @Setter
-public class DoorEntity implements SerializingFields {
+public class DoorEntity implements SerializingFields<DoorEntity> {
 
     @Transient
     @JsonIgnore
@@ -210,9 +210,9 @@ public class DoorEntity implements SerializingFields {
         int costMetal = 0;
         for (SpecificationSetting setting : speciSettingList) {
             double value = setting.countByTheFormula(this);
-            double price = setting.getRawMaterials().getPrice();
-            costMetal = (int) (value * price);
-            costList.addLine("материаллы : " + setting.getRawMaterials().getName() + ", " + value + ", " + price + " руб."
+            double materialsPrice = setting.getRawMaterials().getPrice();
+            costMetal = (int) (value * materialsPrice);
+            costList.addLine("материаллы : " + setting.getRawMaterials().getName() + ", " + value + ", " + materialsPrice + " руб."
                     , 12
                     , false
                     , costMetal);
@@ -227,7 +227,7 @@ public class DoorEntity implements SerializingFields {
             doorGlass = null;
         }
         if (furnitureKit != null && !furnitureKit.exists()) {
-            //furnitureKit = null;
+            //@TODO Salagaev set furnitureKit = null;
         }
         if (shieldKit != null && !shieldKit.exists()) {
             shieldKit = null;
@@ -310,11 +310,13 @@ public class DoorEntity implements SerializingFields {
 
     public DoorEntity calculateGlass() {
 
+        String glassName = "Стекло: S-";
+
         if (doorGlass != null && doorGlass.exists()) {
 
             double glassSpace = doorGlass.getSpace();
             int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace);
-            costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getTypeDoorGlass().getName(),
+            costList.addLine(glassName + glassSpace + ", " + doorGlass.getTypeDoorGlass().getName(),
                     200, false, cost);
 
             int costMarkup = doorGlass.getGlassCost(template.getTypeDoorGlass(), doorGlass.getTypeDoorGlass().getId());
@@ -326,7 +328,7 @@ public class DoorEntity implements SerializingFields {
             if (doorGlass.getToning() != null) {
 
                 cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace);
-                costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getToning().getName(),
+                costList.addLine(glassName + glassSpace + ", " + doorGlass.getToning().getName(),
                         200, false, cost);
 
                 costMarkup = doorGlass.getGlassCost(template.getToning(), doorGlass.getToning().getId());
@@ -338,7 +340,7 @@ public class DoorEntity implements SerializingFields {
 
             if (doorGlass.getArmor() != null) {
                 cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE, glassSpace);
-                costList.addLine("Стекло: S-" + glassSpace + ", " + doorGlass.getArmor().getName(),
+                costList.addLine(glassName + glassSpace + ", " + doorGlass.getArmor().getName(),
                         200, false, cost);
 
                 costMarkup = doorGlass.getGlassCost(template.getArmor(), doorGlass.getArmor().getId());
@@ -350,7 +352,7 @@ public class DoorEntity implements SerializingFields {
         }
 
         if (isDoorFanlightGlass == 1) {
-
+            //@TODO Salagaev set Glass
         }
 
         return this;
@@ -385,8 +387,8 @@ public class DoorEntity implements SerializingFields {
     }
 
     public DoorEntity() {
-        this.orders = new ArrayList<DoorOrder>();
-        this.availableDoorClass = new ArrayList<DoorClass>();
+        this.orders = new ArrayList<>();
+        this.availableDoorClass = new ArrayList<>();
         this.doorGlass = new DoorGlass();
         this.costList = new CostList();
         this.furnitureKit = new FurnitureKit();
@@ -417,7 +419,7 @@ public class DoorEntity implements SerializingFields {
         //bendingSalary
         //********************************************************
         if (paySet.getBendSetting().getBend() == 0) {
-            System.out.println("ERROR calculateSalary  - Количество гибов = 0!");
+            logger.warn("ERROR calculateSalary  - Количество гибов = 0!");
         }
         double bendingCost = paySet.getConstMap().get(TypeOfSalaryConst.BENDING_COST);
         double cost = bendingCost * paySet.getBendSetting().getBend();
@@ -429,7 +431,7 @@ public class DoorEntity implements SerializingFields {
         //guillotine
         //********************************************************
         if (paySet.getBendSetting().getGuillotine() == 0) {
-            System.out.println("ERROR calculateSalary  - Количество резов гильотины = 0!");
+            logger.warn("ERROR calculateSalary  - Количество резов гильотины = 0!");
         }
         cost = paySet.getBendSetting().getGuillotine() * paySet.getConstMap().get(TypeOfSalaryConst.GUILLOTINE_COST);
         costList.addLine("Гильотина: " + paySet.getBendSetting().getGuillotine()
@@ -480,12 +482,12 @@ public class DoorEntity implements SerializingFields {
 
         int basePrice = getBasePrice(user);
         int costForChange = costList.getCostByGroup(200);
-        int discountPrice = costList.getCostByGroup(100);
-        int retailMergin = costList.getCostByGroup(500);
+        int discountPriceInt = costList.getCostByGroup(100);
+        int retailMargin = costList.getCostByGroup(500);
 
         setPrice(basePrice + costForChange);
-        setDiscountPrice(costForChange + discountPrice);
-        setPriceWithMarkup(retailMergin + getDiscountPrice());
+        setDiscountPrice(costForChange + discountPriceInt);
+        setPriceWithMarkup(retailMargin + getDiscountPrice());
 
         return this;
     }
@@ -722,7 +724,6 @@ public class DoorEntity implements SerializingFields {
                 false,
                 (int) cost);
 
-        //doorFanlight
         cost = 0;
         if (doorFanlightHeight > 0) {
             cost = paySet.getConstMap().get(TypeOfSalaryConst.COST_DOOR_FANLIGHT);
@@ -732,11 +733,6 @@ public class DoorEntity implements SerializingFields {
                     (int) cost);
         }
 
-        //handle
-        //ConstMap.get(TypeOfSalaryConst.COST_WELDED_HANDLE);
-
-
-        //door hinge
         cost = 0;
         if (additionallyHingeMain == 1 || additionallyHingeNotMain == 1) {
 
@@ -773,10 +769,6 @@ public class DoorEntity implements SerializingFields {
                     (int) cost);
         }
 
-        //like L5
-        //ConstMap.get(TypeOfSalaryConst.SQUARES_MODEL_L5;
-
-        //thirdSealingLine
         cost = 0;
         if (thirdSealingLine > 0) {
             cost = paySet.getConstMap().get(TypeOfSalaryConst.COST_THIRD_SEALING_LINE);
@@ -798,11 +790,6 @@ public class DoorEntity implements SerializingFields {
                 costList.addLine(" зачистка, гладкая краска ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_SMOOTH_PAINT_ONE_LEAF).intValue());
             }
-
-            //if(){
-            //    costList.addLine(" зачистка, L5 ",3,false,
-            //            ConstMap.get(TypeOfSalaryConst.COST_CLEAN_SQUARES_L5_PAINT_ONE_LEAF).intValue());
-            //}
 
             if (additionallyHingeMain == 1) {
                 costList.addLine(" зачистка, доп петля ", 3, false,
@@ -829,11 +816,6 @@ public class DoorEntity implements SerializingFields {
                 costList.addLine(" зачистка, гладкая краска ", 3, false,
                         paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_SMOOTH_PAINT_TWO_LEAF).intValue());
             }
-
-            //if(){
-            //    costList.addLine(" зачистка, L5 ",3,false,
-            //            paySet.getConstMap().get(TypeOfSalaryConst.COST_CLEAN_SQUARES_L5_PAINT_TWO_LEAF).intValue());
-            //}
 
             if (additionallyHingeMain == 1) {
                 costList.addLine(" зачистка, доп петля ", 3, false,
@@ -979,14 +961,14 @@ public class DoorEntity implements SerializingFields {
         costList.addLine("Розничная цена",
                 100,
                 false,
-                (int) retailPrice);
+                retailPrice);
 
-        int discountCost = (int) ((retailPrice * discount) / 100);
+        int discountCost = ((retailPrice * discount) / 100);
 
         costList.addLine("Скидка",
                 100,
                 false,
-                (int) -discountCost);
+                -discountCost);
 
         return this;
     }
@@ -1003,26 +985,33 @@ public class DoorEntity implements SerializingFields {
 
     private DoorEntity addCostResizing() {
 
-        int defaultWidth = template.getWidthDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
+        List<Integer> defaultWidthList = template.getStandardSize().stream()
+                .map(LimitationDoor::getStartRestriction)
+                .map(Double::intValue)
+                .collect(Collectors.toList());
+        int defaultWidth = template.getWidthDoor().stream().findFirst()
+                .orElse(new LimitationDoor()).getDefaultValue();
+        defaultWidthList.add(defaultWidth);
+
         List<LineCostList> listWidth = new ArrayList<>();
 
-        if (widthDoor != defaultWidth) {
+        if (!defaultWidthList.contains(widthDoor)) {
             List<LimitationDoor> sizeCostWidth = template.getSizeCostWidth();
             listWidth = sizeCostWidth.stream()
-                    .map((lim) -> toMarkup(lim, widthDoor, defaultWidth, false))
+                    .map(lim -> toMarkup(lim, widthDoor, defaultWidth, false))
                     .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
 
         List<LineCostList> listHeight = new ArrayList<>();
-        int Heightsize = heightDoor;
+        int heightSize = heightDoor;
         int defaultHeight = template.getHeightDoor().stream().findFirst().orElse(new LimitationDoor()).getDefaultValue();
 
-        if (Heightsize != defaultHeight) {
+        if (heightSize != defaultHeight) {
             List<LimitationDoor> sizeCostHeight = template.getSizeCostHeight();
             final boolean ALREADY_COUNTED = !listWidth.isEmpty();
             listHeight = sizeCostHeight.stream()
-                    .map((lim) -> toMarkup(lim, Heightsize, defaultHeight, ALREADY_COUNTED))
+                    .map(lim -> toMarkup(lim, heightSize, defaultHeight, ALREADY_COUNTED))
                     .filter(line -> line.getCost() > 0)
                     .collect(Collectors.toList());
         }
@@ -1167,13 +1156,13 @@ public class DoorEntity implements SerializingFields {
 
     public DoorEntity addRetailMarginToCostList(int retailMargin) {
 
-        int discountPrice = costList.getTotalCost();
-        int priceWithMarkup = (int) ((discountPrice * retailMargin) / 100);
+        int totalCost = costList.getTotalCost();
+        int withMarkup = ((totalCost * retailMargin) / 100);
 
         costList.addLine("Цена с наценкой",
                 500,
                 false,
-                (int) priceWithMarkup);
+                withMarkup);
 
         return this;
     }
@@ -1195,10 +1184,7 @@ public class DoorEntity implements SerializingFields {
     }
 
     public boolean isNew() {
-        if (id == 0) {
-            return true;
-        }
-        return false;
+        return id == 0;
     }
 
     public DoorPrintView getPrintView(DoorOrder order) {
@@ -1230,7 +1216,7 @@ public class DoorEntity implements SerializingFields {
         if (doorDesign != null) {
             return doorDesign.getOutShieldName();
         } else {
-            logger.warn(String.format("doorId: %s doorDesign is null", id));
+            logger.warn("doorId: '{}' doorDesign is null", id);
             return "";
         }
     }
