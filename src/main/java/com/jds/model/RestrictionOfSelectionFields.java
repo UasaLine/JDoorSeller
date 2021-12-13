@@ -4,8 +4,8 @@ import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.entity.Metal;
-import com.jds.model.enumClasses.PeepholePosition;
-import com.jds.model.enumClasses.TypeOfLimitionDoor;
+import com.jds.model.enumModels.PeepholePosition;
+import com.jds.model.enumModels.TypeOfLimitionDoor;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class RestrictionOfSelectionFields {
     private List<LimitationDoor> widthDoor = new ArrayList<>();
     private List<LimitationDoor> heightDoor = new ArrayList<>();
     private List<LimitationDoor> widthDoorLeaf = new ArrayList<>();
+    private List<LimitationDoor> standardSize = new ArrayList<>();
     private List<LimitationDoor> heightDoorFanlight = new ArrayList<>();
     private List<LimitationDoor> deepnessDoor = new ArrayList<>();
     private List<LimitationDoor> thicknessDoorLeaf = new ArrayList<>();
@@ -752,16 +753,16 @@ public class RestrictionOfSelectionFields {
         peepholePosition.add(lim.setNuulLazyFild());
     }
 
-    public LimitationDoor getDefaultDoorColor(){
-            List<LimitationDoor> defList = colors.stream()
-                    .filter(lim -> lim.isDefault())
-                    .collect(Collectors.toList());
+    public LimitationDoor getDefaultDoorColor() {
+        List<LimitationDoor> defList = colors.stream()
+                .filter(lim -> lim.isDefault())
+                .collect(Collectors.toList());
 
-            return defList.size() > 0 ? defList.get(0) : null;
+        return defList.size() > 0 ? defList.get(0) : null;
     }
 
     public LimitationDoor getDefaultDoorDesign() {
-            return design.size() > 0 ? design.get(0) : null;
+        return design.size() > 0 ? design.get(0) : null;
     }
 
     public LimitationDoor getDefaultOutShieldColor() {
@@ -778,5 +779,12 @@ public class RestrictionOfSelectionFields {
                 .collect(Collectors.toList());
 
         return defList.size() > 0 ? defList.get(0) : null;
+    }
+
+    public void addStandardSize(@NonNull LimitationDoor lim) {
+
+
+        this.standardSize.add(lim.setNuulLazyFild());
+
     }
 }

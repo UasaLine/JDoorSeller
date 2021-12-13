@@ -4,7 +4,7 @@ import com.jds.dao.entity.DoorFurniture;
 import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
-import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.image.ColorPicture;
 import com.jds.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;

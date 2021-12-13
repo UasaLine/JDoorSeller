@@ -1,6 +1,6 @@
 package com.jds.dao.entity;
 
-import com.jds.model.enumClasses.TypeOfSalaryConst;
+import com.jds.model.enumModels.TypeOfSalaryConst;
 
 import javax.persistence.*;
 

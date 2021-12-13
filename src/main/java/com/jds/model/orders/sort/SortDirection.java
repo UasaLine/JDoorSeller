@@ -1,6 +1,6 @@
 package com.jds.model.orders.sort;
 
-import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.enumModels.SideSqlSorting;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Order;

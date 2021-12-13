@@ -6,9 +6,10 @@ import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.DoorTemplate;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.ShortTemplate;
-import com.jds.model.enumClasses.SideDoorOpen;
-import com.jds.model.enumClasses.TypeOfFurniture;
-import com.jds.model.enumClasses.TypeOfLimitionDoor;
+import com.jds.model.enumModels.SideDoorOpen;
+
+import com.jds.model.enumModels.TypeOfFurniture;
+import com.jds.model.enumModels.TypeOfLimitionDoor;
 import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class TemplateService {
         List<DoorType> list = mainDAO.getDoorTypeListFromLimitTable();
         return list.stream()
                 .map(ShortTemplate::new)
-                .sorted((o1,o2)-> o1.compareTo(o2))
+                .sorted((o1, o2) -> o1.compareTo(o2))
                 .collect(Collectors.toList());
     }
 
@@ -117,6 +118,8 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SIZE_COST_HEIGHT, restriction.getSizeCostHeight(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SIZE_COST_WIDTH, restriction.getSizeCostWidth(), limitList);
 
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.STANDARD_SIZE, restriction.getStandardSize(), limitList);
+
         deleteAllDoorTemplate(limitList);
 
     }
@@ -130,8 +133,7 @@ public class TemplateService {
         RestrictionOfSelectionFields restriction = new RestrictionOfSelectionFields();
         restriction.setDoorTypeid(intDoorTypeId);
 
-        limitList.stream()
-                .forEach(lim -> restrictionBuild(restriction, lim));
+        limitList.forEach(lim -> restrictionBuild(restriction, lim));
         restriction.addShieldGlass(colorList);
         return restriction;
     }
@@ -202,62 +204,151 @@ public class TemplateService {
         TypeOfLimitionDoor typeOfLimitionDoor = lim.getTypeSettings();
 
         switch (typeOfLimitionDoor) {
-            case METAL_THICKNESS: restriction.addMetal(lim);break;
+            case METAL_THICKNESS:
+                restriction.addMetal(lim);
+                break;
 
-            case WIDTH: restriction.addWidthDoor(lim);break;
-            case HEIGHT: restriction.addHeightDoor(lim);break;
-            case WIDTH_ACTIVE_LEAF: restriction.addWidthDoorLeaf(lim);break;
-            case HEIGHT_FANLIGHT: restriction.addHeightDoorFanlight(lim);break;
-            case DEPTH: restriction.addDeepnessDoor(lim);break;
-            case LEAF_THICKNESS: restriction.addThicknessDoorLeaf(lim);break;
-            case DOORSTEP: restriction.addDoorstep(lim);break;
-            case STAINLESS_STEEL_DOORSTEP: restriction.addStainlessSteelDoorstep(lim);break;
-            case INTERNAL_OPENING: restriction.addInnerOpen(lim); break;
+            case WIDTH:
+                restriction.addWidthDoor(lim);
+                break;
+            case HEIGHT:
+                restriction.addHeightDoor(lim);
+                break;
+            case WIDTH_ACTIVE_LEAF:
+                restriction.addWidthDoorLeaf(lim);
+                break;
+            case HEIGHT_FANLIGHT:
+                restriction.addHeightDoorFanlight(lim);
+                break;
+            case DEPTH:
+                restriction.addDeepnessDoor(lim);
+                break;
+            case LEAF_THICKNESS:
+                restriction.addThicknessDoorLeaf(lim);
+                break;
+            case DOORSTEP:
+                restriction.addDoorstep(lim);
+                break;
+            case STAINLESS_STEEL_DOORSTEP:
+                restriction.addStainlessSteelDoorstep(lim);
+                break;
+            case INTERNAL_OPENING:
+                restriction.addInnerOpen(lim);
+                break;
+            case STANDARD_SIZE:
+                restriction.addStandardSize(lim);
+                break;
 
-            case FIRST_SEALING_LINE: restriction.addFirstSealingLine(lim);break;
-            case SECOND_SEALING_LINE: restriction.addSecondSealingLine(lim);break;
-            case THIRD_SEALING_LINE: restriction.addThirdSealingLine(lim);break;
+            case FIRST_SEALING_LINE:
+                restriction.addFirstSealingLine(lim);
+                break;
+            case SECOND_SEALING_LINE:
+                restriction.addSecondSealingLine(lim);
+                break;
+            case THIRD_SEALING_LINE:
+                restriction.addThirdSealingLine(lim);
+                break;
 
-            case TOP_DOOR_TRIM: restriction.addTopDoorTrim(lim);break;
-            case LEFT_DOOR_TRIM: restriction.addLeftDoorTrim(lim);break;
-            case RIGHT_DOOR_TRIM: restriction.addRightDoorTrim(lim);break;
-            case TOP_DOOR_TRIM_SIZE: restriction.addTopDoorTrimSize(lim);break;
-            case LEFT_DOOR_TRIM_SIZE: restriction.addLeftDoorTrimSize(lim);break;
-            case RIGHT_DOOR_TRIM_SIZE: restriction.addRightDoorTrimSize(lim);break;
+            case TOP_DOOR_TRIM:
+                restriction.addTopDoorTrim(lim);
+                break;
+            case LEFT_DOOR_TRIM:
+                restriction.addLeftDoorTrim(lim);
+                break;
+            case RIGHT_DOOR_TRIM:
+                restriction.addRightDoorTrim(lim);
+                break;
+            case TOP_DOOR_TRIM_SIZE:
+                restriction.addTopDoorTrimSize(lim);
+                break;
+            case LEFT_DOOR_TRIM_SIZE:
+                restriction.addLeftDoorTrimSize(lim);
+                break;
+            case RIGHT_DOOR_TRIM_SIZE:
+                restriction.addRightDoorTrimSize(lim);
+                break;
 
-            case COLOR_DOOR: restriction.addColors(lim);break;
-            case DESIGN_DOOR: restriction.addDesign(lim);break;
-            case SHIELD_COLOR: restriction.addShieldColor(lim);break;
-            case SHIELD_DESIGN: restriction.addShieldDesign(lim);break;
+            case COLOR_DOOR:
+                restriction.addColors(lim);
+                break;
+            case DESIGN_DOOR:
+                restriction.addDesign(lim);
+                break;
+            case SHIELD_COLOR:
+                restriction.addShieldColor(lim);
+                break;
+            case SHIELD_DESIGN:
+                restriction.addShieldDesign(lim);
+                break;
 
-            case OUT_SHIELD_COLOR: restriction.addOutShieldColor(lim);break;
-            case OUT_SHIELD_DESIGN: restriction.addOutShieldDesign(lim);break;
+            case OUT_SHIELD_COLOR:
+                restriction.addOutShieldColor(lim);
+                break;
+            case OUT_SHIELD_DESIGN:
+                restriction.addOutShieldDesign(lim);
+                break;
 
-            case TOP_LOCK: restriction.addTopLock(lim);break;
-            case LOWER_LOCK: restriction.addLowerLock(lim);break;
-            case HANDLE: restriction.addHandle(lim);break;
-            case LOCK_CYLINDER: restriction.addLockCylinder(lim);break;
-            case TOP_IN_LOCK_DECOR: restriction.addTopInLockDecor(lim);break;
-            case TOP_OUT_LOCK_DECOR: restriction.addTopOutLockDecor(lim);break;
-            case LOWER_IN_LOCK_DECOR: restriction.addLowerInLockDecor(lim);break;
-            case LOWER_OUT_LOCK_DECOR: restriction.addLowerOutLockDecor(lim);break;
+            case TOP_LOCK:
+                restriction.addTopLock(lim);
+                break;
+            case LOWER_LOCK:
+                restriction.addLowerLock(lim);
+                break;
+            case HANDLE:
+                restriction.addHandle(lim);
+                break;
+            case LOCK_CYLINDER:
+                restriction.addLockCylinder(lim);
+                break;
+            case TOP_IN_LOCK_DECOR:
+                restriction.addTopInLockDecor(lim);
+                break;
+            case TOP_OUT_LOCK_DECOR:
+                restriction.addTopOutLockDecor(lim);
+                break;
+            case LOWER_IN_LOCK_DECOR:
+                restriction.addLowerInLockDecor(lim);
+                break;
+            case LOWER_OUT_LOCK_DECOR:
+                restriction.addLowerOutLockDecor(lim);
+                break;
 
-            case CLOSER: restriction.addCloser(lim);break;
-            case END_DOOR_LOCK: restriction.addEndDoorLock(lim);break;
-            case PEEPHOLE: restriction.addPeephole(lim);break;
-            case PEEPHOLE_POSITION: restriction.addPeepholePosition(lim);break;
+            case CLOSER:
+                restriction.addCloser(lim);
+                break;
+            case END_DOOR_LOCK:
+                restriction.addEndDoorLock(lim);
+                break;
+            case PEEPHOLE:
+                restriction.addPeephole(lim);
+                break;
+            case PEEPHOLE_POSITION:
+                restriction.addPeepholePosition(lim);
+                break;
 
-            case NIGHT_LOCK: restriction.addNightLock(lim);break;
+            case NIGHT_LOCK:
+                restriction.addNightLock(lim);
+                break;
 
-            case TYPE_GLASS: restriction.addTypeDoorGlass(lim);break;
-            case TONING: restriction.addToning(lim);break;
-            case ARMOR: restriction.addArmor(lim);break;
-            case SIZE_COST_HEIGHT: restriction.addSizeCostHeight(lim);break;
-            case SIZE_COST_WIDTH: restriction.addSizeCostWidth(lim);break;
+            case TYPE_GLASS:
+                restriction.addTypeDoorGlass(lim);
+                break;
+            case TONING:
+                restriction.addToning(lim);
+                break;
+            case ARMOR:
+                restriction.addArmor(lim);
+                break;
+            case SIZE_COST_HEIGHT:
+                restriction.addSizeCostHeight(lim);
+                break;
+            case SIZE_COST_WIDTH:
+                restriction.addSizeCostWidth(lim);
+                break;
             default:
                 logger.error("[restrictionBuild] typeOfLimitionDoor: {} - is not processed by the switch", typeOfLimitionDoor);
         }
-}
+    }
 
     public List<LimitationDoor> generateSizeDoor(@NonNull TypeOfLimitionDoor typeSettings) {
         List<LimitationDoor> size = new ArrayList<>();
@@ -384,7 +475,7 @@ public class TemplateService {
     private double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
 
         List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
+                .filter(LimitationDoor::isDefault)
                 .collect(Collectors.toList());
 
         if (defList.size() == 1) {
@@ -397,7 +488,7 @@ public class TemplateService {
     private String findInTemplateColor(@NonNull List<LimitationDoor> listLim) {
 
         List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
+                .filter(LimitationDoor::isDefault)
                 .collect(Collectors.toList());
 
         if (defList.size() == 1) {
@@ -410,7 +501,7 @@ public class TemplateService {
     private int findInTemplateSize(@NonNull List<LimitationDoor> listLim) {
 
         List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
+                .filter(LimitationDoor::isDefault)
                 .collect(Collectors.toList());
 
         if (defList.size() == 1) {
@@ -426,21 +517,21 @@ public class TemplateService {
 
     private List<DoorFurniture> defaultAndGetFurniture(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
+                .filter(LimitationDoor::isDefault)
                 .collect(Collectors.toList());
         return furnitureService.getFurnitureByLmit(defList);
     }
 
     private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {
         return listLim.stream()
-                .filter(lim -> lim.isDefault())
+                .filter(LimitationDoor::isDefault)
                 .map(DoorFurniture::newInstance)
                 .collect(Collectors.toList());
     }
 
     private List<ImageEntity> defaultAndGetImage(List<LimitationDoor> listLim) {
         List<LimitationDoor> defList = listLim.stream()
-                .filter(lim -> lim.isDefault())
+                .filter(LimitationDoor::isDefault)
                 .collect(Collectors.toList());
         return furnitureService.getImageByLimit(defList);
     }

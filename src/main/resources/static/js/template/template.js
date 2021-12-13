@@ -107,6 +107,8 @@ jQuery("document").ready(function () {
         installFromTemplateSize("widthDoorLeaf", true);
         installFromTemplateSize("heightDoorFanlight", true);
 
+        installFromTemplateSize("standardSize", false);
+
         installFromTemplateSize("deepnessDoor", false);
         installFromTemplateSize("thicknessDoorLeaf", false);
 
@@ -289,6 +291,13 @@ jQuery("document").ready(function () {
     });
     $("#heightFanlightSizMaxMinDiv").change(function () {
         saveInJavaObjectSize("heightDoorFanlight");
+    });
+
+    $("#standardSizeDiv").change(".standardSizeInput", function () {
+        saveInJavaObjectListValues("standardSize");
+        if (allFieldsAreFilled(".standardSizeInput")) {
+            addField("standardSize", "input", "Input");
+        }
     });
 
     $("#deepnessDoorDiv").change(".deepnessDoorInput", function () {

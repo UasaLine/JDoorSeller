@@ -1,7 +1,7 @@
 package com.jds.dao.repository;
 
 import com.jds.dao.entity.LimitationDoor;
-import com.jds.model.enumClasses.TypeOfLimitionDoor;
+import com.jds.model.enumModels.TypeOfLimitionDoor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

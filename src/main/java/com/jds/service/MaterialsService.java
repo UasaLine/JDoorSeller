@@ -2,7 +2,7 @@ package com.jds.service;
 
 import com.jds.dao.entity.*;
 import com.jds.dao.repository.MaterialsRepository;
-import com.jds.model.enumClasses.MaterialFormulaType;
+import com.jds.model.enumModels.MaterialFormulaType;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

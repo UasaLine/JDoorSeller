@@ -1,7 +1,7 @@
 package com.jds.dao.entity;
 
 import com.jds.model.orders.OrderDiscounts;
-import com.jds.model.enumClasses.OrderStatus;
+import com.jds.model.enumModels.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 

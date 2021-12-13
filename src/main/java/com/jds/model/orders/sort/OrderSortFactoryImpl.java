@@ -1,6 +1,6 @@
 package com.jds.model.orders.sort;
 
-import com.jds.model.enumClasses.SideSqlSorting;
+import com.jds.model.enumModels.SideSqlSorting;
 import org.springframework.stereotype.Service;
 
 @Service

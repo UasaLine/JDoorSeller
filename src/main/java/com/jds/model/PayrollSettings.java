@@ -4,7 +4,7 @@ import com.jds.dao.entity.BendSetting;
 import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorType;
 import com.jds.dao.entity.SalarySetting;
-import com.jds.model.enumClasses.TypeOfSalaryConst;
+import com.jds.model.enumModels.TypeOfSalaryConst;
 
 import java.util.Map;
 

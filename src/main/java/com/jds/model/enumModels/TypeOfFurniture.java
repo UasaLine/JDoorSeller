@@ -1,4 +1,4 @@
-package com.jds.model.enumClasses;
+package com.jds.model.enumModels;
 
 public enum TypeOfFurniture {
     TOP_LOCK("images/findings/preview/lock/", "images/findings/sketch/lock/"),

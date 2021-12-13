@@ -6,16 +6,13 @@ import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.cutting.SheetCutting;
-import com.jds.model.enumClasses.OrderStatus;
-import com.jds.model.enumClasses.PriceGroups;
-import com.jds.model.enumClasses.SideDoorOpen;
+import com.jds.model.enumModels.OrderStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DoorServiceImpl implements DoorService {

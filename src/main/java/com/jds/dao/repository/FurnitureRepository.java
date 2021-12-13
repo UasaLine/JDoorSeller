@@ -1,7 +1,7 @@
 package com.jds.dao.repository;
 
 import com.jds.dao.entity.DoorFurniture;
-import com.jds.model.enumClasses.TypeOfFurniture;
+import com.jds.model.enumModels.TypeOfFurniture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

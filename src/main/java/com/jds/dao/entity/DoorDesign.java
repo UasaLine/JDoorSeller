@@ -1,13 +1,10 @@
 package com.jds.dao.entity;
 
-import com.jds.dao.repository.ColorRepository;
-import com.jds.model.AvailableFieldsForSelection;
-import com.jds.model.enumClasses.YesOrNo;
+import com.jds.model.enumModels.YesOrNo;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
