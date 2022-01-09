@@ -164,6 +164,8 @@ jQuery("document").ready(function () {
             RepresentationManager.showFieldValue($(this).children("span").html());
             if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет") {
                 resetDoorGlassField();
+            } else {
+                door.isDoorGlass = 1;
             }
             Door.draw(door, 1);
             pickOut(this);
@@ -640,6 +642,7 @@ jQuery("document").ready(function () {
             $("#doorGlassShow").text("");
             door.doorGlass.id = 0;
             door.doorGlass.space = 0;
+            door.isDoorGlass = 0;
         }
 
         function setDoorFurnitureById(fieldName, id, doorKit) {
