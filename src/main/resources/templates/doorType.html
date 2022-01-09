@@ -28,7 +28,7 @@
         <div class="form-group">
 
             <input type="text" name="typeId" th:value="${typeId}" show="ghost_lement">
-            <input type="text" name="classId" th:value="${classId}" show="ghost_lement">
+            <input type="text" name="classId" id="classId" th:value="${classId}" show="ghost_lement">
 
 
             <h1 class="display-4">тип двери</h1>
@@ -45,6 +45,11 @@
             <div class="col-md-6 mb-3">
                 <label for="name">имя:</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="имя" th:value="${type.name}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="name">класс:</label>
+                <select class="form-control" id="doorclassselect"></select>
             </div>
 
             <div class="col-md-6 mb-3">

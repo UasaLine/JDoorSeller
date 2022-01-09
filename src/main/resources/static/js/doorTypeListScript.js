@@ -7,8 +7,8 @@ jQuery("document").ready(function () {
     changeListGroupItem(".list-group-item");
 
     function changeListGroupItem(selector) {
-        classId = $(selector).attr("data");
         if (location.href == (location.origin + "/pages/doortype") && classId != "") {
+            classId = $(selector).attr("data");
             location.href = "doortype?classId=" + classId;
         }
     }
@@ -40,7 +40,7 @@ jQuery("document").ready(function () {
     });
 
     function getType(typeId) {
-        location.href = "doortype/"+ typeId + "?classId=" + classId;
+        location.href = "doortype/" + typeId + "?classId=" + classId;
     }
 
     function oneEnableAllDisable(item) {

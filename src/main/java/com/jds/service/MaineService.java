@@ -58,10 +58,11 @@ public class MaineService {
     }
 
     public DoorType getDoorType(String typeId) {
-        if (typeId == null) {
-            return new DoorType();
+        DoorType resultType = new DoorType();
+        if (Objects.nonNull(typeId)) {
+            resultType = getDoorType(Integer.parseInt(typeId));
         }
-        return getDoorType(Integer.parseInt(typeId));
+        return resultType;
     }
 
     public DoorType getDoorType(@NonNull int typeId) {
@@ -92,17 +93,19 @@ public class MaineService {
                                     double wholesalePriceFromStock1, double wholesalePriceFromStock2,
                                     double wholesalePriceFromOrder) {
 
-        int intTypeid = Integer.parseInt(typeId);
-        int intClassId = Integer.parseInt(classId);
         DoorType doorType = new DoorType();
 
-        if (intTypeid == 0 && intClassId > 0) {
-            DoorClass doorClass = dAO.getDoorClass(intClassId);
-            doorType.setDoorClass(doorClass);
-        }
+        int intTypeid = Integer.parseInt(typeId);
         if (intTypeid > 0) {
             doorType = dAO.getDoorType(intTypeid);
         }
+        int intClassId = Integer.parseInt(classId);
+
+        if (intClassId > 0) {
+            DoorClass doorClass = dAO.getDoorClass(intClassId);
+            doorType.setDoorClass(doorClass);
+        }
+
         doorType.setName(name);
         doorType.setNamePicture(namePicture);
         doorType.setDoorLeaf(doorLeaf);
