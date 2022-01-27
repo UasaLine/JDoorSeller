@@ -3,6 +3,7 @@ package com.jds.dao.entity;
 import com.jds.model.enumModels.GlassPositionType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "glass_position_entity")
 public class GlassPositionEntity {

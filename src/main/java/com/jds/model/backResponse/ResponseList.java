@@ -16,4 +16,10 @@ public class ResponseList<T> extends Response {
         this.list = list;
         this.total = total;
     }
+
+    public ResponseList(List<T> list) {
+        super(true, "ok");
+        this.list = list;
+        this.total = list.size();
+    }
 }
