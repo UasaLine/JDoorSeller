@@ -959,33 +959,24 @@
             <!--Glass-->
             <div id="collapseNine" class="collapse template_group_daughter" aria-labelledby="headingNine"
                  data-parent="#accordionExample">
+                <br><br>
 
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input disabled" id="sizeGlassCheckbox">
-                    <label class="custom-control-label" for="sizeGlassCheckbox">размер только из шаблона</label>
-                </div>
-                <br>
-                <br>
-                <div class="mb-3" id="sizeGlassPeriod">
-                    <label for="sizeGlassDiv">размеры стекла:</label>
-                    <div class="row" id="sizeGlassDiv">
-                        <div class="col-2">
-                            <input type="number" class="form-control" id="widthGlass" placeholder="ширина">
+                <!--GlassPosition-->
+                <div id="glassPositionsDiv">
+                    <label for="glassPositionsSelect0">позиции стекла:</label>
+                    <div class="row" id="glassPositionsLineDiv0">
+                        <div class="col-md-6 mb-3" id="glassPositionsLineSelect0">
+                            <select class="form-control glassPositionsSelect" id="glassPositionsSelect0" data="0">
+                            </select>
                         </div>
-                        <div class="col-2">
-                            <input type="number" class="form-control" id="heightGlass" placeholder="высото">
-                        </div>
-                        <div class="col-2">
-                            <input type="number" class="form-control" id="topGlassPosition"
-                                   placeholder="отступ с верху">
-                        </div>
-                        <div class="col-2">
-                            <input type="number" class="form-control " id="liftGlassPosition"
-                                   placeholder="отступ с лева">
+                        <div class="custom-control custom-switch" id="glassPositionsLineSwitch0">
+                            <input type="checkbox" class="custom-control-input glassPositionsLineCheckbox"
+                                   id="glassPositionsLineCheckbox0">
+                            <label class="custom-control-label" for="glassPositionsLineCheckbox0">default</label>
                         </div>
                     </div>
                 </div>
-                <br>
+
                 <br>
                 <!--typeDoorGlass-->
                 <div id="typeDoorGlassDiv">

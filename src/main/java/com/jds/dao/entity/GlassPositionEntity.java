@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ public class GlassPositionEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private GlassPositionType type;
     @Column(name = "value1")
     private int value1;

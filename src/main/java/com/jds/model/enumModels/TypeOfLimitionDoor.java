@@ -55,6 +55,7 @@ public enum TypeOfLimitionDoor {
     TYPE_GLASS("Тип Стекла"),
     TONING("Тонировка"),
     ARMOR("Броня"),
+    GLASS_POSITION("Позиция Стекла"),
 
     SHIELD_COLOR("Цвет щита"),
     SHIELD_DESIGN("Дизайн щита"),
@@ -68,11 +69,11 @@ public enum TypeOfLimitionDoor {
 
     private String name;
 
-    TypeOfLimitionDoor(String name){
+    TypeOfLimitionDoor(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 

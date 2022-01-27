@@ -1,5 +1,6 @@
 package com.jds.service;
 
+import com.jds.dao.entity.GlassPositionEntity;
 import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.repository.FurnitureRepository;
@@ -30,6 +31,8 @@ public class FurnitureService {
     private TemplateService templateService;
     @Autowired
     private DeleteCheckService deleteCheckService;
+    @Autowired
+    private GlassPositionService glassPositionService;
 
     public List<DoorFurniture> getFurnitureList() {
         return repository.getFurniture();
@@ -62,7 +65,7 @@ public class FurnitureService {
     public DoorFurniture saveFurniture(@NonNull DoorFurniture furniture) {
 
 
-            return repository.saveFurniture(furniture);
+        return repository.saveFurniture(furniture);
     }
 
     public AvailableFieldsForSelection getAvailableFields(String doorTypeId) {
@@ -89,10 +92,12 @@ public class FurnitureService {
                 .shieldColor(getImageByLimit(template.getShieldColor()))
                 .shieldDesign(getImageByLimit(template.getShieldDesign()))
                 .shieldGlass(getImageByLimit(template.getShieldGlass()))
+                .glassPosition(getGlassPosition(template.getGlassPositions()))
 
                 .typeDoorGlass(getFurnitureByLmit(template.getTypeDoorGlass()))
                 .toning(getFurnitureByLmit(template.getToning()))
                 .armor(getFurnitureByLmit(template.getArmor()))
+
 
                 .closer(getFurnitureByLmit(template.getCloser()))
                 .peephole(getFurnitureByLmit(template.getPeephole()))
@@ -117,13 +122,18 @@ public class FurnitureService {
                 .collect(Collectors.toList());
     }
 
+    public List<GlassPositionEntity> getGlassPosition(List<LimitationDoor> limit) {
+        return limit.stream()
+                .map(lim -> glassPositionService.getById(lim.getItemId()))
+                .collect(Collectors.toList());
+    }
+
     public List<DoorFurniture> convertToFurniture(List<LimitationDoor> limit) {
         return limit.stream()
                 .map(DoorFurniture::newInstance)
                 .peek(image -> image.clearNonSerializingFields())
                 .collect(Collectors.toList());
     }
-
 
 
     public List<ColorPicture> getPicByType(TypeOfFurniture type) {

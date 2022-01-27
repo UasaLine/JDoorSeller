@@ -1,6 +1,7 @@
 package com.jds.model;
 
 import com.jds.dao.entity.DoorFurniture;
+import com.jds.dao.entity.GlassPositionEntity;
 import com.jds.dao.entity.ImageEntity;
 import lombok.*;
 
@@ -33,4 +34,5 @@ public class AvailableFieldsForSelection {
     private List<DoorFurniture> armor = new ArrayList<>();
     private List<ImageEntity> outShieldColor = new ArrayList<>();
     private List<ImageEntity> outShieldDesign = new ArrayList<>();
+    private List<GlassPositionEntity> glassPosition = new ArrayList<>();
 }

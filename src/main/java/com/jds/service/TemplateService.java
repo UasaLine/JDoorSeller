@@ -33,6 +33,8 @@ public class TemplateService {
     private FurnitureRepository furnitureDao;
     @Autowired
     private FurnitureService furnitureService;
+    @Autowired
+    private GlassPositionService GlassPositionService;
 
     private Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
@@ -114,6 +116,7 @@ public class TemplateService {
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TYPE_GLASS, restriction.getTypeDoorGlass(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.TONING, restriction.getToning(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.ARMOR, restriction.getArmor(), limitList);
+        saveAsLimitationDoor(doorType, TypeOfLimitionDoor.GLASS_POSITION, restriction.getGlassPositions(), limitList);
 
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SIZE_COST_HEIGHT, restriction.getSizeCostHeight(), limitList);
         saveAsLimitationDoor(doorType, TypeOfLimitionDoor.SIZE_COST_WIDTH, restriction.getSizeCostWidth(), limitList);
@@ -174,6 +177,8 @@ public class TemplateService {
                 .addGlass(furnitureDao.getFurniture(TypeOfFurniture.TYPE_GLASS))
                 .addToning(furnitureDao.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
                 .addArmor(furnitureDao.getFurniture(TypeOfFurniture.ARMOR_GLASS_PELLICLE))
+                .addGlassPositions(GlassPositionService.get())
+
 
                 .addTopInLockDecor(furnitureDao.getFurniture(TypeOfFurniture.TOP_IN_LOCK_DECOR))
                 .addTopOutLockDecor(furnitureDao.getFurniture(TypeOfFurniture.TOP_OUT_LOCK_DECOR))
@@ -345,6 +350,10 @@ public class TemplateService {
             case SIZE_COST_WIDTH:
                 restriction.addSizeCostWidth(lim);
                 break;
+            case GLASS_POSITION:
+                restriction.addGlassPositions(lim);
+                break;
+
             default:
                 logger.error("[restrictionBuild] typeOfLimitionDoor: {} - is not processed by the switch", typeOfLimitionDoor);
         }
