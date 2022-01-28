@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>door seller</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-4.3.1css/bootstrap.min.css">
+    <!-- your personal CSS -->
+    <script type="text/javascript" src="../js/shared/page-selector-class.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/glassPositionList.js"></script>
+    <script type="text/javascript" src="../js/ui/panel-builder.class.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/logoSett.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/displayCss.css"/>
+</head>
+<body>
+
+<!-- header -->
+<div class="top_head">
+    <div class="container-fluid" id="intro-dm">
+        <a th:href="@{/}"><img src="../images/Header_widht_1300_002 ltl.jpg"></a>
+    </div>
+</div>
+
+<div class="top_head">
+    <div class="row">
+
+        <nav class="col-2 d-none d-md-block bg-light sidebar" id="mainSidePanel">
+        </nav>
+
+        <div class="col">
+
+            <h1 class="display-4">Позиции стекол</h1>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" id="addLine">Добавить</button>
+                    <button type="button" class="btn btn-primary" id="deletLine">Удалить</button>
+                </div>
+                <div class="col-md-1 mb-3">
+                    <label for="typeOfImage">Тип:</label>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <select class="form-control" id="typeOfImage"></select>
+                </div>
+            </div>
+
+            <div class="data-Table">
+                <table class="Table">
+                    <tr>
+                        <th>id</th>
+                        <th>наименование</th>
+                        <th>тип</th>
+                    </tr>
+                    <tr th:each="position : ${List}">
+                        <td class="id" th:utext="${position.id}">..</td>
+                        <td th:utext="${position.name}">..</td>
+                        <td class="type-line" th:utext="${position.type}">..</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

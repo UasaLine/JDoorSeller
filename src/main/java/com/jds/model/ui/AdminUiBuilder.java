@@ -17,6 +17,7 @@ public class AdminUiBuilder implements UiBuilder {
         settingGroup.add(new PanelItem("Классы", "/doorclasslist", ""));
         settingGroup.add(new PanelItem("Модели", "/pages/doortype", ""));
         settingGroup.add(new PanelItem("Фурнитура", "/furniture", ""));
+        settingGroup.add(new PanelItem("Позиции стекол", "/pages/glass-position", ""));
         settingGroup.add(new PanelItem("Металл", "/metal", ""));
         settingGroup.add(new PanelItem("Цвета", "/pages/colors", ""));
         settingGroup.add(new PanelItem("Материалы", "/pages/materials", ""));

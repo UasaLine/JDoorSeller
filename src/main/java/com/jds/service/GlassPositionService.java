@@ -19,4 +19,12 @@ public class GlassPositionService {
     public List<GlassPositionEntity> get() {
         return repository.get();
     }
+
+    public GlassPositionEntity save(GlassPositionEntity glassPositionEntity) {
+        return repository.save(glassPositionEntity);
+    }
+
+    public String delete(int id) {
+        return repository.delete(repository.getById(id));
+    }
 }
