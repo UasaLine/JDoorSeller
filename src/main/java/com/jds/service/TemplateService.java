@@ -10,6 +10,7 @@ import com.jds.model.enumModels.SideDoorOpen;
 
 import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.enumModels.TypeOfLimitionDoor;
+import com.jds.model.tools.DoorSellerBooleanUtils;
 import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class TemplateService {
     @Autowired
     private FurnitureService furnitureService;
     @Autowired
-    private GlassPositionService GlassPositionService;
+    private GlassPositionService glassPositionService;
 
     private Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
@@ -177,7 +178,7 @@ public class TemplateService {
                 .addGlass(furnitureDao.getFurniture(TypeOfFurniture.TYPE_GLASS))
                 .addToning(furnitureDao.getFurniture(TypeOfFurniture.GLASS_PELLICLE))
                 .addArmor(furnitureDao.getFurniture(TypeOfFurniture.ARMOR_GLASS_PELLICLE))
-                .addGlassPositions(GlassPositionService.get())
+                .addGlassPositions(glassPositionService.get())
 
 
                 .addTopInLockDecor(furnitureDao.getFurniture(TypeOfFurniture.TOP_IN_LOCK_DECOR))
@@ -472,13 +473,18 @@ public class TemplateService {
                 .peephole(defaultAndGetFurniture(template.getPeephole()))
                 .closer(defaultAndGetFurniture(template.getCloser()))
                 .nightLock(defaultAndGetFurniture(template.getNightLock()))
+
+                .typeDoorGlass(defaultAndGetFurniture(template.getTypeDoorGlass()))
+                .glassPosition(defaultAndGlassPosition(template.getGlassPositions()))
                 .build();
 
         doorEntity.setFurnitureKit(FurnitureKit.instanceKit(availableFields));
         doorEntity.setShieldKit(ShieldKit.instanceKit(availableFields));
+        DoorGlass glass = DoorGlass.instance(availableFields, doorEntity);
+        doorEntity.setDoorGlass(glass);
+        doorEntity.setIsDoorGlass(DoorSellerBooleanUtils.toInt(glass.exists()));
 
         return doorEntity;
-
     }
 
     private double findInTemplateRestriction(@NonNull List<LimitationDoor> listLim) {
@@ -529,6 +535,13 @@ public class TemplateService {
                 .filter(LimitationDoor::isDefault)
                 .collect(Collectors.toList());
         return furnitureService.getFurnitureByLmit(defList);
+    }
+
+    private List<GlassPositionEntity> defaultAndGlassPosition(List<LimitationDoor> listLim) {
+        return listLim.stream()
+                .filter(LimitationDoor::isDefault)
+                .map(l -> glassPositionService.getById(l.getItemId()))
+                .collect(Collectors.toList());
     }
 
     private List<DoorFurniture> defaultAndConvertToFurniture(List<LimitationDoor> listLim) {

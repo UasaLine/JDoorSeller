@@ -718,6 +718,13 @@ class Door {
         }
         return result;
     }
+
+    static setGlassSizes(sizes) {
+        Door.setGlass("glassWidth",sizes.width);
+        Door.setGlass("glassHeight",sizes.height);
+        Door.setGlass("leftGlassPosition",sizes.left);
+        Door.setGlass("bottomGlassPosition",sizes.bottom);
+    }
 }
 
 class Price {

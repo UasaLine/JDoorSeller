@@ -48,3 +48,41 @@ class DoorGlass {
         return door.doorGlass.typeDoorGlass.sketchPathFirst;
     }
 }
+
+class GlassPosition {
+
+    static getSizes(door, item) {
+        if (item.type === "MAXIMUM_AREA") {
+
+            let left = item.value1;
+            let bottom = item.value3;
+
+            let width = door.widthDoor - item.value1 - item.value2;
+            let height = door.heightDoor - item.value3 - item.value4;
+
+            return {
+                "width": width,
+                "height": height,
+                "left": left,
+                "bottom": bottom
+            }
+
+        } else if (item.type === "BOTTOM") {
+
+            let left = (door.widthDoor - item.value1) / 2;
+            let bottom = item.value3;
+
+            let width = item.value1;
+            let height = item.value2;
+
+            return {
+                "width": width,
+                "height": height,
+                "left": left,
+                "bottom": bottom
+            }
+        } else {
+            alert("!!!error: The glass position type is not defined on the client! contact the developer");
+        }
+    }
+}
