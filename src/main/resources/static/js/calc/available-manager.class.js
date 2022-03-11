@@ -47,6 +47,7 @@ class AvailableManager {
             this.makeAvailableIfExists("peepholePosition", "");
             this.makeAvailableIfExistsInTemplate("stainlessSteelDoorstep", "Menu");
 
+            this.makeAvailableIfExists("glassPosition", "");
             this.makeAvailableIfExists("typeDoorGlass", "");
             this.makeAvailableIfExists("toning", "");
             this.makeAvailableIfExists("armor", "");

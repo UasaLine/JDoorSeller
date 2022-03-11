@@ -1,5 +1,6 @@
 package com.jds.model;
 
+import com.jds.dao.entity.GlassPositionEntity;
 import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.entity.DoorFurniture;
 import com.jds.dao.entity.LimitationDoor;
@@ -81,6 +82,7 @@ public class RestrictionOfSelectionFields {
 
     private List<LimitationDoor> sizeCostWidth = new ArrayList<>();
     private List<LimitationDoor> sizeCostHeight = new ArrayList<>();
+    private List<LimitationDoor> glassPositions = new ArrayList<>();
 
 
     //replace with getting data from the database
@@ -533,23 +535,22 @@ public class RestrictionOfSelectionFields {
 
     public void addCloser(@NonNull LimitationDoor furniture) {
 
-
         this.closer.add(furniture.setNuulLazyFild());
-
     }
 
     public void addSizeCostWidth(@NonNull LimitationDoor lim) {
 
-
         this.sizeCostWidth.add(lim.setNuulLazyFild());
+    }
 
+    public void addGlassPositions(@NonNull LimitationDoor lim) {
+
+        this.glassPositions.add(lim.setNuulLazyFild());
     }
 
     public void addSizeCostHeight(@NonNull LimitationDoor lim) {
 
-
         this.sizeCostHeight.add(lim.setNuulLazyFild());
-
     }
 
     public void addEndDoorLock(@NonNull LimitationDoor furniture) {
@@ -621,6 +622,18 @@ public class RestrictionOfSelectionFields {
         armor = armor.stream()
                 .sorted((o1, o2) -> -o1.compareTo(o2))
                 .collect(Collectors.toList());
+        return this;
+    }
+
+    public RestrictionOfSelectionFields addGlassPositions(@NonNull List<GlassPositionEntity> list) {
+        glassPositions = new ArrayList<>();
+        for (GlassPositionEntity glassPosition : list) {
+            glassPositions.add(LimitationDoor.builder()
+                    .typeSettings(TypeOfLimitionDoor.GLASS_POSITION)
+                    .itemId(glassPosition.getId())
+                    .firstItem(glassPosition.getName())
+                    .build());
+        }
         return this;
     }
 

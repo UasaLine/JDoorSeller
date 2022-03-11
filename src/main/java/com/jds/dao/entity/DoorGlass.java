@@ -1,9 +1,13 @@
 package com.jds.dao.entity;
 
+import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.enumModels.TypeOfFurniture;
+import com.jds.model.position.GlassPosition;
+import com.jds.model.position.GlassPositionFactory;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "glass")
@@ -38,24 +42,44 @@ public class DoorGlass {
     @Column(name = "bottomGlassPosition")
     private int bottomGlassPosition;
 
-    @OneToOne(mappedBy = "doorGlass",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "doorGlass", fetch = FetchType.LAZY)
     private DoorEntity door;
 
     public DoorGlass() {
 
     }
 
-    public boolean exists(){
+    public static DoorGlass instance(AvailableFieldsForSelection availableFields, DoorEntity door) {
+        DoorGlass glass = new DoorGlass();
 
-        if ((typeDoorGlass!=null)&&(glassWidth>0)&&(glassHeight>0)){
+        Optional<GlassPositionEntity> glassPositionEntity = availableFields.getGlassPosition().stream().findAny();
+        if (glassPositionEntity.isPresent()) {
+            GlassPositionFactory factory = new GlassPositionFactory();
+            GlassPosition glassPosition = factory.getInstance(glassPositionEntity.get(),
+                    door.getHeightDoor(), door.getWidthDoor());
+
+            glass.setGlassHeight(glassPosition.height());
+            glass.setGlassWidth(glassPosition.width());
+            glass.setBottomGlassPosition(glassPosition.bottomIndent());
+            glass.setLeftGlassPosition(glassPosition.leftIndent());
+        }
+
+        Optional<DoorFurniture> typeDoorGlass = availableFields.getTypeDoorGlass().stream().findAny();
+        typeDoorGlass.ifPresent(glass::setTypeDoorGlass);
+        return glass;
+    }
+
+    public boolean exists() {
+
+        if ((typeDoorGlass != null) && (glassWidth > 0) && (glassHeight > 0)) {
             return true;
         }
         return false;
     }
 
-    public double getSpace(){
+    public double getSpace() {
 
-        double S =((double)glassWidth*(double) glassHeight)/1000000;
+        double S = ((double) glassWidth * (double) glassHeight) / 1000000;
 
         return S;
     }
@@ -64,32 +88,32 @@ public class DoorGlass {
         return typeDoorGlass;
     }
 
-    public int getCost(TypeOfFurniture type,double space){
+    public int getCost(TypeOfFurniture type, double space) {
 
-        if(type==TypeOfFurniture.TYPE_GLASS){
-            return (int)(typeDoorGlass.getPrice()*space);
+        if (type == TypeOfFurniture.TYPE_GLASS) {
+            return (int) (typeDoorGlass.getPrice() * space);
         }
-        if(armor!=null && type==TypeOfFurniture.ARMOR_GLASS_PELLICLE){
-            return (int)(armor.getPrice()*space);
+        if (armor != null && type == TypeOfFurniture.ARMOR_GLASS_PELLICLE) {
+            return (int) (armor.getPrice() * space);
         }
-        if(toning!=null && type==TypeOfFurniture.GLASS_PELLICLE){
-            return (int)(toning.getPrice()*space);
+        if (toning != null && type == TypeOfFurniture.GLASS_PELLICLE) {
+            return (int) (toning.getPrice() * space);
         }
 
         return 0;
     }
 
-    public DoorGlass clearNonSerializingFields(){
+    public DoorGlass clearNonSerializingFields() {
 
         door = null;
 
-        if(toning!=null){
+        if (toning != null) {
             toning.setNuulLazyFild();
         }
-        if(armor!=null){
+        if (armor != null) {
             armor.setNuulLazyFild();
         }
-        if(typeDoorGlass!=null){
+        if (typeDoorGlass != null) {
             typeDoorGlass.setNuulLazyFild();
         }
         return this;
@@ -163,13 +187,13 @@ public class DoorGlass {
         this.door = door;
     }
 
-    public int getGlassCost (List<LimitationDoor> templateGlass , int glassId){
+    public int getGlassCost(List<LimitationDoor> templateGlass, int glassId) {
 
         LimitationDoor lim = templateGlass.stream()
-                .filter((p)-> p.getItemId() == glassId)
+                .filter((p) -> p.getItemId() == glassId)
                 .findFirst().orElse(null);
 
-        if (lim != null){
+        if (lim != null) {
             return lim.getCost();
         } else return 0;
     }

@@ -164,6 +164,8 @@ jQuery("document").ready(function () {
             RepresentationManager.showFieldValue($(this).children("span").html());
             if ($("#typeDoorGlassShow").text() == "" || $("#typeDoorGlassShow").text() == "нет") {
                 resetDoorGlassField();
+            } else {
+                door.isDoorGlass = 1;
             }
             Door.draw(door, 1);
             pickOut(this);
@@ -599,6 +601,20 @@ jQuery("document").ready(function () {
             iosPicker.setCurrentValue();
         });
 
+        $("#select_button_id").on("click", ".vertical_menu_button", function () {
+
+            let itemId = $(this).attr("id");
+            setDoorGlassField(currentItem, itemId);
+            const glassSizes = GlassPosition.getSizes(door, findObjectById(currentItem, itemId));
+            Door.setGlassSizes(glassSizes);
+            RepresentationManager.showAllFieldsValues(door);
+
+            if (goTo != "") {
+                currentItem = goTo;
+                hideShowField(true);
+            }
+
+        });
 
 // window.addEventListener('scroll', function () {
 //     if (modalOpen) {
@@ -640,6 +656,7 @@ jQuery("document").ready(function () {
             $("#doorGlassShow").text("");
             door.doorGlass.id = 0;
             door.doorGlass.space = 0;
+            door.isDoorGlass = 0;
         }
 
         function setDoorFurnitureById(fieldName, id, doorKit) {
@@ -1371,6 +1388,15 @@ jQuery("document").ready(function () {
                 PaginationPage.show();
             } else {
                 $(".select_doorColor").attr("show", "ghost_lement");
+            }
+
+            if (currentItem == "glassPosition") {
+                SelectButtonBlock.init("select_button_id", "select_button_div_id");
+                SelectButtonBlock.build(availableFurnitureList["glassPosition"]);
+                SelectButtonBlock.show();
+                goTo = "doorGlass";
+            } else {
+                SelectButtonBlock.hide();
             }
 
             if (currentItem == "doorGlass") {

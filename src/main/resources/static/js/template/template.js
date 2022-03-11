@@ -7,7 +7,7 @@ jQuery("document").ready(function () {
     //new instans
     grtListDoorClassToSelect();
 
-    //new Template instans
+    //new Template instance
     function getDoorTemplate(id) {
         $.ajax({
             url: location.origin + "/templates/" + id,
@@ -160,6 +160,8 @@ jQuery("document").ready(function () {
         installFromTemplateFurnitur("outShieldColor");
         installFromTemplateFurnitur("outShieldDesign");
 
+        installFromTemplateFurnitur("glassPositions");
+
         SizeCostBlock.setValueToDom();
 
     }
@@ -207,6 +209,8 @@ jQuery("document").ready(function () {
 
         fillInFurniture("outShieldColor");
         fillInFurniture("outShieldDesign");
+
+        fillInFurniture("glassPositions");
     }
 
     $("#doorclassselect").change(function () {
@@ -818,6 +822,19 @@ jQuery("document").ready(function () {
     });
 
     //glass
+
+    $("#glassPositionsDiv").change(".glassPositionsSelect", function () {
+        addNewFieldAndfillInforFurnitur("glassPositions"); //nameJavaObject
+    });
+    $("#glassPositionsDiv").on("click", ".glassPositionsLineCheckbox", function () {
+        if ($(this).is(":checked")) {
+            switchOffAll("glassPositions");
+            $(this).prop("checked", true);
+            saveInJavaObjectColorAndFurnitur("glassPositions");
+        } else {
+            saveInJavaObjectColorAndFurnitur("glassPositions");
+        }
+    });
 
     $("#typeDoorGlassDiv").change(".typeDoorGlassSelect", function () {
         addNewFieldAndfillInforFurnitur("typeDoorGlass"); //nameJavaObject

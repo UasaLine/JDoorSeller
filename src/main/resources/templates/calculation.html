@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../../js/sizing-drum/sizing-drum.class.js"></script>
     <script type="text/javascript" src="../../js/calc/door.class.js"></script>
+    <script type="text/javascript" src="../../js/calc/door-glass.class.js"></script>
     <script type="text/javascript" src="../../js/calc/class-card-block.class.js"></script>
     <script type="text/javascript" src="../../js/calc/type-card-block.class.js"></script>
     <script type="text/javascript" src="../../js/calc/opening.classes.js"></script>
@@ -23,6 +24,7 @@
     <script type="text/javascript" src="../../js/shared/jquery.ios.picker.js"></script>
     <script type="text/javascript" src="../../js/shared/ios-picker-class.js"></script>
     <script type="text/javascript" src="../../js/calc/available-furniture.js"></script>
+    <script type="text/javascript" src="../../js/calc/select-button-block.class.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/drawDoor.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/ios_checkbox.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/calcCss.css"/>
@@ -955,13 +957,22 @@
                     <div class="vertical_menu_button" id="typeDoorGlass">
                         <div class="left_cell">
                             <span class="vertical_menu_button_left" id="nametypeDoorGlass"
-                                  available="yes">тип стекла</span>
+                                  available="no">тип стекла</span>
                         </div>
                         <div align="right" class="right_cell">
                             <span class="vertical_menu_button_rigtht" id="typeDoorGlassShow"><strong></strong></span>
                         </div>
                     </div>
-                    <div class="vertical_menu_button" id="toning" available="no">
+                    <div class="vertical_menu_button" id="glassPosition">
+                        <div class="left_cell">
+                            <span class="vertical_menu_button_left" id="nameglassPosition"
+                                  available="no">позиция</span>
+                        </div>
+                        <div align="right" class="right_cell">
+                            <span class="vertical_menu_button_rigtht" id="glassPositionShow"><strong></strong></span>
+                        </div>
+                    </div>
+                    <div class="vertical_menu_button" id="toning">
                         <div class="left_cell">
                             <span class="vertical_menu_button_left" id="nametoning" available="yes"> тонировка</span>
                         </div>
@@ -969,7 +980,7 @@
                             <span class="vertical_menu_button_rigtht" id="toningShow"><strong></strong></span>
                         </div>
                     </div>
-                    <div class="vertical_menu_button" id="armor" available="no">
+                    <div class="vertical_menu_button" id="armor">
                         <div class="left_cell">
                             <span class="vertical_menu_button_left" id="namearmor" available="yes"> бронь</span>
                         </div>
@@ -977,7 +988,8 @@
                             <span class="vertical_menu_button_rigtht" id="armorShow"><strong></strong></span>
                         </div>
                     </div>
-                    <div class="input_div" id="widthDoorGlassDiv">
+
+                    <div class="input_div" id="widthDoorGlassDiv" show="ghost_lement">
 
                         <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
                                 id="input_glassWidth"
@@ -986,7 +998,7 @@
                                 data="0">Ширина стекла (w):
                         </button>
                     </div>
-                    <div class="input_div" id="heightDoorGlassDiv">
+                    <div class="input_div" id="heightDoorGlassDiv" show="ghost_lement">
 
                         <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
                                 id="input_glassHeight"
@@ -996,7 +1008,7 @@
                         </button>
 
                     </div>
-                    <div class="input_div" id="leftDoorGlassDiv">
+                    <div class="input_div" id="leftDoorGlassDiv" show="ghost_lement">
 
                         <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
                                 id="input_leftGlassPosition"
@@ -1005,7 +1017,7 @@
                                 data="0">Левый отступ:
                         </button>
                     </div>
-                    <div class="input_div" id="bottomDoorGlassDiv">
+                    <div class="input_div" id="bottomDoorGlassDiv" show="ghost_lement">
 
                         <button type="button" class="btn btn-outline-dark btn-lg btn-block select_size"
                                 id="input_bottomGlassPosition"
@@ -2678,6 +2690,14 @@
                 <div class="form-group">
                     <label for="commentTextarea">комментарий:</label>
                     <textarea class="form-control" id="commentTextarea" rows="10"></textarea>
+                </div>
+            </div>
+
+            <!--select button-->
+            <div class="select_button reduceAsAScroll" id="select_button_div_id" show="ghost_lement">
+
+                <div class="input_button_div" id="select_button_id" show="is_alive_lement">
+
                 </div>
             </div>
         </div>

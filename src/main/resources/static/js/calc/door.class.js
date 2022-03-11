@@ -37,29 +37,11 @@ class Door {
         config.sideOpeningR = sidesOpening.right;
         config.leafCount = sidesOpening.leaf;
 
-        if (door.isDoorGlass == 1 && door.doorGlass != null) {
-            config.glassHeight = (door.doorGlass.glassHeight * 2) / 10;
-            config.glassWidth = (door.doorGlass.glassWidth * 2) / 10;
-
-            config.topGlassPosition = 0;
-            if (door.doorGlass.bottomGlassPosition == 0) {
-                //glassHeight
-                config.topGlassPosition = (door.heightDoor - door.doorGlass.glassHeight) / 10;
-            } else {
-                config.topGlassPosition = ((door.heightDoor - Number(door.doorGlass.glassHeight) - Number(door.doorGlass.bottomGlassPosition)) * 2) / 10;
-            }
-
-            config.leftGlassPosition = 0;
-            if (door.doorGlass.leftGlassPosition == 0) {
-                //glassWidth
-                config.leftGlassPosition = (door.widthDoor - door.doorGlass.glassWidth) / 10;
-                config.leftGlassPositionInner = config.leftGlassPosition;
-            } else {
-                config.leftGlassPosition = (Number(door.doorGlass.leftGlassPosition) * 2) / 10;
-                config.leftGlassPositionInner = ((door.widthDoor - door.doorGlass.glassWidth) * 2) / 10 - config.leftGlassPosition;
-            }
-
-        }
+        config.glassHeight = DoorGlass.getHeight(door);
+        config.glassWidth = DoorGlass.getWidth(door);
+        config.topGlassPosition = DoorGlass.getTopGlassPosition(door);
+        config.leftGlassPosition = DoorGlass.getLeftGlassPosition(door);
+        config.leftGlassPositionInner = DoorGlass.getLeftGlassPositionInner(door);
 
         this.delete(i);
 
@@ -416,7 +398,7 @@ class Door {
 
             $("<img>")
                 .attr("class", "opening_side_images")
-                .attr("src", Door.dirPath + "images/Door/window.png")
+                .attr("src", Door.dirPath + DoorGlass.getGlassPicPath(door))
                 .attr(
                     "style",
                     "width:" +
@@ -735,6 +717,13 @@ class Door {
             result = "ПРАВОЕ";
         }
         return result;
+    }
+
+    static setGlassSizes(sizes) {
+        Door.setGlass("glassWidth",sizes.width);
+        Door.setGlass("glassHeight",sizes.height);
+        Door.setGlass("leftGlassPosition",sizes.left);
+        Door.setGlass("bottomGlassPosition",sizes.bottom);
     }
 }
 
