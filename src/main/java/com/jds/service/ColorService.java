@@ -5,6 +5,8 @@ import com.jds.dao.entity.LimitationDoor;
 import com.jds.dao.repository.ColorRepository;
 import com.jds.dao.entity.ImageEntity;
 import com.jds.dao.repository.TemplateRepository;
+import com.jds.file.ColorPictureFileRepository;
+import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.enumModels.TypeOfLimitionDoor;
 import com.jds.model.image.*;
 import lombok.NonNull;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.*;
@@ -28,6 +31,9 @@ public class ColorService {
     private TemplateRepository templateRepository;
     @Autowired
     private DeleteCheckService deleteCheckService;
+    @Autowired
+    private ColorPictureFileRepository fileRepository;
+
     private Logger logger = LoggerFactory.getLogger(ColorService.class);
 
     public List<ImageEntity> getColors() {
@@ -119,18 +125,23 @@ public class ColorService {
     }
 
     public List<ColorPicture> getImageFileList(TypeOfImage type) {
-        return getImageFileList(type.getPath());
+        return getImageFileList(TypeImageDirectory.PREVIEW.getPrefix() + type.name());
     }
 
     public List<ColorPicture> getMaskFileList(TypeOfImage type) {
-        return getImageFileList(type.getMaskPath());
+        return getImageFileList(TypeImageDirectory.MASK.getPrefix() + type.name());
     }
 
-    public List<ColorPicture> getImageFileList(String picDirName) {
+    public List<ColorPicture> getImageLocalFileList(String picDirName) {
+
+        if (StringUtils.isEmpty(picDirName)) {
+            return new ArrayList<>();
+        }
 
         File PicDirFile = new File(ColorPicture.pathToFolderPictures(picDirName));
         if (!PicDirFile.exists()) {
             logger.error(String.format("!ERROR: directory is not found  %s", PicDirFile.getAbsolutePath()));
+            return new ArrayList<>();
         }
 
         List<ColorPicture> list = new ArrayList<>();
@@ -160,6 +171,14 @@ public class ColorService {
                 .collect(Collectors.toList());
 
         return list;
+    }
+
+    public List<ColorPicture> getImageFileList(TypeImageDirectory typeDirectory, TypeOfFurniture type) {
+        return getImageFileList(typeDirectory.getPrefix() + type.name());
+    }
+
+    public List<ColorPicture> getImageFileList(String picDirName) {
+        return fileRepository.fine(picDirName);
     }
 
     public List<ImageEntity> getColorsByType(int doorTypeId, TypeOfDoorColor type) {

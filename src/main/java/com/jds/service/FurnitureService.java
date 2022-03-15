@@ -10,6 +10,7 @@ import com.jds.model.AvailableFieldsForSelection;
 import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.image.ColorPicture;
+import com.jds.model.image.TypeImageDirectory;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -137,10 +138,10 @@ public class FurnitureService {
 
 
     public List<ColorPicture> getPicByType(TypeOfFurniture type) {
-        return colorService.getImageFileList(type.getPicPath());
+        return colorService.getImageFileList(TypeImageDirectory.PREVIEW, type);
     }
 
     public List<ColorPicture> getSketchByType(TypeOfFurniture type) {
-        return colorService.getImageFileList(type.getSketchPath());
+        return colorService.getImageFileList(TypeImageDirectory.SKETCH, type);
     }
 }
