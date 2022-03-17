@@ -335,3 +335,15 @@ stainlessSteelDoorstep
     z-index: 601;
     animation: animation 0.1s 0.7s both;
 }
+
+.glass_style {
+    z-index: 190;
+}
+
+.glass_pellicle {
+    z-index: 182;
+}
+
+.glass_base {
+    z-index: 180;
+}

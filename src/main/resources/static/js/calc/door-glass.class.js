@@ -1,5 +1,41 @@
 class DoorGlass {
 
+    static draw(containerLeaf, config, door, key) {
+
+        let leftPosition = key === "L" ? config.leftGlassPosition : config.leftGlassPositionInner;
+        let style = "width:" +
+            config.glassWidth +
+            "px; height:" +
+            config.glassHeight +
+            "px; top:" +
+            config.topGlassPosition +
+            "px; left:" +
+            leftPosition +
+            "px;";
+
+        $("<img>")
+            .attr("class", "glass_base opening_side_images")
+            .attr("src", Door.dirPath + Door.getPicturePath(config.color))
+            .attr("style", style)
+            .appendTo(containerLeaf);
+
+        if (DoorGlass.getGlassPicPath(door)) {
+            $("<img>")
+                .attr("class", "glass_style opening_side_images")
+                .attr("src", Door.dirPath + DoorGlass.getGlassPicPath(door))
+                .attr("style", style)
+                .appendTo(containerLeaf);
+        }
+
+        if (DoorGlass.getGlassPelliclePicPath(door)) {
+            $("<img>")
+                .attr("class", "glass_pellicle opening_side_images")
+                .attr("src", Door.dirPath + DoorGlass.getGlassPelliclePicPath(door))
+                .attr("style", style)
+                .appendTo(containerLeaf);
+        }
+    }
+
     static getHeight(door) {
         return (door.doorGlass.glassHeight * 2) / 10;
     }
@@ -45,7 +81,19 @@ class DoorGlass {
     }
 
     static getGlassPicPath(door) {
-        return door.doorGlass.typeDoorGlass.sketchPathFirst;
+        let result;
+        if (door.doorGlass.typeDoorGlass) {
+            result = door.doorGlass.typeDoorGlass.sketchPathFirst;
+        }
+        return result;
+    }
+
+    static getGlassPelliclePicPath(door) {
+        let result;
+        if (door.doorGlass.toning) {
+            result = door.doorGlass.toning.sketchPathFirst
+        }
+        return result;
     }
 }
 
