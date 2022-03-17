@@ -2,6 +2,7 @@ class DoorGlass {
 
     static draw(containerLeaf, config, door, key) {
 
+        const basePellicle = "images/glass-components/sketch/pellicle/glass_blue_001.png";
         let leftPosition = key === "L" ? config.leftGlassPosition : config.leftGlassPositionInner;
         let style = "width:" +
             config.glassWidth +
@@ -13,27 +14,31 @@ class DoorGlass {
             leftPosition +
             "px;";
 
-        $("<img>")
-            .attr("class", "glass_base opening_side_images")
-            .attr("src", Door.dirPath + Door.getPicturePath(config.color))
-            .attr("style", style)
-            .appendTo(containerLeaf);
-
         if (DoorGlass.getGlassPicPath(door)) {
             $("<img>")
                 .attr("class", "glass_style opening_side_images")
                 .attr("src", Door.dirPath + DoorGlass.getGlassPicPath(door))
                 .attr("style", style)
                 .appendTo(containerLeaf);
-        }
 
-        if (DoorGlass.getGlassPelliclePicPath(door)) {
+            let glassPelliclePic = DoorGlass.getGlassPelliclePicPath(door)
+                ? DoorGlass.getGlassPelliclePicPath(door)
+                : basePellicle;
+
             $("<img>")
                 .attr("class", "glass_pellicle opening_side_images")
-                .attr("src", Door.dirPath + DoorGlass.getGlassPelliclePicPath(door))
+                .attr("src", Door.dirPath + glassPelliclePic)
+                .attr("style", style)
+                .appendTo(containerLeaf);
+
+            $("<img>")
+                .attr("class", "glass_base opening_side_images")
+                .attr("src", Door.dirPath + Door.getPicturePath(config.color))
                 .attr("style", style)
                 .appendTo(containerLeaf);
         }
+
+
     }
 
     static getHeight(door) {
