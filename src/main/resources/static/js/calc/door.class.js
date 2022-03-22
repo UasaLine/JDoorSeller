@@ -37,6 +37,13 @@ class Door {
         config.sideOpeningR = sidesOpening.right;
         config.leafCount = sidesOpening.leaf;
 
+        if (availableFurnitureList && door.doorGlass && door.doorGlass.glassPosition) {
+            let positionObject = findObjectById("glassPosition", door.doorGlass.glassPosition)
+            const glassSizes = GlassPosition.getSizes(door, positionObject);
+            Door.setGlassSizes(glassSizes);
+        }
+
+
         config.glassHeight = DoorGlass.getHeight(door);
         config.glassWidth = DoorGlass.getWidth(door);
         config.topGlassPosition = DoorGlass.getTopGlassPosition(door);
