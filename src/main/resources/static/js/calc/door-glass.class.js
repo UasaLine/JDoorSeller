@@ -36,9 +36,15 @@ class DoorGlass {
                 .attr("src", Door.dirPath + Door.getPicturePath(config.color))
                 .attr("style", style)
                 .appendTo(containerLeaf);
+
+            if (DoorGlass.getGlassArmorPicPath(door)){
+                $("<img>")
+                    .attr("class", "glass_armor opening_side_images")
+                    .attr("src", Door.dirPath + DoorGlass.getGlassArmorPicPath(door))
+                    .attr("style", style)
+                    .appendTo(containerLeaf);
+            }
         }
-
-
     }
 
     static getHeight(door) {
@@ -97,6 +103,14 @@ class DoorGlass {
         let result;
         if (door.doorGlass.toning) {
             result = door.doorGlass.toning.sketchPathFirst
+        }
+        return result;
+    }
+
+    static getGlassArmorPicPath(door) {
+        let result;
+        if (door.doorGlass.armor) {
+            result = door.doorGlass.armor.sketchPathFirst
         }
         return result;
     }

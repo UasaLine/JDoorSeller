@@ -347,3 +347,9 @@ stainlessSteelDoorstep
 .glass_base {
     z-index: 180;
 }
+
+.glass_armor {
+    z-index: 183;
+}
+
+
