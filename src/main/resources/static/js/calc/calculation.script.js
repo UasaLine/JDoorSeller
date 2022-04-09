@@ -362,14 +362,16 @@ jQuery("document").ready(function () {
             let costOutput = "";
             let idRow = "";
             let idColName = "";
+            let totalCost = 0;
             for (let i = 0; i < cost.length; i++) {
-                if (cost[i].cost != 0) {
+                if (cost[i].cost != 0 && cost[i].group == 100) {
                     idRow = PriceComponent.addLineRow("containerToast", "row lineForDelete", "row" + i);
                     idColName = PriceComponent.addLineColumn(idRow, "col-9", "colName" + i);
                     costOutput = cost[i].name;
                     $("#" + idColName).text(costOutput);
                     idColName = PriceComponent.addLineColumn(idRow, "col", "colCost" + i);
                     costOutput = cost[i].cost;
+                    totalCost = totalCost + costOutput;
                     $("#" + idColName).text(costOutput);
                 }
             }
@@ -378,8 +380,7 @@ jQuery("document").ready(function () {
             costOutput = "Итоговая цена";
             $("#" + idColName).text(costOutput);
             idColName = PriceComponent.addLineColumn(idRow, "col", "colCostTotalCost");
-            costOutput = door.costList.totalCost;
-            $("#" + idColName).text(costOutput);
+            $("#" + idColName).text(totalCost);
 
             $('.toast').toast('show');
         });

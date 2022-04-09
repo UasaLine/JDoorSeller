@@ -40,9 +40,15 @@
                 <br>
 
                 <div class="col">
-                    <label for="retailMargin">Розничная наценка в %:</label>
+                    <label for="retailMargin">Наценка на розничную цену поставшика (без фунитуры и изменений) в %:</label>
                     <input type="number" min="0" max="99" class="form-control" name="retailMargin" id="retailMargin"
                            placeholder="%" th:value="${setting.retailMargin}">
+                </div>
+
+                <div class="col">
+                    <label for="marginForChange">Наценка на изменение размеров и фурнитуры в %:</label>
+                    <input type="number" min="0" max="99" class="form-control" name="marginForChange" id="marginForChange"
+                           placeholder="%" th:value="${setting.marginForChange}">
                 </div>
 
                 <div class="col">

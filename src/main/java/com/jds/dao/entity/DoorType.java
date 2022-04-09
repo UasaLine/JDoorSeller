@@ -218,4 +218,8 @@ public class DoorType implements Comparable<DoorType> {
         }
         return price;
     }
+
+    public double getPrice() {
+        return getRetailPrice();
+    }
 }

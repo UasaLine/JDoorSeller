@@ -44,7 +44,8 @@ public class DoorServiceImpl implements DoorService {
         return recalculateByPrice(
                 door,
                 userService.getCurrentUser().getDiscount(),
-                userService.getUserSetting().getRetailMargin());
+                userService.getUserSetting().getRetailMargin(),
+                userService.getUserSetting().getMarginForChange());
     }
 
     @Override
@@ -81,19 +82,19 @@ public class DoorServiceImpl implements DoorService {
 
     public DoorEntity recalculateByPrice(@NonNull DoorEntity doorEntity,
                                          @NonNull int discount,
-                                         @NonNull int retailMargin) {
+                                         @NonNull int retailMargin,
+                                         @NonNull int marginForChange) {
 
         if (doorEntity.isNew()) {
             dAO.saveDoor(doorEntity);
         }
 
         doorEntity
-                .addPriceToCostList(discount, userService.getCurrentUserPriceGroup())
-                .costOfChangesAtTemplate()
+                .addPriceToCostList(discount, retailMargin, userService.getCurrentUserPriceGroup())
+                .costOfChangesAtTemplate(marginForChange)
                 .calculateGlass()
                 .calculateFurniture()
                 .calculateStainlessSteelDoorstep()
-                .addRetailMarginToCostList(retailMargin)
                 .setPriceOfDoorType(userService.getCurrentUser())
                 .createName();
 

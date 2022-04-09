@@ -3,7 +3,7 @@ package com.jds.model;
 public class LineCostList {
 
     private String name;
-    private  int group;
+    private int group;
     private boolean headline;
     private int cost;
 

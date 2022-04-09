@@ -84,9 +84,10 @@ public class UserController {
     @PostMapping(value = "usersetting")
     public String saveUsersSetting(@RequestParam(required = false) int retailMargin,
                                    @RequestParam(required = false) int salesTax,
-                                   @RequestParam(required = false) boolean includesTax) throws Exception {
+                                   @RequestParam(required = false) boolean includesTax,
+                                   @RequestParam(required = false) int marginForChange) throws Exception {
 
-        service.saveCurrentUserSetting(retailMargin,salesTax,includesTax);
+        service.saveCurrentUserSetting(retailMargin,salesTax,includesTax,marginForChange);
         return "redirect:usersetting";
     }
 

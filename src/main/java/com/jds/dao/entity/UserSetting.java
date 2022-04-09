@@ -22,6 +22,9 @@ public class UserSetting {
     @Column(name = "retailmargin")
     private int retailMargin;
 
+    @Column(name = "margin_for_change")
+    private int marginForChange;
+
     @Column(name = "salestax")
     private int salesTax;
 

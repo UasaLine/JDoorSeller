@@ -190,7 +190,7 @@ public class UserService implements UserDetailsService, UserServ {
         return dAO.getUserSetting(getCurrentUser().getId());
     }
 
-    public void saveCurrentUserSetting(int retailMargin, int salesTax, boolean includesTax) {
+    public void saveCurrentUserSetting(int retailMargin, int salesTax, boolean includesTax,int marginForChange) {
 
         dAO.saveUserSetting(
                 UserSetting.builder()
@@ -198,6 +198,7 @@ public class UserService implements UserDetailsService, UserServ {
                         .retailMargin(retailMargin)
                         .salesTax(salesTax)
                         .includesTax(maineService.booleanToInt(includesTax))
+                        .marginForChange(marginForChange)
                         .build());
     }
 

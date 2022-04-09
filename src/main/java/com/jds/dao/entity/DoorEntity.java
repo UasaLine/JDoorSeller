@@ -5,6 +5,7 @@ import com.jds.model.*;
 import com.jds.model.cutting.DoorPart;
 import com.jds.model.cutting.Sheet;
 import com.jds.model.enumModels.PriceGroups;
+import com.jds.model.enumModels.PriceType;
 import com.jds.model.enumModels.SideDoorOpen;
 import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.enumModels.TypeOfSalaryConst;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -310,6 +312,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
 
     public DoorEntity calculateGlass() {
 
+        List<PriceType> groups = Arrays.asList(PriceType.FOR_BUY, PriceType.FOR_SELL);
         String glassName = "Стекло: S-";
 
         if (doorGlass != null && doorGlass.exists()) {
@@ -317,36 +320,36 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
             double glassSpace = doorGlass.getSpace();
             int cost = doorGlass.getCost(TypeOfFurniture.TYPE_GLASS, glassSpace);
             costList.addLine(glassName + glassSpace + ", " + doorGlass.getTypeDoorGlass().getName(),
-                    200, false, cost);
+                    groups, false, cost);
 
             int costMarkup = doorGlass.getGlassCost(template.getTypeDoorGlass(), doorGlass.getTypeDoorGlass().getId());
             if (costMarkup != 0) {
                 costList.addLine("Наценка на стекло: " + doorGlass.getTypeDoorGlass().getName(),
-                        200, false, costMarkup);
+                        groups, false, costMarkup);
             }
 
             if (doorGlass.getToning() != null) {
 
                 cost = doorGlass.getCost(TypeOfFurniture.GLASS_PELLICLE, glassSpace);
                 costList.addLine(glassName + glassSpace + ", " + doorGlass.getToning().getName(),
-                        200, false, cost);
+                        groups, false, cost);
 
                 costMarkup = doorGlass.getGlassCost(template.getToning(), doorGlass.getToning().getId());
                 if (costMarkup != 0) {
                     costList.addLine("Наценка на тонировку: " + doorGlass.getToning().getName(),
-                            200, false, costMarkup);
+                            groups, false, costMarkup);
                 }
             }
 
             if (doorGlass.getArmor() != null) {
                 cost = doorGlass.getCost(TypeOfFurniture.ARMOR_GLASS_PELLICLE, glassSpace);
                 costList.addLine(glassName + glassSpace + ", " + doorGlass.getArmor().getName(),
-                        200, false, cost);
+                        groups, false, cost);
 
                 costMarkup = doorGlass.getGlassCost(template.getArmor(), doorGlass.getArmor().getId());
                 if (costMarkup != 0) {
                     costList.addLine("Наценка на броню: " + doorGlass.getArmor().getName(),
-                            200, false, costMarkup);
+                            groups, false, costMarkup);
                 }
             }
         }
@@ -480,14 +483,12 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
 
     public DoorEntity setPriceOfDoorType(UserEntity user) {
 
-        int basePrice = getBasePrice(user);
-        int costForChange = costList.getCostByGroup(200);
-        int discountPriceInt = costList.getCostByGroup(100);
-        int retailMargin = costList.getCostByGroup(500);
+        int priceForSell = costList.getCostByGroup(PriceType.FOR_SELL.getGroup());
+        int priceForBuy = costList.getCostByGroup(PriceType.FOR_BUY.getGroup());
 
-        setPrice(basePrice + costForChange);
-        setDiscountPrice(costForChange + discountPriceInt);
-        setPriceWithMarkup(retailMargin + getDiscountPrice());
+        setPrice(priceForBuy);
+        setDiscountPrice(priceForBuy);
+        setPriceWithMarkup(priceForSell);
 
         return this;
     }
@@ -529,161 +530,80 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
 
         //TopLock
         if (furnitureKit.getTopLock() != null) {
-            costList.addLine("Фурнитура: верхний замок ",
-                    200,
-                    false,
-                    (int) furnitureKit.getTopLock().getPrice());
-
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getTopLock(), furnitureKit.getTopLock().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка верхний замок: ",
-                        200, false, costMarkup);
-            }
-
+            addCostFurnitureToCostList("Верхний замок", "Наценка верхний замок",
+                    template.getTopLock(), furnitureKit.getTopLock());
         }
+
         if (furnitureKit.getTopInLockDecor() != null) {
-            costList.addLine("Фурнитура: накладка верх. внутреняя ",
-                    200,
-                    false,
-                    (int) furnitureKit.getTopInLockDecor().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getTopInLockDecor(), furnitureKit.getTopInLockDecor().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка накладка верх. внутреняя: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Накладка верх. внутреняя", "Наценка накладка верх. внутреняя",
+                    template.getTopInLockDecor(), furnitureKit.getTopInLockDecor());
         }
+
         if (furnitureKit.getTopOutLockDecor() != null) {
-            costList.addLine("Фурнитура: накладка верх. внешняя ",
-                    200,
-                    false,
-                    (int) furnitureKit.getTopOutLockDecor().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getTopOutLockDecor(), furnitureKit.getTopOutLockDecor().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка накладка верх. внешняя: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Накладка верх. внешняя", "Наценка накладка верх. внешняя: ",
+                    template.getTopOutLockDecor(), furnitureKit.getTopOutLockDecor());
         }
 
         if (furnitureKit.getTopLockCylinder() != null) {
-            costList.addLine("Фурнитура: цилиндр ",
-                    200,
-                    false,
-                    (int) furnitureKit.getTopLockCylinder().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLockCylinder(), furnitureKit.getTopLockCylinder().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка цилиндр: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Цилиндр ", "Наценка цилиндр: ",
+                    template.getLockCylinder(), furnitureKit.getTopLockCylinder());
         }
 
         //LowerLock
         if (furnitureKit.getLowerLock() != null) {
-            costList.addLine("Фурнитура: нижний замок ",
-                    200,
-                    false,
-                    (int) furnitureKit.getLowerLock().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLowerLock(), furnitureKit.getLowerLock().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка нижний замок: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Нижний замок ", "Наценка нижний замок: ",
+                    template.getLowerLock(), furnitureKit.getLowerLock());
         }
+
         if (furnitureKit.getLowerInLockDecor() != null) {
-            costList.addLine("Фурнитура: накладка низ. внутренняя",
-                    200,
-                    false,
-                    (int) furnitureKit.getLowerInLockDecor().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLowerInLockDecor(), furnitureKit.getLowerInLockDecor().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка накладка низ. внутренняя: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Накладка низ. внутренняя", "Наценка накладка низ. внутренняя: ",
+                    template.getLowerInLockDecor(), furnitureKit.getLowerInLockDecor());
         }
+
         if (furnitureKit.getLowerOutLockDecor() != null) {
-            costList.addLine("Фурнитура: накладка низ. внешняя",
-                    200,
-                    false,
-                    (int) furnitureKit.getLowerOutLockDecor().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLowerOutLockDecor(), furnitureKit.getLowerOutLockDecor().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка накладка низ. внешняя: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Накладка низ. внешняя", "Наценка накладка низ. внешняя: ",
+                    template.getLowerOutLockDecor(), furnitureKit.getLowerOutLockDecor());
         }
+
         if (furnitureKit.getLowerLockCylinder() != null) {
-            costList.addLine("Фурнитура: цилиндр ",
-                    200,
-                    false,
-                    (int) furnitureKit.getLowerLockCylinder().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLockCylinder(), furnitureKit.getLowerLockCylinder().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка цилиндр: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Цилиндр ", "Наценка цилиндр: ",
+                    template.getLockCylinder(), furnitureKit.getLowerLockCylinder());
         }
-
 
         // handle
         if (furnitureKit.getHandle() != null) {
-            costList.addLine("Фурнитура: ручка ",
-                    200,
-                    false,
-                    (int) furnitureKit.getHandle().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getHandle(), furnitureKit.getHandle().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка ручка: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Ручка ", "Наценка ручка: ",
+                    template.getHandle(), furnitureKit.getHandle());
         }
+
         // Closer
         if (furnitureKit.getCloser() != null) {
-            costList.addLine("Фурнитура: доводчик ",
-                    200,
-                    false,
-                    (int) furnitureKit.getCloser().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getCloser(), furnitureKit.getCloser().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка доводчик: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Доводчик ", "Наценка доводчик: ",
+                    template.getCloser(), furnitureKit.getCloser());
         }
+
         //endDoorLock
         if (furnitureKit.getEndDoorLock() != null) {
-            costList.addLine("Фурнитура: торцевой шпингалет ",
-                    200,
-                    false,
-                    (int) furnitureKit.getEndDoorLock().getPrice());
-
-            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getEndDoorLock(), furnitureKit.getEndDoorLock().getId());
-
-            if (costMarkup != 0) {
-                costList.addLine("Наценка торцевой шпингалет: ",
-                        200, false, costMarkup);
-            }
+            addCostFurnitureToCostList("Торцевой шпингалет ", "Наценка торцевой шпингалет: ",
+                    template.getEndDoorLock(), furnitureKit.getEndDoorLock());
         }
 
         return this;
     }
+
+    private void addCostFurnitureToCostList(String name, String nameForChange,
+                                            List<LimitationDoor> templateFurniture, DoorFurniture furniture) {
+        costList.addLine(name, PriceType.FOR_SELL, false, (int) furniture.getPrice());
+        costList.addLine(name, PriceType.FOR_BUY, false, (int) furniture.getPrice());
+
+        int costMarkup = furnitureKit.getFurnitureDefaultCost(templateFurniture, furniture.getId());
+
+        if (costMarkup != 0) {
+            costList.addLine(nameForChange, PriceType.FOR_SELL, false, costMarkup);
+            costList.addLine(nameForChange, PriceType.FOR_BUY, false, costMarkup);
+        }
+    }
+
 
     private void weldingCost(PayrollSettings paySet) {
         //main
@@ -953,37 +873,35 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         return "лев: " + lefTrim + " верх: " + topTrim + " прав: " + rightTrim;
     }
 
-    public DoorEntity addPriceToCostList(int discount, PriceGroups priceGroup) {
+    public DoorEntity addPriceToCostList(int discount, int retailMargin, PriceGroups priceGroup) {
 
         costList = new CostList();
-        int retailPrice = (int) doorType.getPrice(priceGroup);
+        PriceType type = PriceType.FOR_SELL;
+        int priceForSell = (int) doorType.getPrice();
+        int withMarkup = ((priceForSell * retailMargin) / 100);
+        costList.addLine("Розничная цена", type, false, priceForSell + withMarkup);
 
-        costList.addLine("Розничная цена",
-                100,
-                false,
-                retailPrice);
 
-        int discountCost = ((retailPrice * discount) / 100);
-
-        costList.addLine("Скидка",
-                100,
-                false,
-                -discountCost);
+        type = PriceType.FOR_BUY;
+        int priceForBuy = (int) doorType.getPrice(priceGroup);
+        costList.addLine("Диллерская цена", type, false, priceForBuy);
+        int discountCost = ((priceForBuy * discount) / 100);
+        costList.addLine("Скидка", type, false, -discountCost);
 
         return this;
     }
 
-    public DoorEntity costOfChangesAtTemplate() {
+    public DoorEntity costOfChangesAtTemplate(int marginForChange) {
 
-        addCostResizing();
-        addCostForColorChange();
-        addCostForShieldKitChange();
-        addCostForFurnitureKitChange();
+        addCostResizing(marginForChange);
+        addCostForColorChange(marginForChange);
+        addCostForShieldKitChange(marginForChange);
+        addCostForFurnitureKitChange(marginForChange);
 
         return this;
     }
 
-    private DoorEntity addCostResizing() {
+    private DoorEntity addCostResizing(int margin) {
 
         List<Integer> defaultWidthList = template.getStandardSize().stream()
                 .map(LimitationDoor::getStartRestriction)
@@ -997,10 +915,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
 
         if (!defaultWidthList.contains(widthDoor)) {
             List<LimitationDoor> sizeCostWidth = template.getSizeCostWidth();
-            listWidth = sizeCostWidth.stream()
-                    .map(lim -> toMarkup(lim, widthDoor, defaultWidth, false))
-                    .filter(line -> line.getCost() > 0)
-                    .collect(Collectors.toList());
+            listWidth = getCostResizing(sizeCostWidth, widthDoor, defaultWidth, margin, false);
         }
 
         List<LineCostList> listHeight = new ArrayList<>();
@@ -1010,10 +925,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         if (heightSize != defaultHeight) {
             List<LimitationDoor> sizeCostHeight = template.getSizeCostHeight();
             final boolean ALREADY_COUNTED = !listWidth.isEmpty();
-            listHeight = sizeCostHeight.stream()
-                    .map(lim -> toMarkup(lim, heightSize, defaultHeight, ALREADY_COUNTED))
-                    .filter(line -> line.getCost() > 0)
-                    .collect(Collectors.toList());
+            listWidth = getCostResizing(sizeCostHeight, heightSize, defaultHeight, margin, ALREADY_COUNTED);
         }
 
         costList.addAllLine(listWidth);
@@ -1022,7 +934,30 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         return this;
     }
 
-    private DoorEntity addCostForColorChange() {
+    private List<LineCostList> getCostResizing(List<LimitationDoor> list,
+                                               int doorSize,
+                                               int defaultSize,
+                                               int margin,
+                                               boolean isCounted) {
+
+
+        List<LineCostList> resultForSell = list.stream()
+                .map(lim -> toMarkup(lim, doorSize, defaultSize, isCounted, margin, PriceType.FOR_SELL.getGroup()))
+                .filter(line -> line.getCost() > 0)
+                .collect(Collectors.toList());
+
+        List<LineCostList> resultForBuy = list.stream()
+                .map(lim -> toMarkup(lim, doorSize, defaultSize, isCounted, 0, PriceType.FOR_BUY.getGroup()))
+                .filter(line -> line.getCost() > 0)
+                .collect(Collectors.toList());
+
+        resultForSell.addAll(resultForBuy);
+        return resultForSell;
+
+
+    }
+
+    private DoorEntity addCostForColorChange(int margin) {
 
         LimitationDoor defaultColor = TemplateService.getDefaultLine(template.getColors());
 
@@ -1032,17 +967,20 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     .findFirst()
                     .orElse(new LimitationDoor());
 
+            int costMargin = (currentColorLim.getCost() * margin) / 100;
+
             costList.addLine(
-                    LimitationDoor.getDescription(currentColorLim),
-                    200,
-                    false,
-                    currentColorLim.getCost());
+                    LimitationDoor.getDescription(currentColorLim)
+                    , PriceType.FOR_BUY, false, currentColorLim.getCost());
+            costList.addLine(
+                    LimitationDoor.getDescription(currentColorLim)
+                    , PriceType.FOR_SELL, false, currentColorLim.getCost() + costMargin);
         }
 
         return this;
     }
 
-    private DoorEntity addCostForShieldKitChange() {
+    private DoorEntity addCostForShieldKitChange(int margin) {
 
         if (shieldKit == null) {
             return this;
@@ -1062,9 +1000,15 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                         template.getShieldColor(), shieldColor.getId()
                 );
 
+                int costMargin = (currentColorLim.getCost() * margin) / 100;
                 costList.addLine(
                         LimitationDoor.getDescription(currentColorLim),
-                        200,
+                        PriceType.FOR_SELL,
+                        false,
+                        currentColorLim.getCost() + costMargin);
+                costList.addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        PriceType.FOR_BUY,
                         false,
                         currentColorLim.getCost());
             }
@@ -1083,9 +1027,15 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                         template.getShieldDesign(), shieldDesign.getId()
                 );
 
+                int costMargin = (currentDesignLim.getCost() * margin) / 100;
                 costList.addLine(
                         LimitationDoor.getDescription(currentDesignLim),
-                        200,
+                        PriceType.FOR_SELL,
+                        false,
+                        currentDesignLim.getCost() + costMargin);
+                costList.addLine(
+                        LimitationDoor.getDescription(currentDesignLim),
+                        PriceType.FOR_BUY,
                         false,
                         currentDesignLim.getCost());
             }
@@ -1094,19 +1044,24 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         return this;
     }
 
-    private DoorEntity addCostForFurnitureKitChange() {
+    private DoorEntity addCostForFurnitureKitChange(int margin) {
 
         FurnitureKit kit = furnitureKit;
 
-        addCostForFurniture(kit.getTopLock(), template.getTopLock());
-        addCostForFurniture(kit.getLowerLock(), template.getLowerLock());
+        addCostForFurniture(kit.getTopLock(), template.getTopLock(), margin);
+        addCostForFurniture(kit.getLowerLock(), template.getLowerLock(), margin);
         //...
 
         return this;
 
     }
 
-    private LineCostList toMarkup(LimitationDoor lim, int size, int defaultSize, boolean alreadyCounted) {
+    private LineCostList toMarkup(LimitationDoor lim,
+                                  int size,
+                                  int defaultSize,
+                                  boolean alreadyCounted,
+                                  int margin,
+                                  int priceGroup) {
 
 
         int costStep = (int) lim.getStartRestriction();
@@ -1117,37 +1072,47 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
 
             int costDiff = ((size - defaultSize) / step) * costStep;
 
+            int marginCostDiff = (costDiff * margin) / 100;
+            int marginCostForChange = (costForChange * margin) / 100;
+
             return new LineCostList(lim.getTypeSettings().getName() + " " + size +
-                    ", Цена за изменение: " + costForChange +
-                    ", шаг цены: " + costDiff,
-                    200,
+                    ", Цена за изменение: " + (costForChange + marginCostForChange) +
+                    ", шаг цены: " + (costDiff + marginCostDiff),
+                    priceGroup,
                     false,
-                    costForChange + costDiff);
+                    (costForChange + marginCostForChange) + (costDiff + marginCostDiff));
         }
 
         return new LineCostList();
     }
 
     private DoorEntity addCostForFurniture(DoorFurniture furniture,
-                                           List<LimitationDoor> listOfFurniturLimit) {
+                                           List<LimitationDoor> listOfFurnitureLimit,
+                                           int margin) {
 
         if (furniture != null) {
 
             LimitationDoor defaultShieldColor = TemplateService.getDefaultLine(
-                    listOfFurniturLimit
+                    listOfFurnitureLimit
             );
 
             if (defaultShieldColor.getItemId() != furniture.getId()) {
 
                 LimitationDoor currentColorLim = TemplateService.getLineByItemId(
-                        listOfFurniturLimit, furniture.getId()
+                        listOfFurnitureLimit, furniture.getId()
                 );
 
+                int cotsMargin = (currentColorLim.getCost() * margin) / 100;
                 costList.addLine(
                         LimitationDoor.getDescription(currentColorLim),
-                        200,
+                        PriceType.FOR_BUY,
                         false,
                         currentColorLim.getCost());
+                costList.addLine(
+                        LimitationDoor.getDescription(currentColorLim),
+                        PriceType.FOR_SELL,
+                        false,
+                        currentColorLim.getCost() + cotsMargin);
             }
         }
 
@@ -1159,10 +1124,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         int totalCost = costList.getTotalCost();
         int withMarkup = ((totalCost * retailMargin) / 100);
 
-        costList.addLine("Цена с наценкой",
-                500,
-                false,
-                withMarkup);
+        costList.addLine("Цена с наценкой", 500, false, withMarkup);
 
         return this;
     }
@@ -1175,7 +1137,8 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
             for (LimitationDoor lim : tab) {
                 if (lim.getStartRestriction() == 1) {
                     cost = lim.getCost();
-                    costList.addLine("Порог из нержавейки", 200, false, cost);
+                    costList.addLine("Порог из нержавейки", PriceType.FOR_BUY, false, cost);
+                    costList.addLine("Порог из нержавейки", PriceType.FOR_SELL, false, cost);
                     return this;
                 }
             }
