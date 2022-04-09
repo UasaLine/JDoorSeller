@@ -475,6 +475,8 @@ public class TemplateService {
                 .nightLock(defaultAndGetFurniture(template.getNightLock()))
 
                 .typeDoorGlass(defaultAndGetFurniture(template.getTypeDoorGlass()))
+                .toning(defaultAndGetFurniture(template.getToning()))
+                .armor(defaultAndGetFurniture(template.getArmor()))
                 .glassPosition(defaultAndGlassPosition(template.getGlassPositions()))
                 .build();
 

@@ -535,7 +535,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     (int) furnitureKit.getTopLock().getPrice());
 
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getTopLock(), furnitureKit.getTopLock().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getTopLock(), furnitureKit.getTopLock().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка верхний замок: ",
@@ -549,7 +549,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getTopInLockDecor().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getTopInLockDecor(), furnitureKit.getTopInLockDecor().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getTopInLockDecor(), furnitureKit.getTopInLockDecor().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка накладка верх. внутреняя: ",
@@ -562,7 +562,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getTopOutLockDecor().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getTopOutLockDecor(), furnitureKit.getTopOutLockDecor().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getTopOutLockDecor(), furnitureKit.getTopOutLockDecor().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка накладка верх. внешняя: ",
@@ -576,7 +576,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getTopLockCylinder().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getLockCylinder(), furnitureKit.getTopLockCylinder().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLockCylinder(), furnitureKit.getTopLockCylinder().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка цилиндр: ",
@@ -591,7 +591,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getLowerLock().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getLowerLock(), furnitureKit.getLowerLock().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLowerLock(), furnitureKit.getLowerLock().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка нижний замок: ",
@@ -604,7 +604,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getLowerInLockDecor().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getLowerInLockDecor(), furnitureKit.getLowerInLockDecor().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLowerInLockDecor(), furnitureKit.getLowerInLockDecor().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка накладка низ. внутренняя: ",
@@ -617,7 +617,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getLowerOutLockDecor().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getLowerOutLockDecor(), furnitureKit.getLowerOutLockDecor().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLowerOutLockDecor(), furnitureKit.getLowerOutLockDecor().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка накладка низ. внешняя: ",
@@ -630,7 +630,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getLowerLockCylinder().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getLockCylinder(), furnitureKit.getLowerLockCylinder().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getLockCylinder(), furnitureKit.getLowerLockCylinder().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка цилиндр: ",
@@ -646,7 +646,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getHandle().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getHandle(), furnitureKit.getHandle().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getHandle(), furnitureKit.getHandle().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка ручка: ",
@@ -660,7 +660,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getCloser().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getCloser(), furnitureKit.getCloser().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getCloser(), furnitureKit.getCloser().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка доводчик: ",
@@ -674,7 +674,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
                     false,
                     (int) furnitureKit.getEndDoorLock().getPrice());
 
-            int costMarkup = furnitureKit.getFurnitureCost(template.getEndDoorLock(), furnitureKit.getEndDoorLock().getId());
+            int costMarkup = furnitureKit.getFurnitureDefaultCost(template.getEndDoorLock(), furnitureKit.getEndDoorLock().getId());
 
             if (costMarkup != 0) {
                 costList.addLine("Наценка торцевой шпингалет: ",

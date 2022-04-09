@@ -37,6 +37,13 @@ class Door {
         config.sideOpeningR = sidesOpening.right;
         config.leafCount = sidesOpening.leaf;
 
+        if (availableFurnitureList && door.doorGlass && door.doorGlass.glassPosition) {
+            let positionObject = findObjectById("glassPosition", door.doorGlass.glassPosition)
+            const glassSizes = GlassPosition.getSizes(door, positionObject);
+            Door.setGlassSizes(glassSizes);
+        }
+
+
         config.glassHeight = DoorGlass.getHeight(door);
         config.glassWidth = DoorGlass.getWidth(door);
         config.topGlassPosition = DoorGlass.getTopGlassPosition(door);
@@ -393,25 +400,7 @@ class Door {
 
     static createGlass(containerLeaf, config, door, key) {
         if (door.isDoorGlass == 1 && door.doorGlass != null) {
-
-            let leftPosition = key === "L" ? config.leftGlassPosition : config.leftGlassPositionInner;
-
-            $("<img>")
-                .attr("class", "opening_side_images")
-                .attr("src", Door.dirPath + DoorGlass.getGlassPicPath(door))
-                .attr(
-                    "style",
-                    "width:" +
-                    config.glassWidth +
-                    "px; height:" +
-                    config.glassHeight +
-                    "px; top:" +
-                    config.topGlassPosition +
-                    "px; left:" +
-                    leftPosition +
-                    "px;"
-                )
-                .appendTo(containerLeaf);
+            DoorGlass.draw(containerLeaf, config, door, key);
         }
     }
 
@@ -720,10 +709,10 @@ class Door {
     }
 
     static setGlassSizes(sizes) {
-        Door.setGlass("glassWidth",sizes.width);
-        Door.setGlass("glassHeight",sizes.height);
-        Door.setGlass("leftGlassPosition",sizes.left);
-        Door.setGlass("bottomGlassPosition",sizes.bottom);
+        Door.setGlass("glassWidth", sizes.width);
+        Door.setGlass("glassHeight", sizes.height);
+        Door.setGlass("leftGlassPosition", sizes.left);
+        Door.setGlass("bottomGlassPosition", sizes.bottom);
     }
 }
 

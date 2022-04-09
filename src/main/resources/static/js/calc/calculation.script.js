@@ -2308,3 +2308,26 @@ jQuery("document").ready(function () {
         }
     }
 );
+
+function findObjectById(tabName, id) {
+    if (tabName == "lowerLockCylinder" || tabName == "topLockCylinder") {
+        tabName = "lockCylinder";
+    }
+
+    let sizeRest = availableFurnitureList[tabName].length;
+    let tab = availableFurnitureList[tabName];
+    for (var i = 0; i < sizeRest; ++i) {
+        if (tab[i].id == id) {
+            return tab[i];
+        }
+    }
+
+    sizeRest = javaLimitList.length;
+    tab = javaLimitList;
+    for (var i = 0; i < sizeRest; ++i) {
+        if (tab[i].id == id) {
+            return tab[i];
+        }
+    }
+    return null;
+}

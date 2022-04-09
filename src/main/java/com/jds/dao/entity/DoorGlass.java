@@ -66,6 +66,10 @@ public class DoorGlass {
 
         Optional<DoorFurniture> typeDoorGlass = availableFields.getTypeDoorGlass().stream().findAny();
         typeDoorGlass.ifPresent(glass::setTypeDoorGlass);
+        Optional<DoorFurniture> toning = availableFields.getToning().stream().findAny();
+        toning.ifPresent(glass::setToning);
+        Optional<DoorFurniture> armor = availableFields.getArmor().stream().findAny();
+        armor.ifPresent(glass::setArmor);
         return glass;
     }
 

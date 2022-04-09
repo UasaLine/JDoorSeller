@@ -1,5 +1,6 @@
 package com.jds.model.image;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import java.nio.file.Paths;
 
 @Getter
 @Setter
+@Builder
 public class ColorPicture implements Comparable<ColorPicture> {
 
     public static final String PROJECT_IMAGE_DIR_PATH = "src/main/resources/static/";

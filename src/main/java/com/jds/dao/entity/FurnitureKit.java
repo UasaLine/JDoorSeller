@@ -266,13 +266,13 @@ public class FurnitureKit implements SerializingFields {
         return false;
     }
 
-    public int getFurnitureCost(List<LimitationDoor> furnitureKit, int furnId) {
+    public int getFurnitureDefaultCost(List<LimitationDoor> furnitureKit, int furnId) {
 
         LimitationDoor lim = furnitureKit.stream()
                 .filter((p) -> p.getItemId() == furnId)
                 .findFirst().orElse(null);
 
-        if (lim != null) {
+        if (lim != null && lim.getDefaultValue() == 1) {
             return lim.getCost();
         } else return 0;
     }
