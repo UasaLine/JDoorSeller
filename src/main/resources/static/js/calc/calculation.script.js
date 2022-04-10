@@ -617,6 +617,10 @@ jQuery("document").ready(function () {
 
         });
 
+        $("#commentTextarea").change(function () {
+            showModalForCommit();
+        });
+
 // window.addEventListener('scroll', function () {
 //     if (modalOpen) {
 //         // alert(pageYOffset);
@@ -2218,6 +2222,11 @@ jQuery("document").ready(function () {
                 });
             }
 
+        }
+
+        function showModalForCommit() {
+            $('#modal-title').text("В зависимости от изменений, которые вы напишите, цена может измениться!)");
+            $('#modal-id').show();
         }
 
         function iosPickerInit(setValue, pickerId, item) {

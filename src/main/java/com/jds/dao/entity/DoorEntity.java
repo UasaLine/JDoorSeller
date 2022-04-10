@@ -1049,11 +1049,19 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         FurnitureKit kit = furnitureKit;
 
         addCostForFurniture(kit.getTopLock(), template.getTopLock(), margin);
+        addCostForFurniture(kit.getTopInLockDecor(), template.getTopInLockDecor(), margin);
+        addCostForFurniture(kit.getTopOutLockDecor(), template.getTopOutLockDecor(), margin);
+
         addCostForFurniture(kit.getLowerLock(), template.getLowerLock(), margin);
+        addCostForFurniture(kit.getLowerInLockDecor(), template.getLowerInLockDecor(), margin);
+        addCostForFurniture(kit.getLowerOutLockDecor(), template.getLowerOutLockDecor(), margin);
+
+        addCostForFurniture(kit.getHandle(), template.getHandle(), margin);
+        addCostForFurniture(kit.getNightLock(), template.getNightLock(), margin);
+        addCostForFurniture(kit.getPeephole(), template.getPeephole(), margin);
         //...
 
         return this;
-
     }
 
     private LineCostList toMarkup(LimitationDoor lim,
