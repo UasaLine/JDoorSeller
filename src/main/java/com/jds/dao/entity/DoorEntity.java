@@ -925,7 +925,7 @@ public class DoorEntity implements SerializingFields<DoorEntity> {
         if (heightSize != defaultHeight) {
             List<LimitationDoor> sizeCostHeight = template.getSizeCostHeight();
             final boolean ALREADY_COUNTED = !listWidth.isEmpty();
-            listWidth = getCostResizing(sizeCostHeight, heightSize, defaultHeight, margin, ALREADY_COUNTED);
+            listHeight = getCostResizing(sizeCostHeight, heightSize, defaultHeight, margin, ALREADY_COUNTED);
         }
 
         costList.addAllLine(listWidth);
