@@ -1,3 +1,5 @@
+let availableFurnitureList;
+
 jQuery("document").ready(function () {
     let orderId = $("#shadowId").text();
     Door.init();
@@ -29,6 +31,7 @@ jQuery("document").ready(function () {
                 .attr("id", "optionsDiv" + i)
                 .appendTo("#" + i);
 
+            let responseFromServer = getFurnitureAvailableFields(data[i].door);
             Door.draw(data[i].door, i);
 
             //options cap
@@ -139,5 +142,19 @@ jQuery("document").ready(function () {
                 "</td></tr>"
             );
         }
+    }
+
+    function getFurnitureAvailableFields(door) {
+        return $.ajax({
+            url: location.origin + "/furniture/available-fields/" + door.doorType.id,
+            dataType: "json",
+            success: function (data) {
+                availableFurnitureList = data;
+                return data;
+            },
+            error: function (data) {
+                alert("error: getting furniture available-fields failed !" + data);
+            },
+        });
     }
 });
