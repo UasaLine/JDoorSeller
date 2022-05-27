@@ -37,7 +37,7 @@ class DoorGlass {
                 .attr("style", style)
                 .appendTo(containerLeaf);
 
-            if (DoorGlass.getGlassArmorPicPath(door)){
+            if (DoorGlass.getGlassArmorPicPath(door)) {
                 $("<img>")
                     .attr("class", "glass_armor opening_side_images")
                     .attr("src", Door.dirPath + DoorGlass.getGlassArmorPicPath(door))
@@ -48,14 +48,17 @@ class DoorGlass {
     }
 
     static getHeight(door) {
-        return (door.doorGlass.glassHeight * 2) / 10;
+        return door.doorGlass ? (door.doorGlass.glassHeight * 2) / 10 : 0;
     }
 
     static getWidth(door) {
-        return (door.doorGlass.glassWidth * 2) / 10;
+        return door.doorGlass ? (door.doorGlass.glassWidth * 2) / 10 : 0;
     }
 
     static getTopGlassPosition(door) {
+        if (!door.doorGlass) {
+            return 0;
+        }
         let result = 0;
         if (door.doorGlass.bottomGlassPosition == 0) {
             //glassHeight
@@ -67,6 +70,9 @@ class DoorGlass {
     }
 
     static getLeftGlassPosition(door) {
+        if (!door.doorGlass) {
+            return 0;
+        }
         let result = 0;
         if (door.doorGlass.leftGlassPosition == 0) {
             result = DoorGlass.subtractWidth(door);
@@ -77,6 +83,9 @@ class DoorGlass {
     }
 
     static getLeftGlassPositionInner(door) {
+        if (!door.doorGlass) {
+            return 0;
+        }
         let result = 0;
         if (door.doorGlass.leftGlassPosition == 0) {
             result = DoorGlass.subtractWidth(door);
