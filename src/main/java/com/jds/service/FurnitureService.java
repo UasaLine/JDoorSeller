@@ -11,6 +11,7 @@ import com.jds.model.RestrictionOfSelectionFields;
 import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.image.ColorPicture;
 import com.jds.model.image.TypeImageDirectory;
+import com.jds.model.image.TypeView;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,8 +49,11 @@ public class FurnitureService {
         return furniture.clearNonSerializingFields();
     }
 
-    public List<TypeOfFurniture> getTypesFurniture() {
-        return Arrays.asList(TypeOfFurniture.values());
+    public List<TypeView> getTypesFurniture() {
+        List<TypeOfFurniture> types = Arrays.asList(TypeOfFurniture.values());
+        return types.stream()
+                .map(t -> new TypeView(t.getName(), t.toString()))
+                .collect(Collectors.toList());
     }
 
     public String deleteFurniture(@NonNull String id) {

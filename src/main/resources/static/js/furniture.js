@@ -176,7 +176,7 @@ jQuery("document").ready(function () {
 
             for (var i = 0; i < types.length; ++i) {
                 $("#typeOfFurniture").append(
-                    $("<option value=" + types[i] + ">" + types[i] + "</option>")
+                    $("<option value=" + types[i].type + ">" + types[i].name + "</option>")
                 );
             }
         }

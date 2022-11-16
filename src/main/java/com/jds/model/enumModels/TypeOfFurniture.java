@@ -1,38 +1,46 @@
 package com.jds.model.enumModels;
 
 public enum TypeOfFurniture {
-    TOP_LOCK("images/findings/preview/lock/", "images/findings/sketch/lock/"),
-    LOWER_LOCK("images/findings/preview/lock/", "images/findings/sketch/lock/"),
-    HANDLE("images/findings/preview/handle/", "images/findings/sketch/handle/"),
-    CLOSER("images/findings/preview/closer/", "images/findings/sketch/closer/"),
-    PEEPHOLE("images/findings/preview/peephole/", "images/findings/sketch/peephole/"),
-    NIGHT_LOCK("images/findings/preview/night-lock/", "images/findings/sketch/night-lock/"),
-    THRESHOLD,
-    END_DOOR_LOCK,
-    LOCK_CYLINDER("images/findings/preview/cylinder/", "images/findings/sketch/cylinder/"),
-    ARMOR_GLASS_PELLICLE("images/glass-components/preview/armor/",
-            "images/glass-components/sketch/armor/"),
-    GLASS_PELLICLE("images/glass-components/preview/pellicle/",
-            "images/glass-components/sketch/pellicle/"),
-    TYPE_GLASS("images/glass-components/preview/type/",
-            "images/glass-components/sketch/type/"),
-    LOCK_DECORATION,
-    TT_TURNER,
-    DOOR_CLASS,
-    TOP_IN_LOCK_DECOR("images/findings/preview/lock-decor/", "images/findings/sketch/lock-decor/"),
-    TOP_OUT_LOCK_DECOR("images/findings/preview/lock-decor/", "images/findings/sketch/lock-decor/"),
-    LOWER_IN_LOCK_DECOR("images/findings/preview/lock-decor/", "images/findings/sketch/lock-decor/"),
-    LOWER_OUT_LOCK_DECOR("images/findings/preview/lock-decor/", "images/findings/sketch/lock-decor/");
+    TOP_LOCK("Верхний замок", "lock/", true, false),
+    LOWER_LOCK("Нижний замок", "lock/", true, false),
+    HANDLE("Ручка", "handle/", true, false),
+    CLOSER("Доводчик", "closer/", true, false),
+    PEEPHOLE("Глазок", "peephole/", true, false),
+    NIGHT_LOCK("Ночная задвижка", "night-lock/", true, false),
+    THRESHOLD("Порог", "", true, false),
+    END_DOOR_LOCK("Торцевая задвижка", "", true, false),
+    LOCK_CYLINDER("Цилиндр", "cylinder/", true, false),
+    LOCK_DECORATION("Торцевая задвижка", "", true, false),
+    TT_TURNER("ТТ-поворотник", "", true, false),
+    TOP_IN_LOCK_DECOR("Накладка замка верх.внутр.", "lock-decor/", true, false),
+    TOP_OUT_LOCK_DECOR("Накладка замка верх.внеш.", "lock-decor/", true, false),
+    LOWER_IN_LOCK_DECOR("Накладка замка нижн.внутр.", "lock-decor/", true, false),
+    LOWER_OUT_LOCK_DECOR("Накладка замка нижн.внеш.", "lock-decor/", true, false),
 
+    DOOR_CLASS("Стекло", "", true, true),
+    ARMOR_GLASS_PELLICLE("Бронь стекла", "armor/", true, true),
+    GLASS_PELLICLE("Пленка стекла", "pellicle/", true, true),
+    TYPE_GLASS("Тип стекла", "type/", true, true);
+
+    String name;
     String picPath;
     String sketchPath;
+    boolean active;
 
-    TypeOfFurniture(String picPath, String sketchPath) {
-        this.picPath = picPath;
-        this.sketchPath = sketchPath;
+    TypeOfFurniture(String name, String picPath, boolean active, boolean forGlass) {
+        String previewTemplate = forGlass ? "images/glass-components/preview/" : "images/findings/preview/";
+        String sketchTemplate = forGlass ? "images/glass-components/sketch/" : "images/findings/sketch/";
+        this.name = name;
+        this.picPath = previewTemplate + picPath;
+        this.sketchPath = sketchTemplate + picPath;
+        this.active = active;
     }
 
     TypeOfFurniture() {
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getPicPath() {
