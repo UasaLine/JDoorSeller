@@ -6,6 +6,7 @@ import com.jds.model.backResponse.ResponseMassage;
 import com.jds.model.backResponse.ResponseModel;
 import com.jds.model.enumModels.TypeOfFurniture;
 import com.jds.model.image.ColorPicture;
+import com.jds.model.image.TypeView;
 import com.jds.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -59,10 +60,8 @@ public class FurnitureController {
 
     @GetMapping(value = "/furniture/types")
     @ResponseBody
-    public List<TypeOfFurniture> getTypes() {
-
+    public List<TypeView> getTypes() {
         return service.getTypesFurniture();
-
     }
 
     @GetMapping(value = "/furniture/available-fields/{door_type_id}")
@@ -88,6 +87,7 @@ public class FurnitureController {
         return service.getPicByType(type);
 
     }
+
     @GetMapping(value = "/furniture/sketch/path/{type}")
     @ResponseBody
     public List<ColorPicture> getSketchFilePathByType(@PathVariable TypeOfFurniture type) {

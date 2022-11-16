@@ -58,7 +58,8 @@
                             <td>#</td>
                             <td class="id" th:utext="${furniture.id}">..</td>
                             <td  th:utext="${furniture.name}">..</td>
-                            <td class="type-line"  th:utext="${furniture.typeOfFurniture}">..</td>
+                            <td  th:utext="${furniture.typeOfFurniture.getName()}">..</td>
+                            <td class="type-line ghost"  th:utext="${furniture.typeOfFurniture}">..</td>
                             <td  th:utext="${furniture.price}">..</td>
                             <td  th:utext="${furniture.idManufacturerProgram}">..</td>
                         </tr>
